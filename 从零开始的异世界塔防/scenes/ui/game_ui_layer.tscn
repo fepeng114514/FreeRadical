@@ -1,0 +1,272 @@
+[gd_scene format=3 uid="uid://c3pw2s2ybgdou"]
+
+[ext_resource type="Texture2D" uid="uid://oya8wpn6jmc8" path="res://icon.svg" id="1_xjfbv"]
+[ext_resource type="PackedScene" uid="uid://cufaf4wyw3b10" path="res://scenes/ui/game_ui_text.tscn" id="2_bma8u"]
+[ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scenes/ui/entity_info_panel.gd" id="2_xjfbv"]
+
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(0.25, 0.25, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.6, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 6
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0.15, 0.15, 0.2, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 4
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.12, 0.12, 0.15, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="Theme" id="5"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_color_hover = Color(1, 1, 1, 1)
+Button/colors/font_color_pressed = Color(0.9, 0.9, 0.9, 1)
+Button/styles/hover = SubResource("2")
+Button/styles/normal = SubResource("1")
+Button/styles/pressed = SubResource("3")
+
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.2, 0.2, 0.25, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.5, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="GameUILayer" type="CanvasLayer" unique_id=934359936]
+
+[node name="GameUI" type="MarginContainer" parent="." unique_id=522592712]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameUI" unique_id=1281837907]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="TopBar" type="HBoxContainer" parent="GameUI/VBoxContainer" unique_id=456794228]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerResources" type="HBoxContainer" parent="GameUI/VBoxContainer/TopBar" unique_id=1039753835]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Life" type="HBoxContainer" parent="GameUI/VBoxContainer/TopBar/PlayerResources" unique_id=1234846704]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LifeIcon" type="TextureRect" parent="GameUI/VBoxContainer/TopBar/PlayerResources/Life" unique_id=2073494238]
+layout_mode = 2
+texture = ExtResource("1_xjfbv")
+expand_mode = 3
+
+[node name="LifeLabel" parent="GameUI/VBoxContainer/TopBar/PlayerResources/Life" unique_id=444811463 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "20"
+
+[node name="Gold" type="HBoxContainer" parent="GameUI/VBoxContainer/TopBar/PlayerResources" unique_id=494333279]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="GoldIcon" type="TextureRect" parent="GameUI/VBoxContainer/TopBar/PlayerResources/Gold" unique_id=199246340]
+layout_mode = 2
+texture = ExtResource("1_xjfbv")
+expand_mode = 3
+
+[node name="GoldLabel" parent="GameUI/VBoxContainer/TopBar/PlayerResources/Gold" unique_id=2009491731 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "500"
+
+[node name="TopSpacer" type="Control" parent="GameUI/VBoxContainer/TopBar" unique_id=1279457788]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="TopControls" type="HBoxContainer" parent="GameUI/VBoxContainer/TopBar" unique_id=920722687]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="SpeedButton" type="Button" parent="GameUI/VBoxContainer/TopBar/TopControls" unique_id=2015142173]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+text = "1x"
+
+[node name="PauseButton" type="Button" parent="GameUI/VBoxContainer/TopBar/TopControls" unique_id=1349281211]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 24
+text = "⏸️"
+
+[node name="MiddleSpacer" type="Control" parent="GameUI/VBoxContainer" unique_id=528073065]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="BottomBar" type="HBoxContainer" parent="GameUI/VBoxContainer" unique_id=784814996]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="Skills" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar" unique_id=1178020824]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Skill1" type="Button" parent="GameUI/VBoxContainer/BottomBar/Skills" unique_id=265665211]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 30
+text = "⚡"
+
+[node name="Skill2" type="Button" parent="GameUI/VBoxContainer/BottomBar/Skills" unique_id=708986165]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 30
+text = "🛡️"
+
+[node name="Skill3" type="Button" parent="GameUI/VBoxContainer/BottomBar/Skills" unique_id=1787043642]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 30
+text = "✨"
+
+[node name="BottomSpacer" type="Control" parent="GameUI/VBoxContainer/BottomBar" unique_id=38655100]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="EntityInfoPanel" type="PanelContainer" parent="GameUI/VBoxContainer/BottomBar" unique_id=1798517703]
+layout_mode = 2
+theme_override_styles/panel = SubResource("4")
+script = ExtResource("2_xjfbv")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel" unique_id=941920840]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer" unique_id=1189586016]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="EntityName" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=213956317 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "实体名称"
+
+[node name="HBoxHP" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=478167688]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LabelHP" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxHP" unique_id=1170246007 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "血量"
+
+[node name="ValueHP" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxHP" unique_id=67105373 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "100/100"
+
+[node name="HBoxMelee" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=2109600893]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LabelMelee" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxMelee" unique_id=567093320 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "⚔️"
+
+[node name="ValueMelee" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxMelee" unique_id=580365248 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "25-25/1"
+
+[node name="HBoxRanged" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=4318036]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LabelRanged" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxRanged" unique_id=1129773284 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "🏹"
+
+[node name="ValueRanged" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxRanged" unique_id=325557278 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "25-25/1"
+
+[node name="HBoxPhysArmor" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=799253875]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LabelPhysArmor" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=111562531 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "🛡️"
+
+[node name="ValuePhysArmor" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=783491764 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "20"
+
+[node name="HBoxMagicArmor" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=489372127]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LabelMagicArmor" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=1368164739 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "🛡️"
+
+[node name="ValueMagicArmor" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=1696463347 instance=ExtResource("2_bma8u")]
+layout_mode = 2
+text = "0"

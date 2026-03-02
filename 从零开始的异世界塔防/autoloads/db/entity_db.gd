@@ -261,8 +261,8 @@ func sort_targets(
 			return h1 > h2 if not reversed else h1 < h2,
 		
 		C.SORT.DISTANCE: func(e1: Entity, e2: Entity) -> bool:
-			var d1: float = e1.position.distance_squared_to(origin)
-			var d2: float = e2.position.distance_squared_to(origin)
+			var d1: float = e1.global_position.distance_squared_to(origin)
+			var d2: float = e2.global_position.distance_squared_to(origin)
 			return d1 > d2 if not reversed else d1 < d2,
 			
 		C.SORT.ID: func(e1: Entity, e2: Entity) -> bool:
@@ -294,8 +294,11 @@ func find_targets_in_range(
 		func(e) -> bool: return (
 			is_instance_valid(e)
 			and not (bans & e.flag_bits or e.ban_bits & flags)
-			and U.is_in_radius(e.position, origin, max_range)
-			and not U.is_in_radius(e.position, origin, min_range)
+			and (
+				not U.is_valid_number(max_range) 
+				or U.is_in_radius(e.global_position, origin, max_range)
+			)
+			and not U.is_in_radius(e.global_position, origin, min_range)
 			and (not filter.is_valid() or filter.call(e))
 		)
 	)

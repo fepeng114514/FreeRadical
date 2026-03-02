@@ -2,16 +2,16 @@ extends System
 
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(C.CN_AURA):
-		return true
-
 	var aura_c: AuraComponent = e.get_c(C.CN_AURA)
+	if not aura_c:
+		return true
+		
 	var source: Entity = EntityDB.get_entity_by_id(e.source_id)
 
 	if not source:
 		return false
 
-	e.position = source.position
+	e.global_position = source.global_position
 
 	# 检查黑白名单
 	if not U.is_allowed_entity(e, source):
@@ -97,7 +97,7 @@ func _on_update(_delta: float) -> void:
 		var aura_c: AuraComponent = e.get_c(C.CN_AURA)
 		var targets: Array = EntityDB.search_targets_in_range(
 			aura_c.search_mode, 
-			e.position, 
+			e.global_position, 
 			aura_c.max_radius, 
 			aura_c.min_radius, 
 			e.flag_bits, 

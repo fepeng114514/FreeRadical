@@ -2,10 +2,10 @@ extends System
 
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(C.CN_BARRACK):
-		return true
-				
 	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
+	if not barrack_c:
+		return true
+		
 	var max_soldiers: int = barrack_c.max_soldiers
 		
 	for i in range(max_soldiers):
@@ -48,7 +48,7 @@ func respawn_soldier(
 		return null
 		
 	var soldier: Entity = EntityDB.create_entity(barrack_c.soldier)
-	soldier.position = barrack.position
+	soldier.global_position = barrack.global_position
 	var rally_c: RallyComponent
 	
 	if not soldier.has_c(C.CN_RALLY):

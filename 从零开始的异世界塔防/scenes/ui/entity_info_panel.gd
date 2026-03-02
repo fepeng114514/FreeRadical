@@ -47,16 +47,16 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if not selected_entity:
+		_hidden()
 		return
 		
 	_updata_info()
 	
 	
 func _show(e: Entity) -> void:
-	if not e.has_c(C.CN_UI):
-		return
-		
 	var ui_c: UIComponent = e.get_c(C.CN_UI)
+	if not ui_c:
+		return
 	
 	if not ui_c.can_click:
 		return
@@ -65,11 +65,12 @@ func _show(e: Entity) -> void:
 	selected_entity = e
 	info_type = ui_c.info_type
 	_updata_info()
+
 	
 func _hidden() -> void:
 	visible = false
 	selected_entity = null
-	
+
 
 func _updata_info() -> void:
 	entity_name.text = EntityDB.get_templates_name(selected_entity.tag)

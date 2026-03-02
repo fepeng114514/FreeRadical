@@ -2,10 +2,10 @@ extends System
 
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(C.CN_NAV_PATH):
-		return true
-	
 	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
+	if not nav_path_c:
+		return true
+
 	var nav_pi: int = nav_path_c.nav_pi
 
 	if not U.is_valid_number(nav_path_c.nav_spi):
@@ -18,7 +18,7 @@ func _on_insert(e: Entity) -> bool:
 
 	var node: PathwayNode = nav_path_c.get_pathway_node()
 	nav_path_c.set_pathway_node(node)
-	e.position = node.pos
+	e.global_position = node.pos
 
 	return true
 
@@ -64,7 +64,7 @@ func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
 		nav_path_c.nav_progress += walk_lenth
 		
 	nav_path_c.nav_ratio = nav_path_c.get_ratio()
-	e.position = nav_path_c.get_progress_pos()
+	e.global_position = nav_path_c.get_progress_pos()
 	
 	var nav_ni: int = nav_path_c.nav_ni
 	var next_ni: int = nav_ni

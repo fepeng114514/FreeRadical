@@ -10,7 +10,7 @@ func _on_insert(e: Entity) -> bool:
 	if not target:
 		return false
 		
-	e.position = target.position
+	e.global_position = target.global_position
 		
 	# 检查黑白名单
 	if not U.is_allowed_entity(e, target):

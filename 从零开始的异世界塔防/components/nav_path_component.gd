@@ -51,8 +51,7 @@ func set_nav_path(
 		pi: int, spi: int = C.UNSET, ni: int = C.UNSET
 	) -> void:
 	nav_pi = pi
-	if U.is_valid_number(spi):
-		nav_spi = spi
+	nav_spi = spi
 	if U.is_valid_number(ni):
 		nav_ni = ni
 

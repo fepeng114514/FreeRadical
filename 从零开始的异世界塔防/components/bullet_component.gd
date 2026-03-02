@@ -33,7 +33,7 @@ class_name BulletComponent
 ## 是否可以到达目标位置，表示子弹是否可以飞行到目标位置
 @export var can_arrived: bool = true
 ## 是否禁用预判目标位置，表示子弹是否禁用预判目标位置，通常用于某些特殊的子弹，例如瞬发子弹等
-@export var predict_pos_disabled: bool = false
+@export var disabled_predict_pos: bool = false
 @export var hit_dist: float = 25
 ## 击中目标后是否移除子弹实体，通常用于一次性子弹
 @export var hit_remove: bool = true

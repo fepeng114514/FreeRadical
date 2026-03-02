@@ -8,7 +8,6 @@
 [node name="BulletArrow" type="Node2D" unique_id=43521632]
 script = ExtResource("1_eatbx")
 tag = 1
-flags = Array[int]([32])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="BulletComponent" type="Node" parent="." unique_id=797543197]

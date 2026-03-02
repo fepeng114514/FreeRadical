@@ -6,23 +6,17 @@ extends System
 
 
 func _on_create(e: Entity) -> bool:
-	if not e.has_c(C.CN_HEALTH):
-		return true
-
 	var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
+	if not health_c:
+		return true
 		
-	var health_bar: Node2D = preload(C.PATH_SCENES % "health_bar").instantiate()
-	health_bar.scale = health_c.health_bar_scale
-	health_bar.position = health_c.health_bar_offset
-	e.add_child(health_bar)
-	health_c.health_bar = health_bar
+	health_c.health_bar = health_c.get_node("HealthBar")
 	
 	return true
 
 
 func _on_insert(e: Entity) -> bool:
 	var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
-
 	if not health_c:
 		return true
 		
@@ -37,6 +31,10 @@ func _on_update(_delta: float) -> void:
 	for e: Entity in EntityDB.get_entities_group(C.CN_HEALTH):
 		var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
 		var health_bar: Node = health_c.health_bar
+		
+		if not health_c:
+			continue
+			
 		health_bar.fg.scale.x = (
 			health_bar.origin_fg_scale.x * health_c.get_hp_percent()
 		)
@@ -50,10 +48,9 @@ func _process_damege_queue() -> void:
 		if not target:
 			continue
 
-		if not target.has_c(C.CN_HEALTH):
-			continue
-
 		var t_health_c: HealthComponent = target.get_c(C.CN_HEALTH)
+		if not t_health_c:
+			continue
 			
 		_take_damage(target, d, t_health_c)
 

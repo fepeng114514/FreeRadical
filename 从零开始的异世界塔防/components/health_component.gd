@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name HealthComponent
 ## 血量组件，负责实体的血量、护甲、抗性等属性，以及相关的伤害计算.
 
@@ -21,10 +21,6 @@ class_name HealthComponent
 var hp: float = 0
 ## 血条节点引用
 var health_bar: Node2D
-## 血条缩放，表示血条的缩放比例，通常用于调整血条的大小以适应不同大小的实体
-var health_bar_scale: Vector2 = Vector2.ONE
-## 血条偏移，表示血条相对于实体位置的偏移，通常用于调整血条的位置以适应不同大小的实体
-var health_bar_offset: Vector2 = Vector2(0, -30)
 
 func get_hp_percent() -> float:
 	return float(hp) / float(hp_max)

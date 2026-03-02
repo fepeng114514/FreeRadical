@@ -154,14 +154,12 @@ enum FLAG {
 	HERO = 1 << 3 | FRIENDLY,
 	# 标识: 防御塔
 	TOWER = 1 << 4,
-	# 标识: 子弹
-	BULLET = 1 << 5,
 	# 标识: 状态效果
-	MODIFIER = 1 << 6,
+	MODIFIER = 1 << 5,
 	# 标识: 光环
-	AURA = 1 << 7,
+	AURA = 1 << 6,
 	# 标识: 飞行
-	FLYING = 1 << 8,
+	FLYING = 1 << 7,
 }
 
 
@@ -302,6 +300,8 @@ const CN_BARRACK: StringName = &"BarrackComponent"
 const CN_SPAWNER: StringName = &"SpawnerComponent"
 ## 组件名称: UI
 const CN_UI: StringName = &"UIComponent"
+## 组件名称: 子实体
+const CN_SUBENTITY: StringName = &"SubentityComponent"
 #endregion
 
 
@@ -329,6 +329,7 @@ enum ENTITY_TAG {
 	BULLET_SWORD,
 	SOLDIER,       ## 士兵
 	TOWER_ARCHER,  ## 箭塔
+	ARCHER_SHOOTER,
 	TOWER_MAGE,    ## 法师塔
 	TOWER_BARRACK, ## 兵营
 	TOWER_ENGINEER,## 炮塔
@@ -349,8 +350,10 @@ const LEVEL_REQUIRED_SYSTEMS: Array[String] = [
 	"bullet_system",
 	"health_system",
 	"melee_system",
+	"tower_system",
 	"sprite_system",
 	"entity_system",
+	"subentity_system",
 	"barrack_system",
 	"rally_system",
 	"nav_path_system",

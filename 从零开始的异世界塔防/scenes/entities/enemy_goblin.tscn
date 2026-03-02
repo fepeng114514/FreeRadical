@@ -5,11 +5,12 @@
 [ext_resource type="SpriteFrames" uid="uid://cxo2w38vbw62k" path="res://resources/sprite_frames_resources/goblin.tres" id="3_bfbt7"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://components/health_component.gd" id="4_bfbt7"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://components/nav_path_component.gd" id="5_gt3hg"]
+[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="5_yidua"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="6_ijmwd"]
 
 [node name="EnemyGoblin" type="Node2D" unique_id=71433118]
 script = ExtResource("1_0ncad")
-tag = 9
+tag = 10
 flags = Array[int]([1])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -21,10 +22,14 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 sprite_frames = ExtResource("3_bfbt7")
 animation = &"idle"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1473065887]
+[node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868]
 script = ExtResource("4_bfbt7")
 hp_max = 100.0
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
+
+[node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_yidua")]
+position = Vector2(0, -25)
+scale = Vector2(1, 1.1)
 
 [node name="NavPathComponent" type="Node" parent="." unique_id=655679987]
 script = ExtResource("5_gt3hg")

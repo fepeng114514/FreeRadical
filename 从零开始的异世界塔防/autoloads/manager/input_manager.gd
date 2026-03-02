@@ -7,7 +7,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var e: Entity = EntityDB.search_target(
 			C.SEARCH.ENTITY_MAX_ID, 
 			clicked_global_pos, 
-			30, 
+			C.UNSET, 
 			0, 
 			0, 
 			0, 
@@ -18,7 +18,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				var ui_c: UIComponent = entity.get_c(C.CN_UI)
 				
 				return ui_c.is_click_at(
-					entity.position, clicked_global_pos
+					entity.global_position, clicked_global_pos
 				)
 		)
 		
@@ -26,6 +26,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			S.deselect_entity_s.emit()
 			return
 
-		Log.debug("选择实体: %s, %s" % [e, e.position])
+		Log.debug("选择实体: %s, %s" % [e, e.global_position])
 		S.select_entity_s.emit(e)
 		return

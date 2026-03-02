@@ -10,82 +10,88 @@ class_name Entity
 #region 属性
 ## 实体标签
 @export var tag: C.ENTITY_TAG
+## 持续时间，单位为秒
+@export var duration: float = C.UNSET
+## 实体等级
+@export var level: int = 1
+## 是否追踪 source 实体
+@export var track_source: bool = false
+## 是否追踪 target 实体
+@export var track_target: bool = false
+## 插入实体时创建的光环标签列表
+@export var mods_list: Array[C.ENTITY_TAG] = []
+## 插入实体时创建的光环标签列表
+@export var auras_list: Array[C.ENTITY_TAG] = []
+
+@export_group("限制相关")
+## 白名单实体标签列表
+@export var whitelist_tag: Array[C.ENTITY_TAG] = []
+## 黑名单实体标签列表
+@export var blacklist_tag: Array[C.ENTITY_TAG] = []
 ## 实体标识符列表
 @export var flags: Array[C.FLAG] = []:
 	set(value): 
 		flags = value
 		flag_bits = U.merge_flags(value)
-## 禁止的实体标识符列表，表示该实体不能与哪些标识的实体进行交互
+## 禁止的实体标识符列表
 @export var bans: Array[C.FLAG] = []:
 	set(value): 
 		bans = value
 		ban_bits = U.merge_flags(value)
-## 白名单实体标签列表，表示该实体只能与这些标签的实体进行交互，通常用于状态效果
-@export var whitelist_tag: Array[C.ENTITY_TAG] = []
-## 黑名单实体标签列表，表示该实体不能与这些标签的实体进行交互，通常用于状态效果
-@export var blacklist_tag: Array[C.ENTITY_TAG] = []
-## 持续时间，单位为秒，通常用于状态效果持续时间等
-@export var duration: float = C.UNSET
-## 禁止的状态效果类型标识符列表，表示该实体不能与哪些类型的状态效果进行交互
+## 禁止的状态效果类型标识符列表
 @export var mod_type_bans: Array[C.MOD] = []:
 	set(value): 
 		mod_type_bans = value
 		mod_type_ban_bits = U.merge_flags(value)
-## 禁止的光环类型标识符列表，表示该实体不能与哪些类型的光环进行交互
+## 禁止的光环类型标识符列表
 @export var aura_type_bans: Array[C.AURA] = []:
 	set(value): 
 		aura_type_bans = value
 		aura_type_ban_bits = U.merge_flags(value)
-## 插入实体时创建的光环标签列表
-@export var auras_list: Array[C.ENTITY_TAG] = []
-## 禁止的状态效果标识符列表，表示该实体不能与哪些状态效果进行交互
+## 禁止的状态效果标识符列表
 @export var mod_bans: Array[C.FLAG] = []:
 	set(value): 
 		mod_bans = value
 		mod_ban_bits = U.merge_flags(value)
-## 禁止的光环标识符列表，表示该实体不能与哪些光环进行交互
+## 禁止的光环标识符列表
 @export var aura_bans: Array[C.FLAG] = []:
 	set(value): 
 		aura_bans = value
 		aura_ban_bits = U.merge_flags(value)
-@export var hit_rect := Rect2(1, 1, 1, 1)
-## 实体等级，通常用于区分实体的强度或阶段
-@export var level: int = 1
-## 追踪来源实体，通常用于光环等需要持续追踪的实体
-@export var track_source: bool = false
-## 追踪目标实体，通常用于状态效果等需要持续追踪的实体
-@export var track_target: bool = false
 
-## 禁止的状态效果标识符，表示该实体不能与哪些状态效果进行交互
-var mod_ban_bits: int = 0
-## 插入时间戳，单位为秒
-var insert_ts: float = 0
-## 时间戳，单位为秒，通常用于持续时间、子弹飞行时间等
-var ts: float = 0
-## 目标实体 ID，通常用于子弹、状态效果等需要指定目标的实体
-var target_id: int = C.UNSET
-## 禁止的实体标识符集合，表示该实体不能与哪些标识的实体进行交互
-var ban_bits: int = 0
+## 模板名称
 var template_name: String = ""
 ## 实体唯一 ID
 var id: int = C.UNSET
 ## 拥有的所有组件对象
 var components: Dictionary[String, Node] = {}
-## 所有者或来源 ID，通常为生成实体的实体 ID
+## 是否是子实体
+var is_subentity: bool = false
+## 所有者或来源 ID
 var source_id: int = C.UNSET
-## 实体标识符，使用位运算表示
+## 插入时间戳，单位为秒
+var insert_ts: float = 0
+## 时间戳，单位为秒
+var ts: float = 0
+## 目标实体 ID
+var target_id: int = C.UNSET
+## 禁止的实体标识符（位运算）
+var ban_bits: int = 0
+## 实体标识符（位运算）
 var flag_bits: int = 0
-## 禁止的状态效果类型标识符集合，表示该实体不能与哪些类型的状态效果进行交互
+## 禁止的状态效果标识符
+var mod_ban_bits: int = 0
+## 禁止的状态效果类型标识符（位运算）
 var mod_type_ban_bits: int = 0
-## 已拥有的状态效果 ID 列表，表示该实体当前拥有的状态效果实体 ID 列表
-var has_mods_ids: Array[int] = []
-## 禁止的光环标识符，使用位运算表示，表示该实体不能与哪些光环进行交互
+## 禁止的光环标识符（位运算）
 var aura_ban_bits: int = 0
-## 禁止的光环类型标识符，使用位运算表示，表示该实体不能与哪些类型的光环进行交互
+## 禁止的光环类型标识符（位运算）
 var aura_type_ban_bits: int = 0
-## 已拥有的光环 ID 列表，表示该实体当前拥有的光环实体 ID 列表
+## 拥有的状态效果 ID 列表
+var has_mods_ids: Array[int] = []
+## 拥有的光环 ID 列表
 var has_auras_ids: Array[int] = []
-## 实体状态，通常用于区分实体的不同阶段或行为模式
+## 实体状态
 var state: C.STATE = C.STATE.IDLE
 ## 等待状态
 var waiting: bool = false
@@ -283,7 +289,7 @@ func clear_has_auras() -> void:
 
 ## 设定实体位置，根据拥有的组件智能赋值
 func set_pos(pos: Vector2) -> void:
-	position = pos
+	global_position = pos
 	
 	if has_c(C.CN_RALLY):
 		var rally_c: RallyComponent = get_c(C.CN_RALLY)

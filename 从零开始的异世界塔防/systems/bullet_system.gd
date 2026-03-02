@@ -8,29 +8,29 @@ extends System
 
 
 func _on_insert(e: Entity) -> bool:
-	if not e.has_c(C.CN_BULLET):
+	var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
+	if not bullet_c:
 		return true
 
-	var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
 	if not target:
 		return false
 
 	bullet_c.ts = TimeDB.tick_ts
 	var flying_time: float = TimeDB.get_time(bullet_c.ts)
-	if not bullet_c.predict_pos_disabled:
+	if not bullet_c.disabled_predict_pos:
 		bullet_c.predict_target_pos = PathDB.predict_target_pos(
 			target, bullet_c.flight_time
 		)
 	else:
-		bullet_c.predict_target_pos = target.position
+		bullet_c.predict_target_pos = target.global_position
 	
 	bullet_c.to = bullet_c.predict_target_pos
-	bullet_c.from = e.position
-	bullet_c.direction = (bullet_c.to - e.position).normalized()
+	bullet_c.from = e.global_position
+	bullet_c.direction = (bullet_c.to - e.global_position).normalized()
 	e.look_at(bullet_c.to)
 
-	bullet_c.rotation_direction = -1 if bullet_c.to.x < e.position.x else 1
+	bullet_c.rotation_direction = -1 if bullet_c.to.x < e.global_position.x else 1
 
 	if bullet_c.flight_trajectory & C.TRAJECTORY.LINEAR:
 		_trajectory_liniear_init(bullet_c)
@@ -45,7 +45,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.GROUP_BULLETS):
+	for e: Entity in EntityDB.get_entities_group(C.CN_BULLET):
 		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
@@ -65,19 +65,18 @@ func _on_update(delta: float) -> void:
 
 			if bullet_c.miss_remove:
 				e.remove_entity()
-			return
+			continue
 			
 		if not bullet_c.can_arrived:
-			return
+			continue
 		
 		if not target:
-			return
+			continue
 		
 		if U.is_at_destination(
-				e.position, target.position, bullet_c.hit_dist
+				e.global_position, target.global_position, bullet_c.hit_dist
 		):
 			_hit(e, bullet_c, target)
-			return
 
 
 ## 击中目标调用
@@ -117,7 +116,7 @@ func _damege_target(e: Entity, bullet_c: BulletComponent, target: Entity) -> voi
 		damage_factor
 	)
 	EntityDB.create_mods(target.id, bullet_c.mods, e.id)
-	EntityDB.create_entities_at_pos(bullet_c.payloads, e.position)
+	EntityDB.create_entities_at_pos(bullet_c.payloads, e.global_position)
 
 
 #region 轨迹相关函数
@@ -130,7 +129,7 @@ func _trajectory_liniear_init(bullet_c: BulletComponent) -> void:
 
 ## 直线轨迹更新
 func _trajectory_liniear_update(e: Entity, bullet_c: BulletComponent) -> void:
-	e.position = U.position_in_linear(
+	e.global_position = U.position_in_linear(
 		bullet_c.velocity, bullet_c.from, TimeDB.get_time(bullet_c.ts)
 	)
 
@@ -140,7 +139,7 @@ func _trajectory_parabola_init(
 		e: Entity, bullet_c: BulletComponent, flying_time: float
 	) -> void:
 	bullet_c.velocity = U.initial_parabola_velocity(
-		e.position, bullet_c.to, bullet_c.flight_time, bullet_c.g
+		e.global_position, bullet_c.to, bullet_c.flight_time, bullet_c.g
 	)
 	
 	var next_time: float = flying_time + TimeDB.frame_length
@@ -163,7 +162,7 @@ func _trajectory_parabola_update(
 		bullet_c.velocity, bullet_c.from, next_time, bullet_c.g
 	)
 	
-	e.position = current_pos
+	e.global_position = current_pos
 	
 	e.look_at(next_pos)
 
@@ -180,16 +179,16 @@ func _trajectory_tracking_update(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
 	if is_instance_valid(target):
-		bullet_c.to = target.position
+		bullet_c.to = target.global_position
 	
-	bullet_c.direction = (bullet_c.to - e.position).normalized()
-	e.position += bullet_c.direction * bullet_c.speed * TimeDB.frame_length
+	bullet_c.direction = (bullet_c.to - e.global_position).normalized()
+	e.global_position += bullet_c.direction * bullet_c.speed * TimeDB.frame_length
 	e.look_at(bullet_c.to)
 
 
 ## 瞬移轨迹初始化
 func _trajectory_instant_init(e: Entity, target: Entity) -> void:
-	e.position = target.position
+	e.global_position = target.global_position
 	
 	e.rotation = deg_to_rad(90)
 #endregion

@@ -16,7 +16,7 @@ func _on_update(_delta: float) -> void:
 		e.state = C.STATE.RALLY
 		walk_step(e, rally_c)
 		
-		if not U.is_at_destination(rally_c.rally_pos, e.position, rally_c.arrived_dist):
+		if not U.is_at_destination(rally_c.rally_pos, e.global_position, rally_c.arrived_dist):
 			return
 			
 		e.state = C.STATE.IDLE
@@ -28,7 +28,7 @@ func _on_update(_delta: float) -> void:
 func walk_step(e: Entity, rally_c: RallyComponent) -> void:
 	e.play_animation(rally_c.animation)
 
-	rally_c.direction = (rally_c.rally_pos - e.position).normalized()
-	e.position += rally_c.direction * rally_c.speed * TimeDB.frame_length
+	rally_c.direction = (rally_c.rally_pos - e.global_position).normalized()
+	e.global_position += rally_c.direction * rally_c.speed * TimeDB.frame_length
 
 	e._on_rally_walk(rally_c)

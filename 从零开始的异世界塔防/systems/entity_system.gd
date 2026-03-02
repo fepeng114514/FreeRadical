@@ -36,11 +36,11 @@ func _on_update(delta: float) -> void:
 			if not source:
 				continue
 				
-			e.position = source.position
+			e.global_position = source.global_position
 			
 		if e.waiting:
 			continue
 			
 		e._on_update(delta)
 		
-		e.last_position = e.position
+		e.last_position = e.global_position

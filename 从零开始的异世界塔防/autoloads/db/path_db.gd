@@ -77,9 +77,9 @@ func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
 	var path_follow: PathFollow2D = subpathway.follow
 		
 	path_follow.progress_ratio = ratio
-	var position: Vector2 = path_follow.position
+	var global_position: Vector2 = path_follow.global_position
 	
-	return subpathway.to_global(position)
+	return global_position
 
 
 func get_progress_by_ratio(pi: int, spi: int, ratio: float) -> float:
@@ -93,9 +93,9 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	var path_follow = subpathway.follow
 		
 	path_follow.progress = progress
-	var position: Vector2 = path_follow.position
+	var global_position: Vector2 = path_follow.global_position
 	
-	return subpathway.to_global(position)
+	return global_position
 	
 
 func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
@@ -104,7 +104,7 @@ func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
 		or target.has_state(C.STATE.MELEE)
 		or target.has_state(C.STATE.RANGED)
 	):
-		return target.position
+		return target.global_position
 		
 	var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)
 	var progress: float = nav_path_c.nav_progress
