@@ -9,7 +9,7 @@ extends Node
 """
 
 #region 属性
-var entity_template: Dictionary[C.ENTITY_TAG, Entity] = {}
+var entity_scenes: Dictionary[C.ENTITY_TAG, PackedScene] = {}
 var type_groups: Dictionary[String, Array] = {
 	"enemies": [],
 	"friendlys": [],
@@ -20,54 +20,46 @@ var type_groups: Dictionary[String, Array] = {
 var component_groups: Dictionary[String, Array] = {}
 var entities: Array = []
 var last_id: int = 0
-var templates_name_dict: Dictionary[C.ENTITY_TAG, String]
+var tag_name_dict: Dictionary[C.ENTITY_TAG, String]
 var _dirty_entities_ids: Array[int] = []
 #endregion
 
 
 func load() -> void:
-	entity_template = {}
-	type_groups = {
-		"enemies": [],
-		"friendlys": [],
-		"towers": [],
-		"modifiers": [],
-		"auras": [],
-		"bullets": [],
-	}
-	component_groups = {}
-	entities = []
-	_dirty_entities_ids = []
+	entity_scenes.clear()
+	for group in type_groups.values():
+		group.clear()
+	component_groups.clear()
+	entities.clear()
+	_dirty_entities_ids.clear()
+	tag_name_dict.clear()
 	last_id = 0
-	templates_name_dict = {}
 	
-	_load_templates_name_dict()
-	_load_entity_templates()
+	_load_tag_name_dict()
+	_load_entity_scenes()
 
-## 加载实体模板
-func _load_entity_templates() -> void:
+## 加载实体场景
+func _load_entity_scenes() -> void:
 	for entity_tag: C.ENTITY_TAG in C.ENTITY_TAG.values():
-		var t_name: String = get_templates_name(entity_tag)
+		var t_name: String = get_tag_name(entity_tag)
 		var scene_path: String = C.PATH_ENTITIES_SCENES % t_name
 		if not ResourceLoader.exists(scene_path):
 			Log.error("未找到实体场景: %s" % scene_path)
 			return
 			
 		var scene: PackedScene = load(scene_path)
-		var template: Entity = scene.instantiate()
-		template.template_name = get_templates_name(entity_tag)
 		
-		entity_template[entity_tag] = template
+		entity_scenes[entity_tag] = scene
 
-func _load_templates_name_dict() -> void:
+func _load_tag_name_dict() -> void:
 	for entity_name: String in C.ENTITY_TAG.keys():
 		var tag: C.ENTITY_TAG = C.ENTITY_TAG[entity_name]
 		entity_name = entity_name.to_lower()
-		templates_name_dict[tag] = entity_name
+		tag_name_dict[tag] = entity_name
 
 
-func get_templates_name(entity_tag: C.ENTITY_TAG) -> String:
-	return templates_name_dict[entity_tag]
+func get_tag_name(entity_tag: C.ENTITY_TAG) -> String:
+	return tag_name_dict[entity_tag]
 
 
 ## 标记新增加或移除的实体
@@ -80,8 +72,13 @@ func mark_entity_dirty_id(id: int) -> void:
 
 #region 创建实体相关
 ## 创建实体
-func create_entity(entity_tag: C.ENTITY_TAG) -> Entity:
-	var e: Entity = get_entity_template(entity_tag)
+func create_entity(
+		entity_tag: C.ENTITY_TAG, process: bool = true
+) -> Entity:
+	var e: Entity = get_entity_scene(entity_tag).instantiate()
+		
+	if not process:
+		return e
 		
 	return process_create(e)
 	
@@ -89,17 +86,8 @@ func create_entity(entity_tag: C.ENTITY_TAG) -> Entity:
 ## 处理创建
 func process_create(e: Entity) -> Entity:
 	e.id = last_id
-	
-	for node: Node in e.get_children():
-		var node_script: GDScript = node.get_script()
-		if not node_script:
-			continue
-		
-		var node_class: String = node_script.get_global_name()
-		if not node_class.find("Component"):
-			continue
-			
-		e.components[node_class] = node
+	e.tag_name = get_tag_name(e.tag)
+	e.name = "%sI%d" % [e.name, e.id]
 	
 	# 调用所有系统的准备插入回调函数，遇到返回 false 的系统不插入实体
 	if not SystemMgr.call_systems("_on_create", e):
@@ -184,7 +172,7 @@ func create_damage(
 	d.damage_type = damage_type
 	d.value = randf_range(min_damage, max_damage)
 	d.damage_factor = damage_factor
-	d.template_name = "damage"
+	d.tag_name = "damage"
 
 	SystemMgr.damage_queue.append(d)
 		
@@ -217,19 +205,23 @@ func get_entity_by_id(id: int) -> Entity:
 	return e
 
 
-## 获取实体模板
-func get_entity_template(entity_tag: C.ENTITY_TAG, deep: bool = true) -> Entity:
-	if not entity_template.has(entity_tag):
-		Log.error("未找到实体模板, tag: %d" % entity_tag)
+## 获取实体场景
+func get_entity_scene(entity_tag: C.ENTITY_TAG) -> PackedScene:
+	if not entity_scenes.has(entity_tag):
+		Log.error("未找到实体场景, tag: %d" % entity_tag)
 		return null
 		
-	var template: Entity = entity_template[entity_tag]
+	var scene: PackedScene = entity_scenes[entity_tag]
 		
-	if deep:
-		return template.duplicate()
+	return scene
 	
-	return template
-	
+
+## 设置实体场景
+func set_entity_scene(
+		entity_tag: C.ENTITY_TAG, new_scene: PackedScene
+) -> void:
+	entity_scenes[entity_tag] = new_scene
+
 
 ## 获取所有有效实体
 func get_vaild_entities() -> Array:

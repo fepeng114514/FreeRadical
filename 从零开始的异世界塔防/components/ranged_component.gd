@@ -16,8 +16,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 	
 
-# 自动更新列表
-func _update_list():
+## 自动更新列表
+func _update_list() -> void:
 	var new_list: Array[Ranged] = []
 	
 	for child: Ranged in get_children():
@@ -26,9 +26,9 @@ func _update_list():
 	# 只在变化时更新，避免无限循环
 	if new_list != list:
 		list = new_list
-		notify_property_list_changed()  # 刷新编辑器
+		notify_property_list_changed()
 		
 
-# 当节点树变化时自动更新
+## 当节点树变化时自动更新
 func _notification(what: int) -> void:
 	U.tool_on_tree_call(self, what, _update_list)

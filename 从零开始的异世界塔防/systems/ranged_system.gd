@@ -1,5 +1,5 @@
 extends System
-
+class_name RangedSystem
 
 func _on_update(_delta: float) -> void:
 	var entities: Array = EntityDB.get_entities_group(C.CN_RANGED).filter(
@@ -10,7 +10,7 @@ func _on_update(_delta: float) -> void:
 	for e: Entity in entities:
 		var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
 	
-		for a: Ranged in ranged_c.order:
+		for a: Ranged in ranged_c.list:
 			if not a.together_melee and e.has_state(C.STATE.MELEE):
 				continue
 			

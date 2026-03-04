@@ -2,9 +2,9 @@ extends Node
 class_name Ranged
 
 
-@export var min_range: float = 0
-@export var max_range: float = 0
-@export var cooldown: float = 0
+@export var min_range: float = 25
+@export var max_range: float = 25
+@export var cooldown: float = 1
 @export var bullet: C.ENTITY_TAG
 @export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
 @export var animation: String = "ranged"

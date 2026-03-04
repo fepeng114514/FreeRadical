@@ -10,9 +10,9 @@ class_name MeleeComponent
 ## 是否是被动障碍，表示实体是否作为被动障碍存在（不主动拦截敌人），通常用于某些特殊的实体，例如路障等
 @export var is_passive_obstacle: bool = false
 ## 拦截最小范围，单位为像素
-@export var block_min_range: float = 80
+@export var block_min_range: float = 0
 ## 拦截最大范围，单位为像素
-@export var block_max_range: float = 0
+@export var block_max_range: float = 100
 ## 搜索模式，表示实体在寻找被拦截者时的目标选择策略，默认为优先第一个敌人
 @export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
 ## 最大可以被拦截数量，表示实体最多可以同时拦截多少个被拦截者，超过该数量后将不再拦截新的被拦截者
@@ -69,8 +69,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
-# 自动更新列表
-func _update_list():
+## 自动更新列表
+func _update_list() -> void:
 	var new_list: Array[Melee] = []
 	
 	for child: Melee in get_children():
@@ -79,10 +79,10 @@ func _update_list():
 	# 只在变化时更新，避免无限循环
 	if new_list != list:
 		list = new_list
-		notify_property_list_changed()  # 刷新编辑器
+		notify_property_list_changed()
 
 
-# 当节点树变化时自动更新
+## 当节点树变化时自动更新
 func _notification(what: int) -> void:
 	U.tool_on_tree_call(self, what, _update_list)
 

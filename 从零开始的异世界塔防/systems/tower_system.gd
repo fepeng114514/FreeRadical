@@ -1,5 +1,5 @@
 extends System
-
+class_name TowerSystem
 
 func _on_insert(e: Entity) -> bool:
 	var tower_c: TowerComponent = e.get_c(C.CN_TOWER)

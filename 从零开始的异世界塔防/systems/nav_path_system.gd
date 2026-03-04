@@ -1,5 +1,5 @@
 extends System
-
+class_name NavPathSystem
 
 func _on_insert(e: Entity) -> bool:
 	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
@@ -100,7 +100,7 @@ func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> voi
 	e._on_arrived_end(nav_path_c)
 	
 	nav_path_c.loop_count += 1
-	Log.debug("到达终点: %s(%d), 到达次数 %d" % [e.template_name, e.id, nav_path_c.loop_count])
+	Log.debug("到达终点: %s, 到达次数 %d" % [e, nav_path_c.loop_count])
 	
 	if (
 			not nav_path_c.loop 

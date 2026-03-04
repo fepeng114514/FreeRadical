@@ -273,6 +273,35 @@ enum SORT {
 }
 
 
+## 实体标签
+enum ENTITY_TAG {
+	WAVE_SPAWNER,  ## 波次生成器，负责生成敌人生成波次
+	BULLET_ARROW,  ## 箭矢子弹
+	BULLET_BOLT,
+	BULLET_SWORD,
+	SOLDIER,       ## 士兵
+	TOWER_ARCHER,  ## 箭塔
+	ARCHER_SHOOTER,
+	TOWER_MAGE,    ## 法师塔
+	TOWER_BARRACK, ## 兵营
+	TOWER_ENGINEER,## 炮塔
+	ENEMY_GOBLIN,  ## 哥布林敌人，基础敌人单位
+}
+
+
+## 实体信息类型枚举
+enum INFO {
+	UNIT,
+	TOWER,
+}
+
+
+enum SELECT {
+	NONE,
+	RALLY,
+}
+
+
 #region 组件名称 (StringName)
 ## 组件名称: 血量
 const CN_HEALTH: StringName = &"HealthComponent"
@@ -319,47 +348,7 @@ const GROUP_BULLETS: StringName = &"bullets"
 #endregion
 
 
-## 实体标签
-enum ENTITY_TAG {
-	WAVE_SPAWNER,  ## 波次生成器，负责生成敌人生成波次
-	BULLET_ARROW,  ## 箭矢子弹
-	BULLET_BOLT,
-	BULLET_SWORD,
-	SOLDIER,       ## 士兵
-	TOWER_ARCHER,  ## 箭塔
-	ARCHER_SHOOTER,
-	TOWER_MAGE,    ## 法师塔
-	TOWER_BARRACK, ## 兵营
-	TOWER_ENGINEER,## 炮塔
-	ENEMY_GOBLIN,  ## 哥布林敌人，基础敌人单位
-}
-
-
 #region 关卡相关常量
 ## 关卡列表
 const LEVEL_LIST: Array[int] = [1]
-## 关卡必需系统名称列表
-const LEVEL_REQUIRED_SYSTEMS: Array[String] = [
-	"grouping_system",
-	"time_system",
-	"spawner_system",
-	"aura_system",
-	"modifier_system",
-	"bullet_system",
-	"health_system",
-	"melee_system",
-	"tower_system",
-	"sprite_system",
-	"entity_system",
-	"barrack_system",
-	"rally_system",
-	"nav_path_system",
-	"ranged_system",
-]
 #endregion
-
-## 实体信息类型枚举
-enum INFO {
-	UNIT,
-	TOWER,
-}

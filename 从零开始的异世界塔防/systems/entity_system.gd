@@ -1,5 +1,5 @@
 extends System
-
+class_name EntitySystem
 
 func _on_create(e: Entity) -> bool:
 	return e._on_create()

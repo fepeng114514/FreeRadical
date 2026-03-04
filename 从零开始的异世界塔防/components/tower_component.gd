@@ -20,20 +20,20 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 	
 	
-# 自动更新列表
-func _update_list():
-	var new_list: Array = []
+## 自动更新列表
+func _update_list() -> void:
+	var new_list: Array[Entity] = []
 	
-	for child: Node in get_children():
+	for child: Entity in get_children():
 		new_list.append(child)
 	
 	# 只在变化时更新，避免无限循环
 	if new_list != list:
 		list = new_list
-		notify_property_list_changed()  # 刷新编辑器
+		notify_property_list_changed()
 
 
-# 当节点树变化时自动更新
+## 当节点树变化时自动更新
 func _notification(what: int) -> void:
 	U.tool_on_tree_call(self, what, _update_list)
 

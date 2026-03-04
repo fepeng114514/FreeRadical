@@ -1,3 +1,4 @@
+@tool
 extends Entity
 @export var wave_set: WaveSet = null
 

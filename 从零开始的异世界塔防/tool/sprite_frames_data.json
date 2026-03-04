@@ -1,12 +1,32 @@
 {
 	"goblin": {
 		"idle": {
-			"from": 1,
-			"to": 1
+			"from": 67,
+			"to": 67
 		},
 		"walk": {
 			"from": 1,
 			"to": 22
+		},
+		"walk_down": {
+			"from": 45,
+			"to": 66
+		},
+		"walk_rightLeft": {
+			"from": 1,
+			"to": 22
+		},
+		"walk_up": {
+			"from": 23,
+			"to": 44
+		},
+		"melee": {
+			"from": 70,
+			"to": 82
+		},
+		"death": {
+			"from": 106,
+			"to": 120
 		}
 	},
 	"tower_archer_lvl1_shooter": {

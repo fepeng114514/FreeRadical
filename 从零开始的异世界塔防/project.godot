@@ -60,6 +60,10 @@ folder_colors={
 "res://systems/": "blue"
 }
 
+[global_group]
+
+a=""
+
 [input]
 
 left_click={

@@ -1,5 +1,5 @@
 extends System
-
+class_name AuraSystem
 
 func _on_insert(e: Entity) -> bool:
 	var aura_c: AuraComponent = e.get_c(C.CN_AURA)

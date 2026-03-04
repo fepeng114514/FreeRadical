@@ -5,8 +5,6 @@ class_name UIComponent
 @export var can_click: bool = true
 @export var info_type: C.INFO = C.INFO.UNIT
 
-var selected: bool = false
-
 
 ## 获取全局位置的矩形
 func get_global_click_rect(origin: Vector2) -> Rect2:

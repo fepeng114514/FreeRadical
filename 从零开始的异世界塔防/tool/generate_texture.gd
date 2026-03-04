@@ -1,6 +1,6 @@
 @tool
 extends EditorScript
-
+class_name GenerateTexture
 
 """图集格式
 "图集名.png": {	# 来自哪个图集，主要用于多图集的打包
@@ -115,7 +115,7 @@ func _load_sprite_frames() -> void:
 				var atlas_texture_name: String = "%s_%04d" % [sprite_frames_name, idx]
 				var frame: AtlasTexture = image_db[atlas_texture_name]
 				sprite_frames.add_frame(anim_name, frame)
-		
+				Log.verbose("增加帧: %s" % atlas_texture_name)
 		
 func _create_atlas_texture(
 		img_data: Dictionary, atlas_file: Texture2D

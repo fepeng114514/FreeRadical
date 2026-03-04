@@ -1,15 +1,18 @@
+@tool
 extends Node2D
-## 实体类:
+class_name Entity
+
+## 实体节点:
 ## [br]
 ## 游戏中所有具有行为和属性的对象都可以被表示为实体，例如: 敌人、友军、塔、子弹、状态效果等。
 ## [br]
 ## 实体类负责管理实体的基本属性和组件，并提供一些通用的接口和事件回调，供系统和组件调用。
-class_name Entity
-
 
 #region 属性
 ## 实体标签
 @export var tag: C.ENTITY_TAG
+## 拥有的所有组件节点引用
+@export var components: Dictionary[String, Node] = {}
 ## 持续时间，单位为秒
 @export var duration: float = C.UNSET
 ## 实体等级
@@ -56,12 +59,10 @@ class_name Entity
 		aura_bans = value
 		aura_ban_bits = U.merge_flags(value)
 
-## 模板名称
-var template_name: String = ""
+## 标签名称
+var tag_name: String = ""
 ## 实体唯一 ID
 var id: int = C.UNSET
-## 拥有的所有组件对象
-var components: Dictionary[String, Node] = {}
 ## 是否是子实体
 var is_subentity: bool = false
 ## 所有者或来源 ID
@@ -96,6 +97,8 @@ var waiting: bool = false
 var blocking: bool = false
 ## 移除状态，表示实体正在被移除
 var removed: bool = false
+## 是否被点击选择
+var selected: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
 #endregion
@@ -186,9 +189,35 @@ func _on_bullet_calculate_damage_factor(target: Entity, bullet_c: BulletComponen
 
 
 func _to_string():
-	return "%s(%d)" % [template_name, id]
+	return "%s(%d)" % [tag_name, id]
 @warning_ignore_restore("unused_parameter")
 #endregion
+
+
+## 自动更新组件字典
+func _update_components() -> void:
+	var new_dict: Dictionary[String, Node] = {}
+	
+	for node: Node in get_children():
+		var node_script: GDScript = node.get_script()
+		if not node_script:
+			continue
+		
+		var node_class: String = node_script.get_global_name()
+		if not node_class.find("Component"):
+			continue
+			
+		new_dict[node_class] = node
+		
+	# 只在变化时更新，避免无限循环
+	if new_dict != components:
+		components = new_dict
+		notify_property_list_changed()  # 刷新编辑器
+
+
+## 当节点树变化时自动更新
+func _notification(what: int) -> void:
+	U.tool_on_tree_call(self, what, _update_components)
 
 
 func insert_entity() -> void:
@@ -219,13 +248,13 @@ func set_c(c_name: String, value) -> bool:
 	return components.set(c_name, value)
 	
 
-func add_c(c_name: String) -> Node:
-	var component_script: GDScript = EntityDB.get_component_script(c_name)
-	var component_node: Node = component_script.new()
-	component_node.name = c_name
+func add_c(component: GDScript) -> Node:
+	var component_node: Node = component.new()
 	
 	add_child(component_node)
-	components[c_name] = component_node
+	var node_class: String = component.get_global_name()
+			
+	components[node_class] = component_node
 	return component_node
 
 #endregion
@@ -317,10 +346,17 @@ func set_nav_path_at_pos(pos: Vector2) -> void:
 ## 获取指定索引的动画精灵
 func get_animated_sprite(sprite_idx: int = 0) -> Node2D:
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
+	if not sprite_c:
+		Log.error("get_animated_sprite: 未找到 SpriteComponent 组件: %s" % self)
+		return null
+	
 	var sprite: Variant = sprite_c.list[sprite_idx]
 	
 	if not sprite is AnimatedSprite2D:
-		Log.verbose("%s: 索引 %d 的精灵不是 AnimatedSprite2D" % [self, sprite_idx])
+		Log.verbose(
+			"get_animated_sprite: %s: 索引 %d 的精灵不是 AnimatedSprite2D" 
+			% [self, sprite_idx]
+		)
 		return null
 	
 	return sprite

@@ -11,32 +11,13 @@ var insert_queue: Array[Entity] = []
 var damage_queue: Array[Entity] = []
 
 
-func load(required_systems_name: Array) -> void:
-	systems = []
-	remove_queue = []
-	insert_queue = []
-	damage_queue = []
+func load(new_systems: Array[System]) -> void:
+	systems.clear()
+	remove_queue.clear()
+	insert_queue.clear()
+	damage_queue.clear()
 	
-	var required_systems: Array[System] = []
-
-	# 加载需要的系统
-	for sys_name in required_systems_name:
-		var system_path: String = C.PATH_SYSTEMS % sys_name
-		
-		if not ResourceLoader.exists(system_path):
-			Log.error("未找到系统: %s" % system_path)
-			continue
-			
-		var system: GDScript = load(system_path)
-
-		required_systems.append(system.new())
-
-	systems = required_systems
-	
-	# 初始化系统
-	for system: System in systems:
-		system._initialize()
-
+	systems = new_systems
 
 ## 系统主循环
 func _physics_process(delta: float) -> void:

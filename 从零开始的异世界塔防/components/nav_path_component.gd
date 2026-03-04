@@ -7,6 +7,9 @@ class_name NavPathComponent
 @export var loop: bool = false
 @export var loop_times: int = C.UNSET
 @export var animation: String = "walk"
+@export var right_animation: String = "walk"
+@export var up_animation: String = "walk"
+@export var down_animation: String = "walk"
 
 var nav_pi: int = 0
 var nav_spi: int = 0

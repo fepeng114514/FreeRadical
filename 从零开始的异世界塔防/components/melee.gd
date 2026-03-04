@@ -2,12 +2,12 @@ extends Node
 class_name Melee
 
 
-@export var min_damage: float = 0
-@export var max_damage: float = 0
-@export var cooldown: float = 0
+@export var min_damage: float = 25
+@export var max_damage: float = 25
+@export var cooldown: float = 1
 @export var damage_type: C.DAMAGE = C.DAMAGE.PHYSICAL
 @export var mods: Array[C.ENTITY_TAG] = []
-@export var animation: String = "melle"
+@export var animation: String = "melee"
 @export var delay: float = 0
 @export var chance: float = 1
 @export var disabled: bool = false

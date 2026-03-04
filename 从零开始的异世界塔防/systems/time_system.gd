@@ -1,7 +1,8 @@
 extends System
+class_name TimeSystem
 
 """时间系统
-	控制与管理时间与计时器
+	控制与管理时间
 """
 
 

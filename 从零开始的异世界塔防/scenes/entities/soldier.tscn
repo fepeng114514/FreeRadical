@@ -1,15 +1,26 @@
 [gd_scene format=3 uid="uid://f30rl46i8akx"]
 
-[ext_resource type="Script" uid="uid://dfevap2o4s1kd" path="res://scenes/entities/soldier.gd" id="1_ama71"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_8n3d5"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_se3ma"]
-[ext_resource type="SpriteFrames" uid="uid://bcoybiptluc4q" path="res://resources/sprite_frames_resources/soldier_lvl1.tres" id="3_f3yqs"]
+[ext_resource type="SpriteFrames" uid="uid://di8isap4f0g6u" path="res://resources/sprite_frames_resources/soldier_lvl1.tres" id="3_f3yqs"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://components/melee_component.gd" id="4_5jui1"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="5_gtjci"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://components/health_component.gd" id="5_lmejv"]
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://components/melee.gd" id="6_lmejv"]
+[ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://components/rally_component.gd" id="8_yfwee"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="9_8n3d5"]
 
-[node name="Soldier" type="Node2D" unique_id=885578479]
-script = ExtResource("1_ama71")
+[node name="Soldier" type="Node2D" unique_id=1677548747 node_paths=PackedStringArray("components")]
+script = ExtResource("1_8n3d5")
+tag = 4
+components = {
+"HealthComponent": NodePath("HealthComponent"),
+"MeleeComponent": NodePath("MeleeComponent"),
+"RallyComponent": NodePath("RallyComponent"),
+"SpriteComponent": NodePath("SpriteComponent"),
+"UIComponent": NodePath("UIComponent")
+}
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=389197924 node_paths=PackedStringArray("list")]
 script = ExtResource("2_se3ma")
@@ -19,6 +30,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1889529730]
 sprite_frames = ExtResource("3_f3yqs")
 animation = &"idle"
+frame_progress = 0.12773772
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=949799713 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("5_lmejv")
@@ -38,3 +50,15 @@ metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 [node name="Melee" type="Node" parent="MeleeComponent" unique_id=1290538006]
 script = ExtResource("6_lmejv")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
+
+[node name="RallyComponent" type="NavigationAgent2D" parent="." unique_id=905200269]
+navigation_layers = 2
+script = ExtResource("8_yfwee")
+speed = 200.0
+rally_pos = Vector2(600, 500)
+metadata/_custom_type_script = "uid://2keyy5hsydyv"
+
+[node name="UIComponent" type="Node" parent="." unique_id=334115741]
+script = ExtResource("9_8n3d5")
+click_rect = Rect2(-16, -24, 40, 40)
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

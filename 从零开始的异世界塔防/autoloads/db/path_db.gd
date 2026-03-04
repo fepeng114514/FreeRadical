@@ -12,7 +12,7 @@ var node_count: int = 256
 
 
 func load() -> void:
-	pathways = []
+	pathways.clear()
 	last_pi = 0
 
 

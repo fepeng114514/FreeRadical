@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var bg = get_node("BG")
-@onready var fg = get_node("FG")
-@onready var origin_bg_scale = bg.scale
-@onready var origin_fg_scale = fg.scale
+@export var bg: ColorRect = null
+@export var fg: ColorRect = null
+@onready var origin_bg_scale: Vector2 = bg.scale
+@onready var origin_fg_scale: Vector2 = fg.scale

@@ -35,16 +35,16 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
-func _update_health_bar():
+func _update_health_bar() -> void:
 	var new_health_bar: Node2D = get_node_or_null("HealthBar")
 	
 	# 只在变化时更新，避免无限循环
 	if health_bar != new_health_bar:
 		health_bar = new_health_bar
-		notify_property_list_changed()  # 刷新编辑器
+		notify_property_list_changed()
 
 
-# 当节点树变化时自动更新
+## 当节点树变化时自动更新
 func _notification(what: int) -> void:
 	U.tool_on_tree_call(self, what, _update_health_bar)
 	

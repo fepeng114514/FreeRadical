@@ -1,4 +1,5 @@
 extends System
+class_name HealthSystem
 
 """血量系统:
 	管理伤害造成与血条更新拦截
@@ -61,9 +62,9 @@ func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent) -> voi
 	Log.verbose(
 		"造成伤害: 目标: %s(%s)，来源: %s(%s)，值: %s"
 		% [
-			target.template_name, 
+			target.tag_name, 
 			d.target_id, 
-			source.template_name if source else "unknow", 
+			source.tag_name if source else "unknow", 
 			d.source_id, 
 			actual_damage
 		]

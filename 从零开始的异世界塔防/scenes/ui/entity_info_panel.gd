@@ -1,4 +1,5 @@
 extends PanelContainer
+
 @export var range_circle: PackedScene = null
 @export var rally_circle: PackedScene = null
 var selected_entity: Entity = null
@@ -49,7 +50,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if not selected_entity:
-		_hidden()
+		_hidden(selected_entity)
 		return
 		
 	_update_info()
@@ -59,7 +60,7 @@ func _show(e: Entity) -> void:
 	if e == selected_entity:
 		return
 		
-	_hidden()
+	_hidden(e)
 	
 	var ui_c: UIComponent = e.get_c(C.CN_UI)
 	if not ui_c:
@@ -99,7 +100,7 @@ func _show(e: Entity) -> void:
 	_update_info()
 
 	
-func _hidden() -> void:
+func _hidden(_e: Entity) -> void:
 	visible = false
 	
 	if not selected_entity:
@@ -118,7 +119,7 @@ func _hidden() -> void:
 
 
 func _update_info() -> void:
-	entity_name.text = EntityDB.get_templates_name(selected_entity.tag)
+	entity_name.text = EntityDB.get_tag_name(selected_entity.tag)
 	
 	for config: Array in show_config[info_type]:
 		var control: Control = config[0]
@@ -152,7 +153,7 @@ func _update_unit_info() -> void:
 	value_magic_armor.text = "%d" % health_c.magical_armor
 	
 	if selected_entity.has_c(C.CN_MELEE):
-		var melee_c: MeleeComponent = selected_entity.get(C.CN_MELEE)
+		var melee_c: MeleeComponent = selected_entity.get_c(C.CN_MELEE)
 		var first_melee_attack: Melee = melee_c.list[0]
 		value_melee.text = "%d-%d/%.1f" % [
 			first_melee_attack.min_damage, 
@@ -163,7 +164,7 @@ func _update_unit_info() -> void:
 		value_melee.text = "无"
 		
 	if selected_entity.has_c(C.CN_RANGED):
-		var ranged_c: RangedComponent = selected_entity.get(C.CN_RANGED)
+		var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
 		var first_ranged_attack: Ranged = ranged_c.list[0]
 		value_ranged.text = "%d-%d/%.1f" % [
 			first_ranged_attack.min_damage, 
@@ -182,12 +183,15 @@ func _update_tower_info() -> void:
 		return
 
 	var first_subentity: Entity = tower_c.list[0]
-	var ranged_c: RangedComponent = first_subentity.get_c(C.CN_RANGED)
+	var ranged_c: RangedComponent = first_subentity.get_c(
+		C.CN_RANGED
+	)
 	var first_ranged_attack: Ranged = ranged_c.list[0]
-	var bullet: Entity = EntityDB.get_entity_template(
+	## todo: 每帧创建实体性能较差，后续需要优化
+	var bullet: Entity = EntityDB.create_entity(
 		first_ranged_attack.bullet, false
 	)
-	var bullet_c: BulletComponent = bullet.get_node(String(C.CN_BULLET))
+	var bullet_c: BulletComponent = bullet.get_c(C.CN_BULLET)
 	value_ranged.text = "%d-%d/%.1f" % [
 		bullet_c.min_damage, 
 		bullet_c.max_damage, 

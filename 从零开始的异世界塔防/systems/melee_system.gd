@@ -1,4 +1,5 @@
 extends System
+class_name MeleeSystem
 
 """近战系统:
 	管理实体的近战攻击拦截
@@ -29,7 +30,7 @@ func _on_update(_delta: float) -> void:
 			
 		var blocked_id: int = melee_c.blockeds_ids[0]
 		var blocked: Entity = EntityDB.get_entity_by_id(blocked_id)
-		for a: Melee in melee_c.order:
+		for a: Melee in melee_c.list:
 			if not can_attack(a, blocked):
 				continue
 				

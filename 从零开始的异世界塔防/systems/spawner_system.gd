@@ -1,5 +1,5 @@
 extends System
-
+class_name SpawnerSystem
 
 func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_SPAWNER):

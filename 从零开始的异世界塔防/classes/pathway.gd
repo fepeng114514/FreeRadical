@@ -1,6 +1,4 @@
 extends Path2D
-
-## 路径类
 class_name Pathway
 
 

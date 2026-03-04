@@ -6,9 +6,13 @@
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://components/ranged_component.gd" id="4_d15la"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://components/ranged.gd" id="5_plukg"]
 
-[node name="ArcherShooter" type="Node2D" unique_id=2011504655]
+[node name="ArcherShooter" type="Node2D" unique_id=2011504655 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0v2wj")
 tag = 6
+components = {
+"RangedComponent": NodePath("RangedComponent"),
+"SpriteComponent": NodePath("SpriteComponent")
+}
 flags = Array[int]([4])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -27,6 +31,5 @@ list = [NodePath("Ranged")]
 [node name="Ranged" type="Node" parent="RangedComponent" unique_id=1475389001]
 script = ExtResource("5_plukg")
 max_range = 300.0
-cooldown = 1.0
 bullet = 1
 delay = 0.117

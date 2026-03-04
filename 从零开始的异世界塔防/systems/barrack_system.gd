@@ -1,5 +1,5 @@
 extends System
-
+class_name BarrackSystem
 
 func _on_insert(e: Entity) -> bool:
 	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
@@ -52,7 +52,7 @@ func respawn_soldier(
 	var rally_c: RallyComponent
 	
 	if not soldier.has_c(C.CN_RALLY):
-		rally_c = soldier.add_c(C.CN_RALLY)
+		rally_c = soldier.add_c(RallyComponent)
 		rally_c.can_click_rally = false
 		rally_c.rally_radius = barrack_c.rally_radius
 		rally_c.speed = barrack_c.rally_speed

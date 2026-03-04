@@ -1,4 +1,5 @@
 extends System
+class_name RallySystem
 
 
 func _on_update(_delta: float) -> void:
@@ -16,19 +17,33 @@ func _on_update(_delta: float) -> void:
 		e.state = C.STATE.RALLY
 		walk_step(e, rally_c)
 		
-		if not U.is_at_destination(rally_c.rally_pos, e.global_position, rally_c.arrived_dist):
-			return
+		if not U.is_at_destination(
+			rally_c.rally_pos, 
+			e.global_position, 
+			rally_c.arrived_dist
+		):
+			continue
 			
 		e.state = C.STATE.IDLE
 		rally_c.arrived = true
+		e.play_animation(e.default_animation)
 
 		e._on_arrived_rally(rally_c)
 
 
 func walk_step(e: Entity, rally_c: RallyComponent) -> void:
 	e.play_animation(rally_c.animation)
-
-	rally_c.direction = (rally_c.rally_pos - e.global_position).normalized()
-	e.global_position += rally_c.direction * rally_c.speed * TimeDB.frame_length
-
+	
+	var next_position: Vector2 = rally_c.get_next_path_position()
+	rally_c.direction = (
+		next_position - e.global_position
+	).normalized()
+	var velocity: Vector2 = (
+		rally_c.direction 
+		* rally_c.speed 
+		* TimeDB.frame_length
+	)
+	e.global_position += velocity
+	rally_c.velocity = velocity
+	
 	e._on_rally_walk(rally_c)

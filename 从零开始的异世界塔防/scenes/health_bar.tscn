@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://ua1ib3sk4dgk" path="res://health_bar.gd" id="1_1bvlm"]
 
-[node name="HealthBar" type="Node2D" unique_id=1048256100]
+[node name="HealthBar" type="Node2D" unique_id=1048256100 node_paths=PackedStringArray("bg", "fg")]
 z_index = 1
 script = ExtResource("1_1bvlm")
+bg = NodePath("BG")
+fg = NodePath("FG")
 
 [node name="BG" type="ColorRect" parent="." unique_id=222392742]
 offset_left = -22.0

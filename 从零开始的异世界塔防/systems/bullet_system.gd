@@ -1,4 +1,5 @@
 extends System
+class_name BulletSystem
 
 """子弹系统:
 	管理子弹实体的飞行轨迹、命中检测和伤害计算等相关逻辑。子弹系统会在每一帧更新子弹实体的位置，

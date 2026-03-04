@@ -10,7 +10,7 @@ func enter_level(idx: int) -> void:
 	
 	EntityDB.load()
 	PathDB.load()
-	
-	SystemMgr.load(C.LEVEL_REQUIRED_SYSTEMS)
 
-	get_tree().change_scene_to_file(C.PATH_LEVELS_SCENES % idx)
+	get_tree().change_scene_to_file(
+		C.PATH_LEVELS_SCENES % idx
+	)

@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://bcoybiptluc4q"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://di8isap4f0g6u"]
 
 [ext_resource type="Texture2D" uid="uid://c8irc233ysspa" path="res://assets/animated_atlas/animated_towers-1.png" id="1_d3qe8"]
 
@@ -161,5 +161,5 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 30.0
+"speed": 15.0
 }]

@@ -1,3 +1,4 @@
+@tool
 extends Entity
 
 @onready var bullet_c = get_c(C.CN_BULLET)

@@ -1,4 +1,5 @@
 extends System
+class_name GroupingSystem
 
 const FLAG_TO_GROUP = {
 	C.FLAG.ENEMY: C.GROUP_ENEMIES,

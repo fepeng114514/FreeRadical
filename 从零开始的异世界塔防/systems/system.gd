@@ -4,10 +4,6 @@ class_name System
 
 #region 回调函数
 @warning_ignore_start("unused_parameter")
-## 系统初始化时调用
-func _initialize() -> void: pass
-
-
 ## 创建实体实体时调用，返回 false 的实体不会被创建
 ## [br]
 ## 注：此时节点还未初始化
