@@ -48,8 +48,8 @@ class_name MeleeComponent
 
 var block_flag_bits: int = 0
 var block_ban_bits: int = 0
-## 拦截者 ID
-var blocker_id: int = C.UNSET
+## 拦截者 ID 列表
+var blockers_ids: Array[int] = []
 ## 拦截数量，拦截数量根据被拦截者的拦截成本计算
 var blocked_count: int = 0
 ## 被拦截者 ID 列表
@@ -141,7 +141,7 @@ func get_blocked(filter: Callable = Callable()) -> Array[Entity]:
 func cleanup_blockeds() -> void:
 	var new_blockeds_ids: Array[int] = []
 	
-	for id in blockeds_ids:
+	for id: int in blockeds_ids:
 		var blocked: Entity = EntityDB.get_entity_by_id(id)
 			
 		if not blocked:
@@ -153,31 +153,26 @@ func cleanup_blockeds() -> void:
 	
 
 ## 清理无效拦截者
-func cleanup_blocker(blocked: Entity) -> void:
-	var blocker: Entity = EntityDB.get_entity_by_id(blocker_id)
+func cleanup_blockers(blocked: Entity) -> void:
+	var new_blockers_ids: Array[int] = []
 	
-	if not blocker:
-		if not is_first_found_target:
-			melee_pos_arrived = true
+	for id: int in blockers_ids:
+		var blocker: Entity = EntityDB.get_entity_by_id(id)
+		if not blocker:
+			continue
+
+		var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
+		if (
+				blocker.global_position.distance_to(
+					blocked.global_position
+				) 
+				> blocker_melee_c.block_max_range
+			):
+			blocker_melee_c.blockeds_ids.erase(blocked.id)
+			blocker_melee_c.is_first_found_target = true
+			blocker_melee_c.melee_pos_arrived = true
+			continue
 			
-		blocker_id = C.UNSET
-		return
-		
-	var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
-		
-	if (
-			blocker.global_position.distance_to(
-				blocked.global_position
-			) 
-			> blocker_melee_c.block_max_range
-		):
-		if not is_first_found_target:
-			melee_pos_arrived = true
-		blocker_id = C.UNSET
-		blocker_melee_c.reset_blocker()
+		new_blockers_ids.append(id)
 
-
-func reset_blocker() -> void:
-	blockeds_ids.clear()
-	is_first_found_target = true
-	melee_pos_arrived = true
+	blockers_ids = new_blockers_ids
