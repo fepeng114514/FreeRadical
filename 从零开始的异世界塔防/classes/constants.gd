@@ -135,6 +135,8 @@ enum FLAG {
 	FRIENDLY = 1 << 2,
 	# 标识: 英雄
 	HERO = 1 << 3 | FRIENDLY,
+	# 标识: 单位
+	UNIT = ENEMY | FRIENDLY,
 	# 标识: 防御塔
 	TOWER = 1 << 4,
 	# 标识: 状态效果
@@ -202,6 +204,14 @@ enum SEARCH {
 	ENTITY_MAX_HEALTH,
 	## 搜索模式: 实体血量最低
 	ENTITY_MIN_HEALTH,
+	## 搜索模式: 实体近战伤害最高
+	ENTITY_MAX_MELEE_DAMAGE,
+	## 搜索模式: 实体近战伤害最低
+	ENTITY_MIN_MELEE_DAMAGE,
+	## 搜索模式: 实体远程伤害最高
+	ENTITY_MAX_RANGE_DAMAGE,
+	## 搜索模式: 实体远程伤害最低
+	ENTITY_MIN_RANGE_DAMAGE,
 	## 搜索模式: 实体 ID 最大
 	ENTITY_MAX_ID,
 	## 搜索模式: 实体 ID 最小
@@ -219,6 +229,14 @@ enum SEARCH {
 	ENEMY_MAX_HEALTH,
 	## 搜索模式: 敌人血量最低
 	ENEMY_MIN_HEALTH,
+	## 搜索模式: 敌人近战伤害最高
+	ENEMY_MAX_MELEE_DAMAGE,
+	## 搜索模式: 敌人近战伤害最低
+	ENEMY_MIN_MELEE_DAMAGE,
+	## 搜索模式: 敌人远程伤害最高
+	ENEMY_MAX_RANGE_DAMAGE,
+	## 搜索模式: 敌人远程伤害最低
+	ENEMY_MIN_RANGE_DAMAGE,
 	## 搜索模式: 敌人 ID 最大
 	ENEMY_MAX_ID,
 	## 搜索模式: 敌人 ID 最小
@@ -236,10 +254,43 @@ enum SEARCH {
 	FRIENDLY_MAX_HEALTH,
 	## 搜索模式: 友军血量最低
 	FRIENDLY_MIN_HEALTH,
+	## 搜索模式: 友军近战伤害最高
+	FRIENDLY_MAX_MELEE_DAMAGE,
+	## 搜索模式: 友军近战伤害最低
+	FRIENDLY_MIN_MELEE_DAMAGE,
+	## 搜索模式: 友军远程伤害最高
+	FRIENDLY_MAX_RANGE_DAMAGE,
+	## 搜索模式: 友军远程伤害最低
+	FRIENDLY_MIN_RANGE_DAMAGE,
 	## 搜索模式: 友军 ID 最大
 	FRIENDLY_MAX_ID,
 	## 搜索模式: 友军 ID 最小
 	FRIENDLY_MIN_ID,
+
+	## 搜索模式: 单位路程最远
+	UNIT_MAX_PROGRESS,
+	## 搜索模式: 单位路程最近
+	UNIT_MIN_PROGRESS,
+	## 搜索模式: 单位距离最近
+	UNIT_MIN_DISTANCE,
+	## 搜索模式: 单位距离最远
+	UNIT_MAX_DISTANCE,
+	## 搜索模式: 单位血量最高
+	UNIT_MAX_HEALTH,
+	## 搜索模式: 单位血量最低
+	UNIT_MIN_HEALTH,
+	## 搜索模式: 单位近战伤害最高
+	UNIT_MAX_MELEE_DAMAGE,
+	## 搜索模式: 单位近战伤害最低
+	UNIT_MIN_MELEE_DAMAGE,
+	## 搜索模式: 单位远程伤害最高
+	UNIT_MAX_RANGE_DAMAGE,
+	## 搜索模式: 单位远程伤害最低
+	UNIT_MIN_RANGE_DAMAGE,
+	## 搜索模式: 单位 ID 最大
+	UNIT_MAX_ID,
+	## 搜索模式: 单位 ID 最小
+	UNIT_MIN_ID,
 }
 
 
@@ -251,6 +302,10 @@ enum SORT {
 	DISTANCE,
 	## 排序类型: 血量
 	HEALTH,
+	## 排序类型: 近战伤害
+	MELEE_DAMAGE,
+	## 排序类型: 远程伤害
+	RANGE_DAMAGE,
 	## 排序类型: 实体 ID
 	ID,
 }
@@ -279,6 +334,7 @@ enum INFO {
 }
 
 
+## 选择模式枚举
 enum SELECT {
 	NONE,
 	RALLY,
@@ -320,6 +376,8 @@ const CN_UI: StringName = &"UIComponent"
 const GROUP_ENEMIES: StringName = &"enemies"
 ## 组名: 友军
 const GROUP_FRIENDLYS: StringName = &"friendlys"
+## 组名: 单位
+const GROUP_UNIT: StringName = &"unit"
 ## 组名: 防御塔
 const GROUP_TOWERS: StringName = &"towers"
 ## 组名: 状态效果

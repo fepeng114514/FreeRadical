@@ -4,6 +4,7 @@ class_name GroupingSystem
 const FLAG_TO_GROUP = {
 	C.FLAG.ENEMY: C.GROUP_ENEMIES,
 	C.FLAG.FRIENDLY: C.GROUP_FRIENDLYS,
+	C.FLAG.UNIT: C.GROUP_UNIT,
 	C.FLAG.TOWER: C.GROUP_TOWERS,
 	C.FLAG.MODIFIER: C.GROUP_MODIFIERS,
 	C.FLAG.AURA: C.GROUP_AURAS,
@@ -15,8 +16,8 @@ func _on_update(_delta: float) -> void:
 	if dirty_entities_ids.is_empty():
 		return
 		
-	var type_groups: Dictionary[String, Array] = EntityDB.type_groups
-	var component_groups: Dictionary[String, Array] = EntityDB.component_groups
+	var type_groups: Dictionary[String, Array] = EntityDB._type_groups
+	var component_groups: Dictionary[String, Array] = EntityDB._component_groups
 		
 	for group in type_groups.values():
 		group.clear()
@@ -39,4 +40,4 @@ func _on_update(_delta: float) -> void:
 	dirty_entities_ids.clear()
 
 func _append_entity(e: Entity, group_name: StringName) -> void:
-	EntityDB.type_groups[group_name].append(e)
+	EntityDB._type_groups[group_name].append(e)

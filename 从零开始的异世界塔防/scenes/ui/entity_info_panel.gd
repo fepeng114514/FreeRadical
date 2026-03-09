@@ -49,8 +49,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if not selected_entity:
-		_hidden(selected_entity)
+	if not U.is_vaild_entity(selected_entity):
+		_hidden()
 		return
 		
 	_update_info()
@@ -60,7 +60,7 @@ func _show(e: Entity) -> void:
 	if e == selected_entity:
 		return
 		
-	_hidden(e)
+	_hidden()
 	
 	var ui_c: UIComponent = e.get_c(C.CN_UI)
 	if not ui_c:
@@ -100,7 +100,7 @@ func _show(e: Entity) -> void:
 	_update_info()
 
 	
-func _hidden(_e: Entity) -> void:
+func _hidden() -> void:
 	visible = false
 	
 	if not selected_entity:
@@ -119,7 +119,7 @@ func _hidden(_e: Entity) -> void:
 
 
 func _update_info() -> void:
-	entity_name.text = EntityDB.get_tag_name(selected_entity.tag)
+	entity_name.text = selected_entity.tag_name
 	
 	for config: Array in show_config[info_type]:
 		var control: Control = config[0]
@@ -187,10 +187,7 @@ func _update_tower_info() -> void:
 		C.CN_RANGED
 	)
 	var first_ranged_attack: RangedAttack = ranged_c.list[0]
-	## todo: 每帧创建实体性能较差，后续需要优化
-	var bullet: Entity = EntityDB.create_entity(
-		first_ranged_attack.bullet, false
-	)
+	var bullet: Entity = EntityDB.get_entity_data(first_ranged_attack.bullet)
 	var bullet_c: BulletComponent = bullet.get_c(C.CN_BULLET)
 	value_ranged.text = "%d-%d/%.1f" % [
 		bullet_c.min_damage, 

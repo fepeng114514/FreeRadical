@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 
 ## 处理实体插入队列
 func _process_insert_queue() -> void:
-	var entities: Array = EntityDB.entities
+	var entities: Array = EntityDB._entities
 	
 	while insert_queue:
 		var e: Entity = insert_queue.pop_front()

@@ -107,16 +107,6 @@ components = {
 "UIComponent": NodePath("UIComponent")
 }
 
-[node name="Soldier2" parent="Store/Entities" unique_id=602100182 node_paths=PackedStringArray("components") instance=ExtResource("27_4yk0h")]
-position = Vector2(664, 560)
-components = {
-"HealthComponent": NodePath("HealthComponent"),
-"MeleeComponent": NodePath("MeleeComponent"),
-"RallyComponent": NodePath("RallyComponent"),
-"SpriteComponent": NodePath("SpriteComponent"),
-"UIComponent": NodePath("UIComponent")
-}
-
 [node name="Camera" type="Camera2D" parent="." unique_id=1218244006]
 position_smoothing_enabled = true
 position_smoothing_speed = 15.0

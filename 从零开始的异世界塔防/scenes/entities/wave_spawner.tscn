@@ -5,6 +5,7 @@
 
 [node name="WaveSpawner" type="Node2D" unique_id=1677388100 node_paths=PackedStringArray("components")]
 script = ExtResource("1_sjplp")
+tag_name = "wave_spawner"
 components = {
 "SpawnerComponent": NodePath("SpawnerComponent")
 }

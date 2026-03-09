@@ -62,8 +62,7 @@ var origin_pos_arrived: bool = true
 var melee_pos := Vector2.ZERO
 ## 是否到达近战位置
 var melee_pos_arrived: bool = true
-## 是否第一次找到敌人
-var is_first_found_target: bool = true
+var need_origin_setup: bool = true
 var velocity := Vector2.ZERO
 
 
@@ -169,7 +168,7 @@ func cleanup_blockers(blocked: Entity) -> void:
 				> blocker_melee_c.block_max_range
 			):
 			blocker_melee_c.blockeds_ids.erase(blocked.id)
-			blocker_melee_c.is_first_found_target = true
+			blocker_melee_c.need_origin_setup = true
 			blocker_melee_c.melee_pos_arrived = true
 			continue
 			

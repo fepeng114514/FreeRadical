@@ -8,7 +8,14 @@ class_name Entity
 
 #region 属性
 ## 实体标签
-@export var tag: C.ENTITY_TAG
+@export var tag: C.ENTITY_TAG:
+	set(value):
+		tag = value
+		for k: String in C.ENTITY_TAG.keys():
+			if C.ENTITY_TAG[k] == value:
+				tag_name = k.to_lower()
+## 标签名称
+@export var tag_name: String = ""
 ## 拥有的所有组件节点引用
 @export var components: Dictionary[String, Node] = {}
 ## 持续时间，单位为秒
@@ -57,8 +64,6 @@ class_name Entity
 		aura_bans = value
 		aura_ban_bits = U.merge_flags(value)
 
-## 标签名称
-var tag_name: String = ""
 ## 实体唯一 ID
 var id: int = C.UNSET
 ## 是否是子实体

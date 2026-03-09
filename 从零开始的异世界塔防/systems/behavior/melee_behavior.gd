@@ -38,8 +38,9 @@ func _process_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	var blockeds_ids: Array = melee_c.blockeds_ids
 	# 没有被拦截者
 	if not blockeds_ids:
-		if not melee_c.is_first_found_target:
-			melee_c.is_first_found_target = true
+		## need_origin_setup 默认为 true
+		if not melee_c.need_origin_setup:
+			melee_c.need_origin_setup = true
 			melee_c.origin_pos_arrived = false
 		else:
 			melee_c.melee_pos_arrived = true
@@ -49,13 +50,13 @@ func _process_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 		
 		return false
 		
-	# 有被拦截者，前往近战位置，尝试攻击被拦截者
+	# 有被拦截者
 	var blocked: Entity = EntityDB.get_entity_by_id(
 		blockeds_ids[0]
 	)
 		
-	if melee_c.is_first_found_target:
-		melee_c.is_first_found_target = false
+	if melee_c.need_origin_setup:
+		melee_c.need_origin_setup = false
 		melee_c.melee_pos_arrived = false
 		melee_c.origin_pos = e.global_position
 	
@@ -114,8 +115,9 @@ func _process_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 	var blocker_ids: Array[int] = melee_c.blockers_ids
 	
 	if blocker_ids.is_empty():
-		if not melee_c.is_first_found_target:
-			melee_c.is_first_found_target = true
+		## need_origin_setup 默认为 true
+		if not melee_c.need_origin_setup:
+			melee_c.need_origin_setup = true
 			melee_c.melee_pos_arrived = true
 			melee_c.origin_pos_arrived = false
 		
@@ -133,8 +135,8 @@ func _process_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 			not is_first_blocked 
 			and not melee_c.is_passive
 		):
-		if melee_c.is_first_found_target:
-			melee_c.is_first_found_target = false
+		if melee_c.need_origin_setup:
+			melee_c.need_origin_setup = false
 			melee_c.melee_pos_arrived = false
 			melee_c.origin_pos = e.global_position
 			

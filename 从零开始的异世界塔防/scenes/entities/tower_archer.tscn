@@ -10,6 +10,7 @@
 [node name="TowerArcher" type="Node2D" unique_id=1010851235 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0v2wj")
 tag = 5
+tag_name = "tower_archer"
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "TowerComponent": NodePath("TowerComponent"),
@@ -42,12 +43,14 @@ metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="ArcherShooter" parent="TowerComponent" unique_id=2011504655 node_paths=PackedStringArray("components") instance=ExtResource("2_4mkqg")]
 position = Vector2(34, -1)
+tag_name = "ENEMY_GOBLIN"
 components = {
 "RangedComponent": NodePath("RangedComponent"),
 "SpriteComponent": NodePath("SpriteComponent")
 }
 
 [node name="ArcherShooter2" parent="TowerComponent" unique_id=1394184842 node_paths=PackedStringArray("components") instance=ExtResource("2_4mkqg")]
+tag_name = "ENEMY_GOBLIN"
 components = {
 "RangedComponent": NodePath("RangedComponent"),
 "SpriteComponent": NodePath("SpriteComponent")

@@ -2,11 +2,12 @@ extends System
 class_name SelectSystem
 
 var select_type: C.SELECT = C.SELECT.NONE
-var last_selected: Entity = null
+var selected_entity: Entity = null
 
 func _ready() -> void:
 	S.select_entity_s.connect(_on_select)
 	S.deselect_entity_s.connect(_on_deselect)
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("left_click"):
@@ -34,17 +35,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		)
 		
 		if not e:
-			if U.is_vaild_entity(last_selected):
-				last_selected.selected = false
+			if U.is_vaild_entity(selected_entity):
+				selected_entity.selected = false
 				
-			S.deselect_entity_s.emit(last_selected)
-			last_selected = null
+			S.deselect_entity_s.emit()
+			selected_entity = null
 			return
 
 		Log.debug("选择实体: %s, %s" % [e, e.global_position])
 		e.selected = true
+		selected_entity = e
 		S.select_entity_s.emit(e)
-		last_selected = e
 		return
 		
 		
@@ -58,12 +59,12 @@ func _on_select(e: Entity) -> void:
 		select_type = C.SELECT.RALLY
 	
 
-func _on_deselect(e: Entity) -> void:
+func _on_deselect() -> void:
 	var mouse_global_position: Vector2 = InputMgr.mouse_global_position
 
 	match select_type:
 		C.SELECT.RALLY:
-			var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
+			var rally_c: RallyComponent = selected_entity.get_c(C.CN_RALLY)
 			rally_c.new_rally(mouse_global_position)
 	
 	select_type = C.SELECT.NONE
