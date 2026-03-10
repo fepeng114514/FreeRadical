@@ -12,7 +12,7 @@
 
 [node name="EnemyGoblin" type="Node2D" unique_id=71433118 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0ncad")
-path = "uid://d1kxh6e7m4mc1"
+uid = "uid://d1kxh6e7m4mc1"
 components = {
 "HealthComponent": NodePath("HealthComponent"),
 "MeleeComponent": NodePath("MeleeComponent"),
@@ -37,6 +37,7 @@ frame_progress = 0.5298479
 [node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("4_bfbt7")
 health_bar = NodePath("HealthBar")
+hp_max = 100000.0
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_yidua")]

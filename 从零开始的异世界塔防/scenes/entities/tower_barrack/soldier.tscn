@@ -12,8 +12,7 @@
 
 [node name="Soldier" type="Node2D" unique_id=1677548747 node_paths=PackedStringArray("components")]
 script = ExtResource("1_8n3d5")
-tag = 9
-tag_name = "soldier"
+uid = "uid://f30rl46i8akx"
 components = {
 "HealthComponent": NodePath("HealthComponent"),
 "MeleeComponent": NodePath("MeleeComponent"),
@@ -60,7 +59,6 @@ metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 navigation_layers = 2
 script = ExtResource("8_yfwee")
 speed = 200.0
-rally_pos = Vector2(600, 500)
 metadata/_custom_type_script = "uid://2keyy5hsydyv"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=2093072497]

@@ -18,6 +18,7 @@ func new_rally(
 ) -> void:
 	arrived = false
 	rally_pos = new_rally_pos
+	target_position = rally_pos
 	
 	if U.is_valid_number(new_rally_radius):
 		rally_radius = new_rally_radius

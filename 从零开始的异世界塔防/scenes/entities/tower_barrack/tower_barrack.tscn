@@ -8,7 +8,7 @@
 
 [node name="TowerBarrack" type="Node2D" unique_id=383018069 node_paths=PackedStringArray("components")]
 script = ExtResource("1_nawio")
-tag = 8
+uid = "uid://cc3v5b7ci4wxv"
 components = {
 "BarrackComponent": NodePath("BarrackComponent"),
 "SpriteComponent": NodePath("SpriteComponent"),
@@ -21,17 +21,18 @@ list = [NodePath("Sprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=927508667]
-position = Vector2(-8, 0)
+position = Vector2(0, -64)
 texture = ExtResource("3_bfdgq")
 
-[node name="BarrackComponent" type="Node" parent="." unique_id=1880137500]
+[node name="BarrackComponent" type="Node2D" parent="." unique_id=441339810]
 script = ExtResource("4_u6jgq")
-rally_pos = Vector2(500, 600)
-soldier = 4
+rally_pos = Vector2(0, 200)
+rally_radius = 60.0
+soldier = "uid://f30rl46i8akx"
 metadata/_custom_type_script = "uid://b3vhika61oa7p"
 
-[node name="UIComponent" type="Node" parent="." unique_id=1738527405]
+[node name="UIComponent" type="Node2D" parent="." unique_id=539105763]
 script = ExtResource("5_a0xnb")
-click_rect = Rect2(48, 64, 120, 104)
+click_rect = Rect2(-60.815, -96.93, 118.91, 98.915)
 info_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

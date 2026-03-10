@@ -57,6 +57,9 @@ func _on_select(e: Entity) -> void:
 			return
 			
 		select_type = C.SELECT.RALLY
+
+	if e.has_c(C.CN_BARRACK):
+		select_type = C.SELECT.BARRACK_RALLY
 	
 
 func _on_deselect() -> void:
@@ -66,5 +69,8 @@ func _on_deselect() -> void:
 		C.SELECT.RALLY:
 			var rally_c: RallyComponent = selected_entity.get_c(C.CN_RALLY)
 			rally_c.new_rally(mouse_global_position)
+		C.SELECT.BARRACK_RALLY:
+			var barrack_c: BarrackComponent = selected_entity.get_c(C.CN_BARRACK)
+			barrack_c.new_rally(mouse_global_position)
 	
 	select_type = C.SELECT.NONE

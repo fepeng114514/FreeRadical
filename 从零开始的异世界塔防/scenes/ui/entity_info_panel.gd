@@ -1,7 +1,9 @@
 extends PanelContainer
 
 @export var range_circle: PackedScene = null
+@export var melee_range_circle: PackedScene = null
 @export var rally_circle: PackedScene = null
+@export var rally_line: PackedScene = null
 var selected_entity: Entity = null
 var info_type: C.INFO = C.INFO.UNIT
 @onready var entity_name: Label = $MarginContainer/HBoxContainer/EntityName
@@ -83,11 +85,21 @@ func _show(e: Entity) -> void:
 		
 		if min_range != 0:
 			_create_range_circle("MinRangeCircle", min_range)
+
+	if e.has_c(C.CN_MELEE):
+		var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
+		var max_melee_range: float = melee_c.block_max_range
+		var min_melee_range: float = melee_c.block_min_range
 		
+		_create_melee_range_circle("MaxMeleeRangeCircle", max_melee_range)
+
+		if min_melee_range != 0:
+			_create_melee_range_circle("MinMeleeRangeCircle", min_melee_range)
+
 	if e.has_c(C.CN_TOWER):
 		var tower_c: TowerComponent = e.get_c(C.CN_TOWER)
-		var first_subentity: Entity = tower_c.list[0]
-		var ranged_c: RangedComponent = first_subentity.get_c(C.CN_RANGED)
+		var first_entity: Entity = tower_c.list[0]
+		var ranged_c: RangedComponent = first_entity.get_c(C.CN_RANGED)
 		var first_ranged_attack: RangedAttack = ranged_c.list[0]
 		var max_range: float = first_ranged_attack.max_range
 		var min_range: float = first_ranged_attack.min_range
@@ -96,6 +108,22 @@ func _show(e: Entity) -> void:
 		
 		if min_range != 0:
 			_create_range_circle("MinRangeCircle", min_range)
+			
+	if e.has_c(C.CN_RALLY):
+		var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
+		var line: Line2D = rally_line.instantiate()
+		line.name = "RallyLine"
+		line.points = rally_c.get_current_navigation_path()
+		e.add_child(line)
+
+	if e.has_c(C.CN_BARRACK):
+		var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
+		var rally_circle_node: Node2D = rally_circle.instantiate()
+		rally_circle_node.name = "RallyCircle"
+		var s: float = barrack_c.rally_range / 200
+		rally_circle_node.scale = Vector2(s, s)
+		rally_circle_node.position = barrack_c.range_offset
+		e.add_child(rally_circle_node)
 	
 	_update_info()
 
@@ -114,6 +142,25 @@ func _hidden() -> void:
 		var min_circle: Node2D = selected_entity.get_node_or_null("MinRangeCircle")
 		if min_circle:
 			min_circle.remove()
+
+	if selected_entity.has_c(C.CN_MELEE):
+		var max_melee_circle: Node2D = selected_entity.get_node_or_null("MaxMeleeRangeCircle")
+		if max_melee_circle:
+			max_melee_circle.remove()
+
+		var min_melee_circle: Node2D = selected_entity.get_node_or_null("MinMeleeRangeCircle")
+		if min_melee_circle:
+			min_melee_circle.remove()
+
+	if selected_entity.has_c(C.CN_RALLY):
+		var rally_line_node: Line2D = selected_entity.get_node_or_null("RallyLine")
+		if rally_line_node:
+			rally_line_node.queue_free()
+
+	if selected_entity.has_c(C.CN_BARRACK):
+		var rally_circle_node: Node2D = selected_entity.get_node_or_null("RallyCircle")
+		if rally_circle_node:
+			rally_circle_node.queue_free()
 		
 	selected_entity = null
 
@@ -154,6 +201,19 @@ func _create_range_circle(node_name: String, r: float) -> void:
 		
 	circle.position = new_position
 	selected_entity.add_child(circle)
+
+
+func _create_melee_range_circle(node_name: String, r: float) -> void:
+	var circle: Node2D = melee_range_circle.instantiate()
+	circle.name = node_name
+
+	var s: float = r / 200
+	circle.scale = Vector2(0, 0)
+	
+	circle.tween_set_scale(Vector2(s, s))
+	
+	selected_entity.add_child(circle)
+
 
 func _update_unit_info() -> void:
 	var health_c: HealthComponent = selected_entity.get_c(C.CN_HEALTH)

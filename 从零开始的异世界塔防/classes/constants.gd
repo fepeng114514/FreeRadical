@@ -355,6 +355,7 @@ enum INFO {
 enum SELECT {
 	NONE,
 	RALLY,
+	BARRACK_RALLY,
 }
 
 

@@ -1,4 +1,5 @@
 extends Sprite2D
+class_name CircleTween
 
 var scale_time: float = 0.25
 

@@ -23,7 +23,7 @@ func walk_step(e: Entity, rally_c: RallyComponent) -> void:
 	var direction: Vector2 = e.global_position.direction_to(
 		next_position
 	)
-
+	
 	var velocity: Vector2 = (
 		direction 
 		* rally_c.speed 

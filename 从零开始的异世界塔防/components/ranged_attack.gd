@@ -3,7 +3,10 @@ extends Node2D
 class_name RangedAttack
 
 @export var min_range: float = 0
-@export var max_range: float = 300
+@export var max_range: float = 300:
+	set(value):
+		max_range = value
+		queue_redraw()
 @export var cooldown: float = 1
 @export_file("*.tscn") var bullet: String = ""
 @export var bullet_offset := Vector2.ZERO:
@@ -43,4 +46,12 @@ func _draw() -> void:
 		3,
 		Color.GREEN, 
 		true
+	)
+	
+	draw_circle(
+		position, 
+		max_range,
+		Color(0.835, 0.416, 0.851, 0.604), 
+		false,
+		6
 	)

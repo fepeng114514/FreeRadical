@@ -32,7 +32,6 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=1939030855]
 script = ExtResource("5_plukg")
-min_range = 25.0
 bullet = "uid://d25hnem6unbul"
 bullet_offset = Vector2(2.185, -17.255)
 delay = 0.117
