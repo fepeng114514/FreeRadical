@@ -143,8 +143,17 @@ func _create_range_circle(node_name: String, r: float) -> void:
 	
 	circle.tween_set_scale(Vector2(s, s))
 	
-	selected_entity.add_child(circle)
+	var new_position := Vector2.ZERO
 	
+	if selected_entity.has_c(C.CN_TOWER):
+		var tower_c: TowerComponent = selected_entity.get_c(C.CN_TOWER)
+		new_position = tower_c.position + tower_c.range_offset
+	elif selected_entity.has_c(C.CN_RANGED):
+		var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
+		new_position = ranged_c.position
+		
+	circle.position = new_position
+	selected_entity.add_child(circle)
 
 func _update_unit_info() -> void:
 	var health_c: HealthComponent = selected_entity.get_c(C.CN_HEALTH)
@@ -182,8 +191,8 @@ func _update_tower_info() -> void:
 		value_ranged.text = "无"
 		return
 
-	var first_subentity: Entity = tower_c.list[0]
-	var ranged_c: RangedComponent = first_subentity.get_c(
+	var first_entity: Entity = tower_c.list[0]
+	var ranged_c: RangedComponent = first_entity.get_c(
 		C.CN_RANGED
 	)
 	var first_ranged_attack: RangedAttack = ranged_c.list[0]

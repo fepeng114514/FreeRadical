@@ -49,9 +49,11 @@ func _process_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 		if not _back_origin_pos(e, melee_c):
 			return true
 		
+		e.state = C.STATE.IDLE
 		return false
 		
 	# 有被拦截者
+	e.state = C.STATE.MELEE
 	var blocked: Entity = EntityDB.get_entity_by_id(
 		blockeds_ids[0]
 	)
@@ -126,8 +128,10 @@ func _process_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 		if not _back_origin_pos(e, melee_c):
 			return true
 		
+		e.state = C.STATE.IDLE
 		return false
 	
+	e.state = C.STATE.MELEE
 	var blocker: Entity = EntityDB.get_entity_by_id(blocker_ids[0])
 	var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
 	var is_first_blocked: bool = e.id == blocker_melee_c.blockeds_ids[0]

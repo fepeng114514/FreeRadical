@@ -6,9 +6,25 @@ class_name TowerComponent
 ## 每个子实体进行远程攻击轮换的间隔
 @export var attack_loop_time: float = 0
 @export var list: Array[Entity] = []
+@export var range_offset := Vector2.ZERO:
+	set(value):
+		range_offset = value
+		queue_redraw()
 
 var attack_entity_idx: int = 0
 var ts: float = 0
+
+
+func _draw() -> void:
+	if not Engine.is_editor_hint():
+		return
+		
+	draw_circle(
+		range_offset, 
+		3,
+		Color.GREEN, 
+		true
+	)
 
 
 func _get_configuration_warnings() -> PackedStringArray:

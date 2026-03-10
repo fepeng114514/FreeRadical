@@ -99,6 +99,9 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	
 
 func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
+	if target.state & C.STATE.MELEE:
+		return target.global_position
+	
 	if target.has_c(C.CN_NAV_PATH):
 		var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)
 		
@@ -116,11 +119,6 @@ func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
 			)
 			
 			return predict_pos
-	#
-	#if target.has_c(C.CN_MELEE):
-		#var melee_c: MeleeComponent = target.get_c(C.CN_MELEE)
-		#
-		#if not melee_c.origin_pos_arrived or not melee_c.mel:
 	
 	return Vector2.ZERO
 

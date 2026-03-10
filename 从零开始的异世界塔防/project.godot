@@ -54,6 +54,10 @@ SoundDB="*uid://cc025jxyxcxmc"
 window/size/viewport_width=2560
 window/size/viewport_height=1440
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/wave_editor/plugin.cfg")
+
 [file_customization]
 
 folder_colors={

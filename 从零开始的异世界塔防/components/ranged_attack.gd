@@ -2,8 +2,8 @@
 extends Node2D
 class_name RangedAttack
 
-@export var min_range: float = 25
-@export var max_range: float = 25
+@export var min_range: float = 0
+@export var max_range: float = 300
 @export var cooldown: float = 1
 @export_file("*.tscn") var bullet: String = ""
 @export var bullet_offset := Vector2.ZERO:
