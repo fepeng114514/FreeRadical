@@ -71,6 +71,11 @@ func _on_deselect() -> void:
 			rally_c.new_rally(mouse_global_position)
 		C.SELECT.BARRACK_RALLY:
 			var barrack_c: BarrackComponent = selected_entity.get_c(C.CN_BARRACK)
-			barrack_c.new_rally(mouse_global_position)
+
+			if (
+					selected_entity.global_position.distance_to(mouse_global_position) 
+					< barrack_c.rally_range
+				):
+				barrack_c.new_rally(mouse_global_position)
 	
 	select_type = C.SELECT.NONE
