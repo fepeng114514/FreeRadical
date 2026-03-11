@@ -88,13 +88,14 @@ func _show(e: Entity) -> void:
 
 	if e.has_c(C.CN_MELEE):
 		var melee_c: MeleeComponent = e.get_c(C.CN_MELEE)
-		var max_melee_range: float = melee_c.block_max_range
-		var min_melee_range: float = melee_c.block_min_range
-		
-		_create_melee_range_circle("MaxMeleeRangeCircle", max_melee_range)
+		if melee_c.is_blocker:
+			var max_melee_range: float = melee_c.block_max_range
+			var min_melee_range: float = melee_c.block_min_range
+			
+			_create_melee_range_circle("MaxMeleeRangeCircle", max_melee_range)
 
-		if min_melee_range != 0:
-			_create_melee_range_circle("MinMeleeRangeCircle", min_melee_range)
+			if min_melee_range != 0:
+				_create_melee_range_circle("MinMeleeRangeCircle", min_melee_range)
 
 	if e.has_c(C.CN_TOWER):
 		var tower_c: TowerComponent = e.get_c(C.CN_TOWER)
@@ -144,13 +145,15 @@ func _hidden() -> void:
 			min_circle.remove()
 
 	if selected_entity.has_c(C.CN_MELEE):
-		var max_melee_circle: Node2D = selected_entity.get_node_or_null("MaxMeleeRangeCircle")
-		if max_melee_circle:
-			max_melee_circle.remove()
+		var melee_c: MeleeComponent = selected_entity.get_c(C.CN_MELEE)
+		if melee_c.is_blocker:
+			var max_melee_circle: Node2D = selected_entity.get_node_or_null("MaxMeleeRangeCircle")
+			if max_melee_circle:
+				max_melee_circle.remove()
 
-		var min_melee_circle: Node2D = selected_entity.get_node_or_null("MinMeleeRangeCircle")
-		if min_melee_circle:
-			min_melee_circle.remove()
+			var min_melee_circle: Node2D = selected_entity.get_node_or_null("MinMeleeRangeCircle")
+			if min_melee_circle:
+				min_melee_circle.remove()
 
 	if selected_entity.has_c(C.CN_RALLY):
 		var rally_line_node: Line2D = selected_entity.get_node_or_null("RallyLine")

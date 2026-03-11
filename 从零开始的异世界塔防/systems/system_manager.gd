@@ -24,9 +24,7 @@ func _physics_process(delta: float) -> void:
 	S.continue_s.emit()
 	
 	for system: System in systems:
-		var system_func: Callable = system.get("_on_update")
-		
-		system_func.call(delta)
+		system._on_update(delta)
 	
 	# 帧末尾处理插入与移除
 	call_deferred("_process_insert_queue")
@@ -77,7 +75,7 @@ func _process_remove_queue() -> void:
 		e.free()
 
 
-## 调用所有系统中的指定回调函数
+## 调用所有系统中的指定回调函数，如果遇到一个返回 false 的系统则返回 false，否则返回 true
 func call_systems(fn_name: String, arg) -> bool:
 	for system: System in systems:
 		var system_func = system.get(fn_name)

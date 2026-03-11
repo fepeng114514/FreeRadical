@@ -111,7 +111,10 @@ func arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> voi
 		e.remove_entity()
 
 
-func _on_break(e: Entity) -> void:
+func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
+	if break_behavior == self:
+		return
+
 	var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)
 	if not nav_path_c:
 		return

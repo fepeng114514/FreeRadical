@@ -85,7 +85,7 @@ components = {
 }
 
 [node name="TowerArcher" parent="Store/Entities" unique_id=1010851235 node_paths=PackedStringArray("components") instance=ExtResource("9_dnkej")]
-position = Vector2(888, 512)
+position = Vector2(240, 1056)
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "TowerComponent": NodePath("TowerComponent"),
@@ -93,7 +93,7 @@ components = {
 }
 
 [node name="TowerArcher2" parent="Store/Entities" unique_id=1325601202 node_paths=PackedStringArray("components") instance=ExtResource("9_dnkej")]
-position = Vector2(1144, 376)
+position = Vector2(170, 880)
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "TowerComponent": NodePath("TowerComponent"),
@@ -104,7 +104,8 @@ components = {
 position = Vector2(1136, 512)
 components = {
 "BarrackComponent": NodePath("BarrackComponent"),
-"SpriteComponent": NodePath("SpriteComponent")
+"SpriteComponent": NodePath("SpriteComponent"),
+"UIComponent": NodePath("UIComponent")
 }
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1218244006]

@@ -109,9 +109,8 @@ func _draw() -> void:
 func reset_blocked_count() -> void:
 	var count: int = 0
 	
-	for id in blockeds_ids:
-		var b = EntityDB.get_entity_by_id(id)
-		
+	for id: int in blockeds_ids:
+		var b: Entity = EntityDB.get_entity_by_id(id)
 		if not b:
 			continue
 			
@@ -125,8 +124,8 @@ func reset_blocked_count() -> void:
 func get_blocked(filter: Callable = Callable()) -> Array[Entity]:
 	var blocked_list: Array[Entity] = []
 	
-	for id in blockeds_ids:
-		var e = EntityDB.get_entity_by_id(id)
+	for id: int in blockeds_ids:
+		var e: Entity = EntityDB.get_entity_by_id(id)
 		
 		if not e or filter.is_valid() and not filter.call(e):
 			continue
@@ -134,44 +133,3 @@ func get_blocked(filter: Callable = Callable()) -> Array[Entity]:
 		blocked_list.append(e)
 		
 	return blocked_list
-
-
-## 清理无效被拦截
-func cleanup_blockeds() -> void:
-	var new_blockeds_ids: Array[int] = []
-	
-	for id: int in blockeds_ids:
-		var blocked: Entity = EntityDB.get_entity_by_id(id)
-			
-		if not blocked:
-			continue
-			
-		new_blockeds_ids.append(id)
-		
-	blockeds_ids = new_blockeds_ids
-	
-
-## 清理无效拦截者
-func cleanup_blockers(blocked: Entity) -> void:
-	var new_blockers_ids: Array[int] = []
-	
-	for id: int in blockers_ids:
-		var blocker: Entity = EntityDB.get_entity_by_id(id)
-		if not blocker:
-			continue
-
-		var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
-		if (
-				blocker.global_position.distance_to(
-					blocked.global_position
-				) 
-				> blocker_melee_c.block_max_range
-			):
-			blocker_melee_c.blockeds_ids.erase(blocked.id)
-			blocker_melee_c.need_origin_setup = true
-			blocker_melee_c.melee_pos_arrived = true
-			continue
-			
-		new_blockers_ids.append(id)
-
-	blockers_ids = new_blockers_ids

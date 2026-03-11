@@ -77,5 +77,11 @@ func _on_deselect() -> void:
 					< barrack_c.rally_range
 				):
 				barrack_c.new_rally(mouse_global_position)
+			else:
+				var rally_pos: Vector2 = selected_entity.global_position.direction_to(
+					mouse_global_position
+				) * barrack_c.rally_range + selected_entity.global_position
+				barrack_c.new_rally(rally_pos)
+
 	
 	select_type = C.SELECT.NONE

@@ -33,7 +33,7 @@ func _on_update(e: Entity) -> bool:
 func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	e.play_animation(a.animation)
 	await e.y_wait(a.delay, func() -> bool:
-		return not target
+		return not U.is_vaild_entity(target)
 	)
 	e.play_animation(e.default_animation)
 	a.ts = TimeDB.tick_ts

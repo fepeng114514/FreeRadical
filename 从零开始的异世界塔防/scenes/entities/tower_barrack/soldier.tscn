@@ -47,7 +47,6 @@ script = ExtResource("4_5jui1")
 list = [NodePath("MeleeAttack")]
 melee_pos_offset = Vector2(33.47, 0)
 is_blocker = true
-max_blocked = 2
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1014449767]

@@ -34,14 +34,14 @@ func _notification(what: int) -> void:
 	
 	
 func _on_insert(e: Entity) -> bool:
-	if not call_systems("_on_insert", e):
+	if not call_behaviors("_on_insert", e):
 		return false
 		
 	return true
 
 
 func _on_remove(e: Entity) -> bool:
-	if not call_systems("_on_remove", e):
+	if not call_behaviors("_on_remove", e):
 		return false
 		
 	return true
@@ -54,38 +54,38 @@ func _on_update(_delta: float) -> void:
 	)
 	
 	for e: Entity in entities:
-		var result: bool = _process_update(e)
+		var break_behavior: Behavior = _process_update(e)
 		
-		if result:
-			call_systems("_on_return_true", e)
-			call_systems("_on_break", e)
+		if break_behavior:
+			for behavior: Behavior in list:
+				behavior._on_return_true(e, break_behavior)
 			continue
 
-		call_systems("_on_return_false", e)
+		for behavior: Behavior in list:
+			behavior._on_return_false(e)
+
 		if not e.has_c(C.CN_SPRITE):
 			continue
 			
 		e.play_animation(e.default_animation)	
 			
 			
-func _process_update(e: Entity) -> bool:
-	for system: Behavior in list:
-		var system_func = system.get("_on_update")
+func _process_update(e: Entity) -> Behavior:
+	for behavior: Behavior in list:
+		var behavior_func = behavior.get("_on_update")
 
-		if system_func.call(e):
-			return true
-			
-	return false
+		if behavior_func.call(e):
+			return behavior
+
+	return null
 
 
-## 调用所有行为树中所有系统中的指定回调函数
-func call_systems(fn_name: String, arg) -> bool:
-	for system: Behavior in list:
-		var system_func = system.get(fn_name)
+## 调用所有行为树中的指定回调函数，如果遇到一个返回 false 的行为则返回 false，否则返回 true
+func call_behaviors(fn_name: String, arg) -> bool:
+	for behavior: Behavior in list:
+		var behavior_func = behavior.get(fn_name)
 
-		if not system_func.call(arg):
+		if not behavior_func.call(arg):
 			return false
 
 	return true
-	
-	

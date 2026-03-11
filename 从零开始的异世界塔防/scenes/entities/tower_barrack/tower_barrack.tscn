@@ -26,9 +26,9 @@ texture = ExtResource("3_bfdgq")
 
 [node name="BarrackComponent" type="Node2D" parent="." unique_id=441339810]
 script = ExtResource("4_u6jgq")
-rally_pos = Vector2(0, 200)
 rally_radius = 60.0
 soldier = "uid://f30rl46i8akx"
+max_soldiers = 1
 metadata/_custom_type_script = "uid://b3vhika61oa7p"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=539105763]

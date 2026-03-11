@@ -16,16 +16,12 @@ func _on_remove(e: Entity) -> bool: return true
 func _on_update(e: Entity) -> bool: return false
 
 
-## 更新回调返回 false 时调用
+## 任意一个行为的更新回调返回 false 时调用
 func _on_return_false(e: Entity) -> void: pass
 
 
-## 更新回调返回 true 时调用
-func _on_return_true(e: Entity) -> void: pass
-
-
-## 更新回调阻挡后续行为时调用
-func _on_break(e: Entity) -> void: pass
+## 任意一个行为的更新回调返回 true 时调用
+func _on_return_true(e: Entity, break_behavior: Behavior) -> void: pass
 @warning_ignore_restore("unused_parameter")
 #endregion
 
@@ -40,3 +36,93 @@ func can_attack(a: Variant, target: Entity) -> bool:
 		)
 		and U.is_allowed_entity(a, target)
 	)
+
+
+func go_melee_pos(e: Entity, melee_c: MeleeComponent) -> bool:
+	if melee_c.melee_pos_arrived or U.is_at_destination(
+			e.global_position, melee_c.melee_pos, melee_c.arrived_dist
+	):
+		melee_c.melee_pos_arrived = true
+		return true
+	
+	var direction: Vector2 = e.global_position.direction_to(
+		melee_c.melee_pos
+	)
+	var velocity: Vector2 = (
+		direction 
+		* melee_c.speed 
+		* TimeDB.frame_length
+	)
+	melee_c.velocity = velocity
+	e.global_position += velocity
+	
+	e.play_animation(melee_c.motion_animation)
+	return false
+	
+func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
+	if melee_c.origin_pos_arrived or U.is_at_destination(
+		e.global_position, melee_c.origin_pos, melee_c.arrived_dist
+	):
+		melee_c.origin_pos_arrived = true
+		return true
+	
+	var direction: Vector2 = e.global_position.direction_to(
+		melee_c.origin_pos
+	)
+	var velocity: Vector2 = (
+		direction 
+		* melee_c.speed 
+		* TimeDB.frame_length
+	)
+	melee_c.velocity = velocity
+	e.global_position += velocity
+	
+	e.play_animation(melee_c.motion_animation)
+	return false
+	
+
+func try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> void:
+	for a: MeleeAttack in melee_c.list:
+		if not can_attack(a, target):
+			continue
+			
+		do_melee_attack(e, a, target)
+		break
+
+
+func do_melee_attack(e: Entity, a: MeleeAttack, target: Entity) -> void:
+	Log.verbose("近战攻击: %s" % e)
+	e.play_animation(a.animation)
+	await e.y_wait(a.delay, func() -> bool:
+		return not U.is_vaild_entity(target)
+	)
+	e.play_animation(e.default_animation)
+	a.ts = TimeDB.tick_ts
+	
+	if not U.is_vaild_entity(target):
+		return
+	
+	EntityDB.create_damage(
+		target.id, a.min_damage, a.max_damage, a.damage_type, e.id
+	)
+	EntityDB.create_mods(target.id, a.mods, e.id)
+
+
+## 从被拦截者中擦除拦截者
+func erase_blocker_from_blockeds(
+		erase_id: int, melee_c: MeleeComponent
+	) -> void:
+	for blocked_id: int in melee_c.blockeds_ids:
+		var blocked: Entity = EntityDB.get_entity_by_id(blocked_id)
+		var blocked_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
+		blocked_melee_c.blockers_ids.erase(erase_id)
+
+
+## 从拦截者中擦除被拦截者
+func erase_blocked_from_blockers(
+		erase_id: int, melee_c: MeleeComponent
+	) -> void:
+	for blocker_id: int in melee_c.blockers_ids:
+		var blocker: Entity = EntityDB.get_entity_by_id(blocker_id)
+		var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
+		blocker_melee_c.blockeds_ids.erase(erase_id)
