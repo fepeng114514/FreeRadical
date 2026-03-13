@@ -67,7 +67,7 @@ func _on_update(_delta: float) -> void:
 		if not e.has_c(C.CN_SPRITE):
 			continue
 			
-		e.play_animation(e.default_animation)	
+		e.play_default_animation()
 			
 			
 func _process_update(e: Entity) -> Behavior:

@@ -1,3 +1,4 @@
+@tool
 extends Node
 class_name NavPathComponent
 
@@ -6,10 +7,9 @@ class_name NavPathComponent
 @export var end_ni: int = C.UNSET
 @export var loop: bool = false
 @export var loop_times: int = C.UNSET
-@export var animation: String = "walk"
-@export var right_animation: String = "walk"
-@export var up_animation: String = "walk"
-@export var down_animation: String = "walk"
+## 移动动画名称
+@export var motion_animation_names: AnimationNames = null
+
 
 var nav_pi: int = 0
 var nav_spi: int = 0
@@ -21,6 +21,15 @@ var loop_count: int = 0
 var ts: float = 0
 ## 是否在路径上移动
 var is_walking: bool = true
+
+
+func _ready() -> void:
+	if motion_animation_names == null:
+		motion_animation_names = AnimationNames.new({
+			"up": "walk_up",
+			"down": "walk_down",
+			"left_right": "walk_left_right",
+		})
 
 
 ## PathDB.get_subpath 的简写，已传递 nav_pi, nav_spi

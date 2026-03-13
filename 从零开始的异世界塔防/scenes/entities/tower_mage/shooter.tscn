@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cb2m3hbh7yyxl"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_3kgdc"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_names.gd" id="2_8g6nx"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_i3jkb"]
+[ext_resource type="SpriteFrames" uid="uid://dt35d8kjlji8x" path="res://resources/sprite_frames_resources/tower_mage_shooter.tres" id="3_8g6nx"]
+[ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://components/ranged_component.gd" id="4_nhbol"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://components/ranged_attack.gd" id="5_vssey"]
+
+[sub_resource type="Resource" id="Resource_nhbol"]
+script = ExtResource("2_8g6nx")
+up = "idle_up"
+down = "idle_down"
+
+[sub_resource type="Resource" id="Resource_vssey"]
+script = ExtResource("2_8g6nx")
+up = "ranged_up"
+down = "ranged_down"
+
+[node name="Shooter" type="Node2D" unique_id=1442245649 node_paths=PackedStringArray("components")]
+script = ExtResource("1_3kgdc")
+uid = "uid://cb2m3hbh7yyxl"
+components = {
+"RangedComponent": NodePath("RangedComponent"),
+"SpriteComponent": NodePath("SpriteComponent")
+}
+default_animation_names = SubResource("Resource_nhbol")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1069558628 node_paths=PackedStringArray("list")]
+script = ExtResource("2_i3jkb")
+list = [NodePath("AnimatedSprite2D")]
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=274561601]
+position = Vector2(0, -24)
+sprite_frames = ExtResource("3_8g6nx")
+animation = &"idle_down"
+
+[node name="RangedComponent" type="Node2D" parent="." unique_id=1268978688 node_paths=PackedStringArray("list")]
+script = ExtResource("4_nhbol")
+list = [NodePath("RangedAttack")]
+metadata/_custom_type_script = "uid://7hja048qjkj0"
+
+[node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=14077948]
+script = ExtResource("5_vssey")
+max_range = 350.0
+cooldown = 2.0
+bullet = "uid://c77v7yq60lpig"
+bullet_offset = Vector2(-13.185, -30.8)
+animation_names = SubResource("Resource_vssey")
+delay = 0.3
+metadata/_custom_type_script = "uid://covaxdshxnvkn"

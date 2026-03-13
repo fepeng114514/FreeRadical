@@ -4,7 +4,7 @@
 top_level = true
 points = PackedVector2Array(0, 0, 48, 104, 150, 150, 192, 48, 300, 0)
 width = 7.0
-default_color = Color(0.54300004, 0.9975727, 0.59738505, 1)
+default_color = Color(0.5411765, 0.99607843, 0.59607846, 1)
 joint_mode = 2
 round_precision = 16
 antialiased = true

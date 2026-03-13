@@ -20,6 +20,8 @@ class_name C
 const FPS: int = 60
 const NAME_TOWER_HOLDER: String = "tower_holder_%s"
 const UNSET: int = -1
+const QUARTER_PI: float = PI / 4
+const HALF_PI: float = PI / 2
 #endregion
 
 ## 日志级别枚举
@@ -356,6 +358,15 @@ enum SELECT {
 	NONE,
 	RALLY,
 	BARRACK_RALLY,
+}
+
+
+## 方向枚举 
+enum DIRECTION {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
 }
 
 

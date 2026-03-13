@@ -54,7 +54,6 @@ func get_mod_speed_factor(e: Entity) -> float:
 
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
-	e.play_animation(nav_path_c.animation)
 	nav_path_c.is_walking = true
 	
 	var walk_lenth: float = nav_path_c.speed * TimeDB.frame_length
@@ -65,7 +64,11 @@ func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
 		nav_path_c.nav_progress += walk_lenth
 		
 	nav_path_c.nav_ratio = nav_path_c.get_ratio()
-	e.global_position = nav_path_c.get_progress_pos()
+	var next_position: Vector2 = nav_path_c.get_progress_pos()
+
+	e.look_at_point = next_position
+	e.play_animation_by_look(nav_path_c.motion_animation_names)
+	e.global_position = next_position
 	
 	var nav_ni: int = nav_path_c.nav_ni
 	var next_ni: int = nav_ni

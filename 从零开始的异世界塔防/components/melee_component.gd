@@ -10,8 +10,9 @@ class_name MeleeComponent
 @export var is_passive: bool = false
 ## 移动速度，单位为像素/秒
 @export var speed: float = 100
-## 移动动画
-@export var motion_animation: String = "walk"
+## 移动动画名称
+@export var motion_animation_names: AnimationNames = null
+
 ## 近战位置偏移
 @export var melee_pos_offset := Vector2.ZERO:
 	set(value):
@@ -64,7 +65,6 @@ var melee_pos := Vector2.ZERO
 var melee_pos_arrived: bool = true
 var need_origin_setup: bool = true
 var velocity := Vector2.ZERO
-var meleeing: bool = false
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = PackedStringArray()
@@ -92,6 +92,15 @@ func _update_list() -> void:
 func _notification(what: int) -> void:
 	U.tool_on_tree_call(self, what, _update_list)
 	
+
+func _ready() -> void:
+	if motion_animation_names == null:
+		motion_animation_names = AnimationNames.new({
+			"up": "walk_up",
+			"down": "walk_down",
+			"left_right": "walk_left_right",
+		})
+
 	
 func _draw() -> void:
 	if not Engine.is_editor_hint():

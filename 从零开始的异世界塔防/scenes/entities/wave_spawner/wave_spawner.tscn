@@ -1,16 +1,22 @@
 [gd_scene format=3 uid="uid://dxjst2smnggks"]
 
-[ext_resource type="Script" uid="uid://cnfjkkw1yu7av" path="res://scenes/entities/wave_spawner/wave_spawner.gd" id="1_sjplp"]
+[ext_resource type="Script" uid="uid://cnfjkkw1yu7av" path="res://scenes/entities/wave_spawner/wave_spawner.gd" id="1_x08x5"]
 [ext_resource type="Script" uid="uid://db67y0qigop4w" path="res://components/spawner_component.gd" id="2_0y0gd"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_names.gd" id="2_n3r7w"]
 
-[node name="WaveSpawner" type="Node2D" unique_id=1677388100 node_paths=PackedStringArray("components")]
-script = ExtResource("1_sjplp")
-path = "uid://dxjst2smnggks"
+[sub_resource type="Resource" id="Resource_f7ulx"]
+script = ExtResource("2_n3r7w")
+any = "idle"
+
+[node name="WaveSpawner" type="Node2D" unique_id=708476456 node_paths=PackedStringArray("components")]
+script = ExtResource("1_x08x5")
+uid = "uid://dxjst2smnggks"
 components = {
 "SpawnerComponent": NodePath("SpawnerComponent")
 }
+default_animation_names = SubResource("Resource_f7ulx")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpawnerComponent" type="Node" parent="." unique_id=1178797990]
+[node name="SpawnerComponent" type="Node" parent="." unique_id=1029713442]
 script = ExtResource("2_0y0gd")
 metadata/_custom_type_script = "uid://db67y0qigop4w"

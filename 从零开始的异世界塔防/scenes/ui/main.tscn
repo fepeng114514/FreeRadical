@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://nvbnnvwovpao"]
 
-[ext_resource type="PackedScene" uid="uid://dxr20bhgt2p2y" path="res://scenes/ui/main_buttom.tscn" id="1_0ay0p"]
+[ext_resource type="PackedScene" uid="uid://dxr20bhgt2p2y" path="res://scenes/ui/main_button.tscn" id="1_0ay0p"]
 [ext_resource type="Script" uid="uid://h30p1th8hx0x" path="res://scenes/ui/main.gd" id="1_7n028"]
 [ext_resource type="Script" uid="uid://2q2ogyvl3u7p" path="res://scenes/ui/play_button.gd" id="2_2p1s2"]
-[ext_resource type="Script" uid="uid://c0h3rhfsyy6dp" path="res://scenes/ui/quit_buttom.gd" id="3_02nsg"]
-[ext_resource type="Script" uid="uid://clad8hrp65q4q" path="res://scenes/ui/setting_buttom.gd" id="3_vspwy"]
+[ext_resource type="Script" uid="uid://c0h3rhfsyy6dp" path="res://scenes/ui/quit_button.gd" id="3_02nsg"]
+[ext_resource type="Script" uid="uid://clad8hrp65q4q" path="res://scenes/ui/setting_button.gd" id="3_vspwy"]
 
 [node name="Main" type="PanelContainer" unique_id=1825947900]
 anchors_preset = 15
@@ -42,19 +42,19 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 15
 
-[node name="PlayButtom" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=946227739 instance=ExtResource("1_0ay0p")]
+[node name="PlayButton" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=946227739 instance=ExtResource("1_0ay0p")]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "开始游戏"
 script = ExtResource("2_2p1s2")
 
-[node name="SettingButtom" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=623845627 instance=ExtResource("1_0ay0p")]
+[node name="SettingButton" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=623845627 instance=ExtResource("1_0ay0p")]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "游戏设置"
 script = ExtResource("3_vspwy")
 
-[node name="QuitButtom" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=1967164590 instance=ExtResource("1_0ay0p")]
+[node name="QuitButton" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=1967164590 instance=ExtResource("1_0ay0p")]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "退出游戏"
@@ -64,7 +64,7 @@ script = ExtResource("3_02nsg")
 layout_mode = 2
 alignment = 2
 
-[node name="AboutButtom" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=46850668 instance=ExtResource("1_0ay0p")]
+[node name="AboutButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=46850668 instance=ExtResource("1_0ay0p")]
 custom_minimum_size = Vector2(100, 35)
 layout_mode = 2
 text = "关于"
@@ -77,4 +77,4 @@ text = "v1.0.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/AboutButtom" to="." method="_on_about_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/AboutButton" to="." method="_on_about_button_pressed"]

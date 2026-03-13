@@ -2,17 +2,42 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_v6lno"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_8ij7b"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_names.gd" id="2_uuifh"]
+[ext_resource type="SpriteFrames" uid="uid://cmmma3bsr3u1q" path="res://resources/sprite_frames_resources/tower_mage_bolt.tres" id="3_kyg85"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://components/bullet_component.gd" id="4_uuifh"]
+
+[sub_resource type="Resource" id="Resource_03csp"]
+script = ExtResource("2_uuifh")
+left_right = "idle"
 
 [node name="BulletBolt" type="Node2D" unique_id=511000022 node_paths=PackedStringArray("components")]
 script = ExtResource("1_v6lno")
+uid = "uid://c77v7yq60lpig"
 components = {
+"BulletComponent": NodePath("BulletComponent"),
 "SpriteComponent": NodePath("SpriteComponent")
 }
+default_animation_names = SubResource("Resource_03csp")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1302005454 node_paths=PackedStringArray("list")]
 script = ExtResource("2_8ij7b")
-list = [NodePath("Sprite2D")]
+list = [NodePath("AnimatedSprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=252619909]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=435859138]
+position = Vector2(12, 0)
+sprite_frames = ExtResource("3_kyg85")
+animation = &"idle"
+frame_progress = 0.29759586
+
+[node name="BulletComponent" type="Node" parent="." unique_id=1314316915]
+script = ExtResource("4_uuifh")
+min_damage = 50.0
+max_damage = 50.0
+damage_type = 2
+speed = 500.0
+flight_time = 2.0
+flight_trajectory = 2
+disabled_predict_pos = true
+metadata/_custom_type_script = "uid://haoljvofy74e"

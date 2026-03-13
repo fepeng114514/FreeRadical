@@ -1,0 +1,87 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://cmmma3bsr3u1q"]
+
+[ext_resource type="Texture2D" uid="uid://c8irc233ysspa" path="res://assets/animated_atlas/animated_towers-1.png" id="1_300h1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_300h1"]
+atlas = ExtResource("1_300h1")
+region = Rect2(2151, 1659, 47, 24)
+margin = Rect2(1, 15, 29, 25)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yu5b"]
+atlas = ExtResource("1_300h1")
+region = Rect2(2201, 2056, 42, 45)
+margin = Rect2(19, 3, 34, 4)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gm4qc"]
+atlas = ExtResource("1_300h1")
+region = Rect2(2246, 2141, 38, 46)
+margin = Rect2(18, 2, 38, 3)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dw68b"]
+atlas = ExtResource("1_300h1")
+region = Rect2(2246, 352, 40, 43)
+margin = Rect2(18, 2, 36, 6)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vk74n"]
+atlas = ExtResource("1_300h1")
+region = Rect2(287, 1786, 25, 26)
+margin = Rect2(26, 11, 51, 23)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l34iy"]
+atlas = ExtResource("1_300h1")
+region = Rect2(2246, 2115, 38, 24)
+margin = Rect2(10, 15, 38, 25)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_300h1")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yu5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yu5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yu5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gm4qc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gm4qc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dw68b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dw68b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk74n")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l34iy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 30.0
+}]

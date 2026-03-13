@@ -19,7 +19,8 @@ class_name Entity
 @export var track_source: bool = false
 ## 是否追踪 target 实体
 @export var track_target: bool = false
-@export var default_animation: String = "idle"
+## 默认动画名称
+@export var default_animation_names: AnimationNames = null
 
 @export_group("限制相关")
 ## 白名单实体 UID 列表
@@ -96,6 +97,7 @@ var removed: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
 var state := C.STATE.IDLE
+var look_at_point := Vector2.INF
 #endregion
 
 
@@ -174,6 +176,11 @@ func _to_string():
 
 
 func _ready() -> void:
+	if default_animation_names == null:
+		default_animation_names = AnimationNames.new({
+			"left_right": "idle_left_right",
+		})
+
 	if not Engine.is_editor_hint():
 		return
 		
@@ -341,17 +348,37 @@ func get_animated_sprite(sprite_idx: int = 0) -> Node2D:
 	
 	
 ## 播放动画
-func play_animation(anim_name: String, sprite_idx: int = 0) -> void:
+func play_animation(anim_name: String, sprite_idx: int = 0, filp_h: bool = false) -> void:
 	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
 	if not sprite:
 		return
 		
-	if sprite.animation == anim_name:
+	if sprite.animation == anim_name and sprite.flip_h == filp_h:
 		return
 		
-	Log.verbose("播放动画: %s, %s" % [self, anim_name])
+	if not sprite.sprite_frames.has_animation(anim_name):
+		Log.error("play_animation: %s 未找到动画: %s" % [self, anim_name])
+		return
+		
+	Log.verbose("%s 播放动画: %s" % [self, anim_name])
 	sprite.play(anim_name)
+	sprite.flip_h = filp_h
+
+
+## 根据实体与看向目标点的角度播放对应的动画
+func play_animation_by_look(animation_names: AnimationNames, sprite_idx: int = 0) -> void:
+	var animation_name: String = ""
+
+	var result: Array = animation_names.get_animation_name_for_look(self)
+	animation_name = result[0]
+	var filp_h: bool = result[2]
 	
+	play_animation(animation_name, sprite_idx, filp_h)
+
+
+func play_default_animation(sprite_idx: int = 0) -> void:
+	play_animation_by_look(default_animation_names, sprite_idx)
+
 
 ## 等待动画播放完成
 func wait_animation(

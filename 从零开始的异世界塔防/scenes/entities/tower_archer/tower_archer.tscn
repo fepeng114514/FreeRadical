@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=747150892]
 script = ExtResource("6_d15la")
-click_rect = Rect2(-48.615, -94.26, 96.23, 99.49)
+click_rect = Rect2(-48.615, -83.005, 96.23, 104.52)
 info_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
@@ -31,17 +31,18 @@ list = [NodePath("Sprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=869472279]
+position = Vector2(-1, 18)
 texture = ExtResource("3_ivbmm")
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788 node_paths=PackedStringArray("list")]
-position = Vector2(0, -66)
+position = Vector2(0, -49)
 script = ExtResource("7_plukg")
 attack_loop_time = 1.0
 list = [NodePath("ArcherShooter"), NodePath("ArcherShooter2")]
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="ArcherShooter" parent="TowerComponent" unique_id=2011504655 node_paths=PackedStringArray("components") instance=ExtResource("2_4mkqg")]
-position = Vector2(21, -1)
+position = Vector2(20, 2)
 components = {
 "RangedComponent": NodePath("RangedComponent"),
 "SpriteComponent": NodePath("SpriteComponent")

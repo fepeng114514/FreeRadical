@@ -17,7 +17,6 @@ class_name BarrackComponent
 	set(value):
 		range_offset = value
 		queue_redraw()
-		
 ## 集结点半径，表示士兵距离集结点中心的半径，单位为像素
 @export var rally_radius: float = 30
 ## 士兵 UID，表示生成的士兵实体将使用该模板进行创建
@@ -26,7 +25,9 @@ class_name BarrackComponent
 @export var respawn_time: float = 10
 ## 最大士兵数量，表示兵营最多可以同时存在的士兵数量，超过该数量时将不再生成新的士兵
 @export var max_soldiers: int = 3
-@export var animation: String = "spawn"
+## 动画名称
+@export var animation_names: AnimationNames = null
+
 
 ## 时间戳，表示上一次生成士兵的时间，用于计算生成士兵的时间间隔
 var ts: float = 0
@@ -34,6 +35,13 @@ var ts: float = 0
 var soldiers_list: Array = []
 ## 上一次士兵数量，表示上一次生成士兵时的士兵数量，用于检测士兵数量变化
 var last_soldier_count: int = C.UNSET
+
+
+func _ready() -> void:
+	if animation_names == null:
+		animation_names = AnimationNames.new({
+			"left_right": "spawn",
+		})
 
 
 func _draw() -> void:

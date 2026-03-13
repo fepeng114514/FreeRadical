@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui_layer.tscn" id="7_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer/tower_archer.tscn" id="9_dnkej"]
 [ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/tower_barrack/tower_barrack.tscn" id="14_iwr0g"]
+[ext_resource type="PackedScene" uid="uid://wc2518mmc5jt" path="res://scenes/entities/tower_mage/tower_mage.tscn" id="15_bahl2"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
 
 [sub_resource type="Curve2D" id="Curve2D_q8u5g"]
@@ -85,15 +86,7 @@ components = {
 }
 
 [node name="TowerArcher" parent="Store/Entities" unique_id=1010851235 node_paths=PackedStringArray("components") instance=ExtResource("9_dnkej")]
-position = Vector2(240, 1056)
-components = {
-"SpriteComponent": NodePath("SpriteComponent"),
-"TowerComponent": NodePath("TowerComponent"),
-"UIComponent": NodePath("UIComponent")
-}
-
-[node name="TowerArcher2" parent="Store/Entities" unique_id=1325601202 node_paths=PackedStringArray("components") instance=ExtResource("9_dnkej")]
-position = Vector2(170, 880)
+position = Vector2(888, 520)
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "TowerComponent": NodePath("TowerComponent"),
@@ -101,10 +94,18 @@ components = {
 }
 
 [node name="TowerBarrack" parent="Store/Entities" unique_id=383018069 node_paths=PackedStringArray("components") instance=ExtResource("14_iwr0g")]
-position = Vector2(1136, 512)
+position = Vector2(1144, 512)
 components = {
 "BarrackComponent": NodePath("BarrackComponent"),
 "SpriteComponent": NodePath("SpriteComponent"),
+"UIComponent": NodePath("UIComponent")
+}
+
+[node name="TowerMage" parent="Store/Entities" unique_id=88348674 node_paths=PackedStringArray("components") instance=ExtResource("15_bahl2")]
+position = Vector2(864, 384)
+components = {
+"SpriteComponent": NodePath("SpriteComponent"),
+"TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
 

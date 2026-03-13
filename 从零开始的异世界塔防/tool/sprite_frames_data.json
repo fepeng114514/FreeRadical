@@ -1,10 +1,10 @@
 {
-	"goblin": {
-		"idle": {
+	"enemy_goblin": {
+		"idle_left_right": {
 			"from": 67,
 			"to": 67
 		},
-		"walk": {
+		"walk_left_right": {
 			"from": 1,
 			"to": 22
 		},
@@ -12,49 +12,187 @@
 			"from": 45,
 			"to": 66
 		},
-		"walk_rightLeft": {
-			"from": 1,
-			"to": 22
-		},
 		"walk_up": {
 			"from": 23,
 			"to": 44
 		},
-		"melee": {
+		"melee_left_right": {
 			"from": 70,
 			"to": 82
 		},
-		"death": {
+		"death_left_right": {
 			"from": 106,
 			"to": 120
 		}
 	},
 	"tower_archer_lvl1_shooter": {
+		"idle_down": {
+			"from": 1,
+			"to": 1
+		},
+		"idle_up": {
+			"from": 2,
+			"to": 2
+		},
+		"ranged_down": {
+			"from": 3,
+			"to": 10
+		},
+		"ranged_up": {
+			"from": 11,
+			"to": 18
+		}
+	},
+	"tower_archer_lvl2_shooter": {
+		"idle_down": {
+			"from": 1,
+			"to": 1
+		},
+		"idle_up": {
+			"from": 2,
+			"to": 2
+		},
+		"ranged_down": {
+			"from": 3,
+			"to": 10
+		},
+		"ranged_up": {
+			"from": 11,
+			"to": 18
+		}
+	},
+	"tower_archer_lvl3_shooter": {
+		"idle_down": {
+			"from": 1,
+			"to": 1
+		},
+		"idle_up": {
+			"from": 2,
+			"to": 2
+		},
+		"ranged_down": {
+			"from": 3,
+			"to": 10
+		},
+		"ranged_up": {
+			"from": 11,
+			"to": 18
+		}
+	},
+	"tower_barracks_soldier_lvl1": {
+		"idle_left_right": {
+			"from": 1,
+			"to": 1
+		},
+		"walk_left_right": {
+			"from": 2,
+			"to": 6
+		},
+		"melee_left_right": {
+			"from": 7,
+			"to": 17
+		},
+		"death_left_right": {
+			"from": 18,
+			"to": 23
+		}
+	},
+	"tower_barracks_soldier_lvl2": {
+		"idle_left_right": {
+			"from": 1,
+			"to": 1
+		},
+		"walk_left_right": {
+			"from": 2,
+			"to": 6
+		},
+		"melee_left_right": {
+			"from": 7,
+			"to": 17
+		},
+		"death_left_right": {
+			"from": 18,
+			"to": 23
+		}
+	},
+	"tower_barracks_soldier_lvl3": {
+		"idle_left_right": {
+			"from": 1,
+			"to": 1
+		},
+		"walk_left_right": {
+			"from": 2,
+			"to": 6
+		},
+		"melee_left_right": {
+			"from": 7,
+			"to": 17
+		},
+		"death_left_right": {
+			"from": 18,
+			"to": 23
+		}
+	},
+	"tower_mage_shooter": {
+		"idle_down": {
+			"from": 1,
+			"to": 1
+		},
+		"idle_up": {
+			"from": 2,
+			"to": 2
+		},
+		"ranged_down": {
+			"from": 3,
+			"to": 15
+		},
+		"ranged_up": {
+			"from": 17,
+			"to": 30
+		}
+	},
+	"tower_mage_lvl1": {
 		"idle": {
 			"from": 1,
 			"to": 1
 		},
 		"ranged": {
-			"from": 3,
-			"to": 10
+			"from": 1,
+			"to": 12
 		}
 	},
-	"soldier_lvl1": {
+	"tower_mage_lvl2": {
 		"idle": {
 			"from": 1,
 			"to": 1
 		},
-		"walk": {
+		"ranged": {
+			"from": 1,
+			"to": 12
+		}
+	},
+	"tower_mage_lvl3": {
+		"idle": {
+			"from": 1,
+			"to": 1
+		},
+		"ranged": {
+			"from": 1,
+			"to": 12
+		}
+	},
+	"tower_mage_bolt": {
+		"idle": {
+			"from": 1,
+			"to": 1
+		},
+		"flying": {
 			"from": 2,
-			"to": 6
+			"to": 2
 		},
-		"melee": {
-			"from": 7,
-			"to": 17
-		},
-		"death": {
-			"from": 18,
-			"to": 23
+		"hit": {
+			"from": 3,
+			"to": 10
 		}
 	}
 }

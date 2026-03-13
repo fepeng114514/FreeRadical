@@ -31,11 +31,12 @@ func _on_update(e: Entity) -> bool:
 	
 	
 func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
-	e.play_animation(a.animation)
+	e.look_at_point = target.global_position
+	e.play_animation_by_look(a.animation_names)
 	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_vaild_entity(target)
 	)
-	e.play_animation(e.default_animation)
+	e.play_animation_by_look(e.default_animation_names)
 	a.ts = TimeDB.tick_ts
 
 	if not target:

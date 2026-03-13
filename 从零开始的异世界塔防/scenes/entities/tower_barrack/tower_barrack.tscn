@@ -21,7 +21,7 @@ list = [NodePath("Sprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=927508667]
-position = Vector2(0, -64)
+position = Vector2(0, -48)
 texture = ExtResource("3_bfdgq")
 
 [node name="BarrackComponent" type="Node2D" parent="." unique_id=441339810]
@@ -33,6 +33,6 @@ metadata/_custom_type_script = "uid://b3vhika61oa7p"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=539105763]
 script = ExtResource("5_a0xnb")
-click_rect = Rect2(-60.815, -96.93, 118.91, 98.915)
+click_rect = Rect2(-60.815, -82.035, 118.91, 98.915)
 info_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

@@ -2,7 +2,8 @@
 extends EditorScript
 
 
-"""图集格式
+"""
+图集格式:
 "图集名.png": {	# 来自哪个图集，主要用于多图集的打包
 	"图像名": {
 		"quad": [	# 图像区域
@@ -19,6 +20,26 @@ extends EditorScript
 		],
 		"alias": []	# 别名
 	},
+
+动画文件格式:
+"动画资源名": {	# 生成的 SpriteFrames 资源名
+	"动画名": {	# SpriteFrames 中的动画名
+		"from": 1,	# 起始帧索引
+		"to": 10,	# 结束帧索引
+		"fps": 30,	# 帧率，默认为 30
+		"loop": true	# 是否循环，默认为 true
+	}
+}
+
+动画名规范:
+动画名应由方向和动作两部分组成，使用下划线分隔，格式为 "动作_方向"。
+无方向的动画可以省略方向部分，格式为 "动作"。
+方向部分可以是 AnimationNames 资源属性: "up"、"down"、"left_right" 等。
+动作部分可以是任意描述动画的字符串，如 "idle"、"walk"、"melee"、"death" 等。
+示例:
+"idle_up" 表示向上的待机动画
+"walk_left_right" 表示左右的行走动画
+"melee" 表示无方向的近战攻击动画
 """
 	
 const REQUIRED_ANIMATED_ATLAS: Array[String] = [
@@ -117,6 +138,7 @@ func _load_sprite_frames() -> void:
 				sprite_frames.clear(anim_name)
 			else:
 				sprite_frames.add_animation(anim_name)
+				Log.verbose("增加动画: %s, 到 %s" % [anim_name, sprite_frames_name])
 			
 			var fps: float = anim_data.get("fps", 30)
 			var loop: bool = anim_data.get("loop", true)
@@ -151,13 +173,10 @@ func _save_atlas_texture(
 		atlas_texture_name: String, atlas_texture: AtlasTexture
 	) -> void:
 	var save_path: String = C.PATH_ATLAS_TEXTURE_RESOURCES % atlas_texture_name
-	
-	if ResourceLoader.exists(save_path):
-		return
 		
 	ResourceSaver.save(atlas_texture, save_path)
 	
-	Log.verbose("生成 AtlasTexture: %s.tres" % atlas_texture_name)
+	Log.info("生成 AtlasTexture: %s.tres" % atlas_texture_name)
 
 
 func _save_sprite_frames() -> void:
@@ -165,10 +184,8 @@ func _save_sprite_frames() -> void:
 		var sprite_frames: SpriteFrames = sprite_frames_db[sprite_frames_name]
 		
 		var save_path: String = C.PATH_SPRITE_FRAMES_RESOURCES % sprite_frames_name
-		
-		if ResourceLoader.exists(save_path):
-			continue
+
 			
 		ResourceSaver.save(sprite_frames, save_path)
 		
-		Log.verbose("生成 SpriteFrames: %s.tres" % sprite_frames_name)
+		Log.info("生成 SpriteFrames: %s.tres" % sprite_frames_name)

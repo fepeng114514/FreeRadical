@@ -1,16 +1,27 @@
+@tool
 extends NavigationAgent2D
 class_name RallyComponent
 
 @export var speed: float = 100
 @export var rally_radius: float = 30
 @export var can_click_rally: bool = true
-@export var animation: String = "walk"
+## 移动动画名称
+@export var motion_animation_names: AnimationNames = null
 @export var rally_pos := Vector2.ZERO:
 	set(value):
 		rally_pos = value
 		target_position = value
 
 var arrived: bool = false
+
+
+func _ready() -> void:
+	if motion_animation_names == null:
+		motion_animation_names = AnimationNames.new({
+			"up": "walk_up",
+			"down": "walk_down",
+			"left_right": "walk_left_right",
+		})
 
 
 func new_rally(

@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://oya8wpn6jmc8" path="res://icon.svg" id="1_xjfbv"]
 [ext_resource type="PackedScene" uid="uid://cufaf4wyw3b10" path="res://scenes/ui/game_ui_text.tscn" id="2_bma8u"]
 [ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scenes/ui/entity_info_panel.gd" id="2_xjfbv"]
+[ext_resource type="Script" uid="uid://c63j83w3vyiym" path="res://scenes/ui/speed_button.gd" id="3_8gp0l"]
+[ext_resource type="Script" uid="uid://bxq7ymbwdp2cp" path="res://scenes/ui/pause_button.gd" id="3_x7ddu"]
 [ext_resource type="PackedScene" uid="uid://t080pjf0rnto" path="res://scenes/range_circle.tscn" id="4_injcn"]
 [ext_resource type="PackedScene" uid="uid://bgd5nra3mpc84" path="res://scenes/rally_circle.tscn" id="5_kdhno"]
 [ext_resource type="PackedScene" uid="uid://dl3mrqjqn7bj3" path="res://scenes/rally_line.tscn" id="6_kdhno"]
@@ -84,6 +86,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -93,14 +96,17 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="TopBar" type="HBoxContainer" parent="GameUI/VBoxContainer" unique_id=456794228]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="PlayerResources" type="HBoxContainer" parent="GameUI/VBoxContainer/TopBar" unique_id=1039753835]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="Life" type="HBoxContainer" parent="GameUI/VBoxContainer/TopBar/PlayerResources" unique_id=1234846704]
@@ -136,6 +142,7 @@ mouse_filter = 2
 
 [node name="TopControls" type="HBoxContainer" parent="GameUI/VBoxContainer/TopBar" unique_id=920722687]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 15
 
 [node name="SpeedButton" type="Button" parent="GameUI/VBoxContainer/TopBar/TopControls" unique_id=2015142173]
@@ -144,14 +151,24 @@ layout_mode = 2
 theme = SubResource("5")
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
-text = "1x"
+text = "1.0x"
+script = ExtResource("3_8gp0l")
 
-[node name="PauseButton" type="Button" parent="GameUI/VBoxContainer/TopBar/TopControls" unique_id=1349281211]
+[node name="PauseButton" type="Button" parent="GameUI/VBoxContainer/TopBar/TopControls" unique_id=1544288290]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme = SubResource("5")
 theme_override_font_sizes/font_size = 24
-text = "⏸️"
+toggle_mode = true
+text = "⏱"
+script = ExtResource("3_x7ddu")
+
+[node name="MenuButton" type="Button" parent="GameUI/VBoxContainer/TopBar/TopControls" unique_id=1349281211]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme = SubResource("5")
+theme_override_font_sizes/font_size = 24
+text = "≡"
 
 [node name="MiddleSpacer" type="Control" parent="GameUI/VBoxContainer" unique_id=528073065]
 layout_mode = 2
@@ -161,11 +178,13 @@ mouse_filter = 2
 [node name="BottomBar" type="HBoxContainer" parent="GameUI/VBoxContainer" unique_id=784814996]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_constants/separation = 30
 alignment = 2
 
 [node name="Skills" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar" unique_id=1178020824]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 15
 
 [node name="Skill1" type="Button" parent="GameUI/VBoxContainer/BottomBar/Skills" unique_id=265665211]
@@ -196,6 +215,7 @@ mouse_filter = 2
 
 [node name="EntityInfoPanel" type="PanelContainer" parent="GameUI/VBoxContainer/BottomBar" unique_id=1798517703]
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("4")
 script = ExtResource("2_xjfbv")
 range_circle = ExtResource("4_injcn")
@@ -205,6 +225,7 @@ rally_line = ExtResource("6_kdhno")
 
 [node name="MarginContainer" type="MarginContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel" unique_id=941920840]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 20
@@ -212,6 +233,7 @@ theme_override_constants/margin_bottom = 12
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer" unique_id=1189586016]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 12
 
 [node name="EntityName" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=213956317 instance=ExtResource("2_bma8u")]
@@ -220,6 +242,7 @@ text = "实体名称"
 
 [node name="HBoxHP" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=478167688]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="LabelHP" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxHP" unique_id=1170246007 instance=ExtResource("2_bma8u")]
@@ -232,6 +255,7 @@ text = "100/100"
 
 [node name="HBoxMelee" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=2109600893]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="LabelMelee" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxMelee" unique_id=567093320 instance=ExtResource("2_bma8u")]
@@ -244,6 +268,7 @@ text = "25-25/1"
 
 [node name="HBoxRanged" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=4318036]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="LabelRanged" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxRanged" unique_id=1129773284 instance=ExtResource("2_bma8u")]
@@ -256,6 +281,7 @@ text = "25-25/1"
 
 [node name="HBoxPhysArmor" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=799253875]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="LabelPhysArmor" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=111562531 instance=ExtResource("2_bma8u")]
@@ -268,6 +294,7 @@ text = "20"
 
 [node name="HBoxMagicArmor" type="HBoxContainer" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer" unique_id=489372127]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="LabelMagicArmor" parent="GameUI/VBoxContainer/BottomBar/EntityInfoPanel/MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=1368164739 instance=ExtResource("2_bma8u")]

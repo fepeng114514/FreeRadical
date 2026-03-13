@@ -54,9 +54,13 @@ func go_melee_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 		* TimeDB.frame_length
 	)
 	melee_c.velocity = velocity
-	e.global_position += velocity
+
+	var next_position: Vector2 = e.global_position + velocity
+	e.look_at_point = next_position
+	e.play_animation_by_look(melee_c.motion_animation_names)
+
+	e.global_position = next_position
 	
-	e.play_animation(melee_c.motion_animation)
 	return false
 	
 func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
@@ -75,9 +79,13 @@ func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 		* TimeDB.frame_length
 	)
 	melee_c.velocity = velocity
-	e.global_position += velocity
+
+	var next_position: Vector2 = e.global_position + velocity
+	e.look_at_point = next_position
+	e.play_animation_by_look(melee_c.motion_animation_names)
+
+	e.global_position = next_position
 	
-	e.play_animation(melee_c.motion_animation)
 	return false
 	
 
@@ -92,11 +100,13 @@ func try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> voi
 
 func do_melee_attack(e: Entity, a: MeleeAttack, target: Entity) -> void:
 	Log.verbose("近战攻击: %s" % e)
-	e.play_animation(a.animation)
+
+	e.look_at_point = target.global_position
+	e.play_animation_by_look(a.animation_names)
 	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_vaild_entity(target)
 	)
-	e.play_animation(e.default_animation)
+	e.play_default_animation()
 	a.ts = TimeDB.tick_ts
 	
 	if not U.is_vaild_entity(target):

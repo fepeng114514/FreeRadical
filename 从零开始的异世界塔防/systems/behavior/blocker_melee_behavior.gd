@@ -59,7 +59,6 @@ func _on_update(e: Entity) -> bool:
 	var blockeds_ids: Array = melee_c.blockeds_ids
 	# 没有被拦截者
 	if not blockeds_ids:
-		melee_c.meleeing = false
 		## need_origin_setup 默认为 true
 		if not melee_c.need_origin_setup:
 			melee_c.need_origin_setup = true
@@ -78,10 +77,12 @@ func _on_update(e: Entity) -> bool:
 	var blocked: Entity = EntityDB.get_entity_by_id(
 		blockeds_ids[0]
 	)
+	if not blocked:
+		return false
+	
 	var blocked_melee_c: MeleeComponent = blocked.get_c(
 		C.CN_MELEE
 	)
-	melee_c.meleeing = true
 	
 	if melee_c.need_origin_setup:
 		melee_c.need_origin_setup = false

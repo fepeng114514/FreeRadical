@@ -14,7 +14,9 @@ class_name RangedAttack
 		bullet_offset = value
 		queue_redraw()
 @export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
-@export var animation: String = "ranged"
+## 远程动画名称
+@export var animation_names: AnimationNames = null
+
 @export var delay: float = 0
 @export var chance: float = 1
 @export var with_melee: bool = false
@@ -55,3 +57,10 @@ func _draw() -> void:
 		false,
 		6
 	)
+
+
+func _ready() -> void:
+	if animation_names == null:
+		animation_names = AnimationNames.new({
+			"left_right": "ranged_left_right",
+		})

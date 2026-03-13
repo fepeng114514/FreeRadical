@@ -2,9 +2,20 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0v2wj"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_4mkqg"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_names.gd" id="2_e0w6f"]
 [ext_resource type="SpriteFrames" uid="uid://xk8gt6uqtvqv" path="res://resources/sprite_frames_resources/tower_archer_lvl1_shooter.tres" id="3_ivbmm"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://components/ranged_component.gd" id="4_d15la"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://components/ranged_attack.gd" id="5_plukg"]
+
+[sub_resource type="Resource" id="Resource_6rlp0"]
+script = ExtResource("2_e0w6f")
+up = "idle_up"
+down = "idle_down"
+
+[sub_resource type="Resource" id="Resource_e4sb0"]
+script = ExtResource("2_e0w6f")
+up = "ranged_up"
+down = "ranged_down"
 
 [node name="Shooter" type="Node2D" unique_id=2011504655 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0v2wj")
@@ -13,6 +24,7 @@ components = {
 "RangedComponent": NodePath("RangedComponent"),
 "SpriteComponent": NodePath("SpriteComponent")
 }
+default_animation_names = SubResource("Resource_6rlp0")
 flags = Array[int]([4])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -23,7 +35,7 @@ list = [NodePath("AnimatedSprite2D")]
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1785141033]
 position = Vector2(0, -24)
 sprite_frames = ExtResource("3_ivbmm")
-animation = &"idle"
+animation = &"idle_down"
 
 [node name="RangedComponent" type="Node2D" parent="." unique_id=129640034 node_paths=PackedStringArray("list")]
 script = ExtResource("4_d15la")
@@ -34,5 +46,6 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 script = ExtResource("5_plukg")
 bullet = "uid://d25hnem6unbul"
 bullet_offset = Vector2(2.185, -17.255)
+animation_names = SubResource("Resource_e4sb0")
 delay = 0.117
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

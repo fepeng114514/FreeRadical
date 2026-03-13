@@ -119,12 +119,7 @@ func _show(e: Entity) -> void:
 
 	if e.has_c(C.CN_BARRACK):
 		var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
-		var rally_circle_node: Node2D = rally_circle.instantiate()
-		rally_circle_node.name = "RallyCircle"
-		var s: float = barrack_c.rally_range / 200
-		rally_circle_node.scale = Vector2(s, s)
-		rally_circle_node.position = barrack_c.range_offset
-		e.add_child(rally_circle_node)
+		_create_melee_range_circle("RallyCircle", barrack_c.rally_range)
 	
 	_update_info()
 
@@ -163,7 +158,7 @@ func _hidden() -> void:
 	if selected_entity.has_c(C.CN_BARRACK):
 		var rally_circle_node: Node2D = selected_entity.get_node_or_null("RallyCircle")
 		if rally_circle_node:
-			rally_circle_node.queue_free()
+			rally_circle_node.remove()
 		
 	selected_entity = null
 

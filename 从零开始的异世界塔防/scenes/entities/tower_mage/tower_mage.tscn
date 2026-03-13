@@ -1,7 +1,54 @@
 [gd_scene format=3 uid="uid://wc2518mmc5jt"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_7y6af"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="2_ag2v0"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_names.gd" id="2_ewl0l"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="3_y3rhc"]
+[ext_resource type="SpriteFrames" uid="uid://bqi5q0g3pf4do" path="res://resources/sprite_frames_resources/tower_mage_lvl1.tres" id="4_as0po"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://components/tower_component.gd" id="5_ewl0l"]
+[ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://scenes/entities/tower_mage/shooter.tscn" id="6_aexug"]
 
-[node name="TowerMage" type="Node2D" unique_id=88348674]
+[sub_resource type="Resource" id="Resource_aexug"]
+script = ExtResource("2_ewl0l")
+any = "idle"
+
+[node name="TowerMage" type="Node2D" unique_id=88348674 node_paths=PackedStringArray("components")]
 script = ExtResource("1_7y6af")
+uid = "uid://wc2518mmc5jt"
+components = {
+"SpriteComponent": NodePath("SpriteComponent"),
+"TowerComponent": NodePath("TowerComponent"),
+"UIComponent": NodePath("UIComponent")
+}
+default_animation_names = SubResource("Resource_aexug")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="UIComponent" type="Node2D" parent="." unique_id=1427274464]
+script = ExtResource("2_ag2v0")
+click_rect = Rect2(-53.555, -80.205, 112.085, 109.085)
+info_type = 1
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=115720524 node_paths=PackedStringArray("list")]
+script = ExtResource("3_y3rhc")
+list = [NodePath("AnimatedSprite2D")]
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=793888686]
+position = Vector2(0, -24)
+sprite_frames = ExtResource("4_as0po")
+animation = &"idle"
+frame_progress = 0.113963984
+
+[node name="TowerComponent" type="Node2D" parent="." unique_id=676982162 node_paths=PackedStringArray("list")]
+script = ExtResource("5_ewl0l")
+list = [NodePath("Shooter")]
+range_offset = Vector2(0, -58.8)
+metadata/_custom_type_script = "uid://d104itkl6l02e"
+
+[node name="Shooter" parent="TowerComponent" unique_id=1442245649 node_paths=PackedStringArray("components") instance=ExtResource("6_aexug")]
+position = Vector2(3, -48)
+components = {
+"RangedComponent": NodePath("RangedComponent"),
+"SpriteComponent": NodePath("SpriteComponent")
+}

@@ -8,7 +8,9 @@ class_name MeleeAttack
 @export var cooldown: float = 1
 @export var damage_type: C.DAMAGE = C.DAMAGE.PHYSICAL
 @export var mods: Array[String] = []
-@export var animation: String = "melee"
+## 动画名称
+@export var animation_names: AnimationNames = null
+
 @export var delay: float = 0
 @export var chance: float = 1
 @export var disabled: bool = false
@@ -28,3 +30,10 @@ class_name MeleeAttack
 var vis_flag_bits: int = 0
 var vis_ban_bits: int = 0
 var ts: float = 0
+
+
+func _ready() -> void:
+	if animation_names == null:
+		animation_names = AnimationNames.new({
+			"left_right": "melee_left_right",
+		})

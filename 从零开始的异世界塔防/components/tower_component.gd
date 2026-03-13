@@ -22,7 +22,7 @@ func _draw() -> void:
 	draw_circle(
 		range_offset, 
 		3,
-		Color.GREEN, 
+		Color(0.757, 0.0, 0.62, 1.0), 
 		true
 	)
 
