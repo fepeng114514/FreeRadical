@@ -32,11 +32,29 @@ func _on_update(e: Entity) -> bool:
 	
 func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	e.look_at_point = target.global_position
-	e.play_animation_by_look(a.animation_names)
+	e.play_animation_by_look(a.animation_names, 0, "ranged")
 	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_vaild_entity(target)
 	)
-	e.play_animation_by_look(e.default_animation_names)
+	var result: Array = e.play_default_animation()
+	var dir_idx: C.DIRECTION = result[1]
+	
+	var bullet_offset := Vector2.ZERO
+	
+	var bullet_offset_group: Dictionary[String, Vector2] = a.bullet_offsets
+	if bullet_offset_group.any:
+		bullet_offset = bullet_offset_group.any
+	else:
+		match dir_idx:
+			C.DIRECTION.UP:
+				bullet_offset = bullet_offset_group.up
+			C.DIRECTION.DOWN:
+				bullet_offset = bullet_offset_group.down
+			C.DIRECTION.LEFT:
+				bullet_offset = bullet_offset_group.left
+			C.DIRECTION.RIGHT:
+				bullet_offset = bullet_offset_group.right
+	
 	a.ts = TimeDB.tick_ts
 
 	if not target:
@@ -45,6 +63,6 @@ func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	var b = EntityDB.create_entity(a.bullet)
 	b.target_id = target.id
 	b.source_id = e.id
-	b.global_position = e.global_position + a.bullet_offset
+	b.global_position = e.global_position + bullet_offset
 	
 	b.insert_entity()

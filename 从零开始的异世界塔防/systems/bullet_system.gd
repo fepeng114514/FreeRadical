@@ -26,7 +26,7 @@ func _on_insert(e: Entity) -> bool:
 	else:
 		bullet_c.predict_target_pos = target.global_position
 	
-	bullet_c.to = bullet_c.predict_target_pos
+	bullet_c.to = bullet_c.predict_target_pos + target.hit_offset
 	bullet_c.from = e.global_position
 	e.look_at(bullet_c.to)
 
@@ -74,7 +74,7 @@ func _on_update(delta: float) -> void:
 			continue
 		
 		if U.is_at_destination(
-				e.global_position, target.global_position, bullet_c.hit_dist
+				e.global_position, target.global_position +  + target.hit_offset, bullet_c.hit_dist
 		):
 			_hit(e, bullet_c, target)
 
@@ -179,7 +179,7 @@ func _trajectory_tracking_update(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
 	if is_instance_valid(target):
-		bullet_c.to = target.global_position
+		bullet_c.to = target.global_position + target.hit_offset
 	
 	var direction: Vector2 = e.global_position.direction_to(bullet_c.to)
 	e.global_position += direction * bullet_c.speed * TimeDB.frame_length

@@ -9,9 +9,17 @@ class_name RangedAttack
 		queue_redraw()
 @export var cooldown: float = 1
 @export_file("*.tscn") var bullet: String = ""
-@export var bullet_offset := Vector2.ZERO:
+## 子弹初始位置偏移字典，指定相应方向的偏移
+## any 会覆盖所有偏移
+@export var bullet_offsets: Dictionary[String, Vector2] = {
+	"left": Vector2.ZERO,
+	"right": Vector2.ZERO,
+	"up": Vector2.ZERO,
+	"down": Vector2.ZERO,
+	"any": Vector2.ZERO,
+}:
 	set(value):
-		bullet_offset = value
+		bullet_offsets = value
 		queue_redraw()
 @export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
 ## 远程动画名称
@@ -42,13 +50,17 @@ var ts: float = 0
 func _draw() -> void:
 	if not Engine.is_editor_hint():
 		return
+	
+	for v: Vector2 in bullet_offsets.values():
+		if not v:
+			continue
 		
-	draw_circle(
-		bullet_offset, 
-		3,
-		Color.GREEN, 
-		true
-	)
+		draw_circle(
+			v, 
+			3,
+			Color.GREEN, 
+			true
+		)
 	
 	draw_circle(
 		position, 

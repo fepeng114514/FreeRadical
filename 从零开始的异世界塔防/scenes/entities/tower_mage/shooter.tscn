@@ -30,14 +30,18 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1069558628 node_paths=PackedStringArray("list")]
 script = ExtResource("2_i3jkb")
 list = [NodePath("AnimatedSprite2D")]
+sync_source = true
+sync_animations = null
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=274561601]
 position = Vector2(0, -24)
 sprite_frames = ExtResource("3_8g6nx")
-animation = &"idle_down"
+animation = &"ranged_down"
+frame_progress = 0.30058262
 
 [node name="RangedComponent" type="Node2D" parent="." unique_id=1268978688 node_paths=PackedStringArray("list")]
+visible = false
 script = ExtResource("4_nhbol")
 list = [NodePath("RangedAttack")]
 metadata/_custom_type_script = "uid://7hja048qjkj0"
@@ -47,7 +51,13 @@ script = ExtResource("5_vssey")
 max_range = 350.0
 cooldown = 2.0
 bullet = "uid://c77v7yq60lpig"
-bullet_offset = Vector2(-13.185, -30.8)
+bullet_offsets = Dictionary[String, Vector2]({
+"any": Vector2(0, 0),
+"down": Vector2(-13.38, -31.645),
+"left": Vector2(0, 0),
+"right": Vector2(0, 0),
+"up": Vector2(12.195, -30.935)
+})
 animation_names = SubResource("Resource_vssey")
 delay = 0.3
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

@@ -21,6 +21,11 @@ class_name Entity
 @export var track_target: bool = false
 ## 默认动画名称
 @export var default_animation_names: AnimationNames = null
+## 击中位置偏移
+@export var hit_offset := Vector2.ZERO:
+	set(value):
+		hit_offset = value
+		queue_redraw()
 
 @export_group("限制相关")
 ## 白名单实体 UID 列表
@@ -109,6 +114,7 @@ func _on_insert() -> bool: return true
 ## 准移除实体时调用，返回 false 的实体将不会被移除
 func _on_remove() -> bool: return true
 
+
 ## 实体更新时调用
 func _on_update(delta: float) -> void: pass
 	
@@ -186,6 +192,18 @@ func _ready() -> void:
 		
 	uid = ResourceUID.path_to_uid(scene_file_path)
 
+
+func _draw() -> void:
+	if not Engine.is_editor_hint():
+		return
+		
+	draw_circle(
+		hit_offset, 
+		3,
+		Color(0.306, 0.914, 0.867, 1.0), 
+		true
+	)
+	
 
 ## 自动更新组件字典
 func _update_components() -> void:
@@ -357,27 +375,55 @@ func play_animation(anim_name: String, sprite_idx: int = 0, filp_h: bool = false
 		return
 		
 	if not sprite.sprite_frames.has_animation(anim_name):
-		Log.error("play_animation: %s 未找到动画: %s" % [self, anim_name])
+		Log.error("%s 未找到动画: %s" % [self, anim_name])
 		return
 		
-	Log.verbose("%s 播放动画: %s" % [self, anim_name])
+	Log.verbose("%s 播放动画: %s, 水平镜像: %s" % [self, anim_name, filp_h])
 	sprite.play(anim_name)
 	sprite.flip_h = filp_h
 
 
 ## 根据实体与看向目标点的角度播放对应的动画
-func play_animation_by_look(animation_names: AnimationNames, sprite_idx: int = 0) -> void:
+func play_animation_by_look(
+		animation_names: AnimationNames, 
+		sprite_idx: int = 0,
+		source_animation_names_key: String = ""
+	) -> Array:
 	var animation_name: String = ""
 
-	var result: Array = animation_names.get_animation_name_for_look(self)
+	var result: Array = animation_names.get_animation_name_for_point(
+		self, look_at_point
+	)
 	animation_name = result[0]
 	var filp_h: bool = result[2]
 	
 	play_animation(animation_name, sprite_idx, filp_h)
 
+	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
+	if not sprite_c.sync_source:
+		return result
+		
+	var source: Entity = EntityDB.get_entity_by_id(source_id)
+	if not source:
+		return result
+	
+	source.look_at_point = look_at_point
+	var s_sprite_c: SpriteComponent = source.get_c(C.CN_SPRITE)
+	var s_animation_names: AnimationNames = s_sprite_c.sync_animations.get(
+		source_animation_names_key
+	)
+	if not s_animation_names:
+		return result
+		
+	source.play_animation_by_look(s_animation_names, sprite_idx)
+	source.wait_animation(sprite_idx)
+	return result
 
-func play_default_animation(sprite_idx: int = 0) -> void:
-	play_animation_by_look(default_animation_names, sprite_idx)
+
+func play_default_animation(sprite_idx: int = 0) -> Array:
+	return play_animation_by_look(
+		default_animation_names, sprite_idx, "idle"
+	)
 
 
 ## 等待动画播放完成
@@ -388,7 +434,13 @@ func wait_animation(
 	var loop_count: int = 0
 	
 	waiting = true
-	while loop_count < times and (not break_fn.is_valid() or break_fn.call()):
+	while (
+			loop_count < times 
+			and (
+				not break_fn.is_valid() 
+				or break_fn.call()
+				)
+		):
 		loop_count += 1
 		await sprite.animation_looped
 	waiting = false

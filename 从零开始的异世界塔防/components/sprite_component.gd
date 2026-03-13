@@ -4,6 +4,10 @@ class_name SpriteComponent
 
 @export var list: Array[Node2D] = []
 
+@export_group("同步动画")
+## 是否所有者同步播放动画
+@export var sync_source: bool = false
+@export var sync_animations: SyncAnimationsData = null
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = PackedStringArray()

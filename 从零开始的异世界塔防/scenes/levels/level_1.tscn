@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui_layer.tscn" id="7_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer/tower_archer.tscn" id="9_dnkej"]
 [ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/tower_barrack/tower_barrack.tscn" id="14_iwr0g"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_names.gd" id="14_np2pn"]
 [ext_resource type="PackedScene" uid="uid://wc2518mmc5jt" path="res://scenes/entities/tower_mage/tower_mage.tscn" id="15_bahl2"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
 
@@ -45,6 +46,14 @@ metadata/_custom_type_script = "uid://b1twtcymtb7c1"
 script = ExtResource("2_iav0o")
 wave_list = Array[ExtResource("3_dnkej")]([SubResource("Resource_iwr0g")])
 metadata/_custom_type_script = "uid://okpyko8fvmx4"
+
+[sub_resource type="Resource" id="Resource_v6ha0"]
+script = ExtResource("14_np2pn")
+left_right = "idle_left_right"
+
+[sub_resource type="Resource" id="Resource_gmpev"]
+script = ExtResource("14_np2pn")
+left_right = "idle_left_right"
 
 [node name="level_1" type="Node2D" unique_id=1565788906]
 script = ExtResource("1_x42e6")
@@ -80,7 +89,6 @@ script = ExtResource("4_oc4kc")
 
 [node name="WaveSpawner" parent="Store/Entities" unique_id=1677388100 node_paths=PackedStringArray("components") instance=ExtResource("4_dga24")]
 wave_set = SubResource("Resource_bahl2")
-uid = "uid://dxjst2smnggks"
 components = {
 "SpawnerComponent": NodePath("SpawnerComponent")
 }
@@ -92,6 +100,7 @@ components = {
 "TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
+default_animation_names = SubResource("Resource_v6ha0")
 
 [node name="TowerBarrack" parent="Store/Entities" unique_id=383018069 node_paths=PackedStringArray("components") instance=ExtResource("14_iwr0g")]
 position = Vector2(1144, 512)
@@ -100,9 +109,10 @@ components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "UIComponent": NodePath("UIComponent")
 }
+default_animation_names = SubResource("Resource_gmpev")
 
 [node name="TowerMage" parent="Store/Entities" unique_id=88348674 node_paths=PackedStringArray("components") instance=ExtResource("15_bahl2")]
-position = Vector2(864, 384)
+position = Vector2(416, 560)
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "TowerComponent": NodePath("TowerComponent"),

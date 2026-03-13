@@ -26,41 +26,15 @@ func _init(data: Dictionary = {}) -> void:
 	
 
 ## 根据实体与看向目标点的角度返回对应的动画名称 [br]
-func get_animation_name_for_look(e: Entity) -> Array:
-	var angle: float = e.global_position.angle_to_point(e.look_at_point)
-	
+func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
 	var anim_name: String = ""
-	var dir_idx: C.DIRECTION = C.DIRECTION.UP
 	var filp_h: bool = false
 
-	if (
-			up_down or left.is_empty() 
-			and right.is_empty() 
-			and left_right.is_empty() 
-		):
-		if angle >= -PI and angle < 0:
-			dir_idx = C.DIRECTION.UP
-		else:
-			dir_idx = C.DIRECTION.DOWN
-	elif (
-			up.is_empty() 
-			and down.is_empty() 
-			and up_down.is_empty() 
-			and left_right
-		):
-		if angle <= C.HALF_PI and angle >= -C.HALF_PI:
-			dir_idx = C.DIRECTION.RIGHT
-		else:
-			dir_idx = C.DIRECTION.LEFT
-	else:
-		if angle >= -3 * C.QUARTER_PI and angle < -C.QUARTER_PI:
-			dir_idx = C.DIRECTION.UP
-		elif angle >= C.QUARTER_PI and angle < 3 * C.QUARTER_PI:
-			dir_idx = C.DIRECTION.DOWN
-		elif angle >= -C.QUARTER_PI and angle < C.QUARTER_PI:
-			dir_idx = C.DIRECTION.RIGHT
-		else:
-			dir_idx = C.DIRECTION.LEFT
+	var angle: float = e.global_position.angle_to_point(
+		point
+	)
+
+	var dir_idx: C.DIRECTION = get_direction_idx(angle)
 			
 	if not any.is_empty():
 		anim_name = any
@@ -68,28 +42,70 @@ func get_animation_name_for_look(e: Entity) -> Array:
 			# 默认朝右所以需要镜像
 			filp_h = true
 	else:
-		match dir_idx:
-			C.DIRECTION.UP:
-				if not up_down.is_empty():
-					anim_name = up_down
-				else:
-					anim_name = up
-			C.DIRECTION.DOWN:
-				if not up_down.is_empty():
-					anim_name = up_down
-				else:
-					anim_name = down
-			C.DIRECTION.LEFT:
-				if not left_right.is_empty():
-					anim_name = left_right
-					# 默认朝右所以需要镜像
-					filp_h = true
-				else:
-					anim_name = left
-			C.DIRECTION.RIGHT:
-				if not left_right.is_empty():
-					anim_name = left_right
-				else:
-					anim_name = right
-			
+		var result: Array = match_animation_name(dir_idx)
+		anim_name = result[0]
+		filp_h = result[1]
+
 	return [anim_name, dir_idx, filp_h]
+
+
+func get_direction_idx(angle: float) -> C.DIRECTION:
+	if (
+			up_down or left.is_empty() 
+			and right.is_empty() 
+			and left_right.is_empty() 
+		):
+		if angle >= -PI and angle < 0:
+			return C.DIRECTION.UP
+		else:
+			return C.DIRECTION.DOWN
+	elif (
+			up.is_empty() 
+			and down.is_empty() 
+			and up_down.is_empty() 
+			and left_right
+		):
+		if angle <= C.HALF_PI and angle >= -C.HALF_PI:
+			return C.DIRECTION.RIGHT
+		else:
+			return C.DIRECTION.LEFT
+	else:
+		if angle >= -3 * C.QUARTER_PI and angle < -C.QUARTER_PI:
+			return C.DIRECTION.UP
+		elif angle >= C.QUARTER_PI and angle < 3 * C.QUARTER_PI:
+			return C.DIRECTION.DOWN
+		elif angle >= -C.QUARTER_PI and angle < C.QUARTER_PI:
+			return C.DIRECTION.RIGHT
+		else:
+			return C.DIRECTION.LEFT
+
+
+func match_animation_name(dir_idx: C.DIRECTION) -> Array:
+	var anim_name: String = ""
+	var filp_h: bool = false
+
+	match dir_idx:
+		C.DIRECTION.UP:
+			if not up_down.is_empty():
+				anim_name = up_down
+			else:
+				anim_name = up
+		C.DIRECTION.DOWN:
+			if not up_down.is_empty():
+				anim_name = up_down
+			else:
+				anim_name = down
+		C.DIRECTION.LEFT:
+			if not left_right.is_empty():
+				anim_name = left_right
+				# 默认朝右所以需要镜像
+				filp_h = true
+			else:
+				anim_name = left
+		C.DIRECTION.RIGHT:
+			if not left_right.is_empty():
+				anim_name = left_right
+			else:
+				anim_name = right
+			
+	return [anim_name, filp_h]

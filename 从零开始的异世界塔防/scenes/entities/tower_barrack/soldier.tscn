@@ -38,9 +38,11 @@ components = {
 "UIComponent": NodePath("UIComponent")
 }
 default_animation_names = SubResource("Resource_enhu5")
+hit_offset = Vector2(0, -16.4)
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=389197924 node_paths=PackedStringArray("list")]
+show_behind_parent = true
 script = ExtResource("2_se3ma")
 list = [NodePath("AnimatedSprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
@@ -48,7 +50,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1889529730]
 position = Vector2(0, -35)
 sprite_frames = ExtResource("4_ovm3w")
-animation = &"melee_left_right"
+animation = &"idle_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=949799713 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("5_lmejv")
@@ -83,5 +85,5 @@ metadata/_custom_type_script = "uid://2keyy5hsydyv"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=2093072497]
 script = ExtResource("9_8n3d5")
-click_rect = Rect2(-17.7, -34.25, 35.59, 40.08)
+click_rect = Rect2(-17.7, -38.315, 35.59, 40.08)
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

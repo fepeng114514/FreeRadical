@@ -48,12 +48,10 @@ func _on_remove(e: Entity) -> bool:
 	
 	
 func _on_update(_delta: float) -> void:
-	var entities: Array = EntityDB.get_vaild_entities().filter(
-		func(e: Entity) -> bool:
-			return not e.is_waiting()
-	)
-	
-	for e: Entity in entities:
+	for e: Entity in EntityDB.get_vaild_entities():
+		if e.is_waiting():
+			continue
+		
 		var break_behavior: Behavior = _process_update(e)
 		
 		if break_behavior:

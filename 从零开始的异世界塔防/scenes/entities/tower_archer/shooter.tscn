@@ -36,6 +36,7 @@ list = [NodePath("AnimatedSprite2D")]
 position = Vector2(0, -24)
 sprite_frames = ExtResource("3_ivbmm")
 animation = &"idle_down"
+frame_progress = 0.49845892
 
 [node name="RangedComponent" type="Node2D" parent="." unique_id=129640034 node_paths=PackedStringArray("list")]
 script = ExtResource("4_d15la")
@@ -45,7 +46,13 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=1939030855]
 script = ExtResource("5_plukg")
 bullet = "uid://d25hnem6unbul"
-bullet_offset = Vector2(2.185, -17.255)
+bullet_offsets = Dictionary[String, Vector2]({
+"any": Vector2(5.725, -18.35),
+"down": Vector2(0, 0),
+"left": Vector2(0, 0),
+"right": Vector2(0, 0),
+"up": Vector2(0, 0)
+})
 animation_names = SubResource("Resource_e4sb0")
 delay = 0.117
 metadata/_custom_type_script = "uid://covaxdshxnvkn"
