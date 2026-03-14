@@ -10,8 +10,8 @@ class_name MeleeComponent
 @export var is_passive: bool = false
 ## 移动速度，单位为像素/秒
 @export var speed: float = 100
-## 移动动画名称
-@export var motion_animation_names: AnimationNames = null
+## 移动动画数据
+@export var motion_animation_data: AnimationData = null
 
 ## 近战位置偏移
 @export var melee_pos_offset := Vector2.ZERO:
@@ -21,7 +21,7 @@ class_name MeleeComponent
 ## 到达位置的阈值
 @export var arrived_dist: float = 10
 
-@export_group("拦截者")
+@export_group("Blocker")
 ## 是否是拦截者，表示实体是否具有拦截能力
 @export var is_blocker: bool = false
 ## 拦截最小范围，单位为像素
@@ -33,11 +33,11 @@ class_name MeleeComponent
 ## 最大被拦截者数量
 @export var max_blocked: int = 1
 
-@export_group("被拦截者")
+@export_group("Blocked")
 ## 拦截成本，表示被拦截者的拦截成本
 @export var block_cost: int = 1
 
-@export_group("限制相关")
+@export_group("Limit")
 @export var block_flags: Array[C.FLAG] = []:
 	set(value): 
 		block_flags = value
@@ -94,8 +94,8 @@ func _notification(what: int) -> void:
 	
 
 func _ready() -> void:
-	if motion_animation_names == null:
-		motion_animation_names = AnimationNames.new({
+	if motion_animation_data == null:
+		motion_animation_data = AnimationData.new({
 			"up": "walk_up",
 			"down": "walk_down",
 			"left_right": "walk_left_right",

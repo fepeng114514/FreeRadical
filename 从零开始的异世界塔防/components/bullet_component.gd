@@ -40,9 +40,14 @@ class_name BulletComponent
 @export var hit_remove: bool = true
 ## 未击中目标时是否移除子弹实体
 @export var miss_remove: bool = true
-@export var flying_animation_names: AnimationNames = null
-@export var hit_animation_names: AnimationNames = null
-@export var miss_animation_names: AnimationNames = null
+
+@export_group("Animations")
+## 飞行动画数据
+@export var flying_animation_data: AnimationData = null
+## 击中动画数据
+@export var hit_animation_data: AnimationData = null
+## 未击中动画数据
+@export var miss_animation_data: AnimationData = null
 
 ## 起始位置，表示子弹的起始位置，单位为像素
 var from := Vector2.ZERO

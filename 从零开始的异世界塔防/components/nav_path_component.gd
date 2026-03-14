@@ -7,8 +7,8 @@ class_name NavPathComponent
 @export var end_ni: int = C.UNSET
 @export var loop: bool = false
 @export var loop_times: int = C.UNSET
-## 移动动画名称
-@export var motion_animation_names: AnimationNames = null
+## 移动动画数据
+@export var motion_animation_data: AnimationData = null
 
 
 var nav_pi: int = 0
@@ -24,8 +24,8 @@ var is_walking: bool = true
 
 
 func _ready() -> void:
-	if motion_animation_names == null:
-		motion_animation_names = AnimationNames.new({
+	if motion_animation_data == null:
+		motion_animation_data = AnimationData.new({
 			"up": "walk_up",
 			"down": "walk_down",
 			"left_right": "walk_left_right",

@@ -110,7 +110,7 @@ const PATH_ENTITY_SCENES: Array[String] = [
 	"res://scenes/entities/tower_archer/tower_archer.tscn", 
 	"res://scenes/entities/tower_barrack/soldier.tscn", 
 	"res://scenes/entities/tower_barrack/tower_barrack.tscn", 
-	"res://scenes/entities/tower_engineer/tower_engineer.tscn", 
+	"res://scenes/entities/tower_artillery/tower_artillery.tscn", 
 	"res://scenes/entities/tower_mage/bullet_bolt.tscn", 
 	"res://scenes/entities/tower_mage/tower_mage.tscn", 
 	"res://scenes/entities/wave_spawner/wave_spawner.tscn",

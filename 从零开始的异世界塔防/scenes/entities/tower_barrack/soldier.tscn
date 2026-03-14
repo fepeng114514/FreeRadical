@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://f30rl46i8akx"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_8n3d5"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_names.gd" id="2_ovm3w"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_ovm3w"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_se3ma"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://components/melee_component.gd" id="4_5jui1"]
 [ext_resource type="SpriteFrames" uid="uid://bcuypu8u2qhpt" path="res://resources/sprite_frames_resources/tower_barracks_soldier_lvl1.tres" id="4_ovm3w"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://components/rally_component.gd" id="8_yfwee"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="9_8n3d5"]
 
-[sub_resource type="Resource" id="Resource_enhu5"]
+[sub_resource type="Resource" id="Resource_ovm3w"]
 script = ExtResource("2_ovm3w")
 left_right = "idle_left_right"
 
@@ -20,11 +20,13 @@ script = ExtResource("2_ovm3w")
 left_right = "death_left_right"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
-[sub_resource type="Resource" id="Resource_p1ots"]
+[sub_resource type="Resource" id="Resource_enhu5"]
 script = ExtResource("2_ovm3w")
+up = "walk_up"
+down = "walk_down"
 left_right = "walk_left_right"
 
-[sub_resource type="Resource" id="Resource_ovm3w"]
+[sub_resource type="Resource" id="Resource_p1ots"]
 script = ExtResource("2_ovm3w")
 left_right = "melee_left_right"
 
@@ -42,7 +44,7 @@ components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "UIComponent": NodePath("UIComponent")
 }
-default_animation_names = SubResource("Resource_enhu5")
+idle_animation_data = SubResource("Resource_ovm3w")
 hit_offset = Vector2(0, -16.4)
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -61,7 +63,7 @@ animation = &"idle_left_right"
 script = ExtResource("5_lmejv")
 health_bar = NodePath("HealthBar")
 hp_max = 1000.0
-death_animation_names = SubResource("Resource_2a2qa")
+death_animation_data = SubResource("Resource_2a2qa")
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_gtjci")]
@@ -71,14 +73,14 @@ scale = Vector2(1.045, 1.07)
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156 node_paths=PackedStringArray("list")]
 script = ExtResource("4_5jui1")
 list = [NodePath("MeleeAttack")]
-motion_animation_names = SubResource("Resource_p1ots")
+motion_animation_data = SubResource("Resource_enhu5")
 melee_pos_offset = Vector2(33.47, 0)
 is_blocker = true
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
 script = ExtResource("6_lmejv")
-animation_names = SubResource("Resource_ovm3w")
+animation_data = SubResource("Resource_p1ots")
 delay = 0.3
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
@@ -86,7 +88,7 @@ metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 navigation_layers = 2
 script = ExtResource("8_yfwee")
 speed = 200.0
-motion_animation_names = SubResource("Resource_afkjg")
+motion_animation_data = SubResource("Resource_afkjg")
 metadata/_custom_type_script = "uid://2keyy5hsydyv"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=2093072497]

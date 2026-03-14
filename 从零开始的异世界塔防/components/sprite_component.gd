@@ -2,9 +2,12 @@
 extends Node2D
 class_name SpriteComponent
 
+## 精灵列表
 @export var list: Array[Node2D] = []
+## 精灵组
+@export var groups: Array[SpriteGroup] = []
 
-@export_group("同步动画")
+@export_group("SyncAnimation")
 ## 是否所有者同步播放动画
 @export var sync_source: bool = false
 @export var sync_animations: SyncAnimationsData = null

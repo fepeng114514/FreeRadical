@@ -22,15 +22,15 @@ class_name RangedAttack
 		bullet_offsets = value
 		queue_redraw()
 @export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
-## 远程动画名称
-@export var animation_names: AnimationNames = null
+## 攻击动画数据
+@export var animation_data: AnimationData = null
 
 @export var delay: float = 0
 @export var chance: float = 1
 @export var with_melee: bool = false
 @export var disabled: bool = false
 
-@export_group("限制相关")
+@export_group("Limit")
 @export var vis_flags: Array[C.FLAG] = []:
 	set(value): 
 		vis_flags = value
@@ -72,7 +72,7 @@ func _draw() -> void:
 
 
 func _ready() -> void:
-	if animation_names == null:
-		animation_names = AnimationNames.new({
+	if animation_data == null:
+		animation_data = AnimationData.new({
 			"left_right": "ranged_left_right",
 		})

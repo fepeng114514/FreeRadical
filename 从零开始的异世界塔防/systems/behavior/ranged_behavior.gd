@@ -32,11 +32,11 @@ func _on_update(e: Entity) -> bool:
 	
 func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	e.look_at_point = target.global_position
-	e.play_animation_by_look(a.animation_names, 0, "ranged")
+	e.mixed_play_animation_by_look(a.animation_data, "ranged")
 	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_vaild_entity(target)
 	)
-	var result: Array = e.play_default_animation()
+	var result: Array = e.play_idle_animation()
 	var dir_idx: C.DIRECTION = result[1]
 	
 	var bullet_offset := Vector2.ZERO

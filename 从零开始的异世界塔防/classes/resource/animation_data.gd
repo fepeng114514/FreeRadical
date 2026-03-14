@@ -1,7 +1,14 @@
 extends Resource
-class_name AnimationNames
-## 动画名称资源，存储所有方向的动画名
+class_name AnimationData
+## 动画数据资源，存储动画数据
 
+
+## 要播放的精灵/精灵组索引
+@export var play_idx: int = 0
+## 是否播放精灵组
+@export var is_group: bool = false
+## 播放次数
+@export var times: int = 1
 ## 上方向的动画名
 @export var up: String = ""
 ## 下方向的动画名
@@ -16,7 +23,6 @@ class_name AnimationNames
 @export var left_right: String = ""
 ## 任意方向的动画名
 @export var any: String = ""
-
 
 func _init(data: Dictionary = {}) -> void:
 	for key in data:

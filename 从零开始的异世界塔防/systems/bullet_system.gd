@@ -47,7 +47,7 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(delta: float) -> void:
 	var entities: Array = EntityDB.get_entities_group(C.CN_BULLET).filter(
 		func(e: Entity):
-			return not e.is_waiting()
+			return not e.is_waiting() and not e.removed
 	)
 
 	for e: Entity in entities:
@@ -63,23 +63,26 @@ func _on_update(delta: float) -> void:
 		elif bullet_c.flight_trajectory & C.TRAJECTORY.TRACKING:
 			_trajectory_tracking_update(e, bullet_c, target)
 		
-		if bullet_c.flying_animation_names:
-			e.play_animation_by_look(bullet_c.flying_animation_names)
+		if bullet_c.flying_animation_data:
+			e.mixed_play_animation_by_look(bullet_c.flying_animation_data)
 		e.rotation += bullet_c.rotation_speed * delta
 		
-		if flying_time >= bullet_c.flight_time:
-			_miss(e, bullet_c, target)
+		if (
+				flying_time >= bullet_c.flight_time 
+				or not target 
+				and U.is_at_destination(
+					e.global_position, bullet_c.to, bullet_c.hit_dist
+				)
+			):
+			_miss(e, bullet_c)
 			continue
 			
 		if not bullet_c.can_arrived:
 			continue
 		
-		if not target:
-			continue
-		
 		if U.is_at_destination(
-				e.global_position, target.global_position +  + target.hit_offset, bullet_c.hit_dist
-		):
+				e.global_position, bullet_c.to, bullet_c.hit_dist
+			):
 			_hit(e, bullet_c, target)
 
 
@@ -103,9 +106,9 @@ func _hit(
 		_damege_target(e, bullet_c, target)
 
 	e._on_bullet_hit(target, bullet_c)
-	if bullet_c.hit_animation_names:
-		e.play_animation_by_look(bullet_c.hit_animation_names)
-		await e.wait_animation()
+	if bullet_c.hit_animation_data:
+		e.mixed_play_animation_by_look(bullet_c.hit_animation_data)
+		await e.mixed_wait_animation(bullet_c.hit_animation_data.is_group)
 
 	if bullet_c.hit_remove:
 		e.remove_entity()
@@ -131,12 +134,12 @@ func _damege_target(
 
 
 func _miss(
-		e: Entity, bullet_c: BulletComponent, target: Entity
+		e: Entity, bullet_c: BulletComponent
 	) -> void:
-	e._on_bullet_miss(target, bullet_c)
-	if bullet_c.miss_animation_names:
-		e.play_animation_by_look(bullet_c.hit_animation_names)
-		await e.wait_animation()
+	e._on_bullet_miss(bullet_c)
+	if bullet_c.miss_animation_data:
+		e.mixed_play_animation_by_look(bullet_c.miss_animation_data)
+		await e.mixed_wait_animation(bullet_c.miss_animation_data.is_group)
 
 	if bullet_c.miss_remove:
 		e.remove_entity()

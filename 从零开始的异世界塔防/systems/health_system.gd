@@ -21,7 +21,7 @@ func _on_update(_delta: float) -> void:
 
 	var entities: Array = EntityDB.get_entities_group(C.CN_HEALTH).filter(
 		func(e: Entity):
-			return not e.is_waiting()
+			return not e.is_waiting() and not e.removed
 	)
 
 	for e: Entity in entities:
@@ -80,11 +80,11 @@ func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent) -> voi
 			
 		t_health_c.health_bar.visible = false
 		
-		if t_health_c.death_animation_names:
-			target.play_animation_by_look(
-				t_health_c.death_animation_names, 0, "death"
+		if t_health_c.death_animation_data:
+			target.mixed_play_animation_by_look(
+				t_health_c.death_animation_data, "death"
 			)
-			await target.wait_animation()
+			await target.mixed_wait_animation(t_health_c.death_animation_data.is_group)
 		
 		target.remove_entity()
 		

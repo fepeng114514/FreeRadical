@@ -1,0 +1,130 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b5vkry04pen5a"]
+
+[ext_resource type="Texture2D" uid="uid://c8irc233ysspa" path="res://assets/animated_atlas/animated_towers-1.png" id="1_25sci"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rento"]
+atlas = ExtResource("1_25sci")
+region = Rect2(2042, 3199, 52, 60)
+margin = Rect2(0, 100, 145, 118)
+filter_clip = true
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rento")
+}],
+"loop": true,
+"name": &"ranged",
+"speed": 30.0
+}]

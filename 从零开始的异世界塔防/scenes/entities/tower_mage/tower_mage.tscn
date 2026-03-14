@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_7y6af"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="2_ag2v0"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_names.gd" id="2_ewl0l"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_ewl0l"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="3_y3rhc"]
 [ext_resource type="SpriteFrames" uid="uid://bqi5q0g3pf4do" path="res://resources/sprite_frames_resources/tower_mage_lvl1.tres" id="4_as0po"]
 [ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/resource/sync_animations_data.gd" id="5_aexug"]
@@ -37,7 +37,7 @@ components = {
 "TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
-default_animation_names = SubResource("Resource_aexug")
+idle_animation_data = SubResource("Resource_aexug")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=1427274464]

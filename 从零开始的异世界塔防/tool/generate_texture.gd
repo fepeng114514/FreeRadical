@@ -23,18 +23,21 @@ extends EditorScript
 
 动画文件格式:
 "动画资源名": {	# 生成的 SpriteFrames 资源名
-	"动画名": {	# SpriteFrames 中的动画名
-		"from": 1,	# 起始帧索引
-		"to": 10,	# 结束帧索引
-		"fps": 30,	# 帧率，默认为 30
-		"loop": true	# 是否循环，默认为 true
+	"layer_count": 0,	# 多层动画层数，默认为 0，
+	"animations": {		# 动画列表
+		"动画名": {		 # SpriteFrames 中的动画名
+			"from": 1,	# 起始帧索引
+			"to": 10,	# 结束帧索引
+			"fps": 30,	# 帧率，默认为 30
+			"loop": true	# 是否循环，默认为 true
+		}
 	}
 }
 
 动画名规范:
 动画名应由方向和动作两部分组成，使用下划线分隔，格式为 "动作_方向"。
 无方向的动画可以省略方向部分，格式为 "动作"。
-方向部分可以是 AnimationNames 资源属性: "up"、"down"、"left_right" 等。
+方向部分可以是 AnimationData 资源属性: "up"、"down"、"left_right" 等。
 动作部分可以是任意描述动画的字符串，如 "idle"、"walk"、"melee"、"death" 等。
 示例:
 "idle_up" 表示向上的待机动画
@@ -123,37 +126,52 @@ func _parse_atlas_data(atlas_data: Dictionary, is_animated_atlas: bool) -> void:
 
 func _load_sprite_frames() -> void:
 	for sprite_frames_name: String in sprite_frames_data.keys():
-		var anim_group: Dictionary = sprite_frames_data[sprite_frames_name]
+		var sprite_frames_info: Dictionary = sprite_frames_data[sprite_frames_name]
+		var is_layered: bool = (
+			sprite_frames_info.has("layer_count") 
+			and sprite_frames_info.layer_count > 0
+		)
 		
-		for anim_name: String in anim_group.keys():
-			var anim_data: Dictionary = anim_group[anim_name]
-			if not sprite_frames_db.has(sprite_frames_name):
-				var new_sprite_frames := SpriteFrames.new()
-				new_sprite_frames.remove_animation("default")
-				sprite_frames_db[sprite_frames_name] = new_sprite_frames
+		var anim_group: Dictionary = sprite_frames_info.animations
 
-			var sprite_frames: SpriteFrames = sprite_frames_db[sprite_frames_name]
-			
-			if sprite_frames.has_animation(anim_name):
-				sprite_frames.clear(anim_name)
-			else:
-				sprite_frames.add_animation(anim_name)
-				Log.verbose("增加动画: %s, 到 %s" % [anim_name, sprite_frames_name])
-			
-			var fps: float = anim_data.get("fps", 30)
-			var loop: bool = anim_data.get("loop", true)
-			sprite_frames.set_animation_speed(anim_name, fps)
-			sprite_frames.set_animation_loop(anim_name, loop)
-			
-			var from: int = anim_data.from
-			var to: int = anim_data.to
+		if is_layered:
+			for layer_idx: int in range(1, sprite_frames_info.layer_count + 1):
+				var layer_sprite_frames_name: String = "%s%d" % [sprite_frames_name, layer_idx]
+				_process_sprite_frames(layer_sprite_frames_name, anim_group)
+		else:
+			_process_sprite_frames(sprite_frames_name, anim_group)
 
-			for idx: int in range(from, to + 1):
-				var atlas_texture_name: String = "%s_%04d" % [sprite_frames_name, idx]
-				var frame: AtlasTexture = image_db[atlas_texture_name]
-				sprite_frames.add_frame(anim_name, frame)
-				
+
+func _process_sprite_frames(sprite_frames_name: String, anim_group: Dictionary) -> void:
+	for anim_name: String in anim_group.keys():
+		var anim_data: Dictionary = anim_group[anim_name]
+		if not sprite_frames_db.has(sprite_frames_name):
+			var new_sprite_frames := SpriteFrames.new()
+			new_sprite_frames.remove_animation("default")
+			sprite_frames_db[sprite_frames_name] = new_sprite_frames
+
+		var sprite_frames: SpriteFrames = sprite_frames_db[sprite_frames_name]
 		
+		if sprite_frames.has_animation(anim_name):
+			sprite_frames.clear(anim_name)
+		else:
+			sprite_frames.add_animation(anim_name)
+			Log.verbose("增加动画: %s, 到 %s" % [anim_name, sprite_frames_name])
+		
+		var fps: float = anim_data.get("fps", 30)
+		var loop: bool = anim_data.get("loop", true)
+		sprite_frames.set_animation_speed(anim_name, fps)
+		sprite_frames.set_animation_loop(anim_name, loop)
+		
+		var from: int = anim_data.from
+		var to: int = anim_data.to
+
+		for idx: int in range(from, to + 1):
+			var atlas_texture_name: String = "%s_%04d" % [sprite_frames_name, idx]
+			var frame: AtlasTexture = image_db[atlas_texture_name]
+			sprite_frames.add_frame(anim_name, frame)
+		
+
 func _create_atlas_texture(
 		img_data: Dictionary, atlas_file: Texture2D
 	) -> AtlasTexture:
@@ -185,7 +203,6 @@ func _save_sprite_frames() -> void:
 		
 		var save_path: String = C.PATH_SPRITE_FRAMES_RESOURCES % sprite_frames_name
 
-			
 		ResourceSaver.save(sprite_frames, save_path)
 		
 		Log.info("生成 SpriteFrames: %s.tres" % sprite_frames_name)

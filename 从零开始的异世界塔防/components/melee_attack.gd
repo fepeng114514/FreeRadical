@@ -3,19 +3,24 @@ extends Node2D
 class_name MeleeAttack
 
 
+## 最小伤害
 @export var min_damage: float = 25
+## 最大伤害
 @export var max_damage: float = 25
-@export var cooldown: float = 1
+## 伤害类型
 @export var damage_type: C.DAMAGE = C.DAMAGE.PHYSICAL
+## 冷却时间
+@export var cooldown: float = 1
+## 击中目标给予的状态效果
 @export var mods: Array[String] = []
-## 动画名称
-@export var animation_names: AnimationNames = null
+## 攻击动画数据
+@export var animation_data: AnimationData = null
 
 @export var delay: float = 0
 @export var chance: float = 1
 @export var disabled: bool = false
 
-@export_group("限制相关")
+@export_group("Limit")
 @export var vis_flags: Array[C.FLAG] = []:
 	set(value): 
 		vis_flags = value
@@ -33,7 +38,7 @@ var ts: float = 0
 
 
 func _ready() -> void:
-	if animation_names == null:
-		animation_names = AnimationNames.new({
+	if animation_data == null:
+		animation_data = AnimationData.new({
 			"left_right": "melee_left_right",
 		})

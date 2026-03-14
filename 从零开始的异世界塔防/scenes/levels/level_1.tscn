@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://scenes/ui/game_ui_layer.tscn" id="7_oc4kc"]
 [ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer/tower_archer.tscn" id="9_dnkej"]
 [ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/tower_barrack/tower_barrack.tscn" id="14_iwr0g"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_names.gd" id="14_np2pn"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="14_np2pn"]
 [ext_resource type="PackedScene" uid="uid://wc2518mmc5jt" path="res://scenes/entities/tower_mage/tower_mage.tscn" id="15_bahl2"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
 
@@ -101,6 +101,7 @@ components = {
 "UIComponent": NodePath("UIComponent")
 }
 default_animation_names = SubResource("Resource_v6ha0")
+hit_offset = Vector2(0, 0)
 
 [node name="TowerBarrack" parent="Store/Entities" unique_id=383018069 node_paths=PackedStringArray("components") instance=ExtResource("14_iwr0g")]
 position = Vector2(1144, 512)

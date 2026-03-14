@@ -2,17 +2,17 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0v2wj"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_4mkqg"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_names.gd" id="2_e0w6f"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_e0w6f"]
 [ext_resource type="SpriteFrames" uid="uid://xk8gt6uqtvqv" path="res://resources/sprite_frames_resources/tower_archer_lvl1_shooter.tres" id="3_ivbmm"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://components/ranged_component.gd" id="4_d15la"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://components/ranged_attack.gd" id="5_plukg"]
 
-[sub_resource type="Resource" id="Resource_6rlp0"]
+[sub_resource type="Resource" id="Resource_e0w6f"]
 script = ExtResource("2_e0w6f")
 up = "idle_up"
 down = "idle_down"
 
-[sub_resource type="Resource" id="Resource_e4sb0"]
+[sub_resource type="Resource" id="Resource_6rlp0"]
 script = ExtResource("2_e0w6f")
 up = "ranged_up"
 down = "ranged_down"
@@ -24,7 +24,7 @@ components = {
 "RangedComponent": NodePath("RangedComponent"),
 "SpriteComponent": NodePath("SpriteComponent")
 }
-default_animation_names = SubResource("Resource_6rlp0")
+idle_animation_data = SubResource("Resource_e0w6f")
 flags = Array[int]([4])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -53,6 +53,6 @@ bullet_offsets = Dictionary[String, Vector2]({
 "right": Vector2(0, 0),
 "up": Vector2(0, 0)
 })
-animation_names = SubResource("Resource_e4sb0")
+animation_data = SubResource("Resource_6rlp0")
 delay = 0.117
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

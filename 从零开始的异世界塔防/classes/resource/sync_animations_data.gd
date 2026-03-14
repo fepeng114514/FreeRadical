@@ -1,9 +1,9 @@
 extends Resource
 class_name SyncAnimationsData
 
-@export var idle: AnimationNames = null
-@export var melee: AnimationNames = null
-@export var ranged: AnimationNames = null
-@export var walk: AnimationNames = null
-@export var death: AnimationNames = null
-@export var spawn: AnimationNames = null
+@export var idle: AnimationData = null
+@export var melee: AnimationData = null
+@export var ranged: AnimationData = null
+@export var walk: AnimationData = null
+@export var death: AnimationData = null
+@export var spawn: AnimationData = null
