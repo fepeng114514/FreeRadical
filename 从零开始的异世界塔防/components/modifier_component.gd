@@ -2,7 +2,7 @@ extends Node
 class_name ModifierComponent
 
 
-@export var mod_type: Array[C.Mod] = []:
+@export var mod_type: Array[C.ModType] = []:
 	set(value): 
 		mod_type = value
 		mod_type_bits = U.merge_flags(value)
@@ -24,7 +24,7 @@ class_name ModifierComponent
 @export var speed_factor: float = 1
 @export var min_damage: float = 0
 @export var max_damage: float = 0
-@export var damage_type: C.Damage = C.Damage.TRUE
+@export var damage_type: C.DamageType = C.DamageType.TRUE
 @export var cycle_time: float = 1
 @export var max_cycle: int = C.UNSET
 

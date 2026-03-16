@@ -58,13 +58,15 @@ var sprite_frames_db: Dictionary[String, SpriteFrames] = {}
 var sprite_frames_data: Dictionary = {}
 
 func _run() -> void:
-	sprite_frames_data = U.load_json("res://tool/sprite_frames_data.json")
+	sprite_frames_data = U.load_json(
+		"res://tool/sprite_frames_data.json"
+	)
 	
 	# 处理图像图集
 	for atlas_name in REQUIRED_IMAGE_ATLAS:
 		Log.debug("处理图像图集: %s" % atlas_name)
 		var atlas_data: Dictionary = U.load_json(
-				"res://assets/image_atlas/%s.tres" % atlas_name
+				"res://assets/image_atlas/%s.json" % atlas_name
 			)
 			
 		_parse_atlas_data(atlas_data, false)
@@ -73,7 +75,7 @@ func _run() -> void:
 	for atlas_name in REQUIRED_ANIMATED_ATLAS:
 		Log.debug("处理动画图集: %s" % atlas_name)
 		var atlas_data: Dictionary = U.load_json(
-			"res://assets/animated_atlas/%s.tres" % atlas_name
+			"res://assets/animated_atlas/%s.json" % atlas_name
 		)
 		
 		_parse_atlas_data(atlas_data, true)

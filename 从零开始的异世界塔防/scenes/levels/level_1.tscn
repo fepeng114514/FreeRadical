@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://dn322bbgr6nvm"]
 
 [ext_resource type="Script" uid="uid://yur7o864jejr" path="res://classes/level.gd" id="1_x42e6"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/resource/audio_data.gd" id="2_gmpev"]
 [ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://classes/resource/wave_set.gd" id="2_iav0o"]
 [ext_resource type="PackedScene" uid="uid://cuqee6eum7tl6" path="res://scenes/systems.tscn" id="2_iwr0g"]
 [ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/resource/wave.gd" id="3_dnkej"]
@@ -19,6 +20,11 @@
 [ext_resource type="PackedScene" uid="uid://wc2518mmc5jt" path="res://scenes/entities/tower_mage/tower_mage.tscn" id="15_bahl2"]
 [ext_resource type="PackedScene" uid="uid://fx352ubic8aw" path="res://scenes/entities/tower_artillery/tower_artillery.tscn" id="17_v6ha0"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
+
+[sub_resource type="Resource" id="Resource_7h2jl"]
+script = ExtResource("2_gmpev")
+audio_list = Array[String](["uid://dpl0mcs7s53br"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Curve2D" id="Curve2D_q8u5g"]
 _data = {
@@ -62,7 +68,7 @@ left_right = "idle_left_right"
 
 [node name="level_1" type="Node2D" unique_id=1565788906]
 script = ExtResource("1_x42e6")
-ready_music_uid = "uid://dpl0mcs7s53br"
+ready_music = SubResource("Resource_7h2jl")
 metadata/_custom_type_script = "uid://yur7o864jejr"
 metadata/_edit_vertical_guides_ = [-464.0]
 
@@ -98,16 +104,16 @@ wave_set = SubResource("Resource_bahl2")
 components = {
 "SpawnerComponent": NodePath("SpawnerComponent")
 }
-idle_animation_data = SubResource("Resource_gmpev")
+idle_animation = SubResource("Resource_gmpev")
 
 [node name="TowerArcher" parent="Store/Entities" unique_id=1010851235 node_paths=PackedStringArray("components") instance=ExtResource("9_dnkej")]
-position = Vector2(960, 128)
+position = Vector2(858, 400)
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
-idle_animation_data = SubResource("Resource_mkypq")
+idle_animation = SubResource("Resource_mkypq")
 
 [node name="TowerBarrack" parent="Store/Entities" unique_id=383018069 node_paths=PackedStringArray("components") instance=ExtResource("14_iwr0g")]
 position = Vector2(1144, 512)
@@ -116,7 +122,7 @@ components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "UIComponent": NodePath("UIComponent")
 }
-idle_animation_data = SubResource("Resource_ndtll")
+idle_animation = SubResource("Resource_ndtll")
 
 [node name="TowerMage" parent="Store/Entities" unique_id=88348674 node_paths=PackedStringArray("components") instance=ExtResource("15_bahl2")]
 position = Vector2(960, 128)

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://components/health_component.gd" id="4_bfbt7"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://components/nav_path_component.gd" id="5_gt3hg"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/health_bar.tscn" id="5_yidua"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/resource/audio_data.gd" id="6_43dp3"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="6_ijmwd"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://components/melee_component.gd" id="8_wdwo4"]
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://components/melee_attack.gd" id="9_cit00"]
@@ -19,6 +20,11 @@ left_right = "idle_left_right"
 script = ExtResource("2_58mnm")
 left_right = "death_left_right"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_eo1sq"]
+script = ExtResource("6_43dp3")
+audio_list = Array[String](["uid://bwjdfvm18eqhl"])
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_atygg"]
 script = ExtResource("2_58mnm")
@@ -46,7 +52,7 @@ components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "UIComponent": NodePath("UIComponent")
 }
-idle_animation_data = SubResource("Resource_58mnm")
+idle_animation = SubResource("Resource_58mnm")
 hit_offset = Vector2(0, -14.81)
 flags = Array[int]([1])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
@@ -60,13 +66,14 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
 position = Vector2(0, -19)
 sprite_frames = ExtResource("3_mee2f")
-animation = &"death_left_right"
+animation = &"idle_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868 node_paths=PackedStringArray("health_bar")]
 script = ExtResource("4_bfbt7")
 health_bar = NodePath("HealthBar")
 hp_max = 200.0
-death_animation_data = SubResource("Resource_43dp3")
+death_animation = SubResource("Resource_43dp3")
+sfx = SubResource("Resource_eo1sq")
 metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
 [node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("5_yidua")]
@@ -75,7 +82,7 @@ scale = Vector2(1, 1.1)
 
 [node name="NavPathComponent" type="Node" parent="." unique_id=655679987]
 script = ExtResource("5_gt3hg")
-motion_animation_data = SubResource("Resource_atygg")
+motion_animation = SubResource("Resource_atygg")
 metadata/_custom_type_script = "uid://btct3ysbbulk0"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=1219032886]
@@ -86,7 +93,7 @@ metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=768145759 node_paths=PackedStringArray("list")]
 script = ExtResource("8_wdwo4")
 list = [NodePath("MeleeAttack")]
-motion_animation_data = SubResource("Resource_yek3w")
+motion_animation = SubResource("Resource_yek3w")
 melee_pos_offset = Vector2(24.3, 0)
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
@@ -94,6 +101,6 @@ metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 script = ExtResource("9_cit00")
 min_damage = 30.0
 max_damage = 30.0
-animation_data = SubResource("Resource_m3i2n")
-delay = 0.367
+animation = SubResource("Resource_m3i2n")
+delay_frame = 18
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

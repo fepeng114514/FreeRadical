@@ -1,0 +1,11 @@
+extends Resource
+class_name AudioData
+
+## 播放模式
+@export var play_mode: C.AudioPlayMode = C.AudioPlayMode.RANGDOM
+## 音频列表
+@export_file("*.ogg") var audio_list: Array[String] = []
+## 音量，单位为分贝
+@export var volume_db: float = 0
+## 音量，线性增长而非分贝
+@export var volume_linear: float = 0

@@ -53,7 +53,7 @@ func _process_damege_queue() -> void:
 func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent) -> void:
 	var source: Entity = EntityDB.get_entity_by_id(d.source_id)
 	
-	if d.damage_type & C.Damage.EAT:
+	if d.damage_type & C.DamageType.EAT:
 		target._on_eat(target, d)
 		source._on_kill(target, d)
 		target.remove_entity()
@@ -80,11 +80,11 @@ func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent) -> voi
 			
 		t_health_c.health_bar.visible = false
 		
-		if t_health_c.death_animation_data:
+		if t_health_c.death_animation:
 			target.mixed_play_animation_by_look(
-				t_health_c.death_animation_data, "death"
+				t_health_c.death_animation, "death"
 			)
-			await target.mixed_wait_animation(t_health_c.death_animation_data)
+			await target.mixed_wait_animation(t_health_c.death_animation)
 		
 		target.remove_entity()
 		
@@ -128,7 +128,7 @@ func _predict_damage(
 	# 计算护甲减伤
 	var damage_type: int = d.damage_type
 		
-	if damage_type & C.Damage.DISINTEGRATE:
+	if damage_type & C.DamageType.DISINTEGRATE:
 		return t_health_c.hp
 		
 	var physical_armor: float = clampf(
@@ -155,21 +155,21 @@ func _predict_damage(
 		1
 	)
 	
-	if damage_type & C.Damage.TRUE:
+	if damage_type & C.DamageType.TRUE:
 		physical_armor = 0
 		magical_armor = 0
 
-	if damage_type & C.Damage.EXPLOSION:
+	if damage_type & C.DamageType.EXPLOSION:
 		resistance *= 1 - physical_armor / 2.0
-	elif damage_type & C.Damage.PHYSICAL:
+	elif damage_type & C.DamageType.PHYSICAL:
 		resistance *= 1 - physical_armor
 		
-	if damage_type & C.Damage.MAGICAL_EXPLOSION:
+	if damage_type & C.DamageType.MAGICAL_EXPLOSION:
 		resistance *= 1 - magical_armor / 2.0
-	elif damage_type & C.Damage.MAGICAL:
+	elif damage_type & C.DamageType.MAGICAL:
 		resistance *= 1 - magical_armor
 		
-	if damage_type & C.Damage.POISON:
+	if damage_type & C.DamageType.POISON:
 		resistance *= 1 - poison_armor
 	
 	# 计算伤害

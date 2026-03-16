@@ -37,7 +37,7 @@ components = {
 "TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
-idle_animation_data = SubResource("Resource_aexug")
+idle_animation = SubResource("Resource_aexug")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=1427274464]

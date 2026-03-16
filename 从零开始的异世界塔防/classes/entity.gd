@@ -20,7 +20,7 @@ class_name Entity
 ## 是否追踪 target 实体
 @export var track_target: bool = false
 ## 空闲动画数据
-@export var idle_animation_data: AnimationData = null
+@export var idle_animation: AnimationData = null
 ## 击中位置偏移
 @export var hit_offset := Vector2.ZERO:
 	set(value):
@@ -43,12 +43,12 @@ class_name Entity
 		bans = value
 		ban_bits = U.merge_flags(value)
 ## 禁止的状态效果类型标识符列表
-@export var mod_type_bans: Array[C.Mod] = []:
+@export var mod_type_bans: Array[C.ModType] = []:
 	set(value): 
 		mod_type_bans = value
 		mod_type_ban_bits = U.merge_flags(value)
 ## 禁止的光环类型标识符列表
-@export var aura_type_bans: Array[C.Aura] = []:
+@export var aura_type_bans: Array[C.ModType] = []:
 	set(value): 
 		aura_type_bans = value
 		aura_type_ban_bits = U.merge_flags(value)
@@ -110,6 +110,7 @@ var look_at_point := Vector2.INF
 @warning_ignore_start("unused_parameter")
 ## 插入实体时调用，返回 false 的实体将会被移除
 func _on_insert() -> bool: return true
+
 
 ## 准移除实体时调用，返回 false 的实体将不会被移除
 func _on_remove() -> bool: return true
@@ -182,8 +183,8 @@ func _to_string():
 
 
 func _ready() -> void:
-	if idle_animation_data == null:
-		idle_animation_data = AnimationData.new({
+	if idle_animation == null:
+		idle_animation = AnimationData.new({
 			"left_right": "idle_left_right",
 		})
 
@@ -407,49 +408,49 @@ func play_animation_group(
 
 ## 根据是否为组调用相应 play_animation_by_look 或 play_animation_group_by_look 函数
 func mixed_play_animation_by_look(
-		animation_data: AnimationData, 
-		source_animation_data_key: String = "",
+		animation: AnimationData, 
+		source_animation_key: String = "",
 		force_play: bool = false
 	) -> Array:
-	if animation_data.is_group:
+	if animation.is_group:
 		return play_animation_group_by_look(
-			animation_data, source_animation_data_key, force_play)
+			animation, source_animation_key, force_play)
 	else:
 		return play_animation_by_look(
-			animation_data, source_animation_data_key, C.UNSET, force_play
+			animation, source_animation_key, C.UNSET, force_play
 		)
 
 
 ## 根据实体与看向目标点的角度播放对应的动画
 func play_animation_by_look(
-		animation_data: AnimationData, 
-		source_animation_data_key: String = "",
+		animation: AnimationData, 
+		source_animation_key: String = "",
 		sprite_idx: int = C.UNSET,
 		force_play: bool = false
 	) -> Array:
 	var anim_name: String = ""
 
-	var result: Array = animation_data.get_animation_name_for_point(
+	var result: Array = animation.get_animation_name_for_point(
 		self, look_at_point
 	)
 	anim_name = result[0]
 	var filp_h: bool = result[2]
 
-	var play_idx: int = sprite_idx if U.is_valid_number(sprite_idx) else animation_data.play_idx
+	var play_idx: int = sprite_idx if U.is_valid_number(sprite_idx) else animation.play_idx
 
 	play_animation(anim_name, play_idx, filp_h, force_play)
 
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
 	if sprite_c.sync_source:
 		_source_play_animation_by_look(
-			source_animation_data_key,
+			source_animation_key,
 			force_play
 		)
 	return result
 	
 	
 func _source_play_animation_by_look(
-		source_animation_data_key: String = "",
+		source_animation_key: String = "",
 		force_play: bool = false
 	) -> void:
 	var source: Entity = EntityDB.get_entity_by_id(source_id)
@@ -458,53 +459,53 @@ func _source_play_animation_by_look(
 	
 	source.look_at_point = look_at_point
 	var sprite_c: SpriteComponent = source.get_c(C.CN_SPRITE)
-	var animation_data: AnimationData = sprite_c.sync_animations.get(
-		source_animation_data_key
+	var animation: AnimationData = sprite_c.sync_animations.get(
+		source_animation_key
 	)
-	if not animation_data:
+	if not animation:
 		return
 		
 	source.mixed_play_animation_by_look(
-		animation_data, source_animation_data_key, force_play
+		animation, source_animation_key, force_play
 	)
 
-	source.mixed_wait_animation(animation_data)
+	source.mixed_wait_animation(animation)
 	
 	
 ## 根据实体与看向目标点的角度使一个组中的所有精灵播放对应的动画
 func play_animation_group_by_look(
-		animation_data: AnimationData, 
-		source_animation_data_key: String = "",
+		animation: AnimationData, 
+		source_animation_key: String = "",
 		force_play: bool = false
 	) -> Array:
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
 	var result: Array = []
 		
-	for sprite_idx: int in sprite_c.groups[animation_data.play_idx].sprite_idx_list:
+	for sprite_idx: int in sprite_c.groups[animation.play_idx].sprite_idx_list:
 		result = play_animation_by_look(
-			animation_data, source_animation_data_key, sprite_idx, force_play
+			animation, source_animation_key, sprite_idx, force_play
 		)
 		
 	_source_play_animation_by_look(
-		source_animation_data_key, force_play
+		source_animation_key, force_play
 	)
 	return result
 
 
 func play_idle_animation(force_play: bool = false) -> Array:
 	return mixed_play_animation_by_look(
-		idle_animation_data, "idle", force_play
+		idle_animation, "idle", force_play
 	)
 
 
 ## 根据是否为组调用 wait_animation 或 wait_animation_group 函数
 func mixed_wait_animation(
-		animation_data: AnimationData
+		animation: AnimationData
 	) -> void:
-	var play_idx: int = animation_data.play_idx
-	var times: int = animation_data.times
+	var play_idx: int = animation.play_idx
+	var times: int = animation.times
 
-	if animation_data.is_group:
+	if animation.is_group:
 		await wait_animation_group(play_idx, times)
 	else:
 		await wait_animation(play_idx, times)
@@ -552,12 +553,23 @@ func _wait_for_animation_loop(sprite: AnimatedSprite2D) -> void:
 #endregion
 
 
-## 协程等待，break_fn 返回 true 表示中断等待
-func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
+## 协程等待，等待帧，用于高精度的情况 [br]
+## break_fn 返回 true 表示中断等待
+func y_wait_frame(frame: int = 1, break_fn: Callable = Callable()) -> void:
 	_waiting = true
-	Log.verbose("实体等待: %s, %.2f" % [self, time])
-	await TimeDB.y_wait(time, break_fn)
-	Log.verbose("实体等待完毕: %s, %.2f" % [self, time])
+	Log.verbose("实体等待: %s, %df" % [self, frame])
+	await TimeDB.y_wait_frame(frame, break_fn)
+	Log.verbose("实体等待完毕: %s, %df" % [self, frame])
+	_waiting = false
+
+
+## 协程等待，等待帧，用于低精度直观表示的情况 [br]
+## break_fn 返回 true 表示中断等待
+func y_wait_time(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
+	_waiting = true
+	Log.verbose("实体等待: %s, %.2fs" % [self, time])
+	await TimeDB.y_wait_time(time, break_fn)
+	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
 	_waiting = false
 
 

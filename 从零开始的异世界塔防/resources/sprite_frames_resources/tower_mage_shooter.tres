@@ -4,115 +4,115 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bu4r2"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2288, 3643, 34, 45)
+region = Rect2(2328, 132, 34, 45)
 margin = Rect2(14, 19, 34, 19)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ol08g"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2288, 2713, 35, 45)
+region = Rect2(2289, 3264, 35, 45)
 margin = Rect2(19, 19, 33, 19)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1mhvo"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2246, 3990, 37, 42)
+region = Rect2(2289, 496, 37, 42)
 margin = Rect2(13, 22, 31, 22)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_10ub6"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2201, 3432, 41, 41)
+region = Rect2(2202, 3994, 41, 41)
 margin = Rect2(9, 23, 27, 23)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qpajw"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2201, 2103, 42, 53)
+region = Rect2(2202, 2665, 42, 53)
 margin = Rect2(9, 10, 26, 11)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wy64k"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2201, 2158, 42, 54)
+region = Rect2(2202, 2720, 42, 54)
 margin = Rect2(9, 9, 26, 10)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j2x1l"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(240, 1407, 45, 56)
+region = Rect2(240, 1987, 45, 56)
 margin = Rect2(6, 7, 23, 8)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4r4ke"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2151, 3220, 46, 58)
+region = Rect2(2152, 3793, 46, 58)
 margin = Rect2(5, 5, 22, 6)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wb13p"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2246, 397, 40, 49)
+region = Rect2(2247, 961, 40, 49)
 margin = Rect2(11, 14, 28, 15)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wv6gp"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2288, 1256, 36, 45)
+region = Rect2(2289, 1807, 36, 45)
 margin = Rect2(15, 18, 32, 19)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mf1qn"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2288, 2760, 35, 45)
+region = Rect2(2289, 3311, 35, 45)
 margin = Rect2(19, 19, 33, 19)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kkxy8"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2246, 4034, 37, 42)
+region = Rect2(2289, 540, 37, 42)
 margin = Rect2(17, 22, 31, 22)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0nrho"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2246, 1321, 39, 41)
+region = Rect2(2247, 1885, 39, 41)
 margin = Rect2(17, 23, 29, 23)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jmvv3"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2201, 3475, 41, 54)
+region = Rect2(2202, 4037, 41, 54)
 margin = Rect2(17, 10, 27, 10)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3bnjj"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2201, 586, 43, 55)
+region = Rect2(2202, 1148, 43, 55)
 margin = Rect2(17, 9, 25, 9)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p6ifs"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(240, 3168, 44, 55)
+region = Rect2(240, 3727, 44, 55)
 margin = Rect2(17, 9, 24, 9)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vv0b3"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2151, 3280, 46, 59)
+region = Rect2(2152, 3853, 46, 59)
 margin = Rect2(17, 5, 22, 5)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_22cmx"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2246, 2189, 38, 49)
+region = Rect2(2247, 2753, 38, 49)
 margin = Rect2(17, 15, 30, 15)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_47xi4"]
 atlas = ExtResource("1_bu4r2")
-region = Rect2(2288, 2807, 35, 46)
+region = Rect2(2289, 3358, 35, 46)
 margin = Rect2(17, 18, 33, 18)
 filter_clip = true
 

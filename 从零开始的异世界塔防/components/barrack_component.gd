@@ -26,7 +26,7 @@ class_name BarrackComponent
 ## 最大士兵数量，表示兵营最多可以同时存在的士兵数量，超过该数量时将不再生成新的士兵
 @export var max_soldiers: int = 3
 ## 生成士兵动画数据
-@export var animation_data: AnimationData = null
+@export var animation: AnimationData = null
 
 
 ## 时间戳，表示上一次生成士兵的时间，用于计算生成士兵的时间间隔
@@ -38,8 +38,8 @@ var last_soldier_count: int = C.UNSET
 
 
 func _ready() -> void:
-	if animation_data == null:
-		animation_data = AnimationData.new({
+	if animation == null:
+		animation = AnimationData.new({
 			"left_right": "spawn",
 		})
 

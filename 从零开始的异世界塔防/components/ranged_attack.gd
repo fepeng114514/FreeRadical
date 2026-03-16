@@ -21,11 +21,13 @@ class_name RangedAttack
 	set(value):
 		bullet_offsets = value
 		queue_redraw()
-@export var search_mode: C.Search = C.Search.ENEMY_MAX_PROGRESS
+@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 攻击动画数据
-@export var animation_data: AnimationData = null
-
-@export var delay: float = 0
+@export var animation: AnimationData = null
+## 攻击音效数据
+@export var sfx: AudioData = null
+## 开始攻击到发射子弹的延迟，单位为帧
+@export var delay_frame: int = 0
 @export var chance: float = 1
 @export var with_melee: bool = false
 @export var disabled: bool = false
@@ -72,7 +74,7 @@ func _draw() -> void:
 
 
 func _ready() -> void:
-	if animation_data == null:
-		animation_data = AnimationData.new({
+	if animation == null:
+		animation = AnimationData.new({
 			"left_right": "ranged_left_right",
 		})

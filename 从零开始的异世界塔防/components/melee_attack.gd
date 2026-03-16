@@ -8,15 +8,17 @@ class_name MeleeAttack
 ## 最大伤害
 @export var max_damage: float = 25
 ## 伤害类型
-@export var damage_type: C.Damage = C.Damage.PHYSICAL
+@export var damage_type: C.DamageType = C.DamageType.PHYSICAL
 ## 冷却时间
 @export var cooldown: float = 1
 ## 击中目标给予的状态效果
 @export var mods: Array[String] = []
 ## 攻击动画数据
-@export var animation_data: AnimationData = null
-
-@export var delay: float = 0
+@export var animation: AnimationData = null
+## 攻击音效数据
+@export var sfx: AudioData = null
+## 开始攻击到击中目标的延迟，单位为帧
+@export var delay_frame: int = 0
 @export var chance: float = 1
 @export var disabled: bool = false
 
@@ -38,7 +40,7 @@ var ts: float = 0
 
 
 func _ready() -> void:
-	if animation_data == null:
-		animation_data = AnimationData.new({
+	if animation == null:
+		animation = AnimationData.new({
 			"left_right": "melee_left_right",
 		})

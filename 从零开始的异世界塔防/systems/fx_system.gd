@@ -13,5 +13,5 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _timer_remove_once(e: Entity, _fx_c: FXComponent) -> void:
-	await e.mixed_wait_animation(e.idle_animation_data)
+	await e.mixed_wait_animation(e.idle_animation)
 	e.remove_entity()

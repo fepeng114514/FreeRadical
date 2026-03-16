@@ -4,7 +4,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfph0"]
 atlas = ExtResource("1_qfph0")
-region = Rect2(2246, 211, 40, 54)
+region = Rect2(2247, 775, 40, 54)
 margin = Rect2(18, 103, 165, 124)
 filter_clip = true
 

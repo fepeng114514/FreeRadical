@@ -1,7 +1,7 @@
 extends System
 class_name SelectSystem
 
-var select_type: C.Select = C.Select.NONE
+var select_type: C.SelectMode = C.SelectMode.NONE
 var selected_entity: Entity = null
 
 func _ready() -> void:
@@ -16,7 +16,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		)
 		
 		var e: Entity = EntityDB.search_target(
-			C.Search.ENTITY_MAX_ID, 
+			C.SearchMode.ENTITY_MAX_ID, 
 			mouse_global_position, 
 			C.UNSET, 
 			0, 
@@ -56,20 +56,20 @@ func _on_select(e: Entity) -> void:
 		if not rally_c.can_click_rally:
 			return
 			
-		select_type = C.Select.RALLY
+		select_type = C.SelectMode.RALLY
 
 	if e.has_c(C.CN_BARRACK):
-		select_type = C.Select.BARRACK_RALLY
+		select_type = C.SelectMode.BARRACK_RALLY
 	
 
 func _on_deselect() -> void:
 	var mouse_global_position: Vector2 = InputMgr.mouse_global_position
 
 	match select_type:
-		C.Select.RALLY:
+		C.SelectMode.RALLY:
 			var rally_c: RallyComponent = selected_entity.get_c(C.CN_RALLY)
 			rally_c.new_rally(mouse_global_position)
-		C.Select.BARRACK_RALLY:
+		C.SelectMode.BARRACK_RALLY:
 			var barrack_c: BarrackComponent = selected_entity.get_c(C.CN_BARRACK)
 
 			if (
@@ -84,4 +84,4 @@ func _on_deselect() -> void:
 				barrack_c.new_rally(rally_pos)
 
 	
-	select_type = C.Select.NONE
+	select_type = C.SelectMode.NONE

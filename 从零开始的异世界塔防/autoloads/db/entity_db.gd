@@ -152,7 +152,7 @@ func create_damage(
 		target_id: int,
 		min_damage: float,
 		max_damage: float,
-		damage_type: C.Damage = C.Damage.PHYSICAL,
+		damage_type: C.DamageType = C.DamageType.PHYSICAL,
 		source_id: int = C.UNSET,
 		damage_factor: float = 1
 	) -> Damage:
@@ -320,15 +320,15 @@ static func sort_entities_by_id(entities_array: Array, reversed: bool = false) -
 
 ## 根据排序模式排序实体，默认最大在前，如果 reversed 为 true 则最小在前
 static func sort_entities_by_type(
-		entities_array: Array, sort_type: C.Sort, origin: Vector2, reversed: bool = false
+		entities_array: Array, sort_type: C.SortMode, origin: Vector2, reversed: bool = false
 	) -> void:
-	var sort_functions: Dictionary[C.Sort, Callable] = {
-		C.Sort.PROGRESS: sort_entities_by_progress.bind(reversed),
-		C.Sort.HEALTH: sort_entities_by_health.bind(reversed),
-		C.Sort.DISTANCE: sort_entities_by_distance.bind(origin, reversed),
-		C.Sort.MELEE_DAMAGE: sort_entities_by_melee_damage.bind(reversed),
-		C.Sort.RANGE_DAMAGE: sort_entities_by_range_damage.bind(reversed),
-		C.Sort.ID: sort_entities_by_id.bind(reversed),
+	var sort_functions: Dictionary[C.SortMode, Callable] = {
+		C.SortMode.PROGRESS: sort_entities_by_progress.bind(reversed),
+		C.SortMode.HEALTH: sort_entities_by_health.bind(reversed),
+		C.SortMode.DISTANCE: sort_entities_by_distance.bind(origin, reversed),
+		C.SortMode.MELEE_DAMAGE: sort_entities_by_melee_damage.bind(reversed),
+		C.SortMode.RANGE_DAMAGE: sort_entities_by_range_damage.bind(reversed),
+		C.SortMode.ID: sort_entities_by_id.bind(reversed),
 	}
 	
 	if sort_type in sort_functions:
@@ -368,7 +368,7 @@ func find_targets_in_range(
 ## filter 匿名函数格式为 func(e: Entity) -> bool,
 ## 并返回 bool 表示是否被过滤
 func find_sorted_targets(
-		sort_type: C.Sort,
+		sort_type: C.SortMode,
 		origin: Vector2,
 		max_range: float,
 		min_range: float = 0,
@@ -389,7 +389,7 @@ func find_sorted_targets(
 ## filter 匿名函数格式为 func(e: Entity) -> bool,
 ## 并返回 bool 表示是否被过滤
 func find_extreme_target(
-		sort_type: C.Sort,
+		sort_type: C.SortMode,
 		origin: Vector2,
 		max_range: float,
 		min_range: float = 0,
@@ -407,59 +407,59 @@ func find_extreme_target(
 
 
 ## 搜索模式配置常量
-const SEARCH_CONFIG: Dictionary[C.Search, Array] = {
+const SEARCH_CONFIG: Dictionary[C.SearchMode, Array] = {
 	# [sort_type, group, reversed]
-	C.Search.ENTITY_MAX_PROGRESS: [C.Sort.PROGRESS, "", false],
-	C.Search.ENTITY_MIN_PROGRESS: [C.Sort.PROGRESS, "", true],
-	C.Search.ENTITY_MAX_DISTANCE: [C.Sort.DISTANCE, "", false],
-	C.Search.ENTITY_MIN_DISTANCE: [C.Sort.DISTANCE, "", true],
-	C.Search.ENTITY_MAX_HEALTH: [C.Sort.HEALTH, "", false],
-	C.Search.ENTITY_MIN_HEALTH: [C.Sort.HEALTH, "", true],
-	C.Search.ENTITY_MAX_MELEE_DAMAGE: [C.Sort.MELEE_DAMAGE, "", false],
-	C.Search.ENTITY_MIN_MELEE_DAMAGE: [C.Sort.MELEE_DAMAGE, "", true],
-	C.Search.ENTITY_MAX_RANGE_DAMAGE: [C.Sort.RANGE_DAMAGE, "", false],
-	C.Search.ENTITY_MIN_RANGE_DAMAGE: [C.Sort.RANGE_DAMAGE, "", true],
-	C.Search.ENTITY_MAX_ID: [C.Sort.ID, "", false],
-	C.Search.ENTITY_MIN_ID: [C.Sort.ID, "", true],
+	C.SearchMode.ENTITY_MAX_PROGRESS: [C.SortMode.PROGRESS, "", false],
+	C.SearchMode.ENTITY_MIN_PROGRESS: [C.SortMode.PROGRESS, "", true],
+	C.SearchMode.ENTITY_MAX_DISTANCE: [C.SortMode.DISTANCE, "", false],
+	C.SearchMode.ENTITY_MIN_DISTANCE: [C.SortMode.DISTANCE, "", true],
+	C.SearchMode.ENTITY_MAX_HEALTH: [C.SortMode.HEALTH, "", false],
+	C.SearchMode.ENTITY_MIN_HEALTH: [C.SortMode.HEALTH, "", true],
+	C.SearchMode.ENTITY_MAX_MELEE_DAMAGE: [C.SortMode.MELEE_DAMAGE, "", false],
+	C.SearchMode.ENTITY_MIN_MELEE_DAMAGE: [C.SortMode.MELEE_DAMAGE, "", true],
+	C.SearchMode.ENTITY_MAX_RANGE_DAMAGE: [C.SortMode.RANGE_DAMAGE, "", false],
+	C.SearchMode.ENTITY_MIN_RANGE_DAMAGE: [C.SortMode.RANGE_DAMAGE, "", true],
+	C.SearchMode.ENTITY_MAX_ID: [C.SortMode.ID, "", false],
+	C.SearchMode.ENTITY_MIN_ID: [C.SortMode.ID, "", true],
 
-	C.Search.ENEMY_MAX_PROGRESS: [C.Sort.PROGRESS, C.GROUP_ENEMIES, false],
-	C.Search.ENEMY_MIN_PROGRESS: [C.Sort.PROGRESS, C.GROUP_ENEMIES, true],
-	C.Search.ENEMY_MAX_DISTANCE: [C.Sort.DISTANCE, C.GROUP_ENEMIES, false],
-	C.Search.ENEMY_MIN_DISTANCE: [C.Sort.DISTANCE, C.GROUP_ENEMIES, true],
-	C.Search.ENEMY_MAX_HEALTH: [C.Sort.HEALTH, C.GROUP_ENEMIES, false],
-	C.Search.ENEMY_MIN_HEALTH: [C.Sort.HEALTH, C.GROUP_ENEMIES, true],
-	C.Search.ENEMY_MAX_MELEE_DAMAGE: [C.Sort.MELEE_DAMAGE, C.GROUP_ENEMIES, false],
-	C.Search.ENEMY_MIN_MELEE_DAMAGE: [C.Sort.MELEE_DAMAGE, C.GROUP_ENEMIES, true],
-	C.Search.ENEMY_MAX_RANGE_DAMAGE: [C.Sort.RANGE_DAMAGE, C.GROUP_ENEMIES, false],
-	C.Search.ENEMY_MIN_RANGE_DAMAGE: [C.Sort.RANGE_DAMAGE, C.GROUP_ENEMIES, true],
-	C.Search.ENEMY_MAX_ID: [C.Sort.ID, C.GROUP_ENEMIES, false],
-	C.Search.ENEMY_MIN_ID: [C.Sort.ID, C.GROUP_ENEMIES, true],
+	C.SearchMode.ENEMY_MAX_PROGRESS: [C.SortMode.PROGRESS, C.GROUP_ENEMIES, false],
+	C.SearchMode.ENEMY_MIN_PROGRESS: [C.SortMode.PROGRESS, C.GROUP_ENEMIES, true],
+	C.SearchMode.ENEMY_MAX_DISTANCE: [C.SortMode.DISTANCE, C.GROUP_ENEMIES, false],
+	C.SearchMode.ENEMY_MIN_DISTANCE: [C.SortMode.DISTANCE, C.GROUP_ENEMIES, true],
+	C.SearchMode.ENEMY_MAX_HEALTH: [C.SortMode.HEALTH, C.GROUP_ENEMIES, false],
+	C.SearchMode.ENEMY_MIN_HEALTH: [C.SortMode.HEALTH, C.GROUP_ENEMIES, true],
+	C.SearchMode.ENEMY_MAX_MELEE_DAMAGE: [C.SortMode.MELEE_DAMAGE, C.GROUP_ENEMIES, false],
+	C.SearchMode.ENEMY_MIN_MELEE_DAMAGE: [C.SortMode.MELEE_DAMAGE, C.GROUP_ENEMIES, true],
+	C.SearchMode.ENEMY_MAX_RANGE_DAMAGE: [C.SortMode.RANGE_DAMAGE, C.GROUP_ENEMIES, false],
+	C.SearchMode.ENEMY_MIN_RANGE_DAMAGE: [C.SortMode.RANGE_DAMAGE, C.GROUP_ENEMIES, true],
+	C.SearchMode.ENEMY_MAX_ID: [C.SortMode.ID, C.GROUP_ENEMIES, false],
+	C.SearchMode.ENEMY_MIN_ID: [C.SortMode.ID, C.GROUP_ENEMIES, true],
 	
-	C.Search.FRIENDLY_MAX_PROGRESS: [C.Sort.PROGRESS, C.GROUP_FRIENDLYS, false],
-	C.Search.FRIENDLY_MIN_PROGRESS: [C.Sort.PROGRESS, C.GROUP_FRIENDLYS, true],
-	C.Search.FRIENDLY_MAX_DISTANCE: [C.Sort.DISTANCE, C.GROUP_FRIENDLYS, false],
-	C.Search.FRIENDLY_MIN_DISTANCE: [C.Sort.DISTANCE, C.GROUP_FRIENDLYS, true],
-	C.Search.FRIENDLY_MAX_HEALTH: [C.Sort.HEALTH, C.GROUP_FRIENDLYS, false],
-	C.Search.FRIENDLY_MIN_HEALTH: [C.Sort.HEALTH, C.GROUP_FRIENDLYS, true],
-	C.Search.FRIENDLY_MAX_MELEE_DAMAGE: [C.Sort.MELEE_DAMAGE, C.GROUP_FRIENDLYS, false],
-	C.Search.FRIENDLY_MIN_MELEE_DAMAGE: [C.Sort.MELEE_DAMAGE, C.GROUP_FRIENDLYS, true],
-	C.Search.FRIENDLY_MAX_RANGE_DAMAGE: [C.Sort.RANGE_DAMAGE, C.GROUP_FRIENDLYS, false],
-	C.Search.FRIENDLY_MIN_RANGE_DAMAGE: [C.Sort.RANGE_DAMAGE, C.GROUP_FRIENDLYS, true],
-	C.Search.FRIENDLY_MAX_ID: [C.Sort.ID, C.GROUP_FRIENDLYS, false],
-	C.Search.FRIENDLY_MIN_ID: [C.Sort.ID, C.GROUP_FRIENDLYS, true],
+	C.SearchMode.FRIENDLY_MAX_PROGRESS: [C.SortMode.PROGRESS, C.GROUP_FRIENDLYS, false],
+	C.SearchMode.FRIENDLY_MIN_PROGRESS: [C.SortMode.PROGRESS, C.GROUP_FRIENDLYS, true],
+	C.SearchMode.FRIENDLY_MAX_DISTANCE: [C.SortMode.DISTANCE, C.GROUP_FRIENDLYS, false],
+	C.SearchMode.FRIENDLY_MIN_DISTANCE: [C.SortMode.DISTANCE, C.GROUP_FRIENDLYS, true],
+	C.SearchMode.FRIENDLY_MAX_HEALTH: [C.SortMode.HEALTH, C.GROUP_FRIENDLYS, false],
+	C.SearchMode.FRIENDLY_MIN_HEALTH: [C.SortMode.HEALTH, C.GROUP_FRIENDLYS, true],
+	C.SearchMode.FRIENDLY_MAX_MELEE_DAMAGE: [C.SortMode.MELEE_DAMAGE, C.GROUP_FRIENDLYS, false],
+	C.SearchMode.FRIENDLY_MIN_MELEE_DAMAGE: [C.SortMode.MELEE_DAMAGE, C.GROUP_FRIENDLYS, true],
+	C.SearchMode.FRIENDLY_MAX_RANGE_DAMAGE: [C.SortMode.RANGE_DAMAGE, C.GROUP_FRIENDLYS, false],
+	C.SearchMode.FRIENDLY_MIN_RANGE_DAMAGE: [C.SortMode.RANGE_DAMAGE, C.GROUP_FRIENDLYS, true],
+	C.SearchMode.FRIENDLY_MAX_ID: [C.SortMode.ID, C.GROUP_FRIENDLYS, false],
+	C.SearchMode.FRIENDLY_MIN_ID: [C.SortMode.ID, C.GROUP_FRIENDLYS, true],
 
-	C.Search.UNIT_MAX_PROGRESS: [C.Sort.PROGRESS, C.GROUP_UNIT, false],
-	C.Search.UNIT_MIN_PROGRESS: [C.Sort.PROGRESS, C.GROUP_UNIT, true],
-	C.Search.UNIT_MAX_DISTANCE: [C.Sort.DISTANCE, C.GROUP_UNIT, false],
-	C.Search.UNIT_MIN_DISTANCE: [C.Sort.DISTANCE, C.GROUP_UNIT, true],
-	C.Search.UNIT_MAX_HEALTH: [C.Sort.HEALTH, C.GROUP_UNIT, false],
-	C.Search.UNIT_MIN_HEALTH: [C.Sort.HEALTH, C.GROUP_UNIT, true],
-	C.Search.UNIT_MAX_MELEE_DAMAGE: [C.Sort.MELEE_DAMAGE, C.GROUP_UNIT, false],
-	C.Search.UNIT_MIN_MELEE_DAMAGE: [C.Sort.MELEE_DAMAGE, C.GROUP_UNIT, true],
-	C.Search.UNIT_MAX_RANGE_DAMAGE: [C.Sort.RANGE_DAMAGE, C.GROUP_UNIT, false],
-	C.Search.UNIT_MIN_RANGE_DAMAGE: [C.Sort.RANGE_DAMAGE, C.GROUP_UNIT, true],
-	C.Search.UNIT_MAX_ID: [C.Sort.ID, C.GROUP_UNIT, false],
-	C.Search.UNIT_MIN_ID: [C.Sort.ID, C.GROUP_UNIT, true],
+	C.SearchMode.UNIT_MAX_PROGRESS: [C.SortMode.PROGRESS, C.GROUP_UNIT, false],
+	C.SearchMode.UNIT_MIN_PROGRESS: [C.SortMode.PROGRESS, C.GROUP_UNIT, true],
+	C.SearchMode.UNIT_MAX_DISTANCE: [C.SortMode.DISTANCE, C.GROUP_UNIT, false],
+	C.SearchMode.UNIT_MIN_DISTANCE: [C.SortMode.DISTANCE, C.GROUP_UNIT, true],
+	C.SearchMode.UNIT_MAX_HEALTH: [C.SortMode.HEALTH, C.GROUP_UNIT, false],
+	C.SearchMode.UNIT_MIN_HEALTH: [C.SortMode.HEALTH, C.GROUP_UNIT, true],
+	C.SearchMode.UNIT_MAX_MELEE_DAMAGE: [C.SortMode.MELEE_DAMAGE, C.GROUP_UNIT, false],
+	C.SearchMode.UNIT_MIN_MELEE_DAMAGE: [C.SortMode.MELEE_DAMAGE, C.GROUP_UNIT, true],
+	C.SearchMode.UNIT_MAX_RANGE_DAMAGE: [C.SortMode.RANGE_DAMAGE, C.GROUP_UNIT, false],
+	C.SearchMode.UNIT_MIN_RANGE_DAMAGE: [C.SortMode.RANGE_DAMAGE, C.GROUP_UNIT, true],
+	C.SearchMode.UNIT_MAX_ID: [C.SortMode.ID, C.GROUP_UNIT, false],
+	C.SearchMode.UNIT_MIN_ID: [C.SortMode.ID, C.GROUP_UNIT, true],
 }
 
 

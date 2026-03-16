@@ -8,13 +8,13 @@ class_name BulletComponent
 ## 最大伤害，表示子弹造成的最大伤害值
 @export var max_damage: float = 0
 ## 伤害类型，表示子弹造成的伤害类型，使用位运算表示
-@export var damage_type: C.Damage = C.Damage.PHYSICAL
+@export var damage_type: C.DamageType = C.DamageType.PHYSICAL
 ## 最小伤害半径，表示子弹造成伤害的范围，单位为像素，通常用于范围伤害的子弹
 @export var min_damage_radius: float = 0
 ## 最大伤害半径，表示子弹造成最大伤害的范围，单位为像素，通常用于范围伤害的子弹
 @export var max_damage_radius: float = 0
 ## 范围伤害的搜索模式，表示子弹在造成范围伤害时的目标选择策略，默认为优先敌人
-@export var search_mode: C.Search = C.Search.ENEMY_MAX_PROGRESS
+@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 子弹数值速度，表示子弹的飞行速度，单位为像素/秒，用于无法指定飞行时间的飞行轨迹
 @export var speed: float = 0
 ## 子弹旋转速度，表示子弹的旋转速度，单位为弧度/秒
@@ -36,8 +36,12 @@ class_name BulletComponent
 @export var hit_dist: float = 20
 ## 击中目标后是否移除子弹实体，通常用于一次性子弹
 @export var hit_remove: bool = true
+## 击中音效 uid
+@export_file("*.ogg") var hit_sfx: String = ""
 ## 未击中目标时是否移除子弹实体
 @export var miss_remove: bool = true
+## 未击中音效 uid
+@export_file("*.ogg") var miss_sfx: String = ""
 
 @export_group("extra")
 ## 子弹携带的状态效果 UID 列表，表示子弹命中目标时附加的状态效果
@@ -49,11 +53,13 @@ class_name BulletComponent
 
 @export_group("Animations")
 ## 飞行动画数据
-@export var flying_animation_data: AnimationData = null
+@export var flying_animation: AnimationData = null
 ## 击中动画数据
-@export var hit_animation_data: AnimationData = null
+@export var hit_animation: AnimationData = null
+## 击中后造成伤害的延迟，单位为帧
+@export var hit_delay_frame: int = 0
 ## 未击中动画数据
-@export var miss_animation_data: AnimationData = null
+@export var miss_animation: AnimationData = null
 
 ## 起始位置，表示子弹的起始位置，单位为像素
 var from := Vector2.ZERO

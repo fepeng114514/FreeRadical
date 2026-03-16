@@ -49,21 +49,41 @@ func _init_sfx_players() -> void:
 		
 
 ## 播放音乐
-func play_music(uid: String) -> void:
-	play_audio(uid)
+func play_music(audio_data: AudioData) -> void:
+	play_audio(audio_data, _music_player)
 
 
 ## 播放音效
-func play_sfx(uid: String) -> void:
+func play_sfx(audio_data: AudioData) -> void:
 	for sfx_playe: AudioStreamPlayer in _sfx_playes:
 		if sfx_playe.playing:
 			continue
 		
-		play_audio(uid)
+		play_audio(audio_data, sfx_playe)
+		return
 		
 		
 ## 播放音频
-func play_audio(uid: String) -> void:
-	var stream: AudioStream = _audio_resources[uid]
-	_music_player.stream = stream
-	_music_player.play()
+func play_audio(
+		audio_data: AudioData, player: AudioStreamPlayer
+	) -> void:
+	match audio_data.play_mode:
+		C.AudioPlayMode.RANGDOM:
+			var stream_uid: String = audio_data.audio_list.pick_random()
+			_play(stream_uid, player, audio_data)
+		C.AudioPlayMode.CONCURRENCY:
+			for stream_uid: String in audio_data.audio_list.pick_random():
+				_play(stream_uid, player, audio_data)
+
+
+## 播放音频
+func _play(
+		stream_uid: String, 
+		player: AudioStreamPlayer, 
+		audio_data: AudioData
+	) -> void:
+	var stream: AudioStream = _audio_resources[stream_uid]
+	player.stream = stream
+	player.volume_db = audio_data.volume_db
+	player.volume_linear = audio_data.volume_linear
+	player.play()

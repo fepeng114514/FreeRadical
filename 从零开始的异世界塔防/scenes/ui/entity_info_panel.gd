@@ -5,7 +5,7 @@ extends PanelContainer
 @export var rally_circle: PackedScene = null
 @export var rally_line: PackedScene = null
 var selected_entity: Entity = null
-var info_type: C.Info = C.Info.UNIT
+var info_type: C.InfoBarType = C.InfoBarType.UNIT
 @onready var entity_name: Label = $MarginContainer/HBoxContainer/EntityName
 @onready var label_hp: Label = $MarginContainer/HBoxContainer/HBoxHP/LabelHP
 @onready var value_hp: Label = $MarginContainer/HBoxContainer/HBoxHP/ValueHP
@@ -17,8 +17,8 @@ var info_type: C.Info = C.Info.UNIT
 @onready var value_phys_armor: Label = $MarginContainer/HBoxContainer/HBoxPhysArmor/ValuePhysArmor
 @onready var label_magic_armor: Label = $MarginContainer/HBoxContainer/HBoxMagicArmor/LabelMagicArmor
 @onready var value_magic_armor: Label = $MarginContainer/HBoxContainer/HBoxMagicArmor/ValueMagicArmor
-@onready var show_config: Dictionary[C.Info, Array] = {
-	C.Info.UNIT: [
+@onready var show_config: Dictionary[C.InfoBarType, Array] = {
+	C.InfoBarType.UNIT: [
 		[label_hp, true],
 		[value_hp, true],
 		[label_melee, true],
@@ -30,7 +30,7 @@ var info_type: C.Info = C.Info.UNIT
 		[label_magic_armor, true],
 		[value_magic_armor, true],
 	],
-	C.Info.TOWER: [
+	C.InfoBarType.TOWER: [
 		[label_hp, false],
 		[value_hp, false],
 		[label_melee, false],
@@ -172,9 +172,9 @@ func _update_info() -> void:
 		control.visible = is_hidden
 
 	match info_type:
-		C.Info.UNIT:
+		C.InfoBarType.UNIT:
 			_update_unit_info()
-		C.Info.TOWER:
+		C.InfoBarType.TOWER:
 			if selected_entity.has_c(C.CN_TOWER):
 				_update_tower_info()
 

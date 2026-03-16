@@ -11,7 +11,7 @@ class_name MeleeComponent
 ## 移动速度，单位为像素/秒
 @export var speed: float = 100
 ## 移动动画数据
-@export var motion_animation_data: AnimationData = null
+@export var motion_animation: AnimationData = null
 
 ## 近战位置偏移
 @export var melee_pos_offset := Vector2.ZERO:
@@ -29,7 +29,7 @@ class_name MeleeComponent
 ## 拦截最大范围，单位为像素
 @export var block_max_range: float = 100
 ## 搜索模式，实体在寻找被拦截者时的目标选择策略，默认为优先第一个敌人
-@export var search_mode: C.Search = C.Search.ENEMY_MAX_PROGRESS
+@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 最大被拦截者数量
 @export var max_blocked: int = 1
 
@@ -94,8 +94,8 @@ func _notification(what: int) -> void:
 	
 
 func _ready() -> void:
-	if motion_animation_data == null:
-		motion_animation_data = AnimationData.new({
+	if motion_animation == null:
+		motion_animation = AnimationData.new({
 			"up": "walk_up",
 			"down": "walk_down",
 			"left_right": "walk_left_right",

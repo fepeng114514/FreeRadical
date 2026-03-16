@@ -35,7 +35,7 @@ enum LOG_LEVEL {
 
 
 ## 伤害类型 (位运算) 枚举
-enum Damage {
+enum DamageType {
 	## 伤害类型: 无
 	NONE = 0,
 	## 伤害类型: 物伤
@@ -83,7 +83,7 @@ enum Flag {
 
 
 ## 状态效果类型 (位运算) 枚举
-enum Mod {
+enum ModType {
 	## 状态效果类型: 无
 	NONE = 0,
 	## 状态效果类型: 毒
@@ -100,7 +100,7 @@ enum Mod {
 
 
 ## 光环类型 (位运算) 枚举
-enum Aura {
+enum AuraType {
 	## 光环类型: 无
 	NONE = 0,
 	## 光环类型: 正面效果
@@ -125,7 +125,7 @@ enum Trajectory {
 
 
 ## 搜索模式枚举
-enum Search {
+enum SearchMode {
 	## 搜索模式: 实体路程最远
 	ENTITY_MAX_PROGRESS,
 	## 搜索模式: 实体路程最近
@@ -228,19 +228,19 @@ enum Search {
 }
 
 
-## 排序类型枚举
-enum Sort {
-	## 排序类型: 路径路程
+## 排序模式枚举
+enum SortMode {
+	## 排序模式: 路程
 	PROGRESS,
-	## 排序类型: 距离
+	## 排序模式: 距离
 	DISTANCE,
-	## 排序类型: 血量
+	## 排序模式: 血量
 	HEALTH,
-	## 排序类型: 近战伤害
+	## 排序模式: 近战伤害
 	MELEE_DAMAGE,
-	## 排序类型: 远程伤害
+	## 排序模式: 远程伤害
 	RANGE_DAMAGE,
-	## 排序类型: 实体 ID
+	## 排序模式: 实体 ID
 	ID,
 }
 
@@ -264,15 +264,17 @@ enum State {
 }
 
 
-## 实体信息类型枚举
-enum Info {
+## 实体信息栏类型枚举
+enum InfoBarType {
+	## 信息栏类型：敌人或友军的信息栏
 	UNIT,
+	## 信息栏类型：防御塔的信息栏
 	TOWER,
 }
 
 
 ## 选择模式枚举
-enum Select {
+enum SelectMode {
 	NONE,
 	RALLY,
 	BARRACK_RALLY,
@@ -281,10 +283,23 @@ enum Select {
 
 ## 方向枚举 
 enum Direction {
+	## 方向：上
 	UP,
+	## 方向：下
 	DOWN,
+	## 方向：左
 	LEFT,
+	## 方向：右
 	RIGHT,
+}
+
+
+## 音频播放模式枚举
+enum AudioPlayMode {
+	## 音频播放模式：随机播放音频列表中的音频
+	RANGDOM,
+	## 音频播放模式：并行播放音频列表中的音频
+	CONCURRENCY
 }
 
 

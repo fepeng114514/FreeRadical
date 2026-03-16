@@ -63,8 +63,8 @@ func _on_update(delta: float) -> void:
 		elif bullet_c.flight_trajectory & C.Trajectory.TRACKING:
 			_trajectory_tracking_update(e, bullet_c, target)
 		
-		if bullet_c.flying_animation_data:
-			e.mixed_play_animation_by_look(bullet_c.flying_animation_data)
+		if bullet_c.flying_animation:
+			e.mixed_play_animation_by_look(bullet_c.flying_animation)
 		e.rotation += bullet_c.rotation_speed * delta
 		
 		if (
@@ -90,6 +90,10 @@ func _on_update(delta: float) -> void:
 func _hit(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
+	if bullet_c.hit_animation:
+		e.mixed_play_animation_by_look(bullet_c.hit_animation)
+		await e.y_wait_frame(bullet_c.hit_delay_frame)
+		
 	if bullet_c.min_damage_radius > 0 or bullet_c.max_damage_radius > 0:
 		var targets: Array = EntityDB.search_targets_in_range(
 			bullet_c.search_mode, 
@@ -108,9 +112,9 @@ func _hit(
 	EntityDB.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
 
 	e._on_bullet_hit(target, bullet_c)
-	if bullet_c.hit_animation_data:
-		e.mixed_play_animation_by_look(bullet_c.hit_animation_data)
-		await e.mixed_wait_animation(bullet_c.hit_animation_data)
+	
+	if bullet_c.hit_animation:
+		e.mixed_wait_animation(bullet_c.hit_animation)
 
 	if bullet_c.hit_remove:
 		e.remove_entity()
@@ -138,9 +142,9 @@ func _miss(
 		e: Entity, bullet_c: BulletComponent
 	) -> void:
 	e._on_bullet_miss(bullet_c)
-	if bullet_c.miss_animation_data:
-		e.mixed_play_animation_by_look(bullet_c.miss_animation_data)
-		await e.mixed_wait_animation(bullet_c.miss_animation_data)
+	if bullet_c.miss_animation:
+		e.mixed_play_animation_by_look(bullet_c.miss_animation)
+		await e.mixed_wait_animation(bullet_c.miss_animation)
 
 	EntityDB.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
 

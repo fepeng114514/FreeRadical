@@ -3,7 +3,7 @@ extends Node
 class_name AuraComponent
 
 
-@export var aura_type: Array[C.Aura] = []:
+@export var aura_type: Array[C.ModType] = []:
 	set(value): 
 		aura_type = value
 		aura_type_bits = U.merge_flags(value)
@@ -14,11 +14,11 @@ class_name AuraComponent
 @export var remove_banned: bool = true
 @export var min_radius: float = 0
 @export var max_radius: float = 0
-@export var search_mode: C.Search = C.Search.ENEMY_MAX_PROGRESS
+@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 @export var mods: Array[String] = []
 @export var min_damage: float = 0
 @export var max_damage: float = 0
-@export var damage_type: C.Damage = C.Damage.TRUE
+@export var damage_type: C.DamageType = C.DamageType.TRUE
 @export var cycle_time: float = 1
 @export var max_cycle: int = C.UNSET
 

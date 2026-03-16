@@ -38,7 +38,7 @@ components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "UIComponent": NodePath("UIComponent")
 }
-idle_animation_data = SubResource("Resource_l80ei")
+idle_animation = SubResource("Resource_l80ei")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=505150196 node_paths=PackedStringArray("list")]
@@ -72,7 +72,7 @@ animation = &"idle"
 
 [node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1766719931]
 sprite_frames = ExtResource("9_6ve1v")
-animation = &"idle"
+animation = &"ranged"
 
 [node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=473479711]
 sprite_frames = ExtResource("10_s1vxx")
@@ -101,6 +101,6 @@ bullet_offsets = Dictionary[String, Vector2]({
 "right": Vector2(0, 0),
 "up": Vector2(0, 0)
 })
-animation_data = SubResource("Resource_3uqv8")
-delay = 0.367
+animation = SubResource("Resource_3uqv8")
+delay_frame = 28
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

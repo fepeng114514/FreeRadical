@@ -6,7 +6,7 @@ class_name RallyComponent
 @export var rally_radius: float = 30
 @export var can_click_rally: bool = true
 ## 移动动画数据
-@export var motion_animation_data: AnimationData = null
+@export var motion_animation: AnimationData = null
 @export var rally_pos := Vector2.ZERO:
 	set(value):
 		rally_pos = value
@@ -16,8 +16,8 @@ var arrived: bool = false
 
 
 func _ready() -> void:
-	if motion_animation_data == null:
-		motion_animation_data = AnimationData.new({
+	if motion_animation == null:
+		motion_animation = AnimationData.new({
 			"up": "walk_up",
 			"down": "walk_down",
 			"left_right": "walk_left_right",
