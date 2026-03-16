@@ -19,8 +19,6 @@ var nav_progress: float = 0
 var origin_speed: float = 0
 var loop_count: int = 0
 var ts: float = 0
-## 是否在路径上移动
-var is_walking: bool = true
 
 
 func _ready() -> void:

@@ -54,7 +54,7 @@ func get_mod_speed_factor(e: Entity) -> float:
 
 
 func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
-	nav_path_c.is_walking = true
+	e.state = C.State.NAV_PATH_WALK
 	
 	var walk_lenth: float = nav_path_c.speed * TimeDB.frame_length
 	
@@ -122,4 +122,4 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
 	if not nav_path_c:
 		return
 		
-	nav_path_c.is_walking = false
+	e.state = C.State.IDLE

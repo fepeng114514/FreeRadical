@@ -33,32 +33,32 @@ class_name Entity
 ## 黑名单实体 UID 列表
 @export_file("*.tscn") var blacklist_uid: Array[String] = []
 ## 实体标识符列表
-@export var flags: Array[C.FLAG] = []:
+@export var flags: Array[C.Flag] = []:
 	set(value): 
 		flags = value
 		flag_bits = U.merge_flags(value)
 ## 禁止的实体标识符列表
-@export var bans: Array[C.FLAG] = []:
+@export var bans: Array[C.Flag] = []:
 	set(value): 
 		bans = value
 		ban_bits = U.merge_flags(value)
 ## 禁止的状态效果类型标识符列表
-@export var mod_type_bans: Array[C.MOD] = []:
+@export var mod_type_bans: Array[C.Mod] = []:
 	set(value): 
 		mod_type_bans = value
 		mod_type_ban_bits = U.merge_flags(value)
 ## 禁止的光环类型标识符列表
-@export var aura_type_bans: Array[C.AURA] = []:
+@export var aura_type_bans: Array[C.Aura] = []:
 	set(value): 
 		aura_type_bans = value
 		aura_type_ban_bits = U.merge_flags(value)
 ## 禁止的状态效果标识符列表
-@export var mod_bans: Array[C.FLAG] = []:
+@export var mod_bans: Array[C.Flag] = []:
 	set(value): 
 		mod_bans = value
 		mod_ban_bits = U.merge_flags(value)
 ## 禁止的光环标识符列表
-@export var aura_bans: Array[C.FLAG] = []:
+@export var aura_bans: Array[C.Flag] = []:
 	set(value): 
 		aura_bans = value
 		aura_ban_bits = U.merge_flags(value)
@@ -101,7 +101,7 @@ var selected: bool = false
 var removed: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
-var state := C.STATE.IDLE
+var state := C.State.IDLE
 var look_at_point := Vector2.INF
 #endregion
 
@@ -369,13 +369,18 @@ func get_animated_sprite(sprite_idx: int = 0) -> Node2D:
 func play_animation(
 		anim_name: String, 
 		sprite_idx: int = 0, 
-		filp_h: bool = false
+		filp_h: bool = false,
+		force_play: bool = false
 	) -> void:
 	var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
 	if not sprite:
 		return
 		
-	if sprite.animation == anim_name and sprite.flip_h == filp_h:
+	if (
+			not force_play 
+			and sprite.animation == anim_name 
+			and sprite.flip_h == filp_h
+		):
 		return
 		
 	if not sprite.sprite_frames.has_animation(anim_name):
@@ -391,29 +396,36 @@ func play_animation(
 func play_animation_group(
 		anim_name: String, 
 		group_idx: int = 0, 
-		filp_h: bool = false
+		filp_h: bool = false,
+		force_play: bool = false
 	) -> void:
-	var sprite_c: AnimatedSprite2D = get_c(C.CN_SPRITE)
+	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
 		
-	for sprite_idx: int in sprite_c.groups[group_idx]:
-		play_animation(anim_name, sprite_idx, filp_h)
+	for sprite_idx: int in sprite_c.groups[group_idx].sprite_idx_list:
+		play_animation(anim_name, sprite_idx, filp_h, force_play)
 
 
 ## 根据是否为组调用相应 play_animation_by_look 或 play_animation_group_by_look 函数
 func mixed_play_animation_by_look(
 		animation_data: AnimationData, 
-		source_animation_data_key: String = ""
+		source_animation_data_key: String = "",
+		force_play: bool = false
 	) -> Array:
 	if animation_data.is_group:
-		return play_animation_group_by_look(animation_data, source_animation_data_key)
+		return play_animation_group_by_look(
+			animation_data, source_animation_data_key, force_play)
 	else:
-		return play_animation_by_look(animation_data, source_animation_data_key)
+		return play_animation_by_look(
+			animation_data, source_animation_data_key, C.UNSET, force_play
+		)
 
 
 ## 根据实体与看向目标点的角度播放对应的动画
 func play_animation_by_look(
 		animation_data: AnimationData, 
-		source_animation_data_key: String = ""
+		source_animation_data_key: String = "",
+		sprite_idx: int = C.UNSET,
+		force_play: bool = false
 	) -> Array:
 	var anim_name: String = ""
 
@@ -423,23 +435,22 @@ func play_animation_by_look(
 	anim_name = result[0]
 	var filp_h: bool = result[2]
 
-	var play_idx: int = animation_data.play_idx
+	var play_idx: int = sprite_idx if U.is_valid_number(sprite_idx) else animation_data.play_idx
 
-	if animation_data.is_group:
-		play_animation_group(anim_name, play_idx, filp_h)
-	else:
-		play_animation(anim_name, play_idx, filp_h)
+	play_animation(anim_name, play_idx, filp_h, force_play)
 
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
 	if sprite_c.sync_source:
 		_source_play_animation_by_look(
-			source_animation_data_key
+			source_animation_data_key,
+			force_play
 		)
 	return result
 	
 	
 func _source_play_animation_by_look(
-		source_animation_data_key: String = ""
+		source_animation_data_key: String = "",
+		force_play: bool = false
 	) -> void:
 	var source: Entity = EntityDB.get_entity_by_id(source_id)
 	if not source or source.is_waiting():
@@ -453,44 +464,50 @@ func _source_play_animation_by_look(
 	if not animation_data:
 		return
 		
-	source.mixed_play_animation_by_look(animation_data, source_animation_data_key)
-	var play_idx: int = animation_data.play_idx
-	var times: int = animation_data.times
+	source.mixed_play_animation_by_look(
+		animation_data, source_animation_data_key, force_play
+	)
 
-	source.mixed_wait_animation(animation_data.is_group, play_idx, times)
+	source.mixed_wait_animation(animation_data)
 	
 	
 ## 根据实体与看向目标点的角度使一个组中的所有精灵播放对应的动画
 func play_animation_group_by_look(
 		animation_data: AnimationData, 
-		source_animation_data_key: String = ""
+		source_animation_data_key: String = "",
+		force_play: bool = false
 	) -> Array:
-	var sprite_c: AnimatedSprite2D = get_c(C.CN_SPRITE)
+	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
 	var result: Array = []
 		
-	for sprite_idx: int in sprite_c.groups[animation_data.play_idx]:
-		result = mixed_play_animation_by_look(animation_data, source_animation_data_key)
+	for sprite_idx: int in sprite_c.groups[animation_data.play_idx].sprite_idx_list:
+		result = play_animation_by_look(
+			animation_data, source_animation_data_key, sprite_idx, force_play
+		)
 		
 	_source_play_animation_by_look(
-		source_animation_data_key
+		source_animation_data_key, force_play
 	)
 	return result
 
 
-func play_idle_animation() -> Array:
+func play_idle_animation(force_play: bool = false) -> Array:
 	return mixed_play_animation_by_look(
-		idle_animation_data, "idle"
+		idle_animation_data, "idle", force_play
 	)
 
 
 ## 根据是否为组调用 wait_animation 或 wait_animation_group 函数
 func mixed_wait_animation(
-		is_group: bool = false, idx: int = 0, times: int = 1
+		animation_data: AnimationData
 	) -> void:
-	if is_group:
-		await wait_animation_group(idx, times)
+	var play_idx: int = animation_data.play_idx
+	var times: int = animation_data.times
+
+	if animation_data.is_group:
+		await wait_animation_group(play_idx, times)
 	else:
-		await wait_animation(idx, times)
+		await wait_animation(play_idx, times)
 
 
 ## 等待动画播放完成
@@ -512,7 +529,7 @@ func wait_animation_group(group_idx: int = 0, times: int = 1) -> void:
 	_waiting = true
 	
 	for i: int in range(times):
-		for sprite_idx: int in sprite_c.groups[group_idx]:
+		for sprite_idx: int in sprite_c.groups[group_idx].sprite_idx_list:
 			var sprite: AnimatedSprite2D = get_animated_sprite(sprite_idx)
 			await _wait_for_animation_loop(sprite)
 	

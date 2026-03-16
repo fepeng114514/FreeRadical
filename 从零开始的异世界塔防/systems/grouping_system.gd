@@ -2,12 +2,12 @@ extends System
 class_name GroupingSystem
 
 const FLAG_TO_GROUP = {
-	C.FLAG.ENEMY: C.GROUP_ENEMIES,
-	C.FLAG.FRIENDLY: C.GROUP_FRIENDLYS,
-	C.FLAG.UNIT: C.GROUP_UNIT,
-	C.FLAG.TOWER: C.GROUP_TOWERS,
-	C.FLAG.MODIFIER: C.GROUP_MODIFIERS,
-	C.FLAG.AURA: C.GROUP_AURAS,
+	C.Flag.ENEMY: C.GROUP_ENEMIES,
+	C.Flag.FRIENDLY: C.GROUP_FRIENDLYS,
+	C.Flag.UNIT: C.GROUP_UNIT,
+	C.Flag.TOWER: C.GROUP_TOWERS,
+	C.Flag.MODIFIER: C.GROUP_MODIFIERS,
+	C.Flag.AURA: C.GROUP_AURAS,
 }
 
 
@@ -24,7 +24,7 @@ func _on_update(_delta: float) -> void:
 	component_groups.clear()
 	
 	for e: Entity in EntityDB.get_vaild_entities():
-		for flags: C.FLAG in FLAG_TO_GROUP.keys():
+		for flags: C.Flag in FLAG_TO_GROUP.keys():
 			if e.flag_bits & flags:
 				_append_entity(e, FLAG_TO_GROUP[flags])
 

@@ -10,7 +10,7 @@ class_name UIComponent
 	set(value):
 		can_click = value
 		queue_redraw()
-@export var info_type: C.INFO = C.INFO.UNIT
+@export var info_type: C.Info = C.Info.UNIT
 
 
 ## 获取全局位置的矩形

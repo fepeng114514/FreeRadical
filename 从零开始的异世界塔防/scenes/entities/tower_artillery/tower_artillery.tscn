@@ -12,6 +12,8 @@
 [ext_resource type="SpriteFrames" uid="uid://b80vqhtuvk40l" path="res://resources/sprite_frames_resources/tower_artillery_lvl1_layer6.tres" id="9_6ve1v"]
 [ext_resource type="SpriteFrames" uid="uid://dmyxk70sgcsj4" path="res://resources/sprite_frames_resources/tower_artillery_lvl1_layer7.tres" id="10_s1vxx"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://components/ui_component.gd" id="12_mbgfo"]
+[ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://components/ranged_component.gd" id="13_l5l73"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://components/ranged_attack.gd" id="14_n4ua5"]
 
 [sub_resource type="Resource" id="Resource_l80ei"]
 script = ExtResource("2_snldt")
@@ -23,18 +25,25 @@ script = ExtResource("4_l80ei")
 sprite_idx_list = Array[int]([0, 1, 2, 3, 4, 5, 6])
 metadata/_custom_type_script = "uid://c51fj1yok5f5t"
 
+[sub_resource type="Resource" id="Resource_3uqv8"]
+script = ExtResource("2_snldt")
+is_group = true
+any = "ranged"
+
 [node name="TowerArtillery" type="Node2D" unique_id=1600363506 node_paths=PackedStringArray("components")]
 script = ExtResource("1_xqrgu")
 uid = "uid://fx352ubic8aw"
 components = {
+"RangedComponent": NodePath("RangedComponent"),
 "SpriteComponent": NodePath("SpriteComponent"),
 "UIComponent": NodePath("UIComponent")
 }
 idle_animation_data = SubResource("Resource_l80ei")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1362566750 node_paths=PackedStringArray("list")]
-position = Vector2(0, -60)
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=505150196 node_paths=PackedStringArray("list")]
+show_behind_parent = true
+position = Vector2(-4, -49)
 script = ExtResource("3_l80ei")
 list = [NodePath("AnimatedSprite2D"), NodePath("AnimatedSprite2D2"), NodePath("AnimatedSprite2D3"), NodePath("AnimatedSprite2D4"), NodePath("AnimatedSprite2D5"), NodePath("AnimatedSprite2D6"), NodePath("AnimatedSprite2D7")]
 groups = Array[ExtResource("4_l80ei")]([SubResource("Resource_mbgfo")])
@@ -47,12 +56,10 @@ animation = &"idle"
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=2085102450]
 sprite_frames = ExtResource("5_1qc6l")
 animation = &"idle"
-frame_progress = 0.85702354
 
 [node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=532296352]
 sprite_frames = ExtResource("6_l5l73")
 animation = &"idle"
-frame_progress = 0.85702354
 
 [node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1525718789]
 sprite_frames = ExtResource("7_n4ua5")
@@ -62,12 +69,10 @@ frame_progress = 0.85702354
 [node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=859521095]
 sprite_frames = ExtResource("8_3uqv8")
 animation = &"idle"
-frame_progress = 0.85702354
 
 [node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1766719931]
 sprite_frames = ExtResource("9_6ve1v")
 animation = &"idle"
-frame_progress = 0.85702354
 
 [node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=473479711]
 sprite_frames = ExtResource("10_s1vxx")
@@ -76,5 +81,26 @@ frame_progress = 0.85702354
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=1960010545]
 script = ExtResource("12_mbgfo")
-click_rect = Rect2(-82.8, -82.375, 169.8, 94.42)
+click_rect = Rect2(-86.015, -71.315, 169.8, 98.42)
+info_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="RangedComponent" type="Node2D" parent="." unique_id=52126447 node_paths=PackedStringArray("list")]
+script = ExtResource("13_l5l73")
+list = [NodePath("RangedAttack")]
+metadata/_custom_type_script = "uid://7hja048qjkj0"
+
+[node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=1342825155]
+script = ExtResource("14_n4ua5")
+cooldown = 2.0
+bullet = "uid://cx35c0rfd1fwr"
+bullet_offsets = Dictionary[String, Vector2]({
+"any": Vector2(0, -70.05),
+"down": Vector2(0, 0),
+"left": Vector2(0, 0),
+"right": Vector2(0, 0),
+"up": Vector2(0, 0)
+})
+animation_data = SubResource("Resource_3uqv8")
+delay = 0.367
+metadata/_custom_type_script = "uid://covaxdshxnvkn"

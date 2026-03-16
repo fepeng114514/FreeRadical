@@ -53,10 +53,10 @@ func _on_update(e: Entity) -> bool:
 		if not back_origin_pos(e, melee_c):
 			return true
 		
-		e.state = C.STATE.IDLE
+		e.state = C.State.IDLE
 		return false
 	
-	e.state = C.STATE.MELEE
+	e.state = C.State.MELEE
 	var blocker: Entity = EntityDB.get_entity_by_id(blockers_ids[0])
 	var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
 	var is_first_blocked: bool = e.id == blocker_melee_c.blockeds_ids[0]

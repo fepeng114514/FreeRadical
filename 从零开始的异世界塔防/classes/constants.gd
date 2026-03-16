@@ -34,92 +34,8 @@ enum LOG_LEVEL {
 }
 
 
-#region 资源目录
-## 目录: 资产
-const DIR_ASSETS: String = "res://assets"
-## 目录: 自动加载
-const DIR_AUTOLOADS: String = "res://autoloads"
-## 目录: 组件
-const DIR_COMPONENTS: String = "res://components"
-## 目录: 资源
-const DIR_RESOURCES: String = "res://resources"
-## 目录: 场景
-const DIR_SCENES: String = "res://scenes"
-## 目录: 脚本
-const DIR_SCRIPTS: String = "res://scripts"
-## 目录: 系统
-const DIR_SYSTEMS: String = "res://systems"
-## 目录: 图像图集资产
-const DIR_IMAGE_ATLAS_ASSETS: String = DIR_ASSETS + "/image_atlas"
-## 目录: 动画图集资产
-const DIR_ANIMATED_ATLAS_ASSETS: String = DIR_ASSETS + "/animated_atlas"
-## 目录: 实体场景
-const DIR_ENTITIES_SCENES: String = DIR_SCENES + "/entities"
-## 目录: 关卡场景
-const DIR_LEVELS_SCENES: String = DIR_SCENES + "/levels"
-## 目录: 实体脚本
-const DIR_ENTITIES_SCRIPTS: String = DIR_SCRIPTS + "/entities"
-## 目录: 图集纹理资源
-const DIR_ATLAS_TEXTURE_RESOURCES: String = (
-	DIR_RESOURCES + "/atlas_texture_resources"
-)
-## 目录: 图集的精灵帧资源
-const DIR_SPRITE_FRAMES_RESOURCES: String = (
-	DIR_RESOURCES + "/sprite_frames_resources"
-)
-#endregion
-
-
-#region 路径模板
-## 路径模板: 关卡场景
-const PATH_LEVELS_SCENES: String = DIR_LEVELS_SCENES + "/level_%s.tscn"
-## 路径模板: 图像图集数据
-const PATH_IMAGE_ATLAS_ASSETS_DATA: String = (
-	DIR_IMAGE_ATLAS_ASSETS + "/%s.json"
-)
-## 路径模板: 动画图集数据
-const PATH_ANIMATE_ATLAS_ASSETS_DATA: String = (
-	DIR_ANIMATED_ATLAS_ASSETS + "/%s.json"
-)
-## 路径模板: 场景
-const PATH_SCENES: String = DIR_SCENES + "/%s.tscn"
-## 路径模板: 实体场景
-const PATH_ENTITIES_SCENES: String = DIR_ENTITIES_SCENES + "/%s.tscn"
-## 路径模板: 系统
-const PATH_SYSTEMS: String = DIR_SYSTEMS + "/%s.gd"
-## 路径模板: 组件
-const PATH_COMPONENTS: String = DIR_COMPONENTS + "/%s.gd"
-## 路径模板: 实体脚本
-const PATH_ENTITIES_SCRIPTS: String = DIR_ENTITIES_SCRIPTS + "/%s.gd"
-## 路径模板: 图集纹理
-const PATH_ATLAS_TEXTURE_RESOURCES: String = (
-	DIR_ATLAS_TEXTURE_RESOURCES + "/%s.tres"
-)
-## 路径模板: 图集的精灵帧
-const PATH_SPRITE_FRAMES_RESOURCES: String = (
-	DIR_SPRITE_FRAMES_RESOURCES + "/%s.tres"
-)
-#endregion
-
-
-## 实体场景路径
-const PATH_ENTITY_SCENES: Array[String] = [
-	"res://scenes/entities/bullet_sword.tscn", 
-	"res://scenes/entities/tower_archer/bullet_arrow.tscn", 
-	"res://scenes/entities/tower_archer/shooter.tscn", 
-	"res://scenes/entities/tower_archer/tower_archer.tscn", 
-	"res://scenes/entities/tower_barrack/soldier.tscn", 
-	"res://scenes/entities/tower_barrack/tower_barrack.tscn", 
-	"res://scenes/entities/tower_artillery/tower_artillery.tscn", 
-	"res://scenes/entities/tower_mage/bullet_bolt.tscn", 
-	"res://scenes/entities/tower_mage/tower_mage.tscn", 
-	"res://scenes/entities/wave_spawner/wave_spawner.tscn",
-	"res://scenes/entities/enemy_goblin/enemy_goblin.tscn"
-]
-
-
 ## 伤害类型 (位运算) 枚举
-enum DAMAGE {
+enum Damage {
 	## 伤害类型: 无
 	NONE = 0,
 	## 伤害类型: 物伤
@@ -142,7 +58,7 @@ enum DAMAGE {
 
 
 ## 实体标志 (位运算) 枚举
-enum FLAG {
+enum Flag {
 	# 标识: 无
 	NONE = 0,
 	# 标识: 敌人
@@ -167,7 +83,7 @@ enum FLAG {
 
 
 ## 状态效果类型 (位运算) 枚举
-enum MOD {
+enum Mod {
 	## 状态效果类型: 无
 	NONE = 0,
 	## 状态效果类型: 毒
@@ -184,7 +100,7 @@ enum MOD {
 
 
 ## 光环类型 (位运算) 枚举
-enum AURA {
+enum Aura {
 	## 光环类型: 无
 	NONE = 0,
 	## 光环类型: 正面效果
@@ -195,7 +111,7 @@ enum AURA {
 
 
 ## 轨迹类型枚举
-enum TRAJECTORY {
+enum Trajectory {
 	## 轨迹: 直线
 	LINEAR,
 	## 轨迹: 抛物线
@@ -209,7 +125,7 @@ enum TRAJECTORY {
 
 
 ## 搜索模式枚举
-enum SEARCH {
+enum Search {
 	## 搜索模式: 实体路程最远
 	ENTITY_MAX_PROGRESS,
 	## 搜索模式: 实体路程最近
@@ -313,7 +229,7 @@ enum SEARCH {
 
 
 ## 排序类型枚举
-enum SORT {
+enum Sort {
 	## 排序类型: 路径路程
 	PROGRESS,
 	## 排序类型: 距离
@@ -330,7 +246,7 @@ enum SORT {
 
 
 ## 状态标志枚举
-enum STATE {
+enum State {
 	## 状态: 空闲
 	IDLE = 1,
 	## 状态: 近战攻击
@@ -343,18 +259,20 @@ enum STATE {
 	RALLY = 1 << 4,
 	## 状态: 生成
 	SPAWN = 1 << 5,
+	## 状态：在路径上移动
+	NAV_PATH_WALK = 1 << 6,
 }
 
 
 ## 实体信息类型枚举
-enum INFO {
+enum Info {
 	UNIT,
 	TOWER,
 }
 
 
 ## 选择模式枚举
-enum SELECT {
+enum Select {
 	NONE,
 	RALLY,
 	BARRACK_RALLY,
@@ -362,7 +280,7 @@ enum SELECT {
 
 
 ## 方向枚举 
-enum DIRECTION {
+enum Direction {
 	UP,
 	DOWN,
 	LEFT,
@@ -397,6 +315,8 @@ const CN_BARRACK: StringName = &"BarrackComponent"
 const CN_SPAWNER: StringName = &"SpawnerComponent"
 ## 组件名称: UI
 const CN_UI: StringName = &"UIComponent"
+## 组件名称: FX
+const CN_FX: StringName = &"FXComponent"
 #endregion
 
 

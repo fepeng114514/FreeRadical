@@ -98,29 +98,25 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	return global_position
 	
 
-func predict_target_pos(target: Entity, walk_time: float) -> Vector2:
-	if target.state & C.STATE.MELEE:
-		return target.global_position
-	
-	if target.has_c(C.CN_NAV_PATH):
+func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
+	var predict_pos: Vector2 = target.global_position
+
+	if target.has_c(C.CN_NAV_PATH) and target.state & C.State.NAV_PATH_WALK:
 		var nav_path_c: NavPathComponent = target.get_c(C.CN_NAV_PATH)
 		
-		if nav_path_c.is_walking:
-			var progress: float = nav_path_c.nav_progress
-			var walk_lenth: float = nav_path_c.speed * walk_time
-			
-			if nav_path_c.reversed:
-				progress -= walk_lenth
-			else:
-				progress += walk_lenth
-				
-			var predict_pos: Vector2 = nav_path_c.get_progress_pos(
-				progress
-			)
-			
-			return predict_pos
+		var progress: float = nav_path_c.nav_progress
+		var walk_lenth: float = nav_path_c.speed * predict_time
+		
+		if nav_path_c.reversed:
+			progress -= walk_lenth
+		else:
+			progress += walk_lenth
 	
-	return Vector2.ZERO
+		predict_pos = nav_path_c.get_progress_pos(
+			progress
+		)
+	
+	return predict_pos
 
 
 ## 获取指定路径上按距离排序的所有节点 [br]

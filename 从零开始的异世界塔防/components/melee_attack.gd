@@ -8,7 +8,7 @@ class_name MeleeAttack
 ## 最大伤害
 @export var max_damage: float = 25
 ## 伤害类型
-@export var damage_type: C.DAMAGE = C.DAMAGE.PHYSICAL
+@export var damage_type: C.Damage = C.Damage.PHYSICAL
 ## 冷却时间
 @export var cooldown: float = 1
 ## 击中目标给予的状态效果
@@ -21,11 +21,11 @@ class_name MeleeAttack
 @export var disabled: bool = false
 
 @export_group("Limit")
-@export var vis_flags: Array[C.FLAG] = []:
+@export var vis_flags: Array[C.Flag] = []:
 	set(value): 
 		vis_flags = value
 		vis_flag_bits = U.merge_flags(value)
-@export var vis_bans: Array[C.FLAG] = []:
+@export var vis_bans: Array[C.Flag] = []:
 	set(value): 
 		vis_bans = value
 		vis_ban_bits = U.merge_flags(value)

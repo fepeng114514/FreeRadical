@@ -21,7 +21,7 @@ class_name RangedAttack
 	set(value):
 		bullet_offsets = value
 		queue_redraw()
-@export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
+@export var search_mode: C.Search = C.Search.ENEMY_MAX_PROGRESS
 ## 攻击动画数据
 @export var animation_data: AnimationData = null
 
@@ -31,11 +31,11 @@ class_name RangedAttack
 @export var disabled: bool = false
 
 @export_group("Limit")
-@export var vis_flags: Array[C.FLAG] = []:
+@export var vis_flags: Array[C.Flag] = []:
 	set(value): 
 		vis_flags = value
 		vis_flag_bits = U.merge_flags(value)
-@export var vis_bans: Array[C.FLAG] = []:
+@export var vis_bans: Array[C.Flag] = []:
 	set(value): 
 		vis_bans = value
 		vis_ban_bits = U.merge_flags(value)

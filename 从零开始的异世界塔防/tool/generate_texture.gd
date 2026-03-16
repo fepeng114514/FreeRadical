@@ -1,6 +1,6 @@
 @tool
 extends EditorScript
-
+## 生成 SpriteFrames 资源
 
 """
 图集格式:
@@ -23,7 +23,7 @@ extends EditorScript
 
 动画文件格式:
 "动画资源名": {	# 生成的 SpriteFrames 资源名
-	"layer_count": 0,	# 多层动画层数，默认为 0，
+	"layer_count": 0,	# 多层动画层数，默认为 0，会创建 n 个 SpriteFrames
 	"animations": {		# 动画列表
 		"动画名": {		 # SpriteFrames 中的动画名
 			"from": 1,	# 起始帧索引
@@ -64,7 +64,7 @@ func _run() -> void:
 	for atlas_name in REQUIRED_IMAGE_ATLAS:
 		Log.debug("处理图像图集: %s" % atlas_name)
 		var atlas_data: Dictionary = U.load_json(
-				C.PATH_IMAGE_ATLAS_ASSETS_DATA % atlas_name
+				"res://assets/image_atlas/%s.tres" % atlas_name
 			)
 			
 		_parse_atlas_data(atlas_data, false)
@@ -73,7 +73,7 @@ func _run() -> void:
 	for atlas_name in REQUIRED_ANIMATED_ATLAS:
 		Log.debug("处理动画图集: %s" % atlas_name)
 		var atlas_data: Dictionary = U.load_json(
-			C.PATH_ANIMATE_ATLAS_ASSETS_DATA % atlas_name
+			"res://assets/animated_atlas/%s.tres" % atlas_name
 		)
 		
 		_parse_atlas_data(atlas_data, true)
@@ -89,9 +89,9 @@ func _parse_atlas_data(atlas_data: Dictionary, is_animated_atlas: bool) -> void:
 		var atlas_path: String 
 		
 		if not is_animated_atlas:
-			atlas_path = C.DIR_IMAGE_ATLAS_ASSETS.path_join(atlas_name)
+			atlas_path = "res://assets/image_atlas".path_join(atlas_name)
 		else:
-			atlas_path = C.DIR_ANIMATED_ATLAS_ASSETS.path_join(atlas_name)
+			atlas_path = "res://assets/animated_atlas".path_join(atlas_name)
 			
 		var atlas_file: Texture2D
 		
@@ -190,7 +190,10 @@ func _create_atlas_texture(
 func _save_atlas_texture(
 		atlas_texture_name: String, atlas_texture: AtlasTexture
 	) -> void:
-	var save_path: String = C.PATH_ATLAS_TEXTURE_RESOURCES % atlas_texture_name
+	var save_path: String = (
+		"res://resources/atlas_texture_resources/%s.tres" 
+		% atlas_texture_name
+	)
 		
 	ResourceSaver.save(atlas_texture, save_path)
 	
@@ -201,7 +204,10 @@ func _save_sprite_frames() -> void:
 	for sprite_frames_name: String in sprite_frames_db.keys():
 		var sprite_frames: SpriteFrames = sprite_frames_db[sprite_frames_name]
 		
-		var save_path: String = C.PATH_SPRITE_FRAMES_RESOURCES % sprite_frames_name
+		var save_path: String = (
+			"res://resources/sprite_frames_resources/%s.tres" 
+			% sprite_frames_name
+		)
 
 		ResourceSaver.save(sprite_frames, save_path)
 		

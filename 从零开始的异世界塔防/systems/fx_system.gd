@@ -1,0 +1,17 @@
+extends System
+class_name FXSystem
+
+
+func _on_insert(e: Entity) -> bool:
+	var fx_c: FXComponent = e.get_c(C.CN_FX)
+	if not fx_c:
+		return true
+		
+	_timer_remove_once(e, fx_c)
+		
+	return true
+
+
+func _timer_remove_once(e: Entity, _fx_c: FXComponent) -> void:
+	await e.mixed_wait_animation(e.idle_animation_data)
+	e.remove_entity()

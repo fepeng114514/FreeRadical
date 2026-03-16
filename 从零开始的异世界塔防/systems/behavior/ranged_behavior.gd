@@ -32,12 +32,11 @@ func _on_update(e: Entity) -> bool:
 	
 func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	e.look_at_point = target.global_position
-	e.mixed_play_animation_by_look(a.animation_data, "ranged")
+	var result: Array = e.mixed_play_animation_by_look(a.animation_data, "ranged")
 	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_vaild_entity(target)
 	)
-	var result: Array = e.play_idle_animation()
-	var dir_idx: C.DIRECTION = result[1]
+	var dir_idx: C.Direction = result[1]
 	
 	var bullet_offset := Vector2.ZERO
 	
@@ -46,13 +45,13 @@ func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 		bullet_offset = bullet_offset_group.any
 	else:
 		match dir_idx:
-			C.DIRECTION.UP:
+			C.Direction.UP:
 				bullet_offset = bullet_offset_group.up
-			C.DIRECTION.DOWN:
+			C.Direction.DOWN:
 				bullet_offset = bullet_offset_group.down
-			C.DIRECTION.LEFT:
+			C.Direction.LEFT:
 				bullet_offset = bullet_offset_group.left
-			C.DIRECTION.RIGHT:
+			C.Direction.RIGHT:
 				bullet_offset = bullet_offset_group.right
 	
 	a.ts = TimeDB.tick_ts
@@ -66,3 +65,7 @@ func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	b.global_position = e.global_position + bullet_offset
 	
 	b.insert_entity()
+	await e.mixed_wait_animation(
+		a.animation_data
+	)
+	e.play_idle_animation()

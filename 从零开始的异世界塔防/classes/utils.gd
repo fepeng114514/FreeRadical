@@ -2,7 +2,7 @@
 class_name U
 
 
-#region 数学相关工具函数
+#region 数学工具函数
 ## 判断点是否在圆中
 static func is_in_radius(center: Vector2, point: Vector2, radius: float) -> bool:
 	return center.distance_to(point) <= radius
@@ -126,16 +126,30 @@ static func is_at_destination(
 #endregion
 
 
-#region JSON 相关工具函数
+#region 路径工具函数
+static func open_directory(path: String) -> DirAccess:
+	var dir: DirAccess = DirAccess.open(path)
+	if not dir:
+		Log.error(
+			"list_directory_simple: 无法打开目录: %s\n错误信息: %s" % [
+				path, DirAccess.get_open_error()
+			]
+		)
+
+	return dir
+#endregion
+
+
+#region JSON 工具函数
 ## 加载 JSON 文件
 static func load_json(path: String) -> Variant:
 	if not FileAccess.file_exists(path):
-		Log.error("JSON 文件不存在: %s" % path)
+		Log.error("load_json: JSON 文件不存在: %s" % path)
 		return null
 	
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not file:
-		Log.error("无法打开文件: %s" % path)
+		Log.error("load_json: 无法打开文件: %s" % path)
 		return null
 	
 	var content: String = file.get_as_text()
@@ -145,15 +159,33 @@ static func load_json(path: String) -> Variant:
 	var parse_result: int = json.parse(content)
 	
 	if parse_result != OK:
-		Log.error("JSON 解析错误: %s" % json.get_error_message())
-		Log.error("错误行: %d" % json.get_error_line())
+		Log.error(
+			"load_json: JSON 解析错误: %s\n错误行: %d" % [
+				json.get_error_message(), json.get_error_line()
+			]
+		)
 		return null
 	
 	return json.get_data()
+	
+	
+static func save_json(list: Array, file_path: String) -> void:
+	var file: FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
+	if not file:
+		Log.error("save_json: 无法打开文件: %s\n错误信息: %s" % [
+				file_path, FileAccess.get_open_error()
+			]
+		)
+		return
+		
+	var json_string: String = JSON.stringify(list, "\t")
+	file.store_string(json_string)
+	file.close()
+	print("save_json: 保存成功: ", file_path)
 #endregion
 
 
-#region 深拷贝相关工具函数
+#region 深拷贝工具函数
 ## 浅拷贝，不同于 duplicate 此方法会安全处理不同类型
 static func clone(value: Variant) -> Variant:
 	if value is Dictionary:
@@ -447,18 +479,6 @@ static func deepmerge_array_recursive_new(
 #endregion
 
 
-static func attacks_sort_fn(a1: Dictionary, a2: Dictionary) -> bool:
-	var a1_chance: float = a1.chance
-	var a2_chance: float = a2.chance
-	var a1_cooldown: float = a1.cooldown
-	var a2_cooldown: float = a2.cooldown
-	
-	return (
-		(a1_chance != a2_chance and a1_chance < a2_chance)
-		or (a1_cooldown != a2_cooldown and a1_cooldown > a2_cooldown)
-	)
-	
-	
 static func get_component_name(node_name: String) -> String:
 	return node_name.replace("Component", "")
 

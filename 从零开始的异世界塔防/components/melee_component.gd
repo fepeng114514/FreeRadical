@@ -29,7 +29,7 @@ class_name MeleeComponent
 ## 拦截最大范围，单位为像素
 @export var block_max_range: float = 100
 ## 搜索模式，实体在寻找被拦截者时的目标选择策略，默认为优先第一个敌人
-@export var search_mode: C.SEARCH = C.SEARCH.ENEMY_MAX_PROGRESS
+@export var search_mode: C.Search = C.Search.ENEMY_MAX_PROGRESS
 ## 最大被拦截者数量
 @export var max_blocked: int = 1
 
@@ -38,11 +38,11 @@ class_name MeleeComponent
 @export var block_cost: int = 1
 
 @export_group("Limit")
-@export var block_flags: Array[C.FLAG] = []:
+@export var block_flags: Array[C.Flag] = []:
 	set(value): 
 		block_flags = value
 		block_flag_bits = U.merge_flags(value)
-@export var block_bans: Array[C.FLAG] = []:
+@export var block_bans: Array[C.Flag] = []:
 	set(value): 
 		block_bans = value
 		block_ban_bits = U.merge_flags(value)

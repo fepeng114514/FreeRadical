@@ -5,7 +5,7 @@ extends PanelContainer
 @export var rally_circle: PackedScene = null
 @export var rally_line: PackedScene = null
 var selected_entity: Entity = null
-var info_type: C.INFO = C.INFO.UNIT
+var info_type: C.Info = C.Info.UNIT
 @onready var entity_name: Label = $MarginContainer/HBoxContainer/EntityName
 @onready var label_hp: Label = $MarginContainer/HBoxContainer/HBoxHP/LabelHP
 @onready var value_hp: Label = $MarginContainer/HBoxContainer/HBoxHP/ValueHP
@@ -17,8 +17,8 @@ var info_type: C.INFO = C.INFO.UNIT
 @onready var value_phys_armor: Label = $MarginContainer/HBoxContainer/HBoxPhysArmor/ValuePhysArmor
 @onready var label_magic_armor: Label = $MarginContainer/HBoxContainer/HBoxMagicArmor/LabelMagicArmor
 @onready var value_magic_armor: Label = $MarginContainer/HBoxContainer/HBoxMagicArmor/ValueMagicArmor
-@onready var show_config: Dictionary[C.INFO, Array] = {
-	C.INFO.UNIT: [
+@onready var show_config: Dictionary[C.Info, Array] = {
+	C.Info.UNIT: [
 		[label_hp, true],
 		[value_hp, true],
 		[label_melee, true],
@@ -30,7 +30,7 @@ var info_type: C.INFO = C.INFO.UNIT
 		[label_magic_armor, true],
 		[value_magic_armor, true],
 	],
-	C.INFO.TOWER: [
+	C.Info.TOWER: [
 		[label_hp, false],
 		[value_hp, false],
 		[label_melee, false],
@@ -172,9 +172,9 @@ func _update_info() -> void:
 		control.visible = is_hidden
 
 	match info_type:
-		C.INFO.UNIT:
+		C.Info.UNIT:
 			_update_unit_info()
-		C.INFO.TOWER:
+		C.Info.TOWER:
 			if selected_entity.has_c(C.CN_TOWER):
 				_update_tower_info()
 
@@ -233,9 +233,11 @@ func _update_unit_info() -> void:
 	if selected_entity.has_c(C.CN_RANGED):
 		var ranged_c: RangedComponent = selected_entity.get_c(C.CN_RANGED)
 		var first_ranged_attack: RangedAttack = ranged_c.list[0]
+		var bullet: Entity = EntityDB.get_entity_data(first_ranged_attack.bullet)
+		var bullet_c: BulletComponent = bullet.get_c(C.CN_BULLET)
 		value_ranged.text = "%d-%d/%.1f" % [
-			first_ranged_attack.min_damage, 
-			first_ranged_attack.max_damage, 
+			bullet_c.min_damage, 
+			bullet_c.max_damage, 
 			first_ranged_attack.cooldown
 		]
 	else:

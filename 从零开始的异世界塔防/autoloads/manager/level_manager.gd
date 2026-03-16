@@ -13,5 +13,5 @@ func enter_level(idx: int) -> void:
 	GridDB.load()
 
 	get_tree().change_scene_to_file(
-		C.PATH_LEVELS_SCENES % idx
+		"res://scenes/levels/level_%d.tscn" % idx
 	)

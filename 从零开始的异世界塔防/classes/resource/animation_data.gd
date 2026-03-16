@@ -36,14 +36,11 @@ func _init(data: Dictionary = {}) -> void:
 func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
 	var anim_name: String = ""
 	var filp_h: bool = false
-	var angle: float = e.global_position.angle_to_point(
-		point
-	)
-	var direction: C.DIRECTION = get_direction(angle)
+	var direction: C.Direction = get_direction(e, point)
 			
 	if not any.is_empty():
 		anim_name = any
-		if direction == C.DIRECTION.RIGHT:
+		if direction == C.Direction.RIGHT:
 			# 默认朝右所以需要镜像
 			filp_h = true
 	else:
@@ -55,16 +52,20 @@ func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
 
 
 ## 计算方向
-func get_direction(angle: float) -> C.DIRECTION:
+func get_direction(e: Entity, point: Vector2) -> C.Direction:
+	var angle: float = e.global_position.angle_to_point(
+		point
+	)
+	
 	if (
 			up_down or left.is_empty() 
 			and right.is_empty() 
 			and left_right.is_empty() 
 		):
 		if angle >= -PI and angle < 0:
-			return C.DIRECTION.UP
+			return C.Direction.UP
 		else:
-			return C.DIRECTION.DOWN
+			return C.Direction.DOWN
 	elif (
 			up.is_empty() 
 			and down.is_empty() 
@@ -72,44 +73,44 @@ func get_direction(angle: float) -> C.DIRECTION:
 			and left_right
 		):
 		if angle <= C.HALF_PI and angle >= -C.HALF_PI:
-			return C.DIRECTION.RIGHT
+			return C.Direction.RIGHT
 		else:
-			return C.DIRECTION.LEFT
+			return C.Direction.LEFT
 	else:
 		if angle >= -3 * C.QUARTER_PI and angle < -C.QUARTER_PI:
-			return C.DIRECTION.UP
+			return C.Direction.UP
 		elif angle >= C.QUARTER_PI and angle < 3 * C.QUARTER_PI:
-			return C.DIRECTION.DOWN
+			return C.Direction.DOWN
 		elif angle >= -C.QUARTER_PI and angle < C.QUARTER_PI:
-			return C.DIRECTION.RIGHT
+			return C.Direction.RIGHT
 		else:
-			return C.DIRECTION.LEFT
+			return C.Direction.LEFT
 
 
 ## 根据方向返回相应动画名称
-func match_animation_name(direction: C.DIRECTION) -> Array:
+func match_animation_name(direction: C.Direction) -> Array:
 	var anim_name: String = ""
 	var filp_h: bool = false
 
 	match direction:
-		C.DIRECTION.UP:
+		C.Direction.UP:
 			if not up_down.is_empty():
 				anim_name = up_down
 			else:
 				anim_name = up
-		C.DIRECTION.DOWN:
+		C.Direction.DOWN:
 			if not up_down.is_empty():
 				anim_name = up_down
 			else:
 				anim_name = down
-		C.DIRECTION.LEFT:
+		C.Direction.LEFT:
 			if not left_right.is_empty():
 				anim_name = left_right
 				# 默认朝右所以需要镜像
 				filp_h = true
 			else:
 				anim_name = left
-		C.DIRECTION.RIGHT:
+		C.Direction.RIGHT:
 			if not left_right.is_empty():
 				anim_name = left_right
 			else:

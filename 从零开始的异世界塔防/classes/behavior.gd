@@ -57,11 +57,12 @@ func go_melee_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 
 	var next_position: Vector2 = e.global_position + velocity
 	e.look_at_point = next_position
-	e.mixed_play_animation_by_look(melee_c.motion_animation_names, "walk")
+	e.mixed_play_animation_by_look(melee_c.motion_animation_data, "walk")
 
 	e.global_position = next_position
 	
 	return false
+	
 	
 func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	if melee_c.origin_pos_arrived or U.is_at_destination(
@@ -82,7 +83,7 @@ func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 
 	var next_position: Vector2 = e.global_position + velocity
 	e.look_at_point = next_position
-	e.mixed_play_animation_by_look(melee_c.motion_animation_names, "walk")
+	e.mixed_play_animation_by_look(melee_c.motion_animation_data, "walk")
 
 	e.global_position = next_position
 	

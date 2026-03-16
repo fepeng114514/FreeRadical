@@ -32,13 +32,13 @@ func _on_insert(e: Entity) -> bool:
 
 	bullet_c.rotation_direction = -1 if bullet_c.to.x < e.global_position.x else 1
 
-	if bullet_c.flight_trajectory & C.TRAJECTORY.LINEAR:
+	if bullet_c.flight_trajectory & C.Trajectory.LINEAR:
 		_trajectory_liniear_init(bullet_c)
-	elif bullet_c.flight_trajectory & C.TRAJECTORY.PARABOLA:
+	elif bullet_c.flight_trajectory & C.Trajectory.PARABOLA:
 		_trajectory_parabola_init(e, bullet_c, flying_time)
-	elif bullet_c.flight_trajectory & C.TRAJECTORY.TRACKING:
+	elif bullet_c.flight_trajectory & C.Trajectory.TRACKING:
 		_trajectory_tracking_init(e, bullet_c)
-	elif bullet_c.flight_trajectory & C.TRAJECTORY.INSTANT:
+	elif bullet_c.flight_trajectory & C.Trajectory.INSTANT:
 		_trajectory_instant_init(e, target)
 
 	return true
@@ -56,11 +56,11 @@ func _on_update(delta: float) -> void:
 		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
 		var flying_time: float = TimeDB.get_time(bullet_c.ts)
 
-		if bullet_c.flight_trajectory & C.TRAJECTORY.LINEAR:
+		if bullet_c.flight_trajectory & C.Trajectory.LINEAR:
 			_trajectory_liniear_update(e, bullet_c)
-		elif bullet_c.flight_trajectory & C.TRAJECTORY.PARABOLA:
+		elif bullet_c.flight_trajectory & C.Trajectory.PARABOLA:
 			_trajectory_parabola_update(e, bullet_c, flying_time)
-		elif bullet_c.flight_trajectory & C.TRAJECTORY.TRACKING:
+		elif bullet_c.flight_trajectory & C.Trajectory.TRACKING:
 			_trajectory_tracking_update(e, bullet_c, target)
 		
 		if bullet_c.flying_animation_data:
@@ -104,11 +104,13 @@ func _hit(
 			_damege_target(e, bullet_c, t)
 	else:
 		_damege_target(e, bullet_c, target)
+		
+	EntityDB.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
 
 	e._on_bullet_hit(target, bullet_c)
 	if bullet_c.hit_animation_data:
 		e.mixed_play_animation_by_look(bullet_c.hit_animation_data)
-		await e.mixed_wait_animation(bullet_c.hit_animation_data.is_group)
+		await e.mixed_wait_animation(bullet_c.hit_animation_data)
 
 	if bullet_c.hit_remove:
 		e.remove_entity()
@@ -130,7 +132,6 @@ func _damege_target(
 		damage_factor
 	)
 	EntityDB.create_mods(target.id, bullet_c.mods, e.id)
-	EntityDB.create_entities_at_pos(bullet_c.payloads, e.global_position)
 
 
 func _miss(
@@ -139,7 +140,9 @@ func _miss(
 	e._on_bullet_miss(bullet_c)
 	if bullet_c.miss_animation_data:
 		e.mixed_play_animation_by_look(bullet_c.miss_animation_data)
-		await e.mixed_wait_animation(bullet_c.miss_animation_data.is_group)
+		await e.mixed_wait_animation(bullet_c.miss_animation_data)
+
+	EntityDB.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
 
 	if bullet_c.miss_remove:
 		e.remove_entity()
@@ -172,7 +175,9 @@ func _trajectory_parabola_init(
 	var next_pos = U.position_in_parabola(
 		bullet_c.velocity, bullet_c.from, next_time, bullet_c.g
 	)
-	e.look_at(next_pos)
+	
+	if bullet_c.look_to:
+		e.look_at(next_pos)
 	
 
 ## 抛物线轨迹更新
@@ -190,14 +195,16 @@ func _trajectory_parabola_update(
 	
 	e.global_position = current_pos
 	
-	e.look_at(next_pos)
+	if bullet_c.look_to:
+		e.look_at(next_pos)
 
 
 ## 追踪轨迹初始化
 func _trajectory_tracking_init(
 		e: Entity, bullet_c: BulletComponent
 	) -> void:
-	e.look_at(bullet_c.to)
+	if bullet_c.look_to:
+		e.look_at(bullet_c.to)
 
 
 ## 追踪轨迹更新
@@ -209,7 +216,9 @@ func _trajectory_tracking_update(
 	
 	var direction: Vector2 = e.global_position.direction_to(bullet_c.to)
 	e.global_position += direction * bullet_c.speed * TimeDB.frame_length
-	e.look_at(bullet_c.to)
+	
+	if bullet_c.look_to:
+		e.look_at(bullet_c.to)
 
 
 ## 瞬移轨迹初始化

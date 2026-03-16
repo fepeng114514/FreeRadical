@@ -1,0 +1,16 @@
+[
+	"res://scenes/entities/bullet_sword.tscn",
+	"res://scenes/entities/explosion_air.tscn",
+	"res://scenes/entities/enemy_goblin/enemy_goblin.tscn",
+	"res://scenes/entities/tower_archer/bullet_arrow.tscn",
+	"res://scenes/entities/tower_archer/shooter.tscn",
+	"res://scenes/entities/tower_archer/tower_archer.tscn",
+	"res://scenes/entities/tower_artillery/bullet_bomb.tscn",
+	"res://scenes/entities/tower_artillery/tower_artillery.tscn",
+	"res://scenes/entities/tower_barrack/soldier.tscn",
+	"res://scenes/entities/tower_barrack/tower_barrack.tscn",
+	"res://scenes/entities/tower_mage/bullet_bolt.tscn",
+	"res://scenes/entities/tower_mage/shooter.tscn",
+	"res://scenes/entities/tower_mage/tower_mage.tscn",
+	"res://scenes/entities/wave_spawner/wave_spawner.tscn"
+]

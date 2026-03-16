@@ -69,11 +69,11 @@ func _on_update(e: Entity) -> bool:
 		if not back_origin_pos(e, melee_c):
 			return true
 		
-		e.state = C.STATE.IDLE
+		e.state = C.State.IDLE
 		return false
 		
 	# 有被拦截者
-	e.state = C.STATE.MELEE
+	e.state = C.State.MELEE
 	var blocked: Entity = EntityDB.get_entity_by_id(
 		blockeds_ids[0]
 	)
