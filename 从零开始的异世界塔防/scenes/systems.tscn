@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cuqee6eum7tl6"]
 
-[ext_resource type="Script" uid="uid://j7j5n4bat6f8" path="res://scenes/levels/systems.gd" id="1_532ms"]
+[ext_resource type="Script" uid="uid://j7j5n4bat6f8" path="res://classes/systems.gd" id="1_532ms"]
 [ext_resource type="Script" uid="uid://b5tuol6j7i8xv" path="res://classes/systems/grouping_system.gd" id="2_auotx"]
 [ext_resource type="Script" uid="uid://b0hmg8xtycc53" path="res://classes/systems/time_system.gd" id="3_26p61"]
 [ext_resource type="Script" uid="uid://doj2bbl12wisd" path="res://classes/systems/health_system.gd" id="4_s7ho2"]

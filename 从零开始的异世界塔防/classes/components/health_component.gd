@@ -21,8 +21,8 @@ class_name HealthComponent
 @export var vulnerable: float = 0
 ## 死亡动画数据
 @export var death_animation: AnimationData = null
-## 攻击音效数据
-@export var sfx: AudioData = null
+## 死亡音效数据
+@export var death_sfx: AudioData = null
 
 ## 当前血量，表示实体当前的血量，为 0 时表示实体死亡
 var hp: float = 0

@@ -137,19 +137,19 @@ func _on_arrived_rally(rally_c: RallyComponent) -> void: pass
 	
 
 ## 实体受到伤害时调用
-func _on_damage(target: Entity, d: Damage) -> void: pass
+func _on_damage(target: Entity, damage: Damage) -> void: pass
 	
 
 ## 实体死亡时调用
-func _on_death(target: Entity, d: Damage) -> void: pass
+func _on_death(target: Entity, damage: Damage) -> void: pass
 	
 
 ## 实体被吃时调用
-func _on_eat(target: Entity, d: Damage) -> void: pass
+func _on_eat(target: Entity, damage: Damage) -> void: pass
 	
 
 ## 杀死其他实体时调用
-func _on_kill(target: Entity, d: Damage) -> void: pass
+func _on_kill(target: Entity, damage: Damage) -> void: pass
 	
 
 ## 兵营生成士兵时调用，返回 false 不生成士兵

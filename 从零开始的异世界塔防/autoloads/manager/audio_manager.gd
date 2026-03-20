@@ -14,6 +14,7 @@ var _sfx_player_count: int = 10
 ## 音效的 AudioStreamPlayer 数组
 var _sfx_players: Array[AudioStreamPlayer] = []
 
+
 func _ready() -> void:
 	_init_music_player()
 	_init_sfx_players()

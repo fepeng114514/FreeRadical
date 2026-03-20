@@ -37,32 +37,42 @@ func _on_update(_delta: float) -> void:
 		
 func _process_damege_queue() -> void:
 	var damage_queue: Array[Entity] = SystemMgr.damage_queue
-	for i: int in range(damage_queue.size() - 1, -1, -1):
-		var d: Damage = damage_queue.pop_at(i)
-		var target: Entity = EntityDB.get_entity_by_id(d.target_id)
-		
+	while damage_queue:
+		var damage: Damage = damage_queue.pop_front()
+		var target: Entity = EntityDB.get_entity_by_id(damage.target_id)
 		if not target:
 			continue
 
-		var t_health_c: HealthComponent = target.get_c(C.CN_HEALTH)
-		if not t_health_c:
+		var health_c: HealthComponent = target.get_c(C.CN_HEALTH)
+		if not health_c:
 			continue
 			
-		_take_damage(target, d, t_health_c)
+		var source: Entity = EntityDB.get_entity_by_id(damage.source_id)
+			
+		_take_damage(target, health_c, damage, source)
+		
+		if health_c.hp <= 0:
+			_on_death(target, health_c, damage, source)
+		
 
-func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent) -> void:
-	var source: Entity = EntityDB.get_entity_by_id(d.source_id)
-	
-	if d.damage_type & C.DamageType.EAT:
-		target._on_eat(target, d)
-		source._on_kill(target, d)
+func _take_damage(
+		target: Entity, 
+		health_c: HealthComponent, 
+		damage: Damage, 
+		source: Entity
+	) -> void:
+	if damage.damage_type & C.DamageType.EAT:
+		target._on_eat(target, damage)
+		if source:
+			source._on_kill(target, damage)
 		target.remove_entity()
 		return
 	
-	var actual_damage: float = _predict_damage(target, d, t_health_c, source)
-	t_health_c.hp -= actual_damage
-	
-	target._on_damage(target, d)
+	var actual_damage: float = _predict_damage(
+		target, health_c, damage, source
+	)
+	health_c.hp -= actual_damage
+	target._on_damage(target, damage)
 	
 	Log.verbose(
 		"造成伤害: 目标: %s，来源: %s，值: %s"
@@ -73,29 +83,17 @@ func _take_damage(target: Entity, d: Damage, t_health_c: HealthComponent) -> voi
 		]
 	)
 		
-	if t_health_c.hp <= 0:
-		target._on_death(target, d)
-		if source:
-			source._on_kill(target, d)
-			
-		t_health_c.health_bar.visible = false
-		
-		if t_health_c.death_animation:
-			target.mixed_play_animation_by_look(
-				t_health_c.death_animation, "death"
-			)
-			await target.mixed_wait_animation(t_health_c.death_animation)
-		
-		target.remove_entity()
-		
 
 func _predict_damage(
-		target: Entity, d: Damage, t_health_c: HealthComponent, source: Entity
+		target: Entity, 
+		health_c: HealthComponent, 
+		damage: Damage, 
+		source: Entity
 	) -> float:
-	var damage_factor: float = d.damage_factor
-	var vulnerable: float = 1 - t_health_c.vulnerable
-	var resistance: float = 1 - t_health_c.damage_resistance
-	var reduction: float = t_health_c.damage_reduction
+	var damage_factor: float = damage.damage_factor
+	var vulnerable: float = 1 - health_c.vulnerable
+	var resistance: float = 1 - health_c.damage_resistance
+	var reduction: float = health_c.damage_reduction
 	
 	var damage_inc: float = 0
 	var physical_armor_factor: float = 1
@@ -126,14 +124,14 @@ func _predict_damage(
 		vulnerable += mod_c.vulnerable_inc
 	
 	# 计算护甲减伤
-	var damage_type: int = d.damage_type
+	var damage_type: int = damage.damage_type
 		
 	if damage_type & C.DamageType.DISINTEGRATE:
-		return t_health_c.hp
+		return health_c.hp
 		
 	var physical_armor: float = clampf(
 		U.to_percent(
-			t_health_c.physical_armor 
+			health_c.physical_armor 
 			* physical_armor_factor 
 			+ physical_armor_inc
 		), 
@@ -142,7 +140,7 @@ func _predict_damage(
 	)
 	var magical_armor: float = clampf(
 		U.to_percent(
-			t_health_c.magical_armor
+			health_c.magical_armor
 			* magical_armor_factor
 			+ magical_armor_inc
 		),
@@ -150,7 +148,7 @@ func _predict_damage(
 		1
 	)
 	var poison_armor: float = clampf(
-		U.to_percent(t_health_c.poison_armor),
+		U.to_percent(health_c.poison_armor),
 		0,
 		1
 	)
@@ -174,7 +172,33 @@ func _predict_damage(
 	
 	# 计算伤害
 	var total_damage_factor: float = damage_factor * resistance * vulnerable
-	var basic_value: float = d.value - reduction + damage_inc
+	var basic_value: float = damage.value - reduction + damage_inc
 	var actual_damage: float = roundi(basic_value * total_damage_factor)
 	
 	return actual_damage
+
+
+func _on_death(
+		target: Entity, 
+		health_c: HealthComponent, 
+		damage: Damage, 
+		source: Entity
+	) -> void:
+	target._on_death(target, damage)
+	if source:
+		source._on_kill(target, damage)
+		
+	health_c.health_bar.visible = false
+	
+	var death_animation: AnimationData = health_c.death_animation
+	if death_animation:
+		target.mixed_play_animation_by_look(
+			death_animation, "death"
+		)
+		await target.mixed_wait_animation(death_animation)
+		
+	var death_sfx: AudioData = health_c.death_sfx
+	if death_sfx:
+		AudioMgr.play_sfx(death_sfx)
+
+	target.remove_entity()
