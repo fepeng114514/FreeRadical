@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="12_mbgfo"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/ranged_component.gd" id="13_l5l73"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/ranged_attack.gd" id="14_n4ua5"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="15_n4ua5"]
 
 [sub_resource type="Resource" id="Resource_l80ei"]
 script = ExtResource("2_snldt")
@@ -36,6 +37,7 @@ uid = "uid://fx352ubic8aw"
 components = {
 "RangedComponent": NodePath("RangedComponent"),
 "SpriteComponent": NodePath("SpriteComponent"),
+"TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
 idle_animation = SubResource("Resource_l80ei")
@@ -82,7 +84,7 @@ frame_progress = 0.85702354
 [node name="UIComponent" type="Node2D" parent="." unique_id=1960010545]
 script = ExtResource("12_mbgfo")
 click_rect = Rect2(-86.015, -71.315, 169.8, 98.42)
-info_type = 1
+info_bar_type = 2
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
 [node name="RangedComponent" type="Node2D" parent="." unique_id=52126447 node_paths=PackedStringArray("list")]
@@ -104,3 +106,7 @@ bullet_offsets = Dictionary[String, Vector2]({
 animation = SubResource("Resource_3uqv8")
 delay = 0.466
 metadata/_custom_type_script = "uid://covaxdshxnvkn"
+
+[node name="TowerComponent" type="Node2D" parent="." unique_id=1082899974]
+script = ExtResource("15_n4ua5")
+metadata/_custom_type_script = "uid://d104itkl6l02e"

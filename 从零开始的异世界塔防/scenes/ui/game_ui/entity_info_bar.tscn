@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://g4ovunr1s3vb"]
+
+[ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scenes/ui/game_ui/entity_info_bar.gd" id="1_1ujae"]
+[ext_resource type="PackedScene" uid="uid://t080pjf0rnto" path="res://scenes/ui/game_ui/range_circle.tscn" id="2_avff8"]
+[ext_resource type="PackedScene" uid="uid://bgd5nra3mpc84" path="res://scenes/ui/rally_circle.tscn" id="3_nvtq1"]
+[ext_resource type="PackedScene" uid="uid://dl3mrqjqn7bj3" path="res://scenes/ui/rally_line.tscn" id="4_l4e0i"]
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="5_nlacs"]
+[ext_resource type="Texture2D" uid="uid://ciotpk7kx0b6" path="res://resources/atlas_texture_resources/base_info_icons_0001.tres" id="6_fm2ec"]
+[ext_resource type="Texture2D" uid="uid://crepanmnlo6dm" path="res://resources/atlas_texture_resources/base_info_icons_0010.tres" id="7_avvo0"]
+[ext_resource type="Texture2D" uid="uid://ctmh4emnw437x" path="res://resources/atlas_texture_resources/base_info_icons_0003.tres" id="8_fqc8g"]
+[ext_resource type="Texture2D" uid="uid://dnmwxj17qy4s4" path="res://resources/atlas_texture_resources/base_info_icons_0004.tres" id="9_wmisy"]
+
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.2, 0.2, 0.25, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.5, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="EntityInfoBar" type="PanelContainer" unique_id=1937124006 node_paths=PackedStringArray("entity_name", "hp_label", "hp_value", "melee_type_icon", "melee_value", "ranged_type_icon", "ranged_value", "phys_armor_icon", "phys_armor_value", "magic_armor_icon", "magic_armor_value")]
+mouse_filter = 2
+theme_override_styles/panel = SubResource("4")
+script = ExtResource("1_1ujae")
+range_circle = ExtResource("2_avff8")
+melee_range_circle = ExtResource("3_nvtq1")
+rally_circle = ExtResource("3_nvtq1")
+rally_line = ExtResource("4_l4e0i")
+entity_name = NodePath("MarginContainer/HBoxContainer/EntityName")
+hp_label = NodePath("MarginContainer/HBoxContainer/HBoxHP/Label")
+hp_value = NodePath("MarginContainer/HBoxContainer/HBoxHP/Value")
+melee_type_icon = NodePath("MarginContainer/HBoxContainer/HBoxMelee/TypeIcon")
+melee_value = NodePath("MarginContainer/HBoxContainer/HBoxMelee/Value")
+ranged_type_icon = NodePath("MarginContainer/HBoxContainer/HBoxRanged/TypeIcon")
+ranged_value = NodePath("MarginContainer/HBoxContainer/HBoxRanged/Value")
+phys_armor_icon = NodePath("MarginContainer/HBoxContainer/HBoxPhysArmor/Icon")
+phys_armor_value = NodePath("MarginContainer/HBoxContainer/HBoxPhysArmor/Value")
+magic_armor_icon = NodePath("MarginContainer/HBoxContainer/HBoxMagicArmor/Icon")
+magic_armor_value = NodePath("MarginContainer/HBoxContainer/HBoxMagicArmor/Value")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1414186535]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=645877167]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="EntityName" type="Label" parent="MarginContainer/HBoxContainer" unique_id=444811463]
+layout_mode = 2
+theme = ExtResource("5_nlacs")
+theme_override_font_sizes/font_size = 24
+text = "实体名称"
+
+[node name="HBoxHP" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1657734819]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/HBoxHP" unique_id=735596751]
+layout_mode = 2
+theme = ExtResource("5_nlacs")
+theme_override_font_sizes/font_size = 24
+text = "血量"
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxHP" unique_id=1871849507]
+layout_mode = 2
+theme = ExtResource("5_nlacs")
+theme_override_font_sizes/font_size = 24
+text = "100/100"
+
+[node name="HBoxMelee" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=195086090]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="TypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxMelee" unique_id=2029457686]
+layout_mode = 2
+texture = ExtResource("6_fm2ec")
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxMelee" unique_id=253791031]
+layout_mode = 2
+theme = ExtResource("5_nlacs")
+theme_override_font_sizes/font_size = 24
+text = "25-25/1"
+
+[node name="HBoxRanged" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1652020457]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="TypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxRanged" unique_id=1278268678]
+layout_mode = 2
+texture = ExtResource("7_avvo0")
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxRanged" unique_id=1462066987]
+layout_mode = 2
+theme = ExtResource("5_nlacs")
+theme_override_font_sizes/font_size = 24
+text = "25-25/1"
+
+[node name="HBoxPhysArmor" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=849431744]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=1144040450]
+layout_mode = 2
+texture = ExtResource("8_fqc8g")
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=45631269]
+layout_mode = 2
+theme = ExtResource("5_nlacs")
+theme_override_font_sizes/font_size = 24
+text = "20"
+
+[node name="HBoxMagicArmor" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=518199801]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=2084534205]
+layout_mode = 2
+texture = ExtResource("9_wmisy")
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=1608248264]
+layout_mode = 2
+theme = ExtResource("5_nlacs")
+theme_override_font_sizes/font_size = 24
+text = "0"

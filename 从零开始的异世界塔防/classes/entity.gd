@@ -1,9 +1,9 @@
 @tool
 extends Node2D
 class_name Entity
-
-## 实体节点: [br]
-## 游戏中所有具有行为和属性的对象都可以被表示为实体，例如: 敌人、友军、塔、子弹、状态效果等。 [br]
+## 实体节点
+##
+## 游戏中所有具有行为和属性的对象都可以被表示为实体，例如: 敌人、友军、塔、子弹、状态效果等。 
 ## 实体类负责管理实体的基本属性和组件，并提供一些通用的接口和事件回调，供系统和组件调用。
 
 #region 属性
@@ -112,7 +112,7 @@ var look_at_point := Vector2.INF
 func _on_insert() -> bool: return true
 
 
-## 准移除实体时调用，返回 false 的实体将不会被移除
+## 移除实体时调用，返回 false 的实体将不会被移除
 func _on_remove() -> bool: return true
 
 
@@ -176,6 +176,10 @@ func _on_bullet_miss(bullet_c: BulletComponent) -> void: pass
 func _on_bullet_calculate_damage_factor(target: Entity, bullet_c: BulletComponent) -> float: return 1.0
 
 
+## 实体被选择时调用
+func _on_select() -> void: pass
+
+
 func _to_string():
 	return String(name)
 @warning_ignore_restore("unused_parameter")
@@ -232,12 +236,15 @@ func _notification(what: int) -> void:
 	U.tool_on_tree_call(self, what, _update_components)
 
 
+## 将实体增加到插入队列
 func insert_entity() -> void:
 	S.insert_entity.emit(self)
 	SystemMgr.insert_queue.append(self)
 
 
+## 将实体增加到移除队列
 func remove_entity() -> void:
+	visible = false
 	removed = true
 	SystemMgr.remove_queue.append(self)
 	Log.debug("移除实体: %s" % self)

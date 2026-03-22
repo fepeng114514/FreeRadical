@@ -1,6 +1,6 @@
-[gd_resource type="Theme" format=3 uid="uid://bajy0hay8k8k4"]
+[gd_resource type="Theme" format=3 uid="uid://8ta4okxusy77"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_disabled"]
+[sub_resource type="StyleBoxFlat" id="button_disabled"]
 bg_color = Color(0.1, 0.1, 0.12, 1)
 border_width_left = 2
 border_width_top = 2
@@ -15,7 +15,7 @@ shadow_color = Color(0, 0, 0, 0.2)
 shadow_size = 2
 shadow_offset = Vector2(1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
+[sub_resource type="StyleBoxFlat" id="button_hover"]
 bg_color = Color(0.3, 0.3, 0.35, 1)
 border_width_left = 2
 border_width_top = 2
@@ -30,7 +30,7 @@ shadow_color = Color(0, 0, 0, 0.4)
 shadow_size = 6
 shadow_offset = Vector2(2, 2)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_normal"]
+[sub_resource type="StyleBoxFlat" id="button_normal"]
 bg_color = Color(0.2, 0.2, 0.25, 1)
 border_width_left = 2
 border_width_top = 2
@@ -45,7 +45,7 @@ shadow_color = Color(0, 0, 0, 0.3)
 shadow_size = 4
 shadow_offset = Vector2(2, 2)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pressed"]
+[sub_resource type="StyleBoxFlat" id="button_pressed"]
 bg_color = Color(0.15, 0.15, 0.2, 1)
 border_width_left = 2
 border_width_top = 2
@@ -64,7 +64,143 @@ shadow_color = Color(0, 0, 0, 0.5)
 shadow_size = 2
 shadow_offset = Vector2(1, 1)
 
+[sub_resource type="StyleBoxFlat" id="checkbox_normal"]
+bg_color = Color(0.12, 0.12, 0.15, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.5, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="checkbox_checked"]
+bg_color = Color(0.25, 0.35, 0.5, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.6, 0.8, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="menu_item_hover"]
+bg_color = Color(0.25, 0.25, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="menu_item_normal"]
+bg_color = Color(0.15, 0.15, 0.18, 1)
+
+[sub_resource type="StyleBoxFlat" id="lineedit_focus"]
+bg_color = Color(0.1, 0.1, 0.12, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.6, 0.9, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 4
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="lineedit_normal"]
+bg_color = Color(0.08, 0.08, 0.1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.3, 0.35, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.1)
+shadow_size = 2
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="panel_dark"]
+bg_color = Color(0.1, 0.1, 0.12, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.2, 0.25, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="panel_normal"]
+bg_color = Color(0.15, 0.15, 0.18, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.3, 0.35, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 4
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="progress_background"]
+bg_color = Color(0.08, 0.08, 0.1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.2, 0.25, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="progress_fill"]
+bg_color = Color(0.3, 0.5, 0.8, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="slider_grabber"]
+bg_color = Color(0.4, 0.5, 0.7, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="slider_grabber_highlight"]
+bg_color = Color(0.5, 0.6, 0.9, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="tooltip_panel"]
+bg_color = Color(0.05, 0.05, 0.07, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.5, 0.6, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 8
+shadow_offset = Vector2(2, 2)
+
 [resource]
+default_font_size = 20
 Button/colors/font_color = Color(0.95, 0.95, 1, 1)
 Button/colors/font_color_disabled = Color(0.5, 0.5, 0.55, 1)
 Button/colors/font_color_hover = Color(1, 1, 1, 1)
@@ -72,7 +208,175 @@ Button/colors/font_color_pressed = Color(0.85, 0.85, 0.9, 1)
 Button/constants/hseparation = 10
 Button/constants/outline_size = 2
 Button/font_sizes/font_size = 25
-Button/styles/disabled = SubResource("StyleBoxFlat_disabled")
-Button/styles/hover = SubResource("StyleBoxFlat_hover")
-Button/styles/normal = SubResource("StyleBoxFlat_normal")
-Button/styles/pressed = SubResource("StyleBoxFlat_pressed")
+Button/styles/disabled = SubResource("button_disabled")
+Button/styles/hover = SubResource("button_hover")
+Button/styles/normal = SubResource("button_normal")
+Button/styles/pressed = SubResource("button_pressed")
+CheckBox/colors/checkerboard_color = Color(0.2, 0.2, 0.25, 1)
+CheckBox/colors/disabled_icon_modulate = Color(0.5, 0.5, 0.55, 1)
+CheckBox/colors/font_color = Color(0.9, 0.9, 0.95, 1)
+CheckBox/colors/font_color_disabled = Color(0.5, 0.5, 0.55, 1)
+CheckBox/colors/font_color_hover = Color(1, 1, 1, 1)
+CheckBox/colors/font_color_pressed = Color(0.8, 0.8, 0.85, 1)
+CheckBox/constants/h_separation = 8
+CheckBox/font_sizes/font_size = 20
+CheckBox/icons/checked = null
+CheckBox/icons/checked_disabled = null
+CheckBox/icons/unchecked = null
+CheckBox/icons/unchecked_disabled = null
+CheckBox/styles/checkbox = SubResource("checkbox_normal")
+CheckBox/styles/checkbox_checked = SubResource("checkbox_checked")
+CheckBox/styles/checkbox_checked_disabled = SubResource("checkbox_checked")
+CheckBox/styles/checkbox_disabled = SubResource("checkbox_normal")
+CheckButton/colors/font_color = Color(0.9, 0.9, 0.95, 1)
+CheckButton/colors/font_color_disabled = Color(0.5, 0.5, 0.55, 1)
+CheckButton/colors/font_color_hover = Color(1, 1, 1, 1)
+CheckButton/colors/font_color_pressed = Color(0.85, 0.85, 0.9, 1)
+CheckButton/constants/h_separation = 8
+CheckButton/font_sizes/font_size = 20
+CheckButton/styles/disabled = SubResource("button_disabled")
+CheckButton/styles/hover = SubResource("button_hover")
+CheckButton/styles/normal = SubResource("button_normal")
+CheckButton/styles/pressed = SubResource("button_pressed")
+ItemList/colors/font_color = Color(0.9, 0.9, 0.95, 1)
+ItemList/colors/font_color_selected = Color(1, 1, 1, 1)
+ItemList/colors/guide_color = Color(0.2, 0.2, 0.25, 1)
+ItemList/colors/selection_color = Color(0.25, 0.35, 0.5, 0.8)
+ItemList/constants/h_separation = 6
+ItemList/constants/icon_scale = 1
+ItemList/constants/v_separation = 4
+ItemList/font_sizes/font_size = 18
+ItemList/styles/cursor = SubResource("menu_item_hover")
+ItemList/styles/cursor_unfocused = SubResource("menu_item_normal")
+ItemList/styles/selected = SubResource("menu_item_hover")
+ItemList/styles/selected_focus = SubResource("menu_item_hover")
+Label/colors/font_color = Color(0.9, 0.9, 0.95, 1)
+Label/colors/font_color_shadow = Color(0, 0, 0, 0.3)
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/font_sizes/font_size = 20
+LineEdit/colors/cursor_color = Color(0.8, 0.9, 1, 1)
+LineEdit/colors/font_color = Color(0.95, 0.95, 1, 1)
+LineEdit/colors/font_color_selected = Color(0.1, 0.1, 0.12, 1)
+LineEdit/colors/selection_color = Color(0.4, 0.6, 0.9, 0.6)
+LineEdit/constants/minimum_spaces = 5
+LineEdit/font_sizes/font_size = 18
+LineEdit/styles/focus = SubResource("lineedit_focus")
+LineEdit/styles/normal = SubResource("lineedit_normal")
+LineEdit/styles/read_only = SubResource("lineedit_normal")
+MenuBar/colors/font_color = Color(0.9, 0.9, 0.95, 1)
+MenuBar/colors/font_color_hover = Color(1, 1, 1, 1)
+MenuBar/colors/font_color_pressed = Color(0.85, 0.85, 0.9, 1)
+MenuBar/font_sizes/font_size = 20
+MenuBar/styles/hover = SubResource("menu_item_hover")
+MenuBar/styles/normal = SubResource("panel_dark")
+MenuBar/styles/pressed = SubResource("menu_item_hover")
+OptionButton/colors/font_color = Color(0.95, 0.95, 1, 1)
+OptionButton/colors/font_color_disabled = Color(0.5, 0.5, 0.55, 1)
+OptionButton/colors/font_color_hover = Color(1, 1, 1, 1)
+OptionButton/colors/font_color_pressed = Color(0.85, 0.85, 0.9, 1)
+OptionButton/font_sizes/font_size = 20
+OptionButton/styles/disabled = SubResource("button_disabled")
+OptionButton/styles/focus = SubResource("lineedit_focus")
+OptionButton/styles/hover = SubResource("button_hover")
+OptionButton/styles/normal = SubResource("button_normal")
+OptionButton/styles/pressed = SubResource("button_pressed")
+Panel/styles/panel = SubResource("panel_normal")
+PanelContainer/styles/panel = SubResource("panel_normal")
+PopupMenu/colors/font_color = Color(0.9, 0.9, 0.95, 1)
+PopupMenu/colors/font_color_accel = Color(0.7, 0.7, 0.8, 1)
+PopupMenu/colors/font_color_disabled = Color(0.5, 0.5, 0.55, 1)
+PopupMenu/colors/font_color_hover = Color(1, 1, 1, 1)
+PopupMenu/constants/h_separation = 30
+PopupMenu/constants/icon_max_width = 32
+PopupMenu/constants/v_separation = 2
+PopupMenu/font_sizes/font_size = 18
+PopupMenu/styles/hover = SubResource("menu_item_hover")
+PopupMenu/styles/labeled_separator_left = SubResource("panel_dark")
+PopupMenu/styles/labeled_separator_right = SubResource("panel_dark")
+PopupMenu/styles/panel = SubResource("panel_dark")
+PopupMenu/styles/separator = SubResource("panel_dark")
+ProgressBar/colors/background_color = Color(0.08, 0.08, 0.1, 1)
+ProgressBar/colors/font_color = Color(0.95, 0.95, 1, 1)
+ProgressBar/font_sizes/font_size = 16
+ProgressBar/styles/background = SubResource("progress_background")
+ProgressBar/styles/fill = SubResource("progress_fill")
+Slider/colors/grabber_color = Color(0.4, 0.5, 0.7, 1)
+Slider/colors/grabber_color_disabled = Color(0.3, 0.3, 0.4, 1)
+Slider/colors/grabber_color_highlight = Color(0.5, 0.6, 0.9, 1)
+Slider/constants/center_grabber = 1
+Slider/constants/grabber_area_radius = 6
+Slider/constants/grabber_offset = 0
+Slider/icons/grabber = null
+Slider/icons/grabber_disabled = null
+Slider/icons/grabber_highlight = null
+Slider/styles/grabber_area = SubResource("slider_grabber")
+Slider/styles/grabber_area_highlight = SubResource("slider_grabber_highlight")
+Slider/styles/slider = SubResource("progress_background")
+SpinBox/colors/font_color = Color(0.95, 0.95, 1, 1)
+SpinBox/colors/font_color_disabled = Color(0.5, 0.5, 0.55, 1)
+SpinBox/colors/font_color_hover = Color(1, 1, 1, 1)
+SpinBox/colors/font_color_pressed = Color(0.85, 0.85, 0.9, 1)
+SpinBox/font_sizes/font_size = 18
+SpinBox/styles/disabled = SubResource("button_disabled")
+SpinBox/styles/focus = SubResource("lineedit_focus")
+SpinBox/styles/hover = SubResource("button_hover")
+SpinBox/styles/normal = SubResource("lineedit_normal")
+SpinBox/styles/pressed = SubResource("button_pressed")
+TabContainer/colors/font_color = Color(0.85, 0.85, 0.9, 1)
+TabContainer/colors/font_color_disabled = Color(0.5, 0.5, 0.55, 1)
+TabContainer/colors/font_color_hover = Color(1, 1, 1, 1)
+TabContainer/colors/font_color_selected = Color(1, 1, 1, 1)
+TabContainer/constants/h_separation = 8
+TabContainer/constants/icon_separation = 4
+TabContainer/constants/tab_align = 0
+TabContainer/constants/tab_close_display_policy = 0
+TabContainer/constants/tab_icon_max_width = 32
+TabContainer/font_sizes/font_size = 18
+TabContainer/styles/panel = SubResource("panel_normal")
+TabContainer/styles/tab_disabled = SubResource("button_disabled")
+TabContainer/styles/tab_focus = SubResource("button_hover")
+TabContainer/styles/tab_hovered = SubResource("button_hover")
+TabContainer/styles/tab_selected = SubResource("button_normal")
+TabContainer/styles/tab_unselected = SubResource("panel_dark")
+TextEdit/colors/background_color = Color(0.08, 0.08, 0.1, 1)
+TextEdit/colors/brace_mismatch_color = Color(1, 0.5, 0.5, 1)
+TextEdit/colors/caret_color = Color(0.8, 0.9, 1, 1)
+TextEdit/colors/current_line_color = Color(0.15, 0.15, 0.2, 1)
+TextEdit/colors/font_color = Color(0.9, 0.9, 0.95, 1)
+TextEdit/colors/font_readonly_color = Color(0.7, 0.7, 0.75, 1)
+TextEdit/colors/font_selected_color = Color(0.1, 0.1, 0.12, 1)
+TextEdit/colors/selection_color = Color(0.4, 0.6, 0.9, 0.6)
+TextEdit/constants/line_spacing = 4
+TextEdit/font_sizes/font_size = 18
+TextEdit/styles/focus = SubResource("lineedit_focus")
+TextEdit/styles/normal = SubResource("lineedit_normal")
+TooltipLabel/colors/font_color = Color(0.9, 0.9, 0.95, 1)
+TooltipLabel/colors/font_color_shadow = Color(0, 0, 0, 0.4)
+TooltipLabel/constants/shadow_offset_x = 1
+TooltipLabel/constants/shadow_offset_y = 1
+TooltipLabel/font_sizes/font_size = 16
+TooltipPanel/styles/panel = SubResource("tooltip_panel")
+Tree/colors/custom_bg = Color(0.08, 0.08, 0.1, 1)
+Tree/colors/custom_bg_focus = Color(0.12, 0.12, 0.15, 1)
+Tree/colors/drop_position_color = Color(0.5, 0.6, 0.9, 1)
+Tree/colors/font_color = Color(0.9, 0.9, 0.95, 1)
+Tree/colors/font_color_selected = Color(1, 1, 1, 1)
+Tree/colors/guide_color = Color(0.2, 0.2, 0.25, 1)
+Tree/colors/relationship_line_color = Color(0.3, 0.3, 0.35, 1)
+Tree/colors/selection_color = Color(0.25, 0.35, 0.5, 0.8)
+Tree/colors/title_button_color = Color(0.7, 0.7, 0.8, 1)
+Tree/constants/h_separation = 6
+Tree/constants/icon_max_width = 32
+Tree/constants/item_margin = 8
+Tree/constants/scroll_border = 4
+Tree/constants/scroll_speed = 20
+Tree/constants/v_separation = 4
+Tree/font_sizes/font_size = 18
+Tree/styles/cursor = SubResource("menu_item_hover")
+Tree/styles/cursor_unfocused = SubResource("menu_item_normal")
+Tree/styles/custom_button = SubResource("button_normal")
+Tree/styles/custom_button_hover = SubResource("button_hover")
+Tree/styles/custom_button_pressed = SubResource("button_pressed")
+Tree/styles/selected = SubResource("menu_item_hover")
+Tree/styles/selected_focus = SubResource("menu_item_hover")

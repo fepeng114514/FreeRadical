@@ -13,20 +13,20 @@ func _spawner() -> void:
 		
 		# 每波之间的等待
 		await y_wait(wave.interval, func(): 
-			return wave_idx < GlobalStore.force_wave
+			return wave_idx < Store.force_wave
 		)
 		
-		if wave_idx < GlobalStore.force_wave:
+		if wave_idx < Store.force_wave:
 			continue
 		
-		GlobalStore.current_wave = wave_idx
+		Store.current_wave = wave_idx
 		
 		for spawn_batch: WaveSpawnBatch in wave.spawn_batch_list:
 			# 批次并行
 			_spawn_batch_spawner(spawn_batch)
 			
 	# 所有波次释放完毕
-	GlobalStore.waves_finished = true
+	Store.waves_finished = true
 
 
 func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:

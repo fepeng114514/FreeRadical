@@ -43,7 +43,7 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 [node name="UIComponent" type="Node2D" parent="." unique_id=1427274464]
 script = ExtResource("2_ag2v0")
 click_rect = Rect2(-53.555, -80.205, 112.085, 109.085)
-info_type = 1
+info_bar_type = 2
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=115720524 node_paths=PackedStringArray("list")]

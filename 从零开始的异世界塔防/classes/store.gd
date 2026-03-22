@@ -1,12 +1,11 @@
 extends Node
-class_name Store
-@onready var entities_node = $Entities
+class_name World
 
 
 func _ready() -> void:
 	S.insert_entity.connect(_on_create_entity)
 	
-	for e: Entity in entities_node.get_children():
+	for e: Entity in get_children():
 		EntityDB.process_create(e)
 			
 		e.insert_entity()
@@ -16,4 +15,4 @@ func _on_create_entity(entity: Entity) -> void:
 	if entity.get_parent() != null:
 		return
 		
-	entities_node.add_child(entity)
+	add_child(entity)

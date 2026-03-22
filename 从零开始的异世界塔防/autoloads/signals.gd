@@ -13,6 +13,11 @@ signal resized_window
 signal select_entity(e: Entity)
 ## 取消选择实体信号
 signal deselect_entity
+
+## 设置金币信号
+signal set_gold(new_value: float)
+## 设置生命信号
+signal set_life(new_value: float)
 #endregion
 
 ## 创建实体信号

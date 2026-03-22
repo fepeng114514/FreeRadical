@@ -44,19 +44,12 @@ extends EditorScript
 "walk_left_right" 表示左右的行走动画
 "melee" 表示无方向的近战攻击动画
 """
-	
-const REQUIRED_ANIMATED_ATLAS: Array[String] = [
-	"animated_common_enemies",
-	"animated_towers",
-]
-const REQUIRED_IMAGE_ATLAS: Array[String] = [
-	"image_towers",
-	"image_gui",
-]
 var cached_atlas: Dictionary[String, Texture2D] = {}
 var image_db: Dictionary[String, AtlasTexture] = {}
 var sprite_frames_db: Dictionary[String, SpriteFrames] = {}
 var sprite_frames_data: Dictionary = {}
+const DIR_IMAGE_ATLAS: String = "res://assets/image_atlas/"
+const DIR_ANIMATED_ATLAS: String = "res://assets/animated_atlas/"
 
 func _run() -> void:
 	sprite_frames_data = U.load_json(
@@ -64,21 +57,27 @@ func _run() -> void:
 	)
 	
 	# 处理图像图集
-	for atlas_name in REQUIRED_IMAGE_ATLAS:
+	for atlas_name: String in U.open_directory(DIR_IMAGE_ATLAS):
+		if atlas_name.get_extension() != "json":
+			continue
+			
 		Log.debug("处理图像图集: %s" % atlas_name)
 		var atlas_data: Dictionary = U.load_json(
-				"res://assets/image_atlas/%s.json" % atlas_name
+				DIR_IMAGE_ATLAS.path_join(atlas_name)
 			)
 			
 		_parse_atlas_data(atlas_data, false)
 		
 	# 处理动画图集
-	for atlas_name in REQUIRED_ANIMATED_ATLAS:
+	for atlas_name: String in U.open_directory(DIR_ANIMATED_ATLAS):
+		if atlas_name.get_extension() != "json":
+			continue
+			
 		Log.debug("处理动画图集: %s" % atlas_name)
 		var atlas_data: Dictionary = U.load_json(
-			"res://assets/animated_atlas/%s.json" % atlas_name
+			DIR_ANIMATED_ATLAS.path_join(atlas_name)
 		)
-		
+
 		_parse_atlas_data(atlas_data, true)
 		
 	_load_sprite_frames()
@@ -86,17 +85,19 @@ func _run() -> void:
 	_save_sprite_frames()
 	
 
-func _parse_atlas_data(atlas_data: Dictionary, is_animated_atlas: bool) -> void:
+func _parse_atlas_data(
+		atlas_data: Dictionary, is_animated_atlas: bool
+	) -> void:
 	for atlas_name: String in atlas_data.keys():
 		var images_data: Dictionary = atlas_data[atlas_name]
-		var atlas_path: String 
+		var atlas_path: String = ""
 		
 		if not is_animated_atlas:
 			atlas_path = "res://assets/image_atlas".path_join(atlas_name)
 		else:
 			atlas_path = "res://assets/animated_atlas".path_join(atlas_name)
 			
-		var atlas_file: Texture2D
+		var atlas_file: Texture2D = null
 		
 		if cached_atlas.has(atlas_path):
 			atlas_file = cached_atlas[atlas_path]

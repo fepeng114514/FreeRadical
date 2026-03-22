@@ -266,10 +266,14 @@ enum State {
 
 ## 实体信息栏类型枚举
 enum InfoBarType {
+	## 信息栏类型：无，不显示
+	NONE,
 	## 信息栏类型：敌人或友军的信息栏
 	UNIT,
 	## 信息栏类型：防御塔的信息栏
 	TOWER,
+	## 信息栏类型：文本
+	TEXT,
 }
 
 
@@ -300,6 +304,12 @@ enum AudioPlayMode {
 	RANGDOM,
 	## 音频播放模式：并行播放音频列表中的音频
 	CONCURRENCY
+}
+
+
+## 塔位样式枚举
+enum TowerHolderStyle {
+	GRASS,
 }
 
 

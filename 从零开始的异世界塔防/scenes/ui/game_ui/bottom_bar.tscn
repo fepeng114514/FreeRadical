@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dguwvlhp3jmgn"]
+
+[ext_resource type="PackedScene" uid="uid://mfnosman5g4t" path="res://scenes/ui/game_ui/skills.tscn" id="1_fs2du"]
+[ext_resource type="PackedScene" uid="uid://g4ovunr1s3vb" path="res://scenes/ui/game_ui/entity_info_bar.tscn" id="2_lh87j"]
+[ext_resource type="Script" uid="uid://fjttbo7hu6y1" path="res://scenes/ui/game_ui/select_menu/select_menu_panel.gd" id="3_5mrel"]
+[ext_resource type="PackedScene" uid="uid://cmb0wne3u8ent" path="res://scenes/ui/game_ui/select_menu/select_menu_item.tscn" id="3_pm81i"]
+
+[node name="BottomBar" type="HBoxContainer" unique_id=1514093739]
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 30
+alignment = 2
+
+[node name="Skills" parent="." unique_id=851295426 instance=ExtResource("1_fs2du")]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="BottomSpacer" type="Control" parent="." unique_id=1545679964]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=370800502]
+layout_mode = 2
+
+[node name="SelectMenu" type="ScrollContainer" parent="VBoxContainer" unique_id=1144323089 node_paths=PackedStringArray("item_list")]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_horizontal = 8
+horizontal_scroll_mode = 0
+script = ExtResource("3_5mrel")
+item_list = NodePath("ItemList")
+
+[node name="ItemList" type="VBoxContainer" parent="VBoxContainer/SelectMenu" unique_id=353117341]
+layout_mode = 2
+
+[node name="SelectMenuItem" parent="VBoxContainer/SelectMenu/ItemList" unique_id=1699241205 instance=ExtResource("3_pm81i")]
+layout_mode = 2
+
+[node name="EntityInfoBar" parent="VBoxContainer" unique_id=1937124006 instance=ExtResource("2_lh87j")]
+layout_mode = 2

@@ -119,7 +119,8 @@ func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
 	return predict_pos
 
 
-## 获取指定路径上按距离排序的所有节点 [br]
+## 获取指定路径上按距离排序的所有节点
+##
 ## 可指定搜索的路径与子路径，不指定将会在所有路径搜索
 func get_nearst_nodes_list(
 		origin: Vector2, 
@@ -150,7 +151,8 @@ func get_nearst_nodes_list(
 	return nodes
 	
 
-## 获取最近的路径上的一个节点 [br]
+## 获取最近的路径上的一个节点
+##
 ## 可指定搜索的路径、子路径，不指定将会在所有路径搜索
 func get_nearst_node(
 		origin: Vector2, 

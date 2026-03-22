@@ -4,14 +4,15 @@ class_name MeleeComponent
 
 ## 近战组件，负责管理实体的近战属性和行为，例如近战攻击范围、近战攻击伤害、近战攻击效果等。
 
-## 近战攻击列表
-@export var list: Array[MeleeAttack] = []
 ## 是否不主动前往近战位置
 @export var is_passive: bool = false
 ## 移动速度，单位为像素/秒
 @export var speed: float = 100
 ## 移动动画数据
 @export var motion_animation: AnimationData = null
+
+## 近战攻击列表
+@export_storage var list: Array[MeleeAttack] = []
 
 ## 近战位置偏移
 @export var melee_pos_offset := Vector2.ZERO:

@@ -5,11 +5,13 @@ class_name TowerComponent
 
 ## 每个子实体进行远程攻击轮换的间隔
 @export var attack_loop_time: float = 0
-@export var list: Array[Entity] = []
 @export var range_offset := Vector2.ZERO:
 	set(value):
 		range_offset = value
 		queue_redraw()
+		
+@export_storage var list: Array[Entity] = []
+
 
 var attack_entity_idx: int = 0
 var ts: float = 0
@@ -26,15 +28,6 @@ func _draw() -> void:
 		true
 	)
 
-
-func _get_configuration_warnings() -> PackedStringArray:
-	var warnings = PackedStringArray()
-	
-	if list.is_empty():
-		warnings.append("没有子实体节点！ 是否忘记增加子实体节点？")
-	
-	return warnings
-	
 	
 ## 自动更新列表
 func _update_list() -> void:

@@ -247,6 +247,7 @@ func get_entity_data(entity_uid: String) -> Entity:
 
 
 #region 索敌相关
+## 根据路程排序实体
 static func sort_entities_by_progress(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
 	var p1: float = INF if reversed else -INF
 	var p2: float = INF if reversed else -INF
@@ -259,6 +260,7 @@ static func sort_entities_by_progress(e1: Entity, e2: Entity, reversed: bool = f
 	return p1 > p2 if not reversed else p1 < p2
 
 
+## 根据距离排序实体
 static func sort_entities_by_distance(
 		e1: Entity, e2: Entity, origin: Vector2, reversed: bool = false
 	) -> bool:
@@ -271,6 +273,7 @@ static func sort_entities_by_distance(
 	return d1 > d2 if not reversed else d1 < d2
 
 
+## 根据血量排序实体
 static func sort_entities_by_health(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
 	var h1: float = INF if reversed else -INF
 	var h2: float = INF if reversed else -INF
@@ -283,6 +286,7 @@ static func sort_entities_by_health(e1: Entity, e2: Entity, reversed: bool = fal
 	return h1 > h2 if not reversed else h1 < h2
 
 
+## 根据近战伤害排序实体
 static func sort_entities_by_melee_damage(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
 	var d1: float = INF if reversed else -INF
 	var d2: float = INF if reversed else -INF
@@ -295,7 +299,8 @@ static func sort_entities_by_melee_damage(e1: Entity, e2: Entity, reversed: bool
 	return d1 > d2 if not reversed else d1 < d2
 
 
-static func sort_entities_by_range_damage(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
+## 根据远程伤害排序实体
+static func sort_entities_by_ranged_damage(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
 	var d1: float = INF if reversed else -INF
 	var d2: float = INF if reversed else -INF
 
@@ -311,6 +316,7 @@ static func sort_entities_by_range_damage(e1: Entity, e2: Entity, reversed: bool
 	return d1 > d2 if not reversed else d1 < d2
 
 
+## 根据 ID 排序实体
 static func sort_entities_by_id(entities_array: Array, reversed: bool = false) -> void:
 	entities_array.sort_custom(func(e1: Entity, e2: Entity) -> bool:
 		var i1: int = e1.id
@@ -328,7 +334,7 @@ static func sort_entities_by_type(
 		C.SortMode.HEALTH: sort_entities_by_health.bind(reversed),
 		C.SortMode.DISTANCE: sort_entities_by_distance.bind(origin, reversed),
 		C.SortMode.MELEE_DAMAGE: sort_entities_by_melee_damage.bind(reversed),
-		C.SortMode.RANGE_DAMAGE: sort_entities_by_range_damage.bind(reversed),
+		C.SortMode.RANGE_DAMAGE: sort_entities_by_ranged_damage.bind(reversed),
 		C.SortMode.ID: sort_entities_by_id.bind(reversed),
 	}
 	

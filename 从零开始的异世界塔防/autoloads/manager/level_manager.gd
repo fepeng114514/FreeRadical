@@ -6,7 +6,7 @@ extends Node
 
 
 func enter_level(idx: int) -> void:
-	GlobalStore.level_idx = idx
+	Store.level_idx = idx
 	
 	EntityDB.load()
 	PathDB.load()

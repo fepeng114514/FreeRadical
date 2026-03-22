@@ -1,6 +1,8 @@
 extends Node
 class_name AuraComponent
-
+## 光环组件
+## 
+## AuraComponent 可以使实体可持续对范围内其他实体造成影响
 
 @export var aura_type: Array[C.ModType] = []:
 	set(value): 

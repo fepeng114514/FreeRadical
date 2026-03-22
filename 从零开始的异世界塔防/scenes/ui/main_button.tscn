@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://dxr20bhgt2p2y"]
-
-[ext_resource type="Theme" uid="uid://bajy0hay8k8k4" path="res://resources/theme.tres" id="1_t8awg"]
-
-[node name="MainButton" type="Button" unique_id=946227739]
-custom_minimum_size = Vector2(200, 60)
-size_flags_horizontal = 4
-theme = ExtResource("1_t8awg")
-text = "Test"

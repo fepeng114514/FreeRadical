@@ -4,6 +4,7 @@ class_name SelectSystem
 var select_type: C.SelectMode = C.SelectMode.NONE
 var selected_entity: Entity = null
 
+
 func _ready() -> void:
 	S.select_entity.connect(_on_select)
 	S.deselect_entity.connect(_on_deselect)
@@ -50,6 +51,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		
 func _on_select(e: Entity) -> void:
+	e._on_select()
+	
 	if e.has_c(C.CN_RALLY):
 		var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
 		
@@ -63,24 +66,38 @@ func _on_select(e: Entity) -> void:
 	
 
 func _on_deselect() -> void:
-	var mouse_global_position: Vector2 = InputMgr.mouse_global_position
+	var mouse_global_position: Vector2 = (
+		InputMgr.mouse_global_position
+	)
+	
 
 	match select_type:
 		C.SelectMode.RALLY:
-			var rally_c: RallyComponent = selected_entity.get_c(C.CN_RALLY)
+			var rally_c: RallyComponent = selected_entity.get_c(
+				C.CN_RALLY
+			)
 			rally_c.new_rally(mouse_global_position)
 		C.SelectMode.BARRACK_RALLY:
-			var barrack_c: BarrackComponent = selected_entity.get_c(C.CN_BARRACK)
+			var barrack_c: BarrackComponent = selected_entity.get_c(
+				C.CN_BARRACK
+			)
 
 			if (
-					selected_entity.global_position.distance_to(mouse_global_position) 
+					selected_entity.global_position.distance_to(
+						mouse_global_position
+					) 
 					< barrack_c.rally_range
 				):
 				barrack_c.new_rally(mouse_global_position)
 			else:
-				var rally_pos: Vector2 = selected_entity.global_position.direction_to(
-					mouse_global_position
-				) * barrack_c.rally_range + selected_entity.global_position
+				var rally_pos: Vector2 = (
+					selected_entity.global_position.direction_to(
+						mouse_global_position
+					) 
+					* barrack_c.rally_range 
+					+ selected_entity.global_position
+				)
+				
 				barrack_c.new_rally(rally_pos)
 
 	

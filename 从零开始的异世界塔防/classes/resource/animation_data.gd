@@ -32,7 +32,7 @@ func _init(data: Dictionary = {}) -> void:
 		set(key, data[key])
 	
 
-## 根据实体与目标点的角度返回对应的动画名称 [br]
+## 根据实体与目标点的角度返回对应的动画名称
 func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
 	var anim_name: String = ""
 	var filp_h: bool = false

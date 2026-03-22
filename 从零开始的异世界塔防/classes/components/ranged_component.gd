@@ -4,7 +4,9 @@ class_name RangedComponent
 
 ## 是否禁用索敌
 @export var disabled_search: bool = false
-@export var list: Array[RangedAttack] = []
+
+## 远程攻击列表
+@export_storage var list: Array[RangedAttack] = []
 
 
 func _get_configuration_warnings() -> PackedStringArray:

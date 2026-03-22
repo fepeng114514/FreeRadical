@@ -193,10 +193,11 @@ func _on_death(
 		target.mixed_play_animation_by_look(
 			death_animation, "death"
 		)
-		await target.mixed_wait_animation(death_animation)
 		
 	var death_sfx: AudioData = health_c.death_sfx
 	if death_sfx:
 		AudioMgr.play_sfx(death_sfx)
+	
+	await target.mixed_wait_animation(death_animation)
 
 	target.remove_entity()

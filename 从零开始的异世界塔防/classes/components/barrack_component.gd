@@ -1,7 +1,8 @@
 @tool
 extends Node2D
 class_name BarrackComponent
-## 兵营组件，负责生成士兵并管理士兵列表
+## 兵营组件
+## 兵营组件可以使实体生成士兵并管理士兵列表
 
 ## 集结范围，表示士兵的可集结范围，单位为像素
 @export var rally_range: float = 300:
