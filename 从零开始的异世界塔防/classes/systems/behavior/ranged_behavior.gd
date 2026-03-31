@@ -40,23 +40,7 @@ func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_vaild_entity(target)
 	)
-	var dir_idx: C.Direction = result[1]
-	
-	var bullet_offset := Vector2.ZERO
-	
-	var bullet_offset_group: Dictionary[String, Vector2] = a.bullet_offsets
-	if bullet_offset_group.any:
-		bullet_offset = bullet_offset_group.any
-	else:
-		match dir_idx:
-			C.Direction.UP:
-				bullet_offset = bullet_offset_group.up
-			C.Direction.DOWN:
-				bullet_offset = bullet_offset_group.down
-			C.Direction.LEFT:
-				bullet_offset = bullet_offset_group.left
-			C.Direction.RIGHT:
-				bullet_offset = bullet_offset_group.right
+	var direction: C.Direction = result[1]
 	
 	a.ts = TimeMgr.tick_ts
 
@@ -66,7 +50,7 @@ func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	var b = EntityMgr.create_entity(a.bullet)
 	b.target_id = target.id
 	b.source_id = e.id
-	b.global_position = e.global_position + bullet_offset
+	b.global_position = e.global_position + a.bullet_offsets.get_offset_by_direction(direction)
 	
 	b.insert_entity()
 	await e.mixed_wait_animation(a.animation)

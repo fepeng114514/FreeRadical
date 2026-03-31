@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ck4m2qigdae35"]
 
 [ext_resource type="Script" uid="uid://clyc23ikknvhu" path="res://scenes/entities/tower_holder.gd" id="1_ikcv0"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_4v7bs"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_4v7bs"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="3_qfsqy"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_eclg5"]
 [ext_resource type="Shader" uid="uid://l8cv48xcfph3" path="res://scenes/entities/tower_holder.gdshader" id="5_rh6e0"]
@@ -60,7 +60,6 @@ metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerHolder" type="Node2D" unique_id=1898604313 node_paths=PackedStringArray("components")]
 script = ExtResource("1_ikcv0")
-uid = "uid://ck4m2qigdae35"
 components = {
 "SpriteComponent": NodePath("SpriteComponent"),
 "UIComponent": NodePath("UIComponent")

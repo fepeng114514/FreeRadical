@@ -18,19 +18,7 @@ class_name RangedAttack
 ## 子弹场景名称
 @export var bullet: String = ""
 ## 子弹初始位置偏移
-##
-## 子弹初始位置偏移字典，指定相应方向的偏移
-## "any" 会覆盖所有方向的偏移
-@export var bullet_offsets: Dictionary[String, Vector2] = {
-	"left": Vector2.ZERO,
-	"right": Vector2.ZERO,
-	"up": Vector2.ZERO,
-	"down": Vector2.ZERO,
-	"any": Vector2.ZERO,
-}:
-	set(value):
-		bullet_offsets = value
-		queue_redraw()
+@export var bullet_offsets: OffsetData = null
 ## 目标搜索模式
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 攻击动画数据
@@ -74,7 +62,7 @@ func _draw() -> void:
 	if not Engine.is_editor_hint():
 		return
 	
-	for v: Vector2 in bullet_offsets.values():
+	for v: Vector2 in bullet_offsets.to_dict().values():
 		if not v:
 			continue
 		
@@ -95,7 +83,13 @@ func _draw() -> void:
 
 
 func _ready() -> void:
+	bullet_offsets.changed.connect(_on_offset_data_changed)
+	
 	if animation == null:
 		animation = AnimationData.new({
 			"left_right": "ranged_left_right",
 		})
+		
+		
+func _on_offset_data_changed() -> void:
+	queue_redraw()	

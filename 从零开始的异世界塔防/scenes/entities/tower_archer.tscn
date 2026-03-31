@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0v2wj"]
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/tower_archer_shooter.tscn" id="2_4mkqg"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_bgr08"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_bgr08"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_x6o3l"]
 [ext_resource type="Texture2D" uid="uid://bjw24pqqjas30" path="res://resources/atlas_texture_resources/archer_tower_0001.tres" id="3_ivbmm"]
 [ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resource/select_menu/select_menu_item_data.gd" id="4_sqv3w"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://f30rl46i8akx"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_8n3d5"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/animation_data.gd" id="2_ovm3w"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_ovm3w"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_se3ma"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="4_5jui1"]
 [ext_resource type="SpriteFrames" uid="uid://bcuypu8u2qhpt" path="res://resources/sprite_frames_resources/tower_barracks_soldier_lvl1.tres" id="4_ovm3w"]
@@ -34,7 +34,6 @@ left_right = "walk_left_right"
 
 [node name="TowerBarrackSoldier" type="Node2D" unique_id=1677548747 node_paths=PackedStringArray("components")]
 script = ExtResource("1_8n3d5")
-uid = "uid://f30rl46i8akx"
 components = {
 "HealthComponent": NodePath("HealthComponent"),
 "MeleeComponent": NodePath("MeleeComponent"),
