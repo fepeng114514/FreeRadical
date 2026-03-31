@@ -30,10 +30,10 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void: pass
 func can_attack(a: Variant, target: Entity) -> bool:
 	return (
 		target
-		and TimeDB.is_ready_time(a.ts, a.cooldown) 
+		and TimeMgr.is_ready_time(a.ts, a.cooldown) 
 		and not (
-			a.vis_ban_bits & target.flag_bits
-			or a.vis_flag_bits & target.ban_bits
+			a.ban_bits & target.flag_bits
+			or a.flag_bits & target.ban_bits
 		)
 		and U.is_allowed_entity(a, target)
 	)
@@ -52,7 +52,7 @@ func go_melee_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	var velocity: Vector2 = (
 		direction 
 		* melee_c.speed 
-		* TimeDB.frame_length
+		* TimeMgr.frame_length
 	)
 	melee_c.velocity = velocity
 
@@ -78,7 +78,7 @@ func back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	var velocity: Vector2 = (
 		direction 
 		* melee_c.speed 
-		* TimeDB.frame_length
+		* TimeMgr.frame_length
 	)
 	melee_c.velocity = velocity
 
@@ -108,15 +108,15 @@ func do_melee_attack(e: Entity, a: MeleeAttack, target: Entity) -> void:
 	await e.y_wait(a.delay, func() -> bool:
 		return not U.is_vaild_entity(target)
 	)
-	a.ts = TimeDB.tick_ts
+	a.ts = TimeMgr.tick_ts
 	
 	if not U.is_vaild_entity(target):
 		return
 	
-	EntityDB.create_damage(
+	EntityMgr.create_damage(
 		target.id, a.damage_min, a.damage_max, a.damage_type, e.id
 	)
-	EntityDB.create_mods(target.id, a.mods, e.id)
+	EntityMgr.create_mods(target.id, a.mods, e.id)
 	
 	await e.mixed_wait_animation(a.animation)
 	e.play_idle_animation()
@@ -126,7 +126,7 @@ func erase_blocker_from_blockeds(
 		erase_id: int, melee_c: MeleeComponent
 	) -> void:
 	for blocked_id: int in melee_c.blockeds_ids:
-		var blocked: Entity = EntityDB.get_entity_by_id(blocked_id)
+		var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id)
 		var blocked_melee_c: MeleeComponent = blocked.get_c(C.CN_MELEE)
 		blocked_melee_c.blockers_ids.erase(erase_id)
 
@@ -136,6 +136,6 @@ func erase_blocked_from_blockers(
 		erase_id: int, melee_c: MeleeComponent
 	) -> void:
 	for blocker_id: int in melee_c.blockers_ids:
-		var blocker: Entity = EntityDB.get_entity_by_id(blocker_id)
+		var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
 		var blocker_melee_c: MeleeComponent = blocker.get_c(C.CN_MELEE)
 		blocker_melee_c.blockeds_ids.erase(erase_id)

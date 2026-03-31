@@ -6,6 +6,10 @@ extends TextureProgressBar
 @export_range(-180, 180, 0.1, "radians_as_degrees") var arrow_rotation: float = 0
 ## 装饰引用
 @export var decoration: TextureRect = null
+## 缩放时长
+@export var scale_duration: float = 0.6
+## 补间缩放目标
+@export var target_scale: Vector2 = Vector2(1.3, 1.3)
 
 
 func _ready() -> void:
@@ -22,8 +26,8 @@ func start_scale_loop() -> void:
 	
 	scale_tween.set_ease(Tween.EASE_IN_OUT)
 	scale_tween.set_trans(Tween.TRANS_SINE)
-	scale_tween.tween_property(self, "scale", Vector2(1.3, 1.3), 0.7)
-	scale_tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.7)
+	scale_tween.tween_property(self, "scale", target_scale, scale_duration)
+	scale_tween.tween_property(self, "scale", Vector2(1.0, 1.0), scale_duration)
 
 func _start_timer(wave: Wave) -> void:
 	visible = true

@@ -51,7 +51,7 @@ func _on_remove(e: Entity) -> bool:
 	
 	
 func _on_update(_delta: float) -> void:
-	for e: Entity in EntityDB.get_vaild_entities():
+	for e: Entity in EntityMgr.get_vaild_entities():
 		if e.is_waiting():
 			continue
 		

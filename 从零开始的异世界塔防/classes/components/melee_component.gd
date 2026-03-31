@@ -18,9 +18,8 @@ class_name MeleeComponent
 		queue_redraw()
 ## 到达位置的阈值
 @export var arrived_distance: float = 10
-
 ## 近战攻击列表
-@export_storage var list: Array[MeleeAttack] = []
+@export var list: Array[MeleeAttack] = []
 
 @export_group("Blocker")
 ## 是否是拦截者
@@ -44,7 +43,7 @@ class_name MeleeComponent
 	set(value): 
 		block_flags = value
 		block_flag_bits = U.merge_flags(value)
-## 拦截禁止的标识
+## 禁止拦截的标识
 @export var block_bans: Array[C.Flag] = []:
 	set(value): 
 		block_bans = value
@@ -128,7 +127,7 @@ func reset_blocked_count() -> void:
 	var count: int = 0
 	
 	for id: int in blockeds_ids:
-		var b: Entity = EntityDB.get_entity_by_id(id)
+		var b: Entity = EntityMgr.get_entity_by_id(id)
 		if not b:
 			continue
 			
@@ -144,7 +143,7 @@ func get_blocked(filter: Callable = Callable()) -> Array[Entity]:
 	var blocked_list: Array[Entity] = []
 	
 	for id: int in blockeds_ids:
-		var e: Entity = EntityDB.get_entity_by_id(id)
+		var e: Entity = EntityMgr.get_entity_by_id(id)
 		
 		if not e or filter.is_valid() and not filter.call(e):
 			continue

@@ -14,11 +14,11 @@ var idx: int = C.UNSET
 
 
 func _ready() -> void:
-	PathDB.pathway_list.append(self)
-	idx = PathDB.next_pi
+	PathMgr.pathway_list.append(self)
+	idx = PathMgr.next_pi
 
-	var max_subpathway: int = PathDB.max_subpathway
-	var spacing: float = PathDB.subpathway_spacing
+	var max_subpathway: int = PathMgr.max_subpathway
+	var spacing: float = PathMgr.subpathway_spacing
 	
 	var half_total_spacing: float = max_subpathway * spacing / 2
 
@@ -28,7 +28,7 @@ func _ready() -> void:
 	
 		#add_line_visualization(subpathway, Color.RED)
 
-	PathDB.next_pi += 1
+	PathMgr.next_pi += 1
 
 
 ## 创建子路径

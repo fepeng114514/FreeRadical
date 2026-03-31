@@ -20,24 +20,18 @@ var _sfx_players: Array[AudioStreamPlayer] = []
 
 
 func _ready() -> void:
-	_init_music_player()
-	_init_sfx_players()
-	
-	
-## 初始化音乐
-func _init_music_player() -> void:
+	# 初始化音乐
 	_music_player.name = "Music"
 	add_child(_music_player)
-
-
-## 初始化音效
-func _init_sfx_players() -> void:
+	
+	# 初始化音效
 	for i: int in range(_sfx_player_count):
 		var sfx_player := AudioStreamPlayer.new()
 		sfx_player.name = "SFX%d" % (i + 1)
 		add_child(sfx_player)
 		_sfx_players.append(sfx_player)
-
+	
+	
 ## 播放音乐
 func play_music(audio_data: AudioData) -> void:
 	play_audio(audio_data, _music_player, MusicBus)

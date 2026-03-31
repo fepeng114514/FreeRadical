@@ -14,15 +14,15 @@ func _on_update(e: Entity) -> bool:
 		var target: Entity = null
 		
 		if U.is_valid_number(e.target_id):
-			target = EntityDB.get_entity_by_id(e.target_id)
+			target = EntityMgr.get_entity_by_id(e.target_id)
 		elif not ranged_c.disabled_search:
-			target = EntityDB.search_target(
+			target = EntityMgr.search_target(
 				a.search_mode, 
 				e.global_position, 
 				a.max_range, 
 				a.min_range, 
-				a.vis_flag_bits, 
-				a.vis_ban_bits
+				a.flag_bits, 
+				a.ban_bits
 			)
 			
 		if not can_attack(a, target):
@@ -58,12 +58,12 @@ func _do_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 			C.Direction.RIGHT:
 				bullet_offset = bullet_offset_group.right
 	
-	a.ts = TimeDB.tick_ts
+	a.ts = TimeMgr.tick_ts
 
 	if not target:
 		return
 	
-	var b = EntityDB.create_entity(a.bullet)
+	var b = EntityMgr.create_entity(a.bullet)
 	b.target_id = target.id
 	b.source_id = e.id
 	b.global_position = e.global_position + bullet_offset

@@ -28,7 +28,7 @@ frame_progress = 0.64574236
 
 [node name="RangedComponent" type="Node" parent="." unique_id=2090041315]
 script = ExtResource("4_d15la")
-list = Array[ExtResource("5_plukg")]([Object(Node,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","script":ExtResource("5_plukg"),"min_range":25.0,"max_range":300.0,"cooldown":1.0,"bullet":1,"bullet_offset":Vector2(0, 0),"search_mode":8,"animation":"ranged","delay":0.117,"chance":1.0,"together_melee":false,"disabled":false,"vis_flags":Array[int]([]),"vis_bans":Array[int]([]),"whitelist_tag":Array[int]([]),"blacklist_tag":Array[int]([]))
+list = Array[ExtResource("5_plukg")]([Object(Node,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","script":ExtResource("5_plukg"),"min_range":25.0,"max_range":300.0,"cooldown":1.0,"bullet":1,"bullet_offset":Vector2(0, 0),"search_mode":8,"animation":"ranged","delay":0.117,"chance":1.0,"together_melee":false,"disabled":false,"flags":Array[int]([]),"bans":Array[int]([]),"whitelist_tag":Array[int]([]),"blacklist_tag":Array[int]([]))
 ])
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 

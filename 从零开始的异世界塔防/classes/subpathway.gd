@@ -86,9 +86,9 @@ func create_offset_curve() -> Curve2D:
 func get_equally_spaced_nodes() -> Array[PathwayNode]:
 	var nodes_list: Array[PathwayNode] = []
 	
-	var point_spacing: float = length / (PathDB.node_count - 1)
+	var point_spacing: float = length / (PathMgr.node_count - 1)
 	
-	for i: int in range(PathDB.node_count):
+	for i: int in range(PathMgr.node_count):
 		var distance: float = i * point_spacing
 		var pos: Vector2 = to_global(curve.sample_baked(distance))
 

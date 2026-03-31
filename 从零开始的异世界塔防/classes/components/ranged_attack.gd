@@ -2,6 +2,8 @@
 extends Node2D
 class_name RangedAttack
 ## 远程攻击节点
+##
+## 用于 [RangedComponent]
 
 
 ## 最小攻击距离
@@ -13,8 +15,8 @@ class_name RangedAttack
 		queue_redraw()
 ## 冷却时间
 @export var cooldown: float = 1
-## 子弹场景路径
-@export_file("*.tscn") var bullet: String = ""
+## 子弹场景名称
+@export var bullet: String = ""
 ## 子弹初始位置偏移
 ##
 ## 子弹初始位置偏移字典，指定相应方向的偏移
@@ -35,7 +37,7 @@ class_name RangedAttack
 @export var animation: AnimationData = null
 ## 攻击音效数据
 @export var sfx: AudioData = null
-## 开始攻击到发射子弹的延迟，单位为秒
+## 开始攻击到发射子弹的延迟
 @export var delay: float = 0
 ## 攻击概率
 @export var chance: float = 1
@@ -45,33 +47,25 @@ class_name RangedAttack
 @export var disabled: bool = false
 
 @export_group("Limit")
-## 可见标识
-##
-## 该攻击可以攻击的目标的标识
-@export var vis_flags: Array[C.Flag] = []:
+## 攻击标识
+@export var flags: Array[C.Flag] = []:
 	set(value): 
-		vis_flags = value
-		vis_flag_bits = U.merge_flags(value)
-## 不可见标识
-##
-## 该攻击不可以攻击的目标的标识
-@export var vis_bans: Array[C.Flag] = []:
+		flags = value
+		flag_bits = U.merge_flags(value)
+## 不可攻击的实体的标识
+@export var bans: Array[C.Flag] = []:
 	set(value): 
-		vis_bans = value
-		vis_ban_bits = U.merge_flags(value)
-## 可见白名单
-##
-## 该攻击可攻击的实体的 uid
-@export_file("*.tscn") var whitelist_uid: Array[String] = []
-## 可见黑名单
-##
-## 该攻击不可以攻击的实体的 uid
-@export_file("*.tscn") var blacklist_uid: Array[String] = []
+		bans = value
+		ban_bits = U.merge_flags(value)
+## 可攻击的实体场景名称
+@export var whitelist: Array[String] = []
+## 不可以攻击的实体场景名称
+@export var blacklist: Array[String] = []
 
-## 二进制的可见标识
-var vis_flag_bits: int = 0
-## 二进制的不可见标识
-var vis_ban_bits: int = 0
+## 二进制的攻击标识
+var flag_bits: int = 0
+## 二进制的不可攻击的实体的标识
+var ban_bits: int = 0
 ## 时间戳
 var ts: float = 0
 

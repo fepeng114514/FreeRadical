@@ -2,7 +2,7 @@ extends System
 class_name HealthSystem
 ## 血量系统
 ##
-## 处理拥有 [HealthComponent] 血量组件的实体的血条更新
+## 处理拥有 [HealthComponent] 血量组件的实体
 ## 处理伤害队列的伤害造成
 
 
@@ -17,27 +17,10 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	_process_damege_queue()
-
-	var entities: Array = EntityDB.get_entities_group(C.CN_HEALTH).filter(
-		func(e: Entity):
-			return not e.is_waiting() and not e.removed
-	)
-
-	for e: Entity in entities:
-		var health_c: HealthComponent = e.get_c(C.CN_HEALTH)
-		var health_bar: Node = health_c.health_bar
-		
-		if not health_c:
-			continue
-			
-		health_bar.value = health_c.get_hp_percent()
-		
-func _process_damege_queue() -> void:
 	var damage_queue: Array[Entity] = SystemMgr.damage_queue
 	while damage_queue:
 		var damage: Damage = damage_queue.pop_front()
-		var target: Entity = EntityDB.get_entity_by_id(damage.target_id)
+		var target: Entity = EntityMgr.get_entity_by_id(damage.target_id)
 		if not target:
 			continue
 
@@ -45,41 +28,32 @@ func _process_damege_queue() -> void:
 		if not health_c:
 			continue
 			
-		var source: Entity = EntityDB.get_entity_by_id(damage.source_id)
+		var source: Entity = EntityMgr.get_entity_by_id(damage.source_id)
 			
-		_take_damage(target, health_c, damage, source)
+		if damage.damage_type & C.DamageType.EAT:
+			target._on_eat(target, damage)
+			if source:
+				source._on_kill(target, damage)
+			target.remove_entity()
+			return
+		
+		var actual_damage: float = _predict_damage(
+			target, health_c, damage, source
+		)
+		health_c.hp -= actual_damage
+		target._on_damage(target, damage)
+		
+		Log.verbose(
+			"造成伤害: 目标: %s，来源: %s，值: %s"
+			% [
+				target,
+				source if source else null,
+				actual_damage
+			]
+		)
 		
 		if health_c.hp <= 0:
 			_on_death(target, health_c, damage, source)
-		
-
-func _take_damage(
-		target: Entity, 
-		health_c: HealthComponent, 
-		damage: Damage, 
-		source: Entity
-	) -> void:
-	if damage.damage_type & C.DamageType.EAT:
-		target._on_eat(target, damage)
-		if source:
-			source._on_kill(target, damage)
-		target.remove_entity()
-		return
-	
-	var actual_damage: float = _predict_damage(
-		target, health_c, damage, source
-	)
-	health_c.hp -= actual_damage
-	target._on_damage(target, damage)
-	
-	Log.verbose(
-		"造成伤害: 目标: %s，来源: %s，值: %s"
-		% [
-			target,
-			source if source else null,
-			actual_damage
-		]
-	)
 		
 
 func _predict_damage(
@@ -108,6 +82,7 @@ func _predict_damage(
 			var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
 			damage_factor *= mod_c.add_damage_factor
 			damage_bonus += mod_c.add_damage_bonus
+			
 			resistance *= mod_c.damage_resistance_factor
 			reduction += mod_c.damage_reduction_bonus
 			physical_armor_factor *= mod_c.physical_armor_factor
@@ -187,6 +162,7 @@ func _on_death(
 		source._on_kill(target, damage)
 		
 	health_c.health_bar.visible = false
+	GameMgr.cash += health_c.death_gold
 	
 	var death_animation: AnimationData = health_c.death_animation
 	if death_animation:

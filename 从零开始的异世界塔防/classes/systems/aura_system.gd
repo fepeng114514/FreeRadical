@@ -10,7 +10,7 @@ func _on_insert(e: Entity) -> bool:
 	if not aura_c:
 		return true
 		
-	var source: Entity = EntityDB.get_entity_by_id(e.source_id)
+	var source: Entity = EntityMgr.get_entity_by_id(e.source_id)
 
 	if not source:
 		return false
@@ -28,13 +28,13 @@ func _on_insert(e: Entity) -> bool:
 	):
 		return false
 
-	aura_c.ts = TimeDB.tick_ts
+	aura_c.ts = TimeMgr.tick_ts
 
 	var s_has_auras_ids: Array[int] = source.has_auras_ids
 	var same_source_auras: Array[Entity] = []
 
 	for aura_id: int in s_has_auras_ids:
-		var other_a: Entity = EntityDB.get_entity_by_id(aura_id)
+		var other_a: Entity = EntityMgr.get_entity_by_id(aura_id)
 		
 		if not other_a:
 			continue
@@ -76,7 +76,7 @@ func _on_insert(e: Entity) -> bool:
 		
 	# 重置持续时间，优先重置等级最高的
 	if aura_c.reset_same:
-		max_level_aura.insert_ts -= TimeDB.tick_ts
+		max_level_aura.insert_ts -= TimeMgr.tick_ts
 		return false
 	# 替换，优先替换等级最低的
 	if aura_c.replace_same:
@@ -97,9 +97,9 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.GROUP_AURAS):
+	for e: Entity in EntityMgr.get_entities_group(C.GROUP_AURAS):
 		var aura_c: AuraComponent = e.get_c(C.CN_AURA)
-		var targets: Array = EntityDB.search_targets_in_range(
+		var targets: Array = EntityMgr.search_targets_in_range(
 			aura_c.search_mode, 
 			e.global_position, 
 			aura_c.max_radius, 
@@ -113,7 +113,7 @@ func _on_update(_delta: float) -> void:
 		# 周期效果
 		if (
 			not U.is_valid_number(aura_c.cycle_time) 
-			or not TimeDB.is_ready_time(aura_c.ts, aura_c.cycle_time)
+			or not TimeMgr.is_ready_time(aura_c.ts, aura_c.cycle_time)
 		):
 			return
 
@@ -124,7 +124,7 @@ func _on_update(_delta: float) -> void:
 
 		for target: Entity in targets:
 			if aura_c.damage_min > 0 or aura_c.damage_max > 0:
-				EntityDB.create_damage(
+				EntityMgr.create_damage(
 					target.id, 
 					aura_c.damage_min, 
 					aura_c.damage_max, 
@@ -132,19 +132,19 @@ func _on_update(_delta: float) -> void:
 					e.id
 				)
 
-			EntityDB.create_mods(target.id, aura_c.mods, e.id)
+			EntityMgr.create_mods(target.id, aura_c.mods, e.id)
 
 		e._on_aura_period(targets, aura_c)
 
 		aura_c.curren_cycle += 1
-		aura_c.ts = TimeDB.tick_ts
+		aura_c.ts = TimeMgr.tick_ts
 
 
 func _on_remove(e: Entity) -> bool:
 	if not e.has_c(C.CN_AURA):
 		return true
 	
-	var source: Entity = EntityDB.get_entity_by_id(e.source_id)
+	var source: Entity = EntityMgr.get_entity_by_id(e.source_id)
 
 	if not source:
 		return true

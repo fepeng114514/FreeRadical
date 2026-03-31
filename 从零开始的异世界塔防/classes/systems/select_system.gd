@@ -21,7 +21,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			InputMgr.mouse_global_position
 		)
 		
-		var e: Entity = EntityDB.search_target(
+		var e: Entity = EntityMgr.search_target(
 			C.SearchMode.ENTITY_MAX_ID, 
 			mouse_global_position, 
 			C.UNSET, 

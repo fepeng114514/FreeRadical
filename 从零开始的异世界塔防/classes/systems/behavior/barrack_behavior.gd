@@ -31,9 +31,9 @@ func _on_update(e: Entity) -> bool:
 	var soldier_count: int = soldiers_list.size()
 	
 	# 根据重生时间生成士兵
-	if TimeDB.is_ready_time(barrack_c.ts, barrack_c.respawn_time):
+	if TimeMgr.is_ready_time(barrack_c.ts, barrack_c.respawn_time):
 		respawn_soldier(e, barrack_c)
-		barrack_c.ts = TimeDB.tick_ts
+		barrack_c.ts = TimeMgr.tick_ts
 	
 	# 士兵数发生变化重新整队
 	if barrack_c.last_soldier_count != soldier_count:
@@ -51,7 +51,7 @@ func respawn_soldier(
 	if barrack_c.soldiers_list.size() >= barrack_c.max_soldiers:
 		return null
 		
-	var soldier: Entity = EntityDB.create_entity(barrack_c.soldier)
+	var soldier: Entity = EntityMgr.create_entity(barrack_c.soldier)
 	soldier.global_position = barrack.global_position
 	
 	var rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)

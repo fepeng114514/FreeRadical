@@ -6,7 +6,7 @@ class_name EntitySystem
 
 
 func _on_insert(e: Entity) -> bool:
-	e.insert_ts = TimeDB.tick_ts
+	e.insert_ts = TimeMgr.tick_ts
 
 	return e._on_insert()
 	
@@ -21,13 +21,13 @@ func _on_remove(e: Entity) -> bool:
 	return true
 
 func _on_update(delta: float) -> void:
-	for e: Entity in EntityDB.get_vaild_entities():
-		if U.is_valid_number(e.duration) and TimeDB.is_ready_time(e.insert_ts, e.duration):
+	for e: Entity in EntityMgr.get_vaild_entities():
+		if U.is_valid_number(e.duration) and TimeMgr.is_ready_time(e.insert_ts, e.duration):
 			e.remove_entity()
 			continue
 			
 		if U.is_valid_number(e.source_id) and e.track_source:
-			var source: Entity = EntityDB.get_entity_by_id(e.source_id)
+			var source: Entity = EntityMgr.get_entity_by_id(e.source_id)
 			
 			if not source:
 				continue

@@ -18,8 +18,8 @@ class_name AuraComponent
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 最大可影响的实体数量
 @export var max_influence: int = C.UNSET
-## 状态效果 uid
-@export_file("*.tscn") var mods: Array[String] = []
+## 状态效果场景名称
+@export var mods: Array[String] = []
 ## 周期时间
 @export var cycle_time: float = 1
 ## 最大周期

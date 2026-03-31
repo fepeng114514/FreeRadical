@@ -7,11 +7,9 @@ class_name Entity
 ## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
 
 #region 属性
-## 实体 UID
-@export_file("*.tscn") var uid: String = ""
 ## 拥有的所有组件节点引用
 @export var components: Dictionary[String, Node] = {}
-## 持续时间，单位为秒
+## 持续时间
 @export var duration: float = C.UNSET
 ## 实体等级
 @export var level: int = 1
@@ -28,41 +26,43 @@ class_name Entity
 		queue_redraw()
 
 @export_group("Limit")
-## 白名单实体 UID 列表
-@export_file("*.tscn") var whitelist_uid: Array[String] = []
-## 黑名单实体 UID 列表
-@export_file("*.tscn") var blacklist_uid: Array[String] = []
-## 实体标识符列表
+## 白名单实体场景名称
+@export var whitelist: Array[String] = []
+## 黑名单实体场景名称
+@export var blacklist: Array[String] = []
+## 实体标识
 @export var flags: Array[C.Flag] = []:
 	set(value): 
 		flags = value
 		flag_bits = U.merge_flags(value)
-## 禁止的实体标识符列表
+## 禁止的实体的标识
 @export var bans: Array[C.Flag] = []:
 	set(value): 
 		bans = value
 		ban_bits = U.merge_flags(value)
-## 禁止的状态效果类型标识符列表
+## 禁止的状态效果类型标识
 @export var mod_type_bans: Array[C.ModType] = []:
 	set(value): 
 		mod_type_bans = value
 		mod_type_ban_bits = U.merge_flags(value)
-## 禁止的光环类型标识符列表
+## 禁止的光环类型标识
 @export var aura_type_bans: Array[C.ModType] = []:
-	set(value): 
+	set(value):
 		aura_type_bans = value
 		aura_type_ban_bits = U.merge_flags(value)
-## 禁止的状态效果标识符列表
+## 禁止的状态效果标识
 @export var mod_bans: Array[C.Flag] = []:
 	set(value): 
 		mod_bans = value
 		mod_ban_bits = U.merge_flags(value)
-## 禁止的光环标识符列表
+## 禁止的光环标识
 @export var aura_bans: Array[C.Flag] = []:
 	set(value): 
 		aura_bans = value
 		aura_ban_bits = U.merge_flags(value)
 
+## 实体场景名称
+var scene_name: String = ""
 ## 实体唯一 ID
 var id: int = C.UNSET
 ## 是否是子实体
@@ -79,20 +79,18 @@ var target_id: int = C.UNSET
 var ban_bits: int = 0
 ## 实体标识符（位运算）
 var flag_bits: int = 0
-## 禁止的状态效果标识符
+## 二进制的禁止的状态效果标识
 var mod_ban_bits: int = 0
-## 禁止的状态效果类型标识符（位运算）
+## 二进制的禁止的状态效果类型标识
 var mod_type_ban_bits: int = 0
-## 禁止的光环标识符（位运算）
+## 二进制的禁止的光环标识
 var aura_ban_bits: int = 0
-## 禁止的光环类型标识符（位运算）
+## 二进制的禁止的光环类型标识
 var aura_type_ban_bits: int = 0
 ## 拥有的状态效果 ID 列表
 var has_mods_ids: Array[int] = []
 ## 拥有的光环 ID 列表
 var has_auras_ids: Array[int] = []
-## 等待状态
-var _waiting: bool = false
 ## 锁定状态
 var blocking: bool = false
 ## 是否被点击选择
@@ -105,6 +103,8 @@ var last_position := Vector2.ZERO
 var state := C.State.IDLE
 ## 看向的点
 var look_at_point := Vector2.INF
+## 等待状态
+var _waiting: bool = false
 #endregion
 
 
@@ -193,11 +193,8 @@ func _ready() -> void:
 		idle_animation = AnimationData.new({
 			"left_right": "idle_left_right",
 		})
-
-	if not Engine.is_editor_hint():
-		return
 		
-	uid = ResourceUID.path_to_uid(scene_file_path)
+	scene_name = scene_file_path.get_file().get_basename()
 
 
 func _draw() -> void:
@@ -253,18 +250,17 @@ func remove_entity() -> void:
 
 
 #region 组件相关方法
-func get_c(c_name: String) -> Node:
+## 获取组件
+func get_c(c_name: StringName) -> Node:
 	return components.get(c_name)
 
 
-func has_c(c_name: String) -> bool:
+## 判断是否拥有指定组件
+func has_c(c_name: StringName) -> bool:
 	return components.has(c_name)
 
 
-func set_c(c_name: String, value) -> bool:
-	return components.set(c_name, value)
-	
-
+## 增加组件
 func add_c(component: GDScript) -> Node:
 	var component_node: Node = component.new()
 	
@@ -273,16 +269,16 @@ func add_c(component: GDScript) -> Node:
 			
 	components[node_class] = component_node
 	return component_node
-
 #endregion
 
 
+#region 状态效果相关方法
 ## 清理无效状态效果
 func cleanup_has_mods() -> void:
 	var new_has_mods_ids: Array[int] = []
 	
 	for mod_id in has_mods_ids:
-		if not EntityDB.get_entity_by_id(mod_id):
+		if not EntityMgr.get_entity_by_id(mod_id):
 			continue 
 			
 		new_has_mods_ids.append(mod_id)
@@ -290,11 +286,12 @@ func cleanup_has_mods() -> void:
 	has_mods_ids = new_has_mods_ids
 
 
+## 获取拥有的所有状态效果实体
 func get_has_mods(filter: Callable = Callable()) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
-	for mod_id in has_mods_ids:
-		var mod: Entity = EntityDB.get_entity_by_id(mod_id)
+	for mod_id: int in has_mods_ids:
+		var mod: Entity = EntityMgr.get_entity_by_id(mod_id)
 		
 		if not mod or filter.is_valid() and not filter.call(mod):
 			continue
@@ -304,18 +301,35 @@ func get_has_mods(filter: Callable = Callable()) -> Array[Entity]:
 	return has_mods
 
 
+## 清空拥有的状态效果
 func clear_has_mods() -> void:
 	for mod: Entity in get_has_mods():
 		mod.remove_entity()
 
 	has_mods_ids.clear()
+	
+	
+## 将伤害应用状态效果的 buff
+func apply_mods_damage_factor(damage: float) -> float:
+	var total_damage_factor: float = 1
+	var total_damage_bonus: float = 0
+	
+	for mod: Entity in get_has_mods():
+		var mod_c: ModifierComponent = mod.get_c(C.CN_MODIFIER)
+		total_damage_factor *= mod_c.add_damage_factor
+		total_damage_bonus += mod_c.add_damage_bonus
+		
+	return damage * total_damage_factor + total_damage_bonus
+#endregion
 
 
+#region 光环相关方法
+## 获取拥有的光环实体
 func get_has_auras(filter: Callable = Callable()) -> Array[Entity]:
 	var has_auras: Array[Entity] = []
 	
 	for aura_id in has_auras_ids:
-		var aura: Entity = EntityDB.get_entity_by_id(aura_id)
+		var aura: Entity = EntityMgr.get_entity_by_id(aura_id)
 		
 		if not aura or filter.is_valid() and not filter.call(aura):
 			continue
@@ -325,11 +339,13 @@ func get_has_auras(filter: Callable = Callable()) -> Array[Entity]:
 	return has_auras
 
 
+## 清空拥有的光环
 func clear_has_auras() -> void:
 	for aura: Entity in get_has_auras():
 		aura.remove_entity()
 
 	has_auras_ids.clear()
+#endregion
 
 
 ## 设定实体位置，根据拥有的组件智能赋值
@@ -345,15 +361,16 @@ func set_pos(pos: Vector2) -> void:
 		set_nav_path_at_pos(pos)
 
 
+## 设置导航路径到当前位置下最近的导航路径
 func set_nav_path_at_pos(pos: Vector2) -> void:
-	var source: Entity = EntityDB.get_entity_by_id(source_id)
+	var source: Entity = EntityMgr.get_entity_by_id(source_id)
 	var node: PathwayNode
 
 	if source and source.has_c(C.CN_NAV_PATH):
 		var s_nav_path_c: NavPathComponent = source.get_c(C.CN_NAV_PATH)
-		node = PathDB.get_nearst_node(pos, [s_nav_path_c.pi], [s_nav_path_c.spi])
+		node = PathMgr.get_nearst_node(pos, [s_nav_path_c.pi], [s_nav_path_c.spi])
 	else:
-		node = PathDB.get_nearst_node(pos)
+		node = PathMgr.get_nearst_node(pos)
 
 	var nav_path_c: NavPathComponent = get_c(C.CN_NAV_PATH)
 	nav_path_c.set_nav_path(node.pi, node.spi, node.ni)
@@ -462,7 +479,7 @@ func _source_play_animation_by_look(
 		source_animation_key: String = "",
 		force_play: bool = false
 	) -> void:
-	var source: Entity = EntityDB.get_entity_by_id(source_id)
+	var source: Entity = EntityMgr.get_entity_by_id(source_id)
 	if not source or source.is_waiting():
 		return
 	
@@ -501,6 +518,7 @@ func play_animation_group_by_look(
 	return result
 
 
+## 播放待机导航
 func play_idle_animation(force_play: bool = false) -> Array:
 	return mixed_play_animation_by_look(
 		idle_animation, "idle", force_play
@@ -546,7 +564,6 @@ func wait_animation_group(group_idx: int = 0, times: int = 1) -> void:
 	_waiting = false
 
 
-# 辅助函数：精确等待一个动画循环
 func _wait_for_animation_loop(sprite: AnimatedSprite2D) -> void:
 	var current_frame: int = sprite.frame
 	var total_frames: int = sprite.sprite_frames.get_frame_count(sprite.animation)
@@ -562,11 +579,13 @@ func _wait_for_animation_loop(sprite: AnimatedSprite2D) -> void:
 #endregion
 
 
-## 协程等待，break_fn 返回 true 表示中断等待
+## 协程等待
+##
+## break_fn 返回 true 表示中断等待
 func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
 	_waiting = true
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
-	await TimeDB.y_wait(time, break_fn)
+	await TimeMgr.y_wait(time, break_fn)
 	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
 	_waiting = false
 

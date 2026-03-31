@@ -58,10 +58,10 @@ class_name BulletComponent
 @export var hit_remove: bool = true
 ## 击中后造成伤害的延迟（秒）
 @export var hit_delay: float = 0
-## 子弹携带的状态效果 UID 列表，表示子弹命中目标时附加的状态效果
-@export_file("*.tscn") var mods: Array[String] = []
-## 子弹击中目标时创建的实体 UID 列表
-@export_file("*.tscn") var hit_payloads: Array[String] = []
+## 子弹携带的状态效果，表示子弹命中目标时附加的状态效果
+@export var mods: Array[String] = []
+## 子弹击中目标时创建的实体场景名称
+@export var hit_payloads: Array[String] = []
 ## 击中动画数据
 @export var hit_animation: AnimationData = null
 ## 击中音效 uid
@@ -70,8 +70,8 @@ class_name BulletComponent
 @export_group("Miss")
 ## 未击中目标时是否移除子弹实体
 @export var miss_remove: bool = true
-## 子弹未击中目标时携带的实体 UID 列表
-@export_file("*.tscn") var miss_payloads: Array[String] = []
+## 子弹未击中目标时创建的实体场景名称
+@export var miss_payloads: Array[String] = []
 ## 未击中动画数据
 @export var miss_animation: AnimationData = null
 ## 未击中音效 uid

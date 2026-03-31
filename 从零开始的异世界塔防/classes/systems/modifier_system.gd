@@ -9,7 +9,7 @@ func _on_insert(e: Entity) -> bool:
 	if not e.has_c(C.CN_MODIFIER):
 		return true
 
-	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
+	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 
 	if not target:
 		return false
@@ -31,10 +31,10 @@ func _on_insert(e: Entity) -> bool:
 	var same_target_mods: Array[Entity] = []
 	var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
 
-	mod_c.ts = TimeDB.tick_ts
+	mod_c.ts = TimeMgr.tick_ts
 
 	for mod_id: int in t_has_mods_ids:
-		var other_m: Entity = EntityDB.get_entity_by_id(mod_id)
+		var other_m: Entity = EntityMgr.get_entity_by_id(mod_id)
 		
 		if not other_m:
 			continue
@@ -76,7 +76,7 @@ func _on_insert(e: Entity) -> bool:
 		
 	# 重置持续时间，优先重置等级最高的
 	if mod_c.reset_same:
-		max_level_mod.insert_ts -= TimeDB.tick_ts
+		max_level_mod.insert_ts -= TimeMgr.tick_ts
 		return false
 	# 替换，优先替换等级最低的
 	if mod_c.replace_same:
@@ -96,13 +96,13 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.GROUP_MODIFIERS):
+	for e: Entity in EntityMgr.get_entities_group(C.GROUP_MODIFIERS):
 		var mod_c: ModifierComponent = e.get_c(C.CN_MODIFIER)
 		
 		# 周期效果
 		if (
 			not U.is_valid_number(mod_c.cycle_time) 
-			or not TimeDB.is_ready_time(mod_c.ts, mod_c.cycle_time)
+			or not TimeMgr.is_ready_time(mod_c.ts, mod_c.cycle_time)
 		):
 			return
 
@@ -111,22 +111,22 @@ func _on_update(_delta: float) -> void:
 			e.remove_entity()
 			return
 
-		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
+		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 		
 		if mod_c.damage_min > 0 or mod_c.damage_max > 0:
-			EntityDB.create_damage(e.target_id, mod_c.damage_min, mod_c.damage_max, mod_c.damage_type, e.id)
+			EntityMgr.create_damage(e.target_id, mod_c.damage_min, mod_c.damage_max, mod_c.damage_type, e.id)
 
 		e._on_modifier_period(target, mod_c)
 
 		mod_c.curren_cycle += 1
-		mod_c.ts = TimeDB.tick_ts
+		mod_c.ts = TimeMgr.tick_ts
 	
 
 func _on_remove(e: Entity) -> bool:
 	if not e.has_c(C.CN_MODIFIER):
 		return true
 	
-	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
+	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 
 	if not target:
 		return true

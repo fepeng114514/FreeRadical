@@ -5,7 +5,7 @@ class_name Camera
 
 ## 缩放因子
 @export var zoom_factor: float = 1.1
-## 缩放时间
+## 缩放时长
 @export var zoom_duration: float = 0.2
 ## 最小缩放
 @export var zoom_min: float = 0
@@ -16,6 +16,7 @@ class_name Camera
 var _dragging: bool = false
 ## 拖拽位置
 var _drag_start_position := Vector2.ZERO
+
 
 func _ready() -> void:
 	S.resized_window.connect(_on_resized_window)
@@ -69,9 +70,6 @@ func _smooth_zoom(reversed: bool = false) -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(self, "zoom", target_zoom, zoom_duration)
-	#tween.parallel().tween_property(
-		#self, "position", get_global_mouse_position() * target_zoom, zoom_duration
-	#)
 
 
 func _move(target_pos: Vector2) -> void:

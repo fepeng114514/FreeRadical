@@ -1,28 +1,18 @@
 class_name C
 ## 常量库
 
-"""
-	命名规范:
-		1. 格式: 主标识_名称_副标识
-		2. 字母全大写
-
-		示例:
-			## 资产图集目录
-			const DIR_ATLAS_ASSETS: String = DIR_ASSETS + "/atlas"
-
-			1. DIR 主标识，表示这是一个目录
-			2. ATLAS 名称，图集
-			3. ASSETS 副表示，表示是资产目录下的子目录
-"""
 
 #region 基础常量
 ## 帧率
 const FPS: int = 60
-const NAME_TOWER_HOLDER: String = "tower_holder_%s"
+## 未设置数字
 const UNSET: int = -1
-const QUARTER_PI: float = PI / 4
+## PI 二分之一
 const HALF_PI: float = PI / 2
+## PI 四分之一
+const QUARTER_PI: float = PI / 4
 #endregion
+
 
 ## 日志级别枚举
 enum LOG_LEVEL {
@@ -309,7 +299,27 @@ enum AudioPlayMode {
 
 ## 塔位样式枚举
 enum TowerHolderStyle {
+	## 草地
 	GRASS,
+}
+
+
+## 选择菜单项类型
+enum SelectMenuItemType {
+	## 升级
+	UPGRADE,
+	## 出售
+	SELL,
+	## 集结
+	RALLY,
+	## 购买
+	BUY,
+	## 技能
+	SKILL,
+	## 瞄准
+	AIM,
+	## 切换
+	SWITCH,
 }
 
 

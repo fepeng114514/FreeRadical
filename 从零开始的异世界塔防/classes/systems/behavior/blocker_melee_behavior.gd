@@ -70,7 +70,7 @@ func _on_update(e: Entity) -> bool:
 		
 	# 有被拦截者
 	e.state = C.State.MELEE
-	var blocked: Entity = EntityDB.get_entity_by_id(
+	var blocked: Entity = EntityMgr.get_entity_by_id(
 		blockeds_ids[0]
 	)
 	if not blocked:
@@ -104,7 +104,7 @@ func _find_pending_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
 		entity.has_c(C.CN_MELEE) and entity.id not in melee_c.blockeds_ids
 	)
 	
-	var targets: Array = EntityDB.search_targets_in_range(
+	var targets: Array = EntityMgr.search_targets_in_range(
 		melee_c.search_mode, 
 		e.global_position, 
 		melee_c.block_max_range, 

@@ -14,34 +14,65 @@ func _on_insert(e: Entity) -> bool:
 	for sub_e: Entity in tower_c.list:
 		sub_e.is_subentity = true
 		sub_e.source_id = e.id
-		EntityDB.process_create(sub_e)
+		EntityMgr.process_create(sub_e)
 		sub_e.insert_entity()
+		
+	if not tower_c.tower_holder_style:
+		tower_c.tower_holder_style = GameMgr.defaul_tower_holder_style
 		
 	return true
 	
 	
 func _on_update(_delta: float) -> void:
-	for e: Entity in EntityDB.get_entities_group(C.CN_TOWER):
+	for e: Entity in EntityMgr.get_entities_group(C.CN_TOWER):
 		var tower_c: TowerComponent = e.get_c(C.CN_TOWER)
-
+		
+		# 处理防御塔升级
+		if tower_c.upgrade_to:
+			var new_tower: Entity = EntityMgr.create_entity(tower_c.upgrade_to)
+			var new_tower_c: TowerComponent = new_tower.get_c(C.CN_TOWER)
+			
+			var price: float = new_tower_c.price
+			
+			new_tower.global_position = e.global_position
+			new_tower.total_price = (
+				tower_c.total_price + price
+			)
+			new_tower.tower_holder_style = tower_c.tower_holder_style
+			
+			GameMgr.cash -= price
+			e.remove_entity()
+		if tower_c.is_sell:
+			GameMgr.cash += (
+				U.to_percent(tower_c.sell_ratio) * tower_c.total_price
+			)
+			
+			var tower_holder: EntityTowerHolder = EntityMgr.create_entity(
+				"tower_holder"
+			)
+			tower_holder.global_position = e.global_position
+			tower_holder.tower_holder_style = e.tower_holder_style
+			e.remove_entity()
+		
+		# 处理防御塔更新
 		tower_c.cleanup_list()
+		
 		var list: Array[Entity] = tower_c.list
 		
 		if list.is_empty():
-			continue
+			return
 			
 		if tower_c.attack_loop_time == 0:
-			continue
+			return
 			
-		if not TimeDB.is_ready_time(tower_c.ts, tower_c.attack_loop_time):
-			continue
+		if not TimeMgr.is_ready_time(tower_c.ts, tower_c.attack_loop_time):
+			return
 			
 		tower_c.attack_entity_idx += 1
 		if tower_c.attack_entity_idx >= list.size():
 			tower_c.attack_entity_idx = 0
 			
 		var curren_e: Entity = list[tower_c.attack_entity_idx]
-		
 		for sub_e: Entity in list:
 			if sub_e != curren_e:
 				sub_e.blocking = true
@@ -49,4 +80,5 @@ func _on_update(_delta: float) -> void:
 				
 			sub_e.blocking = false
 			
-		tower_c.ts = TimeDB.tick_ts
+		tower_c.ts = TimeMgr.tick_ts
+		

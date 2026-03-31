@@ -10,14 +10,14 @@ func _on_insert(e: Entity) -> bool:
 	if not bullet_c:
 		return true
 
-	var target: Entity = EntityDB.get_entity_by_id(e.target_id)
+	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 	if not target:
 		return false
 
-	bullet_c.ts = TimeDB.tick_ts
-	var flying_time: float = TimeDB.get_time_by_ts(bullet_c.ts)
+	bullet_c.ts = TimeMgr.tick_ts
+	var flying_time: float = TimeMgr.get_time_by_ts(bullet_c.ts)
 	if not bullet_c.disabled_predict_pos:
-		bullet_c.predict_target_pos = PathDB.predict_target_pos(
+		bullet_c.predict_target_pos = PathMgr.predict_target_pos(
 			target, bullet_c.flight_time
 		)
 	else:
@@ -42,7 +42,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	var entities: Array = EntityDB.get_entities_group(C.CN_BULLET).filter(
+	var entities: Array = EntityMgr.get_entities_group(C.CN_BULLET).filter(
 		func(e: Entity):
 			return not e.is_waiting() and not e.removed
 	)
@@ -50,8 +50,8 @@ func _on_update(delta: float) -> void:
 	for e: Entity in entities:
 		var bullet_c: BulletComponent = e.get_c(C.CN_BULLET)
 
-		var target: Entity = EntityDB.get_entity_by_id(e.target_id)
-		var flying_time: float = TimeDB.get_time_by_ts(bullet_c.ts)
+		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
+		var flying_time: float = TimeMgr.get_time_by_ts(bullet_c.ts)
 
 		if bullet_c.flight_trajectory & C.Trajectory.LINEAR:
 			_trajectory_liniear_update(e, bullet_c)
@@ -92,7 +92,7 @@ func _hit(
 		await e.y_wait(bullet_c.hit_delay)
 		
 	if bullet_c.damage_min_radius > 0 or bullet_c.damage_max_radius > 0:
-		var targets: Array = EntityDB.search_targets_in_range(
+		var targets: Array = EntityMgr.search_targets_in_range(
 			bullet_c.search_mode, 
 			bullet_c.to, 
 			bullet_c.damage_max_radius, 
@@ -106,7 +106,7 @@ func _hit(
 	else:
 		_damege_target(e, bullet_c, target)
 		
-	EntityDB.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
+	EntityMgr.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
 
 	e._on_bullet_hit(target, bullet_c)
 	
@@ -124,7 +124,7 @@ func _damege_target(
 	var damage_factor: float = e._on_bullet_calculate_damage_factor(
 			target, bullet_c
 		)
-	EntityDB.create_damage(
+	EntityMgr.create_damage(
 		target.id, 
 		bullet_c.damage_min, 
 		bullet_c.damage_max, 
@@ -132,7 +132,7 @@ func _damege_target(
 		e.id, 
 		damage_factor
 	)
-	EntityDB.create_mods(target.id, bullet_c.mods, e.id)
+	EntityMgr.create_mods(target.id, bullet_c.mods, e.id)
 
 
 func _miss(
@@ -143,7 +143,7 @@ func _miss(
 		e.mixed_play_animation_by_look(bullet_c.miss_animation)
 		await e.mixed_wait_animation(bullet_c.miss_animation)
 
-	EntityDB.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
+	EntityMgr.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
 
 	if bullet_c.miss_remove:
 		e.remove_entity()
@@ -160,7 +160,7 @@ func _trajectory_liniear_init(bullet_c: BulletComponent) -> void:
 ## 直线轨迹更新
 func _trajectory_liniear_update(e: Entity, bullet_c: BulletComponent) -> void:
 	e.global_position = U.position_in_linear(
-		bullet_c.velocity, bullet_c.from, TimeDB.get_time_by_ts(bullet_c.ts)
+		bullet_c.velocity, bullet_c.from, TimeMgr.get_time_by_ts(bullet_c.ts)
 	)
 
 
@@ -172,7 +172,7 @@ func _trajectory_parabola_init(
 		e.global_position, bullet_c.to, bullet_c.flight_time, bullet_c.flight_gravity
 	)
 	
-	var next_time: float = flying_time + TimeDB.frame_length
+	var next_time: float = flying_time + TimeMgr.frame_length
 	var next_pos = U.position_in_parabola(
 		bullet_c.velocity, bullet_c.from, next_time, bullet_c.flight_gravity
 	)
@@ -189,7 +189,7 @@ func _trajectory_parabola_update(
 		bullet_c.velocity, bullet_c.from, flying_time, bullet_c.flight_gravity
 	)
 	
-	var next_time: float = flying_time + TimeDB.frame_length
+	var next_time: float = flying_time + TimeMgr.frame_length
 	var next_pos: Vector2 = U.position_in_parabola(
 		bullet_c.velocity, bullet_c.from, next_time, bullet_c.flight_gravity
 	)
@@ -216,7 +216,7 @@ func _trajectory_tracking_update(
 		bullet_c.to = target.global_position + target.hit_offset
 	
 	var direction: Vector2 = e.global_position.direction_to(bullet_c.to)
-	e.global_position += direction * bullet_c.flight_speed * TimeDB.frame_length
+	e.global_position += direction * bullet_c.flight_speed * TimeMgr.frame_length
 	
 	if bullet_c.look_to:
 		e.look_at(bullet_c.to)

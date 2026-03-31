@@ -210,7 +210,8 @@ func _create_range_circle(node_name: String, r: float) -> void:
 	circle.name = node_name
 
 	var s: float = r / 200
-	circle.scale = Vector2(0, 0)
+	circle.scale = Vector2.ZERO
+	
 	
 	circle.tween_set_scale(Vector2(s, s))
 	
@@ -232,7 +233,7 @@ func _create_melee_range_circle(node_name: String, r: float) -> void:
 	circle.name = node_name
 
 	var s: float = r / 200
-	circle.scale = Vector2(0, 0)
+	circle.scale = Vector2.ZERO
 	
 	circle.tween_set_scale(Vector2(s, s))
 	
@@ -249,12 +250,14 @@ func _update_unit_info() -> void:
 	if selected_entity.has_c(C.CN_MELEE):
 		_set_value_melee(selected_entity)
 	else:
-		melee_value.text = "无"
+		melee_value.visible = false
+		melee_type_icon.visible = false
 		
 	if selected_entity.has_c(C.CN_RANGED):
 		_set_value_ranged(selected_entity)
 	else:
-		ranged_value.text = "无"
+		ranged_value.visible = false
+		ranged_type_icon.visible = false
 
 
 ## 更新防御塔信息
@@ -265,8 +268,8 @@ func _update_tower_info() -> void:
 		if selected_entity.has_c(C.CN_RANGED):
 			_set_value_ranged(selected_entity)
 		else:
-			ranged_value.text = "无"
-		return
+			ranged_type_icon.visible = false
+			ranged_value.visible = false
 	else:
 		var first_entity: Entity = tower_c.list[0]
 		_set_value_ranged(first_entity)
@@ -276,7 +279,7 @@ func _update_tower_info() -> void:
 func _set_value_ranged(e: Entity) -> void:
 	var ranged_c: RangedComponent = e.get_c(C.CN_RANGED)
 	var first_ranged_attack: RangedAttack = ranged_c.list[0]
-	var bullet: Entity = EntityDB.get_entity_data(first_ranged_attack.bullet)
+	var bullet: Entity = EntityMgr.get_entity_data(first_ranged_attack.bullet)
 	var bullet_c: BulletComponent = bullet.get_c(C.CN_BULLET)
 	ranged_value.text = "%d-%d/%.1f" % [
 		bullet_c.damage_min, 

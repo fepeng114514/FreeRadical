@@ -169,7 +169,7 @@ static func load_json(path: String) -> Variant:
 	return json.get_data()
 	
 	
-static func save_json(list: Array, file_path: String) -> void:
+static func save_json(data: Variant, file_path: String) -> void:
 	var file: FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
 	if not file:
 		Log.error("save_json: 无法打开文件: %s\n错误信息: %s" % [
@@ -178,10 +178,10 @@ static func save_json(list: Array, file_path: String) -> void:
 		)
 		return
 		
-	var json_string: String = JSON.stringify(list, "\t")
+	var json_string: String = JSON.stringify(data, "\t")
 	file.store_string(json_string)
 	file.close()
-	print("save_json: 保存成功: ", file_path)
+	Log.info("save_json: 保存成功: %s" % file_path)
 #endregion
 
 
@@ -489,16 +489,16 @@ static func is_vaild_entity(e) -> bool:
 
 
 static func is_allowed_entity(e: Variant, target: Entity) -> bool:
-	var target_uid: String = target.uid
-	var whitelist_uid: Array[String] = e.whitelist_uid
-	var blacklist_uid: Array[String] = e.blacklist_uid
+	var target_scene_name: String = target.scene_name
+	var whitelist: Array[String] = e.whitelist
+	var blacklist: Array[String] = e.blacklist
 	
 	return (
 		(
-			not whitelist_uid 
-			or target_uid in whitelist_uid
+			not whitelist
+			or target_scene_name in whitelist
 		)
-		and target_uid not in blacklist_uid
+		and target_scene_name not in blacklist
 	)
 
 

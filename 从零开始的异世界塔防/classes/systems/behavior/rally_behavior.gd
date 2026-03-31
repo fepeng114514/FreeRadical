@@ -31,7 +31,7 @@ func walk_step(e: Entity, rally_c: RallyComponent) -> void:
 	var velocity: Vector2 = (
 		direction 
 		* rally_c.speed 
-		* TimeDB.frame_length
+		* TimeMgr.frame_length
 	)
 	rally_c.velocity = velocity
 	e.global_position += velocity

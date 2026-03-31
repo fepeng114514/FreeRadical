@@ -4,9 +4,8 @@ class_name SpriteComponent
 
 ## 精灵组
 @export var groups: Array[SpriteGroup] = []
-
 ## 精灵列表
-@export_storage var list: Array[Node2D] = []
+@export var list: Array[Node2D] = []
 
 @export_group("Sync Animation")
 ## 是否所有者同步播放动画

@@ -10,12 +10,24 @@ class_name TowerComponent
 	set(value):
 		show_range_offset = value
 		queue_redraw()
-
+## 塔位样式
+@export var tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
 ## 子实体列表
-@export_storage var list: Array[Entity] = []
+@export var list: Array[Entity] = []
 
-
+## 总价格
+var total_price: float = 0
+## 价格
+var price: float = 70
+## 出售比例（%）
+var sell_ratio: float = 50
+## 升级目标
+var upgrade_to: String = ""
+## 出售状态
+var is_sell: bool = false
+## 当前攻击的实体索引
 var attack_entity_idx: int = 0
+## 时间戳
 var ts: float = 0
 
 

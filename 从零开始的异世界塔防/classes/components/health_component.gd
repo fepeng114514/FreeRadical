@@ -31,6 +31,8 @@ class_name HealthComponent
 @export var vulnerable: float = 0
 
 @export_group("Death")
+## 死亡赏金
+@export var death_gold: float = 0
 ## 死亡动画数据
 @export var death_animation: AnimationData = null
 ## 死亡音效数据
@@ -41,7 +43,10 @@ class_name HealthComponent
 @export var health_bar: TextureProgressBar = null
 
 ## 当前血量
-var hp: float = 0
+var hp: float = 0:
+	set(value):
+		hp = value
+		health_bar.value = get_hp_percent()
 
 
 func _get_configuration_warnings() -> PackedStringArray:

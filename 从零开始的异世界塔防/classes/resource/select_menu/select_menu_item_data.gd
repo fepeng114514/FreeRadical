@@ -1,0 +1,29 @@
+extends Resource
+class_name SelectMenuItemData
+## 选择菜单项数据资源
+
+
+## 项类型
+@export var type: C.SelectMenuItemType = C.SelectMenuItemType.UPGRADE
+## 升级为的实体场景名称
+## 
+## [annotation SelectMenuItemData.type] 为 UPGRADE 时可用
+@export var upgrade_to: String = ""
+## 升级的技能索引
+## 
+## [annotation SelectMenuItemData.type] 为 SKILL 时可用
+@export var upgraded_skill: int = C.UNSET
+## 购买的条目索引
+##
+## [annotation SelectMenuItemData.type] 为 BUY 时可用
+@export var buy_item: int = C.UNSET
+## 图标
+@export var icon: AtlasTexture = null
+## 位置索引
+@export var place: int = 0
+## 标题
+@export var title: String = ""
+## 描述
+@export var desc: String = ""
+## 音效
+@export var sfx: AudioData = null

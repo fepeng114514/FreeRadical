@@ -152,10 +152,10 @@ func create_spawn_editor(batch: WaveSpawnBatch, spawn_index: int) -> Control:
 	# 敌人UID
 	var uid_edit = LineEdit.new()
 	uid_edit.placeholder_text = "敌人UID"
-	uid_edit.text = spawn.enemy_uid
+	uid_edit.text = spawn.enemy
 	uid_edit.custom_minimum_size.x = 150
 	uid_edit.text_changed.connect(func(new_text): 
-		spawn.enemy_uid = new_text
+		spawn.enemy = new_text
 		notify_property_list_changed()
 	)
 	hbox.add_child(uid_edit)

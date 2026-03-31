@@ -18,8 +18,8 @@ class_name BarrackComponent
 		queue_redraw()
 ## 集结点半径
 @export var rally_radius: float = 30
-## 士兵 UID
-@export_file("*.tscn") var soldier: String = ""
+## 士兵场景名称
+@export var soldier: String = ""
 ## 兵营生成士兵的时间间隔（秒）
 @export var respawn_time: float = 10
 ## 最大士兵数量

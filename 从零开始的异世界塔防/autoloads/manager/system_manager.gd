@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 
 ## 处理实体插入队列
 func _process_insert_queue() -> void:
-	var entities: Array = EntityDB._entities
+	var entities: Array = EntityMgr._entities
 	
 	while insert_queue:
 		var e: Entity = insert_queue.pop_front()
@@ -53,7 +53,7 @@ func _process_insert_queue() -> void:
 			e.remove_entity()
 			continue
 		
-		EntityDB.mark_entity_dirty_id(e.id)
+		EntityMgr.mark_entity_dirty_id(e.id)
 		Log.verbose("插入实体: %s" % e)
 		
 		e.visible = true
@@ -73,7 +73,7 @@ func _process_remove_queue() -> void:
 			e.removed = false
 			continue
 			
-		EntityDB.mark_entity_dirty_id(e.id)
+		EntityMgr.mark_entity_dirty_id(e.id)
 		e.free()
 
 

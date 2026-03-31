@@ -39,21 +39,16 @@ AudioMgr="*uid://vs7lopahte38"
 I18n="*uid://bwfu5q2p756wl"
 S="*uid://5xpvvkr5hlmu"
 Global="*uid://b1ax1cob25oom"
-Store="*res://autoloads/db/store.gd"
+GameMgr="*res://autoloads/manager/game_manager.gd"
 InputMgr="*uid://co6qf5rf1ox2n"
 SettingMgr="*uid://dwcme4eew22uo"
 SystemMgr="*res://autoloads/manager/system_manager.gd"
-TimeDB="*res://autoloads/db/time_db.gd"
-EntityDB="*res://autoloads/db/entity_db.gd"
-GridDB="*uid://bsty3nv6hyvtv"
-PathDB="*res://autoloads/db/path_db.gd"
+TimeMgr="*res://autoloads/manager/time_manager.gd"
+EntityMgr="*res://autoloads/manager/entity_manager.gd"
+GridMgr="*uid://bsty3nv6hyvtv"
+PathMgr="*res://autoloads/manager/path_manager.gd"
 LevelMgr="*res://autoloads/manager/level_manager.gd"
-SoundDB="*uid://cc025jxyxcxmc"
-
-[display]
-
-window/size/viewport_width=2560
-window/size/viewport_height=1440
+GameMgrgr="*res://autoloads/manager/game_manager.gd"
 
 [editor_plugins]
 

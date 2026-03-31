@@ -10,16 +10,20 @@ class_name NavPathComponent
 @export var reversed: bool = false
 ## 移动速度
 @export var speed: float = 133
+## 移动动画数据
+@export var motion_animation: AnimationData = null
+
+@export_group("End")
 ## 终点节点
 @export var end_ni: int = C.UNSET
 ## 是否循环
 @export var loop: bool = false
 ## 循环次数
 ##
-## 等待循环次数后再到达终点节点将会到达终点
+## 循环指定次数后再到达终点节点将会到达终点
 @export var loop_times: int = C.UNSET
-## 移动动画数据
-@export var motion_animation: AnimationData = null
+## 到达终点消耗的生命
+@export var life_cost: int = 1
 
 ## 所在路径索引
 var nav_pi: int = 0
@@ -48,34 +52,34 @@ func _ready() -> void:
 		})
 
 
-## PathDB.get_subpath 的简写，已传递 nav_pi, nav_spi
+## PathMgr.get_subpath 的简写，已传递 nav_pi, nav_spi
 func get_subpath() -> Path2D:
-	return PathDB.get_subpath(nav_pi, nav_spi)
+	return PathMgr.get_subpath(nav_pi, nav_spi)
 
 
-## PathDB.get_ratio 的简写，已传递 nav_pi, nav_spi
+## PathMgr.get_ratio 的简写，已传递 nav_pi, nav_spi
 func get_ratio(progress: float = nav_progress) -> float:
-	return PathDB.get_ratio(nav_pi, nav_spi, progress)
+	return PathMgr.get_ratio(nav_pi, nav_spi, progress)
 	
 
-## PathDB.get_ratio_pos 的简写，已传递 nav_pi, nav_spi
+## PathMgr.get_ratio_pos 的简写，已传递 nav_pi, nav_spi
 func get_ratio_pos(ratio: float = nav_ratio) -> Vector2:
-	return PathDB.get_ratio_pos(nav_pi, nav_spi, ratio)
+	return PathMgr.get_ratio_pos(nav_pi, nav_spi, ratio)
 	
 
-## PathDB.get_progress_pos 的简写，已传递 nav_pi, nav_spi
+## PathMgr.get_progress_pos 的简写，已传递 nav_pi, nav_spi
 func get_progress_pos(progress: float = nav_progress) -> Vector2:
-	return PathDB.get_progress_pos(nav_pi, nav_spi, progress)
+	return PathMgr.get_progress_pos(nav_pi, nav_spi, progress)
 
 
-## PathDB.get_progress_by_ratio 的简写，已传递 nav_pi, nav_spi
+## PathMgr.get_progress_by_ratio 的简写，已传递 nav_pi, nav_spi
 func get_progress_by_ratio(ratio: float = nav_ratio) -> float:
-	return PathDB.get_progress_by_ratio(nav_pi, nav_spi, ratio)
+	return PathMgr.get_progress_by_ratio(nav_pi, nav_spi, ratio)
 
 
-## PathDB.get_pathway_node 的简写，已传递 nav_pi, nav_spi
+## PathMgr.get_pathway_node 的简写，已传递 nav_pi, nav_spi
 func get_pathway_node(ni: int = nav_ni) -> PathwayNode:
-	return PathDB.get_pathway_node(nav_pi, nav_spi, ni)
+	return PathMgr.get_pathway_node(nav_pi, nav_spi, ni)
 
 
 ## 设置导航路径

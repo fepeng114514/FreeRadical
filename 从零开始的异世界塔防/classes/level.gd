@@ -7,12 +7,17 @@ class_name Level
 @export var ready_music: AudioData = null
 ## 战斗阶段播放的音乐数据
 @export var battle_music: AudioData = null
-## 默认金币
+## 初始金币
 @export var cash: int = 200
-## 默认生命
+## 初始生命
 @export var life: int = 20
+## 默认塔位样式
+@export var defaul_tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
 
 func _ready() -> void:
+	GameMgr.cash = cash
+	GameMgr.life = life
+	
 	if ready_music:
 		AudioMgr.play_music(ready_music)
 	

@@ -9,7 +9,7 @@ func _ready() -> void:
 	S.insert_entity.connect(_on_create_entity)
 	
 	for e: Entity in get_children():
-		EntityDB.process_create(e)
+		EntityMgr.process_create(e)
 			
 		e.insert_entity()
 
