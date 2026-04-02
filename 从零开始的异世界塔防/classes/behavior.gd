@@ -114,7 +114,7 @@ func do_melee_attack(e: Entity, a: MeleeAttack, target: Entity) -> void:
 		return
 	
 	EntityMgr.create_damage(
-		target.id, a.damage_min, a.damage_max, a.damage_type, e.id
+		a.damage_data, target.id, e.id
 	)
 	EntityMgr.create_mods(target.id, a.mods, e.id)
 	

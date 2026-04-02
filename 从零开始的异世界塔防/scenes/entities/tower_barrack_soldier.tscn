@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/components/melee_attack.gd" id="6_lmejv"]
 [ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://classes/components/rally_component.gd" id="8_yfwee"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="9_8n3d5"]
+[ext_resource type="Script" uid="uid://dlsjiii8fcmdd" path="res://classes/resource/data/damage_data.gd" id="9_ai0x2"]
 
 [sub_resource type="Resource" id="Resource_ovm3w"]
 script = ExtResource("2_ovm3w")
@@ -23,6 +24,12 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 [sub_resource type="Resource" id="Resource_enhu5"]
 script = ExtResource("2_ovm3w")
 left_right = "walk_left_right"
+
+[sub_resource type="Resource" id="Resource_0omd3"]
+script = ExtResource("9_ai0x2")
+damage_min = 10.0
+damage_max = 30.0
+metadata/_custom_type_script = "uid://dlsjiii8fcmdd"
 
 [sub_resource type="Resource" id="Resource_p1ots"]
 script = ExtResource("2_ovm3w")
@@ -78,6 +85,7 @@ metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
 script = ExtResource("6_lmejv")
+damage_data = SubResource("Resource_0omd3")
 animation = SubResource("Resource_p1ots")
 delay = 0.2
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

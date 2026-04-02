@@ -24,12 +24,8 @@ class_name BulletComponent
 @export var disabled_predict_pos: bool = false
 
 @export_group("Damage")
-## 最小伤害，表示子弹造成的最小伤害值
-@export var damage_min: float = 0
-## 最大伤害，表示子弹造成的最大伤害值
-@export var damage_max: float = 0
-## 伤害类型
-@export var damage_type: C.DamageType = C.DamageType.PHYSICAL
+## 伤害数据
+@export var damage_data: DamageData = null
 ## 最小伤害半径
 @export var damage_min_radius: float = 0
 ## 最大伤害半径

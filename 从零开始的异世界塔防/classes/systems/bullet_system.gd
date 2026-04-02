@@ -121,16 +121,13 @@ func _hit(
 func _damege_target(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
-	var damage_factor: float = e._on_bullet_calculate_damage_factor(
-			target, bullet_c
-		)
+	bullet_c.damage_data.damage_factor = e._on_bullet_calculate_damage_factor(
+		target, bullet_c
+	)
 	EntityMgr.create_damage(
+		bullet_c.damage_data,
 		target.id, 
-		bullet_c.damage_min, 
-		bullet_c.damage_max, 
-		bullet_c.damage_type, 
 		e.id, 
-		damage_factor
 	)
 	EntityMgr.create_mods(target.id, bullet_c.mods, e.id)
 

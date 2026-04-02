@@ -114,7 +114,7 @@ func _on_update(_delta: float) -> void:
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 		
 		if mod_c.damage_min > 0 or mod_c.damage_max > 0:
-			EntityMgr.create_damage(e.target_id, mod_c.damage_min, mod_c.damage_max, mod_c.damage_type, e.id)
+			EntityMgr.create_damage(mod_c.damage_data, e.target_id, e.id)
 
 		e._on_modifier_period(target, mod_c)
 

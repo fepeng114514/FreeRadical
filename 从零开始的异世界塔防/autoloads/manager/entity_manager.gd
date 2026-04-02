@@ -166,20 +166,16 @@ func create_auras(
 
 ## 创建伤害实体
 func create_damage(
+		damage_data: DamageData,
 		target_id: int,
-		damage_min: float,
-		damage_max: float,
-		damage_type: C.DamageType = C.DamageType.PHYSICAL,
-		source_id: int = C.UNSET,
-		damage_factor: float = 1
+		source_id: int = C.UNSET
 	) -> Damage:
 	var d := Damage.new()
 	
+	d.data = damage_data
 	d.target_id = target_id
 	d.source_id = source_id
-	d.damage_type = damage_type
-	d.value = randf_range(damage_min, damage_max)
-	d.damage_factor = damage_factor
+	d.value = randf_range(damage_data.damage_min, damage_data.damage_max)
 
 	SystemMgr.damage_queue.append(d)
 		

@@ -125,10 +125,8 @@ func _on_update(_delta: float) -> void:
 		for target: Entity in targets:
 			if aura_c.damage_min > 0 or aura_c.damage_max > 0:
 				EntityMgr.create_damage(
-					target.id, 
-					aura_c.damage_min, 
-					aura_c.damage_max, 
-					aura_c.damage_type, 
+					aura_c.damage_data,
+					target.id,
 					e.id
 				)
 

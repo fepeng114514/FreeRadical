@@ -6,9 +6,10 @@ class_name DamageSystem
 
 
 func _on_update(_delta: float) -> void:
-	var damage_queue: Array[Entity] = SystemMgr.damage_queue
+	var damage_queue: Array[Damage] = SystemMgr.damage_queue
 	while damage_queue:
 		var damage: Damage = damage_queue.pop_front()
+		
 		var target: Entity = EntityMgr.get_entity_by_id(damage.target_id)
 		if not target:
 			continue
@@ -19,11 +20,13 @@ func _on_update(_delta: float) -> void:
 			
 		var source: Entity = EntityMgr.get_entity_by_id(damage.source_id)
 			
-		if damage.damage_type & C.DamageType.EAT:
+		if damage.data.damage_type & C.DamageType.EAT:
 			target._on_eat(target, damage)
+			
 			if source:
 				source._on_kill(target, damage)
 			target.remove_entity()
+			
 			return
 		
 		var actual_damage: float = _predict_damage(
@@ -42,8 +45,27 @@ func _on_update(_delta: float) -> void:
 		)
 		
 		if health_c.hp <= 0:
-			_on_death(target, health_c, damage, source)
-		
+			target._on_death(target, damage)
+			if source:
+				source._on_kill(target, damage)
+				
+			health_c.health_bar.visible = false
+			GameMgr.cash += health_c.death_gold
+			
+			var death_animation: AnimationData = health_c.death_animation
+			if death_animation:
+				target.mixed_play_animation_by_look(
+					death_animation, "death"
+				)
+				
+			var death_sfx: AudioData = health_c.death_sfx
+			if death_sfx:
+				AudioMgr.play_sfx(death_sfx)
+			
+			await target.mixed_wait_animation(death_animation)
+
+			target.remove_entity()
+
 
 func _predict_damage(
 		target: Entity, 
@@ -51,7 +73,9 @@ func _predict_damage(
 		damage: Damage, 
 		source: Entity
 	) -> float:
-	var damage_factor: float = damage.damage_factor
+	var damage_data: DamageData = damage.data
+		
+	var damage_factor: float = damage_data.damage_factor
 	var vulnerable: float = 1 - health_c.vulnerable
 	var resistance: float = 1 - health_c.damage_resistance
 	var reduction: float = health_c.damage_reduction
@@ -86,7 +110,7 @@ func _predict_damage(
 		vulnerable += mod_c.vulnerable_bonus
 	
 	# 计算护甲减伤
-	var damage_type: int = damage.damage_type
+	var damage_type: int = damage_data.damage_type
 		
 	if damage_type & C.DamageType.DISINTEGRATE:
 		return health_c.hp
@@ -138,31 +162,3 @@ func _predict_damage(
 	var actual_damage: float = roundi(basic_value * total_damage_factor)
 	
 	return actual_damage
-
-
-func _on_death(
-		target: Entity, 
-		health_c: HealthComponent, 
-		damage: Damage, 
-		source: Entity
-	) -> void:
-	target._on_death(target, damage)
-	if source:
-		source._on_kill(target, damage)
-		
-	health_c.health_bar.visible = false
-	GameMgr.cash += health_c.death_gold
-	
-	var death_animation: AnimationData = health_c.death_animation
-	if death_animation:
-		target.mixed_play_animation_by_look(
-			death_animation, "death"
-		)
-		
-	var death_sfx: AudioData = health_c.death_sfx
-	if death_sfx:
-		AudioMgr.play_sfx(death_sfx)
-	
-	await target.mixed_wait_animation(death_animation)
-
-	target.remove_entity()

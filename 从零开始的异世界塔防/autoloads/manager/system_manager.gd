@@ -11,7 +11,7 @@ var remove_queue: Array[Entity] = []
 ## 实体插入队列
 var insert_queue: Array[Entity] = []
 ## 伤害队列
-var damage_queue: Array[Entity] = []
+var damage_queue: Array[Damage] = []
 
 
 func load(new_system_list: Array[System]) -> void:

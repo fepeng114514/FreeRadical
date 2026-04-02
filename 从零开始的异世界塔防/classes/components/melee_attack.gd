@@ -6,12 +6,8 @@ class_name MeleeAttack
 ## 用于 [MeleeComponent]
 
 
-## 最小伤害
-@export var damage_min: float = 25
-## 最大伤害
-@export var damage_max: float = 25
-## 伤害类型
-@export var damage_type: C.DamageType = C.DamageType.PHYSICAL
+## 伤害数据
+@export var damage_data: DamageData = null
 ## 冷却时间
 @export var cooldown: float = 1
 ## 击中目标给予的状态效果

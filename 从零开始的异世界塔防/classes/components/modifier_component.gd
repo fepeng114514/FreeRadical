@@ -16,12 +16,8 @@ class_name ModifierComponent
 @export var max_cycle: int = C.UNSET
 
 @export_group("Cycle Damage")
-## 最小伤害
-@export var damage_min: float = 0
-## 最大伤害
-@export var damage_max: float = 0
-## 伤害类型
-@export var damage_type: C.DamageType = C.DamageType.TRUE
+## 伤害数据
+@export var damage_data: DamageData = null
 
 @export_group("Same Process")
 ## 是否允许相同状态效果叠加
