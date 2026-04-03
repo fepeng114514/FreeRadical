@@ -44,8 +44,8 @@ func _on_update(_delta: float) -> void:
 				
 				var bad_damage: Damage = EntityMgr.create_damage(
 					bad_damage_data,
-					target.id, 
-					source.id,
+					source.id, 
+					target.id,
 					false
 				)
 				new_damage_queue.append(bad_damage)
@@ -90,7 +90,7 @@ func _on_update(_delta: float) -> void:
 
 			target.remove_entity()
 	
-	damage_queue = new_damage_queue
+	SystemMgr.damage_queue = new_damage_queue
 
 func _predict_damage(
 		target: Entity, 
