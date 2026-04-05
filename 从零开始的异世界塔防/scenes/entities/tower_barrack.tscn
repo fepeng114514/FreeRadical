@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cc3v5b7ci4wxv"]
 
-[ext_resource type="Script" uid="uid://bgy6wevjchyl6" path="res://scenes/entities/tower_barrack.gd" id="1_nawio"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_xe47h"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_5r4pg"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_fm5wb"]
 [ext_resource type="Texture2D" uid="uid://d0l6eobu1q5fb" path="res://resources/atlas_texture_resources/tower_preview_barrack.tres" id="3_bfdgq"]
@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resource/select_menu/select_menu_data.gd" id="9_6bfoh"]
 [ext_resource type="Resource" uid="uid://cu12xalwranel" path="res://resources/select_menu/select_menu_item_rally.tres" id="9_xe47h"]
 
-[sub_resource type="Resource" id="Resource_55su2"]
+[sub_resource type="Resource" id="Resource_6bfoh"]
 script = ExtResource("2_5r4pg")
 left_right = "idle_left_right"
 
@@ -25,15 +25,16 @@ script = ExtResource("9_6bfoh")
 list = Array[ExtResource("7_141pe")]([ExtResource("8_xe47h"), ExtResource("9_xe47h")])
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
-[node name="TowerBarrack" type="Node2D" unique_id=383018069 node_paths=PackedStringArray("components")]
-script = ExtResource("1_nawio")
+[node name="TowerBarrack" type="Node2D" unique_id=187367710 node_paths=PackedStringArray("components")]
+script = ExtResource("1_xe47h")
 components = {
 "BarrackComponent": NodePath("BarrackComponent"),
 "SpriteComponent": NodePath("SpriteComponent"),
 "TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")
 }
-idle_animation = SubResource("Resource_55su2")
+idle_animation = SubResource("Resource_6bfoh")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=129744030 node_paths=PackedStringArray("list")]
 script = ExtResource("2_fm5wb")

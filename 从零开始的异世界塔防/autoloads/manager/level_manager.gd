@@ -9,7 +9,7 @@ func enter_level(idx: int) -> void:
 	GameMgr.level_idx = idx
 	
 	EntityMgr.load()
-	PathMgr.load()
+	PathwayMgr.load()
 	GridMgr.load()
 
 	get_tree().change_scene_to_file(

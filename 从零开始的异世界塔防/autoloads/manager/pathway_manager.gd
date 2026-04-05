@@ -18,6 +18,12 @@ var node_count: int = 256
 func load() -> void:
 	pathway_list.clear()
 	next_pi = 0
+	
+	
+func insert_pathway(p: Pathway) -> void:
+	p.idx = next_pi
+	next_pi += 1
+	pathway_list.append(p)
 
 
 ## 获取路径数量

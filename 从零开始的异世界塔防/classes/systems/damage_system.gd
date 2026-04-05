@@ -11,7 +11,6 @@ func _on_update(_delta: float) -> void:
 	
 	while damage_queue:
 		var damage: Damage = damage_queue.pop_front()
-		var damage_data: DamageData = damage.data
 		
 		var target: Entity = EntityMgr.get_entity_by_id(damage.target_id)
 		if not target:
@@ -23,7 +22,7 @@ func _on_update(_delta: float) -> void:
 			
 		var source: Entity = EntityMgr.get_entity_by_id(damage.source_id)
 		
-		if damage_data.damage_type & health_c.immuned_bits:
+		if damage.damage_type & health_c.immuned_bits:
 			continue
 			
 		var actual_damage: float = _predict_damage(
@@ -32,7 +31,7 @@ func _on_update(_delta: float) -> void:
 		health_c.hp -= actual_damage
 		target._on_damage(target, damage)
 		
-		if not damage_data.damage_flag_bits & C.DamageFlag.NO_SPIKED:
+		if not damage.damage_flag_bits & C.DamageFlag.NO_SPIKED:
 			if U.is_valid_number(health_c.spiked) and source and source.get_c(C.CN_HEALTH):
 				var spiked_value: float = damage.value * health_c.spiked
 				
@@ -60,11 +59,11 @@ func _on_update(_delta: float) -> void:
 		)
 		
 		if health_c.hp <= 0:
-			if damage_data.damage_flag_bits & C.DamageFlag.NOT_KILL:
+			if damage.damage_flag_bits & C.DamageFlag.NOT_KILL:
 				health_c.hp = 1
 				return
 			
-			if damage_data.damage_flag_bits & C.DamageFlag.KILL_REMOVE:
+			if damage.damage_flag_bits & C.DamageFlag.KILL_REMOVE:
 				target.remove_entity()
 				return
 			
@@ -98,9 +97,7 @@ func _predict_damage(
 		damage: Damage, 
 		source: Entity
 	) -> float:
-	var damage_data: DamageData = damage.data
-		
-	var damage_factor: float = damage_data.damage_factor
+	var damage_factor: float = damage.damage_factor
 	var vulnerable: float = 1 - health_c.vulnerable
 	var resistance: float = 1 - health_c.damage_resistance
 	var reduction: float = health_c.damage_reduction
@@ -135,7 +132,7 @@ func _predict_damage(
 		vulnerable += mod_c.vulnerable_bonus
 	
 	# 计算护甲减伤
-	var damage_type: int = damage_data.damage_type
+	var damage_type: int = damage.damage_type
 		
 	if damage_type & C.DamageType.DISINTEGRATE:
 		return health_c.hp

@@ -16,6 +16,8 @@ static func dist_factor_inside_radius(
 		min_radius: float = 0, 
 	) -> float:
 	var dist: float = center.distance_to(point)
+	if dist / max_radius < 0:
+		print()
 	
 	if min_radius == 0:
 		return dist / max_radius

@@ -17,7 +17,7 @@ func _on_insert(e: Entity) -> bool:
 	bullet_c.ts = TimeMgr.tick_ts
 	var flying_time: float = TimeMgr.get_time_by_ts(bullet_c.ts)
 	if not bullet_c.disabled_predict_pos:
-		bullet_c.predict_target_pos = PathMgr.predict_target_pos(
+		bullet_c.predict_target_pos = PathwayMgr.predict_target_pos(
 			target, bullet_c.flight_time
 		)
 	else:
@@ -121,13 +121,13 @@ func _hit(
 func _damege_target(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
-	bullet_c.damage_data.damage_factor = e._on_bullet_calculate_damage_factor(
-		target, bullet_c
-	)
-	EntityMgr.create_damage(
+	var d: Damage = EntityMgr.create_damage(
 		bullet_c.damage_data,
 		target.id, 
 		e.id, 
+	)
+	d.damage_factor = e._on_bullet_calculate_damage_factor(
+		target, bullet_c
 	)
 	EntityMgr.create_mods(target.id, bullet_c.mods, e.id)
 

@@ -33,31 +33,31 @@ func _init(
 	ratio = new_ratio
 	progress = new_progress
 
-## PathMgr.get_subpath 的简写，已传递 pi, spi
+## PathwayMgr.get_subpath 的简写，已传递 pi, spi
 func get_subpath() -> Path2D:
-	return PathMgr.get_subpath(pi, spi)
+	return PathwayMgr.get_subpath(pi, spi)
 
 
-## PathMgr.get_ratio 的简写，已传递 pi, spi
+## PathwayMgr.get_ratio 的简写，已传递 pi, spi
 func get_ratio(pro: float = progress) -> float:
-	return PathMgr.get_ratio(pi, spi, pro)
+	return PathwayMgr.get_ratio(pi, spi, pro)
 	
 
-## PathMgr.get_ratio_pos 的简写，已传递 pi, spi
+## PathwayMgr.get_ratio_pos 的简写，已传递 pi, spi
 func get_ratio_pos(r: float = ratio) -> Vector2:
-	return PathMgr.get_ratio_pos(pi, spi, r)
+	return PathwayMgr.get_ratio_pos(pi, spi, r)
 	
 
-## PathMgr.get_progress_pos 的简写，已传递 pi, spi
+## PathwayMgr.get_progress_pos 的简写，已传递 pi, spi
 func get_progress_pos(pro: float = progress) -> Vector2:
-	return PathMgr.get_progress_pos(pi, spi, pro)
+	return PathwayMgr.get_progress_pos(pi, spi, pro)
 
 
-## PathMgr.get_progress_by_ratio 的简写，已传递 pi, spi
+## PathwayMgr.get_progress_by_ratio 的简写，已传递 pi, spi
 func get_progress_by_ratio(r: float = ratio) -> float:
-	return PathMgr.get_progress_by_ratio(pi, spi, r)
+	return PathwayMgr.get_progress_by_ratio(pi, spi, r)
 
 
-## PathMgr.get_pathway_node 的简写，已传递 nav_pi, nav_spi
+## PathwayMgr.get_pathway_node 的简写，已传递 nav_pi, nav_spi
 func get_pathway_node(node_idx: int = ni) -> PathwayNode:
-	return PathMgr.get_pathway_node(pi, spi, node_idx)
+	return PathwayMgr.get_pathway_node(pi, spi, node_idx)

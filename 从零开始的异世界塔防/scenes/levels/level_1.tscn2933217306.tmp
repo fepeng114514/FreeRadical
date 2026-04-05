@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://wc2518mmc5jt" path="res://scenes/entities/tower_mage.tscn" id="15_bahl2"]
 [ext_resource type="PackedScene" uid="uid://fx352ubic8aw" path="res://scenes/entities/tower_artillery.tscn" id="17_v6ha0"]
 [ext_resource type="PackedScene" uid="uid://ck4m2qigdae35" path="res://scenes/entities/tower_holder.tscn" id="20_7h2jl"]
+[ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://scenes/ui/game_ui/wave_flag.tscn" id="22_ndtll"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
 [ext_resource type="PackedScene" uid="uid://b7grxp4wq0api" path="res://scenes/ui/world_control.tscn" id="23_mqh5v"]
 [ext_resource type="Script" uid="uid://xe8e38fn85ws" path="res://scenes/levels/wave_flag_controller.gd" id="24_7o3do"]
@@ -156,3 +157,19 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("24_7o3do")
+
+[node name="WaveFlag" parent="WorldControl/WaveFlagController" unique_id=1400132623 instance=ExtResource("22_ndtll")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 145.0
+offset_top = 277.0
+offset_right = 230.0
+offset_bottom = 362.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+arrow_rotation = -1.4870205226991688

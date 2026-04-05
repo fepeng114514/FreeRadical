@@ -1,6 +1,9 @@
 @tool
 extends Entity
+
+
 @export var wave_set: WaveSet = null
+
 
 func _spawner() -> void:
 	var wave_list: Array[Wave] = wave_set.wave_list
@@ -45,7 +48,7 @@ func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
 				nav_path_c.loop = spawn.loop
 				
 				var node: PathwayNode = nav_path_c.get_pathway_node(
-					PathMgr.node_count - 1 if nav_path_c.reversed else 0
+					PathwayMgr.node_count - 1 if nav_path_c.reversed else 0
 				)
 				nav_path_c.set_nav_path(pathway_idx, spi, node.ni)
 			

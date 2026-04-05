@@ -13,10 +13,10 @@ func _on_insert(e: Entity) -> bool:
 	var nav_pi: int = nav_path_c.nav_pi
 
 	if not U.is_valid_number(nav_path_c.nav_spi):
-		nav_path_c.nav_spi = PathMgr.get_random_subpathway(nav_pi).idx
+		nav_path_c.nav_spi = PathwayMgr.get_random_subpathway(nav_pi).idx
 		
 	if nav_path_c.end_ni < 0:
-		nav_path_c.end_ni = PathMgr.node_count + nav_path_c.end_ni
+		nav_path_c.end_ni = PathwayMgr.node_count + nav_path_c.end_ni
 		
 	nav_path_c.origin_speed = nav_path_c.speed
 
@@ -36,7 +36,7 @@ func _on_update(e: Entity) -> bool:
 	var reversed: bool = nav_path_c.reversed
 	var end_ni: int = nav_path_c.end_ni
 	
-	if reversed and nav_path_c.nav_ni == PathMgr.node_count - 1 - end_ni:
+	if reversed and nav_path_c.nav_ni == PathwayMgr.node_count - 1 - end_ni:
 		arrived_end(e, nav_path_c, reversed)
 		return false
 	elif not reversed and nav_path_c.nav_ni == end_ni:
@@ -87,7 +87,7 @@ func walk_step(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
 			next_node = nav_path_c.get_pathway_node(next_ni)
 	else:
 		while (
-				next_ni + 1 < PathMgr.node_count 
+				next_ni + 1 < PathwayMgr.node_count 
 				and nav_path_c.nav_progress >= next_node.progress
 		):
 			next_ni += 1

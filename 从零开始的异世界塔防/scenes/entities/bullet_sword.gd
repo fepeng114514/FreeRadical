@@ -34,7 +34,7 @@ func _on_update(_delta: float) -> void:
 		has_to_predict = true
 		
 		if is_instance_valid(target):
-			bullet_c.predict_target_pos = PathMgr.predict_target_pos(
+			bullet_c.predict_target_pos = PathwayMgr.predict_target_pos(
 				target, (bullet_c.flight_time + to_predict_time)
 			)
 		else:

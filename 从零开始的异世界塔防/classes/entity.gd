@@ -368,9 +368,9 @@ func set_nav_path_at_pos(pos: Vector2) -> void:
 
 	if source and source.has_c(C.CN_NAV_PATH):
 		var s_nav_path_c: NavPathComponent = source.get_c(C.CN_NAV_PATH)
-		node = PathMgr.get_nearst_node(pos, [s_nav_path_c.pi], [s_nav_path_c.spi])
+		node = PathwayMgr.get_nearst_node(pos, [s_nav_path_c.pi], [s_nav_path_c.spi])
 	else:
-		node = PathMgr.get_nearst_node(pos)
+		node = PathwayMgr.get_nearst_node(pos)
 
 	var nav_path_c: NavPathComponent = get_c(C.CN_NAV_PATH)
 	nav_path_c.set_nav_path(node.pi, node.spi, node.ni)

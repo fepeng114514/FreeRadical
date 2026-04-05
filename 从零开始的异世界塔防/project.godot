@@ -47,7 +47,7 @@ SystemMgr="*res://autoloads/manager/system_manager.gd"
 TimeMgr="*res://autoloads/manager/time_manager.gd"
 EntityMgr="*res://autoloads/manager/entity_manager.gd"
 GridMgr="*uid://bsty3nv6hyvtv"
-PathMgr="*res://autoloads/manager/path_manager.gd"
+PathwayMgr="*res://autoloads/manager/pathway_manager.gd"
 LevelMgr="*res://autoloads/manager/level_manager.gd"
 GameMgrgr="*res://autoloads/manager/game_manager.gd"
 
@@ -81,3 +81,7 @@ scroll_down={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":5,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_navigation/layer_1="a"

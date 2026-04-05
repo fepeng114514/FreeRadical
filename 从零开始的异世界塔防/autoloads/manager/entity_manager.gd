@@ -173,10 +173,14 @@ func create_damage(
 	) -> Damage:
 	var d := Damage.new()
 	
-	d.data = damage_data
 	d.target_id = target_id
 	d.source_id = source_id
 	d.value = randf_range(damage_data.damage_min, damage_data.damage_max)
+	d.damage_min = damage_data.damage_min
+	d.damage_max = damage_data.damage_max
+	d.damage_type = damage_data.damage_type
+	d.damage_factor = damage_data.damage_factor
+	d.damage_flags = damage_data.damage_flags.duplicate()
 	
 	if auto_insert:
 		SystemMgr.damage_queue.append(d)
@@ -260,98 +264,75 @@ func get_entity_data(entity_name: String) -> Entity:
 
 
 #region 索敌相关
-## 根据路程排序实体
-static func sort_entities_by_progress(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
-	var p1: float = INF if reversed else -INF
-	var p2: float = INF if reversed else -INF
-
-	if e1.has_c(C.CN_NAV_PATH):
-		p1 = e1.get_c(C.CN_NAV_PATH).nav_progress
-	if e2.has_c(C.CN_NAV_PATH):
-		p2 = e2.get_c(C.CN_NAV_PATH).nav_progress
-
-	return p1 > p2 if not reversed else p1 < p2
-
-
-## 根据距离排序实体
-static func sort_entities_by_distance(
-		e1: Entity, e2: Entity, origin: Vector2, reversed: bool = false
-	) -> bool:
-	var d1: float = INF if reversed else -INF
-	var d2: float = INF if reversed else -INF
-
-	d1 = e1.global_position.distance_squared_to(origin)
-	d2 = e2.global_position.distance_squared_to(origin)
-
-	return d1 > d2 if not reversed else d1 < d2
-
-
-## 根据血量排序实体
-static func sort_entities_by_health(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
-	var h1: float = INF if reversed else -INF
-	var h2: float = INF if reversed else -INF
-
-	if e1.has_c(C.CN_HEALTH):
-		h1 = e1.get_c(C.CN_HEALTH).hp
-	if e2.has_c(C.CN_HEALTH):
-		h2 = e2.get_c(C.CN_HEALTH).hp
-
-	return h1 > h2 if not reversed else h1 < h2
-
-
-## 根据近战伤害排序实体
-static func sort_entities_by_melee_damage(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
-	var d1: float = INF if reversed else -INF
-	var d2: float = INF if reversed else -INF
-
-	if e1.has_c(C.CN_MELEE):
-		d1 = e1.get_c(C.CN_MELEE).list[0].damage_max
-	if e2.has_c(C.CN_MELEE):
-		d2 = e2.get_c(C.CN_MELEE).list[0].damage_max
-
-	return d1 > d2 if not reversed else d1 < d2
-
-
-## 根据远程伤害排序实体
-static func sort_entities_by_ranged_damage(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
-	var d1: float = INF if reversed else -INF
-	var d2: float = INF if reversed else -INF
-
-	if e1.has_c(C.CN_RANGED):
-		d1 = EntityMgr.get_entity_data(
-			e1.get_c(C.CN_RANGED).list[0].bullet
-		).get_c(C.CN_BULLET).damage_max
-	if e2.has_c(C.CN_RANGED):
-		d2 = EntityMgr.get_entity_data(
-			e2.get_c(C.CN_RANGED).list[0].bullet
-		).get_c(C.CN_BULLET).damage_max
-
-	return d1 > d2 if not reversed else d1 < d2
-
-
-## 根据 ID 排序实体
-static func sort_entities_by_id(e1: Entity, e2: Entity, reversed: bool = false) -> bool:
-	var i1: int = e1.id
-	var i2: int = e2.id
-	
-	return i1 > i2 if not reversed else i1 < i2
-
-
 ## 根据排序模式排序实体，默认最大在前，如果 reversed 为 true 则最小在前
 static func sort_entities_by_type(
 		entities_array: Array, sort_type: C.SortMode, origin: Vector2, reversed: bool = false
 	) -> void:
-	var sort_functions: Dictionary[C.SortMode, Callable] = {
-		C.SortMode.PROGRESS: sort_entities_by_progress.bind(reversed),
-		C.SortMode.HEALTH: sort_entities_by_health.bind(reversed),
-		C.SortMode.DISTANCE: sort_entities_by_distance.bind(origin, reversed),
-		C.SortMode.MELEE_DAMAGE: sort_entities_by_melee_damage.bind(reversed),
-		C.SortMode.RANGE_DAMAGE: sort_entities_by_ranged_damage.bind(reversed),
-		C.SortMode.ID: sort_entities_by_id.bind(reversed),
-	}
+	var sort_function: Callable = Callable()
 	
-	if sort_type in sort_functions:
-		entities_array.sort_custom(sort_functions[sort_type])
+	match sort_type:
+		C.SortMode.PROGRESS:
+			sort_function = func(e1: Entity, e2: Entity) -> bool:
+				var p1: float = INF if reversed else -INF
+				var p2: float = INF if reversed else -INF
+
+				if e1.has_c(C.CN_NAV_PATH):
+					p1 = e1.get_c(C.CN_NAV_PATH).nav_progress
+				if e2.has_c(C.CN_NAV_PATH):
+					p2 = e2.get_c(C.CN_NAV_PATH).nav_progress
+
+				return p1 > p2 if not reversed else p1 < p2
+		C.SortMode.HEALTH:
+			sort_function = func(e1: Entity, e2: Entity) -> bool:
+				var h1: float = INF if reversed else -INF
+				var h2: float = INF if reversed else -INF
+
+				if e1.has_c(C.CN_HEALTH):
+					h1 = e1.get_c(C.CN_HEALTH).hp
+				if e2.has_c(C.CN_HEALTH):
+					h2 = e2.get_c(C.CN_HEALTH).hp
+
+				return h1 > h2 if not reversed else h1 < h2
+		C.SortMode.DISTANCE:
+			sort_function = func(e1: Entity, e2: Entity) -> bool:
+				var d1: float = e1.global_position.distance_squared_to(origin)
+				var d2: float = e2.global_position.distance_squared_to(origin)
+
+				return d1 > d2 if not reversed else d1 < d2
+		C.SortMode.MELEE_DAMAGE:
+			sort_function = func(e1: Entity, e2: Entity) -> bool:
+				var d1: float = INF if reversed else -INF
+				var d2: float = INF if reversed else -INF
+
+				if e1.has_c(C.CN_MELEE):
+					d1 = e1.get_c(C.CN_MELEE).list[0].damage_max
+				if e2.has_c(C.CN_MELEE):
+					d2 = e2.get_c(C.CN_MELEE).list[0].damage_max
+
+				return d1 > d2 if not reversed else d1 < d2
+		C.SortMode.RANGE_DAMAGE:
+			sort_function = func(e1: Entity, e2: Entity) -> bool:
+				var d1: float = INF if reversed else -INF
+				var d2: float = INF if reversed else -INF
+
+				if e1.has_c(C.CN_RANGED):
+					d1 = EntityMgr.get_entity_data(
+						e1.get_c(C.CN_RANGED).list[0].bullet
+					).get_c(C.CN_BULLET).damage_max
+				if e2.has_c(C.CN_RANGED):
+					d2 = EntityMgr.get_entity_data(
+						e2.get_c(C.CN_RANGED).list[0].bullet
+					).get_c(C.CN_BULLET).damage_max
+
+				return d1 > d2 if not reversed else d1 < d2
+		C.SortMode.ID:
+			sort_function = func(e1: Entity, e2: Entity) -> bool:
+				var i1: int = e1.id
+				var i2: int = e2.id
+				
+				return i1 > i2 if not reversed else i1 < i2
+	
+	entities_array.sort_custom(sort_function)
 
 
 ## 搜索范围内目标
