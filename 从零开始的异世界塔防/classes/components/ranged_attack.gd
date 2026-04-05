@@ -86,9 +86,8 @@ func _ready() -> void:
 	bullet_offsets.changed.connect(_on_offset_data_changed)
 	
 	if animation == null:
-		animation = AnimationData.new({
-			"left_right": "ranged_left_right",
-		})
+		animation = AnimationData.new()
+		animation.left_right = "ranged_left_right"
 		
 		
 func _on_offset_data_changed() -> void:

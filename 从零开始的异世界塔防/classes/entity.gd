@@ -190,9 +190,8 @@ func _to_string():
 
 func _ready() -> void:
 	if idle_animation == null:
-		idle_animation = AnimationData.new({
-			"left_right": "idle_left_right",
-		})
+		idle_animation = AnimationData.new()
+		idle_animation.left_right = "idle_left_right"
 		
 	scene_name = scene_file_path.get_file().get_basename()
 

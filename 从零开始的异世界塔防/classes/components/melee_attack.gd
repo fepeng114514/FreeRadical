@@ -49,6 +49,5 @@ var ts: float = 0
 
 func _ready() -> void:
 	if animation == null:
-		animation = AnimationData.new({
-			"left_right": "melee_left_right",
-		})
+		animation = AnimationData.new()
+		animation.left_right = "melee_left_right"

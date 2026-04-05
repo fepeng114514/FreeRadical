@@ -24,13 +24,6 @@ class_name AnimationData
 ## 任意方向的动画名
 @export var any: String = ""
 
-func _init(data: Dictionary = {}) -> void:
-	for key in data:
-		if key not in self:
-			continue
-		
-		set(key, data[key])
-	
 
 ## 根据实体与目标点的角度返回对应的动画名称
 func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:

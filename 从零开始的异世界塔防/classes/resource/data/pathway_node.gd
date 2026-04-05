@@ -1,3 +1,4 @@
+extends Resource
 class_name PathwayNode
 ## 路径节点资源
 
@@ -8,7 +9,7 @@ var pi: int = C.UNSET
 var spi: int = C.UNSET
 ## 路径节点索引
 var ni: int = C.UNSET
-## 点位
+## 节点位置
 var pos := Vector2.ZERO
 ## 位于的路径比率
 var ratio: float = 0
@@ -16,22 +17,9 @@ var ratio: float = 0
 var progress: float = 0
 ## 距离
 var dist_squared: float = 0
+## 与另一个路径相交的节点索引
+var intersecting_ni_list: Array[int] = []
 
-
-func _init(
-		new_pi: int,
-		new_spi: int,
-		new_ni: int,
-		new_pos: Vector2,
-		new_ratio: float,
-		new_progress: float,
-	) -> void:
-	pi = new_pi
-	spi = new_spi
-	ni = new_ni
-	pos = new_pos
-	ratio = new_ratio
-	progress = new_progress
 
 ## PathwayMgr.get_subpath 的简写，已传递 pi, spi
 func get_subpath() -> Path2D:

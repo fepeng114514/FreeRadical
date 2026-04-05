@@ -103,11 +103,10 @@ func _notification(what: int) -> void:
 
 func _ready() -> void:
 	if motion_animation == null:
-		motion_animation = AnimationData.new({
-			"up": "walk_up",
-			"down": "walk_down",
-			"left_right": "walk_left_right",
-		})
+		motion_animation = AnimationData.new()
+		motion_animation.up = "walk_up"
+		motion_animation.down = "walk_down"
+		motion_animation.left_right = "walk_left_right"
 
 	
 func _draw() -> void:

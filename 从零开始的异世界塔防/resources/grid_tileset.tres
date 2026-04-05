@@ -3,7 +3,7 @@
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kteni"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)])
 agent_radius = 0.0
 
 [sub_resource type="Gradient" id="Gradient_6761a"]
@@ -26,7 +26,7 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qri4g"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-16, 16, 16, 16, 16, -16, -16, -16)])
 agent_radius = 0.0
 
 [sub_resource type="Gradient" id="Gradient_s8va5"]

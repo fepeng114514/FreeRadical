@@ -5,6 +5,8 @@ extends Node
 
 ## 路径列表
 var pathway_list: Array[Pathway] = []
+## 所有路径上的节点
+var all_node_list: Array[PathwayNode] = []
 ## 下一个路径索引
 var next_pi: int = 0
 ## 最大子路径
@@ -13,10 +15,13 @@ var max_subpathway: int = 3
 var subpathway_spacing: float = 33.33
 ## 路径节点数量
 var node_count: int = 256
+## 路径节点相交距离阈值
+var intersect_dist_threshold: float = 16
 
 
 func load() -> void:
 	pathway_list.clear()
+	all_node_list.clear()
 	next_pi = 0
 	
 	

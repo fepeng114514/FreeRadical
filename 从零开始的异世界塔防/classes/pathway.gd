@@ -14,6 +14,8 @@ var idx: int = C.UNSET
 
 
 func _ready() -> void:
+	PathwayMgr.insert_pathway(self)
+	
 	var max_subpathway: int = PathwayMgr.max_subpathway
 	var spacing: float = PathwayMgr.subpathway_spacing
 	

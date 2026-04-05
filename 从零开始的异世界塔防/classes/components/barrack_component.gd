@@ -47,9 +47,8 @@ var last_soldier_count: int = C.UNSET
 
 func _ready() -> void:
 	if spawn_animation == null:
-		spawn_animation = AnimationData.new({
-			"left_right": "spawn",
-		})
+		spawn_animation = AnimationData.new()
+		spawn_animation.left_right = "spawn"
 
 
 func _draw() -> void:

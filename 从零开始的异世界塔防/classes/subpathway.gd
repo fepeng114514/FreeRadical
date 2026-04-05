@@ -91,16 +91,16 @@ func get_equally_spaced_nodes() -> Array[PathwayNode]:
 	for i: int in range(PathwayMgr.node_count):
 		var distance: float = i * point_spacing
 		var pos: Vector2 = to_global(curve.sample_baked(distance))
+		
+		var n := PathwayNode.new()
+		n.pi = parent_pathway.idx
+		n.spi = idx
+		n.ni = i
+		n.pos = pos
+		n.ratio = clampf(distance / length, 0, 1)
+		n.progress = distance
 
-		nodes_list.append(
-			PathwayNode.new(
-				parent_pathway.idx,
-				idx,
-				i,
-				pos,
-				clampf(distance / length, 0, 1),
-				distance,
-			)
-		)
+		nodes_list.append(n)
+		PathwayMgr.all_node_list.append(n)
 	
 	return nodes_list

@@ -26,14 +26,15 @@ var _type_groups: Dictionary[String, Array] = {
 }
 ## 存储组件组的字典
 var _component_groups: Dictionary[String, Array] = {}
-## 所有实体数组
-var _entities: Array = []
 ## 下一个创建实体的 id
 var _next_id: int = 0
 ## 被修改的实体 id
 var _dirty_entities_ids: Array[int] = []
 ## 实体数据缓存字典，用于读取数据，不参与游戏
 var _cached_entities_data: Dictionary[String, Entity] = {}
+
+## 所有实体数组
+var entity_list: Array = []
 #endregion
 
 
@@ -42,7 +43,7 @@ func load() -> void:
 	for group in _type_groups.values():
 		group.clear()
 	_component_groups.clear()
-	_entities.clear()
+	entity_list.clear()
 	_dirty_entities_ids.clear()
 	_next_id = 0
 	_cached_entities_data.clear()
@@ -206,7 +207,7 @@ func get_entity_by_id(id: int) -> Entity:
 	if not U.is_valid_number(id):
 		return null
 
-	var e = _entities.get(id)
+	var e = entity_list.get(id)
 
 	if not U.is_vaild_entity(e):
 		return null
@@ -236,7 +237,7 @@ func set_entity_scene(
 
 ## 获取所有有效实体
 func get_vaild_entities() -> Array:
-	return _entities.filter(
+	return entity_list.filter(
 		func(e) -> bool: return U.is_vaild_entity(e)
 	)
 	
@@ -348,7 +349,7 @@ func find_targets_in_range(
 		group: String = ""
 	) -> Array:
 	
-	var group_entities: Array = get_entities_group(group) if group else _entities
+	var group_entities: Array = get_entities_group(group) if group else entity_list
 	
 	return group_entities.filter(
 		func(e) -> bool: return (
