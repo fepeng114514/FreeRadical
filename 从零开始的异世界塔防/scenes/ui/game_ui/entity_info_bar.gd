@@ -148,8 +148,8 @@ func _set_value_ranged(ranged_c: RangedComponent) -> void:
 	var bullet: Entity = EntityMgr.get_entity_data(first_ranged_attack.bullet)
 	var bullet_c: BulletComponent = bullet.get_c(C.CN_BULLET)
 	ranged_value.text = "%d-%d/%.1f" % [
-		bullet_c.damage_data.damage_min, 
-		bullet_c.damage_data.damage_max, 
+		bullet_c.damage_min, 
+		bullet_c.damage_max, 
 		first_ranged_attack.cooldown
 	]
 	
@@ -158,7 +158,7 @@ func _set_value_ranged(ranged_c: RangedComponent) -> void:
 func _set_value_melee(melee_c: MeleeComponent) -> void:
 	var first_melee_attack: MeleeAttack = melee_c.list[0]
 	melee_value.text = "%d-%d/%.1f" % [
-		first_melee_attack.damage_data.damage_min, 
-		first_melee_attack.damage_data.damage_max, 
+		first_melee_attack.damage_min, 
+		first_melee_attack.damage_max, 
 		first_melee_attack.cooldown
 	]

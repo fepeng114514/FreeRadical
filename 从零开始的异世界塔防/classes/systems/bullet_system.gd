@@ -108,9 +108,11 @@ func _on_update(delta: float) -> void:
 				bullet_c.damage_max_radius, 
 				bullet_c.damage_min_radius, 
 				e.flag_bits, 
-				e.ban_bits
+				e.ban_bits,
+				func(t: Entity) -> bool:
+					return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
 			)
-		
+			
 		for t in targets:
 			var d := Damage.new()
 			d.target_id = target.id
@@ -123,6 +125,8 @@ func _on_update(delta: float) -> void:
 			)
 			d.insert_damage()
 			EntityMgr.create_mods(target.id, bullet_c.mods, e.id)
+
+			bullet_c.damaged_entity_ids.append(target.id)
 			
 		EntityMgr.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
 

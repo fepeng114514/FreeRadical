@@ -37,6 +37,8 @@ class_name BulletComponent
 @export var damage_max_radius: float = 0
 ## 范围伤害的搜索模式
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
+## 是否可以伤害重复敌人
+@export var can_damage_same: bool = false
 
 @export_group("Rotation")
 ## 子弹旋转速度（弧度）
@@ -88,3 +90,5 @@ var ts: float = 0
 var velocity := Vector2.ZERO
 ## 预判目标位置
 var predict_target_pos := Vector2.ZERO
+## 伤害过的实体 ID 列表
+var damaged_entity_ids: Array[int] = []

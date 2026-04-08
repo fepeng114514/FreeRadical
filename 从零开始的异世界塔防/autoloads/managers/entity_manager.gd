@@ -451,6 +451,25 @@ const SEARCH_CONFIG: Dictionary[C.SearchMode, Array] = {
 }
 
 
+## 根据搜索模式获取相应的数组配置
+func get_search_config(search_mode: C.SearchMode, flags: int = 0) -> Array:
+	if search_mode not in SEARCH_CONFIG:
+		Log.error("未知搜索模式: %s" % search_mode)
+		return []
+
+	var config: Array = SEARCH_CONFIG[search_mode]
+	if not flags & C.Flag.ENEMY:
+		return config
+
+	# 如果搜索敌人，则转换为搜索友军的配置，反之亦然
+	if config[1] == C.GROUP_ENEMIES:
+		config[1] = C.GROUP_FRIENDLYS
+	if config[1] == C.GROUP_FRIENDLYS:
+		config[1] = C.GROUP_ENEMIES
+		
+	return config
+
+
 ## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）
 ##	
 ## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
@@ -463,11 +482,10 @@ func search_target(
 		bans: int = 0, 
 		filter: Callable = Callable()
 	) -> Entity:
-	if search_mode not in SEARCH_CONFIG:
-		Log.error("未知搜索模式: %s" % search_mode)
+	var config: Array = get_search_config(search_mode)
+	if not config:
 		return null
-		
-	var config: Array = SEARCH_CONFIG[search_mode]
+
 	return find_extreme_target(
 		config[0], origin, max_range, min_range, 
 		flags, bans, filter, config[1], config[2]
@@ -486,11 +504,10 @@ func search_targets_in_range(
 		bans: int = 0, 
 		filter: Callable = Callable()
 	) -> Array:
-	if search_mode not in SEARCH_CONFIG:
-		Log.error("未知搜索模式: %s" % search_mode)
+	var config: Array = get_search_config(search_mode)
+	if not config:
 		return []
-		
-	var config: Array = SEARCH_CONFIG[search_mode]
+
 	return find_sorted_targets(
 		config[0], origin, max_range, min_range, 
 		flags, bans, filter, config[1], config[2]

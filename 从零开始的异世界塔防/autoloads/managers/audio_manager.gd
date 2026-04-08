@@ -39,6 +39,9 @@ func play_music(audio_data: AudioData) -> void:
 
 ## 播放音效
 func play_sfx(audio_data: AudioData) -> void:
+	if not audio_data:
+		return
+	
 	for sfx_player: AudioStreamPlayer in _sfx_players:
 		if sfx_player.playing:
 			continue
@@ -51,6 +54,9 @@ func play_sfx(audio_data: AudioData) -> void:
 func play_audio(
 		audio_data: AudioData, player: AudioStreamPlayer, bus: StringName
 	) -> void:
+	if not audio_data:
+		return
+		
 	await TimeMgr.y_wait(audio_data.delay)
 
 	match audio_data.play_mode:
