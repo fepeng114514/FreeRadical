@@ -5,10 +5,10 @@ class_name U
 #region 数学工具函数
 ## 判断点是否在圆中
 static func is_in_radius(center: Vector2, point: Vector2, radius: float) -> bool:
-	if not U.is_valid_number(radius):
-		return true
+	var d_sq: float = center.distance_squared_to(point)
+	var r_sq: float = radius ** 2
 	
-	return center.distance_to(point) <= radius
+	return d_sq <= r_sq
 	
 	
 ## 计算根据点与圆的距离衰减的因子
@@ -34,6 +34,16 @@ static func point_on_circle(
 		point: Vector2, radius: float, angle: float = 0
 	) -> Vector2:
 	return point + Vector2.from_angle(angle) * radius
+
+
+## 判断点是否在圆环内
+static func is_in_ring(
+		center: Vector2, point: Vector2, min_radius: float, max_radius: float
+	) -> bool:
+	return (
+		U.is_in_radius(center, point, max_radius)
+		and not U.is_in_radius(center, point, min_radius)
+	)
 
 
 ## 判断点是否位于椭圆中
@@ -106,17 +116,16 @@ static func is_in_line(
 	if is_in_radius(center, point, width):
 		return true
 
-	angle = fmod(angle, C.HALF_PI)
 	var local_point: Vector2 = point - center
 	local_point = local_point.rotated(-angle)
-	var abs_local_point_x = abs(local_point.x)
-	var abs_local_point_y = abs(local_point.y)
+	var local_point_x = local_point.x
+	var local_point_y = local_point.y
 	
 	return (
-		abs_local_point_x <= length 
-		and abs_local_point_x >= 0 
-		and abs_local_point_y <= width 
-		and abs_local_point_y >= -width
+		local_point_x <= length 
+		and local_point_x >= 0 
+		and local_point_y <= width 
+		and local_point_y >= -width
 	)
 
 
@@ -525,6 +534,7 @@ static func is_valid_entity(e) -> bool:
 	return e and is_instance_valid(e) and not e.removed
 
 
+## 判断实体是否被黑名单或白名单禁止
 static func is_allowed_entity(e: Variant, target: Entity) -> bool:
 	var target_scene_name: String = target.scene_name
 	var whitelist: Array[String] = e.whitelist
@@ -537,6 +547,16 @@ static func is_allowed_entity(e: Variant, target: Entity) -> bool:
 		)
 		and target_scene_name not in blacklist
 	)
+
+
+## 判断 flags 是否被禁止掩码禁止
+static func is_banned(flags: int, bans: int) -> bool:
+	return flags & bans
+
+
+## 判断双向禁止：flags1 被 bans2 禁止，或 flags2 被 bans1 禁止
+static func is_mutual_ban(flags1: int, bans1: int, flags2: int, bans2: int) -> bool:
+	return is_banned(flags1, bans2) or is_banned(flags2, bans1)
 
 
 static func fts(time: float) -> float:
@@ -562,6 +582,7 @@ static func pascal_to_snake(pascal_str: String) -> String:
 	return result
 
 
+## 检查是否是有效数字
 static func is_valid_number(n: float) -> bool:
 	return n != C.UNSET
 

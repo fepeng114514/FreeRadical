@@ -42,11 +42,28 @@ func _on_update(e: Entity) -> bool:
 		
 	# 超过最大拦截数量不进行索敌
 	if melee_c.blocked_count < melee_c.max_blocked:
-		var pending_blockeds: Array = _find_pending_blocked(
-			e, melee_c
+		var filter: Callable = func(entity: Entity) -> bool: return (
+			entity.has_c(C.CN_MELEE) and entity.id not in melee_c.blockeds_ids
 		)
 		
-		_process_pending_blockeds(e, melee_c, pending_blockeds)
+		var pending_blockeds: Array = EntityMgr.search_targets_in_range(
+			melee_c.search_mode, 
+			e.global_position, 
+			melee_c.block_max_range, 
+			melee_c.block_min_range, 
+			melee_c.block_flag_bits, 
+			melee_c.block_ban_bits, 
+			filter
+		)	
+		
+		for t: Entity in pending_blockeds:
+			melee_c.reset_blocked_count()
+			if melee_c.blocked_count >= melee_c.max_blocked:
+				break
+			
+			var t_melee_c: MeleeComponent = t.get_c(C.CN_MELEE)
+			t_melee_c.blockers_ids.push_front(e.id)
+			melee_c.blockeds_ids.push_front(t.id)
 
 		if pending_blockeds:
 			# 计算被拦截者数量（考虑代价）
@@ -96,36 +113,3 @@ func _on_update(e: Entity) -> bool:
 
 	try_melee_attack(e, melee_c, blocked)
 	return true
-
-
-## 寻找待定被拦截者
-func _find_pending_blocked(e: Entity, melee_c: MeleeComponent) -> Array:
-	var filter: Callable = func(entity: Entity) -> bool: return (
-		entity.has_c(C.CN_MELEE) and entity.id not in melee_c.blockeds_ids
-	)
-	
-	var targets: Array = EntityMgr.search_targets_in_range(
-		melee_c.search_mode, 
-		e.global_position, 
-		melee_c.block_max_range, 
-		melee_c.block_min_range, 
-		melee_c.block_flag_bits, 
-		melee_c.block_ban_bits, 
-		filter
-	)	
-	
-	return targets
-	
-
-## 处理待定被拦截者
-func _process_pending_blockeds(
-		e: Entity, melee_c: MeleeComponent, pending_blockeds: Array
-	) -> void:
-	for t: Entity in pending_blockeds:
-		melee_c.reset_blocked_count()
-		if melee_c.blocked_count >= melee_c.max_blocked:
-			break
-		
-		var t_melee_c: MeleeComponent = t.get_c(C.CN_MELEE)
-		t_melee_c.blockers_ids.push_front(e.id)
-		melee_c.blockeds_ids.push_front(t.id)

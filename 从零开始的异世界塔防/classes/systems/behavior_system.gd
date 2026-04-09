@@ -1,4 +1,3 @@
-@tool
 extends System
 class_name BehaviorSystem
 ## 行为系统
@@ -6,28 +5,37 @@ class_name BehaviorSystem
 ## 处理其下的子行为的调用
 
 
-var list: Array[Behavior] = []
+var _behaviors: Array[Behavior] = []
+var _update_cbs: Array[Callable] = []
+var _return_true_cbs: Array[Callable] = []
+var _return_false_cbs: Array[Callable] = []
+var _insert_cbs: Array[Callable] = []
+var _remove_cbs: Array[Callable] = []
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-		
 	for child: Behavior in get_children():
-		list.append(child)
+		_behaviors.append(child)
+		_update_cbs.append(child.get("_on_update"))
+		_return_true_cbs.append(child.get("_on_return_true"))
+		_return_false_cbs.append(child.get("_on_return_false"))
+		_insert_cbs.append(child.get("_on_insert"))
+		_remove_cbs.append(child.get("_on_remove"))
 
 
 func _on_insert(e: Entity) -> bool:
-	if not call_behaviors("_on_insert", e):
-		return false
-		
+	for insert_fn: Callable in _insert_cbs:
+		if not insert_fn.call(e):
+			return false
+
 	return true
 
 
 func _on_remove(e: Entity) -> bool:
-	if not call_behaviors("_on_remove", e):
-		return false
-		
+	for remove_fn: Callable in _remove_cbs:
+		if not remove_fn.call(e):
+			return false
+
 	return true
 	
 	
@@ -36,38 +44,20 @@ func _on_update(_delta: float) -> void:
 		if e.is_waiting():
 			continue
 		
-		var break_behavior: Behavior = _process_update(e)
-		
-		if break_behavior:
-			for behavior: Behavior in list:
-				behavior._on_return_true(e, break_behavior)
-			continue
+		for i in _behaviors.size():
+			if not _update_cbs[i].call(e):
+				continue
 
-		for behavior: Behavior in list:
-			behavior._on_return_false(e)
+			for return_true_fn: Callable in _return_true_cbs:
+				return_true_fn.call(e, _behaviors[i])
+
+			break
+
+		for return_false_fn: Callable in _return_false_cbs:
+			return_false_fn.call(e)
 
 		if not e.has_c(C.CN_SPRITE):
 			continue
 			
 		e.play_idle_animation()
 			
-			
-func _process_update(e: Entity) -> Behavior:
-	for behavior: Behavior in list:
-		var behavior_func = behavior.get("_on_update")
-
-		if behavior_func.call(e):
-			return behavior
-
-	return null
-
-
-## 调用所有行为树中的指定回调函数，如果遇到一个返回 false 的行为则返回 false，否则返回 true
-func call_behaviors(fn_name: String, arg) -> bool:
-	for behavior: Behavior in list:
-		var behavior_func = behavior.get(fn_name)
-
-		if not behavior_func.call(arg):
-			return false
-
-	return true

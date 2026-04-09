@@ -88,7 +88,7 @@ func _run() -> void:
 func _parse_atlas_data(
 		atlas_data: Dictionary, is_animated_atlas: bool
 	) -> void:
-	for atlas_name: String in atlas_data.keys():
+	for atlas_name: String in atlas_data:
 		var images_data: Dictionary = atlas_data[atlas_name]
 		var atlas_path: String = ""
 		
@@ -105,7 +105,7 @@ func _parse_atlas_data(
 			atlas_file = load(atlas_path)
 			cached_atlas[atlas_path] = atlas_file
 		
-		for img_name: String in images_data.keys():
+		for img_name: String in images_data:
 			var img_data: Dictionary = images_data[img_name]
 			
 			var atlas_texture: AtlasTexture = _create_atlas_texture(
@@ -129,7 +129,7 @@ func _parse_atlas_data(
 
 
 func _load_sprite_frames() -> void:
-	for sprite_frames_name: String in sprite_frames_data.keys():
+	for sprite_frames_name: String in sprite_frames_data:
 		var sprite_frames_info: Dictionary = sprite_frames_data[sprite_frames_name]
 		var is_layered: bool = (
 			sprite_frames_info.has("layer_count") 
@@ -147,7 +147,7 @@ func _load_sprite_frames() -> void:
 
 
 func _process_sprite_frames(sprite_frames_name: String, anim_group: Dictionary) -> void:
-	for anim_name: String in anim_group.keys():
+	for anim_name: String in anim_group:
 		var anim_data: Dictionary = anim_group[anim_name]
 		if not sprite_frames_db.has(sprite_frames_name):
 			var new_sprite_frames := SpriteFrames.new()
@@ -210,7 +210,7 @@ func _save_atlas_texture(
 
 
 func _save_sprite_frames() -> void:
-	for sprite_frames_name: String in sprite_frames_db.keys():
+	for sprite_frames_name: String in sprite_frames_db:
 		var sprite_frames: SpriteFrames = sprite_frames_db[sprite_frames_name]
 		
 		var save_path: String = (

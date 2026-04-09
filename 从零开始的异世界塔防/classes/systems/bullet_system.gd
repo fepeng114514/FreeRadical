@@ -113,15 +113,15 @@ func _on_update(delta: float) -> void:
 					return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
 			)
 			
-		for t in targets:
+		for t: Entity in targets:
 			var d := Damage.new()
-			d.target_id = target.id
+			d.target_id = t.id
 			d.source_id = e.id
 			d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
 			d.damage_type = bullet_c.damage_type
 			d.damage_flags = bullet_c.damage_flag_bits
 			d.damage_factor = e._on_bullet_calculate_damage_factor(
-				target, bullet_c
+				t, bullet_c
 			)
 			d.insert_damage()
 			EntityMgr.create_mods(target.id, bullet_c.mods, e.id)

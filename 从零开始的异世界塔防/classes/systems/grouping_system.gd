@@ -6,21 +6,10 @@ class_name GroupingSystem
 
 
 var space_index_grid_size: float = EntityMgr.SPACE_INDEX_GRID_SIZE
-var space_index_grids: Array[Array] = []
+var space_index_grids: Array[Dictionary] = []
 var world_size := Vector2i.ZERO
 var component_groups: Dictionary[String, Array] = {}
 var type_groups: Dictionary[String, Array] = {}
-
-## 根据标识分到哪组的字典
-const FLAG_TO_GROUP: Dictionary[C.Flag, String] = {
-	C.Flag.ENEMY: C.GROUP_ENEMIES,
-	C.Flag.FRIENDLY: C.GROUP_FRIENDLYS,
-	C.Flag.UNIT: C.GROUP_UNIT,
-	C.Flag.TOWER: C.GROUP_TOWERS,
-	C.Flag.MODIFIER: C.GROUP_MODIFIERS,
-	C.Flag.AURA: C.GROUP_AURAS,
-}
-var group_keys: Array[C.Flag] = FLAG_TO_GROUP.keys()
 
 
 func _ready() -> void:
@@ -32,9 +21,14 @@ func _ready() -> void:
 
 func _on_update(_delta: float) -> void:
 	# 清空空间索引网格
-	for grid_col: Array in space_index_grids:
-		for grid_row: Array in grid_col:
-			grid_row.clear()
+	for grid_col: Dictionary in space_index_grids:
+		for key: String in grid_col:
+			if key.begins_with("has_"):
+				grid_col[key] = false
+
+		for grid_row: Dictionary in grid_col.row:
+			for type_group: Array in grid_row.values():
+				type_group.clear()
 
 	# 清空分组
 	for group_name: String in component_groups:
@@ -48,16 +42,22 @@ func _on_update(_delta: float) -> void:
 		var x: int = ceil(e.position.x / space_index_grid_size)
 		var y: int = ceil(e.position.y / space_index_grid_size)
 
-		space_index_grids[x][y].append(e)
+		var grid_col: Dictionary = space_index_grids[x]
+		var grid_row: Dictionary = grid_col.row[y]
+		grid_row.entities.append(e)
+		grid_col.has_entities = true
 
 		# 根据实体的标识和组件将实体分组
-		for flags: C.Flag in group_keys:
-			if e.flag_bits & flags:
-				var group_name: String = FLAG_TO_GROUP[flags]
+		if e.flag_bits != 0:
+			for flags: C.Flag in C.FLAG_TO_GROUP_KEYS:
+				if e.flag_bits & flags:
+					var group_name: StringName = C.FLAG_TO_GROUP[flags]
 
-				type_groups[group_name].append(e)
+					type_groups[group_name].append(e)
+					grid_row[group_name].append(e)
+					grid_col["has_" + group_name] = true
 
-		for c_name: String in e.components.keys():
+		for c_name: String in e.components:
 			if not component_groups.has(c_name):
 				component_groups[c_name] = []
 

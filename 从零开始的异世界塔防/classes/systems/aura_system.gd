@@ -22,10 +22,7 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	# 检查是否被目标禁止
-	if (
-			e.ban_bits & source.flag_bits
-			or e.flag_bits & source.aura_ban_bits
-	):
+	if U.is_mutual_ban(source.flag_bits, e.ban_bits, e.flag_bits, source.aura_ban_bits):
 		return false
 
 	aura_c.ts = TimeMgr.tick_ts
@@ -42,16 +39,20 @@ func _on_insert(e: Entity) -> bool:
 		var other_aura_c: AuraComponent = other_a.get_c(C.CN_AURA)
 		
 		# 检查是否被其他光环禁止
-		if (
-				other_a.aura_ban_bits & e.flag_bits
-				or other_a.aura_type_ban_bits & aura_c.aura_type_bits
+		if U.is_mutual_ban(
+				e.flag_bits, 
+				other_a.aura_ban_bits, 
+				aura_c.aura_type_bits, 
+				other_a.aura_type_ban_bits
 		):
 			return false
 			
 		# 检查是否被当前光环禁止
-		if (
-				e.aura_ban_bits & other_a.flag_bits
-				or e.aura_type_ban_bits & other_aura_c.aura_type_bits
+		if U.is_mutual_ban(
+				other_a.flag_bits,
+				e.aura_ban_bits,
+				other_aura_c.aura_type_bits,
+				e.aura_type_ban_bits
 		):
 			if aura_c.remove_banned:
 				other_a.remove_entity()

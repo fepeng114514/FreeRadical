@@ -29,11 +29,8 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void: pass
 
 func can_attack(a: Variant, target: Entity) -> bool:
 	return (
-		target
-		and not (
-			a.ban_bits & target.flag_bits
-			or a.flag_bits & target.ban_bits
-		)
+		target 
+		and not U.is_mutual_ban(target.flag_bits, a.ban_bits, a.flag_bits, target.ban_bits)
 		and U.is_allowed_entity(a, target)
 	)
 
@@ -98,35 +95,32 @@ func try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> voi
 		if not can_attack(a, target):
 			continue
 			
-		do_melee_attack(e, a, target)
+		Log.verbose("近战攻击: %s" % e)
+
+		e.look_at_point = target.global_position
+		e.mixed_play_animation_by_look(a.animation, "melee")
+		await e.y_wait(a.delay, func() -> bool:
+			return not U.is_valid_entity(target)
+		)
+		a.ts = TimeMgr.tick_ts
+		
+		if not U.is_valid_entity(target):
+			return
+		
+		var d := Damage.new()
+		d.target_id = target.id
+		d.source_id = e.id
+		d.value = d.get_random_value(a.damage_min, a.damage_max)
+		d.damage_type = a.damage_type
+		d.damage_flags = a.damage_flag_bits
+		d.insert_damage()
+
+		EntityMgr.create_mods(target.id, a.mods, e.id)
+		
+		await e.mixed_wait_animation(a.animation)
+		e.play_idle_animation()
 		break
 
-
-func do_melee_attack(e: Entity, a: MeleeAttack, target: Entity) -> void:
-	Log.verbose("近战攻击: %s" % e)
-
-	e.look_at_point = target.global_position
-	e.mixed_play_animation_by_look(a.animation, "melee")
-	await e.y_wait(a.delay, func() -> bool:
-		return not U.is_valid_entity(target)
-	)
-	a.ts = TimeMgr.tick_ts
-	
-	if not U.is_valid_entity(target):
-		return
-	
-	var d := Damage.new()
-	d.target_id = target.id
-	d.source_id = e.id
-	d.value = d.get_random_value(a.damage_min, a.damage_max)
-	d.damage_type = a.damage_type
-	d.damage_flags = a.damage_flag_bits
-	d.insert_damage()
-
-	EntityMgr.create_mods(target.id, a.mods, e.id)
-	
-	await e.mixed_wait_animation(a.animation)
-	e.play_idle_animation()
 
 ## 从被拦截者中擦除拦截者
 func erase_blocker_from_blockeds(

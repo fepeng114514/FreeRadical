@@ -48,6 +48,7 @@ texture = ExtResource("3_bfdgq")
 script = ExtResource("4_u6jgq")
 rally_radius = 60.0
 soldier = "tower_barrack_soldier"
+max_soldiers = 590
 spawn_animation = SubResource("Resource_bfdgq")
 metadata/_custom_type_script = "uid://b3vhika61oa7p"
 

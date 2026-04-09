@@ -26,7 +26,7 @@ var entity_list: Array = []
 var type_groups: Dictionary[String, Array] = {
 	"enemies": [],
 	"friendlys": [],
-	"unit": [],
+	"units": [],
 	"towers": [],
 	"modifiers": [],
 	"auras": [],
@@ -41,7 +41,7 @@ var space_index_grid_count_x: int = 0
 ## 空间索引行数
 var space_index_grid_count_y: int = 0
 ## 空间索引网格数组
-var space_index_grids: Array[Array] = []
+var space_index_grids: Array[Dictionary] = []
 #endregion
 
 
@@ -78,10 +78,28 @@ func load() -> void:
 	var grid_count_y: int = ceil(GlobalMgr.world_size.y / SPACE_INDEX_GRID_SIZE)
 	
 	for x: int in range(grid_count_x):
-		var grid_col: Array[Array] = []
+		var grid_col: Dictionary = {
+			"row": [],
+			"has_entities": false,
+			"has_enemies": false,
+			"has_friendlys": false,
+			"has_units": false,
+			"has_towers": false,
+			"has_modifiers": false,
+			"has_auras": false,
+		}
+		var grid_row: Array = grid_col.row
 
 		for y: int in range(grid_count_y):
-			grid_col.append([])
+			grid_row.append({
+				C.GROUP_ENTITIES: [],
+				C.GROUP_ENEMIES: [],
+				C.GROUP_FRIENDLYS: [],
+				C.GROUP_UNIT: [],
+				C.GROUP_TOWERS: [],
+				C.GROUP_MODIFIERS: [],
+				C.GROUP_AURAS: [],
+			})
 
 		space_index_grids.append(grid_col)
 	
@@ -341,7 +359,8 @@ func find_targets_in_range(
 		min_range: float = 0,
 		flags: int = 0,
 		bans: int = 0,
-		filter: Callable = Callable()
+		filter: Callable = Callable(),
+		group: StringName = C.GROUP_ENTITIES
 	) -> Array[Entity]:
 	var targets: Array[Entity] = []
 
@@ -351,14 +370,19 @@ func find_targets_in_range(
 	var grid_max_y: int = min(space_index_grid_count_y - 1, ceil((origin.y + max_range) / SPACE_INDEX_GRID_SIZE))
 
 	for grid_x: int in range(grid_min_x, grid_max_x + 1):
-		var grid_col: Array = space_index_grids[grid_x]
+		var grid_col: Dictionary = space_index_grids[grid_x]
+
+		if not grid_col["has_" + group]:
+			continue
+
+		var grid_row: Array = grid_col.row
+
 		for grid_y: int in range(grid_min_y, grid_max_y + 1):
-			var grid: Array = grid_col[grid_y]
+			var grid: Array = grid_row[grid_y][group]
 			for e: Entity in grid:
 				if (
-						not (bans & e.flag_bits or e.ban_bits & flags)
-						and U.is_in_radius(e.global_position, origin, max_range)
-						and not U.is_in_radius(e.global_position, origin, min_range)
+						not U.is_mutual_ban(e.flag_bits, bans, flags, e.ban_bits)
+						and U.is_in_ring(origin, e.global_position, min_range, max_range)
 						and (not filter.is_valid() or filter.call(e))
 				):
 					targets.append(e)
@@ -377,10 +401,11 @@ func find_sorted_targets(
 		flags: int = 0,
 		bans: int = 0,
 		filter: Callable = Callable(),
-		reversed: bool = false
+		reversed: bool = false,
+		group = C.GROUP_ENTITIES
 	) -> Array:
 	var targets: Array = find_targets_in_range(
-		origin, max_range, min_range, flags, bans, filter
+		origin, max_range, min_range, flags, bans, filter, group
 	)
 	sort_entities_by_type(targets, sort_type, origin, reversed)
 	return targets
@@ -397,63 +422,43 @@ func find_extreme_target(
 		flags: int = 0,
 		bans: int = 0,
 		filter: Callable = Callable(),
-		reversed: bool = false
+		reversed: bool = false,
+		group: StringName = C.GROUP_ENTITIES
 	) -> Entity:
 	var targets: Array = find_targets_in_range(
-		origin, max_range, min_range, flags, bans, filter
+		origin, max_range, min_range, flags, bans, filter, group
 	)
 	sort_entities_by_type(targets, sort_type, origin, reversed)
 	return targets[0] if targets else null
 
 
 #region 实体的搜索模式配置
-## 定义属性元数据
-const PROPERTY_META := {
-	"PROGRESS":   { sort = C.SortMode.PROGRESS,   flag = 0 },
-	"DISTANCE":   { sort = C.SortMode.DISTANCE,   flag = 0 },
-	"HEALTH":     { sort = C.SortMode.HEALTH,     flag = 0 },
-	"MELEE_DAMAGE": { sort = C.SortMode.MELEE_DAMAGE, flag = 0 },
-	"RANGE_DAMAGE": { sort = C.SortMode.RANGE_DAMAGE, flag = 0 },
-	"ID":         { sort = C.SortMode.ID,          flag = 0 },
+const PROPERTY_META: Dictionary[String, C.SortMode] = {
+	"PROGRESS": C.SortMode.PROGRESS,
+	"DISTANCE": C.SortMode.DISTANCE,
+	"HEALTH": C.SortMode.HEALTH,
+	"MELEE_DAMAGE": C.SortMode.MELEE_DAMAGE,
+	"RANGE_DAMAGE": C.SortMode.RANGE_DAMAGE,
+	"ID": C.SortMode.ID,
 }
 
-## 定义作用域对应的 flag 过滤函数生成器
-const SCOPE_FLAG_MAP := {
-	"ENTITY":   C.UNSET,
-	"ENEMY":    C.Flag.ENEMY,
-	"FRIENDLY": C.Flag.FRIENDLY,
-	"UNIT":     C.Flag.UNIT,
+const GROUP_DICT: Dictionary[String, StringName] = {
+	"ENTITY": C.GROUP_ENTITIES,
+	"ENEMY": C.GROUP_ENEMIES,
+	"FRIENDLY": C.GROUP_FRIENDLYS,
+	"UNIT": C.GROUP_UNIT,
 }
-
-
-## 根据基础 flag 生成一个过滤函数，这个过滤函数接收一个实体和调用者的 flag，根据调用者的 flag 来确定目标 flag
-static func make_relative_filter(base_flag: int) -> Callable:
-	if not U.is_valid_number(base_flag):
-		return Callable()
-			
-	# 返回一个函数，它接收 (entity, caller_flag) 两个参数
-	return func(entity: Entity, caller_flag: int) -> bool:
-		var target_flag: int = base_flag
-
-		if caller_flag & C.Flag.ENEMY:
-			match base_flag:
-				C.Flag.ENEMY:
-					target_flag = C.Flag.FRIENDLY
-				C.Flag.FRIENDLY:
-					target_flag = C.Flag.ENEMY
-
-		return entity.flag_bits & target_flag
 
 
 ## 搜索模式配置类，包含排序模式、过滤函数和是否反转排序
 class SearchModeConfig:
 	var sort_mode: C.SortMode
-	var filter: Callable
+	var group: StringName
 	var reversed: bool
 
-	func _init(p_sort: C.SortMode, p_filter: Callable, p_rev: bool):
+	func _init(p_sort: C.SortMode, p_group: StringName, p_rev: bool):
 		sort_mode = p_sort
-		filter = p_filter
+		group = p_group
 		reversed = p_rev
 
 
@@ -461,16 +466,15 @@ class SearchModeConfig:
 static func build_search_config() -> Dictionary[C.SearchMode, SearchModeConfig]:
 	var config: Dictionary[C.SearchMode, SearchModeConfig] = {}
 
-	for scope: String in SCOPE_FLAG_MAP:
-		var base_flag: int = SCOPE_FLAG_MAP[scope]
-		var filter: Callable = make_relative_filter(base_flag)
+	for group: String in GROUP_DICT:
+		var group_name: StringName = GROUP_DICT[group]
 
 		for prop: String in PROPERTY_META:
-			var sort: C.SortMode = PROPERTY_META[prop].sort
+			var sort: C.SortMode = PROPERTY_META[prop]
 			# MAX 模式：降序 = false
-			config[C.SearchMode["%s_MAX_%s" % [scope, prop]]] = SearchModeConfig.new(sort, filter, false)
+			config[C.SearchMode["%s_MAX_%s" % [group, prop]]] = SearchModeConfig.new(sort, group_name, false)
 			# MIN 模式：降序 = true
-			config[C.SearchMode["%s_MIN_%s" % [scope, prop]]] = SearchModeConfig.new(sort, filter, true)
+			config[C.SearchMode["%s_MIN_%s" % [group, prop]]] = SearchModeConfig.new(sort, group_name, true)
 
 	return config
 
@@ -485,15 +489,6 @@ func get_search_config(search_mode: C.SearchMode) -> SearchModeConfig:
 
 	return search_config[search_mode]
 #endregion
-
-
-## 根据搜索模式和额外过滤函数生成一个新的过滤函数，这个新过滤函数将同时考虑搜索模式的过滤条件和额外的过滤条件
-static func make_filter_with_scope(config_filter: Callable, flags: int, filter: Callable) -> Callable:
-	return func(e: Entity) -> bool: 
-		return (
-			(not config_filter.is_valid() or config_filter.call(e, flags)) 
-			and (not filter.is_valid() or filter.call(e))
-		)
 
 
 ## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）
@@ -512,11 +507,9 @@ func search_target(
 	if not config:
 		return null
 
-	var filter_with_scope: Callable = make_filter_with_scope(config.filter, flags, filter)
-
 	return find_extreme_target(
 		config.sort_mode, origin, max_range, min_range, 
-		flags, bans, filter_with_scope, config.reversed
+		flags, bans, filter, config.reversed, config.group
 	)
 
 
@@ -536,15 +529,9 @@ func search_targets_in_range(
 	if not config:
 		return []
 
-	var filter_with_scope: Callable = make_filter_with_scope(config.filter, flags, filter)
-	if find_sorted_targets(
-		config.sort_mode, origin, max_range, min_range, 
-		flags, bans, filter_with_scope, config.reversed
-	):
-		print()
 	return find_sorted_targets(
 		config.sort_mode, origin, max_range, min_range, 
-		flags, bans, filter_with_scope, config.reversed
+		flags, bans, filter, config.reversed, config.group
 	)
 
 

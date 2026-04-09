@@ -29,12 +29,13 @@ func _on_update(e: Entity) -> bool:
 			)
 			
 		if not can_attack(a, target):
-			return false
+			continue
 		
 		if a is RangedAttack:
 			_do_single_attack(a, e, target)
 		elif a is RangedLoopAttack:
 			_do_loop_attack(a, e, target)
+			
 		return true
 			
 	return false

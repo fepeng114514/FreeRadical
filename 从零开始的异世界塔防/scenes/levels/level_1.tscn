@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://ds1pxsst6ylus" path="res://scenes/levels/pathway_controller.gd" id="8_mqh5v"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="14_np2pn"]
 [ext_resource type="PackedScene" uid="uid://fx352ubic8aw" path="res://scenes/entities/tower_artillery.tscn" id="17_v6ha0"]
+[ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/tower_barrack.tscn" id="19_7h2jl"]
 [ext_resource type="PackedScene" uid="uid://ck4m2qigdae35" path="res://scenes/entities/tower_holder.tscn" id="20_7h2jl"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://classes/gird.gd" id="22_vmrhw"]
 [ext_resource type="PackedScene" uid="uid://b7grxp4wq0api" path="res://scenes/ui/world_control.tscn" id="23_mqh5v"]
@@ -70,7 +71,7 @@ ready_music = SubResource("Resource_7h2jl")
 metadata/_custom_type_script = "uid://yur7o864jejr"
 metadata/_edit_vertical_guides_ = [-464.0]
 
-[node name="Systems" parent="." unique_id=48795228 instance=ExtResource("2_iwr0g")]
+[node name="SystemController" parent="." unique_id=48795228 instance=ExtResource("2_iwr0g")]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=74954041]
 position = Vector2(1280, 720)
@@ -120,6 +121,15 @@ components = {
 "UIComponent": NodePath("UIComponent")
 }
 idle_animation = SubResource("Resource_mqh5v")
+
+[node name="TowerBarrack" parent="World" unique_id=187367710 node_paths=PackedStringArray("components") instance=ExtResource("19_7h2jl")]
+position = Vector2(1128, 504)
+components = {
+"BarrackComponent": NodePath("BarrackComponent"),
+"SpriteComponent": NodePath("SpriteComponent"),
+"TowerComponent": NodePath("TowerComponent"),
+"UIComponent": NodePath("UIComponent")
+}
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1218244006]
 position_smoothing_enabled = true

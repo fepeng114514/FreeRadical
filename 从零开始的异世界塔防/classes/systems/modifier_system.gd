@@ -21,10 +21,12 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	# 检查是否被目标禁止
-	if (
-			e.ban_bits & target.flag_bits
-			or e.flag_bits & target.mod_ban_bits
-	):
+	if U.is_mutual_ban(
+			target.flag_bits,
+			e.ban_bits, 
+			e.flag_bits,
+			target.mod_ban_bits
+		):
 		return false
 		
 	var t_has_mods_ids: Array[int] = target.has_mods_ids
@@ -42,16 +44,20 @@ func _on_insert(e: Entity) -> bool:
 		var other_mod_c: ModifierComponent = other_m.get_c(C.CN_MODIFIER)
 		
 		# 检查是否被其他效果禁止
-		if (
-				other_m.mod_ban_bits & e.flag_bits
-				or other_m.mod_type_ban_bits & mod_c.mod_type_bits
+		if U.is_mutual_ban(
+				e.flag_bits,
+				other_m.mod_ban_bits,
+				mod_c.mod_type_bits,
+				other_m.mod_type_ban_bits
 		):
 			return false
 			
 		# 检查是否被当前效果禁止
-		if (
-				e.mod_ban_bits & other_m.flag_bits
-				or e.mod_type_ban_bits & other_mod_c.mod_type_bits
+		if U.is_mutual_ban(
+				other_m.flag_bits,
+				e.mod_ban_bits,
+				other_mod_c.mod_type_bits,
+				e.mod_type_ban_bits
 		):
 			if mod_c.remove_banned:
 				other_m.remove_entity()

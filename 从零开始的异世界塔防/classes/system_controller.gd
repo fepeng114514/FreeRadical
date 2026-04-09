@@ -4,13 +4,9 @@ class_name SystemController
 ## 系统列表类
 
 
-var list: Array[System] = []
-
-
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-		
+	var list: Array[System] = []
+
 	for child: System in get_children():
 		list.append(child)
 		
