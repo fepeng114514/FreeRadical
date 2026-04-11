@@ -54,25 +54,18 @@ func _ready() -> void:
 func _draw() -> void:
 	if not Engine.is_editor_hint():
 		return
-		
-	draw_circle(
-		show_range_offset, 
-		3,
-		Color(0.835, 0.416, 0.851, 0.604), 
-		true
-	)
 	
 	draw_circle(
-		position + show_range_offset, 
+		show_range_offset, 
 		rally_min_range,
-		Color(0.835, 0.416, 0.851, 0.604), 
+		Color(0.448, 0.506, 0.927, 0.604), 
 		false,
 		6
 	)
 	draw_circle(
-		position + show_range_offset, 
+		show_range_offset, 
 		rally_max_range,
-		Color(0.835, 0.416, 0.851, 0.604), 
+		Color(0.448, 0.506, 0.927, 0.604), 
 		false,
 		6
 	)

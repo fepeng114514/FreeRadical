@@ -106,16 +106,39 @@ func try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> voi
 		
 		if not U.is_valid_entity(target):
 			return
+			
+		var targets: Array[Entity] = [null]
+			
+		if a.damage_min_radius > 0 or a.damage_max_radius > 0:
+			targets = EntityMgr.search_targets(
+				a.damage_search_mode, 
+				target.global_position + a.damage_offset, 
+				a.damage_max_radius, 
+				a.damage_min_radius, 
+				e.flag_bits, 
+				e.ban_bits,
+				func(t: Entity) -> bool:
+					return a.can_damage_same or t.id not in a.damaged_entity_ids
+			)
+		else:
+			targets[0] = target
 		
-		var d := Damage.new()
-		d.target_id = target.id
-		d.source_id = e.id
-		d.value = d.get_random_value(a.damage_min, a.damage_max)
-		d.damage_type = a.damage_type
-		d.damage_flags = a.damage_flag_bits
-		d.insert_damage()
+		for i: int in range(targets.size()):
+			if i > a.damage_max_count:
+				break
+				
+			var t: Entity = targets[i]
+			
+			var d := Damage.new()
+			d.target_id = t.id
+			d.source_id = e.id
+			d.value = d.get_random_value(a.damage_min, a.damage_max)
+			d.damage_type = a.damage_type
+			d.damage_flags = a.damage_flag_bits
+			d.insert_damage()
 
-		EntityMgr.create_mods(target.id, a.mods, e.id)
+			EntityMgr.create_mods(t.id, a.mods, e.id)
+			a.damaged_entity_ids.append(t.id)
 		
 		await e.wait_animation(a.animation)
 		e.play_animation_by_look(e.idle_animation)

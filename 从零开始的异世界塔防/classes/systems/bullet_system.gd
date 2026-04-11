@@ -103,8 +103,8 @@ func _on_update(delta: float) -> void:
 			
 		if bullet_c.damage_min_radius > 0 or bullet_c.damage_max_radius > 0:
 			targets = EntityMgr.search_targets(
-				bullet_c.search_mode, 
-				bullet_c.to, 
+				bullet_c.damage_search_mode, 
+				bullet_c.to + bullet_c.damage_offset, 
 				bullet_c.damage_max_radius, 
 				bullet_c.damage_min_radius, 
 				e.flag_bits, 
@@ -115,7 +115,12 @@ func _on_update(delta: float) -> void:
 		else:
 			targets[0] = target
 			
-		for t: Entity in targets:
+		for i: int in range(targets.size()):
+			if i > bullet_c.damage_max_count:
+				break
+				
+			var t: Entity = targets[i]
+			
 			var d := Damage.new()
 			d.target_id = t.id
 			d.source_id = e.id
@@ -126,9 +131,8 @@ func _on_update(delta: float) -> void:
 				t, bullet_c
 			)
 			d.insert_damage()
-			EntityMgr.create_mods(target.id, bullet_c.mods, e.id)
-
-			bullet_c.damaged_entity_ids.append(target.id)
+			EntityMgr.create_mods(t.id, bullet_c.mods, e.id)
+			bullet_c.damaged_entity_ids.append(t.id)
 			
 		EntityMgr.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
 

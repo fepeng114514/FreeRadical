@@ -38,7 +38,9 @@ class_name BulletComponent
 ## 最大伤害数量
 @export var damage_max_count: int = C.UNSET
 ## 范围伤害的搜索模式
-@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
+@export var damage_search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
+## 范围伤害的圆心偏移
+@export var damage_offset := Vector2.ZERO
 ## 是否可以伤害重复敌人
 @export var can_damage_same: bool = false
 

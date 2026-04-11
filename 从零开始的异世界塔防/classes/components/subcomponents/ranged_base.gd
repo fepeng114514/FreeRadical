@@ -13,6 +13,11 @@ class_name RangedBase
 	set(value):
 		max_range = value
 		queue_redraw()
+## 范围显示偏移
+@export var show_range_offset := Vector2.ZERO:
+	set(value):
+		show_range_offset = value
+		queue_redraw()
 ## 冷却时间
 @export var cooldown: float = 1
 ## 目标搜索模式
@@ -64,7 +69,7 @@ var ts: float = 0
 func _draw() -> void:
 	if not Engine.is_editor_hint():
 		return
-
+	print(bullet_offsets)
 	for v: Vector2 in bullet_offsets.to_dict().values():
 		if not v:
 			continue
@@ -77,9 +82,16 @@ func _draw() -> void:
 		)
 
 	draw_circle(
-		position, 
+		show_range_offset, 
 		max_range,
-		Color(0.835, 0.416, 0.851, 0.604), 
+		Color(0.401, 0.865, 0.386, 0.604), 
+		false,
+		6
+	)
+	draw_circle(
+		show_range_offset, 
+		min_range,
+		Color(0.401, 0.865, 0.386, 0.604), 
 		false,
 		6
 	)

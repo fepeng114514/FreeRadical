@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c4jo3wkl0b0x1"
-path="res://.godot/imported/go_stage06_bg-1.png-a362587246ea5ce51f90c35f17fcc6b9.ctex"
+path="res://.godot/imported/go_stage06_bg-1.png-e5ea1931460db8856c48679442651eb6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/entities/go_stage06_bg-1.png"
-dest_files=["res://.godot/imported/go_stage06_bg-1.png-a362587246ea5ce51f90c35f17fcc6b9.ctex"]
+source_file="res://assets/go_stage06_bg-1.png"
+dest_files=["res://.godot/imported/go_stage06_bg-1.png-e5ea1931460db8856c48679442651eb6.ctex"]
 
 [params]
 

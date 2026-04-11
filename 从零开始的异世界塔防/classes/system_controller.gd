@@ -5,6 +5,9 @@ class_name SystemController
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	var list: Array[System] = []
 
 	for child: System in get_children():
