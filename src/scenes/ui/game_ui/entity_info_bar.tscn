@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://scenes/ui/game_ui/entity_info_bar.gd" id="1_1ujae"]
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="5_nlacs"]
-[ext_resource type="Texture2D" uid="uid://ciotpk7kx0b6" path="res://resources/atlas_texture_resources/base_info_icons_0001.tres" id="6_fm2ec"]
-[ext_resource type="Texture2D" uid="uid://crepanmnlo6dm" path="res://resources/atlas_texture_resources/base_info_icons_0010.tres" id="7_avvo0"]
-[ext_resource type="Texture2D" uid="uid://ctmh4emnw437x" path="res://resources/atlas_texture_resources/base_info_icons_0003.tres" id="8_fqc8g"]
-[ext_resource type="Texture2D" uid="uid://dnmwxj17qy4s4" path="res://resources/atlas_texture_resources/base_info_icons_0004.tres" id="9_wmisy"]
+[ext_resource type="Texture2D" uid="uid://ciotpk7kx0b6" path="res://resources/atlas_textures/base_info_icons_0001.tres" id="6_fm2ec"]
+[ext_resource type="Texture2D" uid="uid://crepanmnlo6dm" path="res://resources/atlas_textures/base_info_icons_0010.tres" id="7_avvo0"]
+[ext_resource type="Texture2D" uid="uid://ctmh4emnw437x" path="res://resources/atlas_textures/base_info_icons_0003.tres" id="8_fqc8g"]
+[ext_resource type="Texture2D" uid="uid://dnmwxj17qy4s4" path="res://resources/atlas_textures/base_info_icons_0004.tres" id="9_wmisy"]
 
 [sub_resource type="StyleBoxFlat" id="4"]
 bg_color = Color(0.2, 0.2, 0.25, 0.95)

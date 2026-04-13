@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_tdsfa"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_4g6k2"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_23yll"]
-[ext_resource type="SpriteFrames" uid="uid://cmmma3bsr3u1q" path="res://resources/sprite_frames_resources/tower_mage_bolt.tres" id="4_udsdf"]
+[ext_resource type="SpriteFrames" uid="uid://cmmma3bsr3u1q" path="res://resources/sprite_frames/tower_mage_bolt.tres" id="4_udsdf"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="5_8yeue"]
 
 [sub_resource type="Resource" id="Resource_sxt40"]

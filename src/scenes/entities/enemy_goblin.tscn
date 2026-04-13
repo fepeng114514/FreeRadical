@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0ncad"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_1nm20"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_58mnm"]
-[ext_resource type="SpriteFrames" uid="uid://dj27vtf00p7el" path="res://resources/sprite_frames_resources/enemy_goblin.tres" id="3_mee2f"]
+[ext_resource type="SpriteFrames" uid="uid://dj27vtf00p7el" path="res://resources/sprite_frames/enemy_goblin.tres" id="3_mee2f"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component.gd" id="4_bfbt7"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="5_gt3hg"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/ui/health_bar.tscn" id="5_yidua"]

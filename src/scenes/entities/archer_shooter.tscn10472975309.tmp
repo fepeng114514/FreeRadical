@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0v2wj"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://components/sprite_component.gd" id="2_4mkqg"]
-[ext_resource type="SpriteFrames" uid="uid://xk8gt6uqtvqv" path="res://resources/sprite_frames_resources/tower_archer_lvl1_shooter.tres" id="3_ivbmm"]
+[ext_resource type="SpriteFrames" uid="uid://xk8gt6uqtvqv" path="res://resources/sprite_frames/tower_archer_lvl1_shooter.tres" id="3_ivbmm"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://components/ranged_component.gd" id="4_d15la"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://components/ranged.gd" id="5_plukg"]
 

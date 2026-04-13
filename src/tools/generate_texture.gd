@@ -200,7 +200,7 @@ func _save_atlas_texture(
 		atlas_texture_name: String, atlas_texture: AtlasTexture
 	) -> void:
 	var save_path: String = (
-		"res://resources/atlas_texture_resources/%s.tres" 
+		"res://resources/atlas_textures/%s.tres" 
 		% atlas_texture_name
 	)
 		
@@ -214,7 +214,7 @@ func _save_sprite_frames() -> void:
 		var sprite_frames: SpriteFrames = sprite_frames_db[sprite_frames_name]
 		
 		var save_path: String = (
-			"res://resources/sprite_frames_resources/%s.tres" 
+			"res://resources/sprite_frames/%s.tres" 
 			% sprite_frames_name
 		)
 

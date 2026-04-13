@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_nb8ge"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_es0ag"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_tbtsw"]
-[ext_resource type="SpriteFrames" uid="uid://3m515ccsttpt" path="res://resources/sprite_frames_resources/tower_archer_2.tres" id="4_k1w3w"]
+[ext_resource type="SpriteFrames" uid="uid://3m515ccsttpt" path="res://resources/sprite_frames/tower_archer_2.tres" id="4_k1w3w"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/ranged_component.gd" id="5_ory2n"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/subcomponents/ranged_attack.gd" id="6_j0iry"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/resource/data/offset_data.gd" id="7_a4odr"]

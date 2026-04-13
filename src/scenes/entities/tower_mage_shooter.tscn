@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_3kgdc"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_8g6nx"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_i3jkb"]
-[ext_resource type="SpriteFrames" uid="uid://dt35d8kjlji8x" path="res://resources/sprite_frames_resources/tower_mage_shooter.tres" id="3_8g6nx"]
+[ext_resource type="SpriteFrames" uid="uid://dt35d8kjlji8x" path="res://resources/sprite_frames/tower_mage_shooter.tres" id="3_8g6nx"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/ranged_component.gd" id="4_nhbol"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/subcomponents/ranged_attack.gd" id="5_vssey"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/resource/data/offset_data.gd" id="7_2m7r5"]

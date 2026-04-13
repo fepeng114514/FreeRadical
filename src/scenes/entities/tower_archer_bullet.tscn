@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_mletm"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="3_wa0rx"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_2pcly"]
-[ext_resource type="Texture2D" uid="uid://yopsxiuosvod" path="res://resources/atlas_texture_resources/arrow.tres" id="5_xyq7d"]
+[ext_resource type="Texture2D" uid="uid://yopsxiuosvod" path="res://resources/atlas_textures/arrow.tres" id="5_xyq7d"]
 
 [sub_resource type="Resource" id="Resource_ycjcd"]
 script = ExtResource("2_mletm")
