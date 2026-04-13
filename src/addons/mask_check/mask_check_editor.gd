@@ -18,7 +18,7 @@ func _init(enum_property: String) -> void:
 
 	for key: String in enumerate:
 		var checkbox := CheckBox.new()
-		checkbox.text = key.to_lower().capitalize()
+		checkbox.text = key.capitalize()
 		checkbox.toggled.connect(_on_checkbox_toggled.bind(key))
 		content.add_child(checkbox)
 		checkboxes.append(checkbox)

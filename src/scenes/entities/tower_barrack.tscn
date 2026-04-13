@@ -28,8 +28,15 @@ metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u6jgq"]
 size = Vector2(110, 98)
 
-[node name="TowerBarrack" type="Node2D" unique_id=187367710]
+[node name="TowerBarrack" type="Node2D" unique_id=187367710 node_paths=PackedStringArray("components")]
 script = ExtResource("1_xe47h")
+components = {
+&"BarrackComponent": NodePath("BarrackComponent"),
+&"SpriteComponent": NodePath("SpriteComponent"),
+&"TowerComponent": NodePath("TowerComponent"),
+&"UIComponent": NodePath("UIComponent")
+}
+scene_name = "tower_barrack"
 idle_animation = SubResource("Resource_6bfoh")
 flags = 16
 metadata/_custom_type_script = "uid://dnp44u8703gud"

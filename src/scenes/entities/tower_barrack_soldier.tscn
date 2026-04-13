@@ -42,8 +42,9 @@ components = {
 &"MeleeComponent": NodePath("MeleeComponent"),
 &"RallyComponent": NodePath("RallyComponent"),
 &"SpriteComponent": NodePath("SpriteComponent"),
-&"UIComponent": NodePath("")
+&"UIComponent": NodePath("UIComponent")
 }
+scene_name = "tower_barrack_soldier"
 idle_animation = SubResource("Resource_ovm3w")
 hit_offset = Vector2(0, -16.4)
 flags = 4

@@ -5,6 +5,8 @@ extends Node
 
 
 #region 属性
+## 存储实体场景的字典
+var _entity_scenes: Dictionary[String, PackedScene] = {}
 ## 被修改的场景
 var _dirty_scenes: Array[String] = []
 ## 下一个创建实体的 id
@@ -38,6 +40,7 @@ var space_index_grids: Array[Dictionary] = []
 
 
 func load() -> void:
+	_entity_scenes.clear()
 	_cached_entities_data.clear()
 	component_groups.clear()
 	entity_list.clear()
@@ -45,7 +48,25 @@ func load() -> void:
 	
 	for group: Array in type_groups.values():
 		group.clear()
+
 	_next_id = 0
+
+	var json_data: Dictionary = U.load_json(
+		"res://datas/entity_scenes.json"
+	)
+	
+	# 加载实体场景
+	for scene_name: String in json_data:
+		var scene_path: String = json_data[scene_name]
+		
+		if not ResourceLoader.exists(scene_path):
+			Log.error("未找到实体场景: %s" % scene_path)
+			return
+		
+		Log.verbose("加载实体场景: %s" % scene_path)
+		var scene: PackedScene = load(scene_path)
+		
+		_entity_scenes[scene_name] = scene
 
 	# 初始化空间索引网格
 	var grid_count_x: int = ceili(GlobalMgr.world_size.x / SPACE_INDEX_GRID_SIZE)
@@ -196,10 +217,11 @@ func get_entity_by_id(id: int) -> Entity:
 
 ## 获取实体场景
 func get_entity_scene(entity_name: String) -> PackedScene:
-	var scene: PackedScene = load("res://scenes/entities/%s.tscn" % entity_name)
+	if not _entity_scenes.has(entity_name):
+		Log.error("未找到实体场景: %s" % entity_name)
+		return null
 		
-	if not scene:
-		Log.error("无法找到场景： %s" % entity_name)
+	var scene: PackedScene = _entity_scenes[entity_name]
 		
 	return scene
 	

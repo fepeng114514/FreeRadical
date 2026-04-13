@@ -174,7 +174,7 @@ static func is_at_destination(
 
 
 #region 路径工具函数
-static func open_directory(path: String) -> PackedStringArray:
+static func open_directory(path: String) -> DirAccess:
 	var dir: DirAccess = DirAccess.open(path)
 	if not dir:
 		Log.error(
@@ -182,17 +182,8 @@ static func open_directory(path: String) -> PackedStringArray:
 				path, DirAccess.get_open_error()
 			]
 		)
-		
-	var result := PackedStringArray()
-	dir.list_dir_begin()
-	var item = dir.get_next()
-	while item != "":
-		if item != "." and item != "..":
-			result.append(item)
-		item = dir.get_next()
-	dir.list_dir_end()
-	
-	return result
+
+	return dir
 #endregion
 
 

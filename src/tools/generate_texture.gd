@@ -57,7 +57,7 @@ func _run() -> void:
 	)
 	
 	# 处理图像图集
-	for atlas_name: String in U.open_directory(DIR_IMAGE_ATLAS):
+	for atlas_name: String in U.open_directory(DIR_IMAGE_ATLAS).get_files():
 		if atlas_name.get_extension() != "json":
 			continue
 			
@@ -69,7 +69,7 @@ func _run() -> void:
 		_parse_atlas_data(atlas_data, false)
 		
 	# 处理动画图集
-	for atlas_name: String in U.open_directory(DIR_ANIMATED_ATLAS):
+	for atlas_name: String in U.open_directory(DIR_ANIMATED_ATLAS).get_files():
 		if atlas_name.get_extension() != "json":
 			continue
 			

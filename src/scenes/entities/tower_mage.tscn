@@ -40,8 +40,14 @@ metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eyq3y"]
 size = Vector2(108, 106)
 
-[node name="TowerMage" type="Node2D" unique_id=88348674]
+[node name="TowerMage" type="Node2D" unique_id=88348674 node_paths=PackedStringArray("components")]
 script = ExtResource("1_7y6af")
+components = {
+&"SpriteComponent": NodePath("SpriteComponent"),
+&"TowerComponent": NodePath("TowerComponent"),
+&"UIComponent": NodePath("UIComponent")
+}
+scene_name = "tower_mage"
 idle_animation = SubResource("Resource_aexug")
 flags = 16
 metadata/_custom_type_script = "uid://dnp44u8703gud"
@@ -62,9 +68,13 @@ tower_type = 3
 show_range_offset = Vector2(0, -58.8)
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
-[node name="TowerMageShooter" parent="TowerComponent" unique_id=1442245649 instance=ExtResource("6_aexug")]
+[node name="TowerMageShooter" parent="TowerComponent" unique_id=1442245649 node_paths=PackedStringArray("components") instance=ExtResource("6_aexug")]
 show_behind_parent = true
 position = Vector2(1, -48)
+components = {
+&"RangedComponent": NodePath("RangedComponent"),
+&"SpriteComponent": NodePath("SpriteComponent")
+}
 
 [node name="UIComponent" type="Area2D" parent="." unique_id=444754449]
 script = ExtResource("2_ag2v0")

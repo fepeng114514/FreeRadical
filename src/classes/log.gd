@@ -1,3 +1,4 @@
+@tool
 class_name Log
 ## 日志库
 
