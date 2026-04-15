@@ -24,6 +24,7 @@ func _ready() -> void:
 		_remove_cbs.append(child.get("_on_remove"))
 		_behavior_count += 1
 
+
 func _on_insert(e: Entity) -> bool:
 	for insert_fn: Callable in _insert_cbs:
 		if not insert_fn.call(e):

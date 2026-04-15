@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0ncad"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_1nm20"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_58mnm"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resources/data/animation_data.gd" id="2_58mnm"]
 [ext_resource type="SpriteFrames" uid="uid://dj27vtf00p7el" path="res://resources/sprite_frames/enemy_goblin.tres" id="3_mee2f"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component.gd" id="4_bfbt7"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="5_gt3hg"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://scenes/ui/health_bar.tscn" id="5_yidua"]
-[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/resource/data/audio_data.gd" id="6_43dp3"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/resources/data/audio_data.gd" id="6_43dp3"]
 [ext_resource type="AudioStream" uid="uid://bwjdfvm18eqhl" path="res://assets/audios/Sound_EnemyGoblinDead.ogg" id="6_atygg"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="6_ijmwd"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="8_wdwo4"]
@@ -41,14 +41,17 @@ left_right = &"walk_left_right"
 script = ExtResource("2_58mnm")
 left_right = &"melee_left_right"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gxn0"]
+size = Vector2(29, 36)
+
 [node name="EnemyGoblin" type="Node2D" unique_id=71433118 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0ncad")
 components = {
-"HealthComponent": NodePath("HealthComponent"),
-"MeleeComponent": NodePath("MeleeComponent"),
-"NavPathComponent": NodePath("NavPathComponent"),
-"SpriteComponent": NodePath("SpriteComponent"),
-"UIComponent": NodePath("UIComponent")
+&"HealthComponent": NodePath("HealthComponent"),
+&"MeleeComponent": NodePath("MeleeComponent"),
+&"NavPathComponent": NodePath("NavPathComponent"),
+&"SpriteComponent": NodePath("SpriteComponent"),
+&"UIComponent": NodePath("UIComponent")
 }
 idle_animation = SubResource("Resource_58mnm")
 hit_offset = Vector2(0, -14.81)
@@ -82,12 +85,6 @@ script = ExtResource("5_gt3hg")
 motion_animation = SubResource("Resource_atygg")
 metadata/_custom_type_script = "uid://btct3ysbbulk0"
 
-[node name="UIComponent" type="Node2D" parent="." unique_id=1219032886]
-script = ExtResource("6_ijmwd")
-select_rect = Rect2(-16, -32, 32, 35)
-info_bar_type = 1
-metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=768145759]
 script = ExtResource("8_wdwo4")
 motion_animation = SubResource("Resource_yek3w")
@@ -99,3 +96,12 @@ script = ExtResource("9_cit00")
 animation = SubResource("Resource_m3i2n")
 delay = 0.3
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
+
+[node name="UIComponent" type="Area2D" parent="." unique_id=1258129348]
+script = ExtResource("6_ijmwd")
+info_bar_type = 1
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UIComponent" unique_id=615561450]
+position = Vector2(0.5, -16)
+shape = SubResource("RectangleShape2D_4gxn0")

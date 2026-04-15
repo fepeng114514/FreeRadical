@@ -22,6 +22,7 @@ func load(new_system_list: Array[System]) -> void:
 	
 	system_list = new_system_list
 
+
 ## 系统主循环
 func _physics_process(delta: float) -> void:
 	for system: System in system_list:

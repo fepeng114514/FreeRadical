@@ -47,9 +47,7 @@ func _do_single_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	e.look_point = target.global_position
 	var result: Array = e.play_animation_by_look(a.animation, "ranged")
 	AudioMgr.play_sfx(a.sfx)
-	await e.y_wait(a.delay, func() -> bool:
-		return not U.is_valid_entity(target)
-	)
+	await e.y_wait(a.delay)
 	var direction: C.Direction = result[1]
 	
 	a.ts = TimeMgr.tick_ts

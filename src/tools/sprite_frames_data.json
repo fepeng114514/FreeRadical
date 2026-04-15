@@ -27,7 +27,7 @@
 			}
 		}
 	},
-	"tower_archer_2": {
+	"tower_archer_lvl1_shooter_2": {
 		"animations": {
 			"idle": {
 				"from": 1,
@@ -35,7 +35,7 @@
 			},
 			"ranged": {
 				"from": 2,
-				"to": 7
+				"to": 5
 			}
 		}
 	},

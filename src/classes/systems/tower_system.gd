@@ -65,7 +65,6 @@ func _on_update(_delta: float) -> void:
 		tower_c.cleanup_list()
 		
 		var list: Array[Entity] = tower_c.list
-		
 		if not list:
 			continue
 			

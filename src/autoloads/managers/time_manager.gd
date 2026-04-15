@@ -34,7 +34,7 @@ func get_time_by_ts(ts: float) -> float:
 ##
 ## break_fn 返回 true 表示中断等待
 func y_wait(
-		time: float = U.fts(1), break_fn: Callable = Callable()
+		time: float = 0, break_fn: Callable = Callable()
 	) -> void:
 	if time <= 0:
 		return

@@ -53,7 +53,7 @@ const DIR_ANIMATED_ATLAS: String = "res://assets/animated_atlas/"
 
 func _run() -> void:
 	sprite_frames_data = U.load_json(
-		"res://tool/sprite_frames_data.json"
+		"res://tools/sprite_frames_data.json"
 	)
 	
 	# 处理图像图集

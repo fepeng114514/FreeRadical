@@ -32,14 +32,17 @@ left_right = &"melee_left_right"
 script = ExtResource("2_ovm3w")
 left_right = &"walk_left_right"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xueqq"]
+size = Vector2(31, 39.5)
+
 [node name="TowerBarrackSoldier" type="Node2D" unique_id=1677548747 node_paths=PackedStringArray("components")]
 script = ExtResource("1_8n3d5")
 components = {
-"HealthComponent": NodePath("HealthComponent"),
-"MeleeComponent": NodePath("MeleeComponent"),
-"RallyComponent": NodePath("RallyComponent"),
-"SpriteComponent": NodePath("SpriteComponent"),
-"UIComponent": NodePath("UIComponent")
+&"HealthComponent": NodePath("HealthComponent"),
+&"MeleeComponent": NodePath("MeleeComponent"),
+&"RallyComponent": NodePath("RallyComponent"),
+&"SpriteComponent": NodePath("SpriteComponent"),
+&"UIComponent": NodePath("")
 }
 idle_animation = SubResource("Resource_ovm3w")
 hit_offset = Vector2(0, -16.4)
@@ -86,8 +89,11 @@ speed = 200.0
 motion_animation = SubResource("Resource_afkjg")
 metadata/_custom_type_script = "uid://2keyy5hsydyv"
 
-[node name="UIComponent" type="Node2D" parent="." unique_id=2093072497]
+[node name="UIComponent" type="Area2D" parent="." unique_id=589052147]
 script = ExtResource("9_8n3d5")
-select_rect = Rect2(-17.7, -38.315, 35.59, 40.08)
 info_bar_type = 1
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UIComponent" unique_id=629714996]
+position = Vector2(-0.5, -20.25)
+shape = SubResource("RectangleShape2D_xueqq")

@@ -11,8 +11,6 @@ extends Node
 
 
 #region 属性
-## 实体场景缓存
-var _entity_scene_caches: Dictionary[String, PackedScene] = {}
 ## 被修改的场景
 var _dirty_scenes: Array[String] = []
 ## 下一个创建实体的 id
@@ -46,7 +44,6 @@ var space_index_grids: Array[Dictionary] = []
 
 
 func load() -> void:
-	_entity_scene_caches.clear()
 	_cached_entities_data.clear()
 	component_groups.clear()
 	entity_list.clear()
@@ -205,12 +202,7 @@ func get_entity_by_id(id: int) -> Entity:
 
 ## 获取实体场景
 func get_entity_scene(entity_name: String) -> PackedScene:
-	var scene: PackedScene = null
-	
-	if not _entity_scene_caches.has(entity_name):
-		scene = load("res://scenes/entities/%s.tscn" % entity_name)
-	else:
-		scene = _entity_scene_caches[entity_name]
+	var scene: PackedScene = load("res://scenes/entities/%s.tscn" % entity_name)
 		
 	if not scene:
 		Log.error("无法找到场景： %s" % entity_name)

@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://d25hnem6unbul"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0t5nh"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_mletm"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resources/data/animation_data.gd" id="2_mletm"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="3_wa0rx"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_2pcly"]
-[ext_resource type="Texture2D" uid="uid://yopsxiuosvod" path="res://resources/atlas_textures/arrow.tres" id="5_xyq7d"]
+[ext_resource type="Texture2D" uid="uid://ccirj02bkv2s0" path="res://resources/atlas_textures/arrow_2.tres" id="5_0t5nh"]
 
 [sub_resource type="Resource" id="Resource_ycjcd"]
 script = ExtResource("2_mletm")
@@ -18,15 +18,15 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 [node name="TowerArcherBullet" type="Node2D" unique_id=43521632 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0t5nh")
 components = {
-"BulletComponent": NodePath("BulletComponent"),
-"SpriteComponent": NodePath("SpriteComponent")
+&"BulletComponent": NodePath("BulletComponent"),
+&"SpriteComponent": NodePath("SpriteComponent")
 }
 idle_animation = SubResource("Resource_ycjcd")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="BulletComponent" type="Node" parent="." unique_id=797543197]
 script = ExtResource("3_wa0rx")
-flight_time = 1.0
+flight_total_time = 1.0
 flight_trajectory = 1
 flight_animation = SubResource("Resource_ejip2")
 damage_min = 10.0
@@ -40,4 +40,5 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1900013004]
 position = Vector2(8, 0)
-texture = ExtResource("5_xyq7d")
+scale = Vector2(0.1813241, 0.1813241)
+texture = ExtResource("5_0t5nh")

@@ -7,8 +7,6 @@ class_name Entity
 ## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
 
 #region 属性
-## 拥有的所有组件节点引用
-@export var components: Dictionary[String, Node] = {}
 ## 持续时间
 @export var duration: float = C.UNSET
 ## 实体等级
@@ -61,6 +59,8 @@ class_name Entity
 		aura_bans = value
 		aura_ban_bits = U.merge_flags(value)
 
+## 拥有的所有组件节点引用
+var components: Dictionary[StringName, Node] = {}
 ## 实体场景名称
 var scene_name: String = ""
 ## 实体唯一 ID
@@ -249,7 +249,7 @@ func add_c(component: GDScript) -> Node:
 	var component_node: Node = component.new()
 	
 	add_child(component_node)
-	var node_class: String = component.get_global_name()
+	var node_class: StringName = component.get_global_name()
 			
 	components[node_class] = component_node
 	return component_node
@@ -491,7 +491,7 @@ func _wait_for_animation_loop(sprite: AnimatedSprite2D) -> void:
 ## 协程等待
 ##
 ## break_fn 返回 true 表示中断等待
-func y_wait(time: float = U.fts(1), break_fn: Callable = Callable()) -> void:
+func y_wait(time: float = 0, break_fn: Callable = Callable()) -> void:
 	_waiting = true
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
 	await TimeMgr.y_wait(time, break_fn)

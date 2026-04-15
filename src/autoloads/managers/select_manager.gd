@@ -10,46 +10,31 @@ func _ready() -> void:
 	S.deselect_entity.connect(_on_deselect)
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("left_click"):
-		var targets: Array[Entity] = EntityMgr.search_targets(
-			C.SearchMode.ENTITY_MAX_ID, 
-			InputMgr.mouse_global_position, 
-			9999, 
-			0, 
-			0, 
-			0, 
-			func(entity: Entity) -> bool:
-				var ui_c: UIComponent = entity.get_c(C.CN_UI)
-				if not ui_c:
-					return false
-				
-				return ui_c.is_click_at(
-					entity.global_position, 
-					InputMgr.mouse_global_position
-				)
-		)
+func _unhandled_input(event: InputEvent):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		var click_pos: Vector2 = InputMgr.mouse_global_position
 		
-		if not targets:
-			if U.is_valid_entity(selected_entity):
-				selected_entity.selected = false
-				
-			S.deselect_entity.emit()
-			selected_entity = null
+		var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+		var query := PhysicsPointQueryParameters2D.new()
+		query.position = click_pos
+		query.collide_with_areas = true
+		
+		var results: Array[Dictionary] = space_state.intersect_point(query)
+		
+		if results.size() > 0:
+			S.select_entity.emit(results[0].collider.get_parent())
 			return
-
-		var e: Entity = targets[0]
-
-		Log.debug("选择实体: %s%s" % [e, e.global_position])
-		e.selected = true
-		selected_entity = e
-		S.select_entity.emit(e)
-		return
 		
-		
+		S.deselect_entity.emit()
+
+
 func _on_select(e: Entity) -> void:
 	e._on_select()
 	select_mode = C.SelectMode.NONE
+
+	Log.debug("选择实体: %s%s" % [e, e.global_position])
+	e.selected = true
+	selected_entity = e
 	
 	var rally_c: RallyComponent = e.get_c(C.CN_RALLY)
 	if rally_c and rally_c.can_select_rally:

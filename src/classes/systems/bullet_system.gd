@@ -22,11 +22,13 @@ func _on_insert(e: Entity) -> bool:
 	else:
 		bullet_c.predict_target_pos = target.global_position
 	
-	bullet_c.to = bullet_c.predict_target_pos + target.hit_offset
+	var to: Vector2 = bullet_c.predict_target_pos + target.hit_offset
+	bullet_c.to = to
 	bullet_c.from = e.global_position
-	e.look_at(bullet_c.to)
+	if bullet_c.look_to:
+		e.look_at(to)
 
-	bullet_c.rotation_direction = -1 if bullet_c.to.x < e.global_position.x else 1
+	bullet_c.rotation_direction = -1 if to.x < e.global_position.x else 1
 
 	match bullet_c.flight_trajectory:
 		C.Trajectory.LINEAR:
@@ -109,7 +111,7 @@ func _on_update(delta: float) -> void:
 		match bullet_c.flight_trajectory:
 			C.Trajectory.PARABOLA:
 				if flying_time <= flight_total_time * 0.8:
-					return
+					continue
 		
 		if not U.is_at_destination(
 				e.global_position, bullet_c.to, bullet_c.hit_distance

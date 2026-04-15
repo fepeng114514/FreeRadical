@@ -2,24 +2,19 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_7y6af"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="2_ag2v0"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_ewl0l"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resources/data/animation_data.gd" id="2_ewl0l"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_y3rhc"]
 [ext_resource type="SpriteFrames" uid="uid://bqi5q0g3pf4do" path="res://resources/sprite_frames/tower_mage_lvl1.tres" id="4_as0po"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resource/select_menu/select_menu_item_data.gd" id="4_mo82c"]
-[ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/resource/data/sync_animations_data.gd" id="5_aexug"]
+[ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/resources/data/sync_animations_data.gd" id="5_aexug"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="5_ewl0l"]
-[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="5_mo82c"]
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://scenes/entities/tower_mage_shooter.tscn" id="6_aexug"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resource/select_menu/select_menu_data.gd" id="6_usf1p"]
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="9_mo82c"]
+[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="10_p2r8t"]
+[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="11_usf1p"]
 
 [sub_resource type="Resource" id="Resource_aexug"]
 script = ExtResource("2_ewl0l")
 any = &"idle"
-
-[sub_resource type="Resource" id="Resource_5i66g"]
-script = ExtResource("6_usf1p")
-list = Array[ExtResource("4_mo82c")]([ExtResource("5_mo82c")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [sub_resource type="Resource" id="Resource_fel6d"]
 script = ExtResource("2_ewl0l")
@@ -37,22 +32,18 @@ idle = SubResource("Resource_fel6d")
 ranged = SubResource("Resource_13cep")
 metadata/_custom_type_script = "uid://qu0synx4c136"
 
-[node name="TowerMage" type="Node2D" unique_id=88348674 node_paths=PackedStringArray("components")]
+[sub_resource type="Resource" id="Resource_avxdj"]
+script = ExtResource("11_usf1p")
+list = Array[ExtResource("9_mo82c")]([ExtResource("10_p2r8t")])
+metadata/_custom_type_script = "uid://blv3x62ywpu2v"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eyq3y"]
+size = Vector2(108, 106)
+
+[node name="TowerMage" type="Node2D" unique_id=88348674]
 script = ExtResource("1_7y6af")
-components = {
-"SpriteComponent": NodePath("SpriteComponent"),
-"TowerComponent": NodePath("TowerComponent"),
-"UIComponent": NodePath("UIComponent")
-}
 idle_animation = SubResource("Resource_aexug")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
-
-[node name="UIComponent" type="Node2D" parent="." unique_id=1427274464]
-script = ExtResource("2_ag2v0")
-select_rect = Rect2(-53.555, -80.205, 112.085, 109.085)
-info_bar_type = 2
-select_menu_data = SubResource("Resource_5i66g")
-metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=115720524]
 script = ExtResource("3_y3rhc")
@@ -70,10 +61,16 @@ tower_type = 3
 show_range_offset = Vector2(0, -58.8)
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
-[node name="TowerMageShooter" parent="TowerComponent" unique_id=1442245649 node_paths=PackedStringArray("components") instance=ExtResource("6_aexug")]
+[node name="TowerMageShooter" parent="TowerComponent" unique_id=1442245649 instance=ExtResource("6_aexug")]
 show_behind_parent = true
 position = Vector2(1, -48)
-components = {
-"RangedComponent": NodePath("RangedComponent"),
-"SpriteComponent": NodePath("SpriteComponent")
-}
+
+[node name="UIComponent" type="Area2D" parent="." unique_id=444754449]
+script = ExtResource("2_ag2v0")
+info_bar_type = 2
+select_menu_data = SubResource("Resource_avxdj")
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UIComponent" unique_id=836024644]
+position = Vector2(2, -23)
+shape = SubResource("RectangleShape2D_eyq3y")

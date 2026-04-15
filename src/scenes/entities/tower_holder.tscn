@@ -1,17 +1,11 @@
 [gd_scene format=3 uid="uid://ck4m2qigdae35"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_jrk33"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_pyfu2"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resources/data/animation_data.gd" id="2_pyfu2"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="3_qfsqy"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_eclg5"]
 [ext_resource type="Shader" uid="uid://l8cv48xcfph3" path="res://scenes/entities/tower_holder.gdshader" id="5_rh6e0"]
 [ext_resource type="Texture2D" uid="uid://byk75f3pfixc" path="res://resources/atlas_textures/build_terrain_0001.tres" id="6_wcy0v"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resource/select_menu/select_menu_item_data.gd" id="7_rh6e0"]
-[ext_resource type="Texture2D" uid="uid://bk4vjfex0yago" path="res://resources/atlas_textures/main_icons_0001.tres" id="8_yqgqx"]
-[ext_resource type="Texture2D" uid="uid://cnygsu62w1cxt" path="res://resources/atlas_textures/main_icons_0003.tres" id="9_bdr3i"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resource/select_menu/select_menu_data.gd" id="9_jcl8y"]
-[ext_resource type="Texture2D" uid="uid://d03deip2s24tx" path="res://resources/atlas_textures/main_icons_0002.tres" id="10_60yds"]
-[ext_resource type="Texture2D" uid="uid://c0qn51kh03p4i" path="res://resources/atlas_textures/main_icons_0004.tres" id="11_m6ujs"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="12_pyfu2"]
 
 [sub_resource type="Resource" id="Resource_fdaav"]
@@ -23,63 +17,35 @@ shader = ExtResource("5_rh6e0")
 shader_parameter/outline_size = 20.0
 shader_parameter/outline_color = Color(1, 1, 0, 1)
 
-[sub_resource type="Resource" id="Resource_ri540"]
-script = ExtResource("7_rh6e0")
-upgrade_to = "tower_archer"
-icon = ExtResource("8_yqgqx")
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_mt6fh"]
-script = ExtResource("7_rh6e0")
-upgrade_to = "tower_barrack"
-icon = ExtResource("10_60yds")
-place = 2
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_au025"]
-script = ExtResource("7_rh6e0")
-upgrade_to = "tower_mage"
-icon = ExtResource("9_bdr3i")
-place = 6
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_x3qwx"]
-script = ExtResource("7_rh6e0")
-upgrade_to = "tower_artillery"
-icon = ExtResource("11_m6ujs")
-place = 4
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_bdr3i"]
-script = ExtResource("9_jcl8y")
-list = Array[ExtResource("7_rh6e0")]([SubResource("Resource_ri540"), SubResource("Resource_mt6fh"), SubResource("Resource_au025"), SubResource("Resource_x3qwx")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkubq"]
+size = Vector2(160, 96)
 
 [node name="TowerHolder" type="Node2D" unique_id=1898604313 node_paths=PackedStringArray("components")]
 script = ExtResource("1_jrk33")
 components = {
-"SpriteComponent": NodePath("SpriteComponent"),
-"TowerComponent": NodePath("TowerComponent"),
-"UIComponent": NodePath("UIComponent")
+&"SpriteComponent": NodePath("SpriteComponent"),
+&"TowerComponent": NodePath("TowerComponent"),
+&"UIComponent": NodePath("")
 }
 idle_animation = SubResource("Resource_fdaav")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=234304454 node_paths=PackedStringArray("list")]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=234304454]
 script = ExtResource("4_eclg5")
-list = [NodePath("Sprite2D")]
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=2043930113]
 material = SubResource("ShaderMaterial_jcl8y")
 texture = ExtResource("6_wcy0v")
 
-[node name="UIComponent" type="Node2D" parent="." unique_id=1624204329]
-script = ExtResource("3_qfsqy")
-select_rect = Rect2(-80.65, -46.145, 160, 84.385)
-select_menu_data = SubResource("Resource_bdr3i")
-metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
 [node name="TowerComponent" type="Node2D" parent="." unique_id=286705593]
 script = ExtResource("12_pyfu2")
 metadata/_custom_type_script = "uid://d104itkl6l02e"
+
+[node name="UIComponent" type="Area2D" parent="." unique_id=176403010]
+script = ExtResource("3_qfsqy")
+info_bar_type = 2
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UIComponent" unique_id=542590157]
+shape = SubResource("RectangleShape2D_qkubq")
