@@ -14,6 +14,7 @@ var damage_type: C.DamageType = C.DamageType.PHYSICAL
 var damage_factor: float = 1
 ## 二进制的伤害标识
 var damage_flags: int = 0
+var source_name: StringName = ""
 
 
 func insert_damage() -> void:

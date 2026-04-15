@@ -2,36 +2,7 @@ class_name Log
 ## 日志库
 
 
-## 获取当前时间戳字符串
-static func _get_timestamp() -> String:
-	var datetime: String = Time.get_datetime_string_from_system()
-	return datetime.split("T")[1]
-
-
-## 格式化日志消息
-static func _format_message(level: int, message: String) -> String:
-	var format_message: String = "[%s]%s: %s" % [
-		_get_timestamp(), 
-		C.LOG_LEVEL.keys()[level],
-		message
-	]
-	
-	return format_message
-
-
-## 获取调用堆栈
-static func _get_stack(stack_level: int) -> String:
-	var stack: Array = get_stack()
-
-	var sliced: Array = stack.slice(stack_level)
-	var result: Array = [
-		"Traceback:"
-	]
-
-	for item: Dictionary in sliced:
-		result.append("\t%s:%s: in func '%s'" % [item.source, item.line, item.function])
-
-	return "\n".join(result)
+static var log_level_keys: Array = C.LogLevels.keys()
 
 
 ## 内部日志方法
@@ -39,40 +10,59 @@ static func _log(level: int, message: String) -> void:
 	if level < Conf.LOG_LEVEL:
 		return
 
-	var plain_message: String = _format_message(level, message)
+	var datetime: String = Time.get_datetime_string_from_system()
+	datetime = datetime.split("T")[1]
+
+	var format_message: String = "[%s]%s: %s" % [
+		datetime, 
+		log_level_keys[level],
+		message
+	]
 	
 	match level:
-		C.LOG_LEVEL.WARN:
-			print_rich("[color=#F1C40F]● WARN: %s[/color]" % plain_message)
-			push_warning(plain_message)
-		C.LOG_LEVEL.ERROR:
-			printerr(plain_message)
-			print(_get_stack(3) + "\n")
-			push_error(plain_message)
+		C.LogLevels.WARN:
+			print_rich("[color=#F1C40F]● WARN: %s[/color]" % format_message)
+			push_warning(format_message)
+		C.LogLevels.ERROR:
+			var stack: Array = get_stack()
+
+			var sliced: Array = stack.slice(3)
+			var result: Array = [
+				"Traceback:"
+			]
+
+			for item: Dictionary in sliced:
+				result.append("\t%s:%s: in func '%s'" % [item.source, item.line, item.function])
+
+			var stack_message: String = "\n".join(result)
+
+			printerr(format_message)
+			print(stack_message + "\n")
+			push_error(format_message)
 		_:
-			print(plain_message)
+			print(format_message)
 
 
 ## 详细日志
 static func verbose(message: String) -> void:
-	_log(C.LOG_LEVEL.VERBOSE, message)
+	_log(C.LogLevels.VERBOSE, message)
 
 
 ## 调试日志
 static func debug(message: String) -> void:
-	_log(C.LOG_LEVEL.DEBUG, message)
+	_log(C.LogLevels.DEBUG, message)
 
 
 ## 信息日志
 static func info(message: String) -> void:
-	_log(C.LOG_LEVEL.INFO, message)
+	_log(C.LogLevels.INFO, message)
 
 
 ## 警告日志
 static func warn(message: String) -> void:
-	_log(C.LOG_LEVEL.WARN, message)
+	_log(C.LogLevels.WARN, message)
 
 
 ## 错误日志
 static func error(message: String) -> void:
-	_log(C.LOG_LEVEL.ERROR, message)
+	_log(C.LogLevels.ERROR, message)

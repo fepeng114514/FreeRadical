@@ -18,3 +18,10 @@ var list: Array[Node2D] = []
 func _ready() -> void:
 	for child: Node2D in get_children():
 		list.append(child)
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+	if not get_children():
+		return ["请至少增加一个 AnimatedSprite2D 节点或 Sprite2D 的节点"]
+		
+	return []

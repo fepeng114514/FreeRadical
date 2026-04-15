@@ -9,8 +9,6 @@ class_name Entity
 #region 属性
 ## 持续时间
 @export var duration: float = C.UNSET
-## 实体等级
-@export var level: int = 1
 ## 是否追踪 source 实体
 @export var track_source: bool = false
 ## 是否追踪 target 实体

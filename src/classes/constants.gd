@@ -15,7 +15,7 @@ const QUARTER_PI: float = PI / 4
 
 
 ## 日志级别枚举
-enum LOG_LEVEL {
+enum LogLevels {
 	VERBOSE = 0,	# 详细信息
 	DEBUG = 1,		# 调试信息
 	INFO = 2,		# 普通信息

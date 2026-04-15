@@ -94,6 +94,13 @@ func _draw() -> void:
 	)
 	
 	
+func _get_configuration_warnings() -> PackedStringArray:
+	if not get_children():
+		return ["请至少增加一个 MeleeBase 节点或其类型的节点，否则实体无法攻击。"]
+		
+	return []
+	
+	
 ## 重新计算并设置被拦截者数量（考虑拦截代价）
 func reset_blocked_count() -> void:
 	blocked_count = 0

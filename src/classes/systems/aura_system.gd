@@ -123,11 +123,13 @@ func _on_update(_delta: float) -> void:
 			e.remove_entity()
 			return
 
+		var e_id: int = e.id
 		for target: Entity in targets:
 			if aura_c.damage_min > 0 or aura_c.damage_max > 0:
 				var d := Damage.new()
 				d.target_id = target.id
-				d.source_id = e.id
+				d.source_id = e_id
+				d.source_name = e.name
 				d.value = d.get_random_value(aura_c.damage_min, aura_c.damage_max)
 				d.damage_type = aura_c.damage_type
 				d.damage_flags = aura_c.damage_flag_bits

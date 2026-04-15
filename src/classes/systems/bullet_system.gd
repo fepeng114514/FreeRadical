@@ -168,6 +168,7 @@ func _take_damage(
 		var d := Damage.new()
 		d.target_id = t.id
 		d.source_id = e_id
+		d.source_name = e.name
 		d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
 		d.damage_type = bullet_c.damage_type
 		d.damage_flags = bullet_c.damage_flag_bits

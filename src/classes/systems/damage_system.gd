@@ -10,10 +10,10 @@ func _on_update(_delta: float) -> void:
 	var damage_queue: Array[Damage] = SystemMgr.damage_queue
 	
 	while damage_queue:
-		var damage: Damage = damage_queue.pop_front()
-		var damage_flags: int = damage.damage_flags
+		var d: Damage = damage_queue.pop_front()
+		var damage_flags: int = d.damage_flags
 		
-		var target: Entity = EntityMgr.get_entity_by_id(damage.target_id)
+		var target: Entity = EntityMgr.get_entity_by_id(d.target_id)
 		if not target:
 			continue
 
@@ -21,24 +21,26 @@ func _on_update(_delta: float) -> void:
 		if not health_c:
 			continue
 			
-		var source: Entity = EntityMgr.get_entity_by_id(damage.source_id)
+		var source: Entity = EntityMgr.get_entity_by_id(d.source_id)
+		var source_name: StringName = d.source_name
 		
-		if damage.damage_type & health_c.immuned_bits:
+		if d.damage_type & health_c.immuned_bits:
 			continue
 			
 		var actual_damage: float = _predict_damage(
-			target, health_c, damage, source
+			target, health_c, d, source
 		)
 		health_c.hp -= actual_damage
-		target._on_damage(target, damage)
+		target._on_damage(target, d)
 		
 		if not damage_flags & C.DamageFlag.NO_SPIKED:
 			if U.is_valid_number(health_c.spiked) and source and source.get_c(C.CN_HEALTH):
-				var spiked_value: float = damage.value * health_c.spiked
+				var spiked_value: float = d.value * health_c.spiked
 				
 				var bad_damage := Damage.new()
 				bad_damage.target_id = source.id
 				bad_damage.source_id = target.id
+				bad_damage.source_name = target.name
 				bad_damage.value = spiked_value
 				bad_damage.damage_type = C.DamageType.TRUE
 				bad_damage.damage_flags = C.DamageFlag.NO_SPIKED
@@ -48,7 +50,7 @@ func _on_update(_delta: float) -> void:
 			"造成伤害: 目标: %s，来源: %s，值: %s"
 			% [
 				target,
-				source if source else null,
+				source_name,
 				actual_damage
 			]
 		)
@@ -62,10 +64,10 @@ func _on_update(_delta: float) -> void:
 				target.remove_entity()
 				return
 			
-			target._on_death(target, damage)
+			target._on_death(target, d)
 			
 			if source:
-				source._on_kill(target, damage)
+				source._on_kill(target, d)
 				
 			health_c.health_bar.visible = false
 			GameMgr.cash += health_c.death_gold
@@ -89,10 +91,10 @@ func _on_update(_delta: float) -> void:
 func _predict_damage(
 		target: Entity, 
 		health_c: HealthComponent, 
-		damage: Damage, 
+		d: Damage, 
 		source: Entity
 	) -> float:
-	var damage_factor: float = damage.damage_factor
+	var damage_factor: float = d.damage_factor
 	var vulnerable: float = 1 - health_c.vulnerable
 	var resistance: float = 1 - health_c.damage_resistance
 	var reduction: float = health_c.damage_reduction
@@ -127,7 +129,7 @@ func _predict_damage(
 		vulnerable += mod_c.vulnerable_bonus
 	
 	# 计算护甲减伤
-	var damage_type: int = damage.damage_type
+	var damage_type: int = d.damage_type
 		
 	if damage_type & C.DamageType.DISINTEGRATE:
 		return health_c.hp
@@ -175,7 +177,7 @@ func _predict_damage(
 	
 	# 计算伤害
 	var total_damage_factor: float = damage_factor * resistance * vulnerable
-	var basic_value: float = damage.value - reduction + damage_bonus
+	var basic_value: float = d.value - reduction + damage_bonus
 	var actual_damage: float = roundi(basic_value * total_damage_factor)
 	
 	return actual_damage

@@ -123,6 +123,7 @@ func _on_update(_delta: float) -> void:
 			var d := Damage.new()
 			d.target_id = target.id
 			d.source_id = e.id
+			d.source_name = e.name
 			d.value = d.get_random_value(mod_c.damage_min, mod_c.damage_max)
 			d.damage_type = mod_c.damage_type
 			d.damage_flags = mod_c.damage_flag_bits

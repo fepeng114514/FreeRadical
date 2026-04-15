@@ -249,6 +249,7 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 			var d := Damage.new()
 			d.target_id = t_id
 			d.source_id = e_id
+			d.source_name = e.name
 			d.value = d.get_random_value(a.damage_min, a.damage_max)
 			d.damage_type = a.damage_type
 			d.damage_flags = a.damage_flag_bits

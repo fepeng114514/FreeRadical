@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+extends Attackbase
 class_name MeleeBase
 ## 近战攻击节点基类
 ##
@@ -48,30 +48,8 @@ class_name MeleeBase
 ## 是否可以伤害重复敌人
 @export var can_damage_same: bool = false
 
-@export_group("Limit")
-## 攻击标识
-@export var flags: Array[C.Flag] = []:
-	set(value): 
-		flags = value
-		flag_bits = U.merge_flags(value)
-## 不可攻击的实体的标识
-@export var bans: Array[C.Flag] = []:
-	set(value): 
-		bans = value
-		ban_bits = U.merge_flags(value)
-## 可以攻击的实体场景名称
-@export var whitelist: Array[String] = []
-## 不可攻击的实体场景名称
-@export var blacklist: Array[String] = []
-
-## 二进制的攻击标识
-var flag_bits: int = 0
-## 二进制的不可攻击的实体的标识
-var ban_bits: int = 0
 ## 二进制的伤害标识
 var damage_flag_bits: int = 0
-## 时间戳
-var ts: float = 0
 ## 伤害过的实体 ID 列表
 var damaged_entity_ids: Array[int] = []
 
