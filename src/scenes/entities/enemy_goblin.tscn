@@ -53,6 +53,7 @@ components = {
 &"SpriteComponent": NodePath("SpriteComponent"),
 &"UIComponent": NodePath("UIComponent")
 }
+scene_name = "enemy_goblin"
 idle_animation = SubResource("Resource_58mnm")
 hit_offset = Vector2(0, -14.81)
 flags = Array[int]([1])

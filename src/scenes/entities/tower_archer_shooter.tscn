@@ -10,11 +10,11 @@
 
 [sub_resource type="Resource" id="Resource_e0w6f"]
 script = ExtResource("2_es0ag")
-any = &"idle"
+left_right = &"idle"
 
 [sub_resource type="Resource" id="Resource_6rlp0"]
 script = ExtResource("2_es0ag")
-any = &"ranged"
+left_right = &"ranged"
 
 [sub_resource type="Resource" id="Resource_367kr"]
 script = ExtResource("7_a4odr")
@@ -27,6 +27,7 @@ components = {
 &"RangedComponent": NodePath("RangedComponent"),
 &"SpriteComponent": NodePath("SpriteComponent")
 }
+scene_name = "tower_archer_shooter"
 idle_animation = SubResource("Resource_e0w6f")
 flags = Array[int]([4])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
@@ -35,7 +36,7 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 script = ExtResource("3_tbtsw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1785141033]
-position = Vector2(0, -24)
+position = Vector2(0, -25)
 scale = Vector2(0.23624256, 0.23624256)
 sprite_frames = ExtResource("4_a4odr")
 animation = &"idle"

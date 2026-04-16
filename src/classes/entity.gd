@@ -15,6 +15,10 @@ class_name Entity
 @export var track_target: bool = false
 ## 空闲动画数据
 @export var idle_animation: AnimationData = null
+## 生成时播放的动画
+@export var spawn_animation: AnimationData = null
+## 生成时播放的音效
+@export var spawn_sfx: AudioData = null
 ## 击中位置偏移
 @export var hit_offset := Vector2.ZERO:
 	set(value):
@@ -101,6 +105,8 @@ var last_position := Vector2.ZERO
 var state := C.State.IDLE
 ## 看向的点
 var look_point := Vector2.INF
+## 是否是首次更新
+var is_first_update: bool = true
 ## 等待状态
 var _waiting: bool = false
 #endregion
@@ -401,9 +407,11 @@ func play_animation_group(
 func play_animation_by_look(
 		animation: AnimationData, 
 		source_animation_key: String = "",
-		force_play: bool = false,
-		facing_data: Array = []
+		force_play: bool = false
 	) -> Array:
+	if not animation:
+		return []
+		
 	var play_idx: int = animation.play_idx
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
 	var sprite_list: Array[Node2D] = sprite_c.list
@@ -414,11 +422,13 @@ func play_animation_by_look(
 		sprite_idxs = sprite_c.groups[play_idx]
 	else:
 		sprite_idxs = [play_idx]
-
-	if not facing_data:
-		facing_data = animation.get_animation_name_for_point(
-			self, look_point
-		)
+	if animation.get_animation_name_for_point(
+		self, look_point
+	)[0] == "":
+		print()
+	var facing_data: Array = animation.get_animation_name_for_point(
+		self, look_point
+	)
 	
 	var anim_name: StringName = facing_data[0]
 	var filp_h: bool = facing_data[2]
@@ -435,15 +445,15 @@ func play_animation_by_look(
 		var source: Entity = EntityMgr.get_entity_by_id(source_id)
 		if source and not is_waiting():
 			source.look_point = look_point
-			var s_sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
+			var s_sprite_c: SpriteComponent = source.get_c(C.CN_SPRITE)
 			var s_animation: AnimationData = s_sprite_c.sync_animations.get(
 				source_animation_key
 			)
 			if s_animation:
-				play_animation_by_look(
-					s_animation, source_animation_key, force_play, facing_data
+				source.play_animation_by_look(
+					s_animation, source_animation_key, force_play
 				)
-				wait_animation(s_animation)
+				source.wait_animation(s_animation)
 
 	return facing_data
 
@@ -452,6 +462,9 @@ func play_animation_by_look(
 func wait_animation(
 		animation: AnimationData
 	) -> void:
+	if not animation:
+		return
+		
 	var sprite_c: SpriteComponent = get_c(C.CN_SPRITE)
 	var sprite_list: Array[Node2D] = sprite_c.list
 	var play_idx: int = animation.play_idx

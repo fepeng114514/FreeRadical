@@ -29,8 +29,12 @@ class_name BarrackComponent
 @export var respawn_time: float = 10
 ## 最大士兵数量
 @export var max_soldiers: int = 3
-## 生成士兵动画数据
-@export var spawn_animation: AnimationData = null
+## 生成士兵播放的动画
+@export var animation: AnimationData = null
+## 生成士兵延迟
+@export var delay: float = 0
+## 生成士兵播放的音效
+@export var sfx: AudioData = null
 ## 范围显示偏移
 @export var show_range_offset := Vector2.ZERO:
 	set(value):
@@ -46,9 +50,9 @@ var last_soldier_count: int = C.UNSET
 
 
 func _ready() -> void:
-	if spawn_animation == null:
-		spawn_animation = AnimationData.new()
-		spawn_animation.left_right = "spawn"
+	if animation == null:
+		animation = AnimationData.new()
+		animation.left_right = "spawn"
 
 
 func _draw() -> void:

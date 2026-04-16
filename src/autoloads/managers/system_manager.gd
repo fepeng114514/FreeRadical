@@ -40,13 +40,13 @@ func _process_insert_queue() -> void:
 	while insert_queue:
 		var e: Entity = insert_queue.pop_front()
 	
-		if entity_list:
-			var entities_len: int = entity_list.size()
-			if e.id != entities_len:
-				Log.error(
-					"实体列表长度未与实体 id 对应: id %d, 长度 %d" 
-					% [e.id, entities_len]
-				)
+		# if entity_list:
+		# 	var entities_len: int = entity_list.size()
+		# 	if e.id != entities_len:
+		# 		Log.error(
+		# 			"实体列表长度未与实体 id 对应: id %d, 长度 %d" 
+		# 			% [e.id, entities_len]
+		# 		)
 		
 		entity_list.append(e)
 		# 调用所有系统中的插入回调函数，遇到一个返回 false 的系统表示当前实体不能插入，中断并移除当前实体

@@ -3,21 +3,6 @@ class_name BarrackBehavior
 ## 兵营行为系统
 ##
 ## 处理拥有 [BarrackComponent] 兵营组件的实体生成士兵
-
-
-func _on_insert(e: Entity) -> bool:
-	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
-	if not barrack_c:
-		return true
-		
-	var max_soldiers: int = barrack_c.max_soldiers
-		
-	for i: int in range(max_soldiers):
-		var soldier = respawn_soldier(e, barrack_c)
-		var s_rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
-		s_rally_c.rally_formation_position(max_soldiers, i)
-		
-	return true
 	
 	
 func _on_remove(e: Entity) -> bool:
@@ -38,6 +23,19 @@ func _on_update(e: Entity) -> bool:
 	var barrack_c: BarrackComponent = e.get_c(C.CN_BARRACK)
 	if not barrack_c:
 		return false
+		
+	if e.is_first_update:
+		e.play_animation_by_look(barrack_c.animation)
+		AudioMgr.play_sfx(barrack_c.sfx)
+		if barrack_c.delay:
+			await e.y_wait(barrack_c.delay)
+			
+		var max_soldiers: int = barrack_c.max_soldiers
+			
+		for i: int in range(max_soldiers):
+			var soldier: Entity = respawn_soldier(e, barrack_c)
+			var s_rally_c: RallyComponent = soldier.get_c(C.CN_RALLY)
+			s_rally_c.rally_formation_position(max_soldiers, i)
 		
 	barrack_c.cleanup_soldiers()
 	

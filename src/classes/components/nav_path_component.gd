@@ -9,7 +9,7 @@ class_name NavPathComponent
 @export var reversed: bool = false
 ## 移动速度
 @export var speed: float = 133
-## 移动动画数据
+## 移动动画
 @export var motion_animation: AnimationData = null
 ## 是否强制与来源实体所在路径同步
 @export var sync_source_path: bool = true

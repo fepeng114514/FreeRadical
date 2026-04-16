@@ -41,9 +41,9 @@ class_name HealthComponent
 @export_group("Death")
 ## 死亡赏金
 @export var death_gold: float = 0
-## 死亡动画数据
+## 死亡动画
 @export var death_animation: AnimationData = null
-## 死亡音效数据
+## 死亡音效
 @export var death_sfx: AudioData = null
 
 ## 当前血量

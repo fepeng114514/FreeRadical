@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_121ob"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_0mq2b"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resource/data/animation_data.gd" id="2_bgj51"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/resources/data/animation_data.gd" id="2_bgj51"]
 [ext_resource type="Texture2D" uid="uid://dkdjev2thqd6w" path="res://resources/atlas_textures/bombs_0001.tres" id="3_cbh1n"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="4_1jhx5"]
 
@@ -13,9 +13,10 @@ left_right = &"idle_left_right"
 [node name="TowerArtilleryBullet" type="Node2D" unique_id=2094980939 node_paths=PackedStringArray("components")]
 script = ExtResource("1_121ob")
 components = {
-"BulletComponent": NodePath("BulletComponent"),
-"SpriteComponent": NodePath("SpriteComponent")
+&"BulletComponent": NodePath("BulletComponent"),
+&"SpriteComponent": NodePath("SpriteComponent")
 }
+scene_name = "tower_artillery_bullet"
 idle_animation = SubResource("Resource_wmreg")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -30,8 +31,8 @@ texture = ExtResource("3_cbh1n")
 script = ExtResource("4_1jhx5")
 flight_total_time = 1.5
 flight_trajectory = 1
-damage_min = 5.0
-damage_max = 35.0
+damage_min = 30.0
+damage_max = 50.0
 damage_type = 4
 damage_max_radius = 100.0
 damage_falloff_enabled = true

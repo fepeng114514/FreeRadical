@@ -59,7 +59,7 @@ func _show(e: Entity) -> void:
 		item.selected_entity = e
 		item.icon = item_data.icon
 		item.type = type
-		item.upgrade_to = item_data.upgrade_to
+		item.upgrade_to = upgrade_to
 		item.upgraded_skill = item_data.upgraded_skill
 		item.bought_item = item_data.buy_item
 		item_list.append(item)

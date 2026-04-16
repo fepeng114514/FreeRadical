@@ -73,7 +73,7 @@ func _on_update(delta: float) -> void:
 		
 		# 未击中处理
 		if (
-				flying_time >= flight_total_time 
+				flight_total_time and flying_time >= flight_total_time 
 				or not target 
 				and U.is_at_destination(
 					e.global_position, bullet_c.to, bullet_c.hit_distance

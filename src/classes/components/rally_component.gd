@@ -14,7 +14,7 @@ class_name RallyComponent
 @export var rally_radius: float = 30
 ## 是否可点击集结
 @export var can_select_rally: bool = true
-## 移动动画数据
+## 移动动画
 @export var motion_animation: AnimationData = null
 
 ## 集结目标位置

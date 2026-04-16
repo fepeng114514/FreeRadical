@@ -9,6 +9,10 @@ class_name AnimationData
 @export var is_group: bool = false
 ## 播放次数
 @export var times: int = 1
+## 等待时间
+##
+## 用于等待有限时间
+@export var wait_time: float = 0
 ## 上方向的动画名
 @export var up: StringName = &""
 ## 下方向的动画名
@@ -34,7 +38,7 @@ func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
 	
 	if (
 			not (left or right or left_right) 
-			and up_down
+			and (up_down or up and down)
 		):
 		if angle >= -PI and angle < 0:
 			dir = C.Direction.UP
@@ -42,7 +46,7 @@ func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
 			dir = C.Direction.DOWN
 	elif (
 			not (up or down or up_down)
-			and left_right
+			and (left_right or left and right)
 		):
 		if angle <= C.HALF_PI and angle >= -C.HALF_PI:
 			dir = C.Direction.RIGHT

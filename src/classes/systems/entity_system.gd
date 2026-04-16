@@ -20,6 +20,7 @@ func _on_remove(e: Entity) -> bool:
 
 	return true
 
+
 func _on_update(delta: float) -> void:
 	for e: Entity in EntityMgr.get_valid_entities():
 		if U.is_valid_number(e.duration) and TimeMgr.is_ready_time(e.insert_ts, e.duration):
@@ -28,7 +29,6 @@ func _on_update(delta: float) -> void:
 			
 		if U.is_valid_number(e.source_id) and e.track_source:
 			var source: Entity = EntityMgr.get_entity_by_id(e.source_id)
-			
 			if not source:
 				continue
 				
@@ -37,6 +37,17 @@ func _on_update(delta: float) -> void:
 		if e.is_waiting():
 			continue
 			
-		e._on_update(delta)
+		_on_e_update(e, delta)
 		
-		e.last_position = e.global_position
+	
+func _on_e_update(e: Entity, delta: float) -> void:
+	if e.is_first_update:
+		e.play_animation_by_look(e.spawn_animation)
+		AudioMgr.play_sfx(e.spawn_sfx)
+		if e.spawn_animation:
+			await e.wait_animation(e.spawn_animation)
+	
+	e._on_update(delta)
+	
+	e.last_position = e.global_position
+	e.is_first_update = false

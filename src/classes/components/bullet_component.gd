@@ -68,9 +68,9 @@ class_name BulletComponent
 @export var mods: Array[String] = []
 ## 子弹击中目标时创建的实体场景名称
 @export var hit_payloads: Array[String] = []
-## 击中动画数据
+## 击中动画
 @export var hit_animation: AnimationData = null
-## 击中音效数据
+## 击中音效
 @export var hit_sfx: AudioData = null
 
 @export_group("Miss")
