@@ -45,6 +45,7 @@ size = Vector2(174, 100)
 [node name="TowerArtillery" type="Node2D" unique_id=1600363506]
 script = ExtResource("1_xqrgu")
 idle_animation = SubResource("Resource_l80ei")
+flags = 16
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=505150196]

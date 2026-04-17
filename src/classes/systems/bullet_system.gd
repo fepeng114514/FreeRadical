@@ -91,8 +91,8 @@ func _on_update(delta: float) -> void:
 					bullet_c.to + bullet_c.damage_offset, 
 					bullet_c.damage_max_radius, 
 					bullet_c.damage_min_radius, 
-					e.flag_bits, 
-					e.ban_bits,
+					e.flags, 
+					e.bans,
 					func(t: Entity) -> bool:
 						return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
 				)
@@ -129,8 +129,8 @@ func _on_update(delta: float) -> void:
 				bullet_c.to + bullet_c.damage_offset, 
 				bullet_c.damage_max_radius, 
 				bullet_c.damage_min_radius, 
-				e.flag_bits, 
-				e.ban_bits,
+				e.flags, 
+				e.bans,
 				func(t: Entity) -> bool:
 					return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
 			)
@@ -158,7 +158,7 @@ func _take_damage(
 	var damage_max_count: int = bullet_c.damage_max_count
 	var e_id: int = e.id
 		
-	for i: int in range(targets.size()):
+	for i: int in targets.size():
 		if U.is_valid_number(damage_max_count) and i > damage_max_count:
 			break
 			
@@ -171,7 +171,7 @@ func _take_damage(
 		d.source_name = e.name
 		d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
 		d.damage_type = bullet_c.damage_type
-		d.damage_flags = bullet_c.damage_flag_bits
+		d.damage_flags = bullet_c.damage_flags
 		if is_range_damage and bullet_c.damage_falloff_enabled:
 			d.damage_factor = U.dist_factor_inside_radius(
 				e.global_position, 

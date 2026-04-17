@@ -24,8 +24,8 @@ func _on_update(e: Entity) -> bool:
 				e.global_position, 
 				a.max_range, 
 				a.min_range, 
-				a.flag_bits, 
-				a.ban_bits
+				a.flags, 
+				a.bans
 			)
 			if targets:
 				target = targets[0]
@@ -72,7 +72,7 @@ func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
 	if not target:
 		return
 
-	for i: int in range(a.loop_count):
+	for i: int in a.loop_count:
 		e.look_point = target.global_position
 		var result: Array = e.play_animation_by_look(a.loop_animation)
 		var direction: C.Direction = result[1]
@@ -101,7 +101,7 @@ func spawn_bullets(a: RangedBase, e: Entity, target: Entity, direction: C.Direct
 	var half_angle_range: float = bullet_angle_range / 2
 	var da: float = (bullet_angle_range) / bullet_count + 1
 	
-	for i: int in range(bullet_count):
+	for i: int in bullet_count:
 		var b = EntityMgr.create_entity(a.bullet)
 		b.target_id = target.id
 		b.source_id = e.id

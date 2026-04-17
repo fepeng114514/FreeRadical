@@ -37,20 +37,10 @@ class_name MeleeComponent
 
 @export_group("Limit")
 ## 拦截标识
-@export var block_flags: Array[C.Flag] = []:
-	set(value): 
-		block_flags = value
-		block_flag_bits = U.merge_flags(value)
+@export var block_flags: int = 0
 ## 禁止拦截的标识
-@export var block_bans: Array[C.Flag] = []:
-	set(value): 
-		block_bans = value
-		block_ban_bits = U.merge_flags(value)
+@export var block_bans: int = 0
 
-## 二进制的拦截标识
-var block_flag_bits: int = 0
-## 二进制的拦截禁止的标识
-var block_ban_bits: int = 0
 ## 拦截者 ID 列表
 var blockers_ids: Array[int] = []
 ## 拦截数量
@@ -157,3 +147,11 @@ func cleanup_melee_relations() -> void:
 			new_blockers_ids.append(id)
 			
 		blockers_ids = new_blockers_ids
+
+
+func _validate_property(property: Dictionary) -> void:
+	match property.name:
+		"block_flags":
+			property.hint_string = "mask_enum:Flag"
+		"block_bans":
+			property.hint_string = "mask_enum:Flag"

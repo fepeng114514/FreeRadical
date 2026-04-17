@@ -43,6 +43,7 @@ size = Vector2(108, 106)
 [node name="TowerMage" type="Node2D" unique_id=88348674]
 script = ExtResource("1_7y6af")
 idle_animation = SubResource("Resource_aexug")
+flags = 16
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=115720524]

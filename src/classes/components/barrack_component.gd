@@ -98,7 +98,7 @@ func cleanup_soldiers() -> void:
 func new_rally(pos: Vector2) -> void:
 	rally_pos = pos
 	
-	for i: int in range(soldiers_list.size()):
+	for i: int in soldiers_list.size():
 		var s: Entity = soldiers_list[i]
 		var s_rally_c: RallyComponent = s.get_c(C.CN_RALLY)
 		s_rally_c.new_rally(pos)

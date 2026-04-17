@@ -5,6 +5,28 @@ class_name GroupingSystem
 ## 实时分组将实体分组到 [EntityMgr]，以便于根据分组快速获取实体，同时将实体根据坐标插入到可接受的空间索引中以便于根据坐标快速获取实体。
 
 
+## 根据标识分到哪组的字典
+const FLAG_TO_GROUP: Dictionary[C.Flag, StringName] = {
+	C.Flag.ENEMY: C.GROUP_ENEMIES,
+	C.Flag.FRIENDLY: C.GROUP_FRIENDLYS,
+	C.Flag.UNIT: C.GROUP_UNIT,
+	C.Flag.TOWER: C.GROUP_TOWERS,
+	C.Flag.MODIFIER: C.GROUP_MODIFIERS,
+	C.Flag.AURA: C.GROUP_AURAS,
+}
+
+
+## 根据标识分到哪组的字典键
+const FLAG_TO_GROUP_KEYS: Array[C.Flag] = [
+	C.Flag.ENEMY,
+	C.Flag.FRIENDLY,
+	C.Flag.UNIT,
+	C.Flag.TOWER,
+	C.Flag.MODIFIER,
+	C.Flag.AURA,
+]
+
+
 var _space_index_grid_size: float = EntityMgr.SPACE_INDEX_GRID_SIZE
 var _space_index_grids: Array[Dictionary] = []
 var _world_size := Vector2i.ZERO
@@ -53,10 +75,10 @@ func _on_update(_delta: float) -> void:
 		grid_col.has_entities = true
 
 		# 根据实体的标识和组件将实体分组
-		if e.flag_bits != 0:
-			for flags: C.Flag in C.FLAG_TO_GROUP_KEYS:
-				if e.flag_bits & flags:
-					var group_name: StringName = C.FLAG_TO_GROUP[flags]
+		if e.flags:
+			for flags: C.Flag in FLAG_TO_GROUP_KEYS:
+				if e.flags & flags:
+					var group_name: StringName = FLAG_TO_GROUP[flags]
 
 					_type_groups[group_name].append(e)
 					grid_row[group_name].append(e)

@@ -51,7 +51,7 @@ func load() -> void:
 	var grid_count_x: int = ceili(GlobalMgr.world_size.x / SPACE_INDEX_GRID_SIZE)
 	var grid_count_y: int = ceili(GlobalMgr.world_size.y / SPACE_INDEX_GRID_SIZE)
 	
-	for x: int in range(grid_count_x):
+	for x: int in grid_count_x:
 		var grid_col: Dictionary = {
 			"row": [],
 			"has_entities": false,
@@ -64,7 +64,7 @@ func load() -> void:
 		}
 		var grid_row: Array = grid_col.row
 
-		for y: int in range(grid_count_y):
+		for y: int in grid_count_y:
 			grid_row.append({
 				C.GROUP_ENTITIES: [],
 				C.GROUP_ENEMIES: [],
@@ -405,7 +405,7 @@ func find_targets_in_range(
 			var grid: Array = grid_row[grid_y][group]
 			for e: Entity in grid:
 				if (
-						not U.is_mutual_ban(e.flag_bits, bans, flags, e.ban_bits)
+						not U.is_mutual_ban(e.flags, bans, flags, e.bans)
 						and U.is_in_ring(origin, e.global_position, min_range, max_range)
 						and (not filter.is_valid() or filter.call(e))
 				):

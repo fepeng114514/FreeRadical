@@ -48,7 +48,7 @@ func _on_update(_delta: float) -> void:
 		
 		var break_behavior: Behavior = null
 
-		for i: int in range(_behavior_count):
+		for i: int in _behavior_count:
 			var updata_fn: Callable = _update_cbs[i]
 
 			if updata_fn.call(e):

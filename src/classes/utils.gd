@@ -318,7 +318,7 @@ static func merge_array(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
 	var target_size: int = target.size()
-	for i in range(source.size()):
+	for i in source.size():
 		var mv: Variant = source[i]
 		
 		if i >= target_size:
@@ -347,7 +347,7 @@ static func deepmerge_array(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
 	var target_size: int = target.size()
-	for i in range(source.size()):
+	for i in source.size():
 		var mv: Variant = deepclone(source[i])
 		
 		if i >= target_size:
@@ -455,7 +455,7 @@ static func deepmerge_dict_recursive_new(
 static func merge_array_recursive(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
-	for i in range(source.size()):
+	for i in source.size():
 		var source_value: Variant = source[i]
 		
 		# 如果 target 没有这个索引，直接追加
@@ -497,7 +497,7 @@ static func merge_array_recursive_new(
 static func deepmerge_array_recursive(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
-	for i in range(source.size()):
+	for i in source.size():
 		var source_value: Variant = deepclone(source[i])
 		
 		# 如果 target 没有这个索引，直接追加

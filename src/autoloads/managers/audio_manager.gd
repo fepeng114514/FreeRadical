@@ -25,7 +25,7 @@ func _ready() -> void:
 	add_child(_music_player)
 	
 	# 初始化音效
-	for i: int in range(_sfx_player_count):
+	for i: int in _sfx_player_count:
 		var sfx_player := AudioStreamPlayer.new()
 		sfx_player.name = "SFX%d" % (i + 1)
 		add_child(sfx_player)

@@ -9,10 +9,10 @@ var source_id: int = C.UNSET
 ## 伤害值
 var value: float = 0
 ## 伤害类型
-var damage_type: C.DamageType = C.DamageType.PHYSICAL
+var damage_type: int = C.DamageType.PHYSICAL
 ## 伤害因子
 var damage_factor: float = 1
-## 二进制的伤害标识
+## 伤害标识
 var damage_flags: int = 0
 var source_name: StringName = ""
 

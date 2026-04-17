@@ -6,10 +6,7 @@ class_name ModifierComponent
 
 
 ## 状态效果类型
-@export var mod_type: Array[C.ModType] = []:
-	set(value): 
-		mod_type = value
-		mod_type_bits = U.merge_flags(value)
+@export var mod_type: int = 0
 ## 周期时间
 @export var cycle_time: float = 1
 ## 最大周期
@@ -21,12 +18,9 @@ class_name ModifierComponent
 ## 最大伤害
 @export var damage_max: float = 0
 ## 伤害类型
-@export var damage_type: C.DamageType = C.DamageType.TRUE
+@export var damage_type: int = C.DamageType.TRUE
 ## 伤害标识
-@export var damage_flags: Array[C.DamageFlag] = []:
-	set(value):
-		damage_flags = value
-		damage_flag_bits = U.merge_flags(value)
+@export var damage_flags: int = 0
 
 @export_group("Same Process")
 ## 是否允许相同状态效果叠加
@@ -68,9 +62,15 @@ class_name ModifierComponent
 
 ## 时间戳
 var ts: float = 0
-## 二进制的状态效果类型
-var mod_type_bits: int = 0
 ## 当前周期数
 var curren_cycle: int = 0
-## 二进制的伤害标识
-var damage_flag_bits: int = 0
+
+
+func _validate_property(property: Dictionary) -> void:
+	match property.name:
+		"mod_type":
+			property.hint_string = "mask_enum:ModType"
+		"damage_type":
+			property.hint_string = "mask_enum:DamageType"
+		"damage_flags":
+			property.hint_string = "mask_enum:DamageFlag"

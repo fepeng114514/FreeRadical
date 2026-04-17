@@ -21,11 +21,9 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	# 检查是否被目标禁止
-	if U.is_mutual_ban(
-			target.flag_bits,
-			e.ban_bits, 
-			e.flag_bits,
-			target.mod_ban_bits
+	if U.is_banned(
+			target.flags,
+			e.bans, 
 		):
 		return false
 		
@@ -45,19 +43,19 @@ func _on_insert(e: Entity) -> bool:
 		
 		# 检查是否被其他效果禁止
 		if U.is_mutual_ban(
-				e.flag_bits,
-				other_m.mod_ban_bits,
-				mod_c.mod_type_bits,
-				other_m.mod_type_ban_bits
+				e.flags,
+				other_m.bans,
+				mod_c.mod_type,
+				other_m.mod_type_bans
 		):
 			return false
 			
 		# 检查是否被当前效果禁止
 		if U.is_mutual_ban(
-				other_m.flag_bits,
-				e.mod_ban_bits,
-				other_mod_c.mod_type_bits,
-				e.mod_type_ban_bits
+				other_m.flags,
+				e.bans,
+				other_mod_c.mod_type,
+				e.mod_type_bans
 		):
 			if mod_c.remove_banned:
 				other_m.remove_entity()
@@ -126,7 +124,7 @@ func _on_update(_delta: float) -> void:
 			d.source_name = e.name
 			d.value = d.get_random_value(mod_c.damage_min, mod_c.damage_max)
 			d.damage_type = mod_c.damage_type
-			d.damage_flags = mod_c.damage_flag_bits
+			d.damage_flags = mod_c.damage_flags
 			d.insert_damage()
 
 		e._on_modifier_period(target, mod_c)

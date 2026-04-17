@@ -22,7 +22,7 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	# 检查是否被目标禁止
-	if U.is_mutual_ban(source.flag_bits, e.ban_bits, e.flag_bits, source.aura_ban_bits):
+	if U.is_mutual_ban(source.flags, e.bans, e.flags, source.bans):
 		return false
 
 	aura_c.ts = TimeMgr.tick_ts
@@ -40,19 +40,19 @@ func _on_insert(e: Entity) -> bool:
 		
 		# 检查是否被其他光环禁止
 		if U.is_mutual_ban(
-				e.flag_bits, 
-				other_a.aura_ban_bits, 
-				aura_c.aura_type_bits, 
-				other_a.aura_type_ban_bits
+				e.flags, 
+				other_a.bans, 
+				aura_c.aura_type, 
+				other_a.aura_type_bans
 		):
 			return false
 			
 		# 检查是否被当前光环禁止
 		if U.is_mutual_ban(
-				other_a.flag_bits,
-				e.aura_ban_bits,
-				other_aura_c.aura_type_bits,
-				e.aura_type_ban_bits
+				other_a.flags,
+				e.bans,
+				other_aura_c.aura_type,
+				e.aura_type_bans
 		):
 			if aura_c.remove_banned:
 				other_a.remove_entity()
@@ -105,8 +105,8 @@ func _on_update(_delta: float) -> void:
 			e.global_position, 
 			aura_c.max_radius, 
 			aura_c.min_radius, 
-			e.flag_bits, 
-			e.ban_bits
+			e.flags, 
+			e.bans
 		)
 		if U.is_valid_number(aura_c.max_influence):
 			targets.resize(aura_c.max_influence)
@@ -132,7 +132,7 @@ func _on_update(_delta: float) -> void:
 				d.source_name = e.name
 				d.value = d.get_random_value(aura_c.damage_min, aura_c.damage_max)
 				d.damage_type = aura_c.damage_type
-				d.damage_flags = aura_c.damage_flag_bits
+				d.damage_flags = aura_c.damage_flags
 				d.insert_damage()
 
 

@@ -69,13 +69,13 @@ enum Flag {
 	# 标识: 敌人
 	ENEMY = 1,
 	# 标识: BOSS
-	BOSS = 1 << 1 | ENEMY,
+	BOSS = 1 << 1,
 	# 标识: 友军
 	FRIENDLY = 1 << 2,
-	# 标识: 英雄
-	HERO = 1 << 3 | FRIENDLY,
 	# 标识: 单位
 	UNIT = ENEMY | FRIENDLY,
+	# 标识: 英雄
+	HERO = 1 << 3,
 	# 标识: 防御塔
 	TOWER = 1 << 4,
 	# 标识: 状态效果
@@ -429,28 +429,6 @@ const GROUP_AURAS: StringName = &"auras"
 ## 组名: 子弹
 const GROUP_BULLETS: StringName = &"bullets"
 #endregion
-
-
-## 根据标识分到哪组的字典
-const FLAG_TO_GROUP: Dictionary[Flag, StringName] = {
-	Flag.ENEMY: C.GROUP_ENEMIES,
-	Flag.FRIENDLY: C.GROUP_FRIENDLYS,
-	Flag.UNIT: C.GROUP_UNIT,
-	Flag.TOWER: C.GROUP_TOWERS,
-	Flag.MODIFIER: C.GROUP_MODIFIERS,
-	Flag.AURA: C.GROUP_AURAS,
-}
-
-
-## 根据标识分到哪组的字典键
-const FLAG_TO_GROUP_KEYS: Array[Flag] = [
-	Flag.ENEMY,
-	Flag.FRIENDLY,
-	Flag.UNIT,
-	Flag.TOWER,
-	Flag.MODIFIER,
-	Flag.AURA,
-]
 
 
 #region 关卡相关常量

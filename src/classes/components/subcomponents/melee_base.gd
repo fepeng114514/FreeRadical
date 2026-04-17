@@ -27,12 +27,9 @@ class_name MeleeBase
 ## 最大伤害
 @export var damage_max: float = 25
 ## 伤害类型
-@export var damage_type: C.DamageType = C.DamageType.PHYSICAL
+@export var damage_type: int = C.DamageType.PHYSICAL
 ## 伤害标识
-@export var damage_flags: Array[C.DamageFlag] = []:
-	set(value):
-		damage_flags = value
-		damage_flag_bits = U.merge_flags(damage_flags)
+@export var damage_flags: int = 0
 ## 最小伤害半径
 @export var damage_min_radius: float = 0
 ## 最大伤害半径
@@ -48,8 +45,6 @@ class_name MeleeBase
 ## 是否可以伤害重复敌人
 @export var can_damage_same: bool = false
 
-## 二进制的伤害标识
-var damage_flag_bits: int = 0
 ## 伤害过的实体 ID 列表
 var damaged_entity_ids: Array[int] = []
 
@@ -58,3 +53,11 @@ func _ready() -> void:
 	if animation == null:
 		animation = AnimationData.new()
 		animation.left_right = "melee_left_right"
+
+
+func _validate_property(property: Dictionary) -> void:
+	match property.name:
+		"damage_type":
+			property.hint_string = "mask_enum:DamageType"
+		"damage_flags":
+			property.hint_string = "mask_enum:DamageFlag"

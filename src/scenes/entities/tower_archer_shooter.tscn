@@ -29,7 +29,6 @@ components = {
 }
 scene_name = "tower_archer_shooter"
 idle_animation = SubResource("Resource_e0w6f")
-flags = Array[int]([4])
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=650442870]
@@ -51,4 +50,6 @@ animation = SubResource("Resource_6rlp0")
 bullet = "tower_archer_bullet"
 bullet_offsets = SubResource("Resource_367kr")
 delay = 0.133
+flags = Array[int]([])
+bans = Array[int]([])
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

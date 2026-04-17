@@ -6,7 +6,12 @@ class_name Entity
 ## 游戏中所有具有行为和属性的对象都可以被表示为实体，例如: 敌人、友军、塔、子弹、状态效果等。 
 ## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
 
+
 #region 属性
+## 拥有的所有组件节点引用
+@export var components: Dictionary[StringName, Node] = {}
+## 实体场景名称
+@export var scene_name: String = ""
 ## 持续时间
 @export var duration: float = C.UNSET
 ## 是否追踪 source 实体
@@ -31,40 +36,14 @@ class_name Entity
 ## 黑名单实体场景名称
 @export var blacklist: Array[String] = []
 ## 实体标识
-@export var flags: Array[C.Flag] = []:
-	set(value): 
-		flags = value
-		flag_bits = U.merge_flags(value)
+@export var flags: int = 0
 ## 禁止的实体的标识
-@export var bans: Array[C.Flag] = []:
-	set(value): 
-		bans = value
-		ban_bits = U.merge_flags(value)
+@export var bans: int = 0
 ## 禁止的状态效果类型标识
-@export var mod_type_bans: Array[C.ModType] = []:
-	set(value): 
-		mod_type_bans = value
-		mod_type_ban_bits = U.merge_flags(value)
+@export var mod_type_bans: int = 0
 ## 禁止的光环类型标识
-@export var aura_type_bans: Array[C.ModType] = []:
-	set(value):
-		aura_type_bans = value
-		aura_type_ban_bits = U.merge_flags(value)
-## 禁止的状态效果标识
-@export var mod_bans: Array[C.Flag] = []:
-	set(value): 
-		mod_bans = value
-		mod_ban_bits = U.merge_flags(value)
-## 禁止的光环标识
-@export var aura_bans: Array[C.Flag] = []:
-	set(value): 
-		aura_bans = value
-		aura_ban_bits = U.merge_flags(value)
+@export var aura_type_bans: int = 0
 
-## 拥有的所有组件节点引用
-var components: Dictionary[StringName, Node] = {}
-## 实体场景名称
-var scene_name: String = ""
 ## 实体唯一 ID
 var id: int = C.UNSET
 ## 是否是子实体
@@ -77,18 +56,6 @@ var insert_ts: float = 0
 var ts: float = 0
 ## 目标实体 ID
 var target_id: int = C.UNSET
-## 二进制的禁止的实体标识符
-var ban_bits: int = 0
-## 二进制的实体标识符
-var flag_bits: int = 0
-## 二进制的禁止的状态效果标识
-var mod_ban_bits: int = 0
-## 二进制的禁止的状态效果类型标识
-var mod_type_ban_bits: int = 0
-## 二进制的禁止的光环标识
-var aura_ban_bits: int = 0
-## 二进制的禁止的光环类型标识
-var aura_type_ban_bits: int = 0
 ## 拥有的状态效果 ID 列表
 var has_mods_ids: Array[int] = []
 ## 拥有的光环 ID 列表
@@ -112,6 +79,50 @@ var _waiting: bool = false
 #endregion
 
 
+func _ready() -> void:
+	if idle_animation == null:
+		idle_animation = AnimationData.new()
+		idle_animation.left_right = "idle_left_right"
+		
+	scene_name = scene_file_path.get_file().get_basename()
+
+	for child: Node in get_children():
+		var node_script: GDScript = child.get_script()
+		if not node_script:
+			continue
+		
+		var node_class: String = node_script.get_global_name()
+		if not node_class.find("Component"):
+			continue
+			
+		components[node_class] = child
+		
+
+func _validate_property(property: Dictionary):
+	match property.name:
+		"flags":
+			property.hint_string = "mask_enum:Flag"
+		"bans":
+			property.hint_string = "mask_enum:Flag"
+		"mod_type_bans":
+			property.hint_string = "mask_enum:ModType"
+		"aura_type_bans":
+			property.hint_string = "mask_enum:AuraType"
+
+
+
+func _draw() -> void:
+	if not Engine.is_editor_hint():
+		return
+		
+	draw_circle(
+		hit_offset, 
+		3,
+		Color(0.306, 0.914, 0.867, 1.0), 
+		true
+	)
+
+	
 #region 回调函数
 @warning_ignore_start("unused_parameter")
 ## 插入实体时调用，返回 false 的实体将会被移除
@@ -190,37 +201,6 @@ func _to_string():
 	return String(name)
 @warning_ignore_restore("unused_parameter")
 #endregion
-
-
-func _ready() -> void:
-	if idle_animation == null:
-		idle_animation = AnimationData.new()
-		idle_animation.left_right = "idle_left_right"
-		
-	scene_name = scene_file_path.get_file().get_basename()
-
-	for child: Node in get_children():
-		var node_script: GDScript = child.get_script()
-		if not node_script:
-			continue
-		
-		var node_class: String = node_script.get_global_name()
-		if not node_class.find("Component"):
-			continue
-			
-		components[node_class] = child
-
-
-func _draw() -> void:
-	if not Engine.is_editor_hint():
-		return
-		
-	draw_circle(
-		hit_offset, 
-		3,
-		Color(0.306, 0.914, 0.867, 1.0), 
-		true
-	)
 
 
 ## 将实体增加到插入队列
@@ -475,10 +455,10 @@ func wait_animation(
 	if animation.is_group:
 		var sprite: AnimatedSprite2D = sprite_list[sprite_c.groups[play_idx][0]]
 		
-		for _i: int in range(times):
+		for _i: int in times:
 			await _wait_for_animation_loop(sprite)
 	else:
-		for _i: int in range(times):
+		for _i: int in times:
 			await _wait_for_animation_loop(sprite_list[play_idx])
 		
 	_waiting = false
@@ -494,7 +474,7 @@ func _wait_for_animation_loop(sprite: AnimatedSprite2D) -> void:
 		return
 	
 	# 等待剩余帧数
-	for i: int in range(frames_remaining):
+	for i: int in frames_remaining:
 		await sprite.frame_changed
 #endregion
 

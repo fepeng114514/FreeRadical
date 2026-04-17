@@ -8,7 +8,7 @@ extends Entity
 func _spawner() -> void:
 	var wave_list: Array[Wave] = wave_set.wave_list
 	
-	for wave_idx: int in range(wave_list.size()):
+	for wave_idx: int in wave_list.size():
 		var wave: Wave = wave_list[wave_idx]
 		wave_idx += 1
 		
@@ -37,7 +37,7 @@ func _spawn_batch_spawner(spawn_batch: WaveSpawnBatch) -> void:
 	var pathway_idx: int = spawn_batch.pathway_idx
 	
 	for spawn: WaveSpawn in spawn_batch.spawns:
-		for i: int in range(spawn.count):
+		for i: int in spawn.count:
 			var e: Entity = EntityMgr.create_entity(spawn.entity)
 			
 			var nav_path_c: NavPathComponent = e.get_c(C.CN_NAV_PATH)

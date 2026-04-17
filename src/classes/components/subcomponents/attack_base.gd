@@ -7,23 +7,21 @@ class_name Attackbase
 
 @export_group("Limit")
 ## 攻击标识
-@export var flags: Array[C.Flag] = []:
-	set(value): 
-		flags = value
-		flag_bits = U.merge_flags(value)
+@export var flags: int = 0
 ## 不可攻击的实体的标识
-@export var bans: Array[C.Flag] = []:
-	set(value): 
-		bans = value
-		ban_bits = U.merge_flags(value)
+@export var bans: int = 0
 ## 可攻击的实体场景名称
 @export var whitelist: Array[String] = []
 ## 不可以攻击的实体场景名称
 @export var blacklist: Array[String] = []
 
-## 二进制的攻击标识
-var flag_bits: int = 0
-## 二进制的不可攻击的实体的标识
-var ban_bits: int = 0
 ## 时间戳
 var ts: float = 0
+
+
+func _validate_property(property: Dictionary) -> void:
+	match property.name:
+		"flags":
+			property.hint_string = "mask_enum:Flag"
+		"bans":
+			property.hint_string = "mask_enum:Flag"

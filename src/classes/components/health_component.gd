@@ -27,10 +27,7 @@ class_name HealthComponent
 ## 对伤害来源的反伤
 @export var spiked: float = C.UNSET
 ## 免疫的伤害类型
-@export var immuned: Array[C.Flag] = []:
-	set(value): 
-		immuned = value
-		immuned_bits = U.merge_flags(value)
+@export var immuned: int = 0
 
 @export_group("Debuff")
 ## 易伤
@@ -51,14 +48,20 @@ var hp: float = 0:
 	set(value):
 		hp = value
 		health_bar.value = get_hp_percent()
-## 二进制的免疫的伤害类型
-var immuned_bits: int = 0
 
 
 ## 血条节点引用
 @onready var health_bar: TextureProgressBar = get_node_or_null("HealthBar")
 	
 
+func _validate_property(property: Dictionary):
+	match property.name:
+		"immuned":
+			property.hint_string = "mask_enum:DamageType"
+
+
 ## 获取当前血量百分比
 func get_hp_percent() -> float:
 	return float(hp) / float(hp_max) * 100
+
+

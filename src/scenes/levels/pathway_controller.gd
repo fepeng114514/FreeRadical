@@ -10,7 +10,7 @@ func _ready() -> void:
 	var all_node_list_size: int = all_node_list.size()
 				
 	# 处理路径相交
-	for i: int in range(all_node_list_size):
+	for i: int in all_node_list_size:
 		if i >= all_node_list_size - 1:
 			continue
 		

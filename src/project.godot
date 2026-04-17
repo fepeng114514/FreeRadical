@@ -51,7 +51,7 @@ LevelMgr="*res://autoloads/managers/level_manager.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/wave_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/mask_check/plugin.cfg")
 
 [file_customization]
 

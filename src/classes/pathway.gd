@@ -21,7 +21,7 @@ func _ready() -> void:
 	
 	var half_total_spacing: float = subpathway_count * spacing / 2
 
-	for i: int in range(subpathway_count):
+	for i: int in subpathway_count:
 		var subpathway := Subpathway.new()
 		subpathway.spacing = half_total_spacing - (spacing * i)
 		subpathway.parent_pathway = self

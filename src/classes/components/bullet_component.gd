@@ -18,33 +18,6 @@ class_name BulletComponent
 ## 是否禁用预判目标位置
 @export var disabled_predict_pos: bool = false
 
-@export_group("Damage")
-## 子弹最小伤害
-@export var damage_min: float = 0
-## 子弹最大伤害
-@export var damage_max: float = 0
-## 伤害类型
-@export var damage_type: C.DamageType = C.DamageType.PHYSICAL
-## 伤害标识
-@export var damage_flags: Array[C.DamageFlag] = []:
-	set(value):
-		damage_flags = value
-		damage_flag_bits = U.merge_flags(damage_flags)
-## 最小伤害半径
-@export var damage_min_radius: float = 0
-## 最大伤害半径
-@export var damage_max_radius: float = 0
-## 最大伤害数量
-@export var damage_max_count: int = C.UNSET
-## 范围伤害的搜索模式
-@export var damage_search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
-## 范围伤害是否随距离衰减
-@export var damage_falloff_enabled: bool = false
-## 范围伤害的圆心偏移
-@export var damage_offset := Vector2.ZERO
-## 是否可以伤害重复敌人
-@export var can_damage_same: bool = false
-
 @export_group("Rotation")
 ## 子弹旋转速度（弧度）
 @export var rotation_speed: float = 0
@@ -83,8 +56,28 @@ class_name BulletComponent
 ## 未击中音效数据
 @export var miss_sfx: AudioData = null
 
-## 二进制的伤害标识
-var damage_flag_bits: int = 0
+## 子弹最小伤害
+var damage_min: float = 0
+## 子弹最大伤害
+var damage_max: float = 0
+## 伤害类型
+var damage_type: int = C.DamageType.PHYSICAL
+## 伤害标识
+var damage_flags: int = 0
+## 最小伤害半径
+var damage_min_radius: float = 0
+## 最大伤害半径
+var damage_max_radius: float = 0
+## 最大伤害数量
+var damage_max_count: int = C.UNSET
+## 范围伤害的圆心偏移
+var damage_offset := Vector2.ZERO
+## 是否可以伤害重复敌人
+var can_damage_same: bool = false
+## 范围伤害的搜索模式
+var damage_search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
+## 范围伤害是否随距离衰减
+var damage_falloff_enabled: bool = false
 ## 起始位置
 var from := Vector2.ZERO
 ## 目标位置
@@ -97,3 +90,9 @@ var velocity := Vector2.ZERO
 var predict_target_pos := Vector2.ZERO
 ## 伤害过的实体 ID 列表
 var damaged_entity_ids: Array[int] = []
+
+
+func _validate_property(property: Dictionary):
+	match property.name:
+		"damage_type":
+			property.hint_string = "mask_enum:DamageType"

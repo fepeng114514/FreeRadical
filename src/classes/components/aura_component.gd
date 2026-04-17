@@ -6,10 +6,7 @@ class_name AuraComponent
 
 
 ## 光环类型
-@export var aura_type: Array[C.ModType] = []:
-	set(value): 
-		aura_type = value
-		aura_type_bits = U.merge_flags(value)
+@export var aura_type: int = 0
 ## 最小范围
 @export var min_radius: float = 0
 ## 最大范围
@@ -31,12 +28,9 @@ class_name AuraComponent
 ## 最大伤害
 @export var damage_max: float = 0
 ## 伤害类型
-@export var damage_type: C.DamageType = C.DamageType.TRUE
+@export var damage_type: int = C.DamageType.TRUE
 ## 伤害标识
-@export var damage_flags: Array[C.DamageFlag] = []:
-	set(value):
-		damage_flags = value
-		damage_flag_bits = U.merge_flags(damage_flags)
+@export var damage_flags: int = 0
 
 @export_group("Same Process")
 ## 是否允许相同光环叠加
@@ -50,11 +44,17 @@ class_name AuraComponent
 ## 是否移除被禁止的光环
 @export var remove_banned: bool = true
 
-## 二进制的光环类型
-var aura_type_bits: int = 0
-## 二进制的伤害标识
-var damage_flag_bits: int = 0
 ## 当前周期数
 var curren_cycle: int = 0
 ## 时间戳
 var ts: float = 0
+
+
+func _validate_property(property: Dictionary):
+	match property.name:
+		"damage_type":
+			property.hint_string = "mask_enum:DamageType"
+		"damage_flags":
+			property.hint_string = "mask_enum:DamageFlag"
+		"aura_type":
+			property.hint_string = "mask_enum:AuraType"

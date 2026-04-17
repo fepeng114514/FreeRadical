@@ -57,8 +57,8 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 			e.global_position,
 			melee_c.block_max_range,
 			melee_c.block_min_range,
-			melee_c.block_flag_bits,
-			melee_c.block_ban_bits
+			melee_c.block_flags,
+			melee_c.block_bans
 		)
 		
 		if pending_blockeds:
@@ -225,8 +225,8 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 				e.global_position + a.damage_offset, 
 				a.damage_max_radius, 
 				a.damage_min_radius, 
-				e.flag_bits, 
-				e.ban_bits,
+				e.flags, 
+				e.bans,
 				func(t: Entity) -> bool:
 					return a.can_damage_same or t.id not in a.damaged_entity_ids
 			)
@@ -239,7 +239,7 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 		var damage_max_count: int = a.damage_max_count
 		var e_id: int = e.id
 		
-		for i: int in range(targets.size()):
+		for i: int in targets.size():
 			if U.is_valid_number(damage_max_count) and i > damage_max_count:
 				break
 				
@@ -252,7 +252,7 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 			d.source_name = e.name
 			d.value = d.get_random_value(a.damage_min, a.damage_max)
 			d.damage_type = a.damage_type
-			d.damage_flags = a.damage_flag_bits
+			d.damage_flags = a.damage_flags
 			if is_range_damage and a.damage_falloff_enabled:
 				d.damage_factor = U.dist_factor_inside_radius(
 					e.global_position, 

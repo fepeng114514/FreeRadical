@@ -56,7 +56,7 @@ components = {
 scene_name = "enemy_goblin"
 idle_animation = SubResource("Resource_58mnm")
 hit_offset = Vector2(0, -14.81)
-flags = Array[int]([1])
+flags = 1
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1028021225]

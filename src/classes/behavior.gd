@@ -30,6 +30,6 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void: pass
 static func can_attack(a: Variant, target: Entity) -> bool:
 	return (
 		target 
-		and not U.is_mutual_ban(target.flag_bits, a.ban_bits, a.flag_bits, target.ban_bits)
+		and not U.is_mutual_ban(target.flags, a.bans, a.flags, target.bans)
 		and U.is_allowed_entity(a, target)
 	)

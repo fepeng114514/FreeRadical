@@ -24,7 +24,7 @@ func _on_update(_delta: float) -> void:
 		var source: Entity = EntityMgr.get_entity_by_id(d.source_id)
 		var source_name: StringName = d.source_name
 		
-		if d.damage_type & health_c.immuned_bits:
+		if d.damage_type & health_c.immuned:
 			continue
 			
 		var actual_damage: float = _predict_damage(

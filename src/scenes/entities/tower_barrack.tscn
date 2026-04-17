@@ -16,6 +16,10 @@
 script = ExtResource("2_5r4pg")
 left_right = &"idle_left_right"
 
+[sub_resource type="Resource" id="Resource_xe47h"]
+script = ExtResource("2_5r4pg")
+left_right = &"spawn"
+
 [sub_resource type="Resource" id="Resource_golfi"]
 script = ExtResource("11_72u4m")
 list = Array[ExtResource("8_xe47h")]([ExtResource("9_6bfoh"), ExtResource("10_513mk")])
@@ -27,6 +31,7 @@ size = Vector2(110, 98)
 [node name="TowerBarrack" type="Node2D" unique_id=187367710]
 script = ExtResource("1_xe47h")
 idle_animation = SubResource("Resource_6bfoh")
+flags = 16
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=129744030]
@@ -41,6 +46,7 @@ texture = ExtResource("3_bfdgq")
 script = ExtResource("4_u6jgq")
 rally_radius = 60.0
 soldier = "tower_barrack_soldier"
+animation = SubResource("Resource_xe47h")
 metadata/_custom_type_script = "uid://b3vhika61oa7p"
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1500102198]
