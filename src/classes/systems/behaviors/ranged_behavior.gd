@@ -94,7 +94,12 @@ func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
 	e.play_animation_by_look(e.idle_animation)
 
 
-func spawn_bullets(a: RangedBase, e: Entity, target: Entity, direction: C.Direction) -> void:
+func spawn_bullets(
+		a: RangedBase, 
+		e: Entity, 
+		target: Entity, 
+		direction: C.Direction,
+	) -> void:
 	var e_to_target_angle: float = e.global_position.angle_to_point(target.global_position)
 	var bullet_count: int = a.bullet_count
 	var bullet_angle_range: float = a.bullet_angle_range
@@ -117,5 +122,18 @@ func spawn_bullets(a: RangedBase, e: Entity, target: Entity, direction: C.Direct
 				rotation = e_to_target_angle + random_angle
 		b.rotation = rotation
 		b.global_position = e.global_position + a.bullet_offsets.get_offset_by_direction(direction)
+
+		var b_bullet_c: BulletComponent = b.get_c(C.CN_BULLET)
+		b_bullet_c.damage_min = a.damage_min
+		b_bullet_c.damage_max = a.damage_max
+		b_bullet_c.damage_type = a.damage_type
+		b_bullet_c.damage_flags = a.damage_flags
+		b_bullet_c.damage_min_radius = a.damage_min_radius
+		b_bullet_c.damage_max_radius = a.damage_max_radius
+		b_bullet_c.damage_max_count = a.damage_max_count
+		b_bullet_c.damage_offset = a.damage_offset
+		b_bullet_c.can_damage_same = a.can_damage_same
+		b_bullet_c.damage_search_mode = a.damage_search_mode
+		b_bullet_c.damage_falloff_enabled = a.damage_falloff_enabled
 
 		b.insert_entity()

@@ -58,4 +58,7 @@ bullet_offsets = SubResource("Resource_45avb")
 bullet_spawn_mode = 350
 delay = 0.3
 with_melee = true
+damage_min = 30.0
+damage_max = 80.0
+damage_type = 2
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

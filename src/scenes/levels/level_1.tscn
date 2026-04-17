@@ -30,7 +30,6 @@
 [ext_resource type="Script" uid="uid://cbwfqyuju4hpn" path="res://classes/systems/fx_system.gd" id="15_bccrp"]
 [ext_resource type="Script" uid="uid://7jx5jvy2sm5c" path="res://classes/systems/behavior_system.gd" id="16_20f45"]
 [ext_resource type="Script" uid="uid://balgrru65agvq" path="res://classes/systems/behaviors/rally_behavior.gd" id="17_6bay7"]
-[ext_resource type="PackedScene" uid="uid://fx352ubic8aw" path="res://scenes/entities/tower_artillery.tscn" id="17_v6ha0"]
 [ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://classes/systems/behaviors/barrack_behavior.gd" id="18_to6s4"]
 [ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://classes/systems/behaviors/melee_behavior.gd" id="19_7tcdn"]
 [ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://classes/systems/behaviors/ranged_behavior.gd" id="20_4gp5p"]
@@ -40,7 +39,6 @@
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behaviors/spawner_behavior.gd" id="22_yhfkw"]
 [ext_resource type="PackedScene" uid="uid://b7grxp4wq0api" path="res://scenes/ui/world_control.tscn" id="23_mqh5v"]
 [ext_resource type="Script" uid="uid://xe8e38fn85ws" path="res://scenes/levels/wave_flag_controller.gd" id="24_7o3do"]
-[ext_resource type="PackedScene" uid="uid://wc2518mmc5jt" path="res://scenes/entities/tower_mage.tscn" id="37_svqqs"]
 
 [sub_resource type="Resource" id="Resource_7h2jl"]
 script = ExtResource("2_gmpev")
@@ -78,10 +76,6 @@ metadata/_custom_type_script = "uid://okpyko8fvmx4"
 
 [sub_resource type="Resource" id="Resource_gmpev"]
 script = ExtResource("14_np2pn")
-
-[sub_resource type="Resource" id="Resource_svqqs"]
-script = ExtResource("14_np2pn")
-left_right = &"idle_left_right"
 
 [node name="Level1" type="Node2D" unique_id=1565788906]
 script = ExtResource("1_x42e6")
@@ -191,20 +185,12 @@ script = ExtResource("4_oc4kc")
 
 [node name="WaveSpawner" parent="World" unique_id=1677388100 node_paths=PackedStringArray("components") instance=ExtResource("4_dga24")]
 wave_set = SubResource("Resource_bahl2")
-components = {}
+components = {
+&"SpawnerComponent": NodePath("SpawnerComponent")
+}
 scene_name = "wave_spawner"
-duration = Dictionary[StringName, Node]({
-&"SpawnerComponent": Object(Node,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","script":Resource("res://classes/components/spawner_component.gd"),"spawner_name":"","metadata/_custom_type_script":"uid://db67y0qigop4w")
-
-})
-track_source = "wave_spawner"
 track_target = true
 idle_animation = SubResource("Resource_gmpev")
-spawn_animation = false
-spawn_sfx = SubResource("Resource_svqqs")
-hit_offset = null
-whitelist = Vector2(0, 0)
-blacklist = null
 
 [node name="TowerArcher" parent="World" unique_id=1010851235 node_paths=PackedStringArray("components") instance=ExtResource("20_mqh5v")]
 position = Vector2(1344, 784)
@@ -213,26 +199,6 @@ components = {
 &"TowerComponent": NodePath("TowerComponent"),
 &"UIComponent": NodePath("UIComponent")
 }
-scene_name = "tower_archer"
-
-[node name="TowerArtillery" parent="World" unique_id=1600363506 node_paths=PackedStringArray("components") instance=ExtResource("17_v6ha0")]
-position = Vector2(1144, 912)
-components = {
-&"RangedComponent": NodePath("RangedComponent"),
-&"SpriteComponent": NodePath("SpriteComponent"),
-&"TowerComponent": NodePath("TowerComponent"),
-&"UIComponent": NodePath("UIComponent")
-}
-scene_name = "tower_artillery"
-
-[node name="TowerMage" parent="World" unique_id=88348674 node_paths=PackedStringArray("components") instance=ExtResource("37_svqqs")]
-position = Vector2(1064, 648)
-components = {
-&"SpriteComponent": NodePath("SpriteComponent"),
-&"TowerComponent": NodePath("TowerComponent"),
-&"UIComponent": NodePath("UIComponent")
-}
-scene_name = "tower_mage"
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1218244006]
 position_smoothing_enabled = true

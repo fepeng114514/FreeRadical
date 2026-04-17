@@ -402,10 +402,7 @@ func play_animation_by_look(
 		sprite_idxs = sprite_c.groups[play_idx]
 	else:
 		sprite_idxs = [play_idx]
-	if animation.get_animation_name_for_point(
-		self, look_point
-	)[0] == "":
-		print()
+
 	var facing_data: Array = animation.get_animation_name_for_point(
 		self, look_point
 	)

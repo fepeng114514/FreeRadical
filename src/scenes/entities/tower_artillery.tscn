@@ -42,8 +42,15 @@ metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6mm4d"]
 size = Vector2(174, 100)
 
-[node name="TowerArtillery" type="Node2D" unique_id=1600363506]
+[node name="TowerArtillery" type="Node2D" unique_id=1600363506 node_paths=PackedStringArray("components")]
 script = ExtResource("1_xqrgu")
+components = {
+&"RangedComponent": NodePath("RangedComponent"),
+&"SpriteComponent": NodePath("SpriteComponent"),
+&"TowerComponent": NodePath("TowerComponent"),
+&"UIComponent": NodePath("UIComponent")
+}
+scene_name = "tower_artillery"
 idle_animation = SubResource("Resource_l80ei")
 flags = 16
 metadata/_custom_type_script = "uid://dnp44u8703gud"
@@ -96,6 +103,11 @@ cooldown = 2.0
 bullet = "tower_artillery_bullet"
 bullet_offsets = SubResource("Resource_5et4c")
 delay = 0.466
+damage_min = 25.0
+damage_max = 60.0
+damage_type = 4
+damage_max_radius = 150.0
+damage_falloff_enabled = true
 metadata/_custom_type_script = "uid://covaxdshxnvkn"
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1082899974]
