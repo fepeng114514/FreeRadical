@@ -15,9 +15,6 @@
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/subcomponents/ranged_attack.gd" id="14_n4ua5"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="15_n4ua5"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/resources/data/offset_data.gd" id="15_v8ksx"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="16_l5gms"]
-[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="17_16136"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="18_w632u"]
 
 [sub_resource type="Resource" id="Resource_l80ei"]
 script = ExtResource("2_snldt")
@@ -33,14 +30,6 @@ any = &"ranged"
 script = ExtResource("15_v8ksx")
 any = Vector2(0, -70.05)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
-
-[sub_resource type="Resource" id="Resource_add2j"]
-script = ExtResource("18_w632u")
-list = Array[ExtResource("16_l5gms")]([ExtResource("17_16136")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6mm4d"]
-size = Vector2(174, 100)
 
 [node name="TowerArtillery" type="Node2D" unique_id=1600363506 node_paths=PackedStringArray("components")]
 script = ExtResource("1_xqrgu")
@@ -115,12 +104,7 @@ script = ExtResource("15_n4ua5")
 tower_type = 4
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
-[node name="UIComponent" type="Area2D" parent="." unique_id=228388563]
+[node name="UIComponent" type="Node2D" parent="." unique_id=1421282705]
 script = ExtResource("12_mbgfo")
-info_bar_type = 2
-select_menu_data = SubResource("Resource_add2j")
+select_rect = Rect2(-84.655, -74.755, 165.455, 95.125)
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UIComponent" unique_id=553853117]
-position = Vector2(-2, -24)
-shape = SubResource("RectangleShape2D_6mm4d")

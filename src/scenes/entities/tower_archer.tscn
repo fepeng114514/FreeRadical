@@ -21,15 +21,12 @@ script = ExtResource("11_a42kk")
 list = Array[ExtResource("9_auhbk")]([ExtResource("10_nv2ef")])
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_og8n7"]
-size = Vector2(110, 138)
-
 [node name="TowerArcher" type="Node2D" unique_id=1010851235 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0v2wj")
 components = {
 &"SpriteComponent": NodePath("SpriteComponent"),
 &"TowerComponent": NodePath("TowerComponent"),
-&"UIComponent": NodePath("UIComponent")
+&"UIComponent": NodePath("")
 }
 scene_name = "tower_archer"
 idle_animation = SubResource("Resource_bgr08")
@@ -77,12 +74,9 @@ components = {
 &"SpriteComponent": NodePath("SpriteComponent")
 }
 
-[node name="UIComponent" type="Area2D" parent="." unique_id=859141054]
+[node name="UIComponent" type="Node2D" parent="." unique_id=602361207]
 script = ExtResource("3_4ig6i")
+select_rect = Rect2(-51.29, -110.47, 95.585, 135.73)
 info_bar_type = 2
 select_menu_data = SubResource("Resource_mcjsd")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UIComponent" unique_id=1642657444]
-position = Vector2(-1, -43)
-shape = SubResource("RectangleShape2D_og8n7")

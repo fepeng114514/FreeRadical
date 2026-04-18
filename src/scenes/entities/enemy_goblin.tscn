@@ -41,9 +41,6 @@ left_right = &"walk_left_right"
 script = ExtResource("2_58mnm")
 left_right = &"melee_left_right"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gxn0"]
-size = Vector2(29, 36)
-
 [node name="EnemyGoblin" type="Node2D" unique_id=71433118 node_paths=PackedStringArray("components")]
 script = ExtResource("1_0ncad")
 components = {
@@ -98,11 +95,7 @@ animation = SubResource("Resource_m3i2n")
 delay = 0.3
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
-[node name="UIComponent" type="Area2D" parent="." unique_id=1258129348]
+[node name="UIComponent" type="Node2D" parent="." unique_id=673866706]
 script = ExtResource("6_ijmwd")
-info_bar_type = 1
+select_rect = Rect2(-16.21, -32.025, 32, 32)
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UIComponent" unique_id=615561450]
-position = Vector2(0.5, -16)
-shape = SubResource("RectangleShape2D_4gxn0")

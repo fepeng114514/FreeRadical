@@ -7,10 +7,6 @@
 [ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="4_u6jgq"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="5_a0xnb"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="7_u6jgq"]
-[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/resources/select_menu/select_menu_item_data.gd" id="8_xe47h"]
-[ext_resource type="Resource" uid="uid://cybduk6ftr3f0" path="res://resources/select_menu/select_menu_item_sell.tres" id="9_6bfoh"]
-[ext_resource type="Resource" uid="uid://cu12xalwranel" path="res://resources/select_menu/select_menu_item_rally.tres" id="10_513mk"]
-[ext_resource type="Script" uid="uid://blv3x62ywpu2v" path="res://classes/resources/select_menu/select_menu_data.gd" id="11_72u4m"]
 
 [sub_resource type="Resource" id="Resource_6bfoh"]
 script = ExtResource("2_5r4pg")
@@ -19,14 +15,6 @@ left_right = &"idle_left_right"
 [sub_resource type="Resource" id="Resource_xe47h"]
 script = ExtResource("2_5r4pg")
 left_right = &"spawn"
-
-[sub_resource type="Resource" id="Resource_golfi"]
-script = ExtResource("11_72u4m")
-list = Array[ExtResource("8_xe47h")]([ExtResource("9_6bfoh"), ExtResource("10_513mk")])
-metadata/_custom_type_script = "uid://blv3x62ywpu2v"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6jgq"]
-size = Vector2(110, 98)
 
 [node name="TowerBarrack" type="Node2D" unique_id=187367710 node_paths=PackedStringArray("components")]
 script = ExtResource("1_xe47h")
@@ -61,12 +49,7 @@ script = ExtResource("7_u6jgq")
 tower_type = 2
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
-[node name="UIComponent" type="Area2D" parent="." unique_id=1132451114]
+[node name="UIComponent" type="Node2D" parent="." unique_id=1576569462]
 script = ExtResource("5_a0xnb")
-info_bar_type = 2
-select_menu_data = SubResource("Resource_golfi")
+select_rect = Rect2(-55.715, -82, 107.405, 102.935)
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UIComponent" unique_id=1226387162]
-position = Vector2(-1, -32)
-shape = SubResource("RectangleShape2D_u6jgq")

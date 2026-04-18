@@ -66,7 +66,7 @@ func _on_update(_delta: float) -> void:
 		var x: int = floori(e_global_position.x / _space_index_grid_size)
 		var y: int = floori(e_global_position.y / _space_index_grid_size)
 
-		if x > _space_index_grids.size():
+		if x > _space_index_grid_size:
 			continue
 
 		var grid_col: Dictionary = _space_index_grids[x]
