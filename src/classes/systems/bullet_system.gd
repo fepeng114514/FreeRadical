@@ -46,7 +46,7 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(delta: float) -> void:
 	var entity_list: Array = EntityMgr.get_entities_group(C.CN_BULLET).filter(
 		func(e: Entity) -> bool:
-			return not e.is_waiting() and not e.removed
+			return not e.is_waiting() and not e.state & C.State.REMOVED
 	)
 
 	for e: Entity in entity_list:

@@ -70,7 +70,7 @@ func _process_remove_queue() -> void:
 		# 调用所有系统中的移除回调函数，遇到一个返回 false 的系统表示当前实体不能移除，中断并保留当前实体
 		if not call_systems("_on_remove", e):
 			e.visible = true
-			e.removed = false
+			e.state &= ~C.State.REMOVED
 			continue
 			
 		e.free()

@@ -58,24 +58,18 @@ var target_id: int = C.UNSET
 var has_mods_ids: Array[int] = []
 ## 拥有的光环 ID 列表
 var has_auras_ids: Array[int] = []
-## 锁定状态
-var blocking: bool = false
 ## 是否被点击选择
 var selected: bool = false
-## 移除状态，表示实体正在被移除
-var removed: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
 ## 状态
-var state := C.State.IDLE
+var state: int = C.State.IDLE
 ## 看向的点
 var look_point := Vector2.INF
 ## 是否是首次更新
 var is_first_update: bool = true
 ## 拥有的所有组件节点引用
 var components: Dictionary[StringName, Node] = {}
-## 等待状态
-var _waiting: bool = false
 #endregion
 
 
@@ -212,7 +206,7 @@ func insert_entity() -> void:
 ## 将实体增加到移除队列
 func remove_entity() -> void:
 	visible = false
-	removed = true
+	state |= C.State.REMOVED
 	SystemMgr.remove_queue.append(self)
 	Log.debug("移除实体: %s" % self)
 	
@@ -431,7 +425,7 @@ func wait_animation(
 	var play_idx: int = animation.play_idx
 	var times: int = animation.times
 
-	_waiting = true
+	state |= C.State.WAITING
 
 	if animation.is_group:
 		var sprite := sprite_c.group_list[play_idx].get_children()[0] as AnimatedSprite2D
@@ -442,7 +436,7 @@ func wait_animation(
 		for _i: int in times:
 			await _wait_for_animation_loop(sprite_list[play_idx])
 		
-	_waiting = false
+	state &= ~C.State.WAITING
 
 
 func _wait_for_animation_loop(sprite: AnimatedSprite2D) -> void:
@@ -464,12 +458,14 @@ func _wait_for_animation_loop(sprite: AnimatedSprite2D) -> void:
 ##
 ## break_fn 返回 true 表示中断等待
 func y_wait(time: float = 0, break_fn: Callable = Callable()) -> void:
-	_waiting = true
+	state |= C.State.WAITING
+
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
 	await TimeMgr.y_wait(time, break_fn)
 	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
-	_waiting = false
+
+	state &= ~C.State.WAITING
 
 
 func is_waiting() -> bool:
-	return _waiting or blocking
+	return state & (C.State.BLOCK | C.State.WAITING | C.State.DISABLED)

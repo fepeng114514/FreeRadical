@@ -532,7 +532,7 @@ static func get_component_name(node_name: String) -> String:
 
 ## 判断实体是否有效
 static func is_valid_entity(e) -> bool:
-	return e and is_instance_valid(e) and not e.removed
+	return e and is_instance_valid(e) and not e.state & C.State.REMOVED
 
 
 ## 判断实体是否被黑名单或白名单禁止

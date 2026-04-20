@@ -261,10 +261,14 @@ enum State {
 	BLOCK = 1 << 3,
 	## 状态: 前往集结点
 	RALLY = 1 << 4,
-	## 状态: 生成
-	SPAWN = 1 << 5,
 	## 状态：在路径上移动
-	NAV_PATH_WALK = 1 << 6,
+	NAV_PATH_WALK = 1 << 5,
+	## 状态：等待
+	WAITING = 1 << 6,
+	## 状态：禁止
+	DISABLED = 1 << 7,
+	## 状态：移除
+	REMOVED = 1 << 8,
 }
 
 

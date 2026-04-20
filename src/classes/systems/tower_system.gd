@@ -81,10 +81,10 @@ func _on_update(_delta: float) -> void:
 			var curren_e: Entity = tower_c.list[group.attack_entity_idx]
 			for sub_e: Entity in group.get_children():
 				if sub_e != curren_e:
-					sub_e.blocking = true
+					sub_e.state |= C.State.DISABLED
 					continue
 					
-				sub_e.blocking = false
+				sub_e.state &= ~C.State.DISABLED
 				
 			group.last_attack_ts = TimeMgr.tick_ts
 		
