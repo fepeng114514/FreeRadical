@@ -32,6 +32,10 @@ run/main_scene="uid://nvbnnvwovpao"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="res://resources/default_bus_layout.tres"
+
 [autoload]
 
 AudioMgr="*uid://vs7lopahte38"

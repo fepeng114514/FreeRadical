@@ -6,7 +6,7 @@ class_name RangedBehavior
 
 
 func _on_update(e: Entity) -> bool:
-	var ranged_c: RangedComponent = e.get_child_node(C.CN_RANGED)
+	var ranged_c: RangedComponent = e.get_node_or_null(C.CN_RANGED)
 	if not ranged_c:
 		return false
 		
@@ -32,6 +32,8 @@ func _on_update(e: Entity) -> bool:
 			
 		if not can_attack(a, target):
 			continue
+			
+		ranged_c.is_first_attack = false
 		
 		if a is RangedAttack:
 			_do_single_attack(a, e, target)
@@ -123,7 +125,7 @@ func spawn_bullets(
 		b.rotation = rotation
 		b.global_position = e.global_position + a.bullet_offsets.get_offset_by_direction(direction)
 
-		var b_bullet_c: BulletComponent = b.get_child_node(C.CN_BULLET)
+		var b_bullet_c: BulletComponent = b.get_node_or_null(C.CN_BULLET)
 		b_bullet_c.damage_min = a.damage_min
 		b_bullet_c.damage_max = a.damage_max
 		b_bullet_c.damage_type = a.damage_type

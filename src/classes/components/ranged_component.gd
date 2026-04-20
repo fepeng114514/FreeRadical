@@ -7,6 +7,8 @@ class_name RangedComponent
 
 ## 远程攻击列表
 var list: Array[RangedBase] = []
+## 是否是首次攻击
+var is_first_attack: bool = true
 
 
 func _ready() -> void:

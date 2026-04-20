@@ -5,8 +5,6 @@ class_name TowerComponent
 
 ## 防御塔类型
 @export var tower_type: C.TowerType = C.TowerType.TOWER_HOLDE
-## 每个子实体进行远程攻击轮换的间隔
-@export var attack_loop_time: float = 0
 ## 显示范围的偏移
 @export var show_range_offset := Vector2.ZERO:
 	set(value):
@@ -19,23 +17,29 @@ class_name TowerComponent
 ## 出售比例（%）
 @export var sell_ratio: float = 0.5
 
+## 子实体组列表
+var group_list: Array[TowerSubentityGroup] = []
+## 所有子实体列表
+var list: Array[Entity] = []
 ## 总价格
 var total_price: float = price
 ## 升级目标
 var upgrade_to: String = ""
 ## 出售状态
 var is_sell: bool = false
-## 当前攻击的实体索引
-var attack_entity_idx: int = 0
 ## 时间戳
 var ts: float = 0
-## 子实体列表
-var list: Array[Entity] = []
 
 
 func _ready() -> void:
-	for child: Entity in get_children():
-		list.append(child)
+	for child: Node in get_children():
+		if child is TowerSubentityGroup:
+			for sub_e: Entity in child.get_children():
+				list.append(sub_e)
+			
+			group_list.append(child)
+		else:
+			list.append(child)
 
 
 func _draw() -> void:
@@ -52,12 +56,13 @@ func _draw() -> void:
 
 ## 清理 list 中已经不存在的实体
 func cleanup_list() -> void:
-	var new_list: Array[Entity] = []
-	
-	for sub_e in list:
-		if not U.is_valid_entity(sub_e):
-			continue 
-			
-		new_list.append(sub_e)
+	for i: int in list.size():
+		var new_list: Array[Entity] = []
 		
-	list = new_list
+		for sub_e: Entity in list:
+			if not U.is_valid_entity(sub_e):
+				continue 
+				
+			new_list.append(sub_e)
+		
+		list = new_list

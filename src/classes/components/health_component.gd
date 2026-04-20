@@ -63,5 +63,3 @@ func _validate_property(property: Dictionary):
 ## 获取当前血量百分比
 func get_hp_percent() -> float:
 	return float(hp) / float(hp_max) * 100
-
-

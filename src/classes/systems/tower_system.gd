@@ -6,8 +6,7 @@ class_name TowerSystem
 
 
 func _on_insert(e: Entity) -> bool:
-	var tower_c: TowerComponent = e.get_child_node(C.CN_TOWER)
-	
+	var tower_c: TowerComponent = e.get_node_or_null(C.CN_TOWER)
 	if not tower_c:
 		return true
 		
@@ -28,12 +27,12 @@ func _on_insert(e: Entity) -> bool:
 	
 func _on_update(_delta: float) -> void:
 	for e: Entity in EntityMgr.get_entities_group(C.CN_TOWER):
-		var tower_c: TowerComponent = e.get_child_node(C.CN_TOWER)
+		var tower_c: TowerComponent = e.get_node_or_null(C.CN_TOWER)
 		
 		# 处理防御塔升级
 		if tower_c.upgrade_to:
 			var new_tower: Entity = EntityMgr.create_entity(tower_c.upgrade_to)
-			var new_tower_c: TowerComponent = new_tower.get_child_node(C.CN_TOWER)
+			var new_tower_c: TowerComponent = new_tower.get_node_or_null(C.CN_TOWER)
 			
 			var price: float = new_tower_c.price
 			
@@ -50,7 +49,7 @@ func _on_update(_delta: float) -> void:
 			var tower_holder: Entity = EntityMgr.create_entity(
 				"tower_holder"
 			)
-			var holder_tower_c: TowerComponent = tower_holder.get_child_node(C.CN_TOWER)
+			var holder_tower_c: TowerComponent = tower_holder.get_node_or_null(C.CN_TOWER)
 			tower_holder.global_position = e.global_position
 			holder_tower_c.tower_holder_style = tower_c.tower_holder_style
 			
@@ -63,28 +62,29 @@ func _on_update(_delta: float) -> void:
 		
 		# 处理防御塔更新
 		tower_c.cleanup_list()
-		
-		var list: Array[Entity] = tower_c.list
-		if not list:
+		var group_list: Array = tower_c.group_list
+		if not group_list:
 			continue
 			
-		if tower_c.attack_loop_time == 0:
-			continue
-			
-		if not TimeMgr.is_ready_time(tower_c.ts, tower_c.attack_loop_time):
-			continue
-			
-		tower_c.attack_entity_idx += 1
-		if tower_c.attack_entity_idx >= list.size():
-			tower_c.attack_entity_idx = 0
-			
-		var curren_e: Entity = list[tower_c.attack_entity_idx]
-		for sub_e: Entity in list:
-			if sub_e != curren_e:
-				sub_e.blocking = true
+		for group: TowerSubentityGroup in group_list:
+			var attack_loop_time: float = group.attack_loop_time
+			if attack_loop_time == 0:
 				continue
 				
-			sub_e.blocking = false
-			
-		tower_c.ts = TimeMgr.tick_ts
+			if not TimeMgr.is_ready_time(group.last_attack_ts, attack_loop_time):
+				continue
+				
+			group.attack_entity_idx += 1
+			if group.attack_entity_idx >= group.get_child_count():
+				group.attack_entity_idx = 0
+				
+			var curren_e: Entity = tower_c.list[group.attack_entity_idx]
+			for sub_e: Entity in group.get_children():
+				if sub_e != curren_e:
+					sub_e.blocking = true
+					continue
+					
+				sub_e.blocking = false
+				
+			group.last_attack_ts = TimeMgr.tick_ts
 		

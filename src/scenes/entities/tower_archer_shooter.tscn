@@ -43,7 +43,6 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=1939030855]
 script = ExtResource("6_j0iry")
 animation = SubResource("Resource_6rlp0")
-cooldown = 0.7
 bullet = "tower_archer_bullet"
 bullet_offsets = SubResource("Resource_367kr")
 delay = 0.133

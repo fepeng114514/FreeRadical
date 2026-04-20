@@ -265,77 +265,109 @@ func get_entity_data(entity_name: String) -> Entity:
 
 
 #region 索敌相关
+## 排序模式枚举
+enum SortMode {
+	## 排序模式: 路程
+	PROGRESS,
+	## 排序模式: 距离
+	DISTANCE,
+	## 排序模式: 血量
+	HEALTH,
+	## 排序模式: 近战伤害
+	MELEE_DAMAGE,
+	## 排序模式: 远程伤害
+	RANGE_DAMAGE,
+	## 排序模式: 实体 ID
+	ID,
+	## 排序模式: 赏金:
+	GOLD,
+}
+
+
 ## 根据排序模式排序实体，默认最大在前，如果 reversed 为 true 则最小在前
 static func sort_entities_by_type(
-		entities_array: Array[Entity], sort_type: C.SortMode, origin: Vector2, reversed: bool = false
+		entities_array: Array[Entity], sort_type: SortMode, origin: Vector2, reversed: bool = false
 	) -> void:
 	var sort_function: Callable = Callable()
 	
 	match sort_type:
-		C.SortMode.PROGRESS:
+		SortMode.PROGRESS:
 			sort_function = func(e1: Entity, e2: Entity) -> bool:
 				var p1: float = INF if reversed else -INF
 				var p2: float = INF if reversed else -INF
 
-				var e1_nav_c: NavPathComponent = e1.get_child_node(C.CN_NAV_PATH)
+				var e1_nav_c: NavPathComponent = e1.get_node_or_null(C.CN_NAV_PATH)
 				if e1_nav_c:
 					p1 = e1_nav_c.nav_progress
 
-				var e2_nav_c: NavPathComponent = e2.get_child_node(C.CN_NAV_PATH)
+				var e2_nav_c: NavPathComponent = e2.get_node_or_null(C.CN_NAV_PATH)
 				if e2_nav_c:
 					p2 = e2_nav_c.nav_progress
 
 				return p1 > p2 if not reversed else p1 < p2
-		C.SortMode.HEALTH:
+		SortMode.HEALTH:
 			sort_function = func(e1: Entity, e2: Entity) -> bool:
 				var h1: float = INF if reversed else -INF
 				var h2: float = INF if reversed else -INF
 
-				var e1_health_c: HealthComponent = e1.get_child_node(C.CN_HEALTH)
+				var e1_health_c: HealthComponent = e1.get_node_or_null(C.CN_HEALTH)
 				if e1_health_c:
 					h1 = e1_health_c.hp
-				var e2_health_c: HealthComponent = e2.get_child_node(C.CN_HEALTH)
+				var e2_health_c: HealthComponent = e2.get_node_or_null(C.CN_HEALTH)
 				if e2_health_c:
 					h2 = e2_health_c.hp
 
 				return h1 > h2 if not reversed else h1 < h2
-		C.SortMode.DISTANCE:
+		SortMode.GOLD:
+			sort_function = func(e1: Entity, e2: Entity) -> bool:
+				var g1: float = INF if reversed else -INF
+				var g2: float = INF if reversed else -INF
+
+				var e1_health_c: HealthComponent = e1.get_node_or_null(C.CN_HEALTH)
+				if e1_health_c:
+					g1 = e1_health_c.death_gold
+				var e2_health_c: HealthComponent = e2.get_node_or_null(C.CN_HEALTH)
+				if e2_health_c:
+					g2 = e2_health_c.death_gold
+
+				return g1 > g2 if not reversed else g1 < g2
+		SortMode.DISTANCE:
 			sort_function = func(e1: Entity, e2: Entity) -> bool:
 				var d1: float = e1.global_position.distance_squared_to(origin)
 				var d2: float = e2.global_position.distance_squared_to(origin)
 
 				return d1 > d2 if not reversed else d1 < d2
-		C.SortMode.MELEE_DAMAGE:
+		SortMode.MELEE_DAMAGE:
 			sort_function = func(e1: Entity, e2: Entity) -> bool:
 				var d1: float = INF if reversed else -INF
 				var d2: float = INF if reversed else -INF
 				
-				var e1_melee_c: MeleeComponent = e1.get_child_node(C.CN_MELEE)
+				var e1_melee_c: MeleeComponent = e1.get_node_or_null(C.CN_MELEE)
 				if e1_melee_c:
 					d1 = e1_melee_c.list[0].damage_max
-				var e2_melee_c: MeleeComponent = e2.get_child_node(C.CN_MELEE)
+				var e2_melee_c: MeleeComponent = e2.get_node_or_null(C.CN_MELEE)
 				if e2_melee_c:
 					d2 = e2_melee_c.list[0].damage_max
 
 				return d1 > d2 if not reversed else d1 < d2
-		C.SortMode.RANGE_DAMAGE:
+		SortMode.RANGE_DAMAGE:
 			sort_function = func(e1: Entity, e2: Entity) -> bool:
 				var d1: float = INF if reversed else -INF
 				var d2: float = INF if reversed else -INF
 
-				var e1_ranged_c: RangedComponent = e1.get_child_node(C.CN_RANGED)
+				var e1_ranged_c: RangedComponent = e1.get_node_or_null(C.CN_RANGED)
 				if e1_ranged_c:
 					d1 = EntityMgr.get_entity_data(
 						e1_ranged_c.list[0].bullet
-					).get_child_node(C.CN_BULLET).damage_max
-				var e2_ranged_c: RangedComponent = e2.get_child_node(C.CN_RANGED)
+					).get_node_or_null(C.CN_BULLET).damage_max
+				var e2_ranged_c: RangedComponent = e2.get_node_or_null(C.CN_RANGED)
 				if e2_ranged_c:
 					d2 = EntityMgr.get_entity_data(
 						e2_ranged_c.list[0].bullet
-					).get_child_node(C.CN_BULLET).damage_max
+					).get_node_or_null(C.CN_BULLET).damage_max
 
 				return d1 > d2 if not reversed else d1 < d2
-		C.SortMode.ID:
+		SortMode.ID:
 			sort_function = func(e1: Entity, e2: Entity) -> bool:
 				var i1: int = e1.id
 				var i2: int = e2.id
@@ -347,13 +379,14 @@ static func sort_entities_by_type(
 
 
 #region 实体的搜索模式配置
-const PROPERTY_META: Dictionary[String, C.SortMode] = {
-	"PROGRESS": C.SortMode.PROGRESS,
-	"DISTANCE": C.SortMode.DISTANCE,
-	"HEALTH": C.SortMode.HEALTH,
-	"MELEE_DAMAGE": C.SortMode.MELEE_DAMAGE,
-	"RANGE_DAMAGE": C.SortMode.RANGE_DAMAGE,
-	"ID": C.SortMode.ID,
+const PROPERTY_META: Dictionary[String, SortMode] = {
+	"PROGRESS": SortMode.PROGRESS,
+	"DISTANCE": SortMode.DISTANCE,
+	"HEALTH": SortMode.HEALTH,
+	"MELEE_DAMAGE": SortMode.MELEE_DAMAGE,
+	"RANGE_DAMAGE": SortMode.RANGE_DAMAGE,
+	"ID": SortMode.ID,
+	"GOLD": SortMode.GOLD,
 }
 
 const GROUP_DICT: Dictionary[String, StringName] = {
@@ -366,11 +399,11 @@ const GROUP_DICT: Dictionary[String, StringName] = {
 
 ## 搜索模式配置类，包含排序模式、过滤函数和是否反转排序
 class SearchModeConfig:
-	var sort_mode: C.SortMode
+	var sort_mode: SortMode
 	var group: StringName
 	var reversed: bool
 
-	func _init(p_sort: C.SortMode, p_group: StringName, p_rev: bool):
+	func _init(p_sort: SortMode, p_group: StringName, p_rev: bool):
 		sort_mode = p_sort
 		group = p_group
 		reversed = p_rev
@@ -384,7 +417,7 @@ static func build_search_config() -> Dictionary[C.SearchMode, SearchModeConfig]:
 		var group_name: StringName = GROUP_DICT[group]
 
 		for prop: String in PROPERTY_META:
-			var sort: C.SortMode = PROPERTY_META[prop]
+			var sort: SortMode = PROPERTY_META[prop]
 			# MAX 模式：降序 = false
 			config[C.SearchMode["%s_MAX_%s" % [group, prop]]] = SearchModeConfig.new(sort, group_name, false)
 			# MIN 模式：降序 = true

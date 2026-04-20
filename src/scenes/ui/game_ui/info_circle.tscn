@@ -14,7 +14,6 @@ rally_max_range_circle = NodePath("RallyMaxRangeCircle")
 rally_min_range_circle = NodePath("RallyMinRangeCircle")
 melee_max_range_circle = NodePath("MeleeMaxRangeCircle")
 melee_min_range_circle = NodePath("MeleeMinRangeCircle")
-metadata/_edit_use_anchors_ = true
 
 [node name="RangedMaxRangeCircle" type="TextureRect" parent="." unique_id=1534782061]
 layout_mode = 1
@@ -29,6 +28,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("2_2e158")
 
@@ -45,6 +45,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("2_2e158")
 
@@ -61,6 +62,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")
 
@@ -77,6 +79,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")
 
@@ -93,6 +96,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")
 
@@ -109,5 +113,6 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")

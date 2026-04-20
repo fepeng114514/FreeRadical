@@ -1,14 +1,14 @@
 extends Behavior
 class_name MeleeBehavior
-
 ## 近战行为系统
 ##
 ## 处理拥有 [MeleeComponent] 组件的实体的攻击与拦截。
-## - 若 [member MeleeComponent.is_blocker] 为 `true`，作为拦截者：搜索并标记被拦截者，前往第一个被拦截者的近战位置。
-## - 若 [member MeleeComponent.is_blocker] 为 `false`，作为被拦截者：根据是否第一个被拦截者决定等待拦截者到达，或主动前往拦截者的近战位置。
+## 若 [member MeleeComponent.is_blocker] 为 `true`，作为拦截者：搜索并标记被拦截者，前往第一个被拦截者的近战位置。
+## 若 [member MeleeComponent.is_blocker] 为 `false`，作为被拦截者：根据是否第一个被拦截者决定等待拦截者到达，或主动前往拦截者的近战位置。
+
 
 func _on_remove(e: Entity) -> bool:
-	var melee_c: MeleeComponent = e.get_child_node(C.CN_MELEE)
+	var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
 	if not melee_c:
 		return true
 	
@@ -21,7 +21,7 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
 	if break_behavior == self:
 		return
 	
-	var melee_c: MeleeComponent = e.get_child_node(C.CN_MELEE)
+	var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
 	if not melee_c:
 		return
 	
@@ -35,11 +35,11 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
 
 
 func _on_update(e: Entity) -> bool:
-	var melee_c: MeleeComponent = e.get_child_node(C.CN_MELEE)
+	var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
 	if not melee_c:
 		return false
 		
-	melee_c.cleanup_melee_relations()
+	melee_c.cleanup_melee_relations(e)
 	
 	if melee_c.is_blocker:
 		return _update_blocker(e, melee_c)
@@ -58,8 +58,25 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 			melee_c.block_max_range,
 			melee_c.block_min_range,
 			melee_c.block_flags,
-			melee_c.block_bans
+			melee_c.block_bans,
+			func(t: Entity) -> bool:
+				var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
+				if not t_melee_c:
+					return false
+				# 优先选择未被任何拦截者锁定的目标
+				return not t_melee_c.blockers_ids
 		)
+		
+		# 如果没有未被拦截的目标，则允许围攻
+		if not pending_blockeds:
+			pending_blockeds = EntityMgr.search_targets(
+				melee_c.search_mode,
+				e.global_position,
+				melee_c.block_max_range,
+				melee_c.block_min_range,
+				melee_c.block_flags,
+				melee_c.block_bans,
+			)
 		
 		if pending_blockeds:
 			var new_blockeds_ids: Array[int] = []
@@ -68,9 +85,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 				if melee_c.blocked_count >= max_blocked:
 					break
 				
-				var t_melee_c: MeleeComponent = t.get_child_node(C.CN_MELEE)
-				if not t_melee_c:
-					continue
+				var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
 				
 				t_melee_c.blockers_ids.append(e.id)
 				new_blockeds_ids.append(t.id)
@@ -95,7 +110,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	# 有被拦截者
 	e.state = C.State.MELEE
 	var blocked: Entity = EntityMgr.get_entity_by_id(blockeds_ids[0])
-	var blocked_melee_c: MeleeComponent = blocked.get_child_node(C.CN_MELEE)
+	var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
 	
 	# 不是被动被拦截者，前往近战位置
 	if not melee_c.is_passive:
@@ -123,7 +138,7 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 	
 	e.state = C.State.MELEE
 	var blocker: Entity = EntityMgr.get_entity_by_id(blockers_ids[0])
-	var blocker_melee_c: MeleeComponent = blocker.get_child_node(C.CN_MELEE)
+	var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
 	var is_first_blocked: bool = e.id == blocker_melee_c.blockeds_ids[0]
 
 	if is_first_blocked:
@@ -210,9 +225,7 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 
 		e.look_point = target.global_position
 		e.play_animation_by_look(a.animation, "melee")
-		await e.y_wait(a.delay, func() -> bool:
-			return not U.is_valid_entity(target)
-		)
+		await e.y_wait(a.delay)
 		a.ts = TimeMgr.tick_ts
 			
 		var targets: Array[Entity] = [null]

@@ -38,7 +38,7 @@
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behaviors/spawner_behavior.gd" id="22_yhfkw"]
 [ext_resource type="PackedScene" uid="uid://b7grxp4wq0api" path="res://scenes/ui/world_control.tscn" id="23_mqh5v"]
 [ext_resource type="Script" uid="uid://xe8e38fn85ws" path="res://scenes/levels/wave_flag_controller.gd" id="24_7o3do"]
-[ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/tower_barrack.tscn" id="36_dp4fg"]
+[ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://scenes/entities/tower_archer.tscn" id="36_svqqs"]
 
 [sub_resource type="Resource" id="Resource_7h2jl"]
 script = ExtResource("2_gmpev")
@@ -183,22 +183,13 @@ metadata/_custom_type_script = "uid://5rvcj41ueju4"
 [node name="World" type="Node" parent="." unique_id=1372666069]
 script = ExtResource("4_oc4kc")
 
-[node name="WaveSpawner" parent="World" unique_id=1677388100 node_paths=PackedStringArray("components") instance=ExtResource("4_dga24")]
+[node name="WaveSpawner" parent="World" unique_id=1677388100 instance=ExtResource("4_dga24")]
 wave_set = SubResource("Resource_bahl2")
-components = {
-&"SpawnerComponent": NodePath("SpawnerComponent")
-}
 track_target = true
 idle_animation = SubResource("Resource_gmpev")
 
-[node name="TowerBarrack" parent="World" unique_id=187367710 node_paths=PackedStringArray("components") instance=ExtResource("36_dp4fg")]
-position = Vector2(1120, 904)
-components = {
-&"BarrackComponent": NodePath("BarrackComponent"),
-&"SpriteComponent": NodePath("SpriteComponent"),
-&"TowerComponent": NodePath("TowerComponent"),
-&"UIComponent": NodePath("UIComponent")
-}
+[node name="TowerArcher" parent="World" unique_id=1010851235 instance=ExtResource("36_svqqs")]
+position = Vector2(1400, 696)
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1218244006]
 position_smoothing_enabled = true

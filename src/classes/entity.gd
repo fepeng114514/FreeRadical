@@ -76,7 +76,6 @@ var is_first_update: bool = true
 var components: Dictionary[StringName, Node] = {}
 ## 等待状态
 var _waiting: bool = false
-var _child_cache: Dictionary[StringName, Node] = {}
 #endregion
 
 
@@ -216,18 +215,6 @@ func remove_entity() -> void:
 	removed = true
 	SystemMgr.remove_queue.append(self)
 	Log.debug("移除实体: %s" % self)
-
-
-## 获取子节点（带缓存）
-func get_child_node(key: String) -> Node:
-	if not _child_cache.has(key):
-		var node: Node = get_node_or_null(key)
-		if not node:
-			return null
-			
-		_child_cache[key] = node
-		
-	return _child_cache[key]
 	
 	
 #region 组件相关方法
@@ -283,7 +270,7 @@ func apply_mods_damage_factor(damage: float) -> float:
 	var total_damage_bonus: float = 0
 	
 	for mod: Entity in get_has_mods():
-		var mod_c: ModifierComponent = mod.get_child_node(C.CN_MODIFIER)
+		var mod_c: ModifierComponent = mod.get_node_or_null(C.CN_MODIFIER)
 		total_damage_factor *= mod_c.add_damage_factor
 		total_damage_bonus += mod_c.add_damage_bonus
 		
@@ -320,24 +307,24 @@ func clear_has_auras() -> void:
 func set_pos(pos: Vector2) -> void:
 	global_position = pos
 	
-	var rally_c: RallyComponent = get_child_node(C.CN_RALLY)
+	var rally_c: RallyComponent = get_node_or_null(C.CN_RALLY)
 	if rally_c:
 		rally_c.new_rally(pos)
 	
-	if get_child_node(C.CN_NAV_PATH):
+	if get_node_or_null(C.CN_NAV_PATH):
 		set_nav_path_at_pos(pos)
 
 
 ## 设置导航路径到当前位置下最近的导航路径
 func set_nav_path_at_pos(pos: Vector2) -> void:
-	var nav_path_c: NavPathComponent = get_child_node(C.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = get_node_or_null(C.CN_NAV_PATH)
 
 	var pi_list: Array = []
 	var spi_list: Array = []
 
 	if nav_path_c.sync_source_path:
 		var source: Entity = EntityMgr.get_entity_by_id(source_id)
-		var s_nav_path_c: NavPathComponent = source.get_child_node(C.CN_NAV_PATH) if source else null
+		var s_nav_path_c: NavPathComponent = source.get_node_or_null(C.CN_NAV_PATH) if source else null
 		if s_nav_path_c:
 			pi_list = [s_nav_path_c.pi]
 			spi_list = [s_nav_path_c.spi]
@@ -377,10 +364,10 @@ func play_animation_group(
 		filp_h: bool = false,
 		force_play: bool = false
 	) -> void:
-	var sprite_c: SpriteComponent = get_child_node(C.CN_SPRITE)
+	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
 		
-	for sprite_idx: int in sprite_c.groups[group_idx]:
-		play_animation(anim_name, sprite_c.list[sprite_idx], filp_h, force_play)
+	for sprite: AnimatedSprite2D in sprite_c.group_list[group_idx].get_children():
+		play_animation(anim_name, sprite, filp_h, force_play)
 
 
 ## 根据是否为组调用相应 play_animation_by_look 或 play_animation_group_by_look 函数
@@ -393,15 +380,8 @@ func play_animation_by_look(
 		return []
 		
 	var play_idx: int = animation.play_idx
-	var sprite_c: SpriteComponent = get_child_node(C.CN_SPRITE)
+	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
 	var sprite_list: Array[Node2D] = sprite_c.list
-
-	var sprite_idxs: Array = []
-
-	if animation.is_group:
-		sprite_idxs = sprite_c.groups[play_idx]
-	else:
-		sprite_idxs = [play_idx]
 
 	var facing_data: Array = animation.get_animation_name_for_point(
 		self, look_point
@@ -409,20 +389,24 @@ func play_animation_by_look(
 	
 	var anim_name: StringName = facing_data[0]
 	var filp_h: bool = facing_data[2]
+	
+	var sprites: Array[Node] = []
 
-	for sprite_idx: int in sprite_idxs:
-		var group_sprite: Node2D = sprite_list[sprite_idx]
-		if group_sprite is not AnimatedSprite2D:
-			continue
+	if animation.is_group:
+		sprites = sprite_c.group_list[play_idx].get_children()
+	else:
+		sprites = [sprite_list[play_idx]]
 
-		play_animation(anim_name, group_sprite, filp_h, force_play)
+	for sprite: Node2D in sprites:
+		if sprite is AnimatedSprite2D:
+			play_animation(anim_name, sprite, filp_h, force_play)
 
 	## 处理同步动画
 	if sprite_c.sync_source:
 		var source: Entity = EntityMgr.get_entity_by_id(source_id)
 		if source and not is_waiting():
 			source.look_point = look_point
-			var s_sprite_c: SpriteComponent = source.get_child_node(C.CN_SPRITE)
+			var s_sprite_c: SpriteComponent = source.get_node_or_null(C.CN_SPRITE)
 			var s_animation: AnimationData = s_sprite_c.sync_animations.get(
 				source_animation_key
 			)
@@ -442,7 +426,7 @@ func wait_animation(
 	if not animation:
 		return
 		
-	var sprite_c: SpriteComponent = get_child_node(C.CN_SPRITE)
+	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
 	var sprite_list: Array[Node2D] = sprite_c.list
 	var play_idx: int = animation.play_idx
 	var times: int = animation.times
@@ -450,7 +434,7 @@ func wait_animation(
 	_waiting = true
 
 	if animation.is_group:
-		var sprite: AnimatedSprite2D = sprite_list[sprite_c.groups[play_idx][0]]
+		var sprite := sprite_c.group_list[play_idx].get_children()[0] as AnimatedSprite2D
 		
 		for _i: int in times:
 			await _wait_for_animation_loop(sprite)

@@ -155,6 +155,10 @@ enum SearchMode {
 	ENTITY_MAX_ID,
 	## 搜索模式: 实体 ID 最小
 	ENTITY_MIN_ID,
+	## 搜索模式: 实体赏金最高
+	ENTITY_MAX_GOLD,
+	## 搜索模式: 实体赏金最低
+	ENTITY_MIN_GOLD,
 
 	## 搜索模式: 敌人路程最远
 	ENEMY_MAX_PROGRESS,
@@ -180,6 +184,10 @@ enum SearchMode {
 	ENEMY_MAX_ID,
 	## 搜索模式: 敌人 ID 最小
 	ENEMY_MIN_ID,
+	## 搜索模式: 敌人赏金最高
+	ENEMY_MAX_GOLD,
+	## 搜索模式: 敌人赏金最低
+	ENEMY_MIN_GOLD,
 
 	## 搜索模式: 友军路程最远
 	FRIENDLY_MAX_PROGRESS,
@@ -205,6 +213,10 @@ enum SearchMode {
 	FRIENDLY_MAX_ID,
 	## 搜索模式: 友军 ID 最小
 	FRIENDLY_MIN_ID,
+	## 搜索模式: 友军赏金最高
+	FRIENDLY_MAX_GOLD,
+	## 搜索模式: 友军赏金最低
+	FRIENDLY_MIN_GOLD,
 
 	## 搜索模式: 单位路程最远
 	UNIT_MAX_PROGRESS,
@@ -230,23 +242,10 @@ enum SearchMode {
 	UNIT_MAX_ID,
 	## 搜索模式: 单位 ID 最小
 	UNIT_MIN_ID,
-}
-
-
-## 排序模式枚举
-enum SortMode {
-	## 排序模式: 路程
-	PROGRESS,
-	## 排序模式: 距离
-	DISTANCE,
-	## 排序模式: 血量
-	HEALTH,
-	## 排序模式: 近战伤害
-	MELEE_DAMAGE,
-	## 排序模式: 远程伤害
-	RANGE_DAMAGE,
-	## 排序模式: 实体 ID
-	ID,
+	## 搜索模式: 单位赏金最高
+	UNIT_MAX_GOLD,
+	## 搜索模式: 单位赏金最低
+	UNIT_MIN_GOLD,
 }
 
 
@@ -379,35 +378,35 @@ enum MeleeState {
 }
 
 
-#region 组件名称 (StringName)
+#region 组件名称
 ## 组件名称: 血量
-const CN_HEALTH: StringName = &"HealthComponent"
+const CN_HEALTH: NodePath = ^"HealthComponent"
 ## 组件名称: 导航路径
-const CN_NAV_PATH: StringName = &"NavPathComponent"
+const CN_NAV_PATH: NodePath = ^"NavPathComponent"
 ## 组件名称: 集结点
-const CN_RALLY: StringName = &"RallyComponent"
+const CN_RALLY: NodePath = ^"RallyComponent"
 ## 组件名称: 防御塔
-const CN_TOWER: StringName = &"TowerComponent"
+const CN_TOWER: NodePath = ^"TowerComponent"
 ## 组件名称: 状态效果
-const CN_MODIFIER: StringName = &"ModifierComponent"
+const CN_MODIFIER: NodePath = ^"ModifierComponent"
 ## 组件名称: 光环
-const CN_AURA: StringName = &"AuraComponent"
+const CN_AURA: NodePath = ^"AuraComponent"
 ## 组件名称: 近战攻击
-const CN_MELEE: StringName = &"MeleeComponent"
+const CN_MELEE: NodePath = ^"MeleeComponent"
 ## 组件名称: 远程攻击
-const CN_RANGED: StringName = &"RangedComponent"
+const CN_RANGED: NodePath = ^"RangedComponent"
 ## 组件名称: 子弹
-const CN_BULLET: StringName = &"BulletComponent"
+const CN_BULLET: NodePath = ^"BulletComponent"
 ## 组件名称: 精灵
-const CN_SPRITE: StringName = &"SpriteComponent"
+const CN_SPRITE: NodePath = ^"SpriteComponent"
 ## 组件名称: 兵营
-const CN_BARRACK: StringName = &"BarrackComponent"
+const CN_BARRACK: NodePath = ^"BarrackComponent"
 ## 组件名称: 生成器
-const CN_SPAWNER: StringName = &"SpawnerComponent"
+const CN_SPAWNER: NodePath = ^"SpawnerComponent"
 ## 组件名称: UI
-const CN_UI: StringName = &"UIComponent"
+const CN_UI: NodePath = ^"UIComponent"
 ## 组件名称: FX
-const CN_FX: StringName = &"FXComponent"
+const CN_FX: NodePath = ^"FXComponent"
 #endregion
 
 
