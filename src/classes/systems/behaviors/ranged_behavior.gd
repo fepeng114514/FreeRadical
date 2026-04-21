@@ -33,7 +33,8 @@ func _on_update(e: Entity) -> bool:
 		if not can_attack(a, target):
 			continue
 			
-		ranged_c.is_first_attack = false
+		a.ts = TimeMgr.tick_ts
+		e.look_point = target.global_position
 		
 		if a is RangedAttack:
 			_do_single_attack(a, e, target)
@@ -46,13 +47,10 @@ func _on_update(e: Entity) -> bool:
 	
 	
 func _do_single_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
-	e.look_point = target.global_position
 	var result: Array = e.play_animation_by_look(a.animation, "ranged")
 	AudioMgr.play_sfx(a.sfx)
 	await e.y_wait(a.delay)
 	var direction: C.Direction = result[1]
-	
-	a.ts = TimeMgr.tick_ts
 
 	if not target:
 		return
@@ -64,10 +62,7 @@ func _do_single_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 
 
 func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
-	e.look_point = target.global_position
 	e.play_animation_by_look(a.start_animation, "ranged")
-	a.ts = TimeMgr.tick_ts
-
 	AudioMgr.play_sfx(a.start_sfx)
 	await e.wait_animation(a.start_animation)
 

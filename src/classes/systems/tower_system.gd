@@ -10,7 +10,7 @@ func _on_insert(e: Entity) -> bool:
 	if not tower_c:
 		return true
 		
-	for sub_e: Entity in tower_c.list:
+	for sub_e: Entity in tower_c.get_children():
 		sub_e.is_subentity = true
 		sub_e.source_id = e.id
 		EntityMgr.process_create(sub_e)
@@ -59,32 +59,3 @@ func _on_update(_delta: float) -> void:
 			GameMgr.cash += (
 				tower_c.sell_ratio * tower_c.total_price
 			)
-		
-		# 处理防御塔更新
-		tower_c.cleanup_list()
-		var group_list: Array = tower_c.group_list
-		if not group_list:
-			continue
-			
-		for group: TowerSubentityGroup in group_list:
-			var attack_loop_time: float = group.attack_loop_time
-			if attack_loop_time == 0:
-				continue
-				
-			if not TimeMgr.is_ready_time(group.last_attack_ts, attack_loop_time):
-				continue
-				
-			group.attack_entity_idx += 1
-			if group.attack_entity_idx >= group.get_child_count():
-				group.attack_entity_idx = 0
-				
-			var curren_e: Entity = tower_c.list[group.attack_entity_idx]
-			for sub_e: Entity in group.get_children():
-				if sub_e != curren_e:
-					sub_e.state |= C.State.DISABLED
-					continue
-					
-				sub_e.state &= ~C.State.DISABLED
-				
-			group.last_attack_ts = TimeMgr.tick_ts
-		

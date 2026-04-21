@@ -43,16 +43,18 @@ class_name BarrackComponent
 
 ## 时间戳（秒）
 var ts: float = 0
-## 士兵列表
-var soldiers_list: Array = []
 ## 上一次士兵数量
 var last_soldier_count: int = C.UNSET
+var soldier_group: EntityGroup = null
 
 
 func _ready() -> void:
 	if animation == null:
 		animation = AnimationData.new()
 		animation.left_right = "spawn"
+		
+	soldier_group = EntityGroup.new()
+	add_child(soldier_group)
 
 
 func _draw() -> void:
@@ -82,24 +84,11 @@ func _draw() -> void:
 	)
 
 
-## 清理无效士兵
-func cleanup_soldiers() -> void:
-	var new_soldiers_list: Array = []
-	
-	for s in soldiers_list:
-		if not U.is_valid_entity(s):
-			continue 
-			
-		new_soldiers_list.append(s)
-		
-	soldiers_list = new_soldiers_list
-
-
 func new_rally(pos: Vector2) -> void:
 	rally_pos = pos
 	
-	for i: int in soldiers_list.size():
-		var s: Entity = soldiers_list[i]
+	for i: int in soldier_group.get_child_count():
+		var s: Entity = soldier_group.get_child(i)
 		var s_rally_c: RallyComponent = s.get_node_or_null(C.CN_RALLY)
 		s_rally_c.new_rally(pos)
 		s_rally_c.rally_formation_position(max_soldiers, i)

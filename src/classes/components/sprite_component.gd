@@ -8,22 +8,6 @@ class_name SpriteComponent
 ## 同步动画数据
 @export var sync_animations: SyncAnimationsData = null
 
-## 精灵列表
-var list: Array[Node2D] = []
-## 精灵组列表
-var group_list: Array[SpriteGroup] = []
-
-
-func _ready() -> void:
-	for child: Node in get_children():
-		if child is SpriteGroup:
-			for sprite: Node2D in child.get_children():
-				list.append(sprite)
-				
-			group_list.append(child)
-		else:
-			list.append(child)
-
 
 func _get_configuration_warnings() -> PackedStringArray:
 	if not get_children():

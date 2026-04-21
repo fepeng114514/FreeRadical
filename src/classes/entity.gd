@@ -354,13 +354,11 @@ func play_animation(
 ## 使一个组中的所有精灵播放对应的动画
 func play_animation_group(
 		anim_name: StringName, 
-		group_idx: int = 0, 
+		group: SpriteGroup, 
 		filp_h: bool = false,
 		force_play: bool = false
 	) -> void:
-	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
-		
-	for sprite: AnimatedSprite2D in sprite_c.group_list[group_idx].get_children():
+	for sprite: AnimatedSprite2D in group.get_children():
 		play_animation(anim_name, sprite, filp_h, force_play)
 
 
@@ -375,25 +373,21 @@ func play_animation_by_look(
 		
 	var play_idx: int = animation.play_idx
 	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
-	var sprite_list: Array[Node2D] = sprite_c.list
-
 	var facing_data: Array = animation.get_animation_name_for_point(
 		self, look_point
 	)
 	
 	var anim_name: StringName = facing_data[0]
 	var filp_h: bool = facing_data[2]
-	
-	var sprites: Array[Node] = []
 
-	if animation.is_group:
-		sprites = sprite_c.group_list[play_idx].get_children()
+	var play_target: Node2D = sprite_c.get_child(play_idx)
+	if play_target is Sprite2D:
+		return []
+
+	if play_target is SpriteGroup:
+		play_animation_group(anim_name, play_target, filp_h, force_play)
 	else:
-		sprites = [sprite_list[play_idx]]
-
-	for sprite: Node2D in sprites:
-		if sprite is AnimatedSprite2D:
-			play_animation(anim_name, sprite, filp_h, force_play)
+		play_animation(anim_name, play_target, filp_h, force_play)
 
 	## 处理同步动画
 	if sprite_c.sync_source:
@@ -414,43 +408,36 @@ func play_animation_by_look(
 
 
 ## 根据是否为组调用 wait_animation 或 wait_animation_group 函数
-func wait_animation(
-		animation: AnimationData
-	) -> void:
+func wait_animation(animation: AnimationData) -> void:
 	if not animation:
 		return
 		
 	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
-	var sprite_list: Array[Node2D] = sprite_c.list
 	var play_idx: int = animation.play_idx
 	var times: int = animation.times
 
 	state |= C.State.WAITING
+	var play_target: Node2D = sprite_c.get_child(play_idx)
+	if play_target is Sprite2D:
+		return
 
-	if animation.is_group:
-		var sprite := sprite_c.group_list[play_idx].get_children()[0] as AnimatedSprite2D
+	if play_target is SpriteGroup:
+		play_target = play_target.get_child(play_idx)
+			
+	for _i: int in times:
+		var current_frame: int = play_target.frame
+		var total_frames: int = play_target.sprite_frames.get_frame_count(play_target.animation)
+		var frames_remaining: int = total_frames - current_frame
 		
-		for _i: int in times:
-			await _wait_for_animation_loop(sprite)
-	else:
-		for _i: int in times:
-			await _wait_for_animation_loop(sprite_list[play_idx])
+		# 是最后一帧，不等待
+		if current_frame == total_frames:
+			return
+		
+		# 等待剩余帧数
+		for i: int in frames_remaining:
+			await play_target.frame_changed
 		
 	state &= ~C.State.WAITING
-
-
-func _wait_for_animation_loop(sprite: AnimatedSprite2D) -> void:
-	var current_frame: int = sprite.frame
-	var total_frames: int = sprite.sprite_frames.get_frame_count(sprite.animation)
-	var frames_remaining: int = total_frames - current_frame
-	
-	# 是最后一帧，不等待
-	if current_frame == total_frames:
-		return
-	
-	# 等待剩余帧数
-	for i: int in frames_remaining:
-		await sprite.frame_changed
 #endregion
 
 

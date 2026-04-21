@@ -5,8 +5,6 @@ class_name AnimationData
 
 ## 要播放的精灵/精灵组索引
 @export var play_idx: int = 0
-## 是否播放精灵组
-@export var is_group: bool = false
 ## 播放次数
 @export var times: int = 1
 ## 等待时间
