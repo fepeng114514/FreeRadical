@@ -127,7 +127,7 @@ func _update_unit_info() -> void:
 func _update_tower_info() -> void:
 	var tower_c: TowerComponent = selected_entity.get_node_or_null(C.CN_TOWER)
 
-	if not tower_c.list:
+	if tower_c.get_child_count() == 0:
 		var ranged_c: RangedComponent = selected_entity.get_node_or_null(C.CN_RANGED)
 		if ranged_c:
 			_set_value_ranged(ranged_c)
@@ -135,7 +135,9 @@ func _update_tower_info() -> void:
 			ranged_type_icon.visible = false
 			ranged_value.visible = false
 	else:
-		var first_entity: Entity = tower_c.list[0]
+		var first_entity = tower_c.get_child(0)
+		if first_entity is EntityGroup:
+			first_entity = first_entity.get_child(0)
 		var ranged_c: RangedComponent = first_entity.get_node_or_null(C.CN_RANGED)
 
 		if ranged_c:
@@ -144,7 +146,7 @@ func _update_tower_info() -> void:
 
 ## 设置远程攻击值
 func _set_value_ranged(ranged_c: RangedComponent) -> void:
-	var first_ranged_attack: RangedBase = ranged_c.list[0]
+	var first_ranged_attack: RangedBase = ranged_c.get_child(0)
 	ranged_value.text = "%d-%d/%.1f" % [
 		first_ranged_attack.damage_min, 
 		first_ranged_attack.damage_max, 
@@ -154,7 +156,7 @@ func _set_value_ranged(ranged_c: RangedComponent) -> void:
 	
 ## 设置近战攻击值
 func _set_value_melee(melee_c: MeleeComponent) -> void:
-	var first_melee_attack: MeleeAttack = melee_c.list[0]
+	var first_melee_attack: MeleeAttack = melee_c.get_child(0)
 	melee_value.text = "%d-%d/%.1f" % [
 		first_melee_attack.damage_min, 
 		first_melee_attack.damage_max, 

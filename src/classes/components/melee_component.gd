@@ -57,8 +57,6 @@ var melee_pos := Vector2.ZERO
 var velocity := Vector2.ZERO
 ## 近战状态
 var melee_state: C.MeleeState = C.MeleeState.IDLE
-## 近战攻击列表
-var list: Array[MeleeAttack] = []
 
 
 func _ready() -> void:
@@ -68,9 +66,6 @@ func _ready() -> void:
 		motion_animation.down = "walk_down"
 		motion_animation.left_right = "walk_left_right"
 		
-	for child: MeleeAttack in get_children():
-		list.append(child)
-	
 	
 func _draw() -> void:
 	if not Engine.is_editor_hint():

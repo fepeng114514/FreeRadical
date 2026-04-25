@@ -10,11 +10,18 @@ func _on_insert(e: Entity) -> bool:
 	if not tower_c:
 		return true
 		
-	for sub_e: Entity in tower_c.get_children():
-		sub_e.is_subentity = true
-		sub_e.source_id = e.id
-		EntityMgr.process_create(sub_e)
-		sub_e.insert_entity()
+	for child: Node in tower_c.get_children():
+		var entity_list: Array = []
+		
+		if child is EntityGroup:
+			entity_list = child.get_children()
+		else:
+			entity_list = [child]
+			
+		for sub_e: Entity in entity_list:
+			sub_e.source_id = e.id
+			EntityMgr.process_create(sub_e)
+			sub_e.insert_entity()
 		
 	if not tower_c.tower_holder_style:
 		tower_c.tower_holder_style = GameMgr.defaul_tower_holder_style

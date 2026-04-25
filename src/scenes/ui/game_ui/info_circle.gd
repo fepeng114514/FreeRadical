@@ -51,7 +51,7 @@ func _show(e: Entity) -> void:
 	
 	var ranged_c: RangedComponent = e.get_node_or_null(C.CN_RANGED)
 	if ranged_c:
-		var first_ranged_attack: RangedBase = ranged_c.list[0]
+		var first_ranged_attack: RangedBase = ranged_c.get_child(0)
 		
 		_show_circle(ranged_max_range_circle, first_ranged_attack.max_range)
 		_show_circle(ranged_min_range_circle, first_ranged_attack.min_range)
@@ -64,10 +64,13 @@ func _show(e: Entity) -> void:
 
 	var tower_c: TowerComponent = e.get_node_or_null(C.CN_TOWER)
 	if tower_c:
-		if tower_c.list:
-			var first_entity: Entity = tower_c.list[0]
+		if tower_c.get_child_count() > 0:
+			var first_entity = tower_c.get_child(0)
+			if first_entity is EntityGroup:
+				first_entity = first_entity.get_child(0)
+			
 			var f_ranged_c: RangedComponent = first_entity.get_node_or_null(C.CN_RANGED)
-			var first_ranged_attack: RangedBase = f_ranged_c.list[0]
+			var first_ranged_attack: RangedBase = f_ranged_c.get_child(0)
 		
 			_show_circle(
 				ranged_max_range_circle, 
@@ -114,5 +117,6 @@ func _hide_circle(circle: TextureRect) -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(circle, "scale", Vector2.ZERO, scale_time)
-	tween.tween_callback(func(): circle.visible = false)
 	
+	await tween.finished
+	circle.visible = false

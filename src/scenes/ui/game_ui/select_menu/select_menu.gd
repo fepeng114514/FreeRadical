@@ -23,7 +23,7 @@ signal hide_select_menu
 var item_list: Array[Button] = []
 ## 当前选择的实体
 var selected_entity: Entity = null
-
+var is_animating: bool = false
 
 func _ready() -> void:
 	visible = false
@@ -40,6 +40,9 @@ func _process(_delta: float) -> void:
 	
 	
 func _show(e: Entity) -> void:
+	if is_animating:
+		return
+	
 	_clear_menu()
 	
 	var ui_c: UIComponent = e.get_node_or_null(C.CN_UI)
@@ -87,8 +90,15 @@ func _show(e: Entity) -> void:
 	
 	
 func _hide() -> void:
+	if is_animating:
+		return
+		
+	is_animating = true
 	var tween: Tween = tween_set_scale(Vector2.ZERO)
-	tween.tween_callback(_clear_menu)
+	
+	await tween.finished
+	_clear_menu()
+	is_animating = false
 	
 	
 ## 清空菜单

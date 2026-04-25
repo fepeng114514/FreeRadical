@@ -214,7 +214,7 @@ func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	
 
 func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> void:
-	for a: MeleeAttack in melee_c.list:
+	for a: MeleeAttack in melee_c.get_children():
 		if not TimeMgr.is_ready_time(a.ts, a.cooldown):
 			continue
 
@@ -224,9 +224,9 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 		Log.verbose("近战攻击: %s" % e)
 
 		e.look_point = target.global_position
+		a.ts = TimeMgr.tick_ts
 		e.play_animation_by_look(a.animation, "melee")
 		await e.y_wait(a.delay)
-		a.ts = TimeMgr.tick_ts
 			
 		var targets: Array[Entity] = [null]
 

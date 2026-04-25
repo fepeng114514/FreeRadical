@@ -44,8 +44,6 @@ class_name Entity
 
 ## 实体唯一 ID
 var id: int = C.UNSET
-## 是否是子实体
-var is_subentity: bool = false
 ## 所有者或来源 ID
 var source_id: int = C.UNSET
 ## 插入时间戳，单位为秒

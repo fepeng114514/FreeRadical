@@ -10,7 +10,9 @@ func _on_update(e: Entity) -> bool:
 	if not ranged_c:
 		return false
 		
-	for a: RangedBase in ranged_c.list:
+	for i: int in ranged_c.get_child_count():
+		var a: RangedBase = ranged_c.get_child(i)
+		
 		if not TimeMgr.is_ready_time(a.ts, a.cooldown):
 			continue
 			
@@ -32,9 +34,24 @@ func _on_update(e: Entity) -> bool:
 			
 		if not can_attack(a, target):
 			continue
-			
-		a.ts = TimeMgr.tick_ts
+					
+		var tick_ts: float = TimeMgr.tick_ts
+		a.ts = tick_ts
 		e.look_point = target.global_position
+		
+		if not a.group_cooldown_disabled:
+			var parent: Node = e.get_parent()
+			if parent is EntityGroup:
+				for member: Entity in parent.get_children():
+					if member == e:
+						continue
+					
+					var member_ranged_c: RangedComponent = member.get_node_or_null(C.CN_RANGED)
+					if not member_ranged_c:
+						continue
+						
+					var member_a: RangedBase = member_ranged_c.get_child(i)
+					member_a.ts = tick_ts - a.group_cooldown_offset
 		
 		if a is RangedAttack:
 			_do_single_attack(a, e, target)
@@ -75,9 +92,7 @@ func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
 		var direction: C.Direction = result[1]
 
 		AudioMgr.play_sfx(a.loop_sfx)
-		await e.y_wait(a.delay, func() -> bool:
-			return not U.is_valid_entity(target)
-		)
+		await e.y_wait(a.delay)
 
 		spawn_bullets(a, e, target, direction)
 		await e.wait_animation(a.loop_animation)
@@ -117,6 +132,7 @@ func spawn_bullets(
 					-half_angle_range, half_angle_range	
 				)
 				rotation = e_to_target_angle + random_angle
+				
 		b.rotation = rotation
 		b.global_position = e.global_position + a.bullet_offsets.get_offset_by_direction(direction)
 

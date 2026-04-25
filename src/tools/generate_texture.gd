@@ -2,48 +2,6 @@
 extends EditorScript
 ## 生成 SpriteFrames 资源
 
-"""
-图集格式:
-"图集名.png": {	# 来自哪个图集，主要用于多图集的打包
-	"图像名": {
-		"quad": [	# 图像区域
-			3,
-			3,
-			2729,
-			1536
-		],
-		"trim": [	# 裁剪透明边
-			5,		# 左裁剪
-			2,		# 上裁剪
-			5,		# 右裁剪
-			0		# 下裁剪
-		],
-		"alias": []	# 别名
-	},
-
-动画文件格式:
-"动画资源名": {	# 生成的 SpriteFrames 资源名
-	"layer_count": 0,	# 多层动画层数，默认为 0，会创建 n 个 SpriteFrames
-	"animations": {		# 动画列表
-		"动画名": {		 # SpriteFrames 中的动画名
-			"from": 1,	# 起始帧索引
-			"to": 10,	# 结束帧索引
-			"fps": 30,	# 帧率，默认为 30
-			"loop": true	# 是否循环，默认为 true
-		}
-	}
-}
-
-动画名规范:
-动画名应由方向和动作两部分组成，使用下划线分隔，格式为 "动作_方向"。
-无方向的动画可以省略方向部分，格式为 "动作"。
-方向部分可以是 AnimationData 资源属性: "up"、"down"、"left_right" 等。
-动作部分可以是任意描述动画的字符串，如 "idle"、"walk"、"melee"、"death" 等。
-示例:
-"idle_up" 表示向上的待机动画
-"walk_left_right" 表示左右的行走动画
-"melee" 表示无方向的近战攻击动画
-"""
 var cached_atlas: Dictionary[String, Texture2D] = {}
 var image_db: Dictionary[String, AtlasTexture] = {}
 var sprite_frames_db: Dictionary[String, SpriteFrames] = {}

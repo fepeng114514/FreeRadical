@@ -5,6 +5,11 @@ class_name Attackbase
 ## Attackbase 是所有攻击节点的基类，提供了攻击的基本属性和功能。
 
 
+## 实体组冷却偏移
+@export var group_cooldown_offset: float = 0.1
+## 是否禁用实体组冷却
+@export var group_cooldown_disabled: bool = false
+
 @export_group("Limit")
 ## 攻击标识
 @export var flags: int = 0

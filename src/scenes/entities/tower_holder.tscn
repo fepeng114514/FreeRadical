@@ -55,9 +55,6 @@ script = ExtResource("13_ougbk")
 list = Array[ExtResource("8_pyfu2")]([SubResource("Resource_kum73"), SubResource("Resource_pb8ff"), SubResource("Resource_06tn3"), SubResource("Resource_tyk0o")])
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkubq"]
-size = Vector2(160, 96)
-
 [node name="TowerHolder" type="Node2D" unique_id=1898604313]
 script = ExtResource("1_jrk33")
 scene_name = "tower_holder"
@@ -76,11 +73,9 @@ texture = ExtResource("6_wcy0v")
 script = ExtResource("12_pyfu2")
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
-[node name="UIComponent" type="Area2D" parent="." unique_id=176403010]
+[node name="UIComponent" type="Node2D" parent="." unique_id=2005923123]
 script = ExtResource("3_qfsqy")
+select_rect = Rect2(-77.425, -45.79, 150, 85.995)
 info_bar_type = 2
 select_menu_data = SubResource("Resource_77b72")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UIComponent" unique_id=542590157]
-shape = SubResource("RectangleShape2D_qkubq")

@@ -57,7 +57,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
 position = Vector2(0, -19)
 sprite_frames = ExtResource("3_mee2f")
-animation = &"death_left_right"
+animation = &"idle_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868]
 script = ExtResource("4_bfbt7")

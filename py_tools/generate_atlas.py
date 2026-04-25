@@ -6,7 +6,7 @@ import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox, filedialog
 import lib.config as config
 from lib.utils import run_app, save_to_dds
-from lib.classes import WriteLua, Point, Size, Rectangle, Bounds
+from lib.classes import Point, Size, Rectangle, Bounds
 import lib.log as log
 
 log = log.setup_logging(config.log_level, config.log_file)
@@ -847,7 +847,10 @@ def write_json_data(images, results, atlas_name):
 def main(root=None):
     global setting
     setting = config.setting["generate_atlas"]
-    run_app(root, AtlasGeneratorApp)
+
+    root = tk.Tk()
+    app = AtlasGeneratorApp(root)
+    root.mainloop()
 
 
 if __name__ == "__main__":
