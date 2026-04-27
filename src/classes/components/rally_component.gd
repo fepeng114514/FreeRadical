@@ -27,14 +27,6 @@ class_name RallyComponent
 var arrived: bool = false
 
 
-func _ready() -> void:
-	if motion_animation == null:
-		motion_animation = AnimationData.new()
-		motion_animation.up = "walk_up"
-		motion_animation.down = "walk_down"
-		motion_animation.left_right = "walk_left_right"
-
-
 ## 设置新的集结目标
 func new_rally(
 		new_rally_pos: Vector2, new_rally_radius: float = C.UNSET

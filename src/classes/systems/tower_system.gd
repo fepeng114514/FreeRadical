@@ -26,7 +26,7 @@ func _on_insert(e: Entity) -> bool:
 	if not tower_c.tower_holder_style:
 		tower_c.tower_holder_style = GameMgr.defaul_tower_holder_style
 		
-	if tower_c.tower_type == C.TowerType.TOWER_HOLDE:
+	if tower_c.tower_type == C.TowerType.TOWER_HOLDER:
 		tower_c.total_price = 0
 		
 	return true

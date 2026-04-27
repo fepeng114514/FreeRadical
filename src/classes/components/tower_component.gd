@@ -4,7 +4,7 @@ class_name TowerComponent
 
 
 ## 防御塔类型
-@export var tower_type: C.TowerType = C.TowerType.TOWER_HOLDE
+@export var tower_type: C.TowerType = C.TowerType.TOWER_HOLDER
 ## 显示范围的偏移
 @export var show_range_offset := Vector2.ZERO:
 	set(value):

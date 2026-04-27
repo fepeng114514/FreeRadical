@@ -21,9 +21,53 @@
 				"from": 70,
 				"to": 82
 			},
+			"thorn_left_right": {
+				"from": 83,
+				"to": 101
+			},
+			"thorn_free_left_right": {
+				"from": 102,
+				"to": 106
+			},
 			"death_left_right": {
 				"from": 106,
 				"to": 120
+			}
+		}
+	},
+	"enemy_orc": {
+		"animations": {
+			"melee_left_right": {
+				"from": 68,
+				"to": 77
+			},
+			"death_left_right": {
+				"from": 102,
+				"to": 108
+			},
+			"idle_left_right": {
+				"from": 67,
+				"to": 67
+			},
+			"thorn_left_right": {
+				"from": 78,
+				"to": 96
+			},
+			"thorn_free_left_right": {
+				"from": 97,
+				"to": 101
+			},
+			"walk_down": {
+				"from": 45,
+				"to": 66
+			},
+			"walk_left_right": {
+				"from": 1,
+				"to": 22
+			},
+			"walk_up": {
+				"from": 23,
+				"to": 44
 			}
 		}
 	},

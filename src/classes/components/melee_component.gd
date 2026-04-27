@@ -59,14 +59,6 @@ var velocity := Vector2.ZERO
 var melee_state: C.MeleeState = C.MeleeState.IDLE
 
 
-func _ready() -> void:
-	if motion_animation == null:
-		motion_animation = AnimationData.new()
-		motion_animation.up = "walk_up"
-		motion_animation.down = "walk_down"
-		motion_animation.left_right = "walk_left_right"
-		
-	
 func _draw() -> void:
 	if not Engine.is_editor_hint():
 		return

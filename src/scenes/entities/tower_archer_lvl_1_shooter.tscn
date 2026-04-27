@@ -44,10 +44,10 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=1939030855]
 script = ExtResource("6_vh14o")
 animation = SubResource("Resource_6rlp0")
-cooldown = 0.9
+cooldown = 0.8
 bullet = "tower_archer_bullet"
 bullet_offsets = SubResource("Resource_367kr")
 delay = 0.167
-damage_min = 15.0
-damage_max = 25.0
+damage_min = 4.0
+damage_max = 6.0
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

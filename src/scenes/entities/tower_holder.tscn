@@ -25,7 +25,7 @@ shader_parameter/outline_color = Color(1, 1, 0, 1)
 
 [sub_resource type="Resource" id="Resource_kum73"]
 script = ExtResource("8_pyfu2")
-upgrade_to = "tower_archer"
+upgrade_to = "tower_archer_lvl_1"
 icon = ExtResource("9_fdaav")
 metadata/_custom_type_script = "uid://bu253boudy5i5"
 
@@ -38,14 +38,14 @@ metadata/_custom_type_script = "uid://bu253boudy5i5"
 
 [sub_resource type="Resource" id="Resource_06tn3"]
 script = ExtResource("8_pyfu2")
-upgrade_to = "tower_mage"
+upgrade_to = "tower_mage_lvl_1"
 icon = ExtResource("11_xs2xh")
 place = 4
 metadata/_custom_type_script = "uid://bu253boudy5i5"
 
 [sub_resource type="Resource" id="Resource_tyk0o"]
 script = ExtResource("8_pyfu2")
-upgrade_to = "tower_artillery"
+upgrade_to = "tower_artillery_lvl_1"
 icon = ExtResource("12_4c844")
 place = 6
 metadata/_custom_type_script = "uid://bu253boudy5i5"

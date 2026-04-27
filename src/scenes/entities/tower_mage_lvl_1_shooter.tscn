@@ -25,9 +25,9 @@ up = Vector2(12.195, -30.935)
 down = Vector2(-13.38, -31.645)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[node name="TowerMageShooter" type="Node2D" unique_id=1442245649]
+[node name="TowerMageLvl1Shooter" type="Node2D" unique_id=1442245649]
 script = ExtResource("1_3kgdc")
-scene_name = "tower_mage_shooter"
+scene_name = "tower_mage_lvl_1_shooter"
 idle_animation = SubResource("Resource_i3jkb")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -48,13 +48,13 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=14077948]
 script = ExtResource("5_vssey")
 animation = SubResource("Resource_8g6nx")
-cooldown = 2.0
+cooldown = 1.5
 bullet = "tower_mage_bullet"
 bullet_offsets = SubResource("Resource_45avb")
 bullet_spawn_mode = 350
 delay = 0.3
 with_melee = true
-damage_min = 30.0
-damage_max = 80.0
+damage_min = 9.0
+damage_max = 17.0
 damage_type = 2
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

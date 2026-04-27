@@ -49,12 +49,6 @@ class_name MeleeBase
 var damaged_entity_ids: Array[int] = []
 
 
-func _ready() -> void:
-	if animation == null:
-		animation = AnimationData.new()
-		animation.left_right = "melee_left_right"
-
-
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
 		"damage_type":

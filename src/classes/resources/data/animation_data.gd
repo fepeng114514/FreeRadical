@@ -29,42 +29,42 @@ class_name AnimationData
 ## 根据实体与目标点的角度返回对应的动画名称
 func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:
 	var dir: C.Direction = C.Direction.DOWN
-	var angle: float = e.global_position.angle_to_point(
-		point
-	)
-	
-	if (
-			not (left or right or left_right) 
-			and (up_down or up and down)
-		):
-		if angle >= -PI and angle < 0:
-			dir = C.Direction.UP
-		else:
-			dir = C.Direction.DOWN
-	elif (
-			not (up or down or up_down)
-			and (left_right or left and right)
-		):
-		if angle <= C.HALF_PI and angle >= -C.HALF_PI:
-			dir = C.Direction.RIGHT
-		else:
-			dir = C.Direction.LEFT
-	else:
-		if angle >= -3 * C.QUARTER_PI and angle < -C.QUARTER_PI:
-			dir = C.Direction.UP
-		elif angle >= C.QUARTER_PI and angle < 3 * C.QUARTER_PI:
-			dir = C.Direction.DOWN
-		elif angle >= -C.QUARTER_PI and angle < C.QUARTER_PI:
-			dir = C.Direction.RIGHT
-		else:
-			dir = C.Direction.LEFT
-
 	var anim_name: StringName = ""
 	var flip_h: bool = false
 	
 	if any:
 		anim_name = any
 	else:
+		var angle: float = e.global_position.angle_to_point(
+			point
+		)
+		
+		if (
+				not (left or right or left_right) 
+				and (up_down or up and down)
+			):
+			if angle >= -PI and angle < 0:
+				dir = C.Direction.UP
+			else:
+				dir = C.Direction.DOWN
+		elif (
+				not (up or down or up_down)
+				and (left_right or left and right)
+			):
+			if angle <= C.HALF_PI and angle >= -C.HALF_PI:
+				dir = C.Direction.RIGHT
+			else:
+				dir = C.Direction.LEFT
+		else:
+			if angle >= -3 * C.QUARTER_PI and angle < -C.QUARTER_PI:
+				dir = C.Direction.UP
+			elif angle >= C.QUARTER_PI and angle < 3 * C.QUARTER_PI:
+				dir = C.Direction.DOWN
+			elif angle >= -C.QUARTER_PI and angle < C.QUARTER_PI:
+				dir = C.Direction.RIGHT
+			else:
+				dir = C.Direction.LEFT
+			
 		match dir:
 			C.Direction.UP:
 				anim_name = up_down if up_down else up

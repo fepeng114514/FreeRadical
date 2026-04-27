@@ -44,14 +44,6 @@ var loop_count: int = 0
 var ts: float = 0
 
 
-func _ready() -> void:
-	if motion_animation == null:
-		motion_animation = AnimationData.new()
-		motion_animation.up = "walk_up"
-		motion_animation.down = "walk_down"
-		motion_animation.left_right = "walk_left_right"
-
-
 ## PathwayMgr.get_subpath 的简写，已传递 nav_pi, nav_spi
 func get_subpath() -> Path2D:
 	return PathwayMgr.get_subpath(nav_pi, nav_spi)

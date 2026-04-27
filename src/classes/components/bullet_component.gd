@@ -23,10 +23,6 @@ class_name BulletComponent
 @export var rotation_speed: float = 0
 ## 是否看向目标点，会覆盖 rotation_speed
 @export var look_to: bool = true
-## 子弹旋转方向
-##
-## 1 表示顺时针旋转，-1 表示逆时针旋转
-@export var rotation_direction: int = -1
 
 @export_group("Hit")
 ## 是否可以到达目标位置，表示子弹是否可以飞行到目标位置
@@ -86,6 +82,10 @@ var to := Vector2.ZERO
 var ts: float = 0
 ## 子弹向量速度
 var velocity := Vector2.ZERO
+## 子弹旋转方向
+##
+## 1 表示顺时针旋转，-1 表示逆时针旋转
+var rotation_direction: int = -1
 ## 预判目标位置
 var predict_target_pos := Vector2.ZERO
 ## 伤害过的实体 ID 列表

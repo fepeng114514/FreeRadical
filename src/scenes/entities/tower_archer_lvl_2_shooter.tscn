@@ -10,5 +10,6 @@ scene_name = "tower_archer_lvl_2_shooter"
 sprite_frames = ExtResource("2_nynew")
 
 [node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
-damage_min = 30.0
-damage_max = 50.0
+cooldown = 0.6
+damage_min = 7.0
+damage_max = 11.0

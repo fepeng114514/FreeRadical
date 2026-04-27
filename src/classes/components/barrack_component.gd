@@ -49,10 +49,6 @@ var soldier_group: EntityGroup = null
 
 
 func _ready() -> void:
-	if animation == null:
-		animation = AnimationData.new()
-		animation.left_right = "spawn"
-		
 	soldier_group = EntityGroup.new()
 	add_child(soldier_group)
 

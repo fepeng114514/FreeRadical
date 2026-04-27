@@ -16,7 +16,7 @@ signal hide_select_menu
 @export_group("Tween")
 ## 补间缩放时长
 @export var scale_time: float = 0.15
-## 补间缩放到目标值
+## 补间缩放的目标值
 @export var target_scale := Vector2.ONE
 
 ## 项列表

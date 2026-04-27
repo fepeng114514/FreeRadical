@@ -72,10 +72,6 @@ var components: Dictionary[StringName, Node] = {}
 
 
 func _ready() -> void:
-	if idle_animation == null:
-		idle_animation = AnimationData.new()
-		idle_animation.left_right = "idle_left_right"
-		
 	scene_name = scene_file_path.get_file().get_basename()
 
 	for child: Node in get_children():
@@ -361,7 +357,7 @@ func play_animation_group(
 		play_animation(anim_name, sprite, filp_h, force_play)
 
 
-## 根据是否为组调用相应 play_animation_by_look 或 play_animation_group_by_look 函数
+## 根据看向的位置播放动画
 func play_animation_by_look(
 		animation: AnimationData, 
 		source_animation_key: String = "",

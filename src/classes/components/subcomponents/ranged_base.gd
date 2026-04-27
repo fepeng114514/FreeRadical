@@ -66,6 +66,10 @@ class_name RangedBase
 @export var can_damage_same: bool = false
 
 
+func _ready() -> void:
+	bullet_offsets.changed.connect(_on_offset_data_changed)
+
+
 func _validate_property(property: Dictionary):
 	match property.name:
 		"damage_type":
