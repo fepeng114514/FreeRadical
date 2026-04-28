@@ -68,7 +68,6 @@ func _on_update(delta: float) -> void:
 		e.rotation += bullet_c.rotation_speed * delta
 
 		var targets: Array[Entity] = [null]
-		var is_range_damage: bool = bullet_c.damage_max_radius > 0
 		var flight_total_time: float = bullet_c.flight_total_time 
 		
 		# 未击中处理
@@ -85,7 +84,7 @@ func _on_update(delta: float) -> void:
 				AudioMgr.play_sfx(bullet_c.miss_sfx)
 				await e.wait_animation(bullet_c.miss_animation)
 
-			if is_range_damage:
+			if bullet_c.damage_area_enable:
 				targets = EntityMgr.search_targets(
 					bullet_c.damage_search_mode, 
 					bullet_c.to + bullet_c.damage_offset, 
@@ -97,7 +96,7 @@ func _on_update(delta: float) -> void:
 						return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
 				)
 
-				_take_damage(e, bullet_c, targets, is_range_damage, bullet_c.miss_payloads)
+				_take_damage(e, bullet_c, targets, bullet_c.miss_payloads)
 
 			if bullet_c.miss_remove:
 				e.remove_entity()
@@ -123,7 +122,7 @@ func _on_update(delta: float) -> void:
 			AudioMgr.play_sfx(bullet_c.hit_sfx)
 			await e.y_wait(bullet_c.hit_delay)
 			
-		if is_range_damage:
+		if bullet_c.damage_area_enable:
 			targets = EntityMgr.search_targets(
 				bullet_c.damage_search_mode, 
 				bullet_c.to + bullet_c.damage_offset, 
@@ -137,7 +136,7 @@ func _on_update(delta: float) -> void:
 		else:
 			targets[0] = target
 
-		_take_damage(e, bullet_c, targets, is_range_damage, bullet_c.hit_payloads)
+		_take_damage(e, bullet_c, targets, bullet_c.hit_payloads)
 
 		e._on_bullet_hit(target, bullet_c)
 		
@@ -152,7 +151,6 @@ func _take_damage(
 		e: Entity, 
 		bullet_c: BulletComponent, 
 		targets: Array[Entity], 
-		is_range_damage: bool,
 		payloads: Array[String]
 		) -> void:
 	var damage_max_count: int = bullet_c.damage_max_count
@@ -172,7 +170,7 @@ func _take_damage(
 		d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
 		d.damage_type = bullet_c.damage_type
 		d.damage_flags = bullet_c.damage_flags
-		if is_range_damage and bullet_c.damage_falloff_enabled:
+		if bullet_c.damage_area_enable and bullet_c.damage_falloff_enabled:
 			d.damage_factor = U.dist_factor_inside_radius(
 				e.global_position, 
 				t.global_position, 

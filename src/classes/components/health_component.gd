@@ -14,6 +14,14 @@ class_name HealthComponent
 @export var magical_armor: int = 0
 ## 毒抗性
 @export var poison_armor: int = 0
+## 回血
+@export var regen_hp: float = 0
+## 回血冷却
+@export var regen_cooldown: float = C.UNSET
+## 待机回血
+@export var idle_regen_hp: float = 0
+## 待机回血冷却
+@export var idle_regen_cooldown: float = C.UNSET
 ## 伤害抗性
 ##
 ## 伤害抗性可以百分比减少受到的伤害
@@ -46,9 +54,11 @@ class_name HealthComponent
 ## 当前血量
 var hp: float = 0:
 	set(value):
+		value = clampf(value, 0, hp_max)
 		hp = value
 		health_bar.value = get_hp_percent()
-
+var regen_ts: float = 0
+var idle_regen_ts: float = 0
 
 ## 血条节点引用
 @onready var health_bar: TextureProgressBar = get_node_or_null("HealthBar")

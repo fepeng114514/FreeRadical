@@ -60,6 +60,9 @@ sprite_frames = ExtResource("7_thpnf")
 sprite_frames = ExtResource("8_78n2l")
 frame_progress = 0.0
 
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+price = 225.0
+
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_menu_data = SubResource("Resource_1apaj")
 

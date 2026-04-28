@@ -18,6 +18,9 @@ scene_name = "tower_barrack_lvl_3"
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=927508667]
 texture = ExtResource("2_gxdjv")
 
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+price = 160.0
+
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-71.235, -108.86, 138.62, 123.94)
 select_menu_data = SubResource("Resource_3kc2j")

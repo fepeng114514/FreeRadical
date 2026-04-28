@@ -28,7 +28,7 @@ script = ExtResource("2_5r4pg")
 left_right = &"spawn"
 
 [node name="TowerBarrackLvl1" unique_id=187367710 instance=ExtResource("1_og8n7")]
-scene_name = "tower_barrack"
+scene_name = "tower_barrack_lvl_1"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=927508667]
 position = Vector2(0, -48)
@@ -43,7 +43,7 @@ select_menu_data = SubResource("Resource_cr2gu")
 
 [node name="BarrackComponent" type="Node2D" parent="." index="3" unique_id=441339810]
 script = ExtResource("4_u6jgq")
-rally_radius = 60.0
+rally_radius = 45.0
 soldier = "tower_barrack_lvl_1_soldier"
 animation = SubResource("Resource_xe47h")
 metadata/_custom_type_script = "uid://b3vhika61oa7p"

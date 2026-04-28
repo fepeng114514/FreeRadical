@@ -8,48 +8,21 @@ class_name RallyComponent
 
 ## 移动速度
 @export var speed: float = 100
-## 集结半径
-##
-## 集结半径用于阵型排列时单位之间的间距
-@export var rally_radius: float = 30
 ## 是否可点击集结
 @export var can_select_rally: bool = true
 ## 移动动画
 @export var motion_animation: AnimationData = null
 
-## 集结目标位置
-@export var rally_pos := Vector2.ZERO:
-	set(value):
-		rally_pos = value
-		target_position = value
-
 ## 是否已到达集结位置
 var arrived: bool = false
+var is_force_rally: bool = false
 
 
-## 设置新的集结目标
-func new_rally(
-		new_rally_pos: Vector2, new_rally_radius: float = C.UNSET
-) -> void:
+## 设置新的集结位置
+func new_rally_position(
+		pos: Vector2, 
+		is_force: bool = false
+	) -> void:
+	is_force_rally = is_force
 	arrived = false
-	rally_pos = new_rally_pos
-	target_position = rally_pos
-	
-	if U.is_valid_number(new_rally_radius):
-		rally_radius = new_rally_radius
-
-
-## 设置阵型位置
-##
-## 根据总数量和当前索引，计算单位在阵型中的位置
-func rally_formation_position(count: int, idx: int) -> void:
-	if count == 1:
-		return
-		
-	var a: float = 2 * PI / count
-	var angle: float = (idx - 1) * a - PI / 2
-	
-	var new_rally_pos: Vector2 = U.point_on_circle(
-		get_final_position(), rally_radius, angle
-	)
-	new_rally(new_rally_pos)
+	target_position = pos

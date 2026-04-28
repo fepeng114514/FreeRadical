@@ -25,8 +25,13 @@ class_name BarrackComponent
 @export var rally_radius: float = 30
 ## 士兵场景名称
 @export var soldier: String = ""
-## 兵营生成士兵的时间间隔（秒）
+## 生成士兵间隔（秒）
 @export var respawn_time: float = 10
+## 士兵生成偏移
+@export var respawn_offset := Vector2.ZERO:
+	set(value):
+		respawn_offset = value
+		queue_redraw()
 ## 最大士兵数量
 @export var max_soldiers: int = 3
 ## 生成士兵播放的动画
@@ -78,13 +83,34 @@ func _draw() -> void:
 		Color(0.486, 0.294, 1.0, 1.0), 
 		true
 	)
+	draw_circle(
+		respawn_offset,
+		3,
+		Color.GREEN, 
+		true
+	)
 
 
-func new_rally(pos: Vector2) -> void:
+func new_rally_position(
+		pos: Vector2, 
+		is_force: bool = false
+	) -> void:
 	rally_pos = pos
 	
 	for i: int in soldier_group.get_child_count():
 		var s: Entity = soldier_group.get_child(i)
 		var s_rally_c: RallyComponent = s.get_node_or_null(C.CN_RALLY)
-		s_rally_c.new_rally(pos)
-		s_rally_c.rally_formation_position(max_soldiers, i)
+		var formation_position: Vector2 = to_formation_position(pos, max_soldiers, i)
+		s_rally_c.new_rally_position(formation_position, is_force)
+
+## 将位置转换为阵型位置
+func to_formation_position(pos: Vector2, count: int, idx: int) -> Vector2:
+	if count == 1:
+		return pos
+		
+	var a: float = 2 * PI / count
+	var angle: float = (idx - 1) * a - PI / 2
+	
+	return U.point_on_circle(
+		pos, rally_radius, angle
+	)

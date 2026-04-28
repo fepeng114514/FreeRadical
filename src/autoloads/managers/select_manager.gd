@@ -69,7 +69,7 @@ func _on_deselect() -> void:
 			var rally_c: RallyComponent = selected_entity.get_node_or_null(
 				C.CN_RALLY
 			)
-			rally_c.new_rally(InputMgr.mouse_global_position)
+			rally_c.new_rally_position(InputMgr.mouse_global_position, true)
 		C.SelectMode.BARRACK_RALLY:
 			var barrack_c: BarrackComponent = selected_entity.get_node_or_null(
 				C.CN_BARRACK
@@ -83,7 +83,7 @@ func _on_deselect() -> void:
 					to_mouse_dist <= barrack_c.rally_max_range
 					and to_mouse_dist >= barrack_c.rally_min_range
 				):
-				barrack_c.new_rally(InputMgr.mouse_global_position)
+				barrack_c.new_rally_position(InputMgr.mouse_global_position, true)
 			else:
 				var direction_to: Vector2 = selected_entity.global_position.direction_to(
 						InputMgr.mouse_global_position
@@ -96,7 +96,7 @@ func _on_deselect() -> void:
 						+ selected_entity.global_position
 					)
 					
-					barrack_c.new_rally(rally_pos)
+					barrack_c.new_rally_position(rally_pos, true)
 				else:
 					var rally_pos: Vector2 = (
 						direction_to
@@ -104,6 +104,6 @@ func _on_deselect() -> void:
 						+ selected_entity.global_position
 					)
 					
-					barrack_c.new_rally(rally_pos)
+					barrack_c.new_rally_position(rally_pos, true)
 
 	select_mode = C.SelectMode.NONE

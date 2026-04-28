@@ -11,6 +11,7 @@ func _on_update(e: Entity) -> bool:
 		return false
 		
 	var soldier_group: EntityGroup = barrack_c.soldier_group
+	var max_soldiers: int = barrack_c.max_soldiers
 		
 	if e.is_first_update:
 		e.play_animation_by_look(barrack_c.animation)
@@ -18,26 +19,21 @@ func _on_update(e: Entity) -> bool:
 		if barrack_c.delay:
 			await e.y_wait(barrack_c.delay)
 			
-		var max_soldiers: int = barrack_c.max_soldiers
-			
 		for i: int in max_soldiers:
-			var soldier: Entity = respawn_soldier(e, barrack_c, soldier_group)
-			var s_rally_c: RallyComponent = soldier.get_node_or_null(C.CN_RALLY)
-			s_rally_c.rally_formation_position(max_soldiers, i)
-	
+			respawn_soldier(e, barrack_c, soldier_group)
+			
 	var soldier_count: int = soldier_group.get_child_count()
 	
 	# 根据重生时间生成士兵
 	if TimeMgr.is_ready_time(barrack_c.ts, barrack_c.respawn_time):
-		respawn_soldier(e, barrack_c, soldier_group)
+		if soldier_count < max_soldiers:
+			respawn_soldier(e, barrack_c, soldier_group)
 		barrack_c.ts = TimeMgr.tick_ts
 	
 	# 士兵数发生变化重新整队
 	if barrack_c.last_soldier_count != soldier_count:
-		for i: int in soldier_count:
-			var soldier: Entity = soldier_group.get_child(i)
-			var s_rally_c: RallyComponent = soldier.get_node_or_null(C.CN_RALLY)
-			s_rally_c.rally_formation_position(soldier_count, i)
+		var global_position: Vector2 = barrack_c.to_global(barrack_c.rally_pos)
+		barrack_c.new_rally_position(global_position, false)
 	
 	barrack_c.last_soldier_count = soldier_count
 	return false
@@ -45,16 +41,10 @@ func _on_update(e: Entity) -> bool:
 
 func respawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent, soldier_group: EntityGroup
-	) -> Variant:
-	if soldier_group.get_child_count() >= barrack_c.max_soldiers:
-		return null
-		
+	) -> Entity:
 	var soldier: Entity = EntityMgr.create_entity(barrack_c.soldier)
-	soldier.global_position = barrack.global_position
+	soldier.global_position = barrack.global_position + barrack_c.respawn_offset
 	
-	var rally_c: RallyComponent = soldier.get_node_or_null(C.CN_RALLY)
-	rally_c.new_rally(barrack_c.rally_pos, barrack_c.rally_radius)
-		
 	if not barrack._on_barrack_respawn(soldier, barrack_c):
 		return soldier
 	

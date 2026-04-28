@@ -12,6 +12,8 @@ sprite_frames = ExtResource("2_6sh1f")
 [node name="HealthComponent" parent="." index="1" unique_id=949799713]
 hp_max = 100.0
 physical_armor = 15
+idle_regen_hp = 7.0
+idle_regen_cooldown = 1.0
 
 [node name="MeleeAttack" parent="MeleeComponent" parent_id_path=PackedInt32Array(668314156) index="0" unique_id=1014449767]
 damage_min = 3.0

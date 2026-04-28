@@ -58,6 +58,9 @@ sprite_frames = ExtResource("8_g61dv")
 sprite_frames = ExtResource("9_npkjw")
 frame_progress = 0.0
 
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+price = 320.0
+
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-96.495, -82.975, 179.84, 110.07)
 select_menu_data = SubResource("Resource_pqn5j")

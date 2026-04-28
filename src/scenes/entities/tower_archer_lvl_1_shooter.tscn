@@ -13,15 +13,15 @@ script = ExtResource("2_csl3h")
 up = &"idle_up"
 down = &"idle_down"
 
-[sub_resource type="Resource" id="Resource_6rlp0"]
-script = ExtResource("2_csl3h")
-up = &"ranged_up"
-down = &"ranged_down"
-
 [sub_resource type="Resource" id="Resource_367kr"]
 script = ExtResource("7_eanea")
 any = Vector2(5.725, -18.35)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_6rlp0"]
+script = ExtResource("2_csl3h")
+up = &"ranged_up"
+down = &"ranged_down"
 
 [node name="TowerArcherLvl1Shooter" type="Node2D" unique_id=2011504655]
 script = ExtResource("1_kc3g7")
@@ -43,11 +43,11 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="RangedAttack" type="Node2D" parent="RangedComponent" unique_id=1939030855]
 script = ExtResource("6_vh14o")
-animation = SubResource("Resource_6rlp0")
-cooldown = 0.8
 bullet = "tower_archer_bullet"
 bullet_offsets = SubResource("Resource_367kr")
+cooldown = 0.8
 delay = 0.167
+animation = SubResource("Resource_6rlp0")
 damage_min = 4.0
 damage_max = 6.0
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

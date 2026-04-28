@@ -13,6 +13,7 @@ sprite_frames = ExtResource("2_nquq8")
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 80.0
 physical_armor = 30
+death_gold = 9.0
 
 [node name="HealthBar" parent="HealthComponent" index="0" unique_id=1048256100]
 offset_top = -50.999996

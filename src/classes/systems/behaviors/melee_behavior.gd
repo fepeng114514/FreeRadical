@@ -229,19 +229,15 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 		await e.y_wait(a.delay)
 			
 		var targets: Array[Entity] = [null]
-
-		var is_range_damage: bool = a.damage_max_radius > 0
 			
-		if is_range_damage:
+		if a.damage_area_enable:
 			targets = EntityMgr.search_targets(
 				a.damage_search_mode, 
 				e.global_position + a.damage_offset, 
 				a.damage_max_radius, 
 				a.damage_min_radius, 
 				e.flags, 
-				e.bans,
-				func(t: Entity) -> bool:
-					return a.can_damage_same or t.id not in a.damaged_entity_ids
+				e.bans
 			)
 		else:
 			if not U.is_valid_entity(target):
@@ -266,7 +262,7 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 			d.value = d.get_random_value(a.damage_min, a.damage_max)
 			d.damage_type = a.damage_type
 			d.damage_flags = a.damage_flags
-			if is_range_damage and a.damage_falloff_enabled:
+			if a.damage_area_enable and a.damage_falloff_enabled:
 				d.damage_factor = U.dist_factor_inside_radius(
 					e.global_position, 
 					t.global_position, 
@@ -276,7 +272,6 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 			d.insert_damage()
 
 			EntityMgr.create_mods(t_id, a.mods, e_id)
-			a.damaged_entity_ids.append(t_id)
 		
 		await e.wait_animation(a.animation)
 		e.play_animation_by_look(e.idle_animation)

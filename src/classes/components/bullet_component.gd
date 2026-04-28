@@ -33,8 +33,6 @@ class_name BulletComponent
 @export var hit_remove: bool = true
 ## 击中后造成伤害的延迟（秒）
 @export var hit_delay: float = 0
-## 子弹携带的状态效果
-@export var mods: Array[String] = []
 ## 子弹击中目标时创建的实体场景名称
 @export var hit_payloads: Array[String] = []
 ## 击中动画
@@ -60,6 +58,10 @@ var damage_max: float = 0
 var damage_type: int = C.DamageType.PHYSICAL
 ## 伤害标识
 var damage_flags: int = 0
+## 子弹携带的状态效果
+var mods: Array[String] = []
+## 是否启用范围伤害
+var damage_area_enable: bool = false
 ## 最小伤害半径
 var damage_min_radius: float = 0
 ## 最大伤害半径

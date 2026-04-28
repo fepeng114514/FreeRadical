@@ -3,7 +3,6 @@ extends EditorScript
 #class_name UpdateJsonDatas
 ## 更新 "res://datas/" 目录的 JSON
 
-
 const DIR_ENTITY_SCENES: String = "res://scenes/entities/"
 
 

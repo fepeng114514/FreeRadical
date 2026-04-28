@@ -141,6 +141,8 @@ func spawn_bullets(
 		b_bullet_c.damage_max = a.damage_max
 		b_bullet_c.damage_type = a.damage_type
 		b_bullet_c.damage_flags = a.damage_flags
+		b_bullet_c.mods = a.mods
+		b_bullet_c.damage_area_enable = a.damage_area_enable
 		b_bullet_c.damage_min_radius = a.damage_min_radius
 		b_bullet_c.damage_max_radius = a.damage_max_radius
 		b_bullet_c.damage_max_count = a.damage_max_count
