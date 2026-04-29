@@ -31,7 +31,7 @@ metadata/_custom_type_script = "uid://bu253boudy5i5"
 
 [sub_resource type="Resource" id="Resource_pb8ff"]
 script = ExtResource("8_pyfu2")
-upgrade_to = "tower_barrack"
+upgrade_to = "tower_barrack_lvl_1"
 icon = ExtResource("10_ri540")
 place = 2
 metadata/_custom_type_script = "uid://bu253boudy5i5"
@@ -56,6 +56,7 @@ list = Array[ExtResource("8_pyfu2")]([SubResource("Resource_kum73"), SubResource
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerHolder" type="Node2D" unique_id=1898604313]
+position = Vector2(0, -9)
 script = ExtResource("1_jrk33")
 scene_name = "tower_holder"
 idle_animation = SubResource("Resource_fdaav")
@@ -75,7 +76,7 @@ metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=2005923123]
 script = ExtResource("3_qfsqy")
-select_rect = Rect2(-77.425, -45.79, 150, 85.995)
+select_rect = Rect2(-77.425, -45.79, 156.65, 85.995)
 info_bar_type = 2
 select_menu_data = SubResource("Resource_77b72")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

@@ -103,6 +103,7 @@ func new_rally_position(
 		var formation_position: Vector2 = to_formation_position(pos, max_soldiers, i)
 		s_rally_c.new_rally_position(formation_position, is_force)
 
+
 ## 将位置转换为阵型位置
 func to_formation_position(pos: Vector2, count: int, idx: int) -> Vector2:
 	if count == 1:

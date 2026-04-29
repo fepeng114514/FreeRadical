@@ -77,7 +77,6 @@ delay = 0.2
 animation = SubResource("Resource_p1ots")
 damage_min = 1.0
 damage_max = 3.0
-can_damage_same = null
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
 [node name="RallyComponent" type="NavigationAgent2D" parent="." unique_id=905200269]

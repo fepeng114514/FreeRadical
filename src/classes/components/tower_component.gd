@@ -13,9 +13,14 @@ class_name TowerComponent
 ## 塔位样式
 @export var tower_holder_style: C.TowerHolderStyle = C.TowerHolderStyle.GRASS
 ## 价格
-@export var price: float = 70
+@export var price: float = 0
 ## 出售比例（%）
 @export var sell_ratio: float = 0.5
+## 默认集结点
+@export var default_rally_pos := Vector2.ZERO:
+	set(value):
+		default_rally_pos = value
+		queue_redraw()
 
 ## 总价格
 var total_price: float = price
@@ -27,6 +32,12 @@ var is_sell: bool = false
 var ts: float = 0
 
 
+func _validate_property(property: Dictionary) -> void:
+	match property.name:
+		"default_rally_pos":
+			property.hint_string = "vector_picker"
+
+
 func _draw() -> void:
 	if not Engine.is_editor_hint():
 		return
@@ -35,5 +46,12 @@ func _draw() -> void:
 		show_range_offset, 
 		3,
 		Color(0.757, 0.0, 0.62, 1.0), 
+		true
+	)
+	
+	draw_circle(
+		default_rally_pos,
+		9,
+		Color(0.486, 0.294, 1.0, 1.0), 
 		true
 	)

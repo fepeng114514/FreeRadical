@@ -49,6 +49,12 @@ func _on_update(_delta: float) -> void:
 			)
 			new_tower_c.tower_holder_style = tower_c.tower_holder_style
 			
+			var default_rally_pos: Vector2 = tower_c.default_rally_pos
+			new_tower_c.default_rally_pos = default_rally_pos
+			var barrack_c: BarrackComponent = new_tower.get_node_or_null(C.CN_BARRACK)
+			if barrack_c:
+				barrack_c.rally_pos = default_rally_pos
+			
 			new_tower.insert_entity()
 			e.remove_entity()
 			GameMgr.cash -= price

@@ -36,6 +36,7 @@ texture = ExtResource("3_bfdgq")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 2
+default_rally_pos = null
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-55.715, -82, 107.405, 102.935)

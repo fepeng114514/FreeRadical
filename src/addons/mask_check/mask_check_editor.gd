@@ -1,8 +1,18 @@
 @tool
 extends EditorProperty
 
+# 被编辑的对象和属性名
+var edited_object: Object = null
+var property_name: String = ""
+
 var checkboxes: Array[CheckBox] = []
 var enumerate
+
+
+# 设置要处理的属性和目标对象
+func setup(p_name: String, p_object: Object) -> void:
+	property_name = p_name
+	edited_object = p_object
 
 
 func _init(enum_property: String) -> void:
@@ -25,7 +35,7 @@ func _init(enum_property: String) -> void:
 
 
 func _update_property() -> void:
-	var current_value: int = get_edited_object().get(get_edited_property())
+	var current_value: int = edited_object.get(property_name)
 	
 	var i: int = 0
 	for key: String in enumerate:
@@ -35,7 +45,7 @@ func _update_property() -> void:
 		
 		
 func _on_checkbox_toggled(pressed: bool, key: String) -> void:
-	var current_value: int = get_edited_object().get(get_edited_property())
+	var current_value: int = edited_object.get(property_name)
 	var value: int = enumerate[key]
 
 	if pressed:
@@ -43,5 +53,5 @@ func _on_checkbox_toggled(pressed: bool, key: String) -> void:
 	else:
 		current_value &= ~value
 
-	get_edited_object().set(get_edited_property(), current_value)
-	emit_changed(get_edited_property(), current_value)
+	edited_object.set(property_name, current_value)
+	emit_changed(property_name, current_value)
