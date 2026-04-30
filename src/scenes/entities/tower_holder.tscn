@@ -56,13 +56,13 @@ list = Array[ExtResource("8_pyfu2")]([SubResource("Resource_kum73"), SubResource
 metadata/_custom_type_script = "uid://blv3x62ywpu2v"
 
 [node name="TowerHolder" type="Node2D" unique_id=1898604313]
-position = Vector2(0, -9)
 script = ExtResource("1_jrk33")
 scene_name = "tower_holder"
 idle_animation = SubResource("Resource_fdaav")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=234304454]
+position = Vector2(0, -10)
 script = ExtResource("4_eclg5")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 

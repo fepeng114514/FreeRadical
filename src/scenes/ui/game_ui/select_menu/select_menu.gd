@@ -25,6 +25,7 @@ var item_list: Array[Button] = []
 var selected_entity: Entity = null
 var is_animating: bool = false
 
+
 func _ready() -> void:
 	visible = false
 	

@@ -31,6 +31,7 @@ var is_sell: bool = false
 ## 时间戳
 var ts: float = 0
 
+@onready var parent: Entity = get_parent()
 
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
@@ -52,6 +53,12 @@ func _draw() -> void:
 	draw_circle(
 		default_rally_pos,
 		9,
-		Color(0.486, 0.294, 1.0, 1.0), 
+		Color.BLUE, 
 		true
+	)
+	draw_line(
+		default_rally_pos, 
+		to_local(parent.global_position), 
+		Color.BLUE, 
+		2
 	)

@@ -1,10 +1,5 @@
 extends Control
 
-
-@export_group("Tween")
-## 补间缩放时长
-@export var scale_time: float = 0.15
-
 @export_group("Node Ref")
 @export var ranged_max_range_circle: TextureRect = null
 @export var ranged_min_range_circle: TextureRect = null
@@ -12,6 +7,10 @@ extends Control
 @export var rally_min_range_circle: TextureRect = null
 @export var melee_max_range_circle: TextureRect = null
 @export var melee_min_range_circle: TextureRect = null
+
+@export_group("Tween")
+## 补间缩放时长
+@export var scale_time: float = 0.15
 
 ## 所有圆圈
 @onready var all_circle: Array[TextureRect] = [
@@ -37,9 +36,8 @@ func _process(_delta: float) -> void:
 	if not U.is_valid_entity(selected_entity):
 		if visible:
 			_hide()
-			return
 	else:
-		global_position = selected_entity.global_position
+		global_position = selected_entity.global_position - ranged_max_range_circle.size / 2
 		
 
 func _show(e: Entity) -> void:
@@ -88,7 +86,7 @@ func _show(e: Entity) -> void:
 		_show_circle(rally_min_range_circle, barrack_c.rally_min_range, barrack_c.show_range_offset)
 	
 	visible = true
-	global_position = e.global_position
+	global_position = e.global_position - ranged_max_range_circle.size / 2
 	
 	
 func _hide() -> void:
@@ -102,7 +100,7 @@ func _hide() -> void:
 ## 显示圆圈
 func _show_circle(circle: TextureRect, show_range: float, offset := Vector2.ZERO) -> void:
 	circle.visible = true
-	show_range = show_range / 200
+	show_range = show_range / (ranged_max_range_circle.size.x / 2)
 
 	var tween: Tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)

@@ -2,7 +2,7 @@
 
 [sub_resource type="Gradient" id="Gradient_iwqyq"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.9667981, 5.77569e-06, 1.540184e-06, 1)
+colors = PackedColorArray(0.9475859, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1bvlm"]
 gradient = SubResource("Gradient_iwqyq")
@@ -11,7 +11,7 @@ height = 5
 
 [sub_resource type="Gradient" id="Gradient_y3kqx"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(3.3210217e-06, 0.93028414, 3.465414e-06, 1)
+colors = PackedColorArray(0, 0.921127, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_6opq1"]
 gradient = SubResource("Gradient_y3kqx")

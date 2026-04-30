@@ -87,6 +87,9 @@ func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
 		return
 
 	for i: int in a.loop_count:
+		if not U.is_valid_entity(target):
+			break
+			
 		e.look_point = target.global_position
 		var result: Array = e.play_animation_by_look(a.loop_animation)
 		var direction: C.Direction = result[1]

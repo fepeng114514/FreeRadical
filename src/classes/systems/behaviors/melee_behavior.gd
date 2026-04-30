@@ -114,7 +114,13 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	
 	# 不是被动被拦截者，前往近战位置
 	if not melee_c.is_passive:
-		melee_c.melee_pos = blocked.global_position + blocked_melee_c.melee_pos_offset
+		var melee_pos: Vector2 = blocked.global_position
+		if e.global_position.x < melee_pos.x:
+			melee_pos -= blocked_melee_c.melee_pos_offset
+		else:
+			melee_pos += blocked_melee_c.melee_pos_offset
+		
+		melee_c.melee_pos = melee_pos
 		if not _go_melee_pos(e, melee_c):
 			return true
 	
@@ -143,15 +149,18 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 
 	if is_first_blocked:
 		if blocker_melee_c.melee_state != C.MeleeState.MELEE_POS_ARRIVED:
+			e.look_point = blocker.global_position
 			e.play_animation_by_look(e.idle_animation)
 			return true
 	else:
-		if melee_c.melee_state != C.MeleeState.MELEE_POS_ARRIVED:
-			e.play_animation_by_look(e.idle_animation)
-			return true
-
 		if not melee_c.is_passive:
-			melee_c.melee_pos = blocker.global_position + blocker_melee_c.melee_pos_offset
+			var melee_pos: Vector2 = blocker.global_position
+			if e.global_position.x < melee_pos.x:
+				melee_pos -= blocker_melee_c.melee_pos_offset
+			else:
+				melee_pos += blocker_melee_c.melee_pos_offset
+			
+			melee_c.melee_pos = melee_pos
 			if not _go_melee_pos(e, melee_c):
 				return true
 	

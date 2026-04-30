@@ -7,6 +7,7 @@
 [node name="InfoCircle" type="Control" unique_id=1487020159 node_paths=PackedStringArray("ranged_max_range_circle", "ranged_min_range_circle", "rally_max_range_circle", "rally_min_range_circle", "melee_max_range_circle", "melee_min_range_circle")]
 layout_mode = 3
 anchors_preset = 0
+size_flags_horizontal = 4
 script = ExtResource("1_dgwu4")
 ranged_max_range_circle = NodePath("RangedMaxRangeCircle")
 ranged_min_range_circle = NodePath("RangedMinRangeCircle")
@@ -28,6 +29,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("2_2e158")
 
@@ -44,6 +46,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("2_2e158")
 
@@ -60,6 +63,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")
 
@@ -76,6 +80,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")
 
@@ -92,6 +97,7 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")
 
@@ -108,5 +114,6 @@ offset_right = 200.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(200, 200)
 mouse_filter = 2
 texture = ExtResource("3_sxjir")

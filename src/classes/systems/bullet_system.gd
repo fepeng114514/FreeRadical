@@ -51,7 +51,6 @@ func _on_update(delta: float) -> void:
 
 	for e: Entity in entity_list:
 		var bullet_c: BulletComponent = e.get_node_or_null(C.CN_BULLET)
-
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 		var flying_time: float = TimeMgr.get_time_by_ts(bullet_c.ts)
 
@@ -67,84 +66,90 @@ func _on_update(delta: float) -> void:
 			e.play_animation_by_look(bullet_c.flight_animation)
 		e.rotation += bullet_c.rotation_speed * delta
 
-		var targets: Array[Entity] = [null]
 		var flight_total_time: float = bullet_c.flight_total_time 
 		
 		# 未击中处理
 		if (
-				flight_total_time and flying_time >= flight_total_time 
+				flight_total_time > 0 and flying_time >= flight_total_time 
 				or not target 
 				and U.is_at_destination(
 					e.global_position, bullet_c.to, bullet_c.hit_distance
 				)
 			):
-			e._on_bullet_miss(bullet_c)
-			if bullet_c.miss_animation:
-				e.play_animation_by_look(bullet_c.miss_animation)
-				AudioMgr.play_sfx(bullet_c.miss_sfx)
-				await e.wait_animation(bullet_c.miss_animation)
-
-			if bullet_c.damage_area_enable:
-				targets = EntityMgr.search_targets(
-					bullet_c.damage_search_mode, 
-					bullet_c.to + bullet_c.damage_offset, 
-					bullet_c.damage_max_radius, 
-					bullet_c.damage_min_radius, 
-					e.flags, 
-					e.bans,
-					func(t: Entity) -> bool:
-						return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
-				)
-
-				_take_damage(e, bullet_c, targets, bullet_c.miss_payloads)
-
-			if bullet_c.miss_remove:
-				e.remove_entity()
-				
-			continue
-			
-		if not bullet_c.can_arrived:
-			continue
-		
-		# 击中处理
-		match bullet_c.flight_trajectory:
-			C.Trajectory.PARABOLA:
-				if flying_time <= flight_total_time * 0.8:
-					continue
-		
-		if not U.is_at_destination(
-				e.global_position, bullet_c.to, bullet_c.hit_distance
-			):
-			continue
-
-		if bullet_c.hit_animation:
-			e.play_animation_by_look(bullet_c.hit_animation)
-			AudioMgr.play_sfx(bullet_c.hit_sfx)
-			await e.y_wait(bullet_c.hit_delay)
-			
-		if bullet_c.damage_area_enable:
-			targets = EntityMgr.search_targets(
-				bullet_c.damage_search_mode, 
-				bullet_c.to + bullet_c.damage_offset, 
-				bullet_c.damage_max_radius, 
-				bullet_c.damage_min_radius, 
-				e.flags, 
-				e.bans,
-				func(t: Entity) -> bool:
-					return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
-			)
+			_miss(e, bullet_c)
 		else:
-			targets[0] = target
+			if not bullet_c.can_arrived:
+				continue
+			
+			match bullet_c.flight_trajectory:
+				C.Trajectory.PARABOLA:
+					if flying_time <= flight_total_time * 0.8:
+						continue
+			
+			if not U.is_at_destination(
+					e.global_position, bullet_c.to, bullet_c.hit_distance
+				):
+				continue
+				
+			_hit(e, bullet_c, target)
 
-		_take_damage(e, bullet_c, targets, bullet_c.hit_payloads)
-
-		e._on_bullet_hit(target, bullet_c)
 		
-		if bullet_c.hit_animation:
-			e.wait_animation(bullet_c.hit_animation)
+func _miss(e: Entity, bullet_c: BulletComponent) -> void:
+	e._on_bullet_miss(bullet_c)
+	if bullet_c.miss_animation:
+		e.play_animation_by_look(bullet_c.miss_animation)
+		AudioMgr.play_sfx(bullet_c.miss_sfx)
+		await e.wait_animation(bullet_c.miss_animation)
 
-		if bullet_c.hit_remove:
-			e.remove_entity()
+	if bullet_c.damage_area_enable:
+		var targets: Array[Entity] = [null]
+		targets = EntityMgr.search_targets(
+			bullet_c.damage_search_mode, 
+			bullet_c.to + bullet_c.damage_offset, 
+			bullet_c.damage_max_radius, 
+			bullet_c.damage_min_radius, 
+			e.flags, 
+			e.bans,
+			func(t: Entity) -> bool:
+				return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
+		)
+
+		_take_damage(e, bullet_c, targets, bullet_c.miss_payloads)
+
+	if bullet_c.miss_remove:
+		e.remove_entity()
+				
+		
+func _hit(e: Entity, bullet_c: BulletComponent, target) -> void:
+	if bullet_c.hit_animation:
+		e.play_animation_by_look(bullet_c.hit_animation)
+		AudioMgr.play_sfx(bullet_c.hit_sfx)
+		await e.y_wait(bullet_c.hit_delay)
+		
+	var targets: Array[Entity] = [null]
+	if bullet_c.damage_area_enable:
+		targets = EntityMgr.search_targets(
+			bullet_c.damage_search_mode, 
+			bullet_c.to + bullet_c.damage_offset, 
+			bullet_c.damage_max_radius, 
+			bullet_c.damage_min_radius, 
+			e.flags, 
+			e.bans,
+			func(t: Entity) -> bool:
+				return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
+		)
+	else:
+		targets[0] = target
+
+	_take_damage(e, bullet_c, targets, bullet_c.hit_payloads)
+	e._on_bullet_hit(target, bullet_c)
+	
+	if bullet_c.hit_animation:
+		e.wait_animation(bullet_c.hit_animation)
+		await e.wait_animation(bullet_c.hit_animation)
+
+	if bullet_c.hit_remove:
+		e.remove_entity()
 		
 
 func _take_damage(
