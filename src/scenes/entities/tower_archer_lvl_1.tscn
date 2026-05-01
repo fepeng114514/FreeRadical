@@ -8,7 +8,7 @@
 scene_name = "tower_archer_lvl_1"
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
-show_range_offset = Vector2(0, -43.52)
+price = 70.0
 
 [node name="EntityGroup2D" type="Node2D" parent="TowerComponent" index="0" unique_id=1846981393]
 script = ExtResource("7_nv2ef")

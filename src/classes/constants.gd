@@ -269,6 +269,8 @@ enum State {
 	DISABLED = 1 << 7,
 	## 状态：移除
 	REMOVED = 1 << 8,
+	## 状态：死亡
+	DEATH = 1 << 8,
 }
 
 
@@ -372,13 +374,13 @@ enum SelectMenuButtonType {
 ## 近战状态枚举
 enum MeleeState {
 	## 到达原点
-	IDLE,
+	ORIGIN_POS_ARRIVED,
 	## 返回位置中
-	RETURNING,      
-	## 前往近战位置中
-	MOVING_TO_POS,  
+	ORIGIN_POS_MOVING,      
 	## 已到达位置
 	MELEE_POS_ARRIVED,    
+	## 前往近战位置中
+	MELEE_POS_MOVING,  
 }
 
 

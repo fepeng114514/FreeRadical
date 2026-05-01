@@ -16,7 +16,12 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for e: Entity in EntityMgr.get_entities_group(C.CN_HEALTH):
+	var entities: Array = EntityMgr.get_entities_group(C.CN_HEALTH).filter(
+		func(e: Entity) -> bool:
+			return not e.state & C.State.DEATH
+	)
+	
+	for e: Entity in entities:
 		var health_c: HealthComponent = e.get_node_or_null(C.CN_HEALTH)
 
 		if health_c.death_data:
@@ -43,6 +48,7 @@ func _death(e: Entity, health_c: HealthComponent) -> void:
 		death_data.killer._on_kill(e)
 		
 	health_c.health_bar.visible = false
+	e.state = C.State.DEATH
 	GameMgr.cash += health_c.death_gold
 	
 	var death_animation: AnimationData = health_c.death_animation

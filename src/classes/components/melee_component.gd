@@ -56,7 +56,7 @@ var melee_pos := Vector2.ZERO
 ## 向量速度
 var velocity := Vector2.ZERO
 ## 近战状态
-var melee_state: C.MeleeState = C.MeleeState.IDLE
+var melee_state: C.MeleeState = C.MeleeState.ORIGIN_POS_ARRIVED
 
 
 func _draw() -> void:

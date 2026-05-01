@@ -41,14 +41,12 @@ func _on_remove(e: Entity) -> bool:
 	
 	
 func _on_update(_delta: float) -> void:
-	for e: Entity in EntityMgr.get_valid_entities():
-		if e.is_waiting():
-			continue
-		
-		var health_c: HealthComponent = e.get_node_or_null(C.CN_HEALTH)
-		if health_c and health_c.death_data:
-			continue
-		
+	var entities: Array = EntityMgr.get_valid_entities().filter(
+		func(e: Entity) -> bool:
+			return not e.is_waiting() and not e.state & C.State.DEATH
+	)
+	
+	for e: Entity in entities:
 		var is_break: bool = false
 		for i: int in _behavior_count:
 			var updata_fn: Callable = _update_cbs[i]

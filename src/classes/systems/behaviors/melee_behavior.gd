@@ -26,7 +26,7 @@ func _on_skip(e: Entity) -> void:
 	if melee_c.is_blocker:
 		melee_c.blockeds_ids.clear()
 		melee_c.blocked_count = 0
-		melee_c.melee_state = C.MeleeState.IDLE
+		melee_c.melee_state = C.MeleeState.ORIGIN_POS_ARRIVED
 	else:
 		melee_c.blockers_ids.clear()
 		
@@ -97,131 +97,135 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	# 没有被拦截者
 	if not blockeds_ids:
 		match melee_c.melee_state:
-			# 在原点
-			C.MeleeState.IDLE:
+			C.MeleeState.ORIGIN_POS_ARRIVED:
 				melee_c.origin_pos = e.global_position
-			# 没有被拦截者，在近战位置，返回原点
-			C.MeleeState.MELEE_POS_ARRIVED:
+			_:
 				if not _back_origin_pos(e, melee_c):
 					return true
 		
 		return false
-	
-	# 有被拦截者
-	e.state = C.State.MELEE
-	var blocked: Entity = EntityMgr.get_entity_by_id(blockeds_ids[0])
-	var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
-	
-	# 不是被动被拦截者，前往近战位置
-	if not melee_c.is_passive:
-		var melee_pos: Vector2 = blocked.global_position
-		if e.global_position.x < melee_pos.x:
-			melee_pos -= blocked_melee_c.melee_pos_offset
-		else:
-			melee_pos += blocked_melee_c.melee_pos_offset
+	else:
+		e.state = C.State.MELEE
+		var blocked: Entity = EntityMgr.get_entity_by_id(blockeds_ids[0])
+		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
 		
-		melee_c.melee_pos = melee_pos
-		if not _go_melee_pos(e, melee_c):
-			return true
-	
-	_try_melee_attack(e, melee_c, blocked)
-	return true
+		# 不是被动被拦截者，前往近战位置
+		if not melee_c.is_passive:
+			var melee_pos: Vector2 = blocked.global_position
+			if e.global_position.x < melee_pos.x:
+				melee_pos -= blocked_melee_c.melee_pos_offset
+			else:
+				melee_pos += blocked_melee_c.melee_pos_offset
+			
+			melee_c.melee_pos = melee_pos
+			if not _go_melee_pos(e, melee_c, melee_pos):
+				return true
+		
+		_try_melee_attack(e, melee_c, blocked)
+		return true
 
 
 func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 	var blockers_ids: Array[int] = melee_c.blockers_ids
 	if not blockers_ids:
 		match melee_c.melee_state:
-			# 在原点
-			C.MeleeState.IDLE:
+			C.MeleeState.ORIGIN_POS_ARRIVED:
 				melee_c.origin_pos = e.global_position
-			# 没有被拦截者，在近战位置，返回原点
-			C.MeleeState.MELEE_POS_ARRIVED:
+			_:
 				if not _back_origin_pos(e, melee_c):
 					return true
 		
 		return false
-	
-	e.state = C.State.MELEE
-	var blocker: Entity = EntityMgr.get_entity_by_id(blockers_ids[0])
-	var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
-	var is_first_blocked: bool = e.id == blocker_melee_c.blockeds_ids[0]
-
-	if is_first_blocked:
-		if blocker_melee_c.melee_state != C.MeleeState.MELEE_POS_ARRIVED:
-			e.look_point = blocker.global_position
-			e.play_animation_by_look(e.idle_animation)
-			return true
 	else:
-		if not melee_c.is_passive:
-			var melee_pos: Vector2 = blocker.global_position
-			if e.global_position.x < melee_pos.x:
-				melee_pos -= blocker_melee_c.melee_pos_offset
-			else:
-				melee_pos += blocker_melee_c.melee_pos_offset
-			
-			melee_c.melee_pos = melee_pos
-			if not _go_melee_pos(e, melee_c):
+		e.state = C.State.MELEE
+		var blocker: Entity = EntityMgr.get_entity_by_id(blockers_ids[0])
+		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
+		var is_first_blocked: bool = e.id == blocker_melee_c.blockeds_ids[0]
+
+		if is_first_blocked:
+			if blocker_melee_c.melee_state != C.MeleeState.MELEE_POS_ARRIVED:
+				e.look_point = blocker.global_position
+				e.play_animation_by_look(e.idle_animation)
 				return true
-	
-	_try_melee_attack(e, melee_c, blocker)
-	return true
-	
-	
-func _go_melee_pos(e: Entity, melee_c: MeleeComponent) -> bool:
-	if U.is_at_destination(
-			e.global_position, melee_c.melee_pos, melee_c.arrived_distance	 
-	):
-		melee_c.melee_state = C.MeleeState.MELEE_POS_ARRIVED
+		else:
+			if not melee_c.is_passive:
+				var melee_pos: Vector2 = blocker.global_position
+				if e.global_position.x < melee_pos.x:
+					melee_pos -= blocker_melee_c.melee_pos_offset
+				else:
+					melee_pos += blocker_melee_c.melee_pos_offset
+				
+				melee_c.melee_pos = melee_pos
+				if not _go_melee_pos(e, melee_c, melee_pos):
+					return true
+		
+		_try_melee_attack(e, melee_c, blocker)
 		return true
 	
-	melee_c.melee_state = C.MeleeState.MOVING_TO_POS
-	var direction: Vector2 = e.global_position.direction_to(
-		melee_c.melee_pos
-	)
-	var velocity: Vector2 = (
-		direction 
-		* melee_c.speed 
-		* TimeMgr.frame_length
-	)
-	melee_c.velocity = velocity
-
-	var next_position: Vector2 = e.global_position + velocity
-	e.look_point = next_position
-	e.play_animation_by_look(melee_c.motion_animation, "walk")
-	e.global_position = next_position
 	
-	return false
+func _go_melee_pos(e: Entity, melee_c: MeleeComponent, melee_pos: Vector2) -> bool:
+	if U.is_at_destination(
+			e.global_position, melee_pos, melee_c.arrived_distance	 
+	):
+		#print("Arrived! Pos: %s, Target: %s, Dist: %s" % [e.global_position, melee_c.melee_pos, e.global_position.distance_to(melee_c.melee_pos)])
+		melee_c.melee_state = C.MeleeState.MELEE_POS_ARRIVED
+		return true
+	else:
+		#print("Moving to %s, current %s, velocity %s" % [melee_c.melee_pos, e.global_position, melee_c.velocity])
+		melee_c.melee_state = C.MeleeState.MELEE_POS_MOVING
+		var direction: Vector2 = e.global_position.direction_to(melee_pos)
+		var velocity: Vector2 = (
+			direction 
+			* melee_c.speed 
+			* TimeMgr.frame_length
+		)
+		melee_c.velocity = velocity
+
+		var next_position: Vector2 = e.global_position + velocity
+		e.look_point = next_position
+		e.play_animation_by_look(melee_c.motion_animation, "walk")
+		e.global_position = next_position
+		
+		return false
 	
 	
 func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	if U.is_at_destination(
 		e.global_position, melee_c.origin_pos, melee_c.arrived_distance
 	):
-		melee_c.melee_state = C.MeleeState.IDLE
+		melee_c.melee_state = C.MeleeState.ORIGIN_POS_ARRIVED
 		e.state = C.State.IDLE
 		return true
-	
-	var direction: Vector2 = e.global_position.direction_to(
-		melee_c.origin_pos
-	)
-	var velocity: Vector2 = (
-		direction 
-		* melee_c.speed 
-		* TimeMgr.frame_length
-	)
-	melee_c.velocity = velocity
+	else:
+		melee_c.melee_state = C.MeleeState.ORIGIN_POS_MOVING
+		var direction: Vector2 = e.global_position.direction_to(
+			melee_c.origin_pos
+		)
+		var velocity: Vector2 = (
+			direction 
+			* melee_c.speed 
+			* TimeMgr.frame_length
+		)
+		melee_c.velocity = velocity
 
-	var next_position: Vector2 = e.global_position + velocity
-	e.look_point = next_position
-	e.play_animation_by_look(melee_c.motion_animation, "walk")
+		var next_position: Vector2 = e.global_position + velocity
+		e.look_point = next_position
+		e.play_animation_by_look(melee_c.motion_animation, "walk")
 
-	e.global_position = next_position
-	
-	return false
+		e.global_position = next_position
+		
+		return false
 	
 
-func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> void:
+func _try_melee_attack(
+		e: Entity, melee_c: MeleeComponent, target: Entity
+	) -> void:
+	var is_valid_target: bool = U.is_valid_entity(target)
+	
+	if is_valid_target:
+		e.look_point = target.global_position
+	e.play_animation_by_look(e.idle_animation)
+	
 	for a: MeleeAttack in melee_c.get_children():
 		if not TimeMgr.is_ready_time(a.ts, a.cooldown):
 			continue
@@ -231,7 +235,6 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 			
 		Log.verbose("近战攻击: %s" % e)
 
-		e.look_point = target.global_position
 		a.ts = TimeMgr.tick_ts
 		e.play_animation_by_look(a.animation, "melee")
 		await e.y_wait(a.delay)
@@ -248,8 +251,8 @@ func _try_melee_attack(e: Entity, melee_c: MeleeComponent, target: Entity) -> vo
 				e.bans
 			)
 		else:
-			if not U.is_valid_entity(target):
-				return
+			if not is_valid_target:
+				break
 				
 			targets[0] = target
 
