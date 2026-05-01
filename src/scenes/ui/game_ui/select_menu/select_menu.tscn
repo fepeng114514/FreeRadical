@@ -16,38 +16,6 @@
 [ext_resource type="Resource" uid="uid://cu12xalwranel" path="res://resources/select_menu/select_menu_button_rally.tres" id="9_kjj5h"]
 [ext_resource type="Texture2D" uid="uid://d2a886wkp31y" path="res://resources/atlas_textures/main_icons_0005.tres" id="10_pfcqk"]
 
-[sub_resource type="Resource" id="Resource_kjj5h"]
-script = ExtResource("3_tbaii")
-upgrade_to = "tower_archer_lvl_1"
-icon = ExtResource("4_vyhis")
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_pfcqk"]
-script = ExtResource("3_tbaii")
-upgrade_to = "tower_mage_lvl_1"
-icon = ExtResource("5_w7f45")
-place = 2
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_0ero3"]
-script = ExtResource("3_tbaii")
-upgrade_to = "tower_artillery_lvl_1"
-icon = ExtResource("6_2rv5j")
-place = 4
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_3jcr0"]
-script = ExtResource("3_tbaii")
-upgrade_to = "tower_barrack_lvl_1"
-icon = ExtResource("7_x5eyn")
-place = 6
-metadata/_custom_type_script = "uid://bu253boudy5i5"
-
-[sub_resource type="Resource" id="Resource_crsju"]
-script = ExtResource("2_yaomf")
-button_list = Array[ExtResource("3_tbaii")]([SubResource("Resource_kjj5h"), SubResource("Resource_pfcqk"), SubResource("Resource_0ero3"), SubResource("Resource_3jcr0")])
-metadata/_custom_type_script = "uid://c2igk5xsppdxf"
-
 [sub_resource type="Resource" id="Resource_y16yk"]
 script = ExtResource("3_tbaii")
 upgrade_to = "tower_archer_lvl_2"
@@ -77,31 +45,31 @@ script = ExtResource("2_yaomf")
 button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn")])
 metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
-[sub_resource type="Resource" id="Resource_jc0hj"]
+[sub_resource type="Resource" id="Resource_mnu2s"]
 script = ExtResource("3_tbaii")
-upgrade_to = "tower_mage_lvl_2"
+upgrade_to = "tower_artillery_lvl_2"
 icon = ExtResource("10_pfcqk")
 place = 1
 metadata/_custom_type_script = "uid://bu253boudy5i5"
 
-[sub_resource type="Resource" id="Resource_g2c65"]
+[sub_resource type="Resource" id="Resource_vty3m"]
 script = ExtResource("2_yaomf")
-button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn"), SubResource("Resource_jc0hj")])
+button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn"), SubResource("Resource_mnu2s")])
 metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
-[sub_resource type="Resource" id="Resource_0j2xw"]
+[sub_resource type="Resource" id="Resource_pjylt"]
 script = ExtResource("3_tbaii")
-upgrade_to = "tower_mage_lvl_3"
+upgrade_to = "tower_artillery_lvl_3"
 icon = ExtResource("10_pfcqk")
 place = 1
 metadata/_custom_type_script = "uid://bu253boudy5i5"
 
-[sub_resource type="Resource" id="Resource_2bf1x"]
+[sub_resource type="Resource" id="Resource_g5qfn"]
 script = ExtResource("2_yaomf")
-button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn"), SubResource("Resource_0j2xw")])
+button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn"), SubResource("Resource_pjylt")])
 metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
-[sub_resource type="Resource" id="Resource_hny3r"]
+[sub_resource type="Resource" id="Resource_rrjeb"]
 script = ExtResource("2_yaomf")
 button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn")])
 metadata/_custom_type_script = "uid://c2igk5xsppdxf"
@@ -135,31 +103,63 @@ script = ExtResource("2_yaomf")
 button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn"), ExtResource("9_kjj5h")])
 metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
-[sub_resource type="Resource" id="Resource_mnu2s"]
+[sub_resource type="Resource" id="Resource_kjj5h"]
 script = ExtResource("3_tbaii")
-upgrade_to = "tower_artillery_lvl_2"
+upgrade_to = "tower_archer_lvl_1"
+icon = ExtResource("4_vyhis")
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_pfcqk"]
+script = ExtResource("3_tbaii")
+upgrade_to = "tower_mage_lvl_1"
+icon = ExtResource("5_w7f45")
+place = 2
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_0ero3"]
+script = ExtResource("3_tbaii")
+upgrade_to = "tower_artillery_lvl_1"
+icon = ExtResource("6_2rv5j")
+place = 4
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_3jcr0"]
+script = ExtResource("3_tbaii")
+upgrade_to = "tower_barrack_lvl_1"
+icon = ExtResource("7_x5eyn")
+place = 6
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_crsju"]
+script = ExtResource("2_yaomf")
+button_list = Array[ExtResource("3_tbaii")]([SubResource("Resource_kjj5h"), SubResource("Resource_pfcqk"), SubResource("Resource_0ero3"), SubResource("Resource_3jcr0")])
+metadata/_custom_type_script = "uid://c2igk5xsppdxf"
+
+[sub_resource type="Resource" id="Resource_jc0hj"]
+script = ExtResource("3_tbaii")
+upgrade_to = "tower_mage_lvl_2"
 icon = ExtResource("10_pfcqk")
 place = 1
 metadata/_custom_type_script = "uid://bu253boudy5i5"
 
-[sub_resource type="Resource" id="Resource_vty3m"]
+[sub_resource type="Resource" id="Resource_g2c65"]
 script = ExtResource("2_yaomf")
-button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn"), SubResource("Resource_mnu2s")])
+button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn"), SubResource("Resource_jc0hj")])
 metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
-[sub_resource type="Resource" id="Resource_pjylt"]
+[sub_resource type="Resource" id="Resource_0j2xw"]
 script = ExtResource("3_tbaii")
-upgrade_to = "tower_artillery_lvl_3"
+upgrade_to = "tower_mage_lvl_3"
 icon = ExtResource("10_pfcqk")
 place = 1
 metadata/_custom_type_script = "uid://bu253boudy5i5"
 
-[sub_resource type="Resource" id="Resource_g5qfn"]
+[sub_resource type="Resource" id="Resource_2bf1x"]
 script = ExtResource("2_yaomf")
-button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn"), SubResource("Resource_pjylt")])
+button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn"), SubResource("Resource_0j2xw")])
 metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
-[sub_resource type="Resource" id="Resource_rrjeb"]
+[sub_resource type="Resource" id="Resource_hny3r"]
 script = ExtResource("2_yaomf")
 button_list = Array[ExtResource("3_tbaii")]([ExtResource("8_x5eyn")])
 metadata/_custom_type_script = "uid://c2igk5xsppdxf"

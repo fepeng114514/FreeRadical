@@ -54,6 +54,7 @@ point_count = 8
 [sub_resource type="Resource" id="Resource_svqqs"]
 script = ExtResource("33_dp4fg")
 entity = "enemy_goblin"
+count = 25
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
 [sub_resource type="Resource" id="Resource_2to4m"]

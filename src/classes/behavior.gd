@@ -16,13 +16,8 @@ func _on_remove(e: Entity) -> bool: return true
 ## 更新实体时调用，返回 true 的实体表示阻断后续行为
 func _on_update(e: Entity) -> bool: return false
 
-
-## 任意一个行为的更新回调返回 false 时调用
-func _on_return_false(e: Entity) -> void: pass
-
-
-## 任意一个行为的更新回调返回 true 时调用
-func _on_return_true(e: Entity, break_behavior: Behavior) -> void: pass
+## 当行为树中断，且该行为被跳过时调用
+func _on_skip(e: Entity) -> void: pass
 @warning_ignore_restore("unused_parameter")
 #endregion
 

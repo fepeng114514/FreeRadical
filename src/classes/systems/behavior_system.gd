@@ -7,22 +7,21 @@ class_name BehaviorSystem
 
 var _behaviors: Array[Behavior] = []
 var _update_cbs: Array[Callable] = []
-var _return_true_cbs: Array[Callable] = []
-var _return_false_cbs: Array[Callable] = []
 var _insert_cbs: Array[Callable] = []
 var _remove_cbs: Array[Callable] = []
+var _skip_cbs: Array[Callable] = []
 var _behavior_count: int = 0
 
 
 func _ready() -> void:
+	_behavior_count = get_child_count()
+
 	for child: Behavior in get_children():
 		_behaviors.append(child)
 		_update_cbs.append(child.get("_on_update"))
-		_return_true_cbs.append(child.get("_on_return_true"))
-		_return_false_cbs.append(child.get("_on_return_false"))
 		_insert_cbs.append(child.get("_on_insert"))
 		_remove_cbs.append(child.get("_on_remove"))
-		_behavior_count += 1
+		_skip_cbs.append(child.get("_on_skip"))
 
 
 func _on_insert(e: Entity) -> bool:
@@ -46,26 +45,26 @@ func _on_update(_delta: float) -> void:
 		if e.is_waiting():
 			continue
 		
-		var break_behavior: Behavior = null
-
+		var health_c: HealthComponent = e.get_node_or_null(C.CN_HEALTH)
+		if health_c and health_c.death_data:
+			continue
+		
+		var is_break: bool = false
 		for i: int in _behavior_count:
 			var updata_fn: Callable = _update_cbs[i]
-
-			if updata_fn.call(e):
-				break_behavior = _behaviors[i]
-				break
-		
-		if break_behavior:
-			for return_true_fn: Callable in _return_true_cbs:
-				return_true_fn.call(e, break_behavior)
-			continue
-
-		for return_false_fn: Callable in _return_false_cbs:
-			return_false_fn.call(e)
-
-		if not e.get_node_or_null(C.CN_SPRITE):
-			continue
 			
-		e.play_animation_by_look(e.idle_animation)
+			if updata_fn.call(e):
+				for skiped_i: int in range(i + 1, _behavior_count):
+					var skip_fn: Callable = _skip_cbs[skiped_i]
+					skip_fn.call(e)
+				
+				is_break = true
+				break
+			
+		if not is_break:
+			if not e.get_node_or_null(C.CN_SPRITE):
+				continue
+				
+			e.play_animation_by_look(e.idle_animation)
 			
 			

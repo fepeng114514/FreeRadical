@@ -11,7 +11,6 @@ func _on_update(_delta: float) -> void:
 	
 	while damage_queue:
 		var d: Damage = damage_queue.pop_front()
-		var damage_flags: int = d.damage_flags
 		
 		var target: Entity = EntityMgr.get_entity_by_id(d.target_id)
 		if not target:
@@ -31,9 +30,9 @@ func _on_update(_delta: float) -> void:
 			target, health_c, d, source
 		)
 		health_c.hp -= actual_damage
-		target._on_damage(target, d)
+		target._on_damage(d)
 		
-		if not damage_flags & C.DamageFlag.NO_SPIKED:
+		if not d.damage_flags & C.DamageFlag.NO_SPIKED:
 			if U.is_valid_number(health_c.spiked) and source and source.get_node_or_null(C.CN_HEALTH):
 				var spiked_value: float = d.value * health_c.spiked
 				
@@ -56,6 +55,8 @@ func _on_update(_delta: float) -> void:
 		)
 		
 		if health_c.hp <= 0:
+			var damage_flags: int = d.damage_flags
+			
 			if damage_flags & C.DamageFlag.NOT_KILL:
 				health_c.hp = 1
 				return
@@ -64,29 +65,13 @@ func _on_update(_delta: float) -> void:
 				target.remove_entity()
 				return
 			
-			target._on_death(target, d)
+			var death_data := DeathData.new()
+			death_data.killer = source
 			
-			if source:
-				source._on_kill(target, d)
-				
-			health_c.health_bar.visible = false
-			GameMgr.cash += health_c.death_gold
-			
-			var death_animation: AnimationData = health_c.death_animation
-			if death_animation:
-				target.play_animation_by_look(
-					death_animation, "death"
-				)
-				
-			var death_sfx: AudioData = health_c.death_sfx
-			if death_sfx:
-				AudioMgr.play_sfx(death_sfx)
-			
-			await target.wait_animation(death_animation)
-
-			target.remove_entity()
+			health_c.death_data = death_data
 	
 	SystemMgr.damage_queue = new_damage_queue
+	
 
 func _predict_damage(
 		target: Entity, 

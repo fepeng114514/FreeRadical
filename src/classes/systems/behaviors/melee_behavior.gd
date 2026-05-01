@@ -17,10 +17,7 @@ func _on_remove(e: Entity) -> bool:
 	return true
 
 
-func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
-	if break_behavior == self:
-		return
-	
+func _on_skip(e: Entity) -> void:
 	var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
 	if not melee_c:
 		return
@@ -32,6 +29,9 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
 		melee_c.melee_state = C.MeleeState.IDLE
 	else:
 		melee_c.blockers_ids.clear()
+		
+	if e.state & C.State.IDLE:
+		melee_c.origin_pos = e.global_position
 
 
 func _on_update(e: Entity) -> bool:
@@ -189,7 +189,6 @@ func _go_melee_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	var next_position: Vector2 = e.global_position + velocity
 	e.look_point = next_position
 	e.play_animation_by_look(melee_c.motion_animation, "walk")
-
 	e.global_position = next_position
 	
 	return false

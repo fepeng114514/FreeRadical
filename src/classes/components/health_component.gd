@@ -59,6 +59,7 @@ var hp: float = 0:
 		health_bar.value = get_hp_percent()
 var regen_ts: float = 0
 var idle_regen_ts: float = 0
+var death_data: DeathData = null
 
 ## 血条节点引用
 @onready var health_bar: TextureProgressBar = get_node_or_null("HealthBar")

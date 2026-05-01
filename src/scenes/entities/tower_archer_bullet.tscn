@@ -17,14 +17,14 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [node name="TowerArcherBullet" type="Node2D" unique_id=43521632]
 script = ExtResource("1_0t5nh")
-scene_name = "tower_archer_lvl1_bullet"
+scene_name = "tower_archer_bullet"
 idle_animation = SubResource("Resource_ycjcd")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="BulletComponent" type="Node" parent="." unique_id=797543197]
 script = ExtResource("3_wa0rx")
-flight_total_time = 1.0
 flight_trajectory = 1
+flight_total_time = 1.0
 flight_animation = SubResource("Resource_ejip2")
 metadata/_custom_type_script = "uid://haoljvofy74e"
 

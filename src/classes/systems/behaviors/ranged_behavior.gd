@@ -72,7 +72,7 @@ func _do_single_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
 	if not target:
 		return
 
-	spawn_bullets(a, e, target, direction)
+	_spawn_bullets(a, e, target, direction)
 
 	await e.wait_animation(a.animation)
 	e.play_animation_by_look(e.idle_animation)
@@ -97,7 +97,7 @@ func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
 		AudioMgr.play_sfx(a.loop_sfx)
 		await e.y_wait(a.delay)
 
-		spawn_bullets(a, e, target, direction)
+		_spawn_bullets(a, e, target, direction)
 		await e.wait_animation(a.loop_animation)
 
 	await e.wait_animation(a.loop_animation)
@@ -109,7 +109,7 @@ func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
 	e.play_animation_by_look(e.idle_animation)
 
 
-func spawn_bullets(
+func _spawn_bullets(
 		a: RangedBase, 
 		e: Entity, 
 		target: Entity, 

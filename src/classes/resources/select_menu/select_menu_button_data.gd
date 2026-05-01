@@ -1,10 +1,14 @@
+@tool
 extends Resource
 class_name SelectMenuButtonData
 ## 选择菜单项数据资源
 
 
 ## 项类型
-@export var type: C.SelectMenuButtonType = C.SelectMenuButtonType.UPGRADE
+@export var type: C.SelectMenuButtonType = C.SelectMenuButtonType.UPGRADE:
+	set(value):
+		type = value
+		notify_property_list_changed()
 ## 升级为的实体场景名称
 ## 
 ## [annotation SelectMenuButtonData.type] 为 UPGRADE 时可用
@@ -27,3 +31,17 @@ class_name SelectMenuButtonData
 @export var desc: String = ""
 ## 音效
 @export var sfx: AudioData = null
+
+
+func _validate_property(property: Dictionary) -> void:
+	match property.name:
+		"upgrade_to":
+			if type != C.SelectMenuButtonType.UPGRADE:
+				property.usage = PROPERTY_USAGE_NO_EDITOR
+		"upgraded_skill":
+			if type != C.SelectMenuButtonType.SKILL:
+				property.usage = PROPERTY_USAGE_NO_EDITOR
+		"buy_item":
+			if type != C.SelectMenuButtonType.BUY:
+				property.usage = PROPERTY_USAGE_NO_EDITOR
+	

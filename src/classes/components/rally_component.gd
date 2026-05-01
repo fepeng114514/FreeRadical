@@ -26,3 +26,5 @@ func new_rally_position(
 	is_force_rally = is_force
 	arrived = false
 	target_position = pos
+	
+	

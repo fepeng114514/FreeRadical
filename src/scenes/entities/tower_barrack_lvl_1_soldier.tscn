@@ -65,6 +65,7 @@ offset_bottom = -40.0
 
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156]
 script = ExtResource("7_xu63r")
+speed = 208.0
 motion_animation = SubResource("Resource_enhu5")
 melee_pos_offset = Vector2(33.47, 0)
 is_blocker = true

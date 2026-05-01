@@ -52,8 +52,12 @@ func _show(e: Entity) -> void:
 	var ui_c: UIComponent = e.get_node_or_null(C.CN_UI)
 	if not ui_c:
 		return
+		
+	var group: SelectMenuGroup = select_menu_config.group_dict.get(e.scene_name)
+	if not group:
+		return
 
-	for button_data: SelectMenuButtonData in select_menu_config.group_dict[e.scene_name].button_list:
+	for button_data: SelectMenuButtonData in group.button_list:
 		var button_type: C.SelectMenuButtonType = button_data.type
 		var upgrade_to: String = button_data.upgrade_to
 		

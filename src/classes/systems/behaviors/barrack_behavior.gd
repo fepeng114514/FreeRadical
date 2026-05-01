@@ -20,14 +20,14 @@ func _on_update(e: Entity) -> bool:
 			await e.y_wait(barrack_c.delay)
 			
 		for i: int in max_soldiers:
-			respawn_soldier(e, barrack_c, soldier_group)
+			_respawn_soldier(e, barrack_c, soldier_group)
 			
 	var soldier_count: int = soldier_group.get_child_count()
 	
 	# 根据重生时间生成士兵
 	if TimeMgr.is_ready_time(barrack_c.ts, barrack_c.respawn_time):
 		if soldier_count < max_soldiers:
-			respawn_soldier(e, barrack_c, soldier_group)
+			_respawn_soldier(e, barrack_c, soldier_group)
 		barrack_c.ts = TimeMgr.tick_ts
 	
 	# 士兵数发生变化重新整队
@@ -39,7 +39,7 @@ func _on_update(e: Entity) -> bool:
 	return false
 
 
-func respawn_soldier(
+func _respawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent, soldier_group: EntityGroup
 	) -> Entity:
 	var soldier: Entity = EntityMgr.create_entity(barrack_c.soldier)
