@@ -46,11 +46,11 @@ var value_tween: Tween = null
 	arrow_glow,
 ]
 
-
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	else:
+		texture_button.pressed.connect(_on_pressed)
 		mouse_entered.connect(_on_mouse_entered)
 		mouse_exited.connect(_on_mouse_exited)
 		WaveMgr.start_wave_timer.connect(_show)
@@ -113,3 +113,11 @@ func _on_release_wave() -> void:
 		value_tween.kill()
 		
 	_hide()
+
+
+func _on_pressed() -> void:
+	WaveMgr.is_release_wave = true
+	if WaveMgr.is_first_release_wave:
+		WaveMgr.first_release_wave.emit()
+		WaveMgr.is_first_release_wave = false
+	WaveMgr.release_wave.emit()

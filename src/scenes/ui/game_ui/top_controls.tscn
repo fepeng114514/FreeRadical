@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cijbaykvbrbsw"]
+
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="1_ml164"]
+[ext_resource type="Script" uid="uid://c63j83w3vyiym" path="res://scenes/ui/game_ui/speed_button.gd" id="2_nqvhq"]
+
+[node name="TopControls" type="HBoxContainer" unique_id=1422950424]
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="SpeedButton" type="Button" parent="." unique_id=2010581909]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme = ExtResource("1_ml164")
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+text = "1.0x"
+script = ExtResource("2_nqvhq")
+
+[node name="MenuButton" type="Button" parent="." unique_id=403554085]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme = ExtResource("1_ml164")
+theme_override_font_sizes/font_size = 24
+text = "≡"

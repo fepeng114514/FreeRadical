@@ -362,25 +362,6 @@ enum BulletSpawnMode {
 }
 
 
-## 选择菜单按钮类型
-enum SelectMenuButtonType {
-	## 升级
-	UPGRADE,
-	## 出售
-	SELL,
-	## 集结
-	RALLY,
-	## 购买
-	BUY,
-	## 技能
-	SKILL,
-	## 瞄准
-	AIM,
-	## 切换
-	SWITCH,
-}
-
-
 ## 近战状态枚举
 enum MeleeState {
 	## 到达原点

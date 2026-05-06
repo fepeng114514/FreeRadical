@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cyvvk445spspa"]
+
+[ext_resource type="Texture2D" uid="uid://chcla5lrvksry" path="res://resources/atlas_textures/price_tag.tres" id="1_1b77w"]
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="2_71hrg"]
+
+[node name="PriceTag" type="TextureRect" unique_id=1309840442]
+offset_right = 67.0
+offset_bottom = 41.0
+mouse_filter = 2
+texture = ExtResource("1_1b77w")
+
+[node name="Label" type="Label" parent="." unique_id=910041984]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -17.0
+offset_right = 20.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_71hrg")
+theme_override_colors/font_color = Color(0.8117647, 0.7019608, 0.019607844, 1)
+theme_override_font_sizes/font_size = 24
+text = "70"
+horizontal_alignment = 1

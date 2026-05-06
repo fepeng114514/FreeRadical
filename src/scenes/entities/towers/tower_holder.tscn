@@ -21,6 +21,8 @@ shader_parameter/outline_color = Color(1, 1, 0, 1)
 script = ExtResource("1_jrk33")
 scene_name = "tower_holder"
 idle_animation = SubResource("Resource_fdaav")
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=234304454]
@@ -38,6 +40,6 @@ metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=2005923123]
 script = ExtResource("3_qfsqy")
-select_rect = Rect2(-77.425, -45.79, 156.65, 85.995)
+select_rect = Rect2(-77.425, -59.56, 156.65, 85.995)
 info_bar_type = 2
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

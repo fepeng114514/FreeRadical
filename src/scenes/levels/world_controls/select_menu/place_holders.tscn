@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://d4lowd40q545e"]
+
+[ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://scenes/levels/world_controls/select_menu/place_holders.gd" id="1_73otq"]
+[ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://scenes/levels/world_controls/select_menu/place_holder.tscn" id="2_n8afe"]
+
+[node name="PlaceHolders" type="Control" unique_id=274001826]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_73otq")
+
+[node name="PlaceHolder" parent="." unique_id=1573593846 instance=ExtResource("2_n8afe")]
+layout_mode = 1
+offset_left = -4.9999924
+offset_right = 104.00001
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="PlaceHolder2" parent="." unique_id=1976603733 instance=ExtResource("2_n8afe")]
+layout_mode = 1
+offset_left = 84.0
+offset_top = -37.000004
+offset_right = 193.0
+offset_bottom = 60.999996
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="PlaceHolder3" parent="." unique_id=1912813260 instance=ExtResource("2_n8afe")]
+layout_mode = 1
+offset_left = 171.0
+offset_right = 280.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="PlaceHolder4" parent="." unique_id=199987654 instance=ExtResource("2_n8afe")]
+layout_mode = 1
+offset_left = 206.0
+offset_top = 87.0
+offset_right = 315.0
+offset_bottom = 185.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="PlaceHolder5" parent="." unique_id=280760005 instance=ExtResource("2_n8afe")]
+layout_mode = 1
+offset_left = 179.0
+offset_top = 179.0
+offset_right = 288.0
+offset_bottom = 277.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="PlaceHolder6" parent="." unique_id=901065746 instance=ExtResource("2_n8afe")]
+layout_mode = 1
+offset_left = 84.0
+offset_top = 211.0
+offset_right = 193.0
+offset_bottom = 309.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="PlaceHolder7" parent="." unique_id=408998546 instance=ExtResource("2_n8afe")]
+layout_mode = 1
+offset_left = -12.999992
+offset_top = 179.0
+offset_right = 96.00001
+offset_bottom = 277.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="PlaceHolder8" parent="." unique_id=1607057721 instance=ExtResource("2_n8afe")]
+layout_mode = 1
+offset_left = -40.999992
+offset_top = 87.0
+offset_right = 68.00001
+offset_bottom = 185.0
+pivot_offset_ratio = Vector2(0.5, 0.5)

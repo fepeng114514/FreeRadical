@@ -62,6 +62,8 @@ position = Vector2(-1, 0)
 wave_group = SubResource("Resource_qxy0u")
 track_target = true
 idle_animation = SubResource("Resource_excbq")
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 
 [node name="TowerHolder" parent="World" parent_id_path=PackedInt32Array(1261225856) index="1" unique_id=1898604313 instance=ExtResource("35_hvllt")]
 position = Vector2(1036, 748)

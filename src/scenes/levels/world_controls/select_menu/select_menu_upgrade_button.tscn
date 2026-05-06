@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://c4qyoe342uqq1"]
+
+[ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://scenes/levels/world_controls/select_menu/select_menu_button.tscn" id="1_tx736"]
+[ext_resource type="Script" uid="uid://htwblywokptt" path="res://scenes/levels/world_controls/select_menu/select_menu_upgrade_button.gd" id="2_8n25n"]
+[ext_resource type="Texture2D" uid="uid://d2a886wkp31y" path="res://resources/atlas_textures/main_icons_0005.tres" id="3_8n25n"]
+[ext_resource type="Texture2D" uid="uid://380x6n5pe4u7" path="res://resources/atlas_textures/glow_ico_main.tres" id="3_psvt5"]
+[ext_resource type="PackedScene" uid="uid://cyvvk445spspa" path="res://scenes/levels/world_controls/select_menu/price_tag.tscn" id="4_k7aj5"]
+
+[node name="SelectMenuUpgradeButton" unique_id=614263521 node_paths=PackedStringArray("price_tag") instance=ExtResource("1_tx736")]
+script = ExtResource("2_8n25n")
+upgrade_to = ""
+price_tag = NodePath("PriceTag")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" parent="." index="0" unique_id=2068864467]
+offset_left = -58.5
+offset_top = -53.0
+offset_right = 58.5
+offset_bottom = 53.0
+icon = ExtResource("3_8n25n")
+
+[node name="Glow" parent="." index="1" unique_id=1711401767]
+offset_left = -60.0
+offset_top = -54.5
+offset_right = 60.0
+offset_bottom = 54.5
+texture = ExtResource("3_psvt5")
+
+[node name="PriceTag" parent="." index="2" unique_id=1309840442 instance=ExtResource("4_k7aj5")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.0
+offset_top = 27.0
+offset_right = 34.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2

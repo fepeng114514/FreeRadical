@@ -5,16 +5,18 @@ class_name SelectMenu
 signal hide_select_menu
 
 
-@export_group("Node Ref")
-## 按钮位置控件
-@export var place_holder_controller: Control = null
-## 环控件引用
-@export var ring: TextureRect = null
+@export var select_menu_config: SelectMenuConfig = null
 
 @export_group("Ref")
-@export var select_menu_config: SelectMenuConfig = null
-## 选择菜单按钮场景引用
-@export var select_menu_button_scene: PackedScene = null
+@export var place_holders: Control = null
+## 环控件引用
+@export var ring: TextureRect = null
+@export_subgroup("Scene")
+@export var rally_button_scene: PackedScene = null
+@export var sell_button_scene: PackedScene = null
+@export var upgrade_button_scene: PackedScene = null
+@export var upgrade_skill_button_scene: PackedScene = null
+
 
 @export_group("Tween")
 ## 补间缩放时长
@@ -22,8 +24,6 @@ signal hide_select_menu
 ## 补间缩放的目标值
 @export var tween_target_scale := Vector2.ONE
 
-## 按钮列表
-var button_list: Array[Button] = []
 ## 当前选择的实体
 var selected_entity: Entity = null
 var is_animating: bool = false
@@ -40,14 +40,13 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if visible and not U.is_valid_entity(selected_entity):
 		_hide()
-		return
 	
 	
 func _show(e: Entity) -> void:
 	if is_animating:
 		return
 	
-	_clear_menu()
+	_clear()
 	
 	var ui_c: UIComponent = e.get_node_or_null(C.CN_UI)
 	if not ui_c:
@@ -57,35 +56,30 @@ func _show(e: Entity) -> void:
 	if not group:
 		return
 
-	for button_data: SelectMenuButtonData in group.button_list:
-		var button_type: C.SelectMenuButtonType = button_data.type
-		var upgrade_to: String = button_data.upgrade_to
+	for data: SelectMenuButtonData in group.button_list:		
+		var button: SelectMenuButton = null
 		
-		var button: SelectMenuButton = select_menu_button_scene.instantiate()
+		if data is SelectMenuUpgradeButtonData:
+			button = upgrade_button_scene.instantiate()
+			button.upgrade_to = data.upgrade_to
+			
+			if data.icon:
+				button.button.icon = data.icon
+		elif data is SelectMenuUpgradeSkillButtonData:
+			button = upgrade_skill_button_scene.instantiate()
+			button.upgrade_skill_idx = data.upgrade_skill_idx
+			
+			if data.icon:
+				button.button.icon = data.icon
+		elif data is SelectMenuRallyButtonData:
+			button = rally_button_scene.instantiate()
+		elif data is SelectMenuSellButtonData:
+			button = sell_button_scene.instantiate()
+		
 		button.select_menu = self
-		button.position = place_holder_controller.list[button_data.place]
-		button.pivot_offset_ratio = Vector2(0.5, 0.5)
+		button.position = place_holders.list[data.place]
 		button.selected_entity = e
-		button.icon = button_data.icon
-		button.type = button_type
-		button.upgrade_to = upgrade_to
-		button.upgraded_skill = button_data.upgraded_skill
-		button.bought_item = button_data.buy_item
-		button_list.append(button)
 		ring.add_child(button)
-		
-		match button_type:
-			C.SelectMenuButtonType.UPGRADE:
-				var upgrade_target: Entity = EntityMgr.get_entity_data(
-					upgrade_to
-				)
-				
-				if upgrade_target.get_node_or_null(C.CN_TOWER).price > GameMgr.cash:
-					button_data.disabled = true
-			#C.SelectMenuButtonType.BUY:
-			#C.SelectMenuButtonType.SKILL:
-			#C.SelectMenuButtonType.AIM:
-			#C.SelectMenuButtonType.SWITCH:
 		
 	selected_entity = e
 	visible = true
@@ -103,19 +97,18 @@ func _hide() -> void:
 	var tween: Tween = tween_set_scale(Vector2.ZERO)
 	
 	await tween.finished
-	_clear_menu()
+	_clear()
 	is_animating = false
 	
 	
 ## 清空菜单
-func _clear_menu() -> void:
+func _clear() -> void:
 	visible = false
 	
-	for button: SelectMenuButton in button_list:
-		if is_instance_valid(button):
-			button.queue_free()
+	for child: Control in ring.get_children():
+		if child is SelectMenuButton:
+			child.queue_free()
 		
-	button_list.clear()
 	selected_entity = null
 
 
