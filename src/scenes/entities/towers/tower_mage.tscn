@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dgdv4ixqwp3ot"]
 
 [ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://scenes/entities/towers/tower.tscn" id="1_og8n7"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_ewl0l"]
-[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="3_au4tr"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_ewl0l"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="3_au4tr"]
 [ext_resource type="Script" uid="uid://qu0synx4c136" path="res://resources/classes/sync_animations_data.gd" id="3_t83il"]
 [ext_resource type="SpriteFrames" uid="uid://bqi5q0g3pf4do" path="res://resources/sprite_frames/tower_mage_lvl1.tres" id="4_as0po"]
 

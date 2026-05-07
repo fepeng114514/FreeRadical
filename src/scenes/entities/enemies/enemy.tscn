@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_0ncad"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_1nm20"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_58mnm"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_58mnm"]
 [ext_resource type="SpriteFrames" uid="uid://dj27vtf00p7el" path="res://resources/sprite_frames/enemy_goblin.tres" id="3_mee2f"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://ecs/components/health_component.gd" id="4_bfbt7"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://ecs/components/nav_path_component.gd" id="5_gt3hg"]
@@ -39,6 +39,8 @@ script = ExtResource("1_0ncad")
 scene_name = "enemy"
 idle_animation = SubResource("Resource_58mnm")
 hit_offset = Vector2(0, -14.81)
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 flags = 1
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -81,6 +83,9 @@ metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 script = ExtResource("9_cit00")
 delay = 0.3
 animation = SubResource("Resource_m3i2n")
+mods = PackedStringArray()
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=673866706]

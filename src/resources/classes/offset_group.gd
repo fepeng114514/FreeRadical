@@ -1,6 +1,6 @@
 @tool
 extends Resource
-class_name OffsetData
+class_name OffsetGroup
 ## 偏移数据资源
 ##
 ## 根据方向存储偏移

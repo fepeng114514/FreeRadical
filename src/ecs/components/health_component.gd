@@ -48,9 +48,9 @@ class_name HealthComponent
 ## 死亡赏金
 @export var death_gold: float = 0
 ## 死亡动画
-@export var death_animation: AnimationData = null
+@export var death_animation: AnimationGroup = null
 ## 死亡音效
-@export var death_sfx: AudioData = null
+@export var death_sfx: AudioGroup = null
 
 ## 当前血量
 var hp: float = 0:

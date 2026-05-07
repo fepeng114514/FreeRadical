@@ -23,7 +23,7 @@ class_name RangedBase
 ## 子弹发射数量
 @export var bullet_count: int = 1
 ## 子弹初始位置偏移
-@export var bullet_offsets: OffsetData = null
+@export var bullet_offsets: OffsetGroup = null
 ## 子弹发射的角度范围，单位为度
 @export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0
 ## 子弹发射模式

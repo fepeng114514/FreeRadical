@@ -12,8 +12,8 @@ enum SPAWN_GROUP_FLAGS {
 
 
 @export var wave_group: WaveGroup = null
-@export var wave_interval_start_sfx: AudioData = null
-@export var wave_interval_finish_sfx: AudioData = null
+@export var wave_interval_start_sfx: AudioGroup = null
+@export var wave_interval_finish_sfx: AudioGroup = null
 @export var release_wave_delay: float = 1.0
 
 

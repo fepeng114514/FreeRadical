@@ -52,7 +52,7 @@
 
 动画名应由方向和动作两部分组成，使用下划线分隔，格式为 "动作_方向"。
 无方向的动画可以省略方向部分，格式为 "动作"。
-方向部分可以是 AnimationData 资源属性: "up"、"down"、"left_right" 等。
+方向部分可以是 AnimationGroup 资源属性: "up"、"down"、"left_right" 等。
 动作部分可以是任意描述动画的字符串，如 "idle"、"walk"、"melee"、"death" 等。
 示例:
 "idle_up" 表示向上的待机动画。

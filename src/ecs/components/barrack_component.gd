@@ -23,7 +23,7 @@ class_name BarrackComponent
 		queue_redraw()
 ## 集结点半径
 @export var rally_radius: float = 30
-@export var rally_sfx: AudioData = null
+@export var rally_sfx: AudioGroup = null
 ## 士兵场景名称
 @export var soldier: String = ""
 ## 生成士兵间隔（秒）
@@ -36,11 +36,11 @@ class_name BarrackComponent
 ## 最大士兵数量
 @export var max_soldiers: int = 3
 ## 生成士兵播放的动画
-@export var animation: AnimationData = null
+@export var animation: AnimationGroup = null
 ## 生成士兵延迟
 @export var delay: float = 0
 ## 生成士兵播放的音效
-@export var sfx: AudioData = null
+@export var sfx: AudioGroup = null
 
 
 ## 时间戳（秒）

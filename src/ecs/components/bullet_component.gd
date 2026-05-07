@@ -18,7 +18,7 @@ class_name BulletComponent
 ## 重力加速度
 @export var flight_gravity: float = 980
 ## 飞行动画数据
-@export var flight_animation: AnimationData = null
+@export var flight_animation: AnimationGroup = null
 ## 是否禁用预判目标位置
 @export var disabled_predict_pos: bool = false
 
@@ -40,9 +40,9 @@ class_name BulletComponent
 ## 子弹击中目标时创建的实体场景名称
 @export var hit_payloads := PackedStringArray()
 ## 击中动画
-@export var hit_animation: AnimationData = null
+@export var hit_animation: AnimationGroup = null
 ## 击中音效
-@export var hit_sfx: AudioData = null
+@export var hit_sfx: AudioGroup = null
 
 @export_group("Miss")
 ## 未击中目标时是否移除子弹实体
@@ -50,9 +50,9 @@ class_name BulletComponent
 ## 子弹未击中目标时创建的实体场景名称
 @export var miss_payloads := PackedStringArray()
 ## 未击中动画数据
-@export var miss_animation: AnimationData = null
+@export var miss_animation: AnimationGroup = null
 ## 未击中音效数据
-@export var miss_sfx: AudioData = null
+@export var miss_sfx: AudioGroup = null
 
 ## 子弹最小伤害
 var damage_min: float = 0

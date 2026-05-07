@@ -1,5 +1,6 @@
+@tool
 extends Resource
-class_name AnimationData
+class_name AnimationGroup
 ## 动画数据资源
 
 
@@ -12,19 +13,60 @@ class_name AnimationData
 ## 用于等待有限时间
 @export var wait_time: float = 0
 ## 上方向的动画名
-@export var up: StringName = &""
+@export var up: StringName = &"":
+	set(value):
+		up = value
+		notify_property_list_changed()
 ## 下方向的动画名
-@export var down: StringName = &""
+@export var down: StringName = &"":
+	set(value):
+		down = value
+		notify_property_list_changed()
 ## 上下方向的动画名
-@export var up_down: StringName = &""
+@export var up_down: StringName = &"":
+	set(value):
+		up_down = value
+		notify_property_list_changed()
 ## 左方向的动画名
-@export var left: StringName = &""
+@export var left: StringName = &"":
+	set(value):
+		left = value
+		notify_property_list_changed()
 ## 右方向的动画名
-@export var right: StringName = &""
+@export var right: StringName = &"":
+	set(value):
+		right = value
+		notify_property_list_changed()
 ## 左右方向的动画名，默认向右，通过镜像朝左
-@export var left_right: StringName = &""
+@export var left_right: StringName = &"":
+	set(value):
+		left_right = value
+		notify_property_list_changed()
 ## 任意方向的动画名
-@export var any: StringName = &""
+@export var any: StringName = &"":
+	set(value):
+		any = value
+		notify_property_list_changed()
+
+
+func _validate_property(property: Dictionary):
+	match property.name:
+		"up", "down":
+			if up_down or any:
+				property.usage = PROPERTY_USAGE_NO_EDITOR
+		"left", "right":
+			if left_right or any:
+				property.usage = PROPERTY_USAGE_NO_EDITOR
+		"up_down":
+			if up or down or any:
+				property.usage = PROPERTY_USAGE_NO_EDITOR
+		"left_right":
+			if left or right or any:
+				property.usage = PROPERTY_USAGE_NO_EDITOR
+		"any":
+			if up or down or left or right or up_down or left_right:
+				property.usage = PROPERTY_USAGE_NO_EDITOR
+
 
 ## 根据实体与目标点的角度返回对应的动画名称
 func get_animation_name_for_point(e: Entity, point: Vector2) -> Array:

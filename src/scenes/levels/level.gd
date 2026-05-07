@@ -14,9 +14,9 @@ class_name Level
 
 @export_group("Music")
 ## 准备阶段播放的音乐数据
-@export var ready_music: AudioData = null
+@export var ready_music: AudioGroup = null
 ## 战斗阶段播放的音乐数据
-@export var battle_music: AudioData = null
+@export var battle_music: AudioGroup = null
 
 
 func _enter_tree() -> void:

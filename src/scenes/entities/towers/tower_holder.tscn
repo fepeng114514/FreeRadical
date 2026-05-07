@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ck4m2qigdae35"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_jrk33"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_pyfu2"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_pyfu2"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://ecs/components/ui_component.gd" id="3_qfsqy"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="4_eclg5"]
 [ext_resource type="Shader" uid="uid://l8cv48xcfph3" path="res://scenes/entities/towers/tower_holder.gdshader" id="5_rh6e0"]

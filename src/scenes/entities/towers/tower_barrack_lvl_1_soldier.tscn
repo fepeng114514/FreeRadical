@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://f30rl46i8akx"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_0rikb"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_i4u0u"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_i4u0u"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_63s5i"]
 [ext_resource type="SpriteFrames" uid="uid://bcuypu8u2qhpt" path="res://resources/sprite_frames/tower_barracks_soldier_lvl1.tres" id="4_d8utj"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://ecs/components/health_component.gd" id="5_uecfs"]

@@ -1,5 +1,5 @@
 extends Resource
-class_name AudioData
+class_name AudioGroup
 ## 音频数据资源
 
 

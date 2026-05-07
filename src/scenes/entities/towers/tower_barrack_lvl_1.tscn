@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cc3v5b7ci4wxv"]
 
 [ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://scenes/entities/towers/tower.tscn" id="1_og8n7"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_5r4pg"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_5r4pg"]
 [ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://scenes/entities/towers/tower_barrack_spawn_sfx.tres" id="2_cw5qr"]
 [ext_resource type="Texture2D" uid="uid://d0l6eobu1q5fb" path="res://resources/atlas_textures/tower_preview_barrack.tres" id="3_bfdgq"]
 [ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://ecs/components/barrack_component.gd" id="4_u6jgq"]

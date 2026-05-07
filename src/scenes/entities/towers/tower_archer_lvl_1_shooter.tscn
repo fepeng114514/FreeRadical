@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://y5b5x3eff1nm"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_kc3g7"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_csl3h"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_csl3h"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_seev1"]
 [ext_resource type="SpriteFrames" uid="uid://xk8gt6uqtvqv" path="res://resources/sprite_frames/tower_archer_lvl1_shooter.tres" id="4_vws75"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/ranged_component.gd" id="5_skugy"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/subcomponents/ranged_attack.gd" id="6_vh14o"]
-[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_data.gd" id="7_eanea"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="7_eanea"]
 
 [sub_resource type="Resource" id="Resource_e0w6f"]
 script = ExtResource("2_csl3h")

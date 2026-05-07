@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://cb2m3hbh7yyxl"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_3kgdc"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_8g6nx"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_8g6nx"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_i3jkb"]
 [ext_resource type="SpriteFrames" uid="uid://dt35d8kjlji8x" path="res://resources/sprite_frames/tower_mage_shooter.tres" id="3_8g6nx"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/ranged_component.gd" id="4_nhbol"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/subcomponents/ranged_attack.gd" id="5_vssey"]
-[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_data.gd" id="7_2m7r5"]
-[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="8_vtoys"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="7_2m7r5"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="8_vtoys"]
 
 [sub_resource type="Resource" id="Resource_i3jkb"]
 script = ExtResource("2_8g6nx")

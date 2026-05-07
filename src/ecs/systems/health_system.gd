@@ -60,13 +60,13 @@ func _death(e: Entity, health_c: HealthComponent) -> void:
 	e.state = C.State.DEATH
 	GameMgr.cash += health_c.death_gold
 	
-	var death_animation: AnimationData = health_c.death_animation
+	var death_animation: AnimationGroup = health_c.death_animation
 	if death_animation:
 		e.play_animation_by_look(
 			death_animation, "death"
 		)
 		
-	var death_sfx: AudioData = health_c.death_sfx
+	var death_sfx: AudioGroup = health_c.death_sfx
 	if death_sfx:
 		AudioMgr.play_sfx(death_sfx)
 	

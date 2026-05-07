@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_121ob"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_0mq2b"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_bgj51"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_bgj51"]
 [ext_resource type="Texture2D" uid="uid://dkdjev2thqd6w" path="res://resources/atlas_textures/bombs_0001.tres" id="3_cbh1n"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://ecs/components/bullet_component.gd" id="4_1jhx5"]
-[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="6_jmmy1"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="6_jmmy1"]
 
 [sub_resource type="Resource" id="Resource_wmreg"]
 script = ExtResource("2_bgj51")

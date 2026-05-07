@@ -17,11 +17,11 @@ class_name Entity
 ## 是否追踪 target 实体
 @export var track_target: bool = false
 ## 空闲动画数据
-@export var idle_animation: AnimationData = null
+@export var idle_animation: AnimationGroup = null
 ## 生成时播放的动画
-@export var spawn_animation: AnimationData = null
+@export var spawn_animation: AnimationGroup = null
 ## 生成时播放的音效
-@export var spawn_sfx: AudioData = null
+@export var spawn_sfx: AudioGroup = null
 ## 击中位置偏移
 @export var hit_offset := Vector2.ZERO:
 	set(value):
@@ -353,7 +353,7 @@ func play_animation_group(
 
 ## 根据看向的位置播放动画
 func play_animation_by_look(
-		animation: AnimationData, 
+		animation: AnimationGroup, 
 		source_animation_key: String = "",
 		force_play: bool = false
 	) -> Array:
@@ -384,7 +384,7 @@ func play_animation_by_look(
 		if source and not is_waiting():
 			source.look_point = look_point
 			var s_sprite_c: SpriteComponent = source.get_node_or_null(C.CN_SPRITE)
-			var s_animation: AnimationData = s_sprite_c.sync_animations.get(
+			var s_animation: AnimationGroup = s_sprite_c.sync_animations.get(
 				source_animation_key
 			)
 			if s_animation:
@@ -397,7 +397,7 @@ func play_animation_by_look(
 
 
 ## 根据是否为组调用 wait_animation 或 wait_animation_group 函数
-func wait_animation(animation: AnimationData) -> void:
+func wait_animation(animation: AnimationGroup) -> void:
 	if not animation:
 		return
 		

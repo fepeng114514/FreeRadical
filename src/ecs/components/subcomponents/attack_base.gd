@@ -14,9 +14,9 @@ class_name Attackbase
 ## 攻击延迟
 @export var delay: float = 0
 ## 攻击动画数据
-@export var animation: AnimationData = null
+@export var animation: AnimationGroup = null
 ## 攻击音效数据
-@export var sfx: AudioData = null
+@export var sfx: AudioGroup = null
 ## 实体组冷却偏移
 @export var group_cooldown_offset: float = 0.1
 ## 是否禁用实体组冷却

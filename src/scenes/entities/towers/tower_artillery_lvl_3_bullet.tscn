@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dj23msxsdb22o"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_jtlys"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_data.gd" id="2_wm65d"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_wm65d"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_jiuyv"]
 [ext_resource type="Texture2D" uid="uid://oavtqn1crro" path="res://resources/atlas_textures/bombs_0003.tres" id="4_jtlys"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://ecs/components/bullet_component.gd" id="5_81akh"]

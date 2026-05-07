@@ -11,8 +11,8 @@ class_name RallyComponent
 ## 是否可点击集结
 @export var can_select_rally: bool = true
 ## 移动动画
-@export var motion_animation: AnimationData = null
-@export var motion_sfx: AudioData = null
+@export var motion_animation: AnimationGroup = null
+@export var motion_sfx: AudioGroup = null
 
 ## 是否已到达集结位置
 var arrived: bool = false

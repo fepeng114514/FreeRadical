@@ -10,7 +10,7 @@ class_name MeleeComponent
 ## 移动速度
 @export var speed: float = 100
 ## 移动动画数据
-@export var motion_animation: AnimationData = null
+@export var motion_animation: AnimationGroup = null
 ## 近战位置偏移
 @export var melee_pos_offset := Vector2.ZERO:
 	set(value):

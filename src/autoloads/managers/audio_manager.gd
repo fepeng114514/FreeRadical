@@ -53,12 +53,12 @@ func load() -> void:
 	
 	
 ## 播放音乐
-func play_music(audio_data: AudioData) -> void:
+func play_music(audio_data: AudioGroup) -> void:
 	play_audio(audio_data, _music_player, MusicBus)
 
 
 ## 播放音效
-func play_sfx(audio_data: AudioData) -> void:
+func play_sfx(audio_data: AudioGroup) -> void:
 	if not audio_data:
 		return
 	
@@ -72,7 +72,7 @@ func play_sfx(audio_data: AudioData) -> void:
 		
 ## 播放音频
 func play_audio(
-		audio_data: AudioData, player: AudioStreamPlayer, bus: StringName
+		audio_data: AudioGroup, player: AudioStreamPlayer, bus: StringName
 	) -> void:
 	if not audio_data:
 		return

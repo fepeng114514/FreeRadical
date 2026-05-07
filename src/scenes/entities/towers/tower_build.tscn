@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://wwnvcleqo7tf" path="res://scenes/entities/towers/tower_build.gd" id="1_iilrv"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_iilrv"]
-[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_data.gd" id="2_u6arj"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="2_u6arj"]
 [ext_resource type="Texture2D" uid="uid://bdtl1rae115dd" path="res://resources/atlas_textures/tower_constructing_0004.tres" id="3_u6arj"]
 [ext_resource type="Texture2D" uid="uid://bfjqi7kqjwya1" path="res://resources/atlas_textures/buildbar.tres" id="4_wb7qq"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://ecs/components/tower_component.gd" id="6_u6arj"]
