@@ -48,6 +48,8 @@ var ts: float = 0
 ## 上一次士兵数量
 var last_soldier_count: int = C.UNSET
 var soldier_group: EntityGroup = null
+var last_soldier_pos_list := PackedVector2Array()
+var last_blocked_id_list: Array[PackedInt32Array] = []
 
 
 func _ready() -> void:

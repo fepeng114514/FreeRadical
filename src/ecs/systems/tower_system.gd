@@ -51,10 +51,25 @@ func _on_update(_delta: float) -> void:
 			
 			var default_rally_center_local_pos: Vector2 = tower_c.default_rally_center_local_pos
 			new_tower_c.default_rally_center_local_pos = default_rally_center_local_pos
+			
 			var new_barrack_c: BarrackComponent = new_tower.get_node_or_null(C.CN_BARRACK)
 			if new_barrack_c:
 				var barrack_c: BarrackComponent = e.get_node_or_null(C.CN_BARRACK)
 				if barrack_c:
+					var soldier_group: EntityGroup = barrack_c.soldier_group
+
+					var last_soldier_pos_list := PackedVector2Array()
+					var last_blocked_id_list: Array[PackedInt32Array] = []
+					
+					for solder: Entity in soldier_group.get_children():
+						last_soldier_pos_list.append(solder.global_position)
+						
+						var melee_c: MeleeComponent = solder.get_node_or_null(C.CN_MELEE)
+						if melee_c:
+							last_blocked_id_list.append(melee_c.blocked_id_list.duplicate())
+					
+					new_barrack_c.last_soldier_pos_list = last_soldier_pos_list
+					new_barrack_c.last_blocked_id_list = last_blocked_id_list
 					new_barrack_c.rally_center_position = barrack_c.rally_center_position
 				else:
 					new_barrack_c.rally_center_position = tower_c.to_global(default_rally_center_local_pos)

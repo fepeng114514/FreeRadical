@@ -31,8 +31,26 @@ func _on_update(e: Entity) -> bool:
 		if barrack_c.delay:
 			await e.y_wait(barrack_c.delay)
 			
+		var last_soldier_pos_list: PackedVector2Array = barrack_c.last_soldier_pos_list
+		var last_soldier_pos_list_size: int = last_soldier_pos_list.size()
+		var last_blocked_id_list: Array[PackedInt32Array] = barrack_c.last_blocked_id_list
+			
 		for i: int in max_soldiers:
-			_respawn_soldier(e, barrack_c, soldier_group)
+			var soldier: Entity = _respawn_soldier(e, barrack_c, soldier_group)
+			
+			if i >= last_soldier_pos_list_size:
+				continue
+				
+			soldier.global_position = last_soldier_pos_list[i]
+
+			var melee_c: MeleeComponent = soldier.get_node_or_null(C.CN_MELEE)
+			if not melee_c:
+				continue
+				
+			soldier.state = C.State.MELEE
+			
+			for id: int in last_blocked_id_list[i]:
+				melee_c.bind_melee_relations(EntityMgr.get_entity_by_id(id), soldier)
 			
 	var soldier_count: int = soldier_group.get_child_count()
 	

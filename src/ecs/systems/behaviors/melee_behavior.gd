@@ -25,11 +25,11 @@ func _on_skip(e: Entity) -> void:
 	
 	melee_c.unbind_melee_relations(e.id)
 	if melee_c.is_blocker:
-		melee_c.blocked_ids.clear()
+		melee_c.blocked_id_list.clear()
 		melee_c.blocked_count = 0
 		melee_c.melee_state = C.MeleeState.ORIGIN_POS_ARRIVED
 	elif melee_c.is_blocked:
-		melee_c.blocker_ids.clear()
+		melee_c.blocker_id_list.clear()
 		
 	if e.state & C.State.IDLE:
 		melee_c.origin_pos = e.global_position
@@ -51,7 +51,7 @@ func _on_update(e: Entity) -> bool:
 
 
 func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
-	if not melee_c.blocked_ids:
+	if not melee_c.blocked_id_list:
 		melee_c.is_extra_blocker = false
 	
 	# 索敌
@@ -74,15 +74,15 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 			var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
 			if not t_melee_c:
 				return false
-			return not t_melee_c.blocker_ids
+			return not t_melee_c.blocker_id_list
 	)
 	
 	if pending_blockeds:
-		if melee_c.blocked_ids and melee_c.is_extra_blocker:
-			var first_blocked_id: int = melee_c.blocked_ids[0]
+		if melee_c.blocked_id_list and melee_c.is_extra_blocker:
+			var first_blocked_id: int = melee_c.blocked_id_list[0]
 			var first_blocked_target: Entity = EntityMgr.get_entity_by_id(first_blocked_id)
 			var blocked_melee_c: MeleeComponent = first_blocked_target.get_node_or_null(C.CN_MELEE)
-			if blocked_melee_c.blocker_ids.size() > 1:
+			if blocked_melee_c.blocker_id_list.size() > 1:
 				melee_c.blocked_count = 0
 				melee_c.unbind_melee_relations(e.id)
 		
@@ -93,7 +93,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 			
 			melee_c.bind_melee_relations(t, e)
 	else:
-		if not melee_c.blocked_ids:
+		if not melee_c.blocked_id_list:
 			var blocked_targets: Array[Entity] = EntityMgr.search_targets(
 				melee_c.search_mode,
 				center,
@@ -113,8 +113,8 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 				melee_c.bind_melee_relations(first_blocked_target, e)
 				melee_c.is_extra_blocker = true
 	
-	var blocked_ids: Array = melee_c.blocked_ids
-	if not blocked_ids:
+	var blocked_id_list: Array = melee_c.blocked_id_list
+	if not blocked_id_list:
 		match melee_c.melee_state:
 			C.MeleeState.ORIGIN_POS_ARRIVED:
 				melee_c.origin_pos = e.global_position
@@ -125,7 +125,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 		return false
 	else:
 		e.state = C.State.MELEE
-		var blocked: Entity = EntityMgr.get_entity_by_id(blocked_ids[0])
+		var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id_list[0])
 		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
 		
 		# 不是被动被拦截者，前往近战位置
@@ -145,8 +145,8 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 
 
 func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
-	var blocker_ids: PackedInt32Array = melee_c.blocker_ids
-	if not blocker_ids:
+	var blocker_id_list: PackedInt32Array = melee_c.blocker_id_list
+	if not blocker_id_list:
 		match melee_c.melee_state:
 			C.MeleeState.ORIGIN_POS_ARRIVED:
 				melee_c.origin_pos = e.global_position
@@ -157,9 +157,9 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 		return false
 	else:
 		e.state = C.State.MELEE
-		var blocker: Entity = EntityMgr.get_entity_by_id(blocker_ids[0])
+		var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id_list[0])
 		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
-		var is_first_blocked: bool = e.id == blocker_melee_c.blocked_ids[0]
+		var is_first_blocked: bool = e.id == blocker_melee_c.blocked_id_list[0]
 
 		if is_first_blocked:
 			if blocker_melee_c.melee_state != C.MeleeState.MELEE_POS_ARRIVED:
