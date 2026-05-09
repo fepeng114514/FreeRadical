@@ -300,6 +300,7 @@ enum SelectMode {
 	NONE,
 	RALLY,
 	BARRACK_RALLY,
+	ERROR,
 }
 
 

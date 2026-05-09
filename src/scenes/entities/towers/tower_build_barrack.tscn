@@ -13,8 +13,9 @@ position = Vector2(0, -45)
 texture = ExtResource("2_of2wb")
 
 [node name="TextureProgressBar" parent="." index="1" unique_id=1035382269]
-offset_left = -40.0
-offset_right = 46.0
+offset_left = -42.0
+offset_right = 48.0
+offset_bottom = -40.0
 
 [node name="TowerComponent" parent="." index="2" unique_id=2020079873]
 tower_type = 2

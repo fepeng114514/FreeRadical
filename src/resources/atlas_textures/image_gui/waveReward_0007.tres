@@ -4,6 +4,6 @@
 
 [resource]
 atlas = ExtResource("1_nmped")
-region = Rect2(3209, 3148, 23, 32)
+region = Rect2(3749, 1925, 23, 32)
 margin = Rect2(4, 14, 9, 27)
 filter_clip = true

@@ -28,9 +28,9 @@ class_name WaveFlag
 	
 @export_group("Tween")
 ## 循环缩放时长
-@export var tween_loop_scale_duration: float = 0.6
+@export var tween_loop_scale_duration: float = 0.5
 ## 循环补间缩放目标值
-@export var tween_loop_target_scale := Vector2(1.2, 1.2)
+@export var tween_loop_target_scale := Vector2(1.15, 1.15)
 ## 计数结束补间缩放时长
 @export var tween_end_duration: float = 0.3
 ## 计数结束补间缩放目标值

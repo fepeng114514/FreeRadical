@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://di2ssvmke2yks"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_5tp4l"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_8ls02"]
+[ext_resource type="SpriteFrames" uid="uid://dm7p65gu38y6u" path="res://resources/sprite_frames/ui/cursor.tres" id="3_a73qa"]
+
+[node name="Cursor" type="Node2D" unique_id=1674790453]
+script = ExtResource("1_5tp4l")
+scene_name = "cursor"
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=591432507]
+script = ExtResource("2_8ls02")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1149712415]
+sprite_frames = ExtResource("3_a73qa")
+animation = &"rally_hover"
+frame_progress = 0.25657022

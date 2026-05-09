@@ -11,6 +11,7 @@ signal deselect_entity
 
 var select_mode: C.SelectMode = C.SelectMode.NONE
 var selected_entity: Entity = null
+var cursor: Entity = null
 
 
 func _ready() -> void:
@@ -63,6 +64,7 @@ func _on_select(e: Entity) -> void:
 	var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
 	if rally_c and rally_c.can_select_rally:
 		select_mode = C.SelectMode.RALLY
+		
 	
 
 func _on_deselect() -> void:
@@ -113,4 +115,3 @@ func _on_deselect() -> void:
 
 	select_mode = C.SelectMode.NONE
 	selected_entity = null
-	

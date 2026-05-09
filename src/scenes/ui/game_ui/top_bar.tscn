@@ -3,6 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://cv2hsfu7birtl" path="res://scenes/ui/game_ui/player_resources.tscn" id="1_rltjd"]
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="2_rltjd"]
 [ext_resource type="Script" uid="uid://c63j83w3vyiym" path="res://scenes/ui/game_ui/speed_button.gd" id="3_c6vw1"]
+[ext_resource type="Texture2D" uid="uid://chagyg465ln77" path="res://resources/atlas_textures/image_gui/pause_base.tres" id="4_1wj0o"]
+[ext_resource type="Texture2D" uid="uid://djr4oecljx145" path="res://resources/atlas_textures/image_gui/pause_btn_0001.tres" id="4_c6vw1"]
+[ext_resource type="Texture2D" uid="uid://bot01o80pk4i1" path="res://resources/atlas_textures/image_gui/pause_btn_0002.tres" id="5_1wj0o"]
 
 [node name="TopBar" type="HBoxContainer" unique_id=1978266969]
 size_flags_horizontal = 3
@@ -16,12 +19,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="TopControls" type="HBoxContainer" parent="." unique_id=1636473968]
+[node name="TopRightControls" type="HBoxContainer" parent="." unique_id=1636473968]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 15
 
-[node name="SpeedButton" type="Button" parent="TopControls" unique_id=1346277862]
+[node name="SpeedButton" type="Button" parent="TopRightControls" unique_id=1346277862]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 theme = ExtResource("2_rltjd")
@@ -30,9 +33,24 @@ toggle_mode = true
 text = "1.0x"
 script = ExtResource("3_c6vw1")
 
-[node name="MenuButton" type="Button" parent="TopControls" unique_id=1266894695]
-custom_minimum_size = Vector2(50, 50)
+[node name="TextureRect" type="TextureRect" parent="TopRightControls" unique_id=1012152388]
 layout_mode = 2
+texture = ExtResource("4_1wj0o")
+
+[node name="PauseButton" type="TextureButton" parent="TopRightControls/TextureRect" unique_id=1274899798]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -14.0
+offset_right = 40.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("2_rltjd")
-theme_override_font_sizes/font_size = 24
-text = "≡"
+texture_normal = ExtResource("4_c6vw1")
+texture_hover = ExtResource("5_1wj0o")

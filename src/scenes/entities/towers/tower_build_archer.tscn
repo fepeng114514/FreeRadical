@@ -11,8 +11,9 @@ scene_name = "tower_build_archer"
 position = Vector2(0, -47)
 
 [node name="TextureProgressBar" parent="." index="1" unique_id=1035382269]
-offset_left = -44.0
-offset_right = 42.0
+offset_top = -59.0
+offset_right = 45.0
+offset_bottom = -43.0
 
 [node name="TowerComponent" parent="." index="2" unique_id=2020079873]
 tower_type = 1

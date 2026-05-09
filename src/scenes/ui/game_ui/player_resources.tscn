@@ -1,45 +1,48 @@
 [gd_scene format=3 uid="uid://cv2hsfu7birtl"]
 
 [ext_resource type="Script" uid="uid://b6l8uqpbpxei2" path="res://scenes/ui/game_ui/player_resources.gd" id="1_asxmd"]
-[ext_resource type="Texture2D" uid="uid://b5axhghpai7ey" path="res://resources/atlas_textures/image_gui/base_info_icons_0009.tres" id="2_lnjvu"]
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://resources/theme.tres" id="2_y7bry"]
+[ext_resource type="Texture2D" uid="uid://c7uigxnh7mug5" path="res://resources/atlas_textures/image_gui/top_left.tres" id="3_y7bry"]
 
-[node name="PlayerResources" type="HBoxContainer" unique_id=883217190 node_paths=PackedStringArray("life_icon", "life_value", "cash_icon", "cash_value")]
+[node name="PlayerResources" type="HBoxContainer" unique_id=883217190 node_paths=PackedStringArray("life_value", "cash_value")]
 offset_right = 104.0
 offset_bottom = 34.0
 mouse_filter = 2
 theme_override_constants/separation = 20
 script = ExtResource("1_asxmd")
-life_icon = NodePath("Life/Icon")
-life_value = NodePath("Life/Value")
-cash_icon = NodePath("Cash/Icon")
-cash_value = NodePath("Cash/Value")
+life_value = NodePath("TextureRect/HBoxContainer/Value2")
+cash_value = NodePath("TextureRect/HBoxContainer/Value")
 
-[node name="Life" type="HBoxContainer" parent="." unique_id=64149971]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=337611053]
 layout_mode = 2
-theme_override_constants/separation = 8
+texture = ExtResource("3_y7bry")
 
-[node name="Icon" type="TextureRect" parent="Life" unique_id=31423520]
-layout_mode = 2
-texture = ExtResource("2_lnjvu")
-expand_mode = 3
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect" unique_id=407818212]
+layout_mode = 0
+offset_left = 142.0
+offset_top = 46.0
+offset_right = 303.0
+offset_bottom = 86.0
+theme_override_constants/separation = 78
 
-[node name="Value" type="Label" parent="Life" unique_id=287686407]
+[node name="Value2" type="Label" parent="TextureRect/HBoxContainer" unique_id=287686407]
 layout_mode = 2
 theme = ExtResource("2_y7bry")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 27
 text = "20"
 
-[node name="Cash" type="HBoxContainer" parent="." unique_id=491625206]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Icon" type="TextureRect" parent="Cash" unique_id=516580731]
-layout_mode = 2
-expand_mode = 3
-
-[node name="Value" type="Label" parent="Cash" unique_id=461566231]
+[node name="Value" type="Label" parent="TextureRect/HBoxContainer" unique_id=461566231]
 layout_mode = 2
 theme = ExtResource("2_y7bry")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 27
 text = "500"
+
+[node name="Value3" type="Label" parent="TextureRect" unique_id=29332469]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 49.0
+offset_right = 491.0
+offset_bottom = 83.0
+theme = ExtResource("2_y7bry")
+theme_override_font_sizes/font_size = 27
+text = "0/6"
