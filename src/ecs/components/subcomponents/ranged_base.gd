@@ -28,6 +28,8 @@ class_name RangedBase
 @export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0
 ## 子弹发射模式
 @export var bullet_spawn_mode: C.BulletSpawnMode = C.BulletSpawnMode.EQUAL_INTERVAL
+@export var bullet_data: BulletComponentData = null
+
 ## 近战攻击时是否可以远程攻击
 @export var with_melee: bool = false
 

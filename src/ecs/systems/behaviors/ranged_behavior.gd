@@ -133,20 +133,8 @@ func _spawn_bullets(
 				
 		b.rotation = rotation
 		b.global_position = e.global_position + a.bullet_offsets.get_offset_by_direction(direction)
-
+		
 		var b_bullet_c: BulletComponent = b.get_node_or_null(C.CN_BULLET)
-		b_bullet_c.damage_min = a.damage_min
-		b_bullet_c.damage_max = a.damage_max
-		b_bullet_c.damage_type = a.damage_type
-		b_bullet_c.damage_flags = a.damage_flags
-		b_bullet_c.mods = a.mods
-		b_bullet_c.damage_area_enable = a.damage_area_enable
-		b_bullet_c.damage_min_radius = a.damage_min_radius
-		b_bullet_c.damage_max_radius = a.damage_max_radius
-		b_bullet_c.damage_max_count = a.damage_max_count
-		b_bullet_c.damage_offset = a.damage_offset
-		b_bullet_c.can_damage_same = a.can_damage_same
-		b_bullet_c.damage_search_mode = a.damage_search_mode
-		b_bullet_c.damage_falloff_enabled = a.damage_falloff_enabled
+		b_bullet_c.data = a.bullet_data.duplicate_deep()
 
 		b.insert_entity()

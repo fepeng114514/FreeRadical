@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://scenes/levels/world_controls/select_menu/place_holder.tscn" id="2_n8afe"]
 
 [node name="PlaceHolders" type="Control" unique_id=274001826]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_73otq")

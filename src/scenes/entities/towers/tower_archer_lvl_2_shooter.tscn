@@ -2,6 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/towers/tower_archer_lvl_1_shooter.tscn" id="1_rfise"]
 [ext_resource type="SpriteFrames" uid="uid://cij8dhbo0mi1w" path="res://resources/sprite_frames/towers/tower_archer_lvl2_shooter.tres" id="2_suvr7"]
+[ext_resource type="Script" uid="uid://c56awt67k6l0x" path="res://ecs/components/bullet_component_data.gd" id="3_b3tjy"]
+
+[sub_resource type="Resource" id="Resource_b3tjy"]
+resource_local_to_scene = true
+script = ExtResource("3_b3tjy")
+damage_min = 7.0
+damage_max = 11.0
+mods = PackedStringArray()
+metadata/_custom_type_script = "uid://c56awt67k6l0x"
 
 [node name="TowerArcherLvl2Shooter" unique_id=2011504655 instance=ExtResource("1_rfise")]
 scene_name = "tower_archer_lvl_2_shooter"
@@ -10,6 +19,5 @@ scene_name = "tower_archer_lvl_2_shooter"
 sprite_frames = ExtResource("2_suvr7")
 
 [node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
+bullet_data = SubResource("Resource_b3tjy")
 cooldown = 0.6
-damage_min = 7.0
-damage_max = 11.0

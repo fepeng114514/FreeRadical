@@ -135,7 +135,6 @@ func _on_update(_delta: float) -> void:
 				d.damage_flags = aura_c.damage_flags
 				d.insert_damage()
 
-
 			EntityMgr.create_mods(target.id, aura_c.mods, e.id)
 
 		e._on_aura_period(targets, aura_c)

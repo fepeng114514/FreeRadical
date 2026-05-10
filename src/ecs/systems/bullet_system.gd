@@ -28,8 +28,6 @@ func _on_insert(e: Entity) -> bool:
 	if bullet_c.look_to:
 		e.look_at(to)
 
-	bullet_c.rotation_direction = -1 if to.x < e.global_position.x else 1
-
 	match bullet_c.flight_trajectory:
 		C.Trajectory.LINEAR:
 			_trajectory_liniear_init(bullet_c)
@@ -101,14 +99,16 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 	if bullet_c.miss_animation:
 		e.play_animation_by_look(bullet_c.miss_animation)
 		await e.wait_animation(bullet_c.miss_animation)
+		
+	var bullet_data: BulletComponentData = bullet_c.data
 
-	if bullet_c.damage_area_enable:
+	if bullet_data.damage_area_enable:
 		var targets: Array[Entity] = []
 		targets = EntityMgr.search_targets(
-			bullet_c.damage_search_mode, 
-			bullet_c.to + bullet_c.damage_offset, 
-			bullet_c.damage_max_radius, 
-			bullet_c.damage_min_radius, 
+			bullet_data.damage_search_mode, 
+			bullet_c.to + bullet_data.damage_offset, 
+			bullet_data.damage_max_radius, 
+			bullet_data.damage_min_radius, 
 			e.flags, 
 			e.bans,
 			func(t: Entity) -> bool:
@@ -126,18 +126,20 @@ func _hit(e: Entity, bullet_c: BulletComponent, target) -> void:
 	if bullet_c.hit_animation:
 		e.play_animation_by_look(bullet_c.hit_animation)
 		await e.y_wait(bullet_c.hit_delay)
+
+	var bullet_data: BulletComponentData = bullet_c.data
 		
 	var targets: Array[Entity] = [null]
-	if bullet_c.damage_area_enable:
+	if bullet_data.damage_area_enable:
 		targets = EntityMgr.search_targets(
-			bullet_c.damage_search_mode, 
-			bullet_c.to + bullet_c.damage_offset, 
-			bullet_c.damage_max_radius, 
-			bullet_c.damage_min_radius, 
+			bullet_data.damage_search_mode, 
+			bullet_c.to + bullet_data.damage_offset, 
+			bullet_data.damage_max_radius, 
+			bullet_data.damage_min_radius, 
 			e.flags, 
 			e.bans,
 			func(t: Entity) -> bool:
-				return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
+				return bullet_data.can_damage_same or t.id not in bullet_c.damaged_entity_ids
 		)
 	else:
 		targets[0] = target
@@ -159,7 +161,8 @@ func _take_damage(
 		targets: Array[Entity], 
 		payloads: PackedStringArray
 		) -> void:
-	var damage_max_count: int = bullet_c.damage_max_count
+	var bullet_data: BulletComponentData = bullet_c.data
+	var damage_max_count: int = bullet_data.damage_max_count
 	var e_id: int = e.id
 		
 	for i: int in targets.size():
@@ -173,18 +176,18 @@ func _take_damage(
 		d.target_id = t.id
 		d.source_id = e_id
 		d.source_name = e.name
-		d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
-		d.damage_type = bullet_c.damage_type
-		d.damage_flags = bullet_c.damage_flags
-		if bullet_c.damage_area_enable and bullet_c.damage_falloff_enabled:
+		d.value = d.get_random_value(bullet_data.damage_min, bullet_data.damage_max)
+		d.damage_type = bullet_data.damage_type
+		d.damage_flags = bullet_data.damage_flags
+		if bullet_data.damage_area_enable and bullet_data.damage_falloff_enabled:
 			d.damage_factor = U.dist_factor_inside_radius(
 				e.global_position, 
 				t.global_position, 
-				bullet_c.damage_max_radius,
-				bullet_c.damage_min_radius
+				bullet_data.damage_max_radius,
+				bullet_data.damage_min_radius
 			)
 		d.insert_damage()
-		EntityMgr.create_mods(t.id, bullet_c.mods, e_id)
+		EntityMgr.create_mods(t.id, bullet_data.mods, e_id)
 		bullet_c.damaged_entity_ids.append(t_id)
 		
 	EntityMgr.create_entities_at_pos(payloads, bullet_c.to)

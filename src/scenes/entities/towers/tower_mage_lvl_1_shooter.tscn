@@ -7,6 +7,7 @@
 [ext_resource type="SpriteFrames" uid="uid://j6iq1p753voi" path="res://resources/sprite_frames/towers/tower_mage_shooter.tres" id="4_vtoys"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/subcomponents/ranged_attack.gd" id="5_vssey"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="7_2m7r5"]
+[ext_resource type="Script" uid="uid://c56awt67k6l0x" path="res://ecs/components/bullet_component_data.gd" id="8_c4v6e"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="8_vtoys"]
 
 [sub_resource type="Resource" id="Resource_i3jkb"]
@@ -20,6 +21,15 @@ script = ExtResource("7_2m7r5")
 up = Vector2(12.195, -30.935)
 down = Vector2(-13.38, -31.645)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_n6q0g"]
+resource_local_to_scene = true
+script = ExtResource("8_c4v6e")
+damage_min = 9.0
+damage_max = 17.0
+damage_type = 2
+mods = PackedStringArray()
+metadata/_custom_type_script = "uid://c56awt67k6l0x"
 
 [sub_resource type="Resource" id="Resource_8g6nx"]
 script = ExtResource("2_8g6nx")
@@ -59,15 +69,12 @@ script = ExtResource("5_vssey")
 bullet = "tower_mage_bullet"
 bullet_offsets = SubResource("Resource_45avb")
 bullet_spawn_mode = 350
+bullet_data = SubResource("Resource_n6q0g")
 with_melee = true
 cooldown = 1.5
 delay = 0.3
 animation = SubResource("Resource_8g6nx")
 sfx = SubResource("Resource_vtoys")
-damage_min = 9.0
-damage_max = 17.0
-damage_type = 2
-mods = PackedStringArray()
 whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

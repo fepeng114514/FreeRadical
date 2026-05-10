@@ -32,6 +32,7 @@ mouse_filter = 2
 texture = ExtResource("7_ji36x")
 
 [node name="PlaceHolders" type="Control" parent="Ring" unique_id=274001826]
+visible = false
 anchors_preset = 0
 script = ExtResource("17_y247d")
 

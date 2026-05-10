@@ -398,6 +398,8 @@ const CN_SPAWNER: NodePath = ^"SpawnerComponent"
 const CN_UI: NodePath = ^"UIComponent"
 ## 组件名称: FX
 const CN_FX: NodePath = ^"FXComponent"
+## 组件名称: 技能
+const CN_SKILL: NodePath = ^"SkillComponent"
 #endregion
 
 
