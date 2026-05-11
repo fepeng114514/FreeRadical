@@ -36,8 +36,6 @@ var nav_ni: int = 0
 var nav_ratio: float = 0
 ## 所在路程
 var nav_progress: float = 0
-## 原始速度
-var origin_speed: float = 0
 ## 当前循环次数
 var loop_count: int = 0
 ## 时间戳

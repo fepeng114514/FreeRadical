@@ -6,11 +6,13 @@ class_name ModifierComponent
 
 
 ## 状态效果类型
-@export var mod_type: int = 0
+@export var mod_type: int = C.ModType.NONE
 ## 周期时间
 @export var cycle_time: float = 1
 ## 最大周期
 @export var max_cycle: int = C.UNSET
+## 属性修改器列表
+@export var property_modifier_list: Array[PropertyModifier] = []
 
 @export_group("Cycle Damage")
 ## 最小伤害
@@ -33,32 +35,6 @@ class_name ModifierComponent
 @export var overlay_duration_same: bool = false
 ## 是否移除被禁止的状态效果
 @export var remove_banned: bool = true
-
-@export_group("Buff")
-## 所有者的伤害因子
-@export var add_damage_factor: float = 1
-## 所有者的物理护甲因子
-@export var physical_armor_factor: float = 1
-## 所有者的魔法护甲因子
-@export var magical_armor_factor: float = 1
-## 所有者的伤害减免因子
-@export var damage_resistance_factor: float = 1
-## 所有者的速度因子
-@export var speed_factor: float = 1
-## 直接增加所有者的伤害
-@export var add_damage_bonus: float = 0
-## 直接增加所有者的物理护甲
-@export var physical_armor_bonus: int = 0
-## 直接增加所有者的魔法护甲
-@export var magical_armor_bonus: int = 0
-## 直接增加所有者的伤害减免
-@export var damage_reduction_bonus: float = 0
-
-@export_group("Debuff")
-## 所有者的易伤因子
-@export var vulnerable_factor: float = 1
-## 直接增加所有者的易伤
-@export var vulnerable_bonus: float = 0
 
 ## 时间戳
 var ts: float = 0

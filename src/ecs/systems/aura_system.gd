@@ -27,10 +27,10 @@ func _on_insert(e: Entity) -> bool:
 
 	aura_c.ts = TimeMgr.tick_ts
 
-	var s_has_auras_ids: PackedInt32Array = source.has_auras_ids
+	var s_has_auras_id_list: PackedInt32Array = source.has_auras_id_list
 	var same_source_auras: Array[Entity] = []
 
-	for aura_id: int in s_has_auras_ids:
+	for aura_id: int in s_has_auras_id_list:
 		var other_a: Entity = EntityMgr.get_entity_by_id(aura_id)
 		
 		if not other_a:
@@ -64,7 +64,7 @@ func _on_insert(e: Entity) -> bool:
 			same_source_auras.append(other_a)
 			
 	if not same_source_auras:
-		source.has_auras_ids.append(e.id)
+		source.has_auras_id_list.append(e.id)
 		return true
 		
 	# 处理相同光环
@@ -82,7 +82,7 @@ func _on_insert(e: Entity) -> bool:
 	# 替换，优先替换等级最低的
 	if aura_c.replace_same:
 		min_level_aura.remove_entity()
-		source.has_auras_ids.append(e.id)
+		source.has_auras_id_list.append(e.id)
 		return true
 	# 叠加持续时间，优先与最高等级叠加
 	if aura_c.overlay_duration_same:
@@ -92,7 +92,7 @@ func _on_insert(e: Entity) -> bool:
 	if not aura_c.allow_same:
 		return false
 
-	s_has_auras_ids.append(e.id)
+	s_has_auras_id_list.append(e.id)
 
 	return true
 
@@ -152,5 +152,5 @@ func _on_remove(e: Entity) -> bool:
 	if not source:
 		return true
 	
-	source.has_auras_ids.erase(e.id) 
+	source.has_auras_id_list.erase(e.id) 
 	return true

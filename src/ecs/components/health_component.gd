@@ -10,11 +10,11 @@ class_name HealthComponent
 
 @export_group("Buff")
 ## 物理护甲
-@export var physical_armor: int = 0
+@export var physical_armor: float = 0
 ## 魔法护甲
-@export var magical_armor: int = 0
+@export var magical_armor: float = 0
 ## 毒抗性
-@export var poison_armor: int = 0
+@export var poison_armor: float = 0
 ## 回血
 @export var regen_hp: float = 0
 ## 回血冷却
@@ -36,7 +36,7 @@ class_name HealthComponent
 ## 对伤害来源的反伤
 @export var spiked: float = C.UNSET
 ## 免疫的伤害类型
-@export var immuned: int = 0
+@export var immuned: int = C.DamageType.NONE
 
 @export_group("Debuff")
 ## 易伤

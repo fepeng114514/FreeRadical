@@ -16,8 +16,6 @@ func _on_insert(e: Entity) -> bool:
 		
 	if nav_path_c.end_ni < 0:
 		nav_path_c.end_ni = PathwayMgr.node_count + nav_path_c.end_ni
-		
-	nav_path_c.origin_speed = nav_path_c.speed
 
 	var node: PathwayNode = nav_path_c.get_pathway_node()
 	nav_path_c.set_pathway_node(node)
@@ -41,15 +39,6 @@ func _on_update(e: Entity) -> bool:
 	var nav_path_c: NavPathComponent = e.get_node_or_null(C.CN_NAV_PATH)
 	if not nav_path_c:
 		return false
-	
-	# 速度计算
-	var speed_factor: float = 1
-
-	for mod: Entity in e.get_has_auras():
-		var mod_c: ModifierComponent = mod.get_node_or_null(C.CN_MODIFIER)
-		speed_factor *= mod_c.speed_factor
-		
-	nav_path_c.speed = nav_path_c.origin_speed * speed_factor
 	
 	if nav_path_c.reversed:
 		return _update_reversed(e, nav_path_c)

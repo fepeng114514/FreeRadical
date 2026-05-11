@@ -15,8 +15,8 @@ func _on_remove(e: Entity) -> bool:
 	if not e._on_remove():
 		return false
 	
-	e.clear_has_mods()
-	e.clear_has_auras()
+	e.clear_has_mod_list()
+	e.clear_has_aura_list()
 
 	return true
 

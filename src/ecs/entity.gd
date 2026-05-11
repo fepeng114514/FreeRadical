@@ -53,9 +53,11 @@ var ts: float = 0
 ## 目标实体 ID
 var target_id: int = C.UNSET
 ## 拥有的状态效果 ID 列表
-var has_mods_ids := PackedInt32Array()
+var has_mods_id_list := PackedInt32Array()
+## 上次拥有的状态效果 ID 列表长度，用于检测状态效果的新增和移除
+var last_has_mods_id_list_size: int = 0
 ## 拥有的光环 ID 列表
-var has_auras_ids := PackedInt32Array()
+var has_auras_id_list := PackedInt32Array()
 ## 是否被点击选择
 var selected: bool = false
 ## 上一帧位置
@@ -158,7 +160,7 @@ func _on_barrack_respawn(soldier: Entity, barrack_c: BarrackComponent) -> bool: 
 
 
 ## 状态效果实体周期调用
-func _on_modifier_period(target: Entity, mod_c: ModifierComponent) -> void: pass
+func _on_modifier_period(target: Entity, modifier_c: ModifierComponent) -> void: pass
 
 
 ## 光环实体周期调用
@@ -213,22 +215,22 @@ func add_c(component: GDScript) -> Node:
 #region 状态效果相关方法
 ## 清理无效状态效果
 func cleanup_has_mods() -> void:
-	var new_has_mods_ids := PackedInt32Array()
+	var new_has_mods_id_list := PackedInt32Array()
 	
-	for mod_id in has_mods_ids:
+	for mod_id in has_mods_id_list:
 		if not EntityMgr.get_entity_by_id(mod_id):
 			continue 
 			
-		new_has_mods_ids.append(mod_id)
+		new_has_mods_id_list.append(mod_id)
 		
-	has_mods_ids = new_has_mods_ids
+	has_mods_id_list = new_has_mods_id_list
 
 
-## 获取拥有的所有状态效果实体
-func get_has_mods(filter: Callable = Callable()) -> Array[Entity]:
+## 获取拥有的所有状态效果实体数组
+func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
-	for mod_id: int in has_mods_ids:
+	for mod_id: int in has_mods_id_list:
 		var mod: Entity = EntityMgr.get_entity_by_id(mod_id)
 		
 		if not mod or filter.is_valid() and not filter.call(mod):
@@ -240,33 +242,20 @@ func get_has_mods(filter: Callable = Callable()) -> Array[Entity]:
 
 
 ## 清空拥有的状态效果
-func clear_has_mods() -> void:
-	for mod: Entity in get_has_mods():
+func clear_has_mod_list() -> void:
+	for mod: Entity in get_has_mod_list():
 		mod.remove_entity()
 
-	has_mods_ids.clear()
-	
-	
-## 将伤害应用状态效果的 buff
-func apply_mods_damage_factor(damage: float) -> float:
-	var total_damage_factor: float = 1
-	var total_damage_bonus: float = 0
-	
-	for mod: Entity in get_has_mods():
-		var mod_c: ModifierComponent = mod.get_node_or_null(C.CN_MODIFIER)
-		total_damage_factor *= mod_c.add_damage_factor
-		total_damage_bonus += mod_c.add_damage_bonus
-		
-	return damage * total_damage_factor + total_damage_bonus
+	has_mods_id_list.clear()
 #endregion
 
 
 #region 光环相关方法
-## 获取拥有的光环实体
-func get_has_auras(filter: Callable = Callable()) -> Array[Entity]:
+## 获取拥有的光环实体数组
+func get_has_aura_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_auras: Array[Entity] = []
 	
-	for aura_id in has_auras_ids:
+	for aura_id in has_auras_id_list:
 		var aura: Entity = EntityMgr.get_entity_by_id(aura_id)
 		
 		if not aura or filter.is_valid() and not filter.call(aura):
@@ -278,11 +267,11 @@ func get_has_auras(filter: Callable = Callable()) -> Array[Entity]:
 
 
 ## 清空拥有的光环
-func clear_has_auras() -> void:
-	for aura: Entity in get_has_auras():
+func clear_has_aura_list() -> void:
+	for aura: Entity in get_has_aura_list():
 		aura.remove_entity()
 
-	has_auras_ids.clear()
+	has_auras_id_list.clear()
 #endregion
 
 
