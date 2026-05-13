@@ -22,16 +22,17 @@ enum Type {
 ## 节点路径
 @export var node_path: NodePath = ^""
 ## 修改的数值
-@export var value: float = 0
+@export var value: Variant = 0
 
 
-func apply(base_value: float) -> float:
-	match type:
-		Type.ADD:
-			return base_value + value
-		Type.ADD_PERCENT:
-			return base_value * (1 + value)
-		Type.MULTIPLY:
-			return base_value * value
+func apply(base_value: Variant) -> float:
+	if value is float:
+		match type:
+			Type.ADD:
+				return base_value + value
+			Type.ADD_PERCENT:
+				return base_value * (1 + value)
+			Type.MULTIPLY:
+				return base_value * value
 
 	return base_value

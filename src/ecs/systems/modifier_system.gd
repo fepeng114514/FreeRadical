@@ -113,19 +113,25 @@ func _on_remove(e: Entity) -> bool:
 	if not target:
 		return true
 
-	var property_modifier_list: Array = modifier_c.property_modifier_list
 	var reseted_property_set: Dictionary = {}
 
-	for property_mod: PropertyModifier in property_modifier_list:
-		var key: String = "%s|%s" % [property_mod.node_path, property_mod.property]
+	for property_mod: PropertyModifier in modifier_c.property_modifier_list:
+		var key: Array = [property_mod.node_path, property_mod.property]
 		if reseted_property_set.has(key):
 			continue
 
 		reseted_property_set[key] = true
-
 		_reset_property(target, property_mod)
 
 	target.has_mods_id_list.erase(e.id)
+
+	for t_mod: Entity in target.get_has_mod_list():
+		var t_modifier_c: ModifierComponent = t_mod.get_node_or_null(C.CN_MODIFIER)
+		var t_property_modifier_list: Array = t_modifier_c.property_modifier_list
+		
+		for t_property_mod: PropertyModifier in t_property_modifier_list:
+			_apply_modifier(target, t_property_mod)
+
 	return true
 
 
@@ -169,37 +175,20 @@ func _process_property_modifiers() -> void:
 		var has_mods_id_list_size: int = e.has_mods_id_list.size()
 		if e.last_has_mods_id_list_size != has_mods_id_list_size:
 			e.last_has_mods_id_list_size = has_mods_id_list_size
-			var has_mod_list: Array[Entity] = e.get_has_mod_list()
 			var reseted_property_set: Dictionary = {}
 
-			# 重置属性
-			for mod: Entity in has_mod_list:
+			for mod: Entity in e.get_has_mod_list():
 				var modifier_c: ModifierComponent = mod.get_node_or_null(C.CN_MODIFIER)
 				var property_modifier_list: Array = modifier_c.property_modifier_list
 
 				for property_mod: PropertyModifier in property_modifier_list:
-					var key: String = "%s|%s" % [property_mod.node_path, property_mod.property]
-					if reseted_property_set.has(key):
-						continue
+					var key: Array = [property_mod.node_path, property_mod.property]
+					if not reseted_property_set.has(key):
+						reseted_property_set[key] = true
 
-					reseted_property_set[key] = true
+						_reset_property(e, property_mod)
 
-					_reset_property(e, property_mod)
-
-			# 应用属性修改
-			for mod: Entity in has_mod_list:
-				var modifier_c: ModifierComponent = mod.get_node_or_null(C.CN_MODIFIER)
-				var property_modifier_list: Array = modifier_c.property_modifier_list
-
-				for property_mod: PropertyModifier in property_modifier_list:
-					var node: Node = e.get_node_or_null(property_mod.node_path)
-					if not node:
-						continue
-
-					var property: String = property_mod.property
-					var value: float = node.get(property)
-					value = property_mod.apply(value)
-					node.set(property, value)
+					_apply_modifier(e, property_mod)
 
 
 func _reset_property(target: Entity, property_mod: PropertyModifier) -> void:
@@ -214,4 +203,15 @@ func _reset_property(target: Entity, property_mod: PropertyModifier) -> void:
 
 	var property: String = property_mod.property
 	var base_value: float = data_node.get(property)
-	node.set(property, base_value)
+	node[property] = base_value
+
+
+func _apply_modifier(target: Entity, property_mod: PropertyModifier) -> void:
+	var node: Node = target.get_node_or_null(property_mod.node_path)
+	if not node:
+		return
+
+	var property: String = property_mod.property
+	var value: float = node.get(property)
+	value = property_mod.apply(value)
+	node[property] = value

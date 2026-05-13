@@ -1,49 +1,43 @@
 [gd_scene format=3 uid="uid://c77v7yq60lpig"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_tdsfa"]
+[ext_resource type="PackedScene" uid="uid://2b477amx3god" path="res://scenes/entities/bullet.tscn" id="1_y76x6"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_4g6k2"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_23yll"]
 [ext_resource type="SpriteFrames" uid="uid://bjackr2e5vunj" path="res://resources/sprite_frames/towers/tower_mage_bolt.tres" id="4_halcm"]
-[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://ecs/components/bullet_component.gd" id="5_8yeue"]
 
-[sub_resource type="Resource" id="Resource_sxt40"]
+[sub_resource type="Resource" id="Resource_hf44a"]
 script = ExtResource("2_4g6k2")
-left_right = &"idle_left_right"
-
-[sub_resource type="Resource" id="Resource_uuifh"]
-script = ExtResource("2_4g6k2")
-left_right = &"flying_left_right"
+mirror_horizontal = true
+right = &"idle_left_right"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
-[sub_resource type="Resource" id="Resource_03csp"]
+[sub_resource type="Resource" id="Resource_halcm"]
 script = ExtResource("2_4g6k2")
-left_right = &"hit_left_right"
+mirror_horizontal = true
+right = &"flying_left_right"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
-[node name="TowerMageBullet" type="Node2D" unique_id=511000022]
-script = ExtResource("1_tdsfa")
+[sub_resource type="Resource" id="Resource_tx2v8"]
+script = ExtResource("2_4g6k2")
+mirror_horizontal = true
+right = &"hit_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[node name="TowerMageBullet" unique_id=511000022 instance=ExtResource("1_y76x6")]
 scene_name = "tower_mage_bullet"
-idle_animation = SubResource("Resource_sxt40")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
-metadata/_custom_type_script = "uid://dnp44u8703gud"
+idle_animation = SubResource("Resource_hf44a")
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1302005454]
+[node name="BulletComponent" parent="." index="0" unique_id=490791954]
+flight_trajectory = 2
+flight_speed = 500.0
+flight_animation = SubResource("Resource_halcm")
+hit_animation = SubResource("Resource_tx2v8")
+
+[node name="SpriteComponent" type="Node2D" parent="." index="1" unique_id=1302005454]
 script = ExtResource("3_23yll")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=435859138]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=435859138]
 position = Vector2(12, 0)
 sprite_frames = ExtResource("4_halcm")
 animation = &"flying_left_right"
-
-[node name="BulletComponent" type="Node" parent="." unique_id=1314316915]
-script = ExtResource("5_8yeue")
-flight_trajectory = 2
-flight_speed = 500.0
-flight_animation = SubResource("Resource_uuifh")
-disabled_predict_pos = true
-hit_payloads = PackedStringArray()
-hit_animation = SubResource("Resource_03csp")
-miss_payloads = PackedStringArray()
-metadata/_custom_type_script = "uid://haoljvofy74e"

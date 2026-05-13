@@ -173,6 +173,29 @@ static func is_at_destination(
 		current_pos: Vector2, target_pos: Vector2, threshold: float = 5.0
 	) -> bool:
 	return current_pos.distance_to(target_pos) <= threshold
+
+
+static func get_direction_by_angle(
+		angle: float, has_horizontal: bool, has_vertical: bool
+	) -> C.Direction:
+	if has_vertical and not has_horizontal:
+		# 纯垂直输入（包括单独上、单独下、同时）
+		return C.Direction.UP if angle < 0 else C.Direction.DOWN
+	elif has_horizontal and not has_vertical:
+		# 纯水平输入（包括单独左、单独右、同时）
+		var is_right := angle >= -C.HALF_PI and angle <= C.HALF_PI
+		return C.Direction.RIGHT if is_right else C.Direction.LEFT
+	else:
+		# 八方向模式（无输入 / 双轴同时 / 双轴都有）
+		var half_45: float = C.QUARTER_PI
+		if angle >= -3 * half_45 and angle < -half_45:
+			return C.Direction.UP
+		elif angle >= half_45 and angle < 3 * half_45:
+			return C.Direction.DOWN
+		elif angle >= -half_45 and angle < half_45:
+			return C.Direction.RIGHT
+		else:
+			return C.Direction.LEFT
 #endregion
 
 
@@ -613,3 +636,74 @@ static func pick_random(array: Array) -> Variant:
 		return null
 		
 	return array[randi() % array.size()]
+#endregion
+
+
+#region 绘制相关方法
+static func draw_offset_group(
+		drawer: CanvasItem, offset_group: OffsetGroup, radius: float = 3, color := Color.GREEN
+	) -> void:
+	if not offset_group:
+		return
+
+	var cross_len: float = radius * 1.5
+	for offset_value: Vector2 in offset_group.to_dict().values():
+		if offset_value == Vector2.ZERO:
+			continue
+
+		# 中间的圆
+		var fill_color: Color = Color(color.r, color.g, color.b, 0.4)
+		drawer.draw_circle(offset_value, radius * 0.8, fill_color, true)
+		drawer.draw_circle(offset_value, radius, color, false, 1.2)
+
+		# 十字线
+		var p1: Vector2 = offset_value + Vector2(-cross_len, 0)
+		var p2: Vector2 = offset_value + Vector2(cross_len, 0)
+		var p3: Vector2 = offset_value + Vector2(0, -cross_len)
+		var p4: Vector2 = offset_value + Vector2(0, cross_len)
+		drawer.draw_line(p1, p2, color, 1.2)
+		drawer.draw_line(p3, p4, color, 1.2)
+
+
+static func draw_range_circle(
+		drawer: CanvasItem, 
+		position: Vector2, 
+		min_range: float, 
+		max_range: float, 
+		color := Color.GREEN,
+		width: float = 1,
+		alpha: float = 0.2
+	) -> void:
+	var filled_color: Color = Color(color.r, color.g, color.b, color.a * alpha)
+	var drawed_ranges: Array[float] = [
+		min_range,
+		max_range
+	]
+
+	for r: float in drawed_ranges:
+		drawer.draw_circle(
+			position, 
+			r,
+			color, 
+			false,
+			width
+		)
+		drawer.draw_circle(
+			position, 
+			r,
+			filled_color, 
+		)
+#endregion
+
+
+#region 编辑器相关方法
+static func connect_offset_group_changed(offset_group: OffsetGroup, callable: Callable) -> void:
+	if not offset_group:
+		return
+
+	var offsets_changed: Signal = offset_group.changed
+	if offsets_changed.is_connected(callable):
+		return
+
+	offsets_changed.connect(callable)
+#endregion

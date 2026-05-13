@@ -1,0 +1,50 @@
+{
+	"explosion_big": {
+		"animations": {
+			"idle": {
+				"from": 3,
+				"to": 20
+			}
+		}
+	},
+	"explosion_fragment": {
+		"animations": {
+			"idle": {
+				"from": 1,
+				"to": 18
+			}
+		}
+	},
+	"explosion_air": {
+		"animations": {
+			"idle": {
+				"from": 1,
+				"to": 18
+			}
+		}
+	},
+	"explosion_shrapnel": {
+		"animations": {
+			"idle": {
+				"from": 1,
+				"to": 20
+			}
+		}
+	},
+	"explosion_rotten_shot": {
+		"animations": {
+			"idle": {
+				"from": 1,
+				"to": 11
+			}
+		}
+	},
+	"explosion_flare_flareon": {
+		"animations": {
+			"idle": {
+				"from": 1,
+				"to": 13
+			}
+		}
+	}
+}

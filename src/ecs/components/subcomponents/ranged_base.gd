@@ -23,19 +23,67 @@ class_name RangedBase
 ## 子弹发射数量
 @export var bullet_count: int = 1
 ## 子弹初始位置偏移
-@export var bullet_offsets: OffsetGroup = null
+@export var bullet_offsets: OffsetGroup = null:
+	set(value):
+		bullet_offsets = value
+		if Engine.is_editor_hint():
+			U.connect_offset_group_changed(bullet_offsets, _on_bullet_offsets_changed)
+		queue_redraw()
 ## 子弹发射的角度范围，单位为度
 @export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0
 ## 子弹发射模式
 @export var bullet_spawn_mode: C.BulletSpawnMode = C.BulletSpawnMode.EQUAL_INTERVAL
-@export var bullet_data: BulletComponentData = null
-
 ## 近战攻击时是否可以远程攻击
 @export var with_melee: bool = false
 
+@export_group("Damage")
+## 子弹最小伤害
+@export var damage_min: float = 0
+## 子弹最大伤害
+@export var damage_max: float = 0
+## 伤害类型
+@export var damage_type: int = C.DamageType.PHYSICAL
+## 伤害标识
+@export var damage_flags: int = 0
+## 子弹携带的状态效果
+@export var mods := PackedStringArray()
+
+@export_subgroup("Area Damage")
+## 是否启用范围伤害
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var damage_area_enable: bool = false
+## 最小伤害半径
+@export var damage_min_radius: float = 0
+## 最大伤害半径
+@export var damage_max_radius: float = 0
+## 最大伤害数量
+@export var damage_max_count: int = C.UNSET
+## 范围伤害的圆心偏移
+@export var damage_offsets: OffsetGroup = null:
+	set(value):
+		damage_offsets = value
+		if Engine.is_editor_hint():
+			U.connect_offset_group_changed(damage_offsets, _on_damage_offsets_changed)
+		queue_redraw()
+## 是否可以伤害重复敌人
+@export var can_damage_same: bool = false
+## 范围伤害的搜索模式
+@export var damage_search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
+## 范围伤害是否随距离衰减
+@export var damage_falloff_enabled: bool = false
+
 
 func _ready() -> void:
-	bullet_offsets.changed.connect(_on_offset_data_changed)
+	if Engine.is_editor_hint():
+		U.connect_offset_group_changed(damage_offsets, _on_damage_offsets_changed)
+		U.connect_offset_group_changed(bullet_offsets, _on_bullet_offsets_changed)
+
+
+func _on_damage_offsets_changed() -> void:
+	queue_redraw()
+
+
+func _on_bullet_offsets_changed() -> void:
+	queue_redraw()
 
 
 func _validate_property(property: Dictionary):
@@ -48,32 +96,6 @@ func _validate_property(property: Dictionary):
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		for offset_value: Vector2 in bullet_offsets.to_dict().values():
-			if not offset_value:
-				continue
-			
-			draw_circle(
-				offset_value, 
-				3,
-				Color.GREEN, 
-				true
-			)
-
-		draw_circle(
-			position, 
-			max_range,
-			Color(0.401, 0.865, 0.386, 0.604), 
-			false,
-			6
-		)
-		draw_circle(
-			position, 
-			min_range,
-			Color(0.401, 0.865, 0.386, 0.604), 
-			false,
-			6
-		)
-
-
-func _on_offset_data_changed() -> void:
-	queue_redraw()	
+		U.draw_offset_group(self, damage_offsets)
+		U.draw_offset_group(self, bullet_offsets)
+		U.draw_range_circle(self, position, min_range, max_range)

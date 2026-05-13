@@ -6,6 +6,7 @@ class_name BarrackComponent
 ## BarrackComponent 可以使实体生成士兵并管理士兵列表
 
 
+@export var disabled: bool = false
 ## 最小集结范围
 @export var rally_min_range: float = 0:
 	set(value):
@@ -27,11 +28,13 @@ class_name BarrackComponent
 ## 士兵场景名称
 @export var soldier: String = ""
 ## 生成士兵间隔（秒）
-@export var respawn_time: float = 10
+@export var spawn_time: float = 10
 ## 士兵生成偏移
-@export var respawn_offset := Vector2.ZERO:
+@export var spawn_offsets: OffsetGroup = null:
 	set(value):
-		respawn_offset = value
+		spawn_offsets = value
+		if Engine.is_editor_hint():
+			U.connect_offset_group_changed(spawn_offsets, _on_spawn_offsets_changed)
 		queue_redraw()
 ## 最大士兵数量
 @export var max_soldiers: int = 3
@@ -45,6 +48,7 @@ class_name BarrackComponent
 
 ## 时间戳（秒）
 var ts: float = 0
+var is_first_update: bool = true
 ## 上一次士兵数量
 var last_soldier_count: int = C.UNSET
 var soldier_group: EntityGroup = null
@@ -53,37 +57,26 @@ var last_blocked_id_list: Array[PackedInt32Array] = []
 
 
 func _ready() -> void:
-	soldier_group = EntityGroup.new()
-	add_child(soldier_group)
+	if Engine.is_editor_hint():
+		U.connect_offset_group_changed(spawn_offsets, _on_spawn_offsets_changed)
+	else:
+		soldier_group = EntityGroup.new()
+		add_child(soldier_group)
+
+
+func _on_spawn_offsets_changed() -> void:
+	queue_redraw()
 
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		draw_circle(
-			position, 
-			rally_min_range,
-			Color(0.448, 0.506, 0.927, 0.604), 
-			false,
-			6
-		)
-		draw_circle(
-			position, 
-			rally_max_range,
-			Color(0.448, 0.506, 0.927, 0.604), 
-			false,
-			6
-		)
+		U.draw_offset_group(self, spawn_offsets)
+		U.draw_range_circle(self, position, rally_min_range, rally_max_range, Color.BLUE)
 		
 		draw_circle(
 			rally_center_position,
 			9,
 			Color(0.486, 0.294, 1.0, 1.0), 
-			true
-		)
-		draw_circle(
-			respawn_offset,
-			3,
-			Color.GREEN, 
 			true
 		)
 

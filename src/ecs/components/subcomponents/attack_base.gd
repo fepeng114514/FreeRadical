@@ -5,8 +5,6 @@ class_name Attackbase
 ## Attackbase 是所有攻击节点的基类，提供了攻击的基本属性和功能。
 
 
-## 攻击标识
-@export var flags: int = 0
 ## 冷却时间
 @export var cooldown: float = 1
 ## 是否禁用
@@ -19,12 +17,16 @@ class_name Attackbase
 @export var animation: AnimationGroup = null
 ## 攻击音效数据
 @export var sfx: AudioGroup = null
+
+@export_group("Entity Group Cooldown")
+## 是否启用实体组冷却
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var group_cooldown_enable: bool = false
 ## 实体组冷却偏移
 @export var group_cooldown_offset: float = 0.1
-## 是否禁用实体组冷却
-@export var group_cooldown_disabled: bool = false
 
 @export_group("Limit")
+## 攻击标识
+@export var flags: int = 0
 ## 不可攻击的实体的标识
 @export var bans: int = 0
 ## 可攻击的实体场景名称

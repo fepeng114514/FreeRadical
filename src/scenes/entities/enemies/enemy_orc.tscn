@@ -2,7 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://scenes/entities/enemies/enemy.tscn" id="1_wlnjt"]
 [ext_resource type="SpriteFrames" uid="uid://due0kyivwouc7" path="res://resources/sprite_frames/enemies/enemy_orc.tres" id="2_bomnd"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="2_w5ikr"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="3_bomnd"]
+
+[sub_resource type="Resource" id="Resource_06yx3"]
+script = ExtResource("2_w5ikr")
+any = Vector2(0, -17.73)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
 [sub_resource type="Resource" id="Resource_w5ikr"]
 script = ExtResource("3_bomnd")
@@ -11,6 +17,7 @@ metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="EnemyOrc" unique_id=71433118 instance=ExtResource("1_wlnjt")]
 scene_name = "enemy_orc"
+hit_offsets = SubResource("Resource_06yx3")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -25)
@@ -18,7 +25,7 @@ sprite_frames = ExtResource("2_bomnd")
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 80.0
-physical_armor = 30
+physical_armor = 30.0
 death_gold = 9.0
 death_sfx = SubResource("Resource_w5ikr")
 
@@ -30,10 +37,7 @@ scale = Vector2(1.12, 1.1)
 [node name="NavPathComponent" parent="." index="2" unique_id=655679987]
 speed = 66.0
 
-[node name="MeleeComponent" parent="." index="3" unique_id=768145759]
-melee_pos_offset = Vector2(35.265, 0)
-
-[node name="MeleeAttack" parent="MeleeComponent" index="0" unique_id=1304104648]
+[node name="MeleeAttack" parent="MeleeComponent" parent_id_path=PackedInt32Array(768145759) index="0" unique_id=1304104648]
 damage_min = 4.0
 damage_max = 8.0
 

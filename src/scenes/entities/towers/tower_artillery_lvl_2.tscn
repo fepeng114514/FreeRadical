@@ -8,25 +8,12 @@
 [ext_resource type="SpriteFrames" uid="uid://bhakq223ta83" path="res://resources/sprite_frames/towers/tower_artillery_lvl2_layer5.tres" id="6_opgrv"]
 [ext_resource type="SpriteFrames" uid="uid://5lcnqcwo0nwu" path="res://resources/sprite_frames/towers/tower_artillery_lvl2_layer6.tres" id="7_e0rle"]
 [ext_resource type="SpriteFrames" uid="uid://dfrtroogabqr0" path="res://resources/sprite_frames/towers/tower_artillery_lvl2_layer7.tres" id="8_4pii2"]
-[ext_resource type="Script" uid="uid://c56awt67k6l0x" path="res://ecs/components/bullet_component_data.gd" id="10_4x7de"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="13_3bdla"]
 
 [sub_resource type="Resource" id="Resource_thpnf"]
 script = ExtResource("13_3bdla")
 any = Vector2(0, -71.905)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
-
-[sub_resource type="Resource" id="Resource_4x7de"]
-resource_local_to_scene = true
-script = ExtResource("10_4x7de")
-damage_min = 20.0
-damage_max = 40.0
-damage_type = 4
-mods = PackedStringArray()
-damage_area_enable = true
-damage_max_radius = 166.0
-damage_falloff_enabled = true
-metadata/_custom_type_script = "uid://c56awt67k6l0x"
 
 [node name="TowerArtilleryLvl2" unique_id=1600363506 instance=ExtResource("1_mlysv")]
 scene_name = "tower_artillery_lvl_2"
@@ -56,9 +43,11 @@ sprite_frames = ExtResource("7_e0rle")
 sprite_frames = ExtResource("8_4pii2")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+show_range_offset = Vector2(0, 43.52)
 price = 225.0
 
 [node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
 bullet = "tower_artillery_lvl_2_bullet"
 bullet_offsets = SubResource("Resource_thpnf")
-bullet_data = SubResource("Resource_4x7de")
+damage_min = 20.0
+damage_max = 40.0

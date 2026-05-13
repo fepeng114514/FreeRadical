@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://2b477amx3god"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_xbcc2"]
-[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://ecs/components/bullet_component.gd" id="2_k15yu"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://ecs/components/bullet_component.gd" id="2_byxw7"]
 
 [node name="Bullet" type="Node2D" unique_id=654297770]
 script = ExtResource("1_xbcc2")
@@ -10,8 +10,8 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="BulletComponent" type="Node" parent="." unique_id=1161107733]
-script = ExtResource("2_k15yu")
+[node name="BulletComponent" type="Node2D" parent="." unique_id=490791954]
+script = ExtResource("2_byxw7")
 hit_payloads = PackedStringArray()
 miss_payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://haoljvofy74e"

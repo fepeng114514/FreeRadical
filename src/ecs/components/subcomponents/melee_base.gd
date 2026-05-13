@@ -32,6 +32,25 @@ class_name MeleeBase
 ## 范围伤害是否随距离衰减
 @export var damage_falloff_enabled: bool = false
 ## 范围伤害的圆心偏移
-@export var damage_offset := Vector2.ZERO
+@export var damage_offsets: OffsetGroup = null:
+	set(value):
+		damage_offsets = value
+		if Engine.is_editor_hint():
+			U.connect_offset_group_changed(damage_offsets, _on_damage_offsets_changed)
+		queue_redraw()
 ## 是否可以伤害重复敌人
 @export var can_damage_same: bool = false
+
+
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		U.connect_offset_group_changed(damage_offsets, _on_damage_offsets_changed)
+
+
+func _on_damage_offsets_changed() -> void:
+	queue_redraw()
+
+
+func _draw() -> void:
+	if Engine.is_editor_hint():
+		U.draw_offset_group(self, damage_offsets)

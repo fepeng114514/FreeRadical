@@ -23,10 +23,12 @@ class_name Entity
 ## 生成时播放的音效
 @export var spawn_sfx: AudioGroup = null
 ## 击中位置偏移
-@export var hit_offset := Vector2.ZERO:
+@export var hit_offsets: OffsetGroup = null:
 	set(value):
-		hit_offset = value
-		queue_redraw()
+		hit_offsets = value
+		if Engine.is_editor_hint():
+			U.connect_offset_group_changed(hit_offsets, _on_hit_offsets_changed)
+			queue_redraw()
 
 @export_group("Limit")
 ## 白名单实体场景名称
@@ -76,16 +78,23 @@ var components: Dictionary[StringName, Node] = {}
 func _ready() -> void:
 	scene_name = scene_file_path.get_file().get_basename()
 
-	for child: Node in get_children():
-		var node_script: GDScript = child.get_script()
-		if not node_script:
-			continue
-		
-		var node_class: String = node_script.get_global_name()
-		if not node_class.find("Component"):
-			continue
+	if Engine.is_editor_hint():
+		U.connect_offset_group_changed(hit_offsets, _on_hit_offsets_changed)
+	else:
+		for child: Node in get_children():
+			var node_script: GDScript = child.get_script()
+			if not node_script:
+				continue
 			
-		components[node_class] = child
+			var node_class: String = node_script.get_global_name()
+			if not node_class.find("Component"):
+				continue
+				
+			components[node_class] = child
+
+
+func _on_hit_offsets_changed() -> void:
+	queue_redraw()
 		
 
 func _validate_property(property: Dictionary):
@@ -103,12 +112,7 @@ func _validate_property(property: Dictionary):
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		draw_circle(
-			hit_offset, 
-			3,
-			Color(0.306, 0.914, 0.867, 1.0), 
-			true
-		)
+		U.draw_offset_group(self, hit_offsets)
 
 	
 #region 回调函数
@@ -345,22 +349,22 @@ func play_animation_by_look(
 		animation: AnimationGroup, 
 		source_animation_key: String = "",
 		force_play: bool = false
-	) -> Array:
+	) -> AnimationData:
 	if not animation:
-		return []
+		return null
 		
 	var play_idx: int = animation.play_idx
 	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
-	var facing_data: Array = animation.get_animation_name_for_point(
-		self, look_point
+	var anim_data: AnimationData = animation.get_animation_name_for_point(
+		global_position, look_point
 	)
 	
-	var anim_name: StringName = facing_data[0]
-	var filp_h: bool = facing_data[2]
+	var anim_name: StringName = anim_data.anim_name
+	var filp_h: bool = anim_data.flip_h
 
 	var play_target: Node2D = sprite_c.get_child(play_idx)
 	if play_target is Sprite2D:
-		return []
+		return null
 
 	if play_target is SpriteGroup:
 		play_animation_group(anim_name, play_target, filp_h, force_play)
@@ -382,7 +386,7 @@ func play_animation_by_look(
 				)
 				source.wait_animation(s_animation)
 
-	return facing_data
+	return anim_data
 
 
 ## 根据是否为组调用 wait_animation 或 wait_animation_group 函数

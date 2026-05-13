@@ -1,19 +1,11 @@
 [gd_scene format=3 uid="uid://cdu8pyq7bit5w"]
 
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://scenes/entities/towers/tower_mage_lvl_1_shooter.tscn" id="1_iadta"]
-[ext_resource type="Script" uid="uid://c56awt67k6l0x" path="res://ecs/components/bullet_component_data.gd" id="2_tsh4j"]
-
-[sub_resource type="Resource" id="Resource_gseup"]
-resource_local_to_scene = true
-script = ExtResource("2_tsh4j")
-damage_min = 40.0
-damage_max = 74.0
-damage_type = 2
-mods = PackedStringArray()
-metadata/_custom_type_script = "uid://c56awt67k6l0x"
 
 [node name="TowerMageLvl3Shooter" unique_id=1442245649 instance=ExtResource("1_iadta")]
 scene_name = "tower_mage_lvl_3_shooter"
 
 [node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(1268978688) index="0" unique_id=14077948]
-bullet_data = SubResource("Resource_gseup")
+damage_min = 40.0
+damage_max = 74.0
+mods = PackedStringArray()

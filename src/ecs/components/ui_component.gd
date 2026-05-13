@@ -37,14 +37,14 @@ func _draw() -> void:
 		# 绘制半透明填充和边框
 		draw_rect(
 			Rect2(select_rect.position, select_rect.size), 
-			Color(0.2, 0.6, 1.0, 0.3), 
+			Color(0.2, 0.6, 1.0, 0.25), 
 			true
 		)
 		draw_rect(
 			Rect2(select_rect.position, select_rect.size), 
 			Color(0.2, 0.6, 1.0, 0.9), 
 			false, 
-			0.5
+			1
 		)
 	
 

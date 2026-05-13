@@ -37,7 +37,7 @@ func _on_update(e: Entity) -> bool:
 		a.ts = tick_ts
 		e.look_point = target.global_position
 		
-		if not a.group_cooldown_disabled:
+		if a.group_cooldown_enable:
 			var parent: Node = e.get_parent()
 			if parent is EntityGroup2D:
 				for member: Entity in parent.get_children():
@@ -62,15 +62,14 @@ func _on_update(e: Entity) -> bool:
 	
 	
 func _do_single_attack(a: RangedAttack, e: Entity, target: Entity) -> void:
-	var result: Array = e.play_animation_by_look(a.animation, "ranged")
+	e.play_animation_by_look(a.animation, "ranged")
 	AudioMgr.play_sfx(a.sfx)
 	await e.y_wait(a.delay)
-	var direction: C.Direction = result[1]
 
 	if not target:
 		return
 
-	_spawn_bullets(a, e, target, direction)
+	_spawn_bullets(a, e, target)
 
 	await e.wait_animation(a.animation)
 
@@ -88,13 +87,12 @@ func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
 			break
 			
 		e.look_point = target.global_position
-		var result: Array = e.play_animation_by_look(a.loop_animation)
-		var direction: C.Direction = result[1]
+		e.play_animation_by_look(a.loop_animation)
 
 		AudioMgr.play_sfx(a.loop_sfx)
 		await e.y_wait(a.delay)
 
-		_spawn_bullets(a, e, target, direction)
+		_spawn_bullets(a, e, target)
 		await e.wait_animation(a.loop_animation)
 
 	await e.wait_animation(a.loop_animation)
@@ -107,8 +105,7 @@ func _do_loop_attack(a: RangedLoopAttack, e: Entity, target: Entity) -> void:
 func _spawn_bullets(
 		a: RangedBase, 
 		e: Entity, 
-		target: Entity, 
-		direction: C.Direction,
+		target: Entity
 	) -> void:
 	var e_to_target_angle: float = e.global_position.angle_to_point(target.global_position)
 	var bullet_count: int = a.bullet_count
@@ -132,9 +129,27 @@ func _spawn_bullets(
 				rotation = e_to_target_angle + random_angle
 				
 		b.rotation = rotation
-		b.global_position = e.global_position + a.bullet_offsets.get_offset_by_direction(direction)
-		
+		var b_global_pos: Vector2 = e.global_position
+		if a.bullet_offsets:
+			var offset: Vector2 = a.bullet_offsets.get_offset_for_point(
+				e.global_position, e.look_point
+			)
+			b_global_pos += offset
+		b.global_position = b_global_pos
+
 		var b_bullet_c: BulletComponent = b.get_node_or_null(C.CN_BULLET)
-		b_bullet_c.data = a.bullet_data.duplicate_deep()
+		b_bullet_c.damage_min = a.damage_min
+		b_bullet_c.damage_max = a.damage_max
+		b_bullet_c.damage_type = a.damage_type
+		b_bullet_c.damage_flags = a.damage_flags
+		b_bullet_c.mods = a.mods
+		b_bullet_c.damage_area_enable = a.damage_area_enable
+		b_bullet_c.damage_min_radius = a.damage_min_radius
+		b_bullet_c.damage_max_radius = a.damage_max_radius
+		b_bullet_c.damage_max_count = a.damage_max_count
+		b_bullet_c.damage_offsets = a.damage_offsets
+		b_bullet_c.can_damage_same = a.can_damage_same
+		b_bullet_c.damage_search_mode = a.damage_search_mode
+		b_bullet_c.damage_falloff_enabled = a.damage_falloff_enabled
 
 		b.insert_entity()

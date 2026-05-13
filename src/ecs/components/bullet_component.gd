@@ -1,5 +1,5 @@
 @tool
-extends Node
+extends Node2D
 class_name BulletComponent
 ## 子弹组件
 ##
@@ -54,7 +54,32 @@ class_name BulletComponent
 ## 未击中音效数据
 @export var miss_sfx: AudioGroup = null
 
-var data: BulletComponentData = null
+## 子弹最小伤害
+var damage_min: float = 0
+## 子弹最大伤害
+var damage_max: float = 0
+## 伤害类型
+var damage_type: int = C.DamageType.PHYSICAL
+## 伤害标识
+var damage_flags: int = 0
+## 子弹携带的状态效果
+var mods := PackedStringArray()
+## 是否启用范围伤害
+var damage_area_enable: bool = false
+## 最小伤害半径
+var damage_min_radius: float = 0
+## 最大伤害半径
+var damage_max_radius: float = 0
+## 最大伤害数量
+var damage_max_count: int = C.UNSET
+## 范围伤害的圆心偏移
+var damage_offsets: OffsetGroup = null
+## 是否可以伤害重复敌人
+var can_damage_same: bool = false
+## 范围伤害的搜索模式
+var damage_search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
+## 范围伤害是否随距离衰减
+var damage_falloff_enabled: bool = false
 ## 起始位置
 var from := Vector2.ZERO
 ## 目标位置
@@ -73,10 +98,10 @@ func _validate_property(property: Dictionary):
 	match property.name:
 		"flight_total_time":
 			if flight_trajectory in [C.Trajectory.TRACKING, C.Trajectory.INSTANT]:
-				property.usage = PROPERTY_USAGE_NO_EDITOR
+				property.usage = PROPERTY_USAGE_NONE
 		"flight_speed":
 			if flight_trajectory != C.Trajectory.TRACKING:
-				property.usage = PROPERTY_USAGE_NO_EDITOR
+				property.usage = PROPERTY_USAGE_NONE
 		"flight_gravity":
 			if flight_trajectory != C.Trajectory.PARABOLA:
-				property.usage = PROPERTY_USAGE_NO_EDITOR
+				property.usage = PROPERTY_USAGE_NONE

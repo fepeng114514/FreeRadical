@@ -9,7 +9,6 @@
 [ext_resource type="SpriteFrames" uid="uid://uixbgyphrivk" path="res://resources/sprite_frames/towers/tower_artillery_lvl3_layer5.tres" id="7_tb2hh"]
 [ext_resource type="SpriteFrames" uid="uid://dodcmo32bsert" path="res://resources/sprite_frames/towers/tower_artillery_lvl3_layer6.tres" id="8_fqb7k"]
 [ext_resource type="SpriteFrames" uid="uid://8y60p0ypjgii" path="res://resources/sprite_frames/towers/tower_artillery_lvl3_layer7.tres" id="9_j7n3x"]
-[ext_resource type="Script" uid="uid://c56awt67k6l0x" path="res://ecs/components/bullet_component_data.gd" id="11_gdik0"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="13_mgs43"]
 
 [sub_resource type="Resource" id="Resource_mgs43"]
@@ -20,18 +19,6 @@ any = &"idle"
 script = ExtResource("13_mgs43")
 any = Vector2(0, -77.89)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
-
-[sub_resource type="Resource" id="Resource_gdik0"]
-resource_local_to_scene = true
-script = ExtResource("11_gdik0")
-damage_min = 30.0
-damage_max = 60.0
-damage_type = 4
-mods = PackedStringArray()
-damage_area_enable = true
-damage_max_radius = 180.0
-damage_falloff_enabled = true
-metadata/_custom_type_script = "uid://c56awt67k6l0x"
 
 [node name="TowerArtilleryLvl3" unique_id=1600363506 instance=ExtResource("1_mgs43")]
 scene_name = "tower_artillery_lvl_3"
@@ -62,6 +49,7 @@ sprite_frames = ExtResource("8_fqb7k")
 sprite_frames = ExtResource("9_j7n3x")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+show_range_offset = Vector2(0, 43.52)
 price = 320.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
@@ -70,4 +58,6 @@ select_rect = Rect2(-96.495, -82.975, 179.84, 110.07)
 [node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
 bullet = "tower_artillery_lvl_3_bullet"
 bullet_offsets = SubResource("Resource_32uxe")
-bullet_data = SubResource("Resource_gdik0")
+damage_min = 30.0
+damage_max = 60.0
+damage_max_radius = 160.0

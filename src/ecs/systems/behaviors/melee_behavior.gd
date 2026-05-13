@@ -53,9 +53,11 @@ func _on_update(e: Entity) -> bool:
 func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	if not melee_c.blocked_id_list:
 		melee_c.is_extra_blocker = false
+
+	var e_global_pos: Vector2 = e.global_position
 	
 	# 索敌
-	var center: Vector2 = e.global_position
+	var center: Vector2 = e_global_pos
 	var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
 	if rally_c:
 		var rally_center_position: Vector2 = rally_c.rally_center_position
@@ -131,11 +133,12 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 		# 不是被动被拦截者，前往近战位置
 		if not melee_c.is_passive:
 			var melee_pos: Vector2 = blocked.global_position
-			if e.global_position.x < melee_pos.x:
-				melee_pos -= blocked_melee_c.melee_pos_offset
-			else:
-				melee_pos += blocked_melee_c.melee_pos_offset
-			
+			if blocked_melee_c.melee_pos_offsets:
+				var melee_pos_offset: Vector2 = blocked_melee_c.melee_pos_offsets.get_offset_for_point(
+					melee_pos, e_global_pos
+				)
+				melee_pos += melee_pos_offset
+
 			melee_c.melee_pos = melee_pos
 			if not _go_melee_pos(e, melee_c, melee_pos):
 				return true
@@ -145,11 +148,12 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 
 
 func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
+	var e_global_pos: Vector2 = e.global_position
 	var blocker_id_list: PackedInt32Array = melee_c.blocker_id_list
 	if not blocker_id_list:
 		match melee_c.melee_state:
 			C.MeleeState.ORIGIN_POS_ARRIVED:
-				melee_c.origin_pos = e.global_position
+				melee_c.origin_pos = e_global_pos
 			_:
 				if not _back_origin_pos(e, melee_c):
 					return true
@@ -158,22 +162,24 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 	else:
 		e.state = C.State.MELEE
 		var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id_list[0])
+		var blocker_global_pos: Vector2 = blocker.global_position
 		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
 		var is_first_blocked: bool = e.id == blocker_melee_c.blocked_id_list[0]
 
 		if is_first_blocked:
 			if blocker_melee_c.melee_state != C.MeleeState.MELEE_POS_ARRIVED:
-				e.look_point = blocker.global_position
+				e.look_point = blocker_global_pos
 				e.play_animation_by_look(e.idle_animation)
 				return true
 		else:
 			if not melee_c.is_passive:
-				var melee_pos: Vector2 = blocker.global_position
-				if e.global_position.x < melee_pos.x:
-					melee_pos -= blocker_melee_c.melee_pos_offset
-				else:
-					melee_pos += blocker_melee_c.melee_pos_offset
-				
+				var melee_pos: Vector2 = blocker_global_pos
+				if blocker_melee_c.melee_pos_offsets:
+					var melee_pos_offset: Vector2 = blocker_melee_c.melee_pos_offsets.get_offset_for_point(
+						blocker_global_pos, e_global_pos
+					)
+					melee_pos += melee_pos_offset
+
 				melee_c.melee_pos = melee_pos
 				if not _go_melee_pos(e, melee_c, melee_pos):
 					return true
@@ -242,6 +248,8 @@ func _try_melee_attack(
 	if U.is_valid_entity(target):
 		e.look_point = target.global_position
 	e.play_animation_by_look(e.idle_animation)
+	var e_id: int = e.id
+	var e_global_pos: Vector2 = e.global_position
 	
 	for a: MeleeAttack in melee_c.get_children():
 		if not TimeMgr.is_ready_time(a.ts, a.cooldown):
@@ -259,9 +267,16 @@ func _try_melee_attack(
 		var targets: Array[Entity] = [null]
 			
 		if a.damage_area_enable:
+			var search_pos: Vector2 = e_global_pos
+			if a.damage_offsets:
+				var damage_offset: Vector2 = a.damage_offsets.get_offset_for_point(
+					e_global_pos, e.look_point
+				)
+				search_pos += damage_offset
+
 			targets = EntityMgr.search_targets(
 				a.damage_search_mode, 
-				e.global_position + a.damage_offset, 
+				search_pos, 
 				a.damage_max_radius, 
 				a.damage_min_radius, 
 				e.flags, 
@@ -274,7 +289,6 @@ func _try_melee_attack(
 			targets[0] = target
 
 		var damage_max_count: int = a.damage_max_count
-		var e_id: int = e.id
 		
 		for i: int in targets.size():
 			if U.is_valid_number(damage_max_count) and i > damage_max_count:
@@ -295,7 +309,7 @@ func _try_melee_attack(
 			d.damage_flags = a.damage_flags
 			if a.damage_area_enable and a.damage_falloff_enabled:
 				d.damage_factor = U.dist_factor_inside_radius(
-					e.global_position, 
+					e_global_pos, 
 					t.global_position, 
 					a.damage_max_radius,
 					a.damage_min_radius

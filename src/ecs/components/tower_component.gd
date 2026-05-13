@@ -51,15 +51,16 @@ func _draw() -> void:
 			true
 		)
 		
-		draw_circle(
-			default_rally_center_local_pos,
-			9,
-			Color.BLUE, 
-			true
-		)
-		draw_line(
-			default_rally_center_local_pos, 
-			to_local(parent.global_position), 
-			Color.BLUE, 
-			2
-		)
+		if default_rally_center_local_pos != Vector2.ZERO:
+			draw_circle(
+				default_rally_center_local_pos,
+				9,
+				Color.BLUE, 
+				true
+			)
+			draw_line(
+				default_rally_center_local_pos, 
+				to_local(parent.global_position), 
+				Color.BLUE, 
+				2
+			)

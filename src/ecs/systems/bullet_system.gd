@@ -22,7 +22,12 @@ func _on_insert(e: Entity) -> bool:
 	else:
 		bullet_c.predict_target_pos = target.global_position
 	
-	var to: Vector2 = bullet_c.predict_target_pos + target.hit_offset
+	var to: Vector2 = bullet_c.predict_target_pos
+	if target.hit_offsets:
+		var hit_offset: Vector2 = target.hit_offsets.get_offset_for_point(
+			target.global_position, target.look_point
+		)
+		to += hit_offset
 	bullet_c.to = to
 	bullet_c.from = e.global_position
 	if bullet_c.look_to:
@@ -99,22 +104,9 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 	if bullet_c.miss_animation:
 		e.play_animation_by_look(bullet_c.miss_animation)
 		await e.wait_animation(bullet_c.miss_animation)
-		
-	var bullet_data: BulletComponentData = bullet_c.data
 
-	if bullet_data.damage_area_enable:
-		var targets: Array[Entity] = []
-		targets = EntityMgr.search_targets(
-			bullet_data.damage_search_mode, 
-			bullet_c.to + bullet_data.damage_offset, 
-			bullet_data.damage_max_radius, 
-			bullet_data.damage_min_radius, 
-			e.flags, 
-			e.bans,
-			func(t: Entity) -> bool:
-				return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
-		)
-
+	if bullet_c.damage_area_enable:
+		var targets: Array[Entity] = _get_area_targets(e, bullet_c)
 		_take_damage(e, bullet_c, targets, bullet_c.miss_payloads)
 
 	if bullet_c.miss_remove:
@@ -126,21 +118,10 @@ func _hit(e: Entity, bullet_c: BulletComponent, target) -> void:
 	if bullet_c.hit_animation:
 		e.play_animation_by_look(bullet_c.hit_animation)
 		await e.y_wait(bullet_c.hit_delay)
-
-	var bullet_data: BulletComponentData = bullet_c.data
 		
 	var targets: Array[Entity] = [null]
-	if bullet_data.damage_area_enable:
-		targets = EntityMgr.search_targets(
-			bullet_data.damage_search_mode, 
-			bullet_c.to + bullet_data.damage_offset, 
-			bullet_data.damage_max_radius, 
-			bullet_data.damage_min_radius, 
-			e.flags, 
-			e.bans,
-			func(t: Entity) -> bool:
-				return bullet_data.can_damage_same or t.id not in bullet_c.damaged_entity_ids
-		)
+	if bullet_c.damage_area_enable:
+		targets = _get_area_targets(e, bullet_c)
 	else:
 		targets[0] = target
 
@@ -155,14 +136,38 @@ func _hit(e: Entity, bullet_c: BulletComponent, target) -> void:
 		e.remove_entity()
 		
 
+func _get_area_targets(
+		e: Entity, 
+		bullet_c: BulletComponent
+	) -> Array[Entity]:
+	var e_global_pos: Vector2 = e.global_position
+	var search_pos: Vector2 = e_global_pos
+
+	if bullet_c.damage_offsets:
+		var damage_offset: Vector2 = bullet_c.damage_offsets.get_offset_for_point(
+			e_global_pos, e_global_pos + bullet_c.velocity
+		)
+		search_pos += damage_offset
+
+	return EntityMgr.search_targets(
+		bullet_c.damage_search_mode, 
+		search_pos, 
+		bullet_c.damage_max_radius, 
+		bullet_c.damage_min_radius, 
+		e.flags, 
+		e.bans,
+		func(t: Entity) -> bool:
+			return bullet_c.can_damage_same or t.id not in bullet_c.damaged_entity_ids
+	)
+
+
 func _take_damage(
 		e: Entity, 
 		bullet_c: BulletComponent, 
 		targets: Array[Entity], 
 		payloads: PackedStringArray
 		) -> void:
-	var bullet_data: BulletComponentData = bullet_c.data
-	var damage_max_count: int = bullet_data.damage_max_count
+	var damage_max_count: int = bullet_c.damage_max_count
 	var e_id: int = e.id
 		
 	for i: int in targets.size():
@@ -176,18 +181,18 @@ func _take_damage(
 		d.target_id = t.id
 		d.source_id = e_id
 		d.source_name = e.name
-		d.value = d.get_random_value(bullet_data.damage_min, bullet_data.damage_max)
-		d.damage_type = bullet_data.damage_type
-		d.damage_flags = bullet_data.damage_flags
-		if bullet_data.damage_area_enable and bullet_data.damage_falloff_enabled:
+		d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
+		d.damage_type = bullet_c.damage_type
+		d.damage_flags = bullet_c.damage_flags
+		if bullet_c.damage_area_enable and bullet_c.damage_falloff_enabled:
 			d.damage_factor = U.dist_factor_inside_radius(
 				e.global_position, 
 				t.global_position, 
-				bullet_data.damage_max_radius,
-				bullet_data.damage_min_radius
+				bullet_c.damage_max_radius,
+				bullet_c.damage_min_radius
 			)
 		d.insert_damage()
-		EntityMgr.create_mods(t.id, bullet_data.mods, e_id)
+		EntityMgr.create_mods(t.id, bullet_c.mods, e_id)
 		bullet_c.damaged_entity_ids.append(t_id)
 		
 	EntityMgr.create_entities_at_pos(payloads, bullet_c.to)
@@ -260,7 +265,13 @@ func _trajectory_tracking_update(
 		e: Entity, bullet_c: BulletComponent, target: Entity
 	) -> void:
 	if is_instance_valid(target):
-		bullet_c.to = target.global_position + target.hit_offset
+		var to: Vector2 = target.global_position
+		if target.hit_offsets:
+			var hit_offset: Vector2 = target.hit_offsets.get_offset_for_point(
+				target.global_position, target.look_point
+			)
+			to += hit_offset
+		bullet_c.to = to
 	
 	var direction: Vector2 = e.global_position.direction_to(bullet_c.to)
 	e.global_position += direction * bullet_c.flight_speed * TimeMgr.frame_length

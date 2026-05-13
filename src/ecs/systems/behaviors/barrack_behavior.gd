@@ -21,15 +21,19 @@ func _on_update(e: Entity) -> bool:
 	var barrack_c: BarrackComponent = e.get_node_or_null(C.CN_BARRACK)
 	if not barrack_c:
 		return false
+
+	if barrack_c.disabled:
+		return false
 		
 	var soldier_group: EntityGroup = barrack_c.soldier_group
 		
-	if e.is_first_update:
+	if barrack_c.is_first_update:
 		_first_update(e, barrack_c)
+		barrack_c.is_first_update = false
 		return true
 	
 	# 根据重生时间生成士兵
-	if TimeMgr.is_ready_time(barrack_c.ts, barrack_c.respawn_time):
+	if TimeMgr.is_ready_time(barrack_c.ts, barrack_c.spawn_time):
 		_spawn_by_time(e, barrack_c)
 		return true
 		
@@ -47,8 +51,14 @@ func _spawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent, soldier_group: EntityGroup
 	) -> Entity:
 	var soldier: Entity = EntityMgr.create_entity(barrack_c.soldier)
-	soldier.global_position = barrack.global_position + barrack_c.respawn_offset
-	
+	var barrack_global_pos: Vector2 = barrack.global_position
+	var soldier_global_pos: Vector2 = barrack_global_pos
+	if barrack_c.spawn_offsets:
+		var offset: Vector2 = barrack_c.spawn_offsets.get_offset_for_point(
+			barrack_global_pos, barrack.look_point
+		)
+		soldier_global_pos += offset
+	soldier.global_position = soldier_global_pos
 	if not barrack._on_barrack_respawn(soldier, barrack_c):
 		return soldier
 	

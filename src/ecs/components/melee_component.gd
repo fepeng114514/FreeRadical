@@ -3,7 +3,7 @@ extends Node2D
 class_name MeleeComponent
 ## 近战组件
 ##
-## MeleeComponent 可以使实体拥有近战攻击与拦截的能力
+## MeleeComponent 可以使实体拥有近战攻击与拦截的能力，近战攻击以 MeleeBase 资源的形式存在于组件的子节点中。拦截关系通过 MeleeComponent 的属性和方法进行管理和维护。
 
 ## 是否不主动前往近战位置
 @export var is_passive: bool = false
@@ -12,9 +12,11 @@ class_name MeleeComponent
 ## 移动动画数据
 @export var motion_animation: AnimationGroup = null
 ## 近战位置偏移
-@export var melee_pos_offset := Vector2.ZERO:
+@export var melee_pos_offsets: OffsetGroup = null:
 	set(value):
-		melee_pos_offset = value
+		melee_pos_offsets = value
+		if Engine.is_editor_hint():
+			U.connect_offset_group_changed(melee_pos_offsets, _on_melee_pos_offsets_changed)
 		queue_redraw()
 ## 到达位置的阈值
 @export var arrived_distance: float = 10
@@ -75,28 +77,20 @@ var velocity := Vector2.ZERO
 var melee_state: C.MeleeState = C.MeleeState.ORIGIN_POS_ARRIVED
 
 
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		U.connect_offset_group_changed(melee_pos_offsets, _on_melee_pos_offsets_changed)
+
+
+func _on_melee_pos_offsets_changed() -> void:
+	queue_redraw()
+
+
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		draw_circle(
-			melee_pos_offset, 
-			3,
-			Color.GREEN, 
-			true
-		)
-		draw_circle(
-			position, 
-			block_max_range,
-			Color(0.448, 0.506, 0.927, 0.604), 
-			false,
-			6
-		)
-		draw_circle(
-			position, 
-			block_min_range,
-			Color(0.448, 0.506, 0.927, 0.604), 
-			false,
-			6
-		)
+		if is_blocker:
+			U.draw_range_circle(self, position, block_min_range, block_max_range, Color.BLUE)
+		U.draw_offset_group(self, melee_pos_offsets)
 	
 	
 func _get_configuration_warnings() -> PackedStringArray:

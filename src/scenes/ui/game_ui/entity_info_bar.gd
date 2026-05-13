@@ -147,10 +147,9 @@ func _update_tower_info() -> void:
 ## 设置远程攻击值
 func _set_value_ranged(ranged_c: RangedComponent) -> void:
 	var first_ranged_attack: RangedBase = ranged_c.get_child(0)
-	var bullet_data: BulletComponentData = first_ranged_attack.bullet_data
 	ranged_value.text = "%d-%d/%.1f" % [
-		bullet_data.damage_min, 
-		bullet_data.damage_max, 
+		first_ranged_attack.damage_min, 
+		first_ranged_attack.damage_max, 
 		first_ranged_attack.cooldown
 	]
 	

@@ -7,12 +7,6 @@ class_name AuraComponent
 
 ## 光环类型
 @export var aura_type: int = 0
-## 最小范围
-@export var min_radius: float = 0
-## 最大范围
-@export var max_radius: float = 0
-## 搜索模式
-@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 最大可影响的实体数量
 @export var max_influence: int = C.UNSET
 ## 状态效果场景名称
@@ -21,6 +15,14 @@ class_name AuraComponent
 @export var cycle_time: float = 1
 ## 最大周期
 @export var max_cycle: int = C.UNSET
+
+@export_group("Search")
+## 最小范围
+@export var min_radius: float = 0
+## 最大范围
+@export var max_radius: float = 0
+## 搜索模式
+@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 
 @export_group("Cycle Damage")
 ## 最小伤害

@@ -1,6 +1,10 @@
 @tool
 extends Node2D
 class_name RangedComponent
+## 远程攻击组件
+##
+## RangedComponent 可以使实体拥有发射子弹远程攻击能力，远程攻击以 RangedBase 资源的形式存在于组件的子节点中。[br]
+
 
 ## 是否禁用索敌
 @export var disabled_search: bool = false
