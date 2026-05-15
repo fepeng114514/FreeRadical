@@ -149,7 +149,7 @@ func create_entities(
 func create_entities_at_pos(
 		scene_name_list: PackedStringArray, 
 		pos: Vector2, 
-		auto_insert: bool = true
+		auto_insert: bool = true 
 	) -> Array[Entity]:
 	return create_entities(
 		scene_name_list, func(e): e.set_pos(pos), auto_insert
@@ -357,15 +357,15 @@ func sort_entities_by_type(
 				var d1: float = INF if reversed else -INF
 				var d2: float = INF if reversed else -INF
 
-				var e1_ranged_c: RangedComponent = e1.get_node_or_null(C.CN_RANGED)
-				if e1_ranged_c:
+				var e1_skill_c: SkillComponent = e1.get_node_or_null(C.CN_SKILL)
+				if e1_skill_c:
 					d1 = get_entity_data(
-						e1_ranged_c.list[0].bullet
+						e1_skill_c.list[0].bullet
 					).get_node_or_null(C.CN_BULLET).damage_max
-				var e2_ranged_c: RangedComponent = e2.get_node_or_null(C.CN_RANGED)
-				if e2_ranged_c:
+				var e2_skill_c: SkillComponent = e2.get_node_or_null(C.CN_SKILL)
+				if e2_skill_c:
 					d2 = get_entity_data(
-						e2_ranged_c.list[0].bullet
+						e2_skill_c.list[0].bullet
 					).get_node_or_null(C.CN_BULLET).damage_max
 
 				return d1 > d2 if not reversed else d1 < d2

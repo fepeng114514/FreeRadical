@@ -126,7 +126,7 @@ components = {
 [node name="TowerArtillery" parent="World" unique_id=1600363506 node_paths=PackedStringArray("components") instance=ExtResource("17_v6ha0")]
 position = Vector2(946, 504)
 components = {
-"RangedComponent": NodePath("RangedComponent"),
+"SkillComponent": NodePath("SkillComponent"),
 "SpriteComponent": NodePath("SpriteComponent"),
 "TowerComponent": NodePath("TowerComponent"),
 "UIComponent": NodePath("UIComponent")

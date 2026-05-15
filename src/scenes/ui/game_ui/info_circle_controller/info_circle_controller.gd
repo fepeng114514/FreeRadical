@@ -64,12 +64,12 @@ func _hide() -> void:
 func _update() -> void:
 	var base_position: Vector2 = selected_entity.global_position - ranged_max_range_circle.size / 2
 	
-	var ranged_c: RangedComponent = selected_entity.get_node_or_null(C.CN_RANGED)
-	if ranged_c:
-		var first_ranged_attack: RangedBase = ranged_c.get_child(0)
+	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
+	if skill_c:
+		var first_ranged_skill: SkillRanged = skill_c.get_child(0)
 		
-		ranged_min_range_circle._show(first_ranged_attack.min_range, base_position, tween_scale_time)
-		ranged_max_range_circle._show(first_ranged_attack.max_range, base_position, tween_scale_time)
+		ranged_min_range_circle._show(first_ranged_skill.min_range, base_position, tween_scale_time)
+		ranged_max_range_circle._show(first_ranged_skill.max_range, base_position, tween_scale_time)
 
 	var melee_c: MeleeComponent = selected_entity.get_node_or_null(C.CN_MELEE)
 	if melee_c:
@@ -83,17 +83,17 @@ func _update() -> void:
 			if first_entity is EntityGroup2D:
 				first_entity = first_entity.get_child(0)
 			
-			var f_ranged_c: RangedComponent = first_entity.get_node_or_null(C.CN_RANGED)
-			var first_ranged_attack: RangedBase = f_ranged_c.get_child(0)
+			var f_skill_c: SkillComponent = first_entity.get_node_or_null(C.CN_SKILL)
+			var first_ranged_skill: SkillRanged = f_skill_c.get_child(0)
 			var pos: Vector2 = base_position + tower_c.show_range_offset
 		
 			ranged_min_range_circle._show(
-				first_ranged_attack.min_range, 
+				first_ranged_skill.min_range, 
 				pos,
 				tween_scale_time
 			)
 			ranged_max_range_circle._show(
-				first_ranged_attack.max_range, 
+				first_ranged_skill.max_range, 
 				pos,
 				tween_scale_time
 			)

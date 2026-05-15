@@ -115,9 +115,9 @@ func _update_unit_info() -> void:
 		melee_value.visible = false
 		melee_type_icon.visible = false
 		
-	var ranged_c: RangedComponent = selected_entity.get_node_or_null(C.CN_RANGED)
-	if ranged_c:
-		_set_value_ranged(ranged_c)
+	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
+	if skill_c:
+		_set_value_ranged(skill_c)
 	else:
 		ranged_value.visible = false
 		ranged_type_icon.visible = false
@@ -128,9 +128,9 @@ func _update_tower_info() -> void:
 	var tower_c: TowerComponent = selected_entity.get_node_or_null(C.CN_TOWER)
 
 	if tower_c.get_child_count() == 0:
-		var ranged_c: RangedComponent = selected_entity.get_node_or_null(C.CN_RANGED)
-		if ranged_c:
-			_set_value_ranged(ranged_c)
+		var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
+		if skill_c:
+			_set_value_ranged(skill_c)
 		else:
 			ranged_type_icon.visible = false
 			ranged_value.visible = false
@@ -138,27 +138,25 @@ func _update_tower_info() -> void:
 		var first_entity = tower_c.get_child(0)
 		if first_entity is EntityGroup2D:
 			first_entity = first_entity.get_child(0)
-		var ranged_c: RangedComponent = first_entity.get_node_or_null(C.CN_RANGED)
+		var skill_c: SkillComponent = first_entity.get_node_or_null(C.CN_SKILL)
 
-		if ranged_c:
-			_set_value_ranged(ranged_c)
+		if skill_c:
+			_set_value_ranged(skill_c)
 
 
-## 设置远程攻击值
-func _set_value_ranged(ranged_c: RangedComponent) -> void:
-	var first_ranged_attack: RangedBase = ranged_c.get_child(0)
+func _set_value_ranged(skill_c: SkillComponent) -> void:
+	var first_ranged_skill: SkillRanged = skill_c.get_child(0)
 	ranged_value.text = "%d-%d/%.1f" % [
-		first_ranged_attack.damage_min, 
-		first_ranged_attack.damage_max, 
-		first_ranged_attack.cooldown
+		first_ranged_skill.damage_min, 
+		first_ranged_skill.damage_max, 
+		first_ranged_skill.cooldown
 	]
 	
 	
-## 设置近战攻击值
 func _set_value_melee(melee_c: MeleeComponent) -> void:
-	var first_melee_attack: MeleeAttack = melee_c.get_child(0)
+	var first_melee_skill: SkillMelee = melee_c.get_child(0)
 	melee_value.text = "%d-%d/%.1f" % [
-		first_melee_attack.damage_min, 
-		first_melee_attack.damage_max, 
-		first_melee_attack.cooldown
+		first_melee_skill.damage_min, 
+		first_melee_skill.damage_max, 
+		first_melee_skill.cooldown
 	]

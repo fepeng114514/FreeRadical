@@ -5,7 +5,7 @@
 [node name="TowerMageLvl2Shooter" unique_id=1442245649 instance=ExtResource("1_xmdlt")]
 scene_name = "tower_mage_lvl_2_shooter"
 
-[node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(1268978688) index="0" unique_id=14077948]
+[node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(1268978688) index="0" unique_id=14077948]
 damage_min = 23.0
 damage_max = 43.0
 damage_type = 1

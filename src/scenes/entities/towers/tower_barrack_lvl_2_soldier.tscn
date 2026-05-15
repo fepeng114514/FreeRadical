@@ -14,6 +14,6 @@ hp_max = 100.0
 physical_armor = 15
 idle_regen_hp = 7.0
 
-[node name="MeleeAttack" parent="MeleeComponent" parent_id_path=PackedInt32Array(668314156) index="0" unique_id=1014449767]
+[node name="SkillMelee" parent="MeleeComponent" parent_id_path=PackedInt32Array(668314156) index="0" unique_id=1014449767]
 damage_min = 3.0
 damage_max = 4.0

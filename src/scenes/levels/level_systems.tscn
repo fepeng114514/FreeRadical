@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://balgrru65agvq" path="res://ecs/systems/behaviors/rally_behavior.gd" id="14_80xc4"]
 [ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://ecs/systems/behaviors/barrack_behavior.gd" id="15_v2b0g"]
 [ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://ecs/systems/behaviors/melee_behavior.gd" id="16_iiuyt"]
-[ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://ecs/systems/behaviors/ranged_behavior.gd" id="17_rnt2e"]
+[ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://ecs/systems/behaviors/skill_behavior.gd" id="17_rnt2e"]
 [ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://ecs/systems/behaviors/nav_path_behavior.gd" id="18_oeoj4"]
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://ecs/systems/behaviors/spawner_behavior.gd" id="19_xth6e"]
 

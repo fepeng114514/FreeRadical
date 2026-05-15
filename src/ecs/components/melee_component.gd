@@ -3,7 +3,7 @@ extends Node2D
 class_name MeleeComponent
 ## 近战组件
 ##
-## MeleeComponent 可以使实体拥有近战攻击与拦截的能力，近战攻击以 MeleeBase 资源的形式存在于组件的子节点中。拦截关系通过 MeleeComponent 的属性和方法进行管理和维护。
+## MeleeComponent 可以使实体拥有近战技能与拦截的能力，每个近战近战以 [SkillMelee] 资源子节点的形式存在。
 
 ## 是否不主动前往近战位置
 @export var is_passive: bool = false
@@ -97,7 +97,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	var warn: PackedStringArray = []
 	
 	if not get_children():
-		warn.append("请至少增加一个 MeleeBase 或其类型的子节点，否则实体无法攻击。")
+		warn.append("请至少增加一个 SkillMelee 或其类型的子节点，否则实体无法释放近战技能。")
 	
 	if not is_blocked and not is_blocker:
 		warn.append("请至少勾选一个 is_blocked 或 is_blocker 属性，否则无法识别被拦截者与拦截者。")

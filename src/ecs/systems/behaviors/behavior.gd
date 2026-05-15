@@ -20,11 +20,3 @@ func _on_update(e: Entity) -> bool: return false
 func _on_skip(e: Entity) -> void: pass
 @warning_ignore_restore("unused_parameter")
 #endregion
-
-
-static func can_attack(a: Variant, target: Entity) -> bool:
-	return (
-		target 
-		and not U.is_mutual_ban(target.flags, a.bans, a.flags, target.bans)
-		and U.is_allowed_entity(a, target)
-	)

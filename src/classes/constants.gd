@@ -261,9 +261,9 @@ enum SearchMode {
 enum State {
 	## 状态: 空闲
 	IDLE = 1,
-	## 状态: 近战攻击
+	## 状态: 拦截敌人中
 	MELEE = 1 << 1,
-	## 状态: 远程攻击
+	## 状态: 释放远程技能中
 	RANGED = 1 << 2,
 	## 状态: 被阻塞
 	BLOCK = 1 << 3,
@@ -385,7 +385,7 @@ const CN_AURA: NodePath = ^"AuraComponent"
 ## 组件名称: 近战攻击
 const CN_MELEE: NodePath = ^"MeleeComponent"
 ## 组件名称: 远程攻击
-const CN_RANGED: NodePath = ^"RangedComponent"
+const CN_SKILL: NodePath = ^"SkillComponent"
 ## 组件名称: 子弹
 const CN_BULLET: NodePath = ^"BulletComponent"
 ## 组件名称: 精灵
@@ -398,8 +398,6 @@ const CN_SPAWNER: NodePath = ^"SpawnerComponent"
 const CN_UI: NodePath = ^"UIComponent"
 ## 组件名称: FX
 const CN_FX: NodePath = ^"FXComponent"
-## 组件名称: 技能
-const CN_SKILL: NodePath = ^"SkillComponent"
 #endregion
 
 

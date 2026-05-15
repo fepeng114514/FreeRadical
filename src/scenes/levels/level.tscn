@@ -61,12 +61,15 @@ anchors_preset = 0
 script = ExtResource("26_ba5b5")
 
 [node name="SelectMenuController" parent="." unique_id=1082728830 instance=ExtResource("10_qogh7")]
+z_index = 1000
 
 [node name="InfoCircleController" parent="." unique_id=1487020159 instance=ExtResource("11_8iyoh")]
+z_index = 1000
 
 [node name="GameUILayer" parent="." unique_id=673863676 instance=ExtResource("37_g4khr")]
 
 [node name="WaveFlags" type="Control" parent="." unique_id=64694769]
+z_index = 1000
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

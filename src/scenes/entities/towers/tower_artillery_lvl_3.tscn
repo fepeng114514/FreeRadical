@@ -55,7 +55,7 @@ price = 320.0
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-96.495, -82.975, 179.84, 110.07)
 
-[node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
+[node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
 bullet = "tower_artillery_lvl_3_bullet"
 bullet_offsets = SubResource("Resource_32uxe")
 damage_min = 30.0

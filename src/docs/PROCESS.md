@@ -3,10 +3,10 @@
 ### 创建实体流程：
 1. 在 `src/scenes/entities` 目录创建一个场景，场景根节点为 `Entity` 实体节点。
 2. 为场景挂载各种组件：
-	- 如：`RangedComponent` 远程攻击组件，可以使实体向其他实体发射子弹。
-	- 一些组件可能有子组件：如 `RangedComponent` 有 `RangedAttack` 单次远程攻击子组件。
+	- 如：`SkillComponent` 远程攻击组件，可以使实体向其他实体发射子弹。
+	- 一些组件可能有子组件：如 `SkillComponent` 有 `SkillRanged` 单次远程攻击子组件。
 3. 修改组件的属性为想要的属性：
-	- 如：`RangedAttack` 的攻击范围、攻击速度等。
+	- 如：`SkillRanged` 的攻击范围、攻击速度等。
 4. 可以扩展 `Entity` 的脚本来在一些回调中进行一些操作：
 	- 如：`_on_update` 回调，每帧会被调用。
 5. 运行 tools/update_entity_scene_paths 更新场景字典 scenes/entities/entity_scene_paths.json

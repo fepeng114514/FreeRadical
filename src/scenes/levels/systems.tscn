@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://balgrru65agvq" path="res://ecs/systems/behaviors/rally_behavior.gd" id="13_h4lnq"]
 [ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://ecs/systems/behaviors/barrack_behavior.gd" id="14_xkunc"]
 [ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://ecs/systems/behaviors/melee_behavior.gd" id="15_jwcqr"]
-[ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://ecs/systems/behaviors/ranged_behavior.gd" id="16_f8wuc"]
+[ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://ecs/systems/behaviors/skill_behavior.gd" id="16_f8wuc"]
 [ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://ecs/systems/behaviors/nav_path_behavior.gd" id="17_cgos5"]
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://ecs/systems/behaviors/spawner_behavior.gd" id="18_efgoj"]
 [ext_resource type="Script" uid="uid://cia8mo148t6pb" path="res://ecs/systems/entity_system.gd" id="19_f2rku"]
@@ -80,7 +80,7 @@ metadata/_custom_type_script = "uid://do5xlu5110cxi"
 script = ExtResource("15_jwcqr")
 metadata/_custom_type_script = "uid://ctpsivwplsj6l"
 
-[node name="RangedBehavior" type="Node" parent="BehaviorSystem" unique_id=569514701]
+[node name="SkillBehavior" type="Node" parent="BehaviorSystem" unique_id=569514701]
 script = ExtResource("16_f8wuc")
 metadata/_custom_type_script = "uid://c5w8px2jpopql"
 

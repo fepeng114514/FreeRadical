@@ -9,7 +9,7 @@ scene_name = "tower_archer_lvl_3_shooter"
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(650442870) index="0" unique_id=1785141033]
 sprite_frames = ExtResource("2_il870")
 
-[node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
+[node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
 damage_min = 10.0
 damage_max = 16.0
 mods = PackedStringArray()

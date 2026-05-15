@@ -25,6 +25,7 @@ class_name AuraComponent
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 
 @export_group("Cycle Damage")
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_damage_enable: bool = false
 ## 最小伤害
 @export var damage_min: float = 0
 ## 最大伤害

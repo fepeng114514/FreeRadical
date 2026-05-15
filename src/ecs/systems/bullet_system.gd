@@ -193,6 +193,7 @@ func _take_damage(
 			)
 		d.insert_damage()
 		EntityMgr.create_mods(t.id, bullet_c.mods, e_id)
+		
 		bullet_c.damaged_entity_ids.append(t_id)
 		
 	EntityMgr.create_entities_at_pos(payloads, bullet_c.to)

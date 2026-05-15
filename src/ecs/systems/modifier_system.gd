@@ -153,7 +153,7 @@ func _process_modifier_update() -> void:
 
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 		
-		if modifier_c.damage_min > 0 or modifier_c.damage_max > 0:
+		if modifier_c.cycle_damage_enable:
 			var d := Damage.new()
 			d.target_id = target.id
 			d.source_id = e.id

@@ -46,7 +46,7 @@ sprite_frames = ExtResource("8_4pii2")
 show_range_offset = Vector2(0, 43.52)
 price = 225.0
 
-[node name="RangedAttack" parent="RangedComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
+[node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
 bullet = "tower_artillery_lvl_2_bullet"
 bullet_offsets = SubResource("Resource_thpnf")
 damage_min = 20.0

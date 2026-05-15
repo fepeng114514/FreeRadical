@@ -2,7 +2,7 @@ extends Behavior
 class_name MeleeBehavior
 ## 近战行为系统
 ##
-## 处理拥有 [MeleeComponent] 组件的实体的攻击与拦截。
+## 处理拥有 [MeleeComponent] 组件的实体的近战技能释放与拦截。
 ## 若 [member MeleeComponent.is_blocker] 为 `true`，作为拦截者：搜索并标记被拦截者，前往第一个被拦截者的近战位置。
 ## 若 [member MeleeComponent.is_blocked] 为 `true`，作为被拦截者：根据是否第一个被拦截者决定等待拦截者到达，或主动前往拦截者的近战位置。
 
@@ -251,11 +251,11 @@ func _try_melee_attack(
 	var e_id: int = e.id
 	var e_global_pos: Vector2 = e.global_position
 	
-	for a: MeleeAttack in melee_c.get_children():
+	for a: SkillMelee in melee_c.get_children():
 		if not TimeMgr.is_ready_time(a.ts, a.cooldown):
 			continue
 
-		if not can_attack(a, target):
+		if not SkillBase.can_attack(a, target):
 			continue
 			
 		Log.verbose("近战攻击: %s" % e)
@@ -315,8 +315,8 @@ func _try_melee_attack(
 					a.damage_min_radius
 				)
 			d.insert_damage()
-
 			EntityMgr.create_mods(t_id, a.mods, e_id)
 		
 		await e.wait_animation(a.animation)
+		e.play_animation_by_look(e.idle_animation)
 		break

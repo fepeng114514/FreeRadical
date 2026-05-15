@@ -1,9 +1,9 @@
 @tool
-extends Attackbase
-class_name MeleeBase
-## 近战攻击节点基类
+extends SkillBase
+class_name SkillMelee
+## 近战技能节点
 ##
-## MeleeBase 是 [MelleComponent] 的近战攻击节点的基类，提供了近战攻击的基本属性和功能。
+## 用于 [MeleeComponent]
 
 
 @export_group("Damage")
@@ -40,6 +40,16 @@ class_name MeleeBase
 		queue_redraw()
 ## 是否可以伤害重复敌人
 @export var can_damage_same: bool = false
+
+@export_group("Search")
+## 技能标识
+@export var flags: C.Flag = C.Flag.NONE
+## 不可搜索的目标的标识
+@export var bans: int = 0
+## 可搜索的目标的场景名称列表
+@export var whitelist := PackedStringArray()
+## 不可搜索的目标的场景名称列表
+@export var blacklist := PackedStringArray()
 
 
 func _ready() -> void:

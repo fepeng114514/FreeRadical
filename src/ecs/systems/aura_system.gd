@@ -125,7 +125,7 @@ func _on_update(_delta: float) -> void:
 
 		var e_id: int = e.id
 		for target: Entity in targets:
-			if aura_c.damage_min > 0 or aura_c.damage_max > 0:
+			if aura_c.cycle_damage_enable:
 				var d := Damage.new()
 				d.target_id = target.id
 				d.source_id = e_id

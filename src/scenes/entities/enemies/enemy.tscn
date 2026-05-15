@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://ecs/components/health_bar.tscn" id="5_yidua"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://ecs/components/ui_component.gd" id="6_ijmwd"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://ecs/components/melee_component.gd" id="8_wdwo4"]
-[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://ecs/components/subcomponents/melee_attack.gd" id="9_cit00"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://ecs/components/subcomponents/skill_melee.gd" id="9_cit00"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="9_w6k81"]
 
 [sub_resource type="Resource" id="Resource_58mnm"]
@@ -85,7 +85,7 @@ melee_pos_offsets = SubResource("Resource_fu215")
 is_blocked = true
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
-[node name="MeleeAttack" type="Node2D" parent="MeleeComponent" unique_id=1304104648]
+[node name="SkillMelee" type="Node2D" parent="MeleeComponent" unique_id=1304104648]
 script = ExtResource("9_cit00")
 mods = PackedStringArray()
 delay = 0.3
