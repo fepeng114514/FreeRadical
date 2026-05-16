@@ -4,7 +4,7 @@ class_name AudioGroup
 
 
 ## 播放模式
-@export var play_mode: C.AudioPlayMode = C.AudioPlayMode.SEQUENCE
+@export var play_mode: AudioMgr.AudioPlayMode = AudioMgr.AudioPlayMode.SEQUENCE
 ## 音频列表
 @export var list: Array[StringName] = []
 ## 音量，单位为分贝

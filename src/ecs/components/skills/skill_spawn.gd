@@ -1,5 +1,5 @@
 @tool
-extends SkillBase
+extends Skill
 class_name SkillSpawn
 ## 生成实体技能节点
 

@@ -15,8 +15,8 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	bullet_c.ts = TimeMgr.tick_ts
-	if not bullet_c.disabled_predict_pos:
-		var predict_time: float = bullet_c.trajectory._get_predict_time() if bullet_c.trajectory else 0.0
+	var predict_time: float = bullet_c.trajectory._get_predict_time() if bullet_c.trajectory else 0.0
+	if predict_time:
 		bullet_c.predict_target_pos = PathwayMgr.predict_target_pos(
 			target, predict_time
 		)
@@ -43,7 +43,7 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(delta: float) -> void:
 	var entity_list: Array = EntityMgr.get_entities_group(C.CN_BULLET).filter(
 		func(e: Entity) -> bool:
-			return not e.is_waiting() and not e.state & C.State.REMOVED
+			return not e.is_waiting() and not e.state & Entity.State.REMOVED
 	)
 
 	for e: Entity in entity_list:
@@ -89,7 +89,7 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 
 	if bullet_c.damage_area_enable:
 		var targets: Array[Entity] = _get_area_targets(e, bullet_c)
-		_take_damage(e, bullet_c, targets, bullet_c.miss_payloads)
+		_take_influence(e, bullet_c, targets, bullet_c.miss_payloads)
 
 	if bullet_c.miss_remove:
 		e.remove_entity()
@@ -107,7 +107,7 @@ func _hit(e: Entity, bullet_c: BulletComponent, target) -> void:
 	else:
 		targets[0] = target
 
-	_take_damage(e, bullet_c, targets, bullet_c.hit_payloads)
+	_take_influence(e, bullet_c, targets, bullet_c.hit_payloads)
 	e._on_bullet_hit(target, bullet_c)
 	
 	if bullet_c.hit_animation:
@@ -143,24 +143,24 @@ func _get_area_targets(
 	)
 
 
-func _take_damage(
+func _take_influence(
 		e: Entity, 
 		bullet_c: BulletComponent, 
 		targets: Array[Entity], 
 		payloads: PackedStringArray
 		) -> void:
-	var damage_max_count: int = bullet_c.damage_max_count
+	var max_influenced: int = bullet_c.max_influenced
 	var e_id: int = e.id
 		
 	for i: int in targets.size():
-		if U.is_valid_number(damage_max_count) and i > damage_max_count:
+		if U.is_valid_number(max_influenced) and i > max_influenced:
 			break
 			
 		var t: Entity = targets[i]
 		var t_id: int = t.id
 		
 		var d := Damage.new()
-		d.target_id = t.id
+		d.target_id = t_id
 		d.source_id = e_id
 		d.source_name = e.name
 		d.value = d.get_random_value(bullet_c.damage_min, bullet_c.damage_max)
@@ -174,7 +174,11 @@ func _take_damage(
 				bullet_c.damage_min_radius
 			)
 		d.insert_damage()
-		EntityMgr.create_mods(t.id, bullet_c.mods, e_id)
+		EntityMgr.create_mods(t_id, bullet_c.mods, e_id)
+
+		if bullet_c.heal_enable:
+			var t_health_c: HealthComponent = t.get_node_or_null(C.CN_HEALTH)
+			t_health_c.heal(bullet_c.heal_value, bullet_c.heal_type)
 		
 		bullet_c.damaged_entity_ids.append(t_id)
 		

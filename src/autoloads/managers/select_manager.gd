@@ -1,6 +1,15 @@
 extends Node2D
 
 
+## 选择模式枚举
+enum SelectMode {
+	NONE,
+	RALLY,
+	BARRACK_RALLY,
+	ERROR,
+}
+
+
 @warning_ignore_start("unused_signal")
 ## 选择实体信号
 signal select_entity(e: Entity)
@@ -9,7 +18,7 @@ signal deselect_entity
 @warning_ignore_restore("unused_signal")
 
 
-var select_mode: C.SelectMode = C.SelectMode.NONE
+var select_mode: SelectMode = SelectMode.NONE
 var selected_entity: Entity = null
 var cursor: Entity = null
 
@@ -59,26 +68,26 @@ func _on_select(e: Entity) -> void:
 	e.selected = true
 	selected_entity = e
 	e._on_select()
-	select_mode = C.SelectMode.NONE
+	select_mode = SelectMode.NONE
 	
 	var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
 	if rally_c and rally_c.can_select_rally:
-		select_mode = C.SelectMode.RALLY
+		select_mode = SelectMode.RALLY
 		
 	
 
 func _on_deselect() -> void:
 	if not U.is_valid_entity(selected_entity):
-		select_mode = C.SelectMode.NONE
+		select_mode = SelectMode.NONE
 		return
 	
 	match select_mode:
-		C.SelectMode.RALLY:
+		SelectMode.RALLY:
 			var rally_c: RallyComponent = selected_entity.get_node_or_null(
 				C.CN_RALLY
 			)
 			rally_c.new_rally_position(InputMgr.mouse_global_position, true)
-		C.SelectMode.BARRACK_RALLY:
+		SelectMode.BARRACK_RALLY:
 			var barrack_c: BarrackComponent = selected_entity.get_node_or_null(
 				C.CN_BARRACK
 			)
@@ -113,5 +122,5 @@ func _on_deselect() -> void:
 					
 				barrack_c.new_rally_center_position(rally_center_position, true)
 
-	select_mode = C.SelectMode.NONE
+	select_mode = SelectMode.NONE
 	selected_entity = null

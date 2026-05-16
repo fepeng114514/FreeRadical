@@ -1,11 +1,11 @@
 @tool
-extends SkillBase
+extends Skill
 class_name SkillArea
 ## 范围技能节点
 
 
 ## 最大可影响的实体数量
-@export var max_influence: int = C.UNSET
+@export var max_influenced: int = C.UNSET
 @export var center_offsets: OffsetGroup = null:
 	set(value):
 		center_offsets = value
@@ -47,6 +47,11 @@ class_name SkillArea
 @export var damage_type: int = C.DamageType.TRUE
 ## 伤害标识
 @export var damage_flags: int = 0
+
+@export_group("Heal")
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var heal_enable: bool = false
+@export var heal_value: float = 0
+@export var heal_type: HealthComponent.HealType = HealthComponent.HealType.ADD
 
 
 func _ready() -> void:
@@ -99,6 +104,10 @@ func _do_skill(e: Entity) -> void:
 			d.damage_type = damage_type
 			d.damage_flags = damage_flags
 			d.insert_damage()
+			
+		if heal_enable:
+			var t_health_c: HealthComponent = t.get_node_or_null(C.CN_HEALTH)
+			t_health_c.heal(heal_value, heal_type)
 			
 		EntityMgr.create_mods(t_id, mods, e_id)
 

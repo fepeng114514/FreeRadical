@@ -3,7 +3,17 @@ class_name Log
 ## 日志库
 
 
-static var log_level_keys: Array = C.LogLevels.keys()
+## 日志级别枚举
+enum LogLevels {
+	VERBOSE = 0,	# 详细信息
+	DEBUG = 1,		# 调试信息
+	INFO = 2,		# 普通信息
+	WARN = 3,		# 警告
+	ERROR = 4,		# 错误
+}
+
+
+static var log_level_keys: Array = LogLevels.keys()
 
 
 ## 内部日志方法
@@ -21,10 +31,10 @@ static func _log(level: int, message: String) -> void:
 	]
 	
 	match level:
-		C.LogLevels.WARN:
+		LogLevels.WARN:
 			print_rich("[color=#F1C40F]● WARN: %s[/color]" % format_message)
 			push_warning(format_message)
-		C.LogLevels.ERROR:
+		LogLevels.ERROR:
 			var stack: Array = get_stack()
 
 			var sliced: Array = stack.slice(3)
@@ -46,24 +56,24 @@ static func _log(level: int, message: String) -> void:
 
 ## 详细日志
 static func verbose(message: String) -> void:
-	_log(C.LogLevels.VERBOSE, message)
+	_log(LogLevels.VERBOSE, message)
 
 
 ## 调试日志
 static func debug(message: String) -> void:
-	_log(C.LogLevels.DEBUG, message)
+	_log(LogLevels.DEBUG, message)
 
 
 ## 信息日志
 static func info(message: String) -> void:
-	_log(C.LogLevels.INFO, message)
+	_log(LogLevels.INFO, message)
 
 
 ## 警告日志
 static func warn(message: String) -> void:
-	_log(C.LogLevels.WARN, message)
+	_log(LogLevels.WARN, message)
 
 
 ## 错误日志
 static func error(message: String) -> void:
-	_log(C.LogLevels.ERROR, message)
+	_log(LogLevels.ERROR, message)

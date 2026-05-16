@@ -43,7 +43,7 @@ func _on_remove(e: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	var entities: Array = EntityMgr.get_valid_entities().filter(
 		func(e: Entity) -> bool:
-			return not e.is_waiting() and not e.state & C.State.DEATH
+			return not e.is_waiting() and not e.state & Entity.State.DEATH
 	)
 	
 	for e: Entity in entities:

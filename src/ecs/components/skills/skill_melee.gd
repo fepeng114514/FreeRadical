@@ -1,5 +1,5 @@
 @tool
-extends SkillBase
+extends Skill
 class_name SkillMelee
 ## 近战技能节点
 ##
@@ -25,8 +25,8 @@ class_name SkillMelee
 @export var damage_min_radius: float = 0
 ## 最大伤害半径
 @export var damage_max_radius: float = 0
-## 最大伤害数量
-@export var damage_max_count: int = C.UNSET
+## 最大影响数量
+@export var max_influenced: int = C.UNSET
 ## 范围伤害的搜索模式
 @export var damage_search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 范围伤害是否随距离衰减
@@ -40,6 +40,11 @@ class_name SkillMelee
 		queue_redraw()
 ## 是否可以伤害重复敌人
 @export var can_damage_same: bool = false
+
+@export_subgroup("Heal")
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var heal_enable: bool = false
+@export var heal_value: float = 0
+@export var heal_type: HealthComponent.HealType = HealthComponent.HealType.ADD
 
 @export_group("Search")
 ## 技能标识

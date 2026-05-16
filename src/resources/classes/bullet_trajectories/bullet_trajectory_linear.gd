@@ -1,5 +1,5 @@
 extends BulletTrajectory
-class_name TrajectoryLinear
+class_name BulletTrajectoryLinear
 ## 直线轨迹
 ##
 ## 子弹沿直线从起点飞向目标点。

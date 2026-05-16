@@ -7,6 +7,8 @@ class_name ModifierComponent
 
 ## 状态效果类型
 @export var mod_type: int = C.ModType.NONE
+
+@export_group("Cycle")
 ## 周期时间
 @export var cycle_time: float = 1
 ## 最大周期
@@ -14,7 +16,7 @@ class_name ModifierComponent
 ## 属性修改器列表
 @export var property_modifier_list: Array[PropertyModifier] = []
 
-@export_group("Cycle Damage")
+@export_subgroup("Damage")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_damage_enable: bool = false
 ## 最小伤害
 @export var damage_min: float = 0
@@ -24,6 +26,11 @@ class_name ModifierComponent
 @export var damage_type: int = C.DamageType.TRUE
 ## 伤害标识
 @export var damage_flags: int = 0
+
+@export_subgroup("Heal")
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_heal_enable: bool = false
+@export var heal_value: float = 0
+@export var heal_type: HealthComponent.HealType = HealthComponent.HealType.ADD
 
 @export_group("Same Process")
 ## 是否允许相同状态效果叠加

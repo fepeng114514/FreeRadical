@@ -10,13 +10,13 @@ func _on_update(e: Entity) -> bool:
 	if not rally_c or rally_c.arrived:
 		return false
 		
-	if not rally_c.is_force_rally and not e.state & (C.State.IDLE | C.State.RALLY):
+	if not rally_c.is_force_rally and not e.state & (Entity.State.IDLE | Entity.State.RALLY):
 		return false
 		
 	if rally_c.is_navigation_finished():
 		rally_c.arrived = true
 		rally_c.is_force_rally = false
-		e.state = C.State.IDLE
+		e.state = Entity.State.IDLE
 
 		e._on_arrived_rally(rally_c)
 		return false
@@ -36,7 +36,7 @@ func _on_update(e: Entity) -> bool:
 	)
 	rally_c.velocity = velocity
 	e.global_position += velocity
-	e.state = C.State.RALLY
+	e.state = Entity.State.RALLY
 	
 	e._on_rally_walk(rally_c)
 

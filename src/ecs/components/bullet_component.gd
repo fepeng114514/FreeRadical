@@ -10,8 +10,6 @@ class_name BulletComponent
 @export var trajectory: BulletTrajectory = null
 ## 飞行动画数据
 @export var flight_animation: AnimationGroup = null
-## 是否禁用预判目标位置
-@export var disabled_predict_pos: bool = false
 
 @export_group("Rotation")
 ## 子弹旋转速度（弧度）
@@ -61,8 +59,8 @@ var damage_area_enable: bool = false
 var damage_min_radius: float = 0
 ## 最大伤害半径
 var damage_max_radius: float = 0
-## 最大伤害数量
-var damage_max_count: int = C.UNSET
+## 最大影响数量
+var max_influenced: int = C.UNSET
 ## 范围伤害的圆心偏移
 var damage_offsets: OffsetGroup = null
 ## 是否可以伤害重复敌人
@@ -71,6 +69,11 @@ var can_damage_same: bool = false
 var damage_search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 范围伤害是否随距离衰减
 var damage_falloff_enabled: bool = false
+
+var heal_enable: bool = false
+var heal_value: float = 0
+var heal_type: HealthComponent.HealType = HealthComponent.HealType.ADD
+
 ## 起始位置
 var from := Vector2.ZERO
 ## 目标位置

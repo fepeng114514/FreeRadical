@@ -5,6 +5,19 @@ class_name HealthComponent
 ##
 ## HealthComponent 可以使实体拥有血量，血量为 0 时移除实体
 
+
+enum HealType {
+	## 加法
+	ADD, 
+	## 当前血量百分比加法
+	HP_ADD_PERCENT, 
+	## 最大血量百分比加法
+	HP_MAX_ADD_PERCENT, 
+	## 乘法
+	MULTIPLY,
+}
+
+
 ## 最大血量
 @export var hp_max: float = 100
 
@@ -60,7 +73,6 @@ var hp: float = 0:
 		health_bar.value = get_hp_percent()
 var regen_ts: float = 0
 var idle_regen_ts: float = 0
-var death_data: DeathData = null
 
 ## 血条节点引用
 @onready var health_bar: TextureProgressBar = get_node_or_null("HealthBar")
@@ -82,3 +94,15 @@ func _get_configuration_warnings() -> PackedStringArray:
 ## 获取当前血量百分比
 func get_hp_percent() -> float:
 	return float(hp) / float(hp_max) * 100
+
+
+func heal(heal_value: float, heal_type: HealType) -> void:
+	match heal_type:
+		HealType.ADD:
+			hp += heal_value
+		HealType.HP_ADD_PERCENT:
+			hp += hp * heal_value
+		HealType.HP_MAX_ADD_PERCENT:
+			hp += hp_max * heal_value
+		HealType.MULTIPLY:
+			hp *= heal_value

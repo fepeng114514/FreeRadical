@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_i3jkb"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/skill_component.gd" id="4_nhbol"]
 [ext_resource type="SpriteFrames" uid="uid://j6iq1p753voi" path="res://resources/sprite_frames/towers/tower_mage_shooter.tres" id="4_vtoys"]
-[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/subcomponents/skill_ranged.gd" id="5_vssey"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/skills/skill_ranged.gd" id="5_vssey"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="7_vtoys"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="8_vtoys"]
 

@@ -1,5 +1,5 @@
 extends BulletTrajectory
-class_name TrajectoryTracking
+class_name BulletTrajectoryTracking
 ## 追踪轨迹
 ##
 ## 子弹持续追踪目标，实时更新方向。

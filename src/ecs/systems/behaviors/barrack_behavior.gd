@@ -85,7 +85,7 @@ func _first_update(e: Entity, barrack_c: BarrackComponent) -> void:
 		if not melee_c:
 			continue
 			
-		soldier.state = C.State.MELEE
+		soldier.state = Entity.State.MELEE
 		
 		for id: int in last_blocked_id_list[i]:
 			melee_c.bind_melee_relations(EntityMgr.get_entity_by_id(id), soldier)

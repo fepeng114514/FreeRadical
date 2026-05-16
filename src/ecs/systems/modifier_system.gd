@@ -162,6 +162,10 @@ func _process_modifier_update() -> void:
 			d.damage_type = modifier_c.damage_type
 			d.damage_flags = modifier_c.damage_flags
 			d.insert_damage()
+			
+		if modifier_c.cycle_heal_enable:
+				var t_health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
+				t_health_c.heal(modifier_c.heal_value, modifier_c.heal_type)
 
 		e._on_modifier_period(target, modifier_c)
 

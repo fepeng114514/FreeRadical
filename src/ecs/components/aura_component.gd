@@ -7,16 +7,18 @@ class_name AuraComponent
 
 ## 光环类型
 @export var aura_type: int = 0
-## 最大可影响的实体数量
-@export var max_influence: int = C.UNSET
-## 状态效果场景名称
-@export var mods := PackedStringArray()
+
+@export_group("Cycle")
 ## 周期时间
 @export var cycle_time: float = 1
-## 最大周期
+## 最大周期数
 @export var max_cycle: int = C.UNSET
+## 最大可影响的实体数量
+@export var max_influenced: int = C.UNSET
+## 状态效果场景名称
+@export var mods := PackedStringArray()
 
-@export_group("Search")
+@export_subgroup("Search")
 ## 最小范围
 @export var min_radius: float = 0
 ## 最大范围
@@ -24,7 +26,7 @@ class_name AuraComponent
 ## 搜索模式
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 
-@export_group("Cycle Damage")
+@export_subgroup("Damage")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_damage_enable: bool = false
 ## 最小伤害
 @export var damage_min: float = 0
@@ -34,6 +36,11 @@ class_name AuraComponent
 @export var damage_type: int = C.DamageType.TRUE
 ## 伤害标识
 @export var damage_flags: int = 0
+
+@export_subgroup("Heal")
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_heal_enable: bool = false
+@export var heal_value: float = 0
+@export var heal_type: HealthComponent.HealType = HealthComponent.HealType.ADD
 
 @export_group("Same Process")
 ## 是否允许相同光环叠加

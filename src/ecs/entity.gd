@@ -7,6 +7,31 @@ class_name Entity
 ## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
 
 
+## 状态标志枚举
+enum State {
+	## 状态: 空闲
+	IDLE = 1,
+	## 状态: 拦截敌人中
+	MELEE = 1 << 1,
+	## 状态: 释放远程技能中
+	RANGED = 1 << 2,
+	## 状态: 被阻塞
+	BLOCK = 1 << 3,
+	## 状态: 前往集结点
+	RALLY = 1 << 4,
+	## 状态：在路径上移动
+	NAV_PATH_WALK = 1 << 5,
+	## 状态：等待
+	WAITING = 1 << 6,
+	## 状态：禁止
+	DISABLED = 1 << 7,
+	## 状态：移除
+	REMOVED = 1 << 8,
+	## 状态：死亡
+	DEATH = 1 << 8,
+}
+
+
 #region 属性
 ## 实体场景名称
 @export var scene_name: String = ""
@@ -65,7 +90,7 @@ var selected: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
 ## 状态
-var state: int = C.State.IDLE
+var state: int = Entity.State.IDLE
 ## 看向的点
 var look_point := Vector2.INF
 ## 是否是首次更新
@@ -199,7 +224,7 @@ func insert_entity() -> void:
 ## 将实体增加到移除队列
 func remove_entity() -> void:
 	visible = false
-	state |= C.State.REMOVED
+	state |= Entity.State.REMOVED
 	SystemMgr.append_remove_queue.emit(self)
 	Log.debug("移除实体: %s" % self)
 
@@ -398,7 +423,7 @@ func wait_animation(animation: AnimationGroup) -> void:
 	var play_idx: int = animation.play_idx
 	var times: int = animation.times
 
-	state |= C.State.WAITING
+	state |= Entity.State.WAITING
 	var play_target: Node2D = sprite_c.get_child(play_idx)
 	if play_target is Sprite2D:
 		return
@@ -419,7 +444,7 @@ func wait_animation(animation: AnimationGroup) -> void:
 		for i: int in frames_remaining:
 			await play_target.frame_changed
 		
-	state &= ~C.State.WAITING
+	state &= ~Entity.State.WAITING
 #endregion
 
 
@@ -427,14 +452,14 @@ func wait_animation(animation: AnimationGroup) -> void:
 ##
 ## break_fn 返回 true 表示中断等待
 func y_wait(time: float = 0, break_fn: Callable = Callable()) -> void:
-	state |= C.State.WAITING
+	state |= Entity.State.WAITING
 
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
 	await TimeMgr.y_wait(time, break_fn)
 	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
 
-	state &= ~C.State.WAITING
+	state &= ~Entity.State.WAITING
 
 
 func is_waiting() -> bool:
-	return state & (C.State.BLOCK | C.State.WAITING | C.State.DISABLED)
+	return state & (Entity.State.BLOCK | Entity.State.WAITING | Entity.State.DISABLED)

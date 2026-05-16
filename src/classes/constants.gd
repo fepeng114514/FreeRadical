@@ -14,54 +14,6 @@ const QUARTER_PI: float = PI / 4
 #endregion
 
 
-## 日志级别枚举
-enum LogLevels {
-	VERBOSE = 0,	# 详细信息
-	DEBUG = 1,		# 调试信息
-	INFO = 2,		# 普通信息
-	WARN = 3,		# 警告
-	ERROR = 4,		# 错误
-}
-
-
-## 伤害类型 (位运算) 枚举
-enum DamageType {
-	## 伤害类型: 无
-	NONE = 0,
-	## 伤害类型: 物伤
-	PHYSICAL = 1,
-	## 伤害类型: 法伤
-	MAGICAL = 1 << 1,
-	## 伤害类型: 炮伤
-	EXPLOSION = 1 << 2,
-	## 伤害类型: 法炮伤
-	MAGICAL_EXPLOSION = 1 << 3,
-	## 伤害类型: 真伤
-	TRUE = 1 << 4,
-	## 伤害类型: 秒杀
-	DISINTEGRATE = 1 << 5,
-	## 伤害类型: 毒伤
-	POISON = 1 << 6,
-	## 伤害类型：所有
-	ALL = 1 << 40 - 1
-}
-
-
-## 伤害标识
-enum DamageFlag {
-	## 伤害标识：无
-	NONE = 0,
-	## 伤害标识：不杀死目标而是留 1 血
-	NOT_KILL = 1,
-	## 伤害标识：杀死目标后直接移除
-	KILL_REMOVE = 1 << 1,
-	## 伤害标识：无法闪避
-	NO_DODGE = 1 << 2,
-	## 伤害标识：无法反伤
-	NO_SPIKED = 1 << 3,
-}
-
-
 ## 实体标志 (位运算) 枚举
 enum Flag {
 	# 标识: 无
@@ -84,6 +36,48 @@ enum Flag {
 	AURA = 1 << 6,
 	# 标识: 飞行
 	FLYING = 1 << 7,
+}
+
+
+## 伤害类型 (位运算) 枚举
+enum DamageType {
+	## 伤害类型: 无
+	NONE = 0,
+	## 伤害类型: 物伤
+	PHYSICAL = 1,
+	## 伤害类型: 法伤
+	MAGICAL = 1 << 1,
+	## 伤害类型: 炮伤
+	EXPLOSION = 1 << 2,
+	## 伤害类型: 法炮伤
+	MAGICAL_EXPLOSION = 1 << 3,
+	## 伤害类型: 真伤
+	TRUE = 1 << 4,
+	## 伤害类型: 毒伤
+	POISON = 1 << 5,
+	## 伤害类型：当前血量百分比
+	HP_PERCENT = 1 << 38,
+	## 伤害类型：最大血量百分比
+	HP_MAX_PERCENT = 1 << 39,
+	## 伤害类型: 秒杀
+	DISINTEGRATE = 1 << 40,
+	## 伤害类型：所有
+	ALL = 1 << 40 - 1,
+}
+
+
+## 伤害标识
+enum DamageFlag {
+	## 伤害标识：无
+	NONE = 0,
+	## 伤害标识：不杀死目标而是留 1 血
+	NOT_KILL = 1,
+	## 伤害标识：杀死目标后直接移除
+	KILL_REMOVE = 1 << 1,
+	## 伤害标识：无法闪避
+	NO_DODGE = 1 << 2,
+	## 伤害标识：无法反伤
+	NO_SPIKED = 1 << 3,
 }
 
 
@@ -113,20 +107,6 @@ enum AuraType {
 	## 光环类型: 负面效果
 	DEBUFF = 1 << 1,
 }
-
-
-## 轨迹类型枚举
-enum Trajectory {
-	## 轨迹: 直线
-	LINEAR,
-	## 轨迹: 抛物线
-	PARABOLA,
-	## 轨迹: 跟踪
-	TRACKING,
-	## 轨迹: 瞬移
-	INSTANT,
-}
-
 
 
 ## 搜索模式枚举
@@ -257,31 +237,6 @@ enum SearchMode {
 }
 
 
-## 状态标志枚举
-enum State {
-	## 状态: 空闲
-	IDLE = 1,
-	## 状态: 拦截敌人中
-	MELEE = 1 << 1,
-	## 状态: 释放远程技能中
-	RANGED = 1 << 2,
-	## 状态: 被阻塞
-	BLOCK = 1 << 3,
-	## 状态: 前往集结点
-	RALLY = 1 << 4,
-	## 状态：在路径上移动
-	NAV_PATH_WALK = 1 << 5,
-	## 状态：等待
-	WAITING = 1 << 6,
-	## 状态：禁止
-	DISABLED = 1 << 7,
-	## 状态：移除
-	REMOVED = 1 << 8,
-	## 状态：死亡
-	DEATH = 1 << 8,
-}
-
-
 ## 实体信息栏类型枚举
 enum InfoBarType {
 	## 信息栏类型：无，不显示
@@ -295,15 +250,6 @@ enum InfoBarType {
 }
 
 
-## 选择模式枚举
-enum SelectMode {
-	NONE,
-	RALLY,
-	BARRACK_RALLY,
-	ERROR,
-}
-
-
 ## 方向枚举 
 enum Direction {
 	## 方向：上
@@ -314,58 +260,6 @@ enum Direction {
 	LEFT,
 	## 方向：右
 	RIGHT,
-}
-
-
-## 音频播放模式枚举
-enum AudioPlayMode {
-	## 音频播放模式：随机播放音频列表中的音频
-	RANGDOM,
-	## 音频播放模式：按顺序选择并播放音频列表中的音频
-	SEQUENCE,
-	## 音频播放模式：并行播放音频列表中的音频
-	CONCURRENCY
-}
-
-
-## 防御塔类型枚举
-enum TowerType {
-	## 防御塔类型：塔位
-	TOWER_HOLDER,
-	## 防御塔类型：箭塔
-	TOWER_ARCHER,
-	## 防御塔类型：兵营
-	TOWER_BARRACK,
-	## 防御塔类型：法师塔
-	TOWER_MAGE,
-	## 防御塔类型：炮塔
-	TOWER_ARTILLERY,
-}
-
-
-## 子弹生成模式枚举
-enum BulletSpawnMode {
-	## 子弹生成模式：随机
-	##
-	## 子弹会以 bullet_angle_range 范围内的随机角度生成
-	RANDOM,
-	## 子弹生成模式：等距
-	##
-	## 子弹会以 bullet_angle_range 范围内等距的角度生成
-	EQUAL_INTERVAL,
-}
-
-
-## 近战状态枚举
-enum MeleeState {
-	## 到达原点
-	ORIGIN_POS_ARRIVED,
-	## 返回位置中
-	ORIGIN_POS_MOVING,      
-	## 已到达位置
-	MELEE_POS_ARRIVED,    
-	## 前往近战位置中
-	MELEE_POS_MOVING,  
 }
 
 
@@ -418,10 +312,4 @@ const GROUP_MODIFIERS: StringName = &"modifiers"
 const GROUP_AURAS: StringName = &"auras"
 ## 组名: 子弹
 const GROUP_BULLETS: StringName = &"bullets"
-#endregion
-
-
-#region 关卡相关常量
-## 关卡列表
-const LEVEL_LIST: Array[int] = [1]
 #endregion

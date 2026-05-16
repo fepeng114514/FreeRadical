@@ -5,6 +5,20 @@ class_name MeleeComponent
 ##
 ## MeleeComponent 可以使实体拥有近战技能与拦截的能力，每个近战近战以 [SkillMelee] 资源子节点的形式存在。
 
+
+## 近战状态枚举
+enum MeleeState {
+	## 到达原点
+	ORIGIN_POS_ARRIVED,
+	## 返回位置中
+	ORIGIN_POS_MOVING,      
+	## 已到达位置
+	MELEE_POS_ARRIVED,    
+	## 前往近战位置中
+	MELEE_POS_MOVING,  
+}
+
+
 ## 是否不主动前往近战位置
 @export var is_passive: bool = false
 ## 移动速度
@@ -74,7 +88,7 @@ var melee_pos := Vector2.ZERO
 ## 向量速度
 var velocity := Vector2.ZERO
 ## 近战状态
-var melee_state: C.MeleeState = C.MeleeState.ORIGIN_POS_ARRIVED
+var melee_state: MeleeState = MeleeState.ORIGIN_POS_ARRIVED
 
 
 func _ready() -> void:

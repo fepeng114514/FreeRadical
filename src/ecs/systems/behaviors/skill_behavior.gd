@@ -11,7 +11,7 @@ func _on_update(e: Entity) -> bool:
 		return false
 		
 	for i: int in skill_c.get_child_count():
-		var skill: SkillBase = skill_c.get_child(i)
+		var skill: Skill = skill_c.get_child(i)
 		
 		if not TimeMgr.is_ready_time(skill.ts, skill.cooldown):
 			continue
@@ -30,7 +30,7 @@ func _on_update(e: Entity) -> bool:
 					if not member_skill_c:
 						continue
 						
-					var member_s: SkillBase = member_skill_c.get_child(i)
+					var member_s: Skill = member_skill_c.get_child(i)
 					member_s.ts = tick_ts - skill.group_cooldown_offset
 		
 		skill._do_skill(e)

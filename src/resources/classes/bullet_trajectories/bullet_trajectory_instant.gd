@@ -1,5 +1,5 @@
 extends BulletTrajectory
-class_name TrajectoryInstant
+class_name BulletTrajectoryInstant
 ## 瞬移轨迹
 ##
 ## 子弹瞬间移动到目标位置。

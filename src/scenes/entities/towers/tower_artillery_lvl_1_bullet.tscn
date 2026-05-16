@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_bgj51"]
 [ext_resource type="Texture2D" uid="uid://cpiqi6jk308r1" path="res://resources/atlas_textures/image_towers/bombs_0001.tres" id="4_jmmy1"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="6_jmmy1"]
-[ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://resources/classes/trajectories/trajectory_parabola.gd" id="7_k2m4n"]
+[ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://resources/classes/bullet_trajectories/bullet_trajectory_parabola.gd" id="7_k2m4n"]
 
 [sub_resource type="Resource" id="Resource_wmreg"]
 script = ExtResource("2_bgj51")

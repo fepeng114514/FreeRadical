@@ -561,7 +561,7 @@ static func is_valid_entity(e) -> bool:
 	return (
 		e 
 		and is_instance_valid(e) 
-		and not e.state & C.State.REMOVED 
+		and not e.state & Entity.State.REMOVED 
 	)
 
 

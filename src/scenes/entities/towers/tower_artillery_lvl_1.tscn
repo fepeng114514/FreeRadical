@@ -12,7 +12,7 @@
 [ext_resource type="SpriteFrames" uid="uid://b2exek271mgfo" path="res://resources/sprite_frames/towers/tower_artillery_lvl1_layer7.tres" id="11_6652w"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/skill_component.gd" id="13_l5l73"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="14_ds7h4"]
-[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/subcomponents/skill_ranged.gd" id="14_n4ua5"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/skills/skill_ranged.gd" id="14_n4ua5"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="15_v8ksx"]
 
 [sub_resource type="Resource" id="Resource_rn4jw"]

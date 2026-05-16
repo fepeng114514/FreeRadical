@@ -14,12 +14,12 @@ signal hide_select_menu
 @export var place_holders: Control = null
 ## 环控件引用
 @export var ring: TextureRect = null
+
 @export_subgroup("Scene")
 @export var rally_button_scene: PackedScene = null
 @export var sell_button_scene: PackedScene = null
 @export var upgrade_button_scene: PackedScene = null
 @export var upgrade_skill_button_scene: PackedScene = null
-
 
 @export_group("Tween")
 ## 补间缩放时长
@@ -69,7 +69,7 @@ func _show(e: Entity) -> void:
 	var group: SelectMenuGroup = null
 		
 	var tower_c: TowerComponent = e.get_node_or_null(C.CN_TOWER)
-	if tower_c and tower_c.tower_type == C.TowerType.TOWER_HOLDER:
+	if tower_c and tower_c.tower_type == TowerComponent.TowerType.TOWER_HOLDER:
 		group = select_menu_config.group_dict["tower_holder"]
 	else:
 		group = select_menu_config.group_dict.get(e.scene_name)

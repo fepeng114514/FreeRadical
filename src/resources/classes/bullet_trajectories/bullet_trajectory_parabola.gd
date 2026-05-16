@@ -1,5 +1,5 @@
 extends BulletTrajectory
-class_name TrajectoryParabola
+class_name BulletTrajectoryParabola
 ## 抛物线轨迹
 ##
 ## 子弹沿抛物线从起点飞向目标点。

@@ -4,6 +4,17 @@ extends Node
 ## 管理音频播放与总线
 
 
+## 音频播放模式枚举
+enum AudioPlayMode {
+	## 音频播放模式：随机播放音频列表中的音频
+	RANGDOM,
+	## 音频播放模式：按顺序选择并播放音频列表中的音频
+	SEQUENCE,
+	## 音频播放模式：并行播放音频列表中的音频
+	CONCURRENCY
+}
+
+
 ## 主音频总线
 const MasterBus: StringName = &"Master"
 ## 音乐总线
@@ -84,10 +95,10 @@ func play_audio(
 	var data_list: Array[StringName] = audio_data.list
 
 	match audio_data.play_mode:
-		C.AudioPlayMode.RANGDOM:
+		AudioPlayMode.RANGDOM:
 			var audio_name: StringName = U.pick_random(data_list)
 			play_list = [audio_name]
-		C.AudioPlayMode.SEQUENCE:
+		AudioPlayMode.SEQUENCE:
 			var play_idx: int = audio_data.played_idx + 1
 			play_idx %= data_list.size()
 			
@@ -95,7 +106,7 @@ func play_audio(
 			audio_data.played_idx = play_idx
 			
 			play_list = [audio_name]
-		C.AudioPlayMode.CONCURRENCY:
+		AudioPlayMode.CONCURRENCY:
 			play_list = data_list
 			
 	for audio_name: StringName in play_list:

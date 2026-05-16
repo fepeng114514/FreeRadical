@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://ecs/components/health_component.gd" id="5_uecfs"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://ecs/components/health_bar.tscn" id="6_7yqqd"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://ecs/components/melee_component.gd" id="7_xu63r"]
-[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://ecs/components/subcomponents/skill_melee.gd" id="8_qo1np"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://ecs/components/skills/skill_melee.gd" id="8_qo1np"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="8_y4pex"]
 [ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://ecs/components/rally_component.gd" id="9_uhicr"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://ecs/components/ui_component.gd" id="10_700db"]

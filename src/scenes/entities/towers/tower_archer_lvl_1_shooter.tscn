@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="3_seev1"]
 [ext_resource type="SpriteFrames" uid="uid://k047bwqmb2cf" path="res://resources/sprite_frames/towers/tower_archer_lvl1_shooter.tres" id="4_wku2c"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/skill_component.gd" id="5_skugy"]
-[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/subcomponents/skill_ranged.gd" id="6_vh14o"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/skills/skill_ranged.gd" id="6_vh14o"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="7_eanea"]
 
 [sub_resource type="Resource" id="Resource_e0w6f"]
@@ -47,12 +47,13 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 script = ExtResource("6_vh14o")
 bullet = "tower_archer_bullet"
 bullet_offsets = SubResource("Resource_367kr")
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 damage_min = 4.0
 damage_max = 6.0
+mods = PackedStringArray()
 cooldown = 0.8
 delay = 0.167
 animation = SubResource("Resource_6rlp0")
 group_cooldown_enable = true
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

@@ -1,7 +1,21 @@
 @tool
-extends SkillBase
+extends Skill
 class_name SkillRanged
 ## 单次远程技能节点
+
+
+
+## 子弹生成模式枚举
+enum BulletSpawnMode {
+	## 子弹生成模式：随机
+	##
+	## 子弹会以 bullet_angle_range 范围内的随机角度生成
+	RANDOM,
+	## 子弹生成模式：等距
+	##
+	## 子弹会以 bullet_angle_range 范围内等距的角度生成
+	EQUAL_INTERVAL,
+}
 
 
 ## 拦截目标时是否可以释放远程技能
@@ -22,7 +36,7 @@ class_name SkillRanged
 ## 子弹发射的角度范围，单位为度
 @export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0
 ## 子弹发射模式
-@export var bullet_spawn_mode: C.BulletSpawnMode = C.BulletSpawnMode.EQUAL_INTERVAL
+@export var bullet_spawn_mode: BulletSpawnMode = BulletSpawnMode.EQUAL_INTERVAL
 
 @export_group("Search")
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
@@ -64,8 +78,8 @@ class_name SkillRanged
 @export var damage_min_radius: float = 0
 ## 最大伤害半径
 @export var damage_max_radius: float = 0
-## 最大伤害数量
-@export var damage_max_count: int = C.UNSET
+## 最大影响数量
+@export var max_influenced: int = C.UNSET
 ## 范围伤害的圆心偏移
 @export var damage_offsets: OffsetGroup = null:
 	set(value):
@@ -79,6 +93,11 @@ class_name SkillRanged
 @export var damage_search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
 ## 范围伤害是否随距离衰减
 @export var damage_falloff_enabled: bool = false
+
+@export_subgroup("Heal")
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var heal_enable: bool = false
+@export var heal_value: float = 0
+@export var heal_type: HealthComponent.HealType = HealthComponent.HealType.ADD
 
 
 func _ready() -> void:
@@ -138,9 +157,9 @@ func spawn_bullets(
 		var b_rotation: float = 0
 
 		match bullet_spawn_mode:
-			C.BulletSpawnMode.EQUAL_INTERVAL:
+			BulletSpawnMode.EQUAL_INTERVAL:
 				b_rotation = e_to_target_angle + (da * i + -half_angle_range)
-			C.BulletSpawnMode.RANDOM:
+			BulletSpawnMode.RANDOM:
 				var random_angle: float = randf_range(
 					-half_angle_range, half_angle_range	
 				)
@@ -164,10 +183,14 @@ func spawn_bullets(
 		b_bullet_c.damage_area_enable = damage_area_enable
 		b_bullet_c.damage_min_radius = damage_min_radius
 		b_bullet_c.damage_max_radius = damage_max_radius
-		b_bullet_c.damage_max_count = damage_max_count
+		b_bullet_c.max_influenced = max_influenced
 		b_bullet_c.damage_offsets = damage_offsets
 		b_bullet_c.can_damage_same = can_damage_same
 		b_bullet_c.damage_search_mode = damage_search_mode
 		b_bullet_c.damage_falloff_enabled = damage_falloff_enabled
+
+		b_bullet_c.heal_enable = heal_enable
+		b_bullet_c.heal_type = heal_type
+		b_bullet_c.heal_value = heal_value
 
 		b.insert_entity()

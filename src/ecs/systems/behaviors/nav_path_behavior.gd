@@ -32,7 +32,7 @@ func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
 	if not nav_path_c:
 		return
 		
-	e.state = C.State.IDLE
+	e.state = Entity.State.IDLE
 
 
 func _on_update(e: Entity) -> bool:
@@ -52,10 +52,11 @@ func _update_forward(e: Entity, nav_path_c: NavPathComponent) -> bool:
 		_arrived_end(e, nav_path_c, false)
 		return false
 		
-	e.state = C.State.NAV_PATH_WALK
+	e.state = Entity.State.NAV_PATH_WALK
 	
 	# 正向移动逻辑
-	nav_path_c.nav_progress += nav_path_c.speed * TimeMgr.frame_length
+	var walk_length: float = nav_path_c.speed * TimeMgr.frame_length
+	nav_path_c.nav_progress += walk_length
 	
 	# 节点切换
 	var nav_ni: int = nav_path_c.nav_ni
@@ -72,7 +73,8 @@ func _update_forward(e: Entity, nav_path_c: NavPathComponent) -> bool:
 		nav_path_c.nav_ni = next_ni
 
 	# 更新位置和动画
-	_update_entity_position(e, nav_path_c)
+	var next_progress: float = nav_path_c.nav_progress + walk_length
+	_update_entity_position(e, nav_path_c, next_progress)
 	return true
 
 
@@ -82,10 +84,11 @@ func _update_reversed(e: Entity, nav_path_c: NavPathComponent) -> bool:
 		_arrived_end(e, nav_path_c, true)
 		return false
 		
-	e.state = C.State.NAV_PATH_WALK
+	e.state = Entity.State.NAV_PATH_WALK
 	
 	# 反向移动逻辑
-	nav_path_c.nav_progress -= nav_path_c.speed * TimeMgr.frame_length
+	var walk_length: float = nav_path_c.speed * TimeMgr.frame_length
+	nav_path_c.nav_progress -= walk_length
 	
 	# 节点切换
 	var nav_ni: int = nav_path_c.nav_ni
@@ -102,16 +105,19 @@ func _update_reversed(e: Entity, nav_path_c: NavPathComponent) -> bool:
 		nav_path_c.nav_ni = next_ni
 	
 	# 更新位置和动画
-	_update_entity_position(e, nav_path_c)
+	var next_progress: float = nav_path_c.nav_progress - walk_length
+	_update_entity_position(e, nav_path_c, next_progress)
 	return true
 	
 
-func _update_entity_position(e: Entity, nav_path_c: NavPathComponent) -> void:
+func _update_entity_position(e: Entity, nav_path_c: NavPathComponent, next_progress: float) -> void:
 	var next_position: Vector2 = nav_path_c.get_progress_pos()
 	e.look_point = next_position
 	e.play_animation_by_look(nav_path_c.motion_animation, "walk")
 	e.global_position = next_position
 	e._on_pathway_walk(nav_path_c)
+	
+	e.look_point = nav_path_c.get_progress_pos(next_progress)
 
 
 func _arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:

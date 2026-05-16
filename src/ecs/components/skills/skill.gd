@@ -1,8 +1,8 @@
 extends Node2D
-class_name SkillBase
+class_name Skill
 ## 技能节点基类
 ##
-## SkillBase 是所有技能节点的基类，提供了技能的基本属性和功能。
+## Skill 是所有技能节点的基类，提供了技能的基本属性和功能。
 
 
 ## 是否禁用
@@ -45,7 +45,7 @@ func _do_skill(e: Entity) -> void: pass
 @warning_ignore_restore("unused_parameter")
 
 
-static func can_attack(skill: SkillBase, target: Entity) -> bool:
+static func can_attack(skill: Skill, target: Entity) -> bool:
 	return (
 		target 
 		and not U.is_mutual_ban(target.flags, skill.bans, skill.flags, target.bans)
@@ -53,7 +53,7 @@ static func can_attack(skill: SkillBase, target: Entity) -> bool:
 	)
 	
 	
-static func search_target(e: Entity, skill: SkillBase) -> Entity:
+static func search_target(e: Entity, skill: Skill) -> Entity:
 	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 	if not target:
 		var targets: Array[Entity] = EntityMgr.search_targets(
@@ -73,7 +73,7 @@ static func search_target(e: Entity, skill: SkillBase) -> Entity:
 	return target
 
 
-static func search_targets(e: Entity, skill: SkillBase) -> Array[Entity]:
+static func search_targets(e: Entity, skill: Skill) -> Array[Entity]:
 	var targets: Array[Entity] = EntityMgr.search_targets(
 		skill.search_mode, 
 		e.global_position, 

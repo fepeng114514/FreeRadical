@@ -27,11 +27,11 @@ func _on_skip(e: Entity) -> void:
 	if melee_c.is_blocker:
 		melee_c.blocked_id_list.clear()
 		melee_c.blocked_count = 0
-		melee_c.melee_state = C.MeleeState.ORIGIN_POS_ARRIVED
+		melee_c.melee_state = MeleeComponent.MeleeState.ORIGIN_POS_ARRIVED
 	elif melee_c.is_blocked:
 		melee_c.blocker_id_list.clear()
 		
-	if e.state & C.State.IDLE:
+	if e.state & Entity.State.IDLE:
 		melee_c.origin_pos = e.global_position
 
 
@@ -118,7 +118,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	var blocked_id_list: Array = melee_c.blocked_id_list
 	if not blocked_id_list:
 		match melee_c.melee_state:
-			C.MeleeState.ORIGIN_POS_ARRIVED:
+			MeleeComponent.MeleeState.ORIGIN_POS_ARRIVED:
 				melee_c.origin_pos = e.global_position
 			_:
 				if not _back_origin_pos(e, melee_c):
@@ -126,7 +126,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 		
 		return false
 	else:
-		e.state = C.State.MELEE
+		e.state = Entity.State.MELEE
 		var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id_list[0])
 		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
 		
@@ -152,7 +152,7 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 	var blocker_id_list: PackedInt32Array = melee_c.blocker_id_list
 	if not blocker_id_list:
 		match melee_c.melee_state:
-			C.MeleeState.ORIGIN_POS_ARRIVED:
+			MeleeComponent.MeleeState.ORIGIN_POS_ARRIVED:
 				melee_c.origin_pos = e_global_pos
 			_:
 				if not _back_origin_pos(e, melee_c):
@@ -160,14 +160,14 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 		
 		return false
 	else:
-		e.state = C.State.MELEE
+		e.state = Entity.State.MELEE
 		var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id_list[0])
 		var blocker_global_pos: Vector2 = blocker.global_position
 		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
 		var is_first_blocked: bool = e.id == blocker_melee_c.blocked_id_list[0]
 
 		if is_first_blocked:
-			if blocker_melee_c.melee_state != C.MeleeState.MELEE_POS_ARRIVED:
+			if blocker_melee_c.melee_state != MeleeComponent.MeleeState.MELEE_POS_ARRIVED:
 				e.look_point = blocker_global_pos
 				e.play_animation_by_look(e.idle_animation)
 				return true
@@ -193,11 +193,11 @@ func _go_melee_pos(e: Entity, melee_c: MeleeComponent, melee_pos: Vector2) -> bo
 			e.global_position, melee_pos, melee_c.arrived_distance	 
 	):
 		#Log.verbose("Arrived! Pos: %s, Target: %s, Dist: %s" % [e.global_position, melee_c.melee_pos, e.global_position.distance_to(melee_c.melee_pos)])
-		melee_c.melee_state = C.MeleeState.MELEE_POS_ARRIVED
+		melee_c.melee_state = MeleeComponent.MeleeState.MELEE_POS_ARRIVED
 		return true
 	else:
 		#Log.verbose("Moving to %s, current %s, velocity %s" % [melee_c.melee_pos, e.global_position, melee_c.velocity])
-		melee_c.melee_state = C.MeleeState.MELEE_POS_MOVING
+		melee_c.melee_state = MeleeComponent.MeleeState.MELEE_POS_MOVING
 		var direction: Vector2 = e.global_position.direction_to(melee_pos)
 		var velocity: Vector2 = (
 			direction 
@@ -218,11 +218,11 @@ func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	if U.is_at_destination(
 		e.global_position, melee_c.origin_pos, melee_c.arrived_distance
 	):
-		melee_c.melee_state = C.MeleeState.ORIGIN_POS_ARRIVED
-		e.state = C.State.IDLE
+		melee_c.melee_state = MeleeComponent.MeleeState.ORIGIN_POS_ARRIVED
+		e.state = Entity.State.IDLE
 		return true
 	else:
-		melee_c.melee_state = C.MeleeState.ORIGIN_POS_MOVING
+		melee_c.melee_state = MeleeComponent.MeleeState.ORIGIN_POS_MOVING
 		var direction: Vector2 = e.global_position.direction_to(
 			melee_c.origin_pos
 		)
@@ -251,34 +251,34 @@ func _try_melee_attack(
 	var e_id: int = e.id
 	var e_global_pos: Vector2 = e.global_position
 	
-	for a: SkillMelee in melee_c.get_children():
-		if not TimeMgr.is_ready_time(a.ts, a.cooldown):
+	for skill: SkillMelee in melee_c.get_children():
+		if not TimeMgr.is_ready_time(skill.ts, skill.cooldown):
 			continue
 
-		if not SkillBase.can_attack(a, target):
+		if not Skill.can_attack(skill, target):
 			continue
 			
 		Log.verbose("近战攻击: %s" % e)
 
-		a.ts = TimeMgr.tick_ts
-		e.play_animation_by_look(a.animation, "melee")
-		await e.y_wait(a.delay)
+		skill.ts = TimeMgr.tick_ts
+		e.play_animation_by_look(skill.animation, "melee")
+		await e.y_wait(skill.delay)
 			
 		var targets: Array[Entity] = [null]
 			
-		if a.damage_area_enable:
+		if skill.damage_area_enable:
 			var search_pos: Vector2 = e_global_pos
-			if a.damage_offsets:
-				var damage_offset: Vector2 = a.damage_offsets.get_offset_for_point(
+			if skill.damage_offsets:
+				var damage_offset: Vector2 = skill.damage_offsets.get_offset_for_point(
 					e_global_pos, e.look_point
 				)
 				search_pos += damage_offset
 
 			targets = EntityMgr.search_targets(
-				a.damage_search_mode, 
+				skill.damage_search_mode, 
 				search_pos, 
-				a.damage_max_radius, 
-				a.damage_min_radius, 
+				skill.damage_max_radius, 
+				skill.damage_min_radius, 
 				e.flags, 
 				e.bans
 			)
@@ -288,10 +288,10 @@ func _try_melee_attack(
 				
 			targets[0] = target
 
-		var damage_max_count: int = a.damage_max_count
+		var max_influenced: int = skill.max_influenced
 		
 		for i: int in targets.size():
-			if U.is_valid_number(damage_max_count) and i > damage_max_count:
+			if U.is_valid_number(max_influenced) and i > max_influenced:
 				break
 				
 			var t: Entity = targets[i]
@@ -304,19 +304,24 @@ func _try_melee_attack(
 			d.target_id = t_id
 			d.source_id = e_id
 			d.source_name = e.name
-			d.value = d.get_random_value(a.damage_min, a.damage_max)
-			d.damage_type = a.damage_type
-			d.damage_flags = a.damage_flags
-			if a.damage_area_enable and a.damage_falloff_enabled:
+			d.value = d.get_random_value(skill.damage_min, skill.damage_max)
+			d.damage_type = skill.damage_type
+			d.damage_flags = skill.damage_flags
+			if skill.damage_area_enable and skill.damage_falloff_enabled:
 				d.damage_factor = U.dist_factor_inside_radius(
 					e_global_pos, 
 					t.global_position, 
-					a.damage_max_radius,
-					a.damage_min_radius
+					skill.damage_max_radius,
+					skill.damage_min_radius
 				)
 			d.insert_damage()
-			EntityMgr.create_mods(t_id, a.mods, e_id)
+			
+			if skill.cycle_heal_enable:
+				var t_health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
+				t_health_c.heal(skill.heal_value, skill.heal_type)
+
+			EntityMgr.create_mods(t_id, skill.mods, e_id)
 		
-		await e.wait_animation(a.animation)
+		await e.wait_animation(skill.animation)
 		e.play_animation_by_look(e.idle_animation)
 		break

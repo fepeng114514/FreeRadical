@@ -108,8 +108,8 @@ func _on_update(_delta: float) -> void:
 			e.flags, 
 			e.bans
 		)
-		if U.is_valid_number(aura_c.max_influence):
-			targets.resize(aura_c.max_influence)
+		if U.is_valid_number(aura_c.max_influenced):
+			targets.resize(aura_c.max_influenced)
 
 		# 周期效果
 		if (
@@ -134,6 +134,10 @@ func _on_update(_delta: float) -> void:
 				d.damage_type = aura_c.damage_type
 				d.damage_flags = aura_c.damage_flags
 				d.insert_damage()
+				
+			if aura_c.cycle_heal_enable:
+				var t_health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
+				t_health_c.heal(aura_c.heal_value, aura_c.heal_type)
 
 			EntityMgr.create_mods(target.id, aura_c.mods, e.id)
 

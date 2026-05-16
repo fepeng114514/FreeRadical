@@ -61,14 +61,24 @@ func _on_update(_delta: float) -> void:
 				health_c.hp = 1
 				return
 			
+			var killer: Entity = source
+			while killer:
+				killer._on_kill(target)
+				
+				killer = EntityMgr.get_entity_by_id(killer.source_id)
+
+			health_c.health_bar.visible = false
+			target.state = Entity.State.DEATH
+			GameMgr.cash += health_c.death_gold
+
 			if damage_flags & C.DamageFlag.KILL_REMOVE:
 				target.remove_entity()
 				return
-			
-			var death_data := DeathData.new()
-			death_data.killer = source
-			
-			health_c.death_data = death_data
+
+			if target._on_death():
+				return
+	
+			_death(target, health_c)
 	
 	SystemMgr.damage_queue = new_damage_queue
 	
@@ -119,8 +129,29 @@ func _predict_damage(
 		if damage_type & C.DamageType.POISON:
 			resistance *= 1 - poison_armor
 	
+	if damage_type & C.DamageType.HP_MAX_PERCENT:
+		d.value *= health_c.hp_max
+	elif damage_type & C.DamageType.HP_PERCENT:
+		d.value *= health_c.hp
+		
 	var total_damage_factor: float = d.damage_factor * resistance * (1 + vulnerable)
 	var basic_value: float = d.value - health_c.damage_reduction
 	var actual_damage: float = roundi(basic_value * total_damage_factor)
 	
 	return actual_damage
+
+
+func _death(e: Entity, health_c: HealthComponent) -> void:
+	var death_animation: AnimationGroup = health_c.death_animation
+	if death_animation:
+		e.play_animation_by_look(
+			death_animation, "death"
+		)
+		
+	var death_sfx: AudioGroup = health_c.death_sfx
+	if death_sfx:
+		AudioMgr.play_sfx(death_sfx)
+	
+	await e.wait_animation(death_animation)
+
+	e.remove_entity()

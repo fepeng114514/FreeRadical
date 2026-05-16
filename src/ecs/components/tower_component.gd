@@ -3,8 +3,23 @@ extends Node2D
 class_name TowerComponent
 
 
+## 防御塔类型枚举
+enum TowerType {
+	## 防御塔类型：塔位
+	TOWER_HOLDER,
+	## 防御塔类型：箭塔
+	TOWER_ARCHER,
+	## 防御塔类型：兵营
+	TOWER_BARRACK,
+	## 防御塔类型：法师塔
+	TOWER_MAGE,
+	## 防御塔类型：炮塔
+	TOWER_ARTILLERY,
+}
+
+
 ## 防御塔类型
-@export var tower_type: C.TowerType = C.TowerType.TOWER_HOLDER
+@export var tower_type: TowerType = TowerType.TOWER_HOLDER
 ## 显示范围的偏移
 @export var show_range_offset := Vector2.ZERO:
 	set(value):
