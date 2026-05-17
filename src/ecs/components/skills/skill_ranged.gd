@@ -20,6 +20,12 @@ enum BulletSpawnMode {
 
 ## 拦截目标时是否可以释放远程技能
 @export var with_melee: bool = false
+@export var search: SearchResource = null:
+	set(value):
+		search = value
+		if Engine.is_editor_hint():
+			U.connect_resource_changed(search, queue_redraw)
+			queue_redraw()
 
 @export_group("Bullet")
 ## 子弹场景名称
@@ -31,102 +37,44 @@ enum BulletSpawnMode {
 	set(value):
 		bullet_offsets = value
 		if Engine.is_editor_hint():
-			U.connect_offset_group_changed(bullet_offsets, _on_bullet_offsets_changed)
-		queue_redraw()
+			U.connect_resource_changed(bullet_offsets, queue_redraw)
+			queue_redraw()
 ## 子弹发射的角度范围，单位为度
 @export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0
 ## 子弹发射模式
 @export var bullet_spawn_mode: BulletSpawnMode = BulletSpawnMode.EQUAL_INTERVAL
-
-@export_group("Search")
-@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
-## 最小搜索距离
-@export var min_range: float = 0:
+## 伤害/治疗/范围伤害 统一资源
+@export var influence: InfluenceResource = null:
 	set(value):
-		min_range = value
-		queue_redraw()
-## 最大搜索距离
-@export var max_range: float = 300:
-	set(value):
-		max_range = value
-		queue_redraw()
-## 技能标识
-@export var flags: C.Flag = C.Flag.NONE
-## 不可搜索的目标的标识
-@export var bans: int = 0
-## 可搜索的目标的场景名称列表
-@export var whitelist := PackedStringArray()
-## 不可搜索的目标的场景名称列表
-@export var blacklist := PackedStringArray()
-
-@export_group("Damage")
-## 子弹最小伤害
-@export var damage_min: float = 0
-## 子弹最大伤害
-@export var damage_max: float = 0
-## 伤害类型
-@export var damage_type: int = C.DamageType.PHYSICAL
-## 伤害标识
-@export var damage_flags: int = 0
-## 子弹携带的状态效果
-@export var mods := PackedStringArray()
-
-@export_subgroup("Area Damage")
-## 是否启用范围伤害
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var damage_area_enable: bool = false
-## 最小伤害半径
-@export var damage_min_radius: float = 0
-## 最大伤害半径
-@export var damage_max_radius: float = 0
-## 最大影响数量
-@export var max_influenced: int = C.UNSET
-## 范围伤害的圆心偏移
-@export var damage_offsets: OffsetGroup = null:
-	set(value):
-		damage_offsets = value
+		influence = value
 		if Engine.is_editor_hint():
-			U.connect_offset_group_changed(damage_offsets, _on_damage_offsets_changed)
-		queue_redraw()
-## 是否可以伤害重复敌人
-@export var can_damage_same: bool = false
-## 范围伤害的搜索模式
-@export var damage_search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
-## 范围伤害是否随距离衰减
-@export var damage_falloff_enabled: bool = false
-
-@export_subgroup("Heal")
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var heal_enable: bool = false
-@export var heal_value: float = 0
-@export var heal_type: HealthComponent.HealType = HealthComponent.HealType.ADD
+			U.connect_resource_changed(influence, queue_redraw)
+			queue_redraw()
 
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		U.connect_offset_group_changed(damage_offsets, _on_damage_offsets_changed)
-		U.connect_offset_group_changed(bullet_offsets, _on_bullet_offsets_changed)
-
-
-func _on_damage_offsets_changed() -> void:
-	queue_redraw()
-
-
-func _on_bullet_offsets_changed() -> void:
-	queue_redraw()
+		U.connect_resource_changed(bullet_offsets, queue_redraw)
+		U.connect_resource_changed(influence, queue_redraw)
+		U.connect_resource_changed(search, queue_redraw)
 
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		U.draw_offset_group(self, damage_offsets)
-		U.draw_offset_group(self, bullet_offsets)
-		U.draw_range_circle(self, position, min_range, max_range)
+		if influence:
+			influence.draw(self, position)
 
+		if search:
+			search.draw(self, position)
+		U.draw_offset_group(self, bullet_offsets)
 
 
 func _do_skill(e: Entity) -> void:
-	var target: Entity = search_target(e, self)
-	if not target:
+	var targets: Array[Entity] = search.search_targets(e, e.global_position)
+	if not targets:
 		return
 
+	var target: Entity = targets[0]
 	e.look_point = target.global_position
 
 	e.play_animation_by_look(animation, "ranged")
@@ -175,22 +123,6 @@ func spawn_bullets(
 		b.global_position = b_global_pos
 
 		var b_bullet_c: BulletComponent = b.get_node_or_null(C.CN_BULLET)
-		b_bullet_c.damage_min = damage_min
-		b_bullet_c.damage_max = damage_max
-		b_bullet_c.damage_type = damage_type
-		b_bullet_c.damage_flags = damage_flags
-		b_bullet_c.mods = mods
-		b_bullet_c.damage_area_enable = damage_area_enable
-		b_bullet_c.damage_min_radius = damage_min_radius
-		b_bullet_c.damage_max_radius = damage_max_radius
-		b_bullet_c.max_influenced = max_influenced
-		b_bullet_c.damage_offsets = damage_offsets
-		b_bullet_c.can_damage_same = can_damage_same
-		b_bullet_c.damage_search_mode = damage_search_mode
-		b_bullet_c.damage_falloff_enabled = damage_falloff_enabled
-
-		b_bullet_c.heal_enable = heal_enable
-		b_bullet_c.heal_type = heal_type
-		b_bullet_c.heal_value = heal_value
+		b_bullet_c.influence = influence.duplicate_deep()
 
 		b.insert_entity()

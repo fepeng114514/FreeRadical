@@ -7,16 +7,36 @@
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/skill_component.gd" id="5_skugy"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/skills/skill_ranged.gd" id="6_vh14o"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="7_eanea"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://resources/classes/search_resource.gd" id="7_miroj"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="9_miroj"]
 
 [sub_resource type="Resource" id="Resource_e0w6f"]
 script = ExtResource("2_csl3h")
 up = &"idle_up"
 down = &"idle_down"
 
+[sub_resource type="Resource" id="Resource_uea8m"]
+resource_local_to_scene = true
+script = ExtResource("7_miroj")
+max_radius = 300.0
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
 [sub_resource type="Resource" id="Resource_367kr"]
 script = ExtResource("7_eanea")
 any = Vector2(5.725, -18.35)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_wxd0v"]
+resource_local_to_scene = true
+script = ExtResource("9_miroj")
+damage_min = 4.0
+damage_max = 6.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_6rlp0"]
 script = ExtResource("2_csl3h")
@@ -45,13 +65,10 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="SkillRanged" type="Node2D" parent="SkillComponent" unique_id=1939030855]
 script = ExtResource("6_vh14o")
+search = SubResource("Resource_uea8m")
 bullet = "tower_archer_bullet"
 bullet_offsets = SubResource("Resource_367kr")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
-damage_min = 4.0
-damage_max = 6.0
-mods = PackedStringArray()
+influence = SubResource("Resource_wxd0v")
 cooldown = 0.8
 delay = 0.167
 animation = SubResource("Resource_6rlp0")

@@ -9,8 +9,10 @@
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://ecs/components/melee_component.gd" id="7_xu63r"]
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://ecs/components/skills/skill_melee.gd" id="8_qo1np"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="8_y4pex"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://resources/classes/search_resource.gd" id="9_ts01h"]
 [ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://ecs/components/rally_component.gd" id="9_uhicr"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://ecs/components/ui_component.gd" id="10_700db"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="11_ts01h"]
 
 [sub_resource type="Resource" id="Resource_ovm3w"]
 script = ExtResource("2_i4u0u")
@@ -33,6 +35,24 @@ script = ExtResource("8_y4pex")
 mirror_horizontal = true
 right = Vector2(34.92, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_vrdxj"]
+resource_local_to_scene = true
+script = ExtResource("9_ts01h")
+max_radius = 100.0
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_tcdjf"]
+resource_local_to_scene = true
+script = ExtResource("11_ts01h")
+damage_min = 1.0
+damage_max = 3.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_p1ots"]
 script = ExtResource("2_i4u0u")
@@ -77,18 +97,17 @@ speed = 208.0
 motion_animation = SubResource("Resource_enhu5")
 melee_pos_offsets = SubResource("Resource_prid8")
 is_blocker = true
+search = SubResource("Resource_vrdxj")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="SkillMelee" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
 script = ExtResource("8_qo1np")
-damage_min = 1.0
-damage_max = 3.0
-mods = PackedStringArray()
+influence = SubResource("Resource_tcdjf")
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
 cooldown = 1.36
 delay = 0.2
 animation = SubResource("Resource_p1ots")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
 [node name="RallyComponent" type="NavigationAgent2D" parent="." unique_id=905200269]

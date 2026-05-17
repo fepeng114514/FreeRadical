@@ -13,7 +13,9 @@
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/skill_component.gd" id="13_l5l73"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="14_ds7h4"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/skills/skill_ranged.gd" id="14_n4ua5"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://resources/classes/search_resource.gd" id="14_st7oj"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="15_v8ksx"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="16_st7oj"]
 
 [sub_resource type="Resource" id="Resource_rn4jw"]
 script = ExtResource("2_snldt")
@@ -24,10 +26,38 @@ script = ExtResource("14_ds7h4")
 list = Array[StringName]([&"artillery_ready", &"artillery_taunt1", &"artillery_taunt2"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
+[sub_resource type="Resource" id="Resource_31xy0"]
+resource_local_to_scene = true
+script = ExtResource("14_st7oj")
+max_radius = 300.0
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
 [sub_resource type="Resource" id="Resource_5et4c"]
 script = ExtResource("15_v8ksx")
 any = Vector2(0, -70.05)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_st7oj"]
+script = ExtResource("14_st7oj")
+max_radius = 133.0
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_67tlk"]
+resource_local_to_scene = true
+script = ExtResource("16_st7oj")
+damage_min = 8.0
+damage_max = 15.0
+damage_type = 4
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+area_enable = true
+search = SubResource("Resource_st7oj")
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_3uqv8"]
 script = ExtResource("2_snldt")
@@ -90,19 +120,12 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="SkillRanged" type="Node2D" parent="SkillComponent" index="0" unique_id=1342825155]
 script = ExtResource("14_n4ua5")
+search = SubResource("Resource_31xy0")
 bullet = "tower_artillery_lvl_1_bullet"
 bullet_offsets = SubResource("Resource_5et4c")
-damage_min = 8.0
-damage_max = 15.0
-damage_type = 4
-mods = PackedStringArray()
-damage_area_enable = true
-damage_max_radius = 133.0
-damage_falloff_enabled = true
+influence = SubResource("Resource_67tlk")
 cooldown = 3.0
 delay = 0.466
 animation = SubResource("Resource_3uqv8")
 sfx = SubResource("Resource_ipws0")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

@@ -15,22 +15,8 @@ class_name ModifierComponent
 @export var max_cycle: int = C.UNSET
 ## 属性修改器列表
 @export var property_modifier_list: Array[PropertyModifier] = []
-
-@export_subgroup("Damage")
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_damage_enable: bool = false
-## 最小伤害
-@export var damage_min: float = 0
-## 最大伤害
-@export var damage_max: float = 0
-## 伤害类型
-@export var damage_type: int = C.DamageType.TRUE
-## 伤害标识
-@export var damage_flags: int = 0
-
-@export_subgroup("Heal")
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_heal_enable: bool = false
-@export var heal_value: float = 0
-@export var heal_type: HealthComponent.HealType = HealthComponent.HealType.ADD
+## 伤害/治疗/范围伤害 统一资源
+@export var influence: InfluenceResource = null
 
 @export_group("Same Process")
 ## 是否允许相同状态效果叠加
@@ -54,7 +40,3 @@ func _validate_property(property: Dictionary) -> void:
 	match property.name:
 		"mod_type":
 			property.hint_string = "mask_enum:ModType"
-		"damage_type":
-			property.hint_string = "mask_enum:DamageType"
-		"damage_flags":
-			property.hint_string = "mask_enum:DamageFlag"

@@ -65,13 +65,9 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 		if rally_center_position != Vector2.ZERO:
 			center = rally_center_position
 	
-	var pending_blockeds: Array[Entity] = EntityMgr.search_targets(
-		melee_c.search_mode,
+	var pending_blockeds: Array[Entity] = melee_c.search.search_targets(
+		e,
 		center,
-		melee_c.block_max_range,
-		melee_c.block_min_range,
-		melee_c.block_flags,
-		melee_c.block_bans,
 		func(t: Entity) -> bool:
 			var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
 			if not t_melee_c:
@@ -96,13 +92,9 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 			melee_c.bind_melee_relations(t, e)
 	else:
 		if not melee_c.blocked_id_list:
-			var blocked_targets: Array[Entity] = EntityMgr.search_targets(
-				melee_c.search_mode,
+			var blocked_targets: Array[Entity] = melee_c.search.search_targets(
+				e,
 				center,
-				melee_c.block_max_range,
-				melee_c.block_min_range,
-				melee_c.block_flags,
-				melee_c.block_bans,
 				func(t: Entity) -> bool:
 				var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
 				if not t_melee_c:
@@ -248,8 +240,6 @@ func _try_melee_attack(
 	if U.is_valid_entity(target):
 		e.look_point = target.global_position
 	e.play_animation_by_look(e.idle_animation)
-	var e_id: int = e.id
-	var e_global_pos: Vector2 = e.global_position
 	
 	for skill: SkillMelee in melee_c.get_children():
 		if not TimeMgr.is_ready_time(skill.ts, skill.cooldown):
@@ -264,63 +254,7 @@ func _try_melee_attack(
 		e.play_animation_by_look(skill.animation, "melee")
 		await e.y_wait(skill.delay)
 			
-		var targets: Array[Entity] = [null]
-			
-		if skill.damage_area_enable:
-			var search_pos: Vector2 = e_global_pos
-			if skill.damage_offsets:
-				var damage_offset: Vector2 = skill.damage_offsets.get_offset_for_point(
-					e_global_pos, e.look_point
-				)
-				search_pos += damage_offset
-
-			targets = EntityMgr.search_targets(
-				skill.damage_search_mode, 
-				search_pos, 
-				skill.damage_max_radius, 
-				skill.damage_min_radius, 
-				e.flags, 
-				e.bans
-			)
-		else:
-			if not U.is_valid_entity(target):
-				break
-				
-			targets[0] = target
-
-		var max_influenced: int = skill.max_influenced
-		
-		for i: int in targets.size():
-			if U.is_valid_number(max_influenced) and i > max_influenced:
-				break
-				
-			var t: Entity = targets[i]
-			if not U.is_valid_entity(t):
-				continue
-			
-			var t_id: int = t.id
-			
-			var d := Damage.new()
-			d.target_id = t_id
-			d.source_id = e_id
-			d.source_name = e.name
-			d.value = d.get_random_value(skill.damage_min, skill.damage_max)
-			d.damage_type = skill.damage_type
-			d.damage_flags = skill.damage_flags
-			if skill.damage_area_enable and skill.damage_falloff_enabled:
-				d.damage_factor = U.dist_factor_inside_radius(
-					e_global_pos, 
-					t.global_position, 
-					skill.damage_max_radius,
-					skill.damage_min_radius
-				)
-			d.insert_damage()
-			
-			if skill.cycle_heal_enable:
-				var t_health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
-				t_health_c.heal(skill.heal_value, skill.heal_type)
-
-			EntityMgr.create_mods(t_id, skill.mods, e_id)
+		skill.influence.take(e, target, e.global_position)
 		
 		await e.wait_animation(skill.animation)
 		e.play_animation_by_look(e.idle_animation)

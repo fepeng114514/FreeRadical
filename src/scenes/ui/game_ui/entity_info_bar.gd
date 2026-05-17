@@ -109,14 +109,14 @@ func _update_unit_info() -> void:
 	magic_armor_value.text = "%d" % health_c.magical_armor
 	
 	var melee_c: MeleeComponent = selected_entity.get_node_or_null(C.CN_MELEE)
-	if melee_c:
+	if melee_c and melee_c.get_child(0):
 		_set_value_melee(melee_c)
 	else:
 		melee_value.visible = false
 		melee_type_icon.visible = false
 		
 	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
-	if skill_c:
+	if skill_c and skill_c.get_child(0):
 		_set_value_ranged(skill_c)
 	else:
 		ranged_value.visible = false
@@ -146,17 +146,11 @@ func _update_tower_info() -> void:
 
 func _set_value_ranged(skill_c: SkillComponent) -> void:
 	var first_ranged_skill: SkillRanged = skill_c.get_child(0)
-	ranged_value.text = "%d-%d/%.1f" % [
-		first_ranged_skill.damage_min, 
-		first_ranged_skill.damage_max, 
-		first_ranged_skill.cooldown
-	]
+	var infl_res: InfluenceResource = first_ranged_skill.influence
+	ranged_value.text = "%d-%d/%.1f" % [infl_res.damage_min, infl_res.damage_max, first_ranged_skill.cooldown]
 	
 	
 func _set_value_melee(melee_c: MeleeComponent) -> void:
 	var first_melee_skill: SkillMelee = melee_c.get_child(0)
-	melee_value.text = "%d-%d/%.1f" % [
-		first_melee_skill.damage_min, 
-		first_melee_skill.damage_max, 
-		first_melee_skill.cooldown
-	]
+	var infl_res: InfluenceResource = first_melee_skill.influence
+	melee_value.text = "%d-%d/%.1f" % [infl_res.damage_min, infl_res.damage_max, first_melee_skill.cooldown]

@@ -9,16 +9,37 @@
 [ext_resource type="SpriteFrames" uid="uid://uixbgyphrivk" path="res://resources/sprite_frames/towers/tower_artillery_lvl3_layer5.tres" id="7_tb2hh"]
 [ext_resource type="SpriteFrames" uid="uid://dodcmo32bsert" path="res://resources/sprite_frames/towers/tower_artillery_lvl3_layer6.tres" id="8_fqb7k"]
 [ext_resource type="SpriteFrames" uid="uid://8y60p0ypjgii" path="res://resources/sprite_frames/towers/tower_artillery_lvl3_layer7.tres" id="9_j7n3x"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://resources/classes/search_resource.gd" id="10_tewo5"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="12_tewo5"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="13_mgs43"]
 
 [sub_resource type="Resource" id="Resource_mgs43"]
 script = ExtResource("2_pqn5j")
 any = &"idle"
 
+[sub_resource type="Resource" id="Resource_amoxe"]
+resource_local_to_scene = true
+script = ExtResource("10_tewo5")
+max_radius = 300.0
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
 [sub_resource type="Resource" id="Resource_32uxe"]
 script = ExtResource("13_mgs43")
 any = Vector2(0, -77.89)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_tb2hh"]
+resource_local_to_scene = true
+script = ExtResource("12_tewo5")
+damage_min = 30.0
+damage_max = 60.0
+damage_type = 4
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArtilleryLvl3" unique_id=1600363506 instance=ExtResource("1_mgs43")]
 scene_name = "tower_artillery_lvl_3"
@@ -56,8 +77,7 @@ price = 320.0
 select_rect = Rect2(-96.495, -82.975, 179.84, 110.07)
 
 [node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
+search = SubResource("Resource_amoxe")
 bullet = "tower_artillery_lvl_3_bullet"
 bullet_offsets = SubResource("Resource_32uxe")
-damage_min = 30.0
-damage_max = 60.0
-damage_max_radius = 160.0
+influence = SubResource("Resource_tb2hh")

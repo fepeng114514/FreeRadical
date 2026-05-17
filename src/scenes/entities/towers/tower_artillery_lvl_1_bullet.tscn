@@ -32,10 +32,10 @@ idle_animation = SubResource("Resource_wmreg")
 trajectory = SubResource("Resource_arty_traj")
 rotation_speed = 6.0
 look_to = false
-hit_payloads = PackedStringArray("explosion_air")
 hit_sfx = SubResource("Resource_ac2ml")
-miss_payloads = PackedStringArray("explosion_air")
+hit_payloads = PackedStringArray("explosion_air")
 miss_sfx = SubResource("Resource_jmmy1")
+miss_payloads = PackedStringArray("explosion_air")
 
 [node name="SpriteComponent" type="Node2D" parent="." index="1" unique_id=1297058768]
 script = ExtResource("2_0mq2b")

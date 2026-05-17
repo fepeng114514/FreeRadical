@@ -67,9 +67,10 @@ func _update() -> void:
 	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
 	if skill_c:
 		var first_ranged_skill: SkillRanged = skill_c.get_child(0)
-		
-		ranged_min_range_circle._show(first_ranged_skill.min_range, base_position, tween_scale_time)
-		ranged_max_range_circle._show(first_ranged_skill.max_range, base_position, tween_scale_time)
+		var search: SearchResource = first_ranged_skill.search
+
+		ranged_min_range_circle._show(search.min_radius, base_position, tween_scale_time)
+		ranged_max_range_circle._show(search.max_radius, base_position, tween_scale_time)
 
 	var melee_c: MeleeComponent = selected_entity.get_node_or_null(C.CN_MELEE)
 	if melee_c:
@@ -85,15 +86,16 @@ func _update() -> void:
 			
 			var f_skill_c: SkillComponent = first_entity.get_node_or_null(C.CN_SKILL)
 			var first_ranged_skill: SkillRanged = f_skill_c.get_child(0)
+			var search: SearchResource = first_ranged_skill.search
 			var pos: Vector2 = base_position + tower_c.show_range_offset
 		
 			ranged_min_range_circle._show(
-				first_ranged_skill.min_range, 
+				search.min_radius, 
 				pos,
 				tween_scale_time
 			)
 			ranged_max_range_circle._show(
-				first_ranged_skill.max_range, 
+				search.max_radius, 
 				pos,
 				tween_scale_time
 			)
@@ -123,5 +125,6 @@ func _show_melee_circle(e: Entity) -> void:
 		if rally_center_position != Vector2.ZERO:
 			pos = rally_center_position - global_position - melee_max_range_circle.size / 2
 	
-	melee_min_range_circle._show(melee_c.block_min_range, pos, tween_scale_time)
-	melee_max_range_circle._show(melee_c.block_max_range, pos, tween_scale_time)
+	var search: SearchResource = melee_c.search
+	melee_min_range_circle._show(search.min_radius, pos, tween_scale_time)
+	melee_max_range_circle._show(search.max_radius, pos, tween_scale_time)

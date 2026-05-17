@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://ecs/components/melee_component.gd" id="8_wdwo4"]
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://ecs/components/skills/skill_melee.gd" id="9_cit00"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="9_w6k81"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="11_fu215"]
 
 [sub_resource type="Resource" id="Resource_58mnm"]
 script = ExtResource("2_58mnm")
@@ -35,6 +36,14 @@ script = ExtResource("9_w6k81")
 mirror_horizontal = true
 right = Vector2(30.15, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_27tcs"]
+resource_local_to_scene = true
+script = ExtResource("11_fu215")
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_m3i2n"]
 script = ExtResource("2_58mnm")
@@ -87,7 +96,7 @@ metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="SkillMelee" type="Node2D" parent="MeleeComponent" unique_id=1304104648]
 script = ExtResource("9_cit00")
-mods = PackedStringArray()
+influence = SubResource("Resource_27tcs")
 whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 delay = 0.3

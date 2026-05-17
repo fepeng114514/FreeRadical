@@ -346,10 +346,18 @@ func sort_entities_by_type(
 				
 				var e1_melee_c: MeleeComponent = e1.get_node_or_null(C.CN_MELEE)
 				if e1_melee_c:
-					d1 = e1_melee_c.list[0].damage_max
+					var first_skill: SkillMelee = e1_melee_c.get_child(0)
+					var influence: InfluenceResource = first_skill.influence
+
+					if influence:
+						d1 = influence.damage_max
 				var e2_melee_c: MeleeComponent = e2.get_node_or_null(C.CN_MELEE)
 				if e2_melee_c:
-					d2 = e2_melee_c.list[0].damage_max
+					var first_skill: SkillMelee = e2_melee_c.get_child(0)
+					var influence: InfluenceResource = first_skill.influence
+
+					if influence:
+						d2 = influence.damage_max
 
 				return d1 > d2 if not reversed else d1 < d2
 		SortMode.RANGED_DAMAGE:
@@ -359,14 +367,18 @@ func sort_entities_by_type(
 
 				var e1_skill_c: SkillComponent = e1.get_node_or_null(C.CN_SKILL)
 				if e1_skill_c:
-					d1 = get_entity_data(
-						e1_skill_c.list[0].bullet
-					).get_node_or_null(C.CN_BULLET).damage_max
+					var first_skill: Skill = e1_skill_c.get_child(0)
+					var influence: InfluenceResource = first_skill.influence
+
+					if influence:
+						d1 = influence.damage_max
 				var e2_skill_c: SkillComponent = e2.get_node_or_null(C.CN_SKILL)
 				if e2_skill_c:
-					d2 = get_entity_data(
-						e2_skill_c.list[0].bullet
-					).get_node_or_null(C.CN_BULLET).damage_max
+					var first_skill: Skill = e1_skill_c.get_child(0)
+					var influence: InfluenceResource = first_skill.influence
+
+					if influence:
+						d2 = influence.damage_max
 
 				return d1 > d2 if not reversed else d1 < d2
 		SortMode.ID:

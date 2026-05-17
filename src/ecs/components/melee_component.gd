@@ -30,8 +30,8 @@ enum MeleeState {
 	set(value):
 		melee_pos_offsets = value
 		if Engine.is_editor_hint():
-			U.connect_offset_group_changed(melee_pos_offsets, _on_melee_pos_offsets_changed)
-		queue_redraw()
+			U.connect_resource_changed(melee_pos_offsets, queue_redraw)
+			queue_redraw()
 ## 到达位置的阈值
 @export var arrived_distance: float = 10
 
@@ -41,18 +41,7 @@ enum MeleeState {
 	set(value):
 		is_blocker = value
 		update_configuration_warnings()
-## 拦截最小范围
-@export var block_min_range: float = 0:
-	set(value):
-		block_min_range = value
-		queue_redraw()
-## 拦截最大范围
-@export var block_max_range: float = 100:
-	set(value):
-		block_max_range = value
-		queue_redraw()
-## 搜索模式
-@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
+@export var search: SearchResource = null
 ## 最大被拦截者数量
 @export var max_blocked: int = 1
 
@@ -65,11 +54,6 @@ enum MeleeState {
 ## 拦截成本
 @export var block_cost: int = 1
 
-@export_group("Limit")
-## 拦截标识
-@export var block_flags: int = 0
-## 禁止拦截的标识
-@export var block_bans: int = 0
 
 ## 拦截者 ID 列表
 var blocker_id_list := PackedInt32Array()
@@ -93,17 +77,13 @@ var melee_state: MeleeState = MeleeState.ORIGIN_POS_ARRIVED
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		U.connect_offset_group_changed(melee_pos_offsets, _on_melee_pos_offsets_changed)
-
-
-func _on_melee_pos_offsets_changed() -> void:
-	queue_redraw()
+		U.connect_resource_changed(melee_pos_offsets, queue_redraw)
 
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
 		if is_blocker:
-			U.draw_range_circle(self, position, block_min_range, block_max_range, Color.BLUE)
+			search.draw(self, position)
 		U.draw_offset_group(self, melee_pos_offsets)
 	
 	
@@ -175,7 +155,7 @@ func cleanup_melee_relations(e: Entity) -> void:
 				continue 
 				
 			if not U.is_in_ring(
-					center, blocked.global_position, block_min_range, block_max_range
+					center, blocked.global_position, search.min_radius, search.max_radius
 				):
 				continue
 				

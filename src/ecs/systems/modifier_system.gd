@@ -152,21 +152,7 @@ func _process_modifier_update() -> void:
 			return
 
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
-		
-		if modifier_c.cycle_damage_enable:
-			var d := Damage.new()
-			d.target_id = target.id
-			d.source_id = e.id
-			d.source_name = e.name
-			d.value = d.get_random_value(modifier_c.damage_min, modifier_c.damage_max)
-			d.damage_type = modifier_c.damage_type
-			d.damage_flags = modifier_c.damage_flags
-			d.insert_damage()
-			
-		if modifier_c.cycle_heal_enable:
-				var t_health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
-				t_health_c.heal(modifier_c.heal_value, modifier_c.heal_type)
-
+		modifier_c.influence.take(e, target, target.global_position)
 		e._on_modifier_period(target, modifier_c)
 
 		modifier_c.curren_cycle += 1

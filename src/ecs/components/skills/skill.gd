@@ -34,10 +34,6 @@ func _validate_property(property: Dictionary) -> void:
 			property.hint_string = "mask_enum:Flag"
 		"bans":
 			property.hint_string = "mask_enum:Flag"
-		"damage_type":
-			property.hint_string = "mask_enum:DamageType"
-		"damage_flags":
-			property.hint_string = "mask_enum:DamageFlag"
 
 
 @warning_ignore_start("unused_parameter")
@@ -51,38 +47,3 @@ static func can_attack(skill: Skill, target: Entity) -> bool:
 		and not U.is_mutual_ban(target.flags, skill.bans, skill.flags, target.bans)
 		and U.is_allowed_entity(skill, target)
 	)
-	
-	
-static func search_target(e: Entity, skill: Skill) -> Entity:
-	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
-	if not target:
-		var targets: Array[Entity] = EntityMgr.search_targets(
-			skill.search_mode, 
-			e.global_position, 
-			skill.max_range, 
-			skill.min_range, 
-			skill.flags, 
-			skill.bans
-		)
-		if targets:
-			target = targets[0]
-		
-	if not can_attack(skill, target):
-		return null
-	
-	return target
-
-
-static func search_targets(e: Entity, skill: Skill) -> Array[Entity]:
-	var targets: Array[Entity] = EntityMgr.search_targets(
-		skill.search_mode, 
-		e.global_position, 
-		skill.max_range, 
-		skill.min_range, 
-		skill.flags, 
-		skill.bans,
-		func(t: Entity) -> bool:
-			return can_attack(skill, t)
-	)
-	
-	return targets

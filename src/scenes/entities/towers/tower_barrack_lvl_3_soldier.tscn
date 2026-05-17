@@ -2,6 +2,26 @@
 
 [ext_resource type="PackedScene" uid="uid://f30rl46i8akx" path="res://scenes/entities/towers/tower_barrack_lvl_1_soldier.tscn" id="1_6fjjf"]
 [ext_resource type="SpriteFrames" uid="uid://cmctafndafvs4" path="res://resources/sprite_frames/towers/tower_barracks_soldier_lvl3.tres" id="2_41ehm"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://resources/classes/search_resource.gd" id="3_uposi"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="4_uposi"]
+
+[sub_resource type="Resource" id="Resource_obj8f"]
+resource_local_to_scene = true
+script = ExtResource("3_uposi")
+max_radius = 100.0
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_g6v5n"]
+resource_local_to_scene = true
+script = ExtResource("4_uposi")
+damage_min = 6.0
+damage_max = 10.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerBarrackLvl3Soldier" unique_id=1677548747 instance=ExtResource("1_6fjjf")]
 scene_name = "tower_barrack_lvl_3_soldier"
@@ -11,12 +31,14 @@ sprite_frames = ExtResource("2_41ehm")
 
 [node name="HealthComponent" parent="." index="1" unique_id=949799713]
 hp_max = 150.0
-physical_armor = 30
+physical_armor = 30.0
 idle_regen_hp = 10.0
 
-[node name="SkillMelee" parent="MeleeComponent" parent_id_path=PackedInt32Array(668314156) index="0" unique_id=1014449767]
-damage_min = 6.0
-damage_max = 10.0
+[node name="MeleeComponent" parent="." index="2" unique_id=668314156]
+search = SubResource("Resource_obj8f")
+
+[node name="SkillMelee" parent="MeleeComponent" index="0" unique_id=1014449767]
+influence = SubResource("Resource_g6v5n")
 
 [node name="UIComponent" parent="." index="4" unique_id=346591849]
 select_rect = Rect2(-15.555, -40.245, 32.735, 40.255)

@@ -51,6 +51,7 @@ func _validate_property(property: Dictionary):
 		"up":
 			if mirror_vertical:
 				property.usage = PROPERTY_USAGE_NONE
+				
 
 ## 根据方向获取相应偏移
 func get_offset_for_point(center: Vector2, point: Vector2) -> Vector2:

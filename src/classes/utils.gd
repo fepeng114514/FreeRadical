@@ -697,13 +697,13 @@ static func draw_range_circle(
 
 
 #region 编辑器相关方法
-static func connect_offset_group_changed(offset_group: OffsetGroup, callable: Callable) -> void:
-	if not offset_group:
+static func connect_resource_changed(resource: Resource, callable: Callable) -> void:
+	if not resource:
 		return
 
-	var offsets_changed: Signal = offset_group.changed
-	if offsets_changed.is_connected(callable):
+	var changed: Signal = resource.changed
+	if changed.is_connected(callable):
 		return
 
-	offsets_changed.connect(callable)
+	changed.connect(callable)
 #endregion

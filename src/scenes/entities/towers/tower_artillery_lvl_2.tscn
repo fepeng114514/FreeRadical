@@ -8,12 +8,33 @@
 [ext_resource type="SpriteFrames" uid="uid://bhakq223ta83" path="res://resources/sprite_frames/towers/tower_artillery_lvl2_layer5.tres" id="6_opgrv"]
 [ext_resource type="SpriteFrames" uid="uid://5lcnqcwo0nwu" path="res://resources/sprite_frames/towers/tower_artillery_lvl2_layer6.tres" id="7_e0rle"]
 [ext_resource type="SpriteFrames" uid="uid://dfrtroogabqr0" path="res://resources/sprite_frames/towers/tower_artillery_lvl2_layer7.tres" id="8_4pii2"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://resources/classes/search_resource.gd" id="9_kj6gf"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="11_kj6gf"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="13_3bdla"]
+
+[sub_resource type="Resource" id="Resource_qpetq"]
+resource_local_to_scene = true
+script = ExtResource("9_kj6gf")
+max_radius = 300.0
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_thpnf"]
 script = ExtResource("13_3bdla")
 any = Vector2(0, -71.905)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_opgrv"]
+resource_local_to_scene = true
+script = ExtResource("11_kj6gf")
+damage_min = 20.0
+damage_max = 40.0
+damage_type = 4
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArtilleryLvl2" unique_id=1600363506 instance=ExtResource("1_mlysv")]
 scene_name = "tower_artillery_lvl_2"
@@ -47,7 +68,7 @@ show_range_offset = Vector2(0, 43.52)
 price = 225.0
 
 [node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
+search = SubResource("Resource_qpetq")
 bullet = "tower_artillery_lvl_2_bullet"
 bullet_offsets = SubResource("Resource_thpnf")
-damage_min = 20.0
-damage_max = 40.0
+influence = SubResource("Resource_opgrv")

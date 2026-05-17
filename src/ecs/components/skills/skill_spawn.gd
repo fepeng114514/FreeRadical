@@ -9,65 +9,50 @@ class_name SkillSpawn
 	set(value):
 		spawn_offsets = value
 		if Engine.is_editor_hint():
-			U.connect_offset_group_changed(spawn_offsets, _on_spawn_offsets_changed)
-		queue_redraw()
-
-@export_group("Search")
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var search_enable: bool = true
-@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
-## 最小搜索距离
-@export var min_range: float = 0:
+			U.connect_resource_changed(spawn_offsets, queue_redraw)
+			queue_redraw()
+@export var search: SearchResource = null:
 	set(value):
-		min_range = value
-		queue_redraw()
-## 最大搜索距离
-@export var max_range: float = 300:
-	set(value):
-		max_range = value
-		queue_redraw()
-## 技能标识
-@export var flags: C.Flag = C.Flag.NONE
-## 不可搜索的目标的标识
-@export var bans: int = 0
-## 可搜索的目标的场景名称列表
-@export var whitelist := PackedStringArray()
-## 不可搜索的目标的场景名称列表
-@export var blacklist := PackedStringArray()
+		search = value
+		if Engine.is_editor_hint():
+			U.connect_resource_changed(search, queue_redraw)
+			queue_redraw()
+@export var search_target_pos: bool = false
 
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		U.connect_offset_group_changed(spawn_offsets, _on_spawn_offsets_changed)
-
-
-func _on_spawn_offsets_changed() -> void:
-	queue_redraw()
+		U.connect_resource_changed(spawn_offsets, queue_redraw)
+		U.connect_resource_changed(search, queue_redraw)
 
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
+		if search:
+			search.draw(self, position)
+
 		U.draw_offset_group(self, spawn_offsets)
-		U.draw_range_circle(self, position, min_range, max_range)
 
 
 func _do_skill(e: Entity) -> void:
 	var target: Entity = null
-	if search_enable:
-		target = search_target(e, self)
-		if not target:
+	if search:
+		var targets: Array[Entity] = search.search_targets(e, e.global_position)
+		if not targets:
 			return
-
+			
+		target = targets[0]
 		e.look_point = target.global_position
 
 	e.play_animation_by_look(animation, "ranged")
 	AudioMgr.play_sfx(sfx)
 	await e.y_wait(delay)
 
-	if search_enable and not target:
+	if search and not target:
 		return
 
 	var e_global_pos: Vector2 = e.global_position
-	var spawn_pos: Vector2 = e_global_pos if not search_enable else target.global_position
+	var spawn_pos: Vector2 = target.global_position if search_target_pos else e_global_pos
 	if spawn_offsets:
 		var spawn_offset: Vector2 = spawn_offsets.get_offset_for_point(e_global_pos, e.look_point)
 		spawn_pos += spawn_offset

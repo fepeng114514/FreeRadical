@@ -1,11 +1,31 @@
 [gd_scene format=3 uid="uid://cdu8pyq7bit5w"]
 
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://scenes/entities/towers/tower_mage_lvl_1_shooter.tscn" id="1_iadta"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://resources/classes/search_resource.gd" id="2_gseup"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="3_gseup"]
+
+[sub_resource type="Resource" id="Resource_75lai"]
+resource_local_to_scene = true
+script = ExtResource("2_gseup")
+max_radius = 300.0
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_bg6fc"]
+resource_local_to_scene = true
+script = ExtResource("3_gseup")
+damage_min = 40.0
+damage_max = 74.0
+damage_type = 2
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerMageLvl3Shooter" unique_id=1442245649 instance=ExtResource("1_iadta")]
 scene_name = "tower_mage_lvl_3_shooter"
 
 [node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(1268978688) index="0" unique_id=14077948]
-damage_min = 40.0
-damage_max = 74.0
-mods = PackedStringArray()
+search = SubResource("Resource_75lai")
+influence = SubResource("Resource_bg6fc")

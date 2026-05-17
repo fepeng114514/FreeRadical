@@ -23,6 +23,7 @@ class_name UIComponent
 		select_menu_offset = value
 		queue_redraw()
 
+
 func _draw() -> void:
 	if Engine.is_editor_hint():
 		if not can_select:

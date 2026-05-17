@@ -34,8 +34,8 @@ class_name BarrackComponent
 	set(value):
 		spawn_offsets = value
 		if Engine.is_editor_hint():
-			U.connect_offset_group_changed(spawn_offsets, _on_spawn_offsets_changed)
-		queue_redraw()
+			U.connect_resource_changed(spawn_offsets, queue_redraw)
+			queue_redraw()
 ## 最大士兵数量
 @export var max_soldiers: int = 3
 ## 生成士兵播放的动画
@@ -58,14 +58,10 @@ var last_blocked_id_list: Array[PackedInt32Array] = []
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		U.connect_offset_group_changed(spawn_offsets, _on_spawn_offsets_changed)
+		U.connect_resource_changed(spawn_offsets, queue_redraw)
 	else:
 		soldier_group = EntityGroup.new()
 		add_child(soldier_group)
-
-
-func _on_spawn_offsets_changed() -> void:
-	queue_redraw()
 
 
 func _draw() -> void:

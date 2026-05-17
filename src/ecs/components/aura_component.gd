@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 class_name AuraComponent
 ## 光环组件
 ## 
@@ -13,34 +13,18 @@ class_name AuraComponent
 @export var cycle_time: float = 1
 ## 最大周期数
 @export var max_cycle: int = C.UNSET
-## 最大可影响的实体数量
-@export var max_influenced: int = C.UNSET
-## 状态效果场景名称
-@export var mods := PackedStringArray()
-
-@export_subgroup("Search")
-## 最小范围
-@export var min_radius: float = 0
-## 最大范围
-@export var max_radius: float = 0
-## 搜索模式
-@export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
-
-@export_subgroup("Damage")
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_damage_enable: bool = false
-## 最小伤害
-@export var damage_min: float = 0
-## 最大伤害
-@export var damage_max: float = 0
-## 伤害类型
-@export var damage_type: int = C.DamageType.TRUE
-## 伤害标识
-@export var damage_flags: int = 0
-
-@export_subgroup("Heal")
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_heal_enable: bool = false
-@export var heal_value: float = 0
-@export var heal_type: HealthComponent.HealType = HealthComponent.HealType.ADD
+@export var search: SearchResource = null:
+	set(value):
+		search = value
+		if Engine.is_editor_hint():
+			U.connect_resource_changed(search, queue_redraw)
+			queue_redraw()
+@export var influence: InfluenceResource = null:
+	set(value):
+		influence = value
+		if Engine.is_editor_hint():
+			U.connect_resource_changed(influence, queue_redraw)
+			queue_redraw()
 
 @export_group("Same Process")
 ## 是否允许相同光环叠加
@@ -60,11 +44,22 @@ var curren_cycle: int = 0
 var ts: float = 0
 
 
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		U.connect_resource_changed(search, queue_redraw)
+		U.connect_resource_changed(influence, queue_redraw)
+
+
 func _validate_property(property: Dictionary):
 	match property.name:
-		"damage_type":
-			property.hint_string = "mask_enum:DamageType"
-		"damage_flags":
-			property.hint_string = "mask_enum:DamageFlag"
 		"aura_type":
 			property.hint_string = "mask_enum:AuraType"
+
+
+func _draw() -> void:
+	if Engine.is_editor_hint():
+		if search:
+			search.draw(self, position)
+		
+		if influence:
+			influence.draw(self, position)

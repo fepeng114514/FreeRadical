@@ -100,46 +100,20 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	for e: Entity in EntityMgr.get_entities_group(C.GROUP_AURAS):
 		var aura_c: AuraComponent = e.get_node_or_null(C.CN_AURA)
-		var targets: Array[Entity] = EntityMgr.search_targets(
-			aura_c.search_mode, 
-			e.global_position, 
-			aura_c.max_radius, 
-			aura_c.min_radius, 
-			e.flags, 
-			e.bans
-		)
-		if U.is_valid_number(aura_c.max_influenced):
-			targets.resize(aura_c.max_influenced)
 
 		# 周期效果
-		if (
-			not U.is_valid_number(aura_c.cycle_time) 
-			or not TimeMgr.is_ready_time(aura_c.ts, aura_c.cycle_time)
-		):
+		if not TimeMgr.is_ready_time(aura_c.ts, aura_c.cycle_time):
 			return
 
 		# 最大周期数
-		if U.is_valid_number(aura_c.max_cycle) and aura_c.curren_cycle > aura_c.max_cycle:
-			e.remove_entity()
-			return
+		if U.is_valid_number(aura_c.max_cycle):
+			if aura_c.curren_cycle > aura_c.max_cycle:
+				e.remove_entity()
+				return
 
-		var e_id: int = e.id
+		var targets: Array[Entity] = aura_c.search.search_targets(e, e.global_position)
 		for target: Entity in targets:
-			if aura_c.cycle_damage_enable:
-				var d := Damage.new()
-				d.target_id = target.id
-				d.source_id = e_id
-				d.source_name = e.name
-				d.value = d.get_random_value(aura_c.damage_min, aura_c.damage_max)
-				d.damage_type = aura_c.damage_type
-				d.damage_flags = aura_c.damage_flags
-				d.insert_damage()
-				
-			if aura_c.cycle_heal_enable:
-				var t_health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
-				t_health_c.heal(aura_c.heal_value, aura_c.heal_type)
-
-			EntityMgr.create_mods(target.id, aura_c.mods, e.id)
+			aura_c.influence.take(e, target, target.global_position)
 
 		e._on_aura_period(targets, aura_c)
 

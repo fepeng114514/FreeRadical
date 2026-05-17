@@ -52,7 +52,7 @@ enum State {
 	set(value):
 		hit_offsets = value
 		if Engine.is_editor_hint():
-			U.connect_offset_group_changed(hit_offsets, _on_hit_offsets_changed)
+			U.connect_resource_changed(hit_offsets, queue_redraw)
 			queue_redraw()
 
 @export_group("Limit")
@@ -104,7 +104,7 @@ func _ready() -> void:
 	scene_name = scene_file_path.get_file().get_basename()
 
 	if Engine.is_editor_hint():
-		U.connect_offset_group_changed(hit_offsets, _on_hit_offsets_changed)
+		U.connect_resource_changed(hit_offsets, queue_redraw)
 	else:
 		for child: Node in get_children():
 			var node_script: GDScript = child.get_script()
@@ -116,10 +116,6 @@ func _ready() -> void:
 				continue
 				
 			components[node_class] = child
-
-
-func _on_hit_offsets_changed() -> void:
-	queue_redraw()
 		
 
 func _validate_property(property: Dictionary):

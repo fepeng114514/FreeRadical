@@ -6,8 +6,10 @@
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://ecs/components/skill_component.gd" id="4_nhbol"]
 [ext_resource type="SpriteFrames" uid="uid://j6iq1p753voi" path="res://resources/sprite_frames/towers/tower_mage_shooter.tres" id="4_vtoys"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://ecs/components/skills/skill_ranged.gd" id="5_vssey"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://resources/classes/search_resource.gd" id="7_n6q0g"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="7_vtoys"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="8_vtoys"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="9_n6q0g"]
 
 [sub_resource type="Resource" id="Resource_i3jkb"]
 script = ExtResource("2_8g6nx")
@@ -15,11 +17,30 @@ up = &"idle_up"
 down = &"idle_down"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
+[sub_resource type="Resource" id="Resource_tuthn"]
+resource_local_to_scene = true
+script = ExtResource("7_n6q0g")
+max_radius = 300.0
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
 [sub_resource type="Resource" id="Resource_c4v6e"]
 script = ExtResource("7_vtoys")
 up = Vector2(13.05, -34.11)
 down = Vector2(-12.69, -34.47)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_1g575"]
+resource_local_to_scene = true
+script = ExtResource("9_n6q0g")
+damage_min = 9.0
+damage_max = 17.0
+damage_type = 2
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_8g6nx"]
 script = ExtResource("2_8g6nx")
@@ -56,13 +77,10 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="SkillRanged" type="Node2D" parent="SkillComponent" unique_id=14077948]
 script = ExtResource("5_vssey")
+search = SubResource("Resource_tuthn")
 bullet = "tower_mage_bullet"
 bullet_offsets = SubResource("Resource_c4v6e")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
-damage_min = 9.0
-damage_max = 17.0
-mods = PackedStringArray()
+influence = SubResource("Resource_1g575")
 cooldown = 1.5
 delay = 0.3
 animation = SubResource("Resource_8g6nx")

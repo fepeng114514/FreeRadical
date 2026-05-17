@@ -2,6 +2,26 @@
 
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/towers/tower_archer_lvl_1_shooter.tscn" id="1_yxrdi"]
 [ext_resource type="SpriteFrames" uid="uid://b54oxlqdc6n82" path="res://resources/sprite_frames/towers/tower_archer_lvl3_shooter.tres" id="2_il870"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://resources/classes/search_resource.gd" id="3_oe5ok"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="4_oe5ok"]
+
+[sub_resource type="Resource" id="Resource_i1dpe"]
+resource_local_to_scene = true
+script = ExtResource("3_oe5ok")
+max_radius = 300.0
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_jjvlh"]
+resource_local_to_scene = true
+script = ExtResource("4_oe5ok")
+damage_min = 10.0
+damage_max = 16.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArcherLvl3Shooter" unique_id=2011504655 instance=ExtResource("1_yxrdi")]
 scene_name = "tower_archer_lvl_3_shooter"
@@ -10,7 +30,6 @@ scene_name = "tower_archer_lvl_3_shooter"
 sprite_frames = ExtResource("2_il870")
 
 [node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
-damage_min = 10.0
-damage_max = 16.0
-mods = PackedStringArray()
+search = SubResource("Resource_i1dpe")
+influence = SubResource("Resource_jjvlh")
 cooldown = 0.5

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://scenes/entities/enemies/enemy.tscn" id="1_bfbt7"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://resources/classes/offset_group.gd" id="2_nf0rk"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="2_o2c0j"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="4_nff4e"]
 
 [sub_resource type="Resource" id="Resource_nff4e"]
 script = ExtResource("2_nf0rk")
@@ -14,6 +15,16 @@ script = ExtResource("2_o2c0j")
 list = Array[StringName]([&"sound_enemy_goblin_dead"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
+[sub_resource type="Resource" id="Resource_5b6xs"]
+resource_local_to_scene = true
+script = ExtResource("4_nff4e")
+damage_min = 1.0
+damage_max = 4.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
+
 [node name="EnemyGoblin" unique_id=71433118 instance=ExtResource("1_bfbt7")]
 scene_name = "enemy_goblin"
 hit_offsets = SubResource("Resource_nff4e")
@@ -23,5 +34,4 @@ death_gold = 60.0
 death_sfx = SubResource("Resource_nf0rk")
 
 [node name="SkillMelee" parent="MeleeComponent" parent_id_path=PackedInt32Array(768145759) index="0" unique_id=1304104648]
-damage_min = 1.0
-damage_max = 4.0
+influence = SubResource("Resource_5b6xs")
