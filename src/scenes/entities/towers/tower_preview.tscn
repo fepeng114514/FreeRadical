@@ -7,8 +7,6 @@
 [node name="TowerPreview" type="Node2D" unique_id=869103732]
 script = ExtResource("1_vp3d5")
 scene_name = "tower_preview"
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1231309932]

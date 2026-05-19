@@ -2,11 +2,21 @@
 
 [ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://scenes/entities/towers/tower_archer.tscn" id="1_1k3m4"]
 [ext_resource type="Texture2D" uid="uid://c3dqjvjtkydio" path="res://resources/atlas_textures/image_towers/tower_archer_0002.tres" id="2_pmlw2"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://resources/classes/interact_policy.gd" id="2_udjnv"]
 [ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://ecs/entity_group_2d.gd" id="3_8t32b"]
 [ext_resource type="PackedScene" uid="uid://bt5cby21sk5sc" path="res://scenes/entities/towers/tower_archer_lvl_2_shooter.tscn" id="4_s0mgi"]
 
+[sub_resource type="Resource" id="Resource_mp3ho"]
+resource_local_to_scene = true
+script = ExtResource("2_udjnv")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
 [node name="TowerArcherLvl2" unique_id=1010851235 instance=ExtResource("1_1k3m4")]
 scene_name = "tower_archer_lvl_2"
+interact_policy = SubResource("Resource_mp3ho")
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=708564869]
 texture = ExtResource("2_pmlw2")

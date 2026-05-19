@@ -14,8 +14,6 @@ any = &"idle"
 script = ExtResource("1_tmxxw")
 scene_name = "explosion_air"
 idle_animation = SubResource("Resource_qvfn2")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1249947656]

@@ -21,8 +21,6 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 resource_local_to_scene = true
 script = ExtResource("7_n6q0g")
 max_radius = 300.0
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_c4v6e"]
@@ -57,8 +55,6 @@ metadata/_custom_type_script = "uid://b2b214g352w4u"
 script = ExtResource("1_3kgdc")
 scene_name = "tower_mage_lvl_1_shooter"
 idle_animation = SubResource("Resource_i3jkb")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1069558628]

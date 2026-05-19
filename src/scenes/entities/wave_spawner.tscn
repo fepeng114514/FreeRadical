@@ -7,17 +7,16 @@
 
 [sub_resource type="Resource" id="Resource_jhhff"]
 script = ExtResource("2_11f2j")
-list = Array[StringName](["sound_next_wave_ready"])
+list = Array[StringName]([&"sound_next_wave_ready"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_p3jos"]
 script = ExtResource("2_11f2j")
-list = Array[StringName](["sound_wave_incoming"])
+list = Array[StringName]([&"sound_wave_incoming"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_x08x5"]
 script = ExtResource("2_n3r7w")
-left_right = "idle_left_right"
 
 [node name="WaveSpawner" type="Node2D" unique_id=708476456]
 script = ExtResource("1_x08x5")

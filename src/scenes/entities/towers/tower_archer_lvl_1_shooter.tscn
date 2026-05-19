@@ -19,8 +19,6 @@ down = &"idle_down"
 resource_local_to_scene = true
 script = ExtResource("7_miroj")
 max_radius = 300.0
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_367kr"]
@@ -47,8 +45,6 @@ down = &"ranged_down"
 script = ExtResource("1_kc3g7")
 scene_name = "tower_archer_lvl_1_shooter"
 idle_animation = SubResource("Resource_e0w6f")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=650442870]

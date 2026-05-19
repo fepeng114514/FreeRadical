@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://fx352ubic8aw" path="res://scenes/entities/towers/tower_artillery_lvl_1.tscn" id="1_mgs43"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_pqn5j"]
 [ext_resource type="SpriteFrames" uid="uid://w0xwg42koqj5" path="res://resources/sprite_frames/towers/tower_artillery_lvl3_layer1.tres" id="3_5myai"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://resources/classes/interact_policy.gd" id="3_amoxe"]
 [ext_resource type="SpriteFrames" uid="uid://b0m607jrcyqrn" path="res://resources/sprite_frames/towers/tower_artillery_lvl3_layer2.tres" id="4_gdik0"]
 [ext_resource type="SpriteFrames" uid="uid://bjwagyeub5st1" path="res://resources/sprite_frames/towers/tower_artillery_lvl3_layer3.tres" id="5_tewo5"]
 [ext_resource type="SpriteFrames" uid="uid://bv3fjthvtrset" path="res://resources/sprite_frames/towers/tower_artillery_lvl3_layer4.tres" id="6_amoxe"]
@@ -17,12 +18,18 @@
 script = ExtResource("2_pqn5j")
 any = &"idle"
 
-[sub_resource type="Resource" id="Resource_amoxe"]
+[sub_resource type="Resource" id="Resource_tb2hh"]
+resource_local_to_scene = true
+script = ExtResource("3_amoxe")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_fqb7k"]
 resource_local_to_scene = true
 script = ExtResource("10_tewo5")
 max_radius = 300.0
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_32uxe"]
@@ -30,7 +37,7 @@ script = ExtResource("13_mgs43")
 any = Vector2(0, -77.89)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_tb2hh"]
+[sub_resource type="Resource" id="Resource_j7n3x"]
 resource_local_to_scene = true
 script = ExtResource("12_tewo5")
 damage_min = 30.0
@@ -44,6 +51,7 @@ metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 [node name="TowerArtilleryLvl3" unique_id=1600363506 instance=ExtResource("1_mgs43")]
 scene_name = "tower_artillery_lvl_3"
 idle_animation = SubResource("Resource_mgs43")
+interact_policy = SubResource("Resource_tb2hh")
 
 [node name="SpriteGroup" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=557425361]
 position = Vector2(0, -53)
@@ -77,7 +85,7 @@ price = 320.0
 select_rect = Rect2(-96.495, -82.975, 179.84, 110.07)
 
 [node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
-search = SubResource("Resource_amoxe")
+search = SubResource("Resource_fqb7k")
 bullet = "tower_artillery_lvl_3_bullet"
 bullet_offsets = SubResource("Resource_32uxe")
-influence = SubResource("Resource_tb2hh")
+influence = SubResource("Resource_j7n3x")

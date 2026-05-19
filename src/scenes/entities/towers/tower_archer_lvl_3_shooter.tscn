@@ -5,15 +5,13 @@
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://resources/classes/search_resource.gd" id="3_oe5ok"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://resources/classes/influence_resources/influence_damage_resource.gd" id="4_oe5ok"]
 
-[sub_resource type="Resource" id="Resource_i1dpe"]
+[sub_resource type="Resource" id="Resource_oe5ok"]
 resource_local_to_scene = true
 script = ExtResource("3_oe5ok")
 max_radius = 300.0
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
-[sub_resource type="Resource" id="Resource_jjvlh"]
+[sub_resource type="Resource" id="Resource_i1dpe"]
 resource_local_to_scene = true
 script = ExtResource("4_oe5ok")
 damage_min = 10.0
@@ -30,6 +28,6 @@ scene_name = "tower_archer_lvl_3_shooter"
 sprite_frames = ExtResource("2_il870")
 
 [node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
-search = SubResource("Resource_i1dpe")
-influence = SubResource("Resource_jjvlh")
+search = SubResource("Resource_oe5ok")
+influence = SubResource("Resource_i1dpe")
 cooldown = 0.5

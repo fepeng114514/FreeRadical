@@ -1,11 +1,21 @@
 [gd_scene format=3 uid="uid://c3u01oty250k2"]
 
 [ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://scenes/entities/towers/tower_barrack_lvl_1.tscn" id="1_dgdoh"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://resources/classes/interact_policy.gd" id="2_5rts4"]
 [ext_resource type="Texture2D" uid="uid://b32318e0wyigx" path="res://resources/atlas_textures/image_towers/tower_barrack_0003.tres" id="2_5uvo8"]
 [ext_resource type="SpriteFrames" uid="uid://cp22ivv7rt2i0" path="res://resources/sprite_frames/towers/tower_barracks_lvl3_door.tres" id="3_5rts4"]
 
+[sub_resource type="Resource" id="Resource_f0w6h"]
+resource_local_to_scene = true
+script = ExtResource("2_5rts4")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
 [node name="TowerBarrackLvl3" unique_id=187367710 instance=ExtResource("1_dgdoh")]
 scene_name = "tower_barrack_lvl_3"
+interact_policy = SubResource("Resource_f0w6h")
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=927508667]
 texture = ExtResource("2_5uvo8")

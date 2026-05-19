@@ -176,16 +176,18 @@ func create_mods(
 
 ## 批量创建光环实体
 func create_auras(
-		scene_name_list: PackedStringArray,
+		target_id: int,
+		scene_name_list: PackedStringArray, 
 		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
 	return create_entities(
 		scene_name_list, 
-		func(e: Entity) -> void:
+		func(e):
+		e.target_id = target_id
 		e.source_id = source_id
-		,
+		, 
 		auto_insert
 	)
 #endregion
@@ -286,6 +288,107 @@ enum SortMode {
 }
 
 
+static func _sort_by_progress(e1: Entity, e2: Entity, reversed: bool) -> bool:
+	var p1: float = INF if reversed else -INF
+	var p2: float = INF if reversed else -INF
+
+	var e1_nav_c: NavPathComponent = e1.get_node_or_null(C.CN_NAV_PATH)
+	if e1_nav_c:
+		p1 = e1_nav_c.nav_progress
+
+	var e2_nav_c: NavPathComponent = e2.get_node_or_null(C.CN_NAV_PATH)
+	if e2_nav_c:
+		p2 = e2_nav_c.nav_progress
+
+	return p1 > p2 if not reversed else p1 < p2
+
+
+static func _sort_by_health(e1: Entity, e2: Entity, reversed: bool) -> bool:
+	var h1: float = INF if reversed else -INF
+	var h2: float = INF if reversed else -INF
+
+	var e1_health_c: HealthComponent = e1.get_node_or_null(C.CN_HEALTH)
+	if e1_health_c:
+		h1 = e1_health_c.hp
+	var e2_health_c: HealthComponent = e2.get_node_or_null(C.CN_HEALTH)
+	if e2_health_c:
+		h2 = e2_health_c.hp
+
+	return h1 > h2 if not reversed else h1 < h2
+
+
+static func _sort_by_gold(e1: Entity, e2: Entity, reversed: bool) -> bool:
+	var g1: float = INF if reversed else -INF
+	var g2: float = INF if reversed else -INF
+
+	var e1_health_c: HealthComponent = e1.get_node_or_null(C.CN_HEALTH)
+	if e1_health_c:
+		g1 = e1_health_c.death_gold
+	var e2_health_c: HealthComponent = e2.get_node_or_null(C.CN_HEALTH)
+	if e2_health_c:
+		g2 = e2_health_c.death_gold
+
+	return g1 > g2 if not reversed else g1 < g2
+
+
+static func _sort_by_distance(e1: Entity, e2: Entity, origin: Vector2, reversed: bool) -> bool:
+	var d1: float = e1.global_position.distance_squared_to(origin)
+	var d2: float = e2.global_position.distance_squared_to(origin)
+
+	return d1 > d2 if not reversed else d1 < d2
+
+
+static func _sort_by_melee_damage(e1: Entity, e2: Entity, reversed: bool) -> bool:
+	var d1: float = INF if reversed else -INF
+	var d2: float = INF if reversed else -INF
+	
+	var e1_melee_c: MeleeComponent = e1.get_node_or_null(C.CN_MELEE)
+	if e1_melee_c:
+		var first_skill: SkillMelee = e1_melee_c.get_child(0)
+		var influence: InfluenceResource = first_skill.influence
+
+		if influence:
+			d1 = influence.damage_max
+	var e2_melee_c: MeleeComponent = e2.get_node_or_null(C.CN_MELEE)
+	if e2_melee_c:
+		var first_skill: SkillMelee = e2_melee_c.get_child(0)
+		var influence: InfluenceResource = first_skill.influence
+
+		if influence:
+			d2 = influence.damage_max
+
+	return d1 > d2 if not reversed else d1 < d2
+
+
+static func _sort_by_ranged_damage(e1: Entity, e2: Entity, reversed: bool) -> bool:
+	var d1: float = INF if reversed else -INF
+	var d2: float = INF if reversed else -INF
+
+	var e1_skill_c: SkillComponent = e1.get_node_or_null(C.CN_SKILL)
+	if e1_skill_c:
+		var first_skill: Skill = e1_skill_c.get_child(0)
+		var influence: InfluenceResource = first_skill.influence
+
+		if influence:
+			d1 = influence.damage_max
+	var e2_skill_c: SkillComponent = e2.get_node_or_null(C.CN_SKILL)
+	if e2_skill_c:
+		var first_skill: Skill = e2_skill_c.get_child(0)
+		var influence: InfluenceResource = first_skill.influence
+
+		if influence:
+			d2 = influence.damage_max
+
+	return d1 > d2 if not reversed else d1 < d2
+
+
+static func _sort_by_id(e1: Entity, e2: Entity, reversed: bool) -> bool:
+	var i1: int = e1.id
+	var i2: int = e2.id
+	
+	return i1 > i2 if not reversed else i1 < i2
+
+
 ## 根据排序模式排序实体，默认最大在前，如果 reversed 为 true 则最小在前
 func sort_entities_by_type(
 		entities_array: Array[Entity], sort_type: SortMode, origin: Vector2, reversed: bool = false
@@ -294,99 +397,19 @@ func sort_entities_by_type(
 	
 	match sort_type:
 		SortMode.PROGRESS:
-			sort_function = func(e1: Entity, e2: Entity) -> bool:
-				var p1: float = INF if reversed else -INF
-				var p2: float = INF if reversed else -INF
-
-				var e1_nav_c: NavPathComponent = e1.get_node_or_null(C.CN_NAV_PATH)
-				if e1_nav_c:
-					p1 = e1_nav_c.nav_progress
-
-				var e2_nav_c: NavPathComponent = e2.get_node_or_null(C.CN_NAV_PATH)
-				if e2_nav_c:
-					p2 = e2_nav_c.nav_progress
-
-				return p1 > p2 if not reversed else p1 < p2
+			sort_function = _sort_by_progress.bind(reversed)
 		SortMode.HEALTH:
-			sort_function = func(e1: Entity, e2: Entity) -> bool:
-				var h1: float = INF if reversed else -INF
-				var h2: float = INF if reversed else -INF
-
-				var e1_health_c: HealthComponent = e1.get_node_or_null(C.CN_HEALTH)
-				if e1_health_c:
-					h1 = e1_health_c.hp
-				var e2_health_c: HealthComponent = e2.get_node_or_null(C.CN_HEALTH)
-				if e2_health_c:
-					h2 = e2_health_c.hp
-
-				return h1 > h2 if not reversed else h1 < h2
+			sort_function = _sort_by_health.bind(reversed)
 		SortMode.GOLD:
-			sort_function = func(e1: Entity, e2: Entity) -> bool:
-				var g1: float = INF if reversed else -INF
-				var g2: float = INF if reversed else -INF
-
-				var e1_health_c: HealthComponent = e1.get_node_or_null(C.CN_HEALTH)
-				if e1_health_c:
-					g1 = e1_health_c.death_gold
-				var e2_health_c: HealthComponent = e2.get_node_or_null(C.CN_HEALTH)
-				if e2_health_c:
-					g2 = e2_health_c.death_gold
-
-				return g1 > g2 if not reversed else g1 < g2
+			sort_function = _sort_by_gold.bind(reversed)
 		SortMode.DISTANCE:
-			sort_function = func(e1: Entity, e2: Entity) -> bool:
-				var d1: float = e1.global_position.distance_squared_to(origin)
-				var d2: float = e2.global_position.distance_squared_to(origin)
-
-				return d1 > d2 if not reversed else d1 < d2
+			sort_function = _sort_by_distance.bind(origin, reversed)
 		SortMode.MELEE_DAMAGE:
-			sort_function = func(e1: Entity, e2: Entity) -> bool:
-				var d1: float = INF if reversed else -INF
-				var d2: float = INF if reversed else -INF
-				
-				var e1_melee_c: MeleeComponent = e1.get_node_or_null(C.CN_MELEE)
-				if e1_melee_c:
-					var first_skill: SkillMelee = e1_melee_c.get_child(0)
-					var influence: InfluenceResource = first_skill.influence
-
-					if influence:
-						d1 = influence.damage_max
-				var e2_melee_c: MeleeComponent = e2.get_node_or_null(C.CN_MELEE)
-				if e2_melee_c:
-					var first_skill: SkillMelee = e2_melee_c.get_child(0)
-					var influence: InfluenceResource = first_skill.influence
-
-					if influence:
-						d2 = influence.damage_max
-
-				return d1 > d2 if not reversed else d1 < d2
+			sort_function = _sort_by_melee_damage.bind(reversed)
 		SortMode.RANGED_DAMAGE:
-			sort_function = func(e1: Entity, e2: Entity) -> bool:
-				var d1: float = INF if reversed else -INF
-				var d2: float = INF if reversed else -INF
-
-				var e1_skill_c: SkillComponent = e1.get_node_or_null(C.CN_SKILL)
-				if e1_skill_c:
-					var first_skill: Skill = e1_skill_c.get_child(0)
-					var influence: InfluenceResource = first_skill.influence
-
-					if influence:
-						d1 = influence.damage_max
-				var e2_skill_c: SkillComponent = e2.get_node_or_null(C.CN_SKILL)
-				if e2_skill_c:
-					var first_skill: Skill = e1_skill_c.get_child(0)
-					var influence: InfluenceResource = first_skill.influence
-
-					if influence:
-						d2 = influence.damage_max
-
-				return d1 > d2 if not reversed else d1 < d2
+			sort_function = _sort_by_ranged_damage.bind(reversed)
 		SortMode.ID:
-			sort_function = func(e1: Entity, e2: Entity) -> bool:
-				var i1: int = e1.id
-				var i2: int = e2.id
-				
-				return i1 > i2 if not reversed else i1 < i2
+			sort_function = _sort_by_id.bind(reversed)
 		SortMode.RANDOM:
 			entities_array.shuffle()
 			return

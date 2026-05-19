@@ -1,23 +1,26 @@
 [gd_scene format=3 uid="uid://wxrkke7541g"]
 
 [ext_resource type="PackedScene" uid="uid://dgdv4ixqwp3ot" path="res://scenes/entities/towers/tower_mage.tscn" id="1_g3ohr"]
-[ext_resource type="SpriteFrames" uid="uid://baq8dynl0bjyu" path="res://resources/sprite_frames/towers/tower_mage_lvl1.tres" id="2_lg6ln"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://resources/classes/interact_policy.gd" id="2_lg6ln"]
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://scenes/entities/towers/tower_mage_lvl_1_shooter.tscn" id="3_j8o77"]
+
+[sub_resource type="Resource" id="Resource_cyi4v"]
+resource_local_to_scene = true
+script = ExtResource("2_lg6ln")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerMageLvl1" unique_id=794445410 instance=ExtResource("1_g3ohr")]
 scene_name = "tower_mage_lvl_1"
-
-[node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=793888686]
-sprite_frames = ExtResource("2_lg6ln")
-animation = &"idle"
+interact_policy = SubResource("Resource_cyi4v")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 price = 100.0
 
 [node name="TowerMageLvl1Shooter" parent="TowerComponent" index="0" unique_id=1442245649 instance=ExtResource("3_j8o77")]
 position = Vector2(1, -51)
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-54.73, -78.54, 112.585, 102.565)

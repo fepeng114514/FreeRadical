@@ -2,10 +2,20 @@
 
 [ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://scenes/entities/towers/tower_archer.tscn" id="1_4joti"]
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://scenes/entities/towers/tower_archer_lvl_1_shooter.tscn" id="2_4mkqg"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://resources/classes/interact_policy.gd" id="2_ea5ax"]
 [ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://ecs/entity_group_2d.gd" id="7_nv2ef"]
+
+[sub_resource type="Resource" id="Resource_herq3"]
+resource_local_to_scene = true
+script = ExtResource("2_ea5ax")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerArcherLvl1" unique_id=1010851235 instance=ExtResource("1_4joti")]
 scene_name = "tower_archer_lvl_1"
+interact_policy = SubResource("Resource_herq3")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 price = 70.0

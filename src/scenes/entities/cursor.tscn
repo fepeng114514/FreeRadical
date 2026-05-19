@@ -7,8 +7,6 @@
 [node name="Cursor" type="Node2D" unique_id=1674790453]
 script = ExtResource("1_5tp4l")
 scene_name = "cursor"
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=591432507]

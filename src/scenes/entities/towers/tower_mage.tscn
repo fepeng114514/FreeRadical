@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_ewl0l"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://resources/classes/audio_group.gd" id="3_au4tr"]
 [ext_resource type="Script" uid="uid://qu0synx4c136" path="res://resources/classes/sync_animations_data.gd" id="3_t83il"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://resources/classes/interact_policy.gd" id="4_dxk8f"]
 [ext_resource type="SpriteFrames" uid="uid://baq8dynl0bjyu" path="res://resources/sprite_frames/towers/tower_mage_lvl1.tres" id="5_au4tr"]
 
 [sub_resource type="Resource" id="Resource_t83il"]
@@ -15,6 +16,14 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 script = ExtResource("3_au4tr")
 list = Array[StringName]([&"mage_ready", &"mage_taunt1", &"mage_taunt2"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[sub_resource type="Resource" id="Resource_m8qu4"]
+resource_local_to_scene = true
+script = ExtResource("4_dxk8f")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_fel6d"]
 script = ExtResource("2_ewl0l")
@@ -36,6 +45,7 @@ metadata/_custom_type_script = "uid://qu0synx4c136"
 scene_name = "tower_mage"
 idle_animation = SubResource("Resource_t83il")
 spawn_sfx = SubResource("Resource_dxk8f")
+interact_policy = SubResource("Resource_m8qu4")
 
 [node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
 position = Vector2(-1, -27)

@@ -10,7 +10,6 @@
 
 [sub_resource type="Resource" id="Resource_fdaav"]
 script = ExtResource("2_pyfu2")
-left_right = &"idle_left_right"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jcl8y"]
 shader = ExtResource("5_rh6e0")
@@ -21,8 +20,6 @@ shader_parameter/outline_color = Color(1, 1, 0, 1)
 script = ExtResource("1_jrk33")
 scene_name = "tower_holder"
 idle_animation = SubResource("Resource_fdaav")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=234304454]
