@@ -10,13 +10,13 @@ class_name SkillArea
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(search, queue_redraw)
 			queue_redraw()
-@export var search_target_pos: bool = false
 @export var influence: InfluenceResource = null:
 	set(value):
 		influence = value
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(influence, queue_redraw)
 			queue_redraw()
+@export var search_target_pos: bool = false
 
 
 func _ready() -> void:
@@ -33,24 +33,26 @@ func _draw() -> void:
 			influence.draw(self, position)
 		
 		
-func _do_skill(e: Entity) -> void:
+func _do_skill(e: Entity, skill_idx: int) -> void:
 	var targets: Array[Entity] = search.search_targets(e, e.global_position)
 	if not targets:
 		return
 
 	var target: Entity = targets[0]
 	e.look_point = target.global_position
+	start_cooldown(e, skill_idx)
 
 	e.play_animation_by_look(animation, "ranged")
 	AudioMgr.play_sfx(sfx)
 	await e.y_wait(delay)
 
 	if not target:
+		compensate_cooldown(e, skill_idx)
 		return
 
 	if search_target_pos:
-		influence.take(e, target, target.global_position)
+		influence.take_influence(e, target, target.global_position)
 	else:
-		influence.take(e, target, e.global_position)
+		influence.take_influence(e, target, e.global_position)
 
 	await e.wait_animation(animation)

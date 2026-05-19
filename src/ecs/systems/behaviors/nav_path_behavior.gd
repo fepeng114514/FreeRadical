@@ -24,17 +24,6 @@ func _on_insert(e: Entity) -> bool:
 	return true
 
 
-func _on_return_true(e: Entity, break_behavior: Behavior) -> void:
-	if break_behavior == self:
-		return
-
-	var nav_path_c: NavPathComponent = e.get_node_or_null(C.CN_NAV_PATH)
-	if not nav_path_c:
-		return
-		
-	e.state = Entity.State.IDLE
-
-
 func _on_update(e: Entity) -> bool:
 	var nav_path_c: NavPathComponent = e.get_node_or_null(C.CN_NAV_PATH)
 	if not nav_path_c:

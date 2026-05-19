@@ -13,15 +13,8 @@ class_name SkillMelee
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(influence, queue_redraw)
 			queue_redraw()
-## 技能标识
-@export var flags: C.Flag = C.Flag.NONE
-## 不可搜索的目标的标识
-@export var bans: int = 0
-## 可搜索的目标的场景名称列表
-@export var whitelist := PackedStringArray()
-## 不可搜索的目标的场景名称列表
-@export var blacklist := PackedStringArray()
-
+@export var search_target_pos: bool = false
+@export var interact_policy: InteractPolicy = null
 
 
 func _ready() -> void:

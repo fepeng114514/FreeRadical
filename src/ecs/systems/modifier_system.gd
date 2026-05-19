@@ -6,96 +6,54 @@ class_name ModifierSystem
 
 
 func _on_insert(e: Entity) -> bool:
-	if not e.get_node_or_null(C.CN_MODIFIER):
+	var modifier_c: ModifierComponent = e.get_node_or_null(C.CN_MODIFIER)
+	if not modifier_c:
 		return true
 
 	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
-
 	if not target:
 		return false
 		
-	e.global_position = target.global_position
-		
-	# 检查黑白名单
-	if not U.is_allowed_entity(e, target):
+	var interact_p: InteractPolicy = e.interact_policy
+	var t_interact_p: InteractPolicy = target.interact_policy
+	if not InteractPolicy.is_allowed_entity(e, target, interact_p, t_interact_p):
 		return false
-
-	# 检查是否被目标禁止
-	if U.is_banned(
-			target.flags,
-			e.bans, 
-		):
-		return false
-		
-	var t_has_mods_id_list: PackedInt32Array = target.has_mods_id_list
-	var same_target_mods: Array[Entity] = []
-	var modifier_c: ModifierComponent = e.get_node_or_null(C.CN_MODIFIER)
 
 	modifier_c.ts = TimeMgr.tick_ts
+	e.global_position = target.global_position
 
-	for mod_id: int in t_has_mods_id_list:
-		var other_m: Entity = EntityMgr.get_entity_by_id(mod_id)
-		
-		if not other_m:
+	var same_mod_list: Array[Entity] = []
+
+	for other_mod: Entity in target.get_has_mod_list():
+		if other_mod == e:
 			continue
 		
-		var other_mod_c: ModifierComponent = other_m.get_node_or_null(C.CN_MODIFIER)
-		
-		# 检查是否被其他效果禁止
-		if U.is_mutual_ban(
-				e.flags,
-				other_m.bans,
-				modifier_c.mod_type,
-				other_m.mod_type_bans
+		if (
+			t_interact_p.is_banned(interact_p) 
+			or t_interact_p.is_aura_type_banned(interact_p)
+			or not t_interact_p.is_scene_allowed(e.scene_name)
 		):
 			return false
 			
-		# 检查是否被当前效果禁止
-		if U.is_mutual_ban(
-				other_m.flags,
-				e.bans,
-				other_mod_c.mod_type,
-				e.mod_type_bans
+		if (
+			interact_p.is_banned(t_interact_p) 
+			or interact_p.is_aura_type_banned(t_interact_p)
+			or not interact_p.is_scene_allowed(target.scene_name)
 		):
 			if modifier_c.remove_banned:
-				other_m.remove_entity()
+				other_mod.remove_entity()
 				continue
 			
 			return false
 		
-		if other_m.scene_name == e.scene_name:
-			same_target_mods.append(other_m)
+		if other_mod.scene_name == e.scene_name:
+			same_mod_list.append(other_mod)
 			
-	if not same_target_mods:
-		t_has_mods_id_list.append(e.id)
-		return true
-		
-	# 处理相同效果
-	# 按照等级降序排序
-	same_target_mods.sort_custom(
-		func(m1: Entity, m2: Entity) -> bool: return m1.level > m2.level
-	)
-	var min_level_mod: Entity = same_target_mods[-1]
-	var max_level_mod: Entity = same_target_mods[0]
-		
-	# 重置持续时间，优先重置等级最高的
-	if modifier_c.reset_same:
-		max_level_mod.insert_ts -= TimeMgr.tick_ts
-		return false
-	# 替换，优先替换等级最低的
-	if modifier_c.replace_same:
-		min_level_mod.remove_entity()
-		t_has_mods_id_list.append(e.id)
-		return true
-	# 叠加持续时间，优先与最高等级叠加
-	if modifier_c.overlay_duration_same:
-		max_level_mod.insert_ts -= e.duration
-		return false
-	# 叠加
-	if not modifier_c.allow_same:
-		return false
+	if same_mod_list and modifier_c.same_process:
+		if not modifier_c.same_process.process(e, same_mod_list):
+			return false
 
-	t_has_mods_id_list.append(e.id)
+	target.has_mods_id_list.append(e.id)
 	return true
 
 
@@ -152,7 +110,7 @@ func _process_modifier_update() -> void:
 			return
 
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
-		modifier_c.influence.take(e, target, target.global_position)
+		modifier_c.influence.take_influence(e, target, target.global_position)
 		e._on_modifier_period(target, modifier_c)
 
 		modifier_c.curren_cycle += 1

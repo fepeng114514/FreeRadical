@@ -51,11 +51,6 @@ var ts: float = 0
 
 @onready var parent: Entity = get_parent()
 
-func _validate_property(property: Dictionary) -> void:
-	match property.name:
-		"default_rally_center_local_pos":
-			property.hint_string = "vector_picker"
-
 
 func _draw() -> void:
 	if Engine.is_editor_hint():

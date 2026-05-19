@@ -5,9 +5,6 @@ class_name AuraComponent
 ## AuraComponent 可以使实体可周期性对范围内其他实体造成影响
 
 
-## 光环类型
-@export var aura_type: int = 0
-
 @export_group("Cycle")
 ## 周期时间
 @export var cycle_time: float = 1
@@ -25,16 +22,7 @@ class_name AuraComponent
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(influence, queue_redraw)
 			queue_redraw()
-
-@export_group("Same Process")
-## 是否允许相同光环叠加
-@export var allow_same: bool = false
-## 相同光环是否仅重置持续时间
-@export var reset_same: bool = true
-## 相同光环是否替换相同的光环
-@export var replace_same: bool = false
-## 相同光环是否叠加持续时间
-@export var overlay_duration_same: bool = false
+@export var same_process: SameProcessResource = null
 ## 是否移除被禁止的光环
 @export var remove_banned: bool = true
 

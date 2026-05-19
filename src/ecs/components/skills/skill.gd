@@ -9,6 +9,8 @@ class_name Skill
 @export var disabled: bool = false
 ## 冷却时间
 @export var cooldown: float = 1
+## 冷却时间补偿比例
+@export var compensate_cooldown_percent: float = 0
 ## 释放概率
 @export var chance: float = 1
 ## 延迟
@@ -28,22 +30,45 @@ class_name Skill
 var ts: float = 0
 
 
-func _validate_property(property: Dictionary) -> void:
-	match property.name:
-		"flags":
-			property.hint_string = "mask_enum:Flag"
-		"bans":
-			property.hint_string = "mask_enum:Flag"
-
-
 @warning_ignore_start("unused_parameter")
-func _do_skill(e: Entity) -> void: pass
+func _do_skill(e: Entity, skill_idx: int) -> void: 
+    await ready
 @warning_ignore_restore("unused_parameter")
 
 
-static func can_attack(skill: Skill, target: Entity) -> bool:
-	return (
-		target 
-		and not U.is_mutual_ban(target.flags, skill.bans, skill.flags, target.bans)
-		and U.is_allowed_entity(skill, target)
-	)
+func start_cooldown(e: Entity, skill_idx: int) -> void:
+    var tick_ts: float = TimeMgr.tick_ts
+    ts = tick_ts
+
+    if group_cooldown_enable:
+        var parent: Node = e.get_parent()
+        if parent is EntityGroup2D:
+            for group_member: Entity in parent.get_children():
+                if group_member == e:
+                    continue
+                
+                var group_member_skill_c: SkillComponent = group_member.get_node_or_null(C.CN_SKILL)
+                if not group_member_skill_c:
+                    continue
+                    
+                var group_member_s: Skill = group_member_skill_c.get_child(skill_idx)
+                group_member_s.ts = tick_ts - group_cooldown_offset 
+        
+
+func compensate_cooldown(e: Entity, skill_idx: int) -> void:
+    ts -= compensate_cooldown_percent * cooldown
+
+    if group_cooldown_enable:
+        var parent: Node = e.get_parent()
+        if parent is EntityGroup2D:
+            for group_member: Entity in parent.get_children():
+                if group_member == e:
+                    continue
+                
+                var group_member_skill_c: SkillComponent = group_member.get_node_or_null(C.CN_SKILL)
+                if not group_member_skill_c:
+                    continue
+                    
+                var group_member_s: Skill = group_member_skill_c.get_child(skill_idx)
+                group_member_s.ts -= compensate_cooldown_percent * group_member_s.cooldown
+        

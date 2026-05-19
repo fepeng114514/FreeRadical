@@ -241,20 +241,29 @@ func _try_melee_attack(
 		e.look_point = target.global_position
 	e.play_animation_by_look(e.idle_animation)
 	
-	for skill: SkillMelee in melee_c.get_children():
+	for i: int in melee_c.get_child_count():
+		if not target:
+			break
+		var skill: SkillMelee = melee_c.get_child(i)
+
 		if not TimeMgr.is_ready_time(skill.ts, skill.cooldown):
 			continue
-
-		if not Skill.can_attack(skill, target):
+		
+		if not InteractPolicy.is_allowed_entity(e, target, skill.interact_policy, target.interact_policy):
 			continue
-			
-		Log.verbose("近战攻击: %s" % e)
 
-		skill.ts = TimeMgr.tick_ts
+		skill.start_cooldown(e, i)
 		e.play_animation_by_look(skill.animation, "melee")
 		await e.y_wait(skill.delay)
-			
-		skill.influence.take(e, target, e.global_position)
+
+		if not target:
+			skill.compensate_cooldown(e, i)
+			break
+		
+		if skill.search_target_pos:
+			skill.influence.take_influence(e, target, target.global_position)
+		else:
+			skill.influence.take_influence(e, target, e.global_position)
 		
 		await e.wait_animation(skill.animation)
 		e.play_animation_by_look(e.idle_animation)

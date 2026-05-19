@@ -54,6 +54,7 @@ GridMgr="*uid://bsty3nv6hyvtv"
 PathwayMgr="*res://autoloads/managers/pathway_manager.gd"
 LevelMgr="*res://autoloads/managers/level_manager.gd"
 CanvasMgr="*uid://bsabxvw5o5g4l"
+DevtoolRuntime="*res://addons/godot_devtool/runtime_bridge.gd"
 
 [display]
 
@@ -64,7 +65,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/mask_check/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_devtool/plugin.cfg", "res://addons/mask_check/plugin.cfg")
 
 [file_customization]
 

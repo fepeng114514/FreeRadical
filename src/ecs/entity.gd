@@ -54,20 +54,8 @@ enum State {
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(hit_offsets, queue_redraw)
 			queue_redraw()
+@export var interact_policy: InteractPolicy = null
 
-@export_group("Limit")
-## 白名单实体场景名称
-@export var whitelist := PackedStringArray()
-## 黑名单实体场景名称
-@export var blacklist := PackedStringArray()
-## 实体标识
-@export var flags: int = 0
-## 禁止的实体的标识
-@export var bans: int = 0
-## 禁止的状态效果类型标识
-@export var mod_type_bans: int = 0
-## 禁止的光环类型标识
-@export var aura_type_bans: int = 0
 
 ## 实体唯一 ID
 var id: int = C.UNSET
@@ -116,19 +104,6 @@ func _ready() -> void:
 				continue
 				
 			components[node_class] = child
-		
-
-func _validate_property(property: Dictionary):
-	match property.name:
-		"flags":
-			property.hint_string = "mask_enum:Flag"
-		"bans":
-			property.hint_string = "mask_enum:Flag"
-		"mod_type_bans":
-			property.hint_string = "mask_enum:ModType"
-		"aura_type_bans":
-			property.hint_string = "mask_enum:AuraType"
-
 
 
 func _draw() -> void:
@@ -235,20 +210,6 @@ func add_c(component: GDScript) -> Node:
 	add_child(component_node)
 	return component_node
 #endregion
-
-
-#region 状态效果相关方法
-## 清理无效状态效果
-func cleanup_has_mods() -> void:
-	var new_has_mods_id_list := PackedInt32Array()
-	
-	for mod_id in has_mods_id_list:
-		if not EntityMgr.get_entity_by_id(mod_id):
-			continue 
-			
-		new_has_mods_id_list.append(mod_id)
-		
-	has_mods_id_list = new_has_mods_id_list
 
 
 ## 获取拥有的所有状态效果实体数组

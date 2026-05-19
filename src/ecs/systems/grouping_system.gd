@@ -84,9 +84,10 @@ func _on_update(_delta: float) -> void:
 		grid_col.has_entities = true
 
 		# 根据实体的标识和组件将实体分组
-		if e.flags:
+		var interact_p: InteractPolicy = e.interact_policy
+		if interact_p:
 			for flags: C.Flag in FLAG_TO_GROUP_KEYS:
-				if e.flags & flags:
+				if interact_p.flags & flags:
 					var group_name: StringName = FLAG_TO_GROUP[flags]
 
 					_type_group_list[group_name].append(e)

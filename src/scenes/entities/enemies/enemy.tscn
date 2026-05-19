@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://ecs/entity.gd" id="1_0ncad"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://ecs/components/sprite_component.gd" id="2_1nm20"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://resources/classes/animation_group.gd" id="2_58mnm"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://resources/classes/interact_policy.gd" id="3_27tcs"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://ecs/components/health_component.gd" id="4_bfbt7"]
 [ext_resource type="SpriteFrames" uid="uid://ymooww5yfs6t" path="res://resources/sprite_frames/enemies/enemy_goblin.tres" id="4_wyqsp"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://ecs/components/nav_path_component.gd" id="5_gt3hg"]
@@ -17,6 +18,14 @@
 script = ExtResource("2_58mnm")
 mirror_horizontal = true
 right = &"idle_left_right"
+
+[sub_resource type="Resource" id="Resource_mag4a"]
+resource_local_to_scene = true
+script = ExtResource("3_27tcs")
+flags = 1
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_43dp3"]
 script = ExtResource("2_58mnm")
@@ -54,9 +63,7 @@ right = &"melee_left_right"
 script = ExtResource("1_0ncad")
 scene_name = "enemy"
 idle_animation = SubResource("Resource_58mnm")
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
-flags = 1
+interact_policy = SubResource("Resource_mag4a")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1028021225]

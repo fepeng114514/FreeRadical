@@ -502,8 +502,10 @@ func find_targets_in_range(
 		for grid_y: int in range(grid_min_y, grid_max_y + 1):
 			var grid: Array = grid_row[grid_y][group]
 			for e: Entity in grid:
+				var interact_p: InteractPolicy = e.interact_policy
+				
 				if (
-						not U.is_mutual_ban(e.flags, bans, flags, e.bans)
+						(not interact_p or not U.is_mutual_banned(interact_p.flags, bans, flags, interact_p.bans))
 						and U.is_in_ring(origin, e.global_position, min_range, max_range)
 						and (not filter.is_valid() or filter.call(e))
 				):

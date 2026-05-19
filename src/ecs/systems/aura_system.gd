@@ -10,90 +10,52 @@ func _on_insert(e: Entity) -> bool:
 	if not aura_c:
 		return true
 		
-	var source: Entity = EntityMgr.get_entity_by_id(e.source_id)
-
-	if not source:
+	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
+	if not target:
 		return false
 
-	e.global_position = source.global_position
-
-	# 检查黑白名单
-	if not U.is_allowed_entity(e, source):
+	var interact_p: InteractPolicy = e.interact_policy
+	var t_interact_p: InteractPolicy = target.interact_policy
+	if not InteractPolicy.is_allowed_entity(e, target, interact_p, t_interact_p):
 		return false
-
-	# 检查是否被目标禁止
-	if U.is_mutual_ban(source.flags, e.bans, e.flags, source.bans):
-		return false
-
-	aura_c.ts = TimeMgr.tick_ts
-
-	var s_has_auras_id_list: PackedInt32Array = source.has_auras_id_list
-	var same_source_auras: Array[Entity] = []
-
-	for aura_id: int in s_has_auras_id_list:
-		var other_a: Entity = EntityMgr.get_entity_by_id(aura_id)
 		
-		if not other_a:
+	aura_c.ts = TimeMgr.tick_ts
+	e.global_position = target.global_position
+
+	var same_aura_list: Array[Entity] = []
+
+	for other_aura: Entity in target.get_has_aura_list():
+		if other_aura == e:
 			continue
 		
-		var other_aura_c: AuraComponent = other_a.get_node_or_null(C.CN_AURA)
-		
 		# 检查是否被其他光环禁止
-		if U.is_mutual_ban(
-				e.flags, 
-				other_a.bans, 
-				aura_c.aura_type, 
-				other_a.aura_type_bans
+		if (
+			t_interact_p.is_banned(interact_p) 
+			or t_interact_p.is_aura_type_banned(interact_p)
+			or not t_interact_p.is_scene_allowed(e.scene_name)
 		):
 			return false
-			
+		
 		# 检查是否被当前光环禁止
-		if U.is_mutual_ban(
-				other_a.flags,
-				e.bans,
-				other_aura_c.aura_type,
-				e.aura_type_bans
+		if (
+			interact_p.is_banned(t_interact_p) 
+			or interact_p.is_aura_type_banned(t_interact_p)
+			or not interact_p.is_scene_allowed(target.scene_name)
 		):
 			if aura_c.remove_banned:
-				other_a.remove_entity()
+				other_aura.remove_entity()
 				continue
 			
 			return false
 		
-		if other_a.scene_name == e.scene_name:
-			same_source_auras.append(other_a)
+		if other_aura.scene_name == e.scene_name:
+			same_aura_list.append(other_aura)	
 			
-	if not same_source_auras:
-		source.has_auras_id_list.append(e.id)
-		return true
-		
-	# 处理相同光环
-	# 按照等级降序排序
-	same_source_auras.sort_custom(
-		func(a1: Entity, a2: Entity) -> bool: return a1.level > a2.level
-	)
-	var min_level_aura: Entity = same_source_auras[-1]
-	var max_level_aura: Entity = same_source_auras[0]
-		
-	# 重置持续时间，优先重置等级最高的
-	if aura_c.reset_same:
-		max_level_aura.insert_ts -= TimeMgr.tick_ts
-		return false
-	# 替换，优先替换等级最低的
-	if aura_c.replace_same:
-		min_level_aura.remove_entity()
-		source.has_auras_id_list.append(e.id)
-		return true
-	# 叠加持续时间，优先与最高等级叠加
-	if aura_c.overlay_duration_same:
-		max_level_aura.insert_ts -= e.duration
-		return false
-	# 叠加
-	if not aura_c.allow_same:
-		return false
+	if same_aura_list and aura_c.same_process:
+		if not aura_c.same_process.process(e, same_aura_list):
+			return false
 
-	s_has_auras_id_list.append(e.id)
-
+	target.has_auras_id_list.append(e.id)
 	return true
 
 
@@ -113,7 +75,7 @@ func _on_update(_delta: float) -> void:
 
 		var targets: Array[Entity] = aura_c.search.search_targets(e, e.global_position)
 		for target: Entity in targets:
-			aura_c.influence.take(e, target, target.global_position)
+			aura_c.influence.take_influence(e, target, target.global_position)
 
 		e._on_aura_period(targets, aura_c)
 

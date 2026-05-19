@@ -566,7 +566,7 @@ static func is_valid_entity(e) -> bool:
 
 
 ## 判断实体是否被黑名单或白名单禁止
-static func is_allowed_entity(e: Variant, target: Entity) -> bool:
+static func is_allowed_entity(e: Entity, target: Entity) -> bool:
 	var target_scene_name: String = target.scene_name
 	var whitelist: PackedStringArray = e.whitelist
 	var blacklist: PackedStringArray = e.blacklist
@@ -586,7 +586,7 @@ static func is_banned(flags: int, bans: int) -> bool:
 
 
 ## 判断双向禁止：flags1 被 bans2 禁止，或 flags2 被 bans1 禁止
-static func is_mutual_ban(flags1: int, bans1: int, flags2: int, bans2: int) -> bool:
+static func is_mutual_banned(flags1: int, bans1: int, flags2: int, bans2: int) -> bool:
 	return is_banned(flags1, bans2) or is_banned(flags2, bans1)
 
 

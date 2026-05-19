@@ -35,7 +35,7 @@ func _take(source: Entity, target: Entity) -> void: pass
 @warning_ignore_restore("unused_parameter")
 
 
-func take(source: Entity, base_target: Entity, search_center: Vector2, search_filter := Callable()) -> Array[Entity]:
+func take_influence(source: Entity, base_target: Entity, search_center: Vector2, search_filter := Callable()) -> Array[Entity]:
 	var targets: Array[Entity] = [null]
 
 	if area_enable:
@@ -52,7 +52,7 @@ func take(source: Entity, base_target: Entity, search_center: Vector2, search_fi
 
 		if extra_enable:
 			EntityMgr.create_mods(target_id, mods, source_id)
-			EntityMgr.create_auras(mods, target_id)
+			EntityMgr.create_auras(auras, target_id)
 			EntityMgr.create_entities_at_pos(payloads, target.global_position)
 
 	return targets

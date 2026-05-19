@@ -97,14 +97,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warn.append("请至少勾选一个 is_blocked 或 is_blocker 属性，否则无法识别被拦截者与拦截者。")
 		
 	return warn
-	
-
-func _validate_property(property: Dictionary) -> void:
-	match property.name:
-		"block_flags":
-			property.hint_string = "mask_enum:Flag"
-		"block_bans":
-			property.hint_string = "mask_enum:Flag"
 
 	
 ## 绑定拦截关系

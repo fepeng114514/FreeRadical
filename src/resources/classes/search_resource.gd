@@ -25,14 +25,7 @@ class_name SearchResource
 @export var max_search: int = C.UNSET
 ## 搜索模式
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
-## 标识
-@export var flags: C.Flag = C.Flag.NONE
-## 不可搜索的目标的标识
-@export var bans: int = 0
-## 可搜索的目标的场景名称列表
-@export var whitelist := PackedStringArray()
-## 不可搜索的目标的场景名称列表
-@export var blacklist := PackedStringArray()
+@export var interact_policy: InteractPolicy = null
 
 
 func search_targets(e: Entity, center: Vector2, filter: = Callable()) -> Array[Entity]:
@@ -45,8 +38,8 @@ func search_targets(e: Entity, center: Vector2, filter: = Callable()) -> Array[E
 		center, 
 		max_radius, 
 		min_radius, 
-		flags, 
-		bans,
+		interact_policy.flags if interact_policy else 0, 
+		interact_policy.bans if interact_policy else 0,
 		filter
 	)
 	if U.is_valid_number(max_search):

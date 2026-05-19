@@ -1,0 +1,17 @@
+{
+	"authConfigured": true,
+	"bridgeUrl": "ws://127.0.0.1:8766",
+	"brokerId": "",
+	"connected": false,
+	"helloAcknowledged": false,
+	"helloAttempts": 0,
+	"lastError": "",
+	"lastHeartbeatMs": 0,
+	"lastSeen": "2026-05-19T02:44:11",
+	"projectPath": "D:/Git/Zero-Based-Isekai-Tower-Defense/src/",
+	"registered": false,
+	"runId": "",
+	"sessionId": "runtime-820-1026",
+	"socketState": 0,
+	"timestamp": "2026-05-19T02:44:11"
+}
