@@ -1,6 +1,9 @@
 @tool
 extends Node
 class_name DodgeComponent
+## 闪避组件
+##
+## DodgeComponent 可以使实体拥有闪避与反击的能力，反击技能以 [Skill] 子节点的形式存在。
 
 
 func _get_configuration_warnings() -> PackedStringArray:

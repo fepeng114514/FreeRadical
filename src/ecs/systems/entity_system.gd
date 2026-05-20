@@ -39,20 +39,19 @@ func _on_update(delta: float) -> void:
 				
 			e.global_position = source.global_position
 			
-		_update_entity(e, delta)
+		if e.is_first_update:
+			e.play_animation_by_look(e.spawn_animation)
+			AudioMgr.play_sfx(e.spawn_sfx)
+
+			if e.spawn_animation:
+				var baq: BehaviorActionQueue = e.behavior_action_queue
+				baq.wait_anim(e.spawn_animation)
+		
+		e._on_update(delta)
+		
+		e.last_position = e.global_position
+
 		
 	for e: Entity in EntityMgr.get_valid_entities():
 		if e.is_first_update:
 			e.is_first_update = false
-		
-	
-func _update_entity(e: Entity, delta: float) -> void:
-	if e.is_first_update:
-		e.play_animation_by_look(e.spawn_animation)
-		AudioMgr.play_sfx(e.spawn_sfx)
-		if e.spawn_animation:
-			await e.wait_animation(e.spawn_animation)
-	
-	e._on_update(delta)
-	
-	e.last_position = e.global_position

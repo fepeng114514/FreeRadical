@@ -76,6 +76,7 @@ func _first_update(e: Entity, barrack_c: BarrackComponent) -> void:
 	var last_soldier_pos_list_size: int = last_soldier_pos_list.size()
 	var last_blocked_id_list: Array[PackedInt32Array] = barrack_c.last_blocked_id_list
 	
+	# 处理兵营升级时士兵的直接替换
 	for i: int in last_soldier_pos_list_size:
 		var soldier: Entity = _spawn_soldier(e, barrack_c, soldier_group)
 			
@@ -92,16 +93,19 @@ func _first_update(e: Entity, barrack_c: BarrackComponent) -> void:
 
 	e.play_animation_by_look(barrack_c.animation)
 	AudioMgr.play_sfx(barrack_c.sfx)
-	if barrack_c.delay:
-		await e.y_wait(barrack_c.delay)
-		
-	for i: int in range(last_soldier_pos_list_size, max_soldiers):
-		_spawn_soldier(e, barrack_c, soldier_group)
 
-	barrack_c.new_rally_center_position(barrack_c.rally_center_position, false)
-	barrack_c.last_soldier_count = soldier_group.get_child_count()
-	
-	e.wait_animation(barrack_c.animation)
+	var baq: BehaviorActionQueue = e.behavior_action_queue
+	baq.wait(barrack_c.delay)
+	baq.call_fn(
+		func() -> void:
+			# 生成剩余未替换的士兵
+			for i: int in range(last_soldier_pos_list_size, max_soldiers):
+				_spawn_soldier(e, barrack_c, soldier_group)
+
+			barrack_c.new_rally_center_position(barrack_c.rally_center_position, false)
+			barrack_c.last_soldier_count = soldier_group.get_child_count()
+	)
+	baq.wait_anim(barrack_c.animation)
 
 
 func _spawn_by_time(e: Entity, barrack_c: BarrackComponent) -> void:
@@ -113,11 +117,14 @@ func _spawn_by_time(e: Entity, barrack_c: BarrackComponent) -> void:
 	if soldier_count < max_soldiers:
 		e.play_animation_by_look(barrack_c.animation)
 		AudioMgr.play_sfx(barrack_c.sfx)
-		if barrack_c.delay:
-			await e.y_wait(barrack_c.delay)
 
-		_spawn_soldier(e, barrack_c, soldier_group)
+		var baq: BehaviorActionQueue = e.behavior_action_queue
+		baq.wait(barrack_c.delay)
+		baq.call_fn(
+			func() -> void:
+				_spawn_soldier(e, barrack_c, soldier_group)
 		
-		barrack_c.new_rally_center_position(barrack_c.rally_center_position, false, false)
-		barrack_c.last_soldier_count = soldier_group.get_child_count()
-		e.wait_animation(barrack_c.animation)
+				barrack_c.new_rally_center_position(barrack_c.rally_center_position, false, false)
+				barrack_c.last_soldier_count = soldier_group.get_child_count()
+		)
+		baq.wait_anim(barrack_c.animation)

@@ -28,7 +28,7 @@ enum State {
 	## 状态：移除
 	REMOVED = 1 << 8,
 	## 状态：死亡
-	DEATH = 1 << 8,
+	DEATH = 1 << 9,
 }
 
 
@@ -85,6 +85,7 @@ var look_point := Vector2.INF
 var is_first_update: bool = true
 ## 拥有的所有组件节点引用
 var components: Dictionary[StringName, Node] = {}
+var behavior_action_queue := BehaviorActionQueue.new()
 #endregion
 
 
@@ -195,7 +196,7 @@ func insert_entity() -> void:
 ## 将实体增加到移除队列
 func remove_entity() -> void:
 	visible = false
-	state |= Entity.State.REMOVED
+	state |= State.REMOVED
 	SystemMgr.append_remove_queue.emit(self)
 	Log.debug("移除实体: %s" % self)
 
@@ -289,7 +290,15 @@ func set_nav_path_at_pos(pos: Vector2) -> void:
 
 	var node: PathwayNode = PathwayMgr.get_nearst_node(pos, pi_list, spi_list)
 	nav_path_c.set_nav_path(node.pi, node.spi, node.ni)
-	
+
+
+func set_waiting() -> void:
+	state |= Entity.State.WAITING
+
+
+func clear_waiting() -> void:
+	state &= ~Entity.State.WAITING
+
 
 #region 动画相关方法
 ## 使一个精灵播放动画
@@ -328,16 +337,16 @@ func play_animation_group(
 
 ## 根据看向的位置播放动画
 func play_animation_by_look(
-		animation: AnimationGroup, 
+		animation_group: AnimationGroup, 
 		source_animation_key: String = "",
 		force_play: bool = false
 	) -> AnimationData:
-	if not animation:
+	if not animation_group:
 		return null
 		
-	var play_idx: int = animation.play_idx
+	var play_idx: int = animation_group.play_idx
 	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
-	var anim_data: AnimationData = animation.get_animation_name_for_point(
+	var anim_data: AnimationData = animation_group.get_animation_name_for_point(
 		global_position, look_point
 	)
 	
@@ -366,56 +375,97 @@ func play_animation_by_look(
 				source.play_animation_by_look(
 					s_animation, source_animation_key, force_play
 				)
-				source.wait_animation(s_animation)
+				source.y_wait_animation(s_animation)
 
 	return anim_data
 
 
-## 根据是否为组调用 wait_animation 或 wait_animation_group 函数
-func wait_animation(animation: AnimationGroup) -> void:
-	if not animation:
-		return
-		
+## 获取动画剩余帧数
+func get_frames_remaining(play_target: AnimatedSprite2D) -> int:
+	var current_frame: int = play_target.frame
+	var total_frames: int = play_target.sprite_frames.get_frame_count(play_target.animation)
+
+	return total_frames - current_frame
+
+
+## 获取当前播放的动画
+func get_current_animation(animation_group: AnimationGroup) -> AnimatedSprite2D:
 	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
-	var play_idx: int = animation.play_idx
-	var times: int = animation.times
+	var play_idx: int = animation_group.play_idx
 
-	state |= Entity.State.WAITING
 	var play_target: Node2D = sprite_c.get_child(play_idx)
-	if play_target is Sprite2D:
-		return
-
 	if play_target is SpriteGroup:
 		play_target = play_target.get_child(play_idx)
+	elif not play_target is AnimatedSprite2D:
+		return null
+		
+	return play_target
+
+
+## 获取动画总时间
+func get_animation_total_time(animation_group: AnimationGroup) -> float:
+	if not animation_group:
+		return 0
+
+	var play_target: AnimatedSprite2D = get_current_animation(animation_group)
+	if not play_target:
+		return 0
+
+	var sprite_frames: SpriteFrames = play_target.sprite_frames
+	var animation_name: StringName = play_target.animation
+	var total_frames: int = sprite_frames.get_frame_count(animation_name)
+	
+	return total_frames / sprite_frames.get_animation_speed(animation_name)
+
+
+## 获取动画剩余时间
+func get_animation_remaining_time(animation_group: AnimationGroup) -> float:
+	if not animation_group:
+		return 0
+
+	var play_target: AnimatedSprite2D = get_current_animation(animation_group)
+	if not play_target:
+		return 0
+
+	var sprite_frames: SpriteFrames = play_target.sprite_frames
+	var animation_name: StringName = play_target.animation
+
+	return get_frames_remaining(play_target) / sprite_frames.get_animation_speed(animation_name)
+#endregion
+
+
+## 协程等待动画播放完成
+func y_wait_animation(animation_group: AnimationGroup) -> void:
+	if not animation_group:
+		return
+		
+	var play_target: AnimatedSprite2D = get_current_animation(animation_group)
+	if not play_target:
+		return
+			
+	var frames_remaining: int = get_frames_remaining(play_target)
+	var times: int = animation_group.times
+
+	set_waiting()
 			
 	for _i: int in times:
-		var current_frame: int = play_target.frame
-		var total_frames: int = play_target.sprite_frames.get_frame_count(play_target.animation)
-		var frames_remaining: int = total_frames - current_frame
-		
-		# 是最后一帧，不等待
-		if current_frame == total_frames:
-			return
-		
-		# 等待剩余帧数
 		for i: int in frames_remaining:
 			await play_target.frame_changed
 		
-	state &= ~Entity.State.WAITING
-#endregion
+	clear_waiting()
 
 
 ## 协程等待
 ##
 ## break_fn 返回 true 表示中断等待
 func y_wait(time: float = 0, break_fn: Callable = Callable()) -> void:
-	state |= Entity.State.WAITING
+	set_waiting()
 
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
 	await TimeMgr.y_wait(time, break_fn)
 	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
 
-	state &= ~Entity.State.WAITING
+	clear_waiting()
 
 
 func is_waiting() -> bool:

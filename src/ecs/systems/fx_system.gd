@@ -10,11 +10,8 @@ func _on_insert(e: Entity) -> bool:
 	if not fx_c:
 		return true
 		
-	_timer_remove_once(e, fx_c)
+	var baq: BehaviorActionQueue = e.behavior_action_queue
+	baq.wait_anim(e.idle_animation)
+	baq.call_fn(func(): e.remove_entity())
 		
 	return true
-
-
-func _timer_remove_once(e: Entity, _fx_c: FXComponent) -> void:
-	await e.wait_animation(e.idle_animation)
-	e.remove_entity()

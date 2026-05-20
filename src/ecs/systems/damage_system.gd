@@ -55,31 +55,8 @@ func _on_update(_delta: float) -> void:
 		)
 		
 		if health_c.hp <= 0:
-			var damage_flags: int = d.damage_flags
-			
-			if damage_flags & C.DamageFlag.NOT_KILL:
-				health_c.hp = 1
-				return
-			
-			var killer: Entity = source
-			while killer:
-				killer._on_kill(target)
-				
-				killer = EntityMgr.get_entity_by_id(killer.source_id)
+			_death(d, source, target, health_c)
 
-			health_c.health_bar.visible = false
-			target.state = Entity.State.DEATH
-			GameMgr.cash += health_c.death_gold
-
-			if damage_flags & C.DamageFlag.KILL_REMOVE:
-				target.remove_entity()
-				return
-
-			if target._on_death():
-				return
-	
-			_death(target, health_c)
-	
 	SystemMgr.damage_queue = new_damage_queue
 	
 
@@ -141,17 +118,38 @@ func _predict_damage(
 	return actual_damage
 
 
-func _death(e: Entity, health_c: HealthComponent) -> void:
-	var death_animation: AnimationGroup = health_c.death_animation
-	if death_animation:
-		e.play_animation_by_look(
-			death_animation, "death"
-		)
+func _death(d: Damage, source: Entity, target: Entity, health_c: HealthComponent) -> void:
+	var damage_flags: int = d.damage_flags
+			
+	if damage_flags & C.DamageFlag.NOT_KILL:
+		health_c.hp = 1
+		return
+	
+	var killer: Entity = source
+	while killer:
+		killer._on_kill(target)
 		
+		killer = EntityMgr.get_entity_by_id(killer.source_id)
+
+	health_c.health_bar.visible = false
+	target.state = Entity.State.DEATH
+	GameMgr.cash += health_c.death_gold
+
+	if damage_flags & C.DamageFlag.KILL_REMOVE:
+		target.remove_entity()
+		return
+
+	if target._on_death():
+		return
+
 	var death_sfx: AudioGroup = health_c.death_sfx
 	if death_sfx:
 		AudioMgr.play_sfx(death_sfx)
-	
-	await e.wait_animation(death_animation)
 
-	e.remove_entity()
+	var baq: BehaviorActionQueue = target.behavior_action_queue
+	var death_animation: AnimationGroup = health_c.death_animation
+	if death_animation:
+		target.play_animation_by_look(death_animation, "death")
+		baq.wait_anim(death_animation)
+
+	baq.call_fn(func(): target.remove_entity())

@@ -44,15 +44,19 @@ func _do_skill(e: Entity, skill_idx: int) -> void:
 
 	e.play_animation_by_look(animation, "ranged")
 	AudioMgr.play_sfx(sfx)
-	await e.y_wait(delay)
 
-	if not target:
-		compensate_cooldown(e, skill_idx)
-		return
+	var baq: BehaviorActionQueue = e.behavior_action_queue
+	baq.wait(delay)
+	baq.call_fn(
+		func() -> void:
+			if not U.is_valid_entity(target):
+				compensate_cooldown(e, skill_idx)
+				baq.clear()
+				return
 
-	if search_target_pos:
-		influence.take_influence(e, target, target.global_position)
-	else:
-		influence.take_influence(e, target, e.global_position)
-
-	await e.wait_animation(animation)
+			if search_target_pos:
+				influence.take_influence(e, target, target.global_position)
+			else:
+				influence.take_influence(e, target, e.global_position)
+	)
+	baq.wait_anim(animation)

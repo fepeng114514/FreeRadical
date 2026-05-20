@@ -263,34 +263,34 @@ enum Direction {
 }
 
 
-#region 组件名称
-## 组件名称: 血量
+#region 组件路径
+## 组件路径: 血量
 const CN_HEALTH: NodePath = ^"HealthComponent"
-## 组件名称: 导航路径
+## 组件路径: 导航路径
 const CN_NAV_PATH: NodePath = ^"NavPathComponent"
-## 组件名称: 集结点
+## 组件路径: 集结点
 const CN_RALLY: NodePath = ^"RallyComponent"
-## 组件名称: 防御塔
+## 组件路径: 防御塔
 const CN_TOWER: NodePath = ^"TowerComponent"
-## 组件名称: 状态效果
+## 组件路径: 状态效果
 const CN_MODIFIER: NodePath = ^"ModifierComponent"
-## 组件名称: 光环
+## 组件路径: 光环
 const CN_AURA: NodePath = ^"AuraComponent"
-## 组件名称: 近战攻击
+## 组件路径: 近战攻击
 const CN_MELEE: NodePath = ^"MeleeComponent"
-## 组件名称: 远程攻击
+## 组件路径: 远程攻击
 const CN_SKILL: NodePath = ^"SkillComponent"
-## 组件名称: 子弹
+## 组件路径: 子弹
 const CN_BULLET: NodePath = ^"BulletComponent"
-## 组件名称: 精灵
+## 组件路径: 精灵
 const CN_SPRITE: NodePath = ^"SpriteComponent"
-## 组件名称: 兵营
+## 组件路径: 兵营
 const CN_BARRACK: NodePath = ^"BarrackComponent"
-## 组件名称: 生成器
+## 组件路径: 生成器
 const CN_SPAWNER: NodePath = ^"SpawnerComponent"
-## 组件名称: UI
+## 组件路径: UI
 const CN_UI: NodePath = ^"UIComponent"
-## 组件名称: FX
+## 组件路径: FX
 const CN_FX: NodePath = ^"FXComponent"
 #endregion
 
