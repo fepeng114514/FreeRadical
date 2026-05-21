@@ -254,21 +254,15 @@ func _try_melee_attack(
 
 		skill.start_cooldown(e, i)
 		e.play_animation_by_look(skill.animation, "melee")
-
-		var baq: BehaviorActionQueue = e.behavior_action_queue
-		baq.wait(skill.delay)
-		baq.call_fn(
-			func() -> void:
-				if not U.is_valid_entity(target):
-					skill.compensate_cooldown(e, i)
-					baq.clear()
-					return
-				
-				if skill.search_target_pos:
-					skill.influence.take_influence(e, target, target.global_position)
-				else:
-					skill.influence.take_influence(e, target, e.global_position)
-		)
-		baq.wait_anim(skill.animation)
-		baq.call_fn(func(): e.play_animation_by_look(e.idle_animation))
+		if await e.y_wait(skill.delay) or not target:
+			skill.compensate_cooldown(e, i)
+			break
+		
+		if skill.search_target_pos:
+			skill.influence.take_influence(e, target, target.global_position)
+		else:
+			skill.influence.take_influence(e, target, e.global_position)
+		
+		await e.y_wait_animation(skill.animation)
+		e.play_animation_by_look(e.idle_animation)
 		break

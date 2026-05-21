@@ -83,41 +83,39 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 	e._on_bullet_miss(bullet_c)
 	
 	AudioMgr.play_sfx(bullet_c.miss_sfx)
-		
-	var baq: BehaviorActionQueue = e.behavior_action_queue
 	if bullet_c.miss_animation:
 		e.play_animation_by_look(bullet_c.miss_animation)
-		baq.wait_anim(bullet_c.miss_animation)
-		
-	baq.call_fn(
-		func() -> void:
-			var influence: InfluenceResource = bullet_c.influence
-			if influence and influence.area_enable:
-				influence.take_influence(e, null, bullet_c.to)
-			EntityMgr.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
-			
-			if bullet_c.miss_remove:
-				e.remove_entity()
-	)
+		if await e.y_wait_animation(bullet_c.miss_animation):
+			return
+
+	var influence: InfluenceResource = bullet_c.influence
+	if influence and influence.area_enable:
+		influence.take_influence(e, null, bullet_c.to)
+	EntityMgr.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
+
+	if bullet_c.miss_animation:
+		if await e.y_wait_animation(bullet_c.miss_animation):
+			return
+
+	if bullet_c.miss_remove:
+		e.remove_entity()
 				
 		
 func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	AudioMgr.play_sfx(bullet_c.hit_sfx)
-		
-	var baq: BehaviorActionQueue = e.behavior_action_queue
 	if bullet_c.hit_animation:
 		e.play_animation_by_look(bullet_c.hit_animation)
-		baq.wait(bullet_c.hit_delay)
+		if await e.y_wait(bullet_c.hit_delay):
+			return
 		
-	baq.call_fn(
-		func() -> void:
-			bullet_c.influence.take_influence(e, target, bullet_c.to)
-			EntityMgr.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
-			e._on_bullet_hit(target, bullet_c)
-	)
+	bullet_c.influence.take_influence(e, target, bullet_c.to)
+	EntityMgr.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
+	e._on_bullet_hit(target, bullet_c)
+	
 	if bullet_c.hit_animation:
-		baq.wait_anim(bullet_c.hit_animation)
+		e.y_wait_animation(bullet_c.hit_animation)
+		if await e.y_wait_animation(bullet_c.hit_animation):
+			return
 
 	if bullet_c.hit_remove:
-		baq.call_fn(func(): e.remove_entity())
-		
+		e.remove_entity()

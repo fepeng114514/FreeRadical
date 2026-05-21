@@ -19,7 +19,6 @@
 [ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://ecs/systems/behaviors/nav_path_behavior.gd" id="17_cgos5"]
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://ecs/systems/behaviors/spawner_behavior.gd" id="18_efgoj"]
 [ext_resource type="Script" uid="uid://cia8mo148t6pb" path="res://ecs/systems/entity_system.gd" id="19_f2rku"]
-[ext_resource type="Script" uid="uid://b0ttla6b6iekq" path="res://ecs/systems/behavior_queue_system.gd" id="20_placeholder"]
 
 [node name="Systems" type="Node" unique_id=1876505882]
 script = ExtResource("1_ynbxr")
@@ -64,10 +63,6 @@ metadata/_custom_type_script = "uid://dwbh7vjakpq82"
 [node name="FXSystem" type="Node" parent="." unique_id=897972873]
 script = ExtResource("11_r7nxq")
 metadata/_custom_type_script = "uid://cbwfqyuju4hpn"
-
-[node name="BehaviorQueueSystem" type="Node" parent="." unique_id=1871231009]
-script = ExtResource("20_placeholder")
-metadata/_custom_type_script = "uid://b0ttla6b6iekq"
 
 [node name="BehaviorSystem" type="Node" parent="." unique_id=9591384]
 script = ExtResource("12_6x40g")

@@ -27,30 +27,28 @@ func _do_skill(e: Entity, skill_idx: int) -> void:
 	
 	e.play_animation_by_look(animation, "ranged")
 	AudioMgr.play_sfx(sfx)
+	if await e.y_wait_animation(animation) or not target:
+		compensate_cooldown(e, skill_idx)
+		return
 
-	var baq: BehaviorActionQueue = e.behavior_action_queue
-	baq.wait_anim(animation)
-	
-	for _i: int in loop_count:
-		baq.call_fn(
-			func() -> void:
-				if not U.is_valid_entity(target):
-					compensate_cooldown(e, skill_idx)
-					baq.clear()
-					return
+	for i: int in loop_count:
+		if not U.is_valid_entity(target):
+			break
+			
+		e.look_point = target.global_position
+		e.play_animation_by_look(loop_animation)
 
-				e.look_point = target.global_position
-				e.play_animation_by_look(loop_animation)
-				AudioMgr.play_sfx(loop_sfx)
-		)
-		baq.wait(delay)
-		baq.call_fn(func(): spawn_bullets(e, target))
-		baq.wait_anim(loop_animation)
+		AudioMgr.play_sfx(loop_sfx)
+		if await e.y_wait(delay):
+			return
 
-	baq.wait_anim(loop_animation)
-	baq.call_fn(
-		func() -> void:
-			e.play_animation_by_look(end_animation)
-			AudioMgr.play_sfx(end_sfx)
-	)
-	baq.wait_anim(end_animation)
+		spawn_bullets(e, target)
+		if await e.y_wait_animation(loop_animation):
+			return
+
+	if await e.y_wait_animation(loop_animation):
+		return
+
+	e.play_animation_by_look(end_animation)
+	AudioMgr.play_sfx(end_sfx)
+	await e.y_wait_animation(end_animation)

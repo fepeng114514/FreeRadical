@@ -80,19 +80,13 @@ func _do_skill(e: Entity, skill_idx: int) -> void:
 
 	e.play_animation_by_look(animation, "ranged")
 	AudioMgr.play_sfx(sfx)
+	if await e.y_wait(delay) or not target:
+		compensate_cooldown(e, skill_idx)
+		return
 
-	var baq: BehaviorActionQueue = e.behavior_action_queue
-	baq.wait(delay)
-	baq.call_fn(
-		func() -> void:
-			if not U.is_valid_entity(target):
-				compensate_cooldown(e, skill_idx)
-				baq.clear()
-				return
+	spawn_bullets(e, target)
 
-			spawn_bullets(e, target)
-	)
-	baq.wait_anim(animation)
+	await e.y_wait_animation(animation)
 
 
 func spawn_bullets(

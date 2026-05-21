@@ -565,21 +565,6 @@ static func is_valid_entity(e) -> bool:
 	)
 
 
-## 判断实体是否被黑名单或白名单禁止
-static func is_allowed_entity(e: Entity, target: Entity) -> bool:
-	var target_scene_name: String = target.scene_name
-	var whitelist: PackedStringArray = e.whitelist
-	var blacklist: PackedStringArray = e.blacklist
-	
-	return (
-		(
-			not whitelist
-			or target_scene_name in whitelist
-		)
-		and target_scene_name not in blacklist
-	)
-
-
 ## 判断 flags 是否被禁止掩码禁止
 static func is_banned(flags: int, bans: int) -> bool:
 	return flags & bans

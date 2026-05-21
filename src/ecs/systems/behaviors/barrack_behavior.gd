@@ -93,19 +93,18 @@ func _first_update(e: Entity, barrack_c: BarrackComponent) -> void:
 
 	e.play_animation_by_look(barrack_c.animation)
 	AudioMgr.play_sfx(barrack_c.sfx)
+	if await e.y_wait(barrack_c.delay):
+		return
+	
+	# 生成剩余未替换的士兵
+	for i: int in range(last_soldier_pos_list_size, max_soldiers):
+		_spawn_soldier(e, barrack_c, soldier_group)
 
-	var baq: BehaviorActionQueue = e.behavior_action_queue
-	baq.wait(barrack_c.delay)
-	baq.call_fn(
-		func() -> void:
-			# 生成剩余未替换的士兵
-			for i: int in range(last_soldier_pos_list_size, max_soldiers):
-				_spawn_soldier(e, barrack_c, soldier_group)
+	barrack_c.new_rally_center_position(barrack_c.rally_center_position, false)
+	barrack_c.last_soldier_count = soldier_group.get_child_count()
+	
+	e.y_wait_animation(barrack_c.animation)
 
-			barrack_c.new_rally_center_position(barrack_c.rally_center_position, false)
-			barrack_c.last_soldier_count = soldier_group.get_child_count()
-	)
-	baq.wait_anim(barrack_c.animation)
 
 
 func _spawn_by_time(e: Entity, barrack_c: BarrackComponent) -> void:
@@ -117,14 +116,11 @@ func _spawn_by_time(e: Entity, barrack_c: BarrackComponent) -> void:
 	if soldier_count < max_soldiers:
 		e.play_animation_by_look(barrack_c.animation)
 		AudioMgr.play_sfx(barrack_c.sfx)
+		if await e.y_wait(barrack_c.delay):
+			return
 
-		var baq: BehaviorActionQueue = e.behavior_action_queue
-		baq.wait(barrack_c.delay)
-		baq.call_fn(
-			func() -> void:
-				_spawn_soldier(e, barrack_c, soldier_group)
+		_spawn_soldier(e, barrack_c, soldier_group)
 		
-				barrack_c.new_rally_center_position(barrack_c.rally_center_position, false, false)
-				barrack_c.last_soldier_count = soldier_group.get_child_count()
-		)
-		baq.wait_anim(barrack_c.animation)
+		barrack_c.new_rally_center_position(barrack_c.rally_center_position, false, false)
+		barrack_c.last_soldier_count = soldier_group.get_child_count()
+		e.y_wait_animation(barrack_c.animation)

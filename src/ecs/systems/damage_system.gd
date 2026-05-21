@@ -143,13 +143,11 @@ func _death(d: Damage, source: Entity, target: Entity, health_c: HealthComponent
 		return
 
 	var death_sfx: AudioGroup = health_c.death_sfx
-	if death_sfx:
-		AudioMgr.play_sfx(death_sfx)
-
-	var baq: BehaviorActionQueue = target.behavior_action_queue
+	AudioMgr.play_sfx(death_sfx)
 	var death_animation: AnimationGroup = health_c.death_animation
 	if death_animation:
 		target.play_animation_by_look(death_animation, "death")
-		baq.wait_anim(death_animation)
+		if await target.y_wait_animation(death_animation):
+			return
 
-	baq.call_fn(func(): target.remove_entity())
+	target.remove_entity()

@@ -10,8 +10,9 @@ func _on_insert(e: Entity) -> bool:
 	if not fx_c:
 		return true
 		
-	var baq: BehaviorActionQueue = e.behavior_action_queue
-	baq.wait_anim(e.idle_animation)
-	baq.call_fn(func(): e.remove_entity())
+	if await e.y_wait_animation(e.idle_animation):
+		return true
+
+	e.remove_entity()
 		
 	return true

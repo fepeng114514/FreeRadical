@@ -32,16 +32,19 @@ func get_time_by_ts(ts: float) -> float:
 		
 ## 协程等待
 ##
-## break_fn 返回 true 表示中断等待
-func y_wait(
-		time: float = 0, break_fn: Callable = Callable()
-	) -> void:
+## break_fn 返回 true 表示中断等待，返回值表示是否中断等待
+func y_wait(time: float = 0, break_fn: Callable = Callable()) -> bool:
 	if time <= 0:
-		return
+		return true
 
 	var ts: float = tick_ts
-	while (
-		not is_ready_time(ts, time) 
-		and (not break_fn.is_valid() or not break_fn.call())
-	):
+	var is_break: bool = false
+	while not is_ready_time(ts, time):
+		is_break = break_fn.call() if break_fn.is_valid() else false
+		if is_break:
+			break
+
 		await get_tree().process_frame
+
+	return is_break
+		

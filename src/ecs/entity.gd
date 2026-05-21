@@ -29,6 +29,10 @@ enum State {
 	REMOVED = 1 << 8,
 	## 状态：死亡
 	DEATH = 1 << 9,
+	## 状态：中断等待
+	INTERRUPT_WAIT = 1 << 10,
+	## 状态：闪避
+	DODGE = 1 << 11,
 }
 
 
@@ -85,7 +89,6 @@ var look_point := Vector2.INF
 var is_first_update: bool = true
 ## 拥有的所有组件节点引用
 var components: Dictionary[StringName, Node] = {}
-var behavior_action_queue := BehaviorActionQueue.new()
 #endregion
 
 
@@ -435,37 +438,57 @@ func get_animation_remaining_time(animation_group: AnimationGroup) -> float:
 
 
 ## 协程等待动画播放完成
-func y_wait_animation(animation_group: AnimationGroup) -> void:
+##
+## break_fn 返回 true 表示中断等待，返回值表示是否中断等待
+func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Callable()) -> bool:
 	if not animation_group:
-		return
+		return false
 		
 	var play_target: AnimatedSprite2D = get_current_animation(animation_group)
 	if not play_target:
-		return
+		return false
 			
 	var frames_remaining: int = get_frames_remaining(play_target)
 	var times: int = animation_group.times
 
 	set_waiting()
-			
+	var is_break: bool = false
 	for _i: int in times:
-		for i: int in frames_remaining:
+		if is_break:
+			break
+
+		for j: int in frames_remaining:
+			is_break = (
+				state & Entity.State.INTERRUPT_WAIT 
+				or break_fn.is_valid() 
+				and break_fn.call()
+			)
+			if is_break:
+				break
 			await play_target.frame_changed
 		
 	clear_waiting()
+	return is_break
 
 
 ## 协程等待
 ##
-## break_fn 返回 true 表示中断等待
-func y_wait(time: float = 0, break_fn: Callable = Callable()) -> void:
+## break_fn 返回 true 表示中断等待，返回值表示是否中断等待
+func y_wait(time: float = 0, break_fn: Callable = Callable()) -> bool:
 	set_waiting()
 
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
-	await TimeMgr.y_wait(time, break_fn)
+	var is_break: bool = await TimeMgr.y_wait(time, func() -> bool:
+		return (
+			state & Entity.State.INTERRUPT_WAIT 
+			or break_fn.is_valid() 
+			and break_fn.call()
+		)
+	)
 	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
 
 	clear_waiting()
+	return is_break
 
 
 func is_waiting() -> bool:

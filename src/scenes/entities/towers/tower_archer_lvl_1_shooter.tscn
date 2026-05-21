@@ -53,7 +53,7 @@ script = ExtResource("3_seev1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1785141033]
 position = Vector2(3, -22)
 sprite_frames = ExtResource("4_wku2c")
-animation = &"ranged_up"
+animation = &"idle_down"
 
 [node name="SkillComponent" type="Node2D" parent="." unique_id=129640034]
 script = ExtResource("5_skugy")
