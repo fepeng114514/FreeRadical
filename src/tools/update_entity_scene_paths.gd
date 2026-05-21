@@ -2,7 +2,7 @@
 extends EditorScript
 
 
-const ENTITY_SCENES_DIR_PATH: String = "res://scenes/entities/"
+const ENTITY_SCENES_DIR_PATH: String = "res://entities/"
 var entity_scene_paths := PackedStringArray()
 	
 

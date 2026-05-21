@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://c3u01oty250k2"]
+
+[ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://entities/towers/tower_barrack_lvl_1.tscn" id="1_dgdoh"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_5rts4"]
+[ext_resource type="Texture2D" uid="uid://b32318e0wyigx" path="res://assets/atlas/atlas_textures/image_towers/tower_barrack_0003.tres" id="2_5uvo8"]
+[ext_resource type="SpriteFrames" uid="uid://cp22ivv7rt2i0" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl3_door.tres" id="3_5rts4"]
+
+[sub_resource type="Resource" id="Resource_5rts4"]
+resource_local_to_scene = true
+script = ExtResource("2_5rts4")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[node name="TowerBarrackLvl3" unique_id=187367710 instance=ExtResource("1_dgdoh")]
+scene_name = "tower_barrack_lvl_3"
+interact_policy = SubResource("Resource_5rts4")
+
+[node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=927508667]
+texture = ExtResource("2_5uvo8")
+
+[node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="1" unique_id=1766989563]
+sprite_frames = ExtResource("3_5rts4")
+
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+price = 160.0
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+select_rect = Rect2(-71.235, -108.86, 138.62, 123.94)
+
+[node name="BarrackComponent" parent="." index="3" unique_id=441339810]
+soldier = "tower_barrack_lvl_3_soldier"

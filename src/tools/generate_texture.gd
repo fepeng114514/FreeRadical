@@ -141,7 +141,7 @@ func _create_atlas_texture(img_data: Dictionary, atlas_file: Texture2D) -> Atlas
 
 
 func _save_atlas_texture(category: String, atlas_texture_name: String, atlas_texture: AtlasTexture) -> void:
-	var dir_path: String = "res://resources/atlas_textures/%s/" % category
+	var dir_path: String = "res://assets/atlas/atlas_textures/%s/" % category
 	_ensure_directory(dir_path)
 	var save_path: String = dir_path.path_join(atlas_texture_name + ".tres")
 	ResourceSaver.save(atlas_texture, save_path)
@@ -149,7 +149,7 @@ func _save_atlas_texture(category: String, atlas_texture_name: String, atlas_tex
 
 
 func _save_sprite_frames(category: String, sprite_frames_name: String, sprite_frames: SpriteFrames) -> void:
-	var dir_path: String = "res://resources/sprite_frames/%s/" % category
+	var dir_path: String = "res://assets/atlas/sprite_frames/%s/" % category
 	_ensure_directory(dir_path)
 	var save_path: String = dir_path.path_join(sprite_frames_name + ".tres")
 	ResourceSaver.save(sprite_frames, save_path)
