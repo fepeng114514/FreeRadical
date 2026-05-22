@@ -5,6 +5,13 @@ class_name Skill
 ## Skill 是所有技能节点的基类，提供了技能的基本属性和功能。
 
 
+enum Type {
+	NONE,
+	MELEE,
+	RANGED
+}
+
+
 ## 是否禁用
 @export var disabled: bool = false
 ## 冷却时间
@@ -31,7 +38,17 @@ var ts: float = 0
 
 
 @warning_ignore_start("unused_parameter")
-func _do_skill(e: Entity, skill_idx: int) -> void: pass
+func check_ready(e: Entity, target: Entity = null) -> bool:
+	if not TimeMgr.is_ready_time(ts, cooldown):
+		return false
+
+	if randf() > chance:
+		return false
+
+	return true
+
+
+func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void: pass
 @warning_ignore_restore("unused_parameter")
 
 

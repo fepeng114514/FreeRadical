@@ -13,7 +13,7 @@ func _on_update(e: Entity) -> bool:
 	for i: int in skill_c.get_child_count():
 		var skill: Skill = skill_c.get_child(i)
 		
-		if not TimeMgr.is_ready_time(skill.ts, skill.cooldown):
+		if not skill.check_ready(e):
 			continue
 			
 		skill._do_skill(e, i)

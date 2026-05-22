@@ -34,7 +34,7 @@ func _load(new_system_list: Array[System]) -> void:
 ## 系统主循环
 func _physics_process(delta: float) -> void:
 	for system: System in system_list:
-		system._on_update(delta)
+		system.call_deferred("_on_update", delta)
 	
 	# 帧末尾处理插入与移除
 	call_deferred("_process_insert_queue")

@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_bar.tscn" id="5_yidua"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="6_ijmwd"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="8_wdwo4"]
-[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/components/skills/skill_melee.gd" id="9_cit00"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/skill_melee.gd" id="9_cit00"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="9_w6k81"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="11_fu215"]
 

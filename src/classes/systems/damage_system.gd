@@ -22,7 +22,13 @@ func _on_update(_delta: float) -> void:
 			
 		var source: Entity = EntityMgr.get_entity_by_id(d.source_id)
 		var source_name: StringName = d.source_name
-		
+
+		var dodge_c: DodgeComponent = target.get_node_or_null(C.CN_DODGE)
+		if dodge_c and not target.state & Entity.State.WAITING:
+			if dodge_c.select_skill(target, d, source):
+				target.state |= Entity.State.INTERRUPT_WAIT | Entity.State.DODGE
+				continue
+				
 		if d.damage_type & health_c.immuned:
 			continue
 			
@@ -61,7 +67,7 @@ func _on_update(_delta: float) -> void:
 	
 
 func _predict_damage(
-		target: Entity,
+		_target: Entity,
 		health_c: HealthComponent, 
 		d: Damage
 	) -> float:
@@ -70,24 +76,10 @@ func _predict_damage(
 	if damage_type & C.DamageType.DISINTEGRATE:
 		return health_c.hp
 	
-	var physical_armor: float = clampf(
-		U.to_percent(health_c.physical_armor), 
-		0,
-		1
-	)
-	var magical_armor: float = clampf(
-		U.to_percent(health_c.magical_armor),
-		0,
-		1
-	)
-	var poison_armor: float = clampf(
-		U.to_percent(health_c.poison_armor),
-		0,
-		1
-	)
+	var physical_armor: float = clampf(health_c.physical_armor, 0, 1)
+	var magical_armor: float = clampf(health_c.magical_armor, 0, 1)
+	var poison_armor: float = clampf(health_c.poison_armor, 0, 1)
 	
-	var target_health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
-	var vulnerable: float = target_health_c.vulnerable
 	var resistance: float = 1 - health_c.damage_resistance
 
 	if damage_type & C.DamageType.TRUE:
@@ -111,7 +103,7 @@ func _predict_damage(
 	elif damage_type & C.DamageType.HP_PERCENT:
 		d.value *= health_c.hp
 		
-	var total_damage_factor: float = d.damage_factor * resistance * (1 + vulnerable)
+	var total_damage_factor: float = d.damage_factor * resistance * (1 + health_c.vulnerable)
 	var basic_value: float = d.value - health_c.damage_reduction
 	var actual_damage: float = roundi(basic_value * total_damage_factor)
 	
@@ -132,7 +124,7 @@ func _death(d: Damage, source: Entity, target: Entity, health_c: HealthComponent
 		killer = EntityMgr.get_entity_by_id(killer.source_id)
 
 	health_c.health_bar.visible = false
-	target.state = Entity.State.DEATH
+	target.state |= Entity.State.DEATH | Entity.State.WAITING
 	GameMgr.cash += health_c.death_gold
 
 	if damage_flags & C.DamageFlag.KILL_REMOVE:
@@ -146,7 +138,7 @@ func _death(d: Damage, source: Entity, target: Entity, health_c: HealthComponent
 	AudioMgr.play_sfx(death_sfx)
 	var death_animation: AnimationGroup = health_c.death_animation
 	if death_animation:
-		target.play_animation_by_look(death_animation, "death")
+		target.play_animation_by_look(death_animation, &"death")
 		if await target.y_wait_animation(death_animation):
 			return
 

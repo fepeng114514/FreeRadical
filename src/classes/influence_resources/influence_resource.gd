@@ -31,11 +31,11 @@ func _init() -> void:
 
 
 @warning_ignore_start("unused_parameter")
-func _take(source: Entity, target: Entity) -> void: pass
+func _take(source: Entity, target: Entity, source_skill_type: Skill.Type, is_area: bool) -> void: pass
 @warning_ignore_restore("unused_parameter")
 
 
-func take_influence(source: Entity, base_target: Entity, search_center: Vector2, search_filter := Callable()) -> Array[Entity]:
+func take_influence(source: Entity, base_target: Entity, search_center: Vector2, source_skill_type: Skill.Type = Skill.Type.NONE, search_filter := Callable()) -> Array[Entity]:
 	var targets: Array[Entity] = [null]
 
 	if area_enable:
@@ -48,7 +48,7 @@ func take_influence(source: Entity, base_target: Entity, search_center: Vector2,
 	for target: Entity in targets:
 		var target_id: int = target.id
 
-		_take(source, target)
+		_take(source, target, source_skill_type, area_enable)
 
 		if extra_enable:
 			EntityMgr.create_mods(target_id, mods, source_id)

@@ -18,5 +18,5 @@ func enter_level(idx: int) -> void:
 	GridMgr._load()
 
 	get_tree().change_scene_to_file(
-		"res://scenes/levels/level_%d.tscn" % idx
+		"res://levels/level_%d.tscn" % idx
 	)

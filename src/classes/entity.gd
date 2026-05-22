@@ -92,6 +92,7 @@ var components: Dictionary[StringName, Node] = {}
 #endregion
 
 
+#region 回调函数
 func _ready() -> void:
 	scene_name = scene_file_path.get_file().get_basename()
 
@@ -115,7 +116,6 @@ func _draw() -> void:
 		U.draw_offset_group(self, hit_offsets)
 
 	
-#region 回调函数
 @warning_ignore_start("unused_parameter")
 ## 插入实体时调用，返回 false 的实体将会被移除
 func _on_insert() -> bool: return true
@@ -189,6 +189,7 @@ func _to_string():
 #endregion
 
 
+#region 实体相关方法
 ## 将实体增加到插入队列
 func insert_entity() -> void:
 	visible = false
@@ -204,8 +205,63 @@ func remove_entity() -> void:
 	Log.debug("移除实体: %s" % self)
 
 	SystemMgr.remove_queue.append(self)
+
+
+## 设定实体位置，根据拥有的组件智能赋值
+func set_pos(pos: Vector2) -> void:
+	global_position = pos
 	
+	var rally_c: RallyComponent = get_node_or_null(C.CN_RALLY)
+	if rally_c:
+		rally_c.new_rally_position(pos)
 	
+	if get_node_or_null(C.CN_NAV_PATH):
+		set_nav_path_at_pos(pos)
+
+
+## 设置导航路径到当前位置下最近的导航路径
+func set_nav_path_at_pos(pos: Vector2) -> void:
+	var nav_path_c: NavPathComponent = get_node_or_null(C.CN_NAV_PATH)
+
+	var pi_list: Array = []
+	var spi_list: Array = []
+
+	if nav_path_c.sync_source_path:
+		var source: Entity = EntityMgr.get_entity_by_id(source_id)
+		var s_nav_path_c: NavPathComponent = source.get_node_or_null(C.CN_NAV_PATH) if source else null
+		if s_nav_path_c:
+			pi_list = [s_nav_path_c.pi]
+			spi_list = [s_nav_path_c.spi]
+
+	var node: PathwayNode = PathwayMgr.get_nearst_node(pos, pi_list, spi_list)
+	nav_path_c.set_nav_path(node.pi, node.spi, node.ni)
+
+
+func is_waiting() -> bool:
+	return state & (Entity.State.BLOCK | Entity.State.WAITING | Entity.State.DISABLED)
+
+
+## 协程等待
+##
+## break_fn 返回 true 表示中断等待，返回值表示是否中断等待
+func y_wait(time: float = 0, break_fn: Callable = Callable()) -> bool:
+	state |= Entity.State.WAITING
+
+	Log.verbose("实体等待: %s, %.2fs" % [self, time])
+	var is_break: bool = await TimeMgr.y_wait(time, func() -> bool:
+		return (
+			state & Entity.State.INTERRUPT_WAIT 
+			or break_fn.is_valid() 
+			and break_fn.call()
+		)
+	)
+	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
+
+	state &= ~(Entity.State.WAITING | Entity.State.INTERRUPT_WAIT)
+	return is_break
+#endregion
+
+
 #region 组件相关方法
 ## 增加组件
 func add_c(component: GDScript) -> Node:
@@ -216,6 +272,7 @@ func add_c(component: GDScript) -> Node:
 #endregion
 
 
+#region 状态效果相关方法
 ## 获取拥有的所有状态效果实体数组
 func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
@@ -263,44 +320,6 @@ func clear_has_aura_list() -> void:
 
 	has_auras_id_list.clear()
 #endregion
-
-
-## 设定实体位置，根据拥有的组件智能赋值
-func set_pos(pos: Vector2) -> void:
-	global_position = pos
-	
-	var rally_c: RallyComponent = get_node_or_null(C.CN_RALLY)
-	if rally_c:
-		rally_c.new_rally_position(pos)
-	
-	if get_node_or_null(C.CN_NAV_PATH):
-		set_nav_path_at_pos(pos)
-
-
-## 设置导航路径到当前位置下最近的导航路径
-func set_nav_path_at_pos(pos: Vector2) -> void:
-	var nav_path_c: NavPathComponent = get_node_or_null(C.CN_NAV_PATH)
-
-	var pi_list: Array = []
-	var spi_list: Array = []
-
-	if nav_path_c.sync_source_path:
-		var source: Entity = EntityMgr.get_entity_by_id(source_id)
-		var s_nav_path_c: NavPathComponent = source.get_node_or_null(C.CN_NAV_PATH) if source else null
-		if s_nav_path_c:
-			pi_list = [s_nav_path_c.pi]
-			spi_list = [s_nav_path_c.spi]
-
-	var node: PathwayNode = PathwayMgr.get_nearst_node(pos, pi_list, spi_list)
-	nav_path_c.set_nav_path(node.pi, node.spi, node.ni)
-
-
-func set_waiting() -> void:
-	state |= Entity.State.WAITING
-
-
-func clear_waiting() -> void:
-	state &= ~Entity.State.WAITING
 
 
 #region 动画相关方法
@@ -434,7 +453,6 @@ func get_animation_remaining_time(animation_group: AnimationGroup) -> float:
 	var animation_name: StringName = play_target.animation
 
 	return get_frames_remaining(play_target) / sprite_frames.get_animation_speed(animation_name)
-#endregion
 
 
 ## 协程等待动画播放完成
@@ -451,7 +469,7 @@ func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Call
 	var frames_remaining: int = get_frames_remaining(play_target)
 	var times: int = animation_group.times
 
-	set_waiting()
+	state |= Entity.State.WAITING
 	var is_break: bool = false
 	for _i: int in times:
 		if is_break:
@@ -467,29 +485,6 @@ func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Call
 				break
 			await play_target.frame_changed
 		
-	clear_waiting()
+	state &= ~(Entity.State.WAITING | Entity.State.INTERRUPT_WAIT)
 	return is_break
-
-
-## 协程等待
-##
-## break_fn 返回 true 表示中断等待，返回值表示是否中断等待
-func y_wait(time: float = 0, break_fn: Callable = Callable()) -> bool:
-	set_waiting()
-
-	Log.verbose("实体等待: %s, %.2fs" % [self, time])
-	var is_break: bool = await TimeMgr.y_wait(time, func() -> bool:
-		return (
-			state & Entity.State.INTERRUPT_WAIT 
-			or break_fn.is_valid() 
-			and break_fn.call()
-		)
-	)
-	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
-
-	clear_waiting()
-	return is_break
-
-
-func is_waiting() -> bool:
-	return state & (Entity.State.BLOCK | Entity.State.WAITING | Entity.State.DISABLED)
+#endregion

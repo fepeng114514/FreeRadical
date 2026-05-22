@@ -69,16 +69,17 @@ func _draw() -> void:
 		U.draw_offset_group(self, bullet_offsets)
 
 
-func _do_skill(e: Entity, skill_idx: int) -> void:
-	var targets: Array[Entity] = search.search_targets(e, e.global_position)
-	if not targets:
-		return
+func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
+	if not target:
+		var targets: Array[Entity] = search.search_targets(e, e.global_position)
+		if not targets:
+			return
 
-	var target: Entity = targets[0]
+		target = targets[0]
 	e.look_point = target.global_position
 	start_cooldown(e, skill_idx)
 
-	e.play_animation_by_look(animation, "ranged")
+	e.play_animation_by_look(animation, &"ranged")
 	AudioMgr.play_sfx(sfx)
 	if await e.y_wait(delay) or not target:
 		compensate_cooldown(e, skill_idx)

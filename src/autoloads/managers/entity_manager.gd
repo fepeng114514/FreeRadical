@@ -52,7 +52,7 @@ func _load() -> void:
 	_next_id = 0
 
 	var json_data: Array = U.load_json(
-		"res://scenes/entities/entity_scene_paths.json"
+		"res://entities/entity_scene_paths.json"
 	)
 	
 	# 加载实体场景

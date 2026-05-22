@@ -12,7 +12,7 @@ script = ExtResource("2_w5ikr")
 any = Vector2(0, -17.73)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_572ol"]
+[sub_resource type="Resource" id="Resource_wra37"]
 resource_local_to_scene = true
 script = ExtResource("3_572ol")
 flags = 1
@@ -25,7 +25,7 @@ script = ExtResource("3_bomnd")
 list = Array[StringName]([&"sound_enemy_orc_dead"])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[sub_resource type="Resource" id="Resource_pbj5v"]
+[sub_resource type="Resource" id="Resource_2yp6p"]
 resource_local_to_scene = true
 script = ExtResource("5_06yx3")
 damage_min = 4.0
@@ -38,7 +38,7 @@ metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 [node name="EnemyOrc" unique_id=71433118 instance=ExtResource("1_wlnjt")]
 scene_name = "enemy_orc"
 hit_offsets = SubResource("Resource_06yx3")
-interact_policy = SubResource("Resource_572ol")
+interact_policy = SubResource("Resource_wra37")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -25)
@@ -46,7 +46,7 @@ sprite_frames = ExtResource("2_bomnd")
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 80.0
-physical_armor = 30.0
+physical_armor = 0.3
 death_gold = 9.0
 death_sfx = SubResource("Resource_w5ikr")
 
@@ -59,7 +59,7 @@ scale = Vector2(1.12, 1.1)
 speed = 66.0
 
 [node name="SkillMelee" parent="MeleeComponent" parent_id_path=PackedInt32Array(768145759) index="0" unique_id=1304104648]
-influence = SubResource("Resource_pbj5v")
+influence = SubResource("Resource_2yp6p")
 
 [node name="UIComponent" parent="." index="4" unique_id=673866706]
 select_rect = Rect2(-20.88, -44.235, 41.88, 45.37)

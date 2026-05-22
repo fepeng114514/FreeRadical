@@ -292,6 +292,8 @@ const CN_SPAWNER: NodePath = ^"SpawnerComponent"
 const CN_UI: NodePath = ^"UIComponent"
 ## 组件路径: FX
 const CN_FX: NodePath = ^"FXComponent"
+## 组件路径: 闪避
+const CN_DODGE: NodePath = ^"DodgeComponent"
 #endregion
 
 

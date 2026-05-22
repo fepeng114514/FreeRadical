@@ -34,9 +34,8 @@ func _draw() -> void:
 		U.draw_offset_group(self, spawn_offsets)
 
 
-func _do_skill(e: Entity, skill_idx: int) -> void:
-	var target: Entity = null
-	if search:
+func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
+	if not target and search:
 		var targets: Array[Entity] = search.search_targets(e, e.global_position)
 		if not targets:
 			return
@@ -45,7 +44,7 @@ func _do_skill(e: Entity, skill_idx: int) -> void:
 		e.look_point = target.global_position
 	start_cooldown(e, skill_idx)
 		
-	e.play_animation_by_look(animation, "ranged")
+	e.play_animation_by_look(animation)
 	AudioMgr.play_sfx(sfx)
 	if await e.y_wait(delay) or search and not target:
 		compensate_cooldown(e, skill_idx)

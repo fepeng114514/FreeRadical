@@ -200,7 +200,7 @@ func _go_melee_pos(e: Entity, melee_c: MeleeComponent, melee_pos: Vector2) -> bo
 
 		var next_position: Vector2 = e.global_position + velocity
 		e.look_point = next_position
-		e.play_animation_by_look(melee_c.motion_animation, "walk")
+		e.play_animation_by_look(melee_c.motion_animation, &"walk")
 		e.global_position = next_position
 		
 		return false
@@ -227,7 +227,7 @@ func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 
 		var next_position: Vector2 = e.global_position + velocity
 		e.look_point = next_position
-		e.play_animation_by_look(melee_c.motion_animation, "walk")
+		e.play_animation_by_look(melee_c.motion_animation, &"walk")
 
 		e.global_position = next_position
 		
@@ -246,23 +246,8 @@ func _try_melee_attack(
 			break
 		var skill: SkillMelee = melee_c.get_child(i)
 
-		if not TimeMgr.is_ready_time(skill.ts, skill.cooldown):
-			continue
-		
-		if not InteractPolicy.is_allowed_entity(e, target, skill.interact_policy, target.interact_policy):
+		if not skill.check_ready(e, target):
 			continue
 
-		skill.start_cooldown(e, i)
-		e.play_animation_by_look(skill.animation, "melee")
-		if await e.y_wait(skill.delay) or not target:
-			skill.compensate_cooldown(e, i)
-			break
-		
-		if skill.search_target_pos:
-			skill.influence.take_influence(e, target, target.global_position)
-		else:
-			skill.influence.take_influence(e, target, e.global_position)
-		
-		await e.y_wait_animation(skill.animation)
-		e.play_animation_by_look(e.idle_animation)
+		skill._do_skill(e, i, target)
 		break

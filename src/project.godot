@@ -72,8 +72,11 @@ enabled=PackedStringArray("res://addons/godot_devtool/plugin.cfg", "res://addons
 folder_colors={
 "res://classes/components/": "blue",
 "res://classes/systems/": "blue",
+"res://entities/": "green",
 "res://entities/enemies/": "red",
-"res://entities/towers/": "teal"
+"res://entities/towers/": "teal",
+"res://levels/": "green",
+"res://ui/": "green"
 }
 
 [input]

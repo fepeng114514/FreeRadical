@@ -11,6 +11,6 @@ class_name InfluenceHealResource
 #endregion
 
 
-func _take(_source: Entity, target: Entity) -> void:
+func _take(_source: Entity, target: Entity, _source_skill_type: Skill.Type, _is_area: bool) -> void:
 	var t_health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
 	t_health_c.heal(heal_value, heal_type)

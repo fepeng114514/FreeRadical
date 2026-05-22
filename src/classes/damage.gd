@@ -13,8 +13,13 @@ var damage_type: int = C.DamageType.PHYSICAL
 ## 伤害因子
 var damage_factor: float = 1
 ## 伤害标识
-var damage_flags: int = 0
+var damage_flags: int = C.DamageFlag.NONE
+## 来源实体名称
 var source_name: StringName = &""
+## 来源实体技能名称
+var source_skill_type: Skill.Type = Skill.Type.NONE
+## 是否为区域伤害
+var is_area: bool = false
 
 
 func insert_damage() -> void:

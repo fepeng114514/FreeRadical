@@ -25,11 +25,13 @@ func _validate_property(property: Dictionary) -> void:
 			property.hint_string = "mask_enum:DamageFlag"
 
 
-func _take(source: Entity, target: Entity) -> void:
+func _take(source: Entity, target: Entity, source_skill_type: Skill.Type, is_area: bool) -> void:
 	var d := Damage.new()
 	d.target_id = target.id
 	d.source_id = source.id
-	d.source_name = source.scene_name
+	d.source_name = source.name
+	d.source_skill_type = source_skill_type
+	d.is_area = is_area
 
 	var value: float = d.get_random_value(damage_min, damage_max)
 
