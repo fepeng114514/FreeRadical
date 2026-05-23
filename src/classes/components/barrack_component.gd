@@ -37,7 +37,7 @@ class_name BarrackComponent
 			U.connect_resource_changed(spawn_offsets, queue_redraw)
 			queue_redraw()
 ## 最大士兵数量
-@export var max_soldiers: int = 3
+@export var max_soldier_count: int = 3
 ## 生成士兵播放的动画
 @export var animation: AnimationGroup = null
 ## 生成士兵延迟
@@ -48,12 +48,9 @@ class_name BarrackComponent
 
 ## 时间戳（秒）
 var ts: float = 0
-var is_first_update: bool = true
-## 上一次士兵数量
-var last_soldier_count: int = C.UNSET
 var soldier_group: EntityGroup = null
-var last_soldier_pos_list := PackedVector2Array()
-var last_blocked_id_list: Array[PackedInt32Array] = []
+var last_soldier_count: int = 0
+var last_soldier_group: EntityGroup = null
 
 
 func _ready() -> void:
@@ -90,7 +87,7 @@ func new_rally_center_position(
 	for i: int in soldier_group.get_child_count():
 		var s: Entity = soldier_group.get_child(i)
 		var s_rally_c: RallyComponent = s.get_node_or_null(C.CN_RALLY)
-		var formation_position: Vector2 = to_formation_position(rally_center_position, max_soldiers, i)
+		var formation_position: Vector2 = to_formation_position(rally_center_position, max_soldier_count, i)
 		s_rally_c.new_rally_position(formation_position, is_force, rally_center_position, false)
 		
 		var melee_c: MeleeComponent = s.get_node_or_null(C.CN_MELEE)

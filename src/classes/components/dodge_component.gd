@@ -66,7 +66,7 @@ func select_skill(e: Entity, d: Damage, source: Entity) -> bool:
 				if melee_c.is_blocker:
 					if not melee_c.blocked_id_list:
 						continue
-				elif melee_c.is_blocked:
+				else:
 					if not melee_c.blocker_id_list:
 						continue
 			Skill.Type.RANGED:

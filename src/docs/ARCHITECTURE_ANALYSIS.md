@@ -248,7 +248,7 @@ src/
 - 挂载多个 `Component` 节点作为子节点，以获取不同的能力
 - 拥有**唯一 ID**（`id`），由 `EntityManager` 分配
 - 存储实体标识（`flags`，位运算），如 `ENEMY`、`BOSS`、`FRIENDLY`、`TOWER`、`FLYING` 等
-- 拥有**状态位**（`state`，位运算），如 `IDLE`、`MELEE`、`RANGED`、`DEATH` 等
+- 拥有**状态位**（`state`，位运算），如 `IDLE`、`MELEE`、`RANGED`、`DEAD` 等
 - 提供丰富的**生命周期回调**：`_on_insert`、`_on_remove`、`_on_update`、`_on_damage`、`_on_death`、`_on_kill` 等
 - 支持**白名单/黑名单**机制控制交互目标
 
@@ -447,7 +447,7 @@ src/
   │       └─ 设置 visible = true
   │
   ├─ 每帧更新（System._on_update）
-  │   ├─ 排除 DEATH/WAITING 实体
+  │   ├─ 排除 DEAD/WAITING 实体
   │   ├─ 检查持续时间
   │   ├─ 处理来源追踪（track_source）
   │   ├─ 首次更新：播放生成动画/音效
@@ -611,7 +611,7 @@ BulletSystem._on_update:
 | `ModType` | 状态效果类型 | POISON, LAVA, BLEED, FREEZE, STUN |
 | `AuraType` | 光环类型 | BUFF, DEBUFF |
 | `SearchMode` | 搜索模式 | 按距离/血量/路程/伤害/ID/赏金/随机 × 目标类型 |
-| `State` | 实体状态 | IDLE, MELEE, RANGED, BLOCK, RALLY, DEATH 等 |
+| `State` | 实体状态 | IDLE, MELEE, RANGED, BLOCK, RALLY, DEAD 等 |
 | `InfoBarType` | 信息栏类型 | NONE, UNIT, TOWER, TEXT |
 
 ---

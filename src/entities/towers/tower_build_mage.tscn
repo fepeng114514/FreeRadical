@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://bm8shsxfldhgo" path="res://assets/atlas/atlas_textures/image_towers/tower_constructing_0003.tres" id="2_nt0rc"]
 
 [node name="TowerBuildMage" unique_id=1530244974 instance=ExtResource("1_nt0rc")]
-show_time = 1.25
 build_target = &"tower_mage_lvl_1"
 scene_name = "tower_build_mage"
 

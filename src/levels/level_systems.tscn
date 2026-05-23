@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://ch7tw5a5qflj7" path="res://classes/systems/bullet_system.gd" id="10_xx71n"]
 [ext_resource type="Script" uid="uid://dwbh7vjakpq82" path="res://classes/systems/sprite_system.gd" id="11_i47jy"]
 [ext_resource type="Script" uid="uid://cbwfqyuju4hpn" path="res://classes/systems/fx_system.gd" id="12_5tk3r"]
+[ext_resource type="Script" uid="uid://bvwtf000sfplj" path="res://classes/behaviors/dodge_behavior.gd" id="13_8qfmd"]
 [ext_resource type="Script" uid="uid://7jx5jvy2sm5c" path="res://classes/systems/behavior_system.gd" id="13_t6uwa"]
 [ext_resource type="Script" uid="uid://balgrru65agvq" path="res://classes/behaviors/rally_behavior.gd" id="14_80xc4"]
 [ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://classes/behaviors/barrack_behavior.gd" id="15_v2b0g"]
@@ -67,6 +68,10 @@ metadata/_custom_type_script = "uid://cbwfqyuju4hpn"
 [node name="BehaviorSystem" type="Node" parent="." unique_id=1681972103]
 script = ExtResource("13_t6uwa")
 metadata/_custom_type_script = "uid://7jx5jvy2sm5c"
+
+[node name="DodgeBehavior" type="Node" parent="BehaviorSystem" unique_id=1615162004]
+script = ExtResource("13_8qfmd")
+metadata/_custom_type_script = "uid://bvwtf000sfplj"
 
 [node name="RallyBehavior" type="Node" parent="BehaviorSystem" unique_id=217452558]
 script = ExtResource("14_80xc4")

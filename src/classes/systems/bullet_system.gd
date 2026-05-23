@@ -113,7 +113,6 @@ func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	e._on_bullet_hit(target, bullet_c)
 	
 	if bullet_c.hit_animation:
-		e.y_wait_animation(bullet_c.hit_animation)
 		if await e.y_wait_animation(bullet_c.hit_animation):
 			return
 

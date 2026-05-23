@@ -28,7 +28,7 @@ enum State {
 	## 状态：移除
 	REMOVED = 1 << 8,
 	## 状态：死亡
-	DEATH = 1 << 9,
+	DEAD = 1 << 9,
 	## 状态：中断等待
 	INTERRUPT_WAIT = 1 << 10,
 	## 状态：闪避
@@ -82,7 +82,16 @@ var selected: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
 ## 状态
-var state: int = Entity.State.IDLE
+var state: int = Entity.State.IDLE:
+	set(v):
+		state = v
+		
+		if v & Entity.State.WAITING:
+			
+			print(self, "设置状态", v)
+			print_stack()
+		else:
+			print(self, "设置状态", v)
 ## 看向的点
 var look_point := Vector2.INF
 ## 是否是首次更新
@@ -255,6 +264,9 @@ func y_wait(time: float = 0, break_fn: Callable = Callable()) -> bool:
 			and break_fn.call()
 		)
 	)
+	if is_break:
+		Log.verbose("%s 中断等待: %.2fs" % [self, time])
+
 	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
 
 	state &= ~(Entity.State.WAITING | Entity.State.INTERRUPT_WAIT)
@@ -472,9 +484,6 @@ func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Call
 	state |= Entity.State.WAITING
 	var is_break: bool = false
 	for _i: int in times:
-		if is_break:
-			break
-
 		for j: int in frames_remaining:
 			is_break = (
 				state & Entity.State.INTERRUPT_WAIT 
@@ -484,7 +493,11 @@ func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Call
 			if is_break:
 				break
 			await play_target.frame_changed
-		
+
+		if is_break:
+			Log.verbose("%s 中断等待动画: %s" % [self, play_target.animation])
+			break
+
 	state &= ~(Entity.State.WAITING | Entity.State.INTERRUPT_WAIT)
 	return is_break
 #endregion

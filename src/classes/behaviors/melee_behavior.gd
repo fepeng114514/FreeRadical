@@ -4,7 +4,7 @@ class_name MeleeBehavior
 ##
 ## 处理拥有 [MeleeComponent] 组件的实体的近战技能释放与拦截。
 ## 若 [member MeleeComponent.is_blocker] 为 `true`，作为拦截者：搜索并标记被拦截者，前往第一个被拦截者的近战位置。
-## 若 [member MeleeComponent.is_blocked] 为 `true`，作为被拦截者：根据是否第一个被拦截者决定等待拦截者到达，或主动前往拦截者的近战位置。
+## 若 [member MeleeComponent.is_blocker] 为 `false`，作为被拦截者：根据是否第一个被拦截者决定等待拦截者到达，或主动前往拦截者的近战位置。
 
 
 func _on_remove(e: Entity) -> bool:
@@ -24,11 +24,12 @@ func _on_skip(e: Entity) -> void:
 		return
 	
 	melee_c.unbind_melee_relations(e.id)
+
 	if melee_c.is_blocker:
 		melee_c.blocked_id_list.clear()
 		melee_c.blocked_count = 0
 		melee_c.melee_state = MeleeComponent.MeleeState.ORIGIN_POS_ARRIVED
-	elif melee_c.is_blocked:
+	else:
 		melee_c.blocker_id_list.clear()
 		
 	if e.state & Entity.State.IDLE:
@@ -40,14 +41,18 @@ func _on_update(e: Entity) -> bool:
 	if not melee_c:
 		return false
 		
+	if e.interact_policy:
+		if e.interact_policy.flags & C.Flag.FRIENDLY:
+			melee_c.is_blocker = true
+		else:
+			melee_c.is_blocker = false
+			
 	melee_c.cleanup_melee_relations(e)
 	
 	if melee_c.is_blocker:
 		return _update_blocker(e, melee_c)
-	elif melee_c.is_blocked:
+	else:
 		return _update_blocked(e, melee_c)
-		
-	return false
 
 
 func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
@@ -84,12 +89,12 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 				melee_c.blocked_count = 0
 				melee_c.unbind_melee_relations(e.id)
 		
-		var max_blocked: int = melee_c.max_blocked
+		var max_blocked_count: int = melee_c.max_blocked_count
 		for t: Entity in pending_blockeds:
-			if melee_c.blocked_count >= max_blocked:
+			if melee_c.blocked_count >= max_blocked_count:
 				break
 			
-			melee_c.bind_melee_relations(t, e)
+			melee_c.bind_melee_relations(e.id, t.id)
 	else:
 		if not melee_c.blocked_id_list:
 			var blocked_targets: Array[Entity] = melee_c.search.search_targets(
@@ -104,7 +109,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 			)
 			var first_blocked_target: Entity = blocked_targets[0] if blocked_targets else null
 			if first_blocked_target and not melee_c.is_extra_blocker:
-				melee_c.bind_melee_relations(first_blocked_target, e)
+				melee_c.bind_melee_relations(e.id, first_blocked_target.id)
 				melee_c.is_extra_blocker = true
 	
 	var blocked_id_list: Array = melee_c.blocked_id_list

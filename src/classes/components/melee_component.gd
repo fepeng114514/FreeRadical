@@ -36,25 +36,16 @@ enum MeleeState {
 @export var arrived_distance: float = 10
 
 @export_group("Blocker")
-## 是否是拦截者
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var is_blocker: bool = false:
-	set(value):
-		is_blocker = value
-		update_configuration_warnings()
 @export var search: SearchResource = null
 ## 最大被拦截者数量
-@export var max_blocked: int = 1
+@export var max_blocked_count: int = 1
 
 @export_group("Blocked")
-## 是否是被拦截者
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var is_blocked: bool = false:
-	set(value):
-		is_blocked = value
-		update_configuration_warnings()
 ## 拦截成本
 @export var block_cost: int = 1
 
-
+## 是否是拦截者
+var is_blocker: bool = false
 ## 拦截者 ID 列表
 var blocker_id_list := PackedInt32Array()
 ## 拦截数量
@@ -82,7 +73,7 @@ func _ready() -> void:
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		if is_blocker:
+		if search:
 			search.draw(self, position)
 		U.draw_offset_group(self, melee_pos_offsets)
 	
@@ -93,20 +84,26 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if not get_children():
 		warn.append("请至少增加一个 SkillMelee 或其类型的子节点，否则实体无法释放近战技能。")
 	
-	if not is_blocked and not is_blocker:
-		warn.append("请至少勾选一个 is_blocked 或 is_blocker 属性，否则无法识别被拦截者与拦截者。")
-		
 	return warn
 
 	
 ## 绑定拦截关系
-func bind_melee_relations(target: Entity, e: Entity) -> void: 
-	var t_melee_c: MeleeComponent = target.get_node_or_null(C.CN_MELEE)
-	
-	t_melee_c.blocker_id_list.append(e.id)
-	blocked_id_list.append(target.id)
-	blocked_count += t_melee_c.block_cost
-	
+func bind_melee_relations(blocker_id: int, blocked_id: int) -> void: 
+	if is_blocker:
+		var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id)
+		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
+		
+		blocked_melee_c.blocker_id_list.append(blocker_id)
+		blocked_id_list.append(blocked_id)
+		blocked_count += blocked_melee_c.block_cost
+	else:
+		var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
+		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
+		
+		blocker_id_list.append(blocker_id)
+		blocker_melee_c.blocked_id_list.append(blocked_id)
+		blocker_melee_c.blocked_count += block_cost
+
 
 ## 解除拦截关系
 func unbind_melee_relations(erase_id: int) -> void:
@@ -118,7 +115,7 @@ func unbind_melee_relations(erase_id: int) -> void:
 			
 		blocked_id_list.clear()
 		is_extra_blocker = false
-	elif is_blocked:
+	else:
 		for blocker_id: int in blocker_id_list:
 			var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
 			var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
@@ -157,7 +154,7 @@ func cleanup_melee_relations(e: Entity) -> void:
 			blocked_count += b_melee_c.block_cost
 			
 		blocked_id_list = new_blockeds_ids
-	elif is_blocked:
+	else:
 		var new_blockers_ids := PackedInt32Array()
 		
 		for id: int in blocker_id_list:

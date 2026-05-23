@@ -18,7 +18,7 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	var entities: Array = EntityMgr.get_entities_group(C.CN_HEALTH).filter(
 		func(e: Entity) -> bool:
-			return not e.state & Entity.State.DEATH
+			return not e.state & Entity.State.DEAD
 	)
 	
 	for e: Entity in entities:

@@ -101,7 +101,6 @@ script = ExtResource("7_xu63r")
 speed = 208.0
 motion_animation = SubResource("Resource_enhu5")
 melee_pos_offsets = SubResource("Resource_prid8")
-is_blocker = true
 search = SubResource("Resource_vrdxj")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 

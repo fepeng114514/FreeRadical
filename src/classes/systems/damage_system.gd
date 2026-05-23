@@ -16,6 +16,9 @@ func _on_update(_delta: float) -> void:
 		if not target:
 			continue
 
+		if target.state & Entity.State.DEAD:
+			continue
+
 		var health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
 		if not health_c:
 			continue
@@ -24,10 +27,15 @@ func _on_update(_delta: float) -> void:
 		var source_name: StringName = d.source_name
 
 		var dodge_c: DodgeComponent = target.get_node_or_null(C.CN_DODGE)
-		if dodge_c and not target.state & Entity.State.WAITING:
+		if dodge_c:
 			if dodge_c.select_skill(target, d, source):
-				target.state |= Entity.State.INTERRUPT_WAIT | Entity.State.DODGE
+				target.state |= Entity.State.DODGE
+				if target.state & Entity.State.WAITING:
+					target.state |= Entity.State.INTERRUPT_WAIT
 				continue
+
+		if target.state & Entity.State.DODGE:
+			continue
 				
 		if d.damage_type & health_c.immuned:
 			continue
@@ -61,7 +69,7 @@ func _on_update(_delta: float) -> void:
 		)
 		
 		if health_c.hp <= 0:
-			_death(d, source, target, health_c)
+			_death(d, target, health_c, source)
 
 	SystemMgr.damage_queue = new_damage_queue
 	
@@ -110,7 +118,7 @@ func _predict_damage(
 	return actual_damage
 
 
-func _death(d: Damage, source: Entity, target: Entity, health_c: HealthComponent) -> void:
+func _death(d: Damage, target: Entity, health_c: HealthComponent, source: Entity) -> void:
 	var damage_flags: int = d.damage_flags
 			
 	if damage_flags & C.DamageFlag.NOT_KILL:
@@ -124,7 +132,9 @@ func _death(d: Damage, source: Entity, target: Entity, health_c: HealthComponent
 		killer = EntityMgr.get_entity_by_id(killer.source_id)
 
 	health_c.health_bar.visible = false
-	target.state |= Entity.State.DEATH | Entity.State.WAITING
+	target.state |= Entity.State.DEAD
+	if target.state & Entity.State.WAITING:
+		target.state |= Entity.State.INTERRUPT_WAIT
 	GameMgr.cash += health_c.death_gold
 
 	if damage_flags & C.DamageFlag.KILL_REMOVE:
@@ -134,8 +144,9 @@ func _death(d: Damage, source: Entity, target: Entity, health_c: HealthComponent
 	if target._on_death():
 		return
 
-	var death_sfx: AudioGroup = health_c.death_sfx
-	AudioMgr.play_sfx(death_sfx)
+	await get_tree().process_frame
+	
+	AudioMgr.play_sfx(health_c.death_sfx)
 	var death_animation: AnimationGroup = health_c.death_animation
 	if death_animation:
 		target.play_animation_by_look(death_animation, &"death")

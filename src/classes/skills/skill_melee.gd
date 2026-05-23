@@ -49,5 +49,7 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	else:
 		influence.take_influence(e, target, e.global_position, Skill.Type.MELEE)
 	
-	await e.y_wait_animation(animation)
+	if await e.y_wait_animation(animation):
+		return
+		
 	e.play_animation_by_look(e.idle_animation, &"idle")
