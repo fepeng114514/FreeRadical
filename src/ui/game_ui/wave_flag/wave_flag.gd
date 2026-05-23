@@ -123,4 +123,3 @@ func _on_pressed() -> void:
 	if WaveMgr.is_first_release_wave:
 		WaveMgr.first_release_wave.emit()
 		WaveMgr.is_first_release_wave = false
-	WaveMgr.release_wave.emit()

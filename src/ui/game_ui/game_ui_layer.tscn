@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cxohlj7mh8hb6" path="res://ui/game_ui/top_bar.tscn" id="1_olxg3"]
 [ext_resource type="Script" uid="uid://cpnmrjrpdut1d" path="res://ui/game_ui/game_ui_layer.gd" id="1_x1lfd"]
 [ext_resource type="PackedScene" uid="uid://dguwvlhp3jmgn" path="res://ui/game_ui/bottom_bar.tscn" id="2_x1lfd"]
+[ext_resource type="PackedScene" uid="uid://rq35ixpelpas" path="res://ui/game_ui/debug_menu/debug_menu.tscn" id="4_ebiw6"]
 
 [node name="GameUILayer" type="CanvasLayer" unique_id=934359936]
 script = ExtResource("1_x1lfd")
@@ -32,6 +33,9 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
+
+[node name="DebugMenu" parent="MarginContainer/VBoxContainer/MiddleSpacer" unique_id=370316337 instance=ExtResource("4_ebiw6")]
+layout_mode = 0
 
 [node name="BottomBar" parent="MarginContainer/VBoxContainer" unique_id=1514093739 instance=ExtResource("2_x1lfd")]
 layout_mode = 2

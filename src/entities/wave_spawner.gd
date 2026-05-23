@@ -14,7 +14,6 @@ enum SPAWN_GROUP_FLAGS {
 @export var wave_group: WaveGroup = null
 @export var wave_interval_start_sfx: AudioGroup = null
 @export var wave_interval_finish_sfx: AudioGroup = null
-@export var release_wave_delay: float = 1.0
 
 
 func _spawner() -> void:
@@ -33,13 +32,12 @@ func _spawner() -> void:
 			AudioMgr.play_sfx(wave_interval_start_sfx)
 		
 		Log.debug("开始第 %d 波计时：%.2f" % [wave_idx + 1, wave_interval])
-		await y_wait(wave_interval, func(): 
-			return WaveMgr.is_release_wave
-		)
+		await y_wait(wave_interval, func(): return WaveMgr.is_release_wave)
 		
+		WaveMgr.release_wave.emit()
+
 		AudioMgr.play_sfx(wave_interval_finish_sfx)
 		
-		await y_wait(release_wave_delay)
 		WaveMgr.is_release_wave = false
 		Log.debug(">>> 开始第 %d 波出怪" % (wave_idx + 1))
 		
@@ -54,8 +52,10 @@ func _spawner() -> void:
 			_spawn_group_spawner(i, spawn_group, spawn_group_states)
 			
 		await all_spawn_group_done
+		WaveMgr.is_skip_wave = false
+		Log.debug("-------第 %d 波释放完毕-------" % (wave_idx + 1))
 			
-	Log.debug("=====所有波次释放完毕=====")
+	Log.debug("=======所有波次释放完毕=======")
 	WaveMgr.waves_finished = true
 
 
@@ -64,30 +64,39 @@ func _spawn_group_spawner(
 		spawn_group: WaveSpawnGroup, 
 		spawn_group_states: PackedInt32Array
 	) -> void:
-	await y_wait(spawn_group.delay)
-	var pathway_idx: int = spawn_group.pathway_idx
-	
-	for spawn: WaveSpawn in spawn_group.spawn_list:
-		for i: int in spawn.count:
-			var e: Entity = EntityMgr.create_entity(spawn.entity)
-			
-			var nav_path_c: NavPathComponent = e.get_node_or_null(C.CN_NAV_PATH)
-			if nav_path_c:
-				var spi: int = spawn.subpathway_idx
+	await get_tree().physics_frame
+		
+	if not await y_wait(spawn_group.delay, _skip_break_fn):
+		var pathway_idx: int = spawn_group.pathway_idx
+		var is_break: bool = false
+		
+		for spawn: WaveSpawn in spawn_group.spawn_list:
+			for i: int in spawn.count:
+				var e: Entity = EntityMgr.create_entity(spawn.entity)
 				
-				nav_path_c.reversed = spawn.reversed
-				nav_path_c.loop = spawn.loop
+				var nav_path_c: NavPathComponent = e.get_node_or_null(C.CN_NAV_PATH)
+				if nav_path_c:
+					var spi: int = spawn.subpathway_idx
+					
+					nav_path_c.reversed = spawn.reversed
+					nav_path_c.loop = spawn.loop
+					
+					var node: PathwayNode = nav_path_c.get_pathway_node(
+						PathwayMgr.node_count - 1 if nav_path_c.reversed else 0
+					)
+					nav_path_c.set_nav_path(pathway_idx, spi, node.ni)
 				
-				var node: PathwayNode = nav_path_c.get_pathway_node(
-					PathwayMgr.node_count - 1 if nav_path_c.reversed else 0
-				)
-				nav_path_c.set_nav_path(pathway_idx, spi, node.ni)
-			
-			e.insert_entity()
-			
-			await y_wait(spawn.interval)
-			
-		await y_wait(spawn.next_interval)
+				e.insert_entity()
+				
+				if await y_wait(spawn.interval, _skip_break_fn):
+					is_break = true
+					break
+					
+			if is_break:
+				break
+				
+			if await y_wait(spawn.next_interval, _skip_break_fn):
+				break
 	
 	spawn_group_states[idx] = SPAWN_GROUP_FLAGS.DONE
 	for flag: int in spawn_group_states:
@@ -95,3 +104,7 @@ func _spawn_group_spawner(
 			break
 			
 		all_spawn_group_done.emit()
+
+
+func _skip_break_fn() -> bool:
+	return WaveMgr.is_skip_wave

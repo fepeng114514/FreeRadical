@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://yur7o864jejr" path="res://levels/level.gd" id="1_7ttr4"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_xp3ar"]
 [ext_resource type="PackedScene" uid="uid://c2ifsgk1fsdc5" path="res://levels/systems.tscn" id="8_8iyoh"]
-[ext_resource type="PackedScene" uid="uid://co5ehekpd71r8" path="res://ui/game_ui/select_menu_controller/select_menu_controller.tscn" id="10_qogh7"]
+[ext_resource type="PackedScene" uid="uid://co5ehekpd71r8" path="res://ui/game_ui/select_menu/select_menu.tscn" id="10_qogh7"]
 [ext_resource type="PackedScene" uid="uid://ca75dg47m1q1a" path="res://ui/game_ui/info_circle_controller/info_circle_controller.tscn" id="11_8iyoh"]
 [ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level1_bg.png" id="23_n8wpv"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://levels/grid_tileset.tres" id="24_iowrn"]
@@ -60,7 +60,7 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("26_ba5b5")
 
-[node name="SelectMenuController" parent="." unique_id=1082728830 instance=ExtResource("10_qogh7")]
+[node name="SelectMenu" parent="." unique_id=1082728830 instance=ExtResource("10_qogh7")]
 z_index = 1000
 
 [node name="InfoCircleController" parent="." unique_id=1487020159 instance=ExtResource("11_8iyoh")]

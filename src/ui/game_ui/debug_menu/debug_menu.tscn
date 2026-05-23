@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://rq35ixpelpas"]
+
+[ext_resource type="PackedScene" uid="uid://cqee4hb2s1agp" path="res://ui/game_ui/debug_menu/edit_button.tscn" id="1_6gdjp"]
+[ext_resource type="Script" uid="uid://b1we6nidkroj5" path="res://ui/game_ui/debug_menu/debug_menu.gd" id="1_1705i"]
+[ext_resource type="Script" uid="uid://csrlc6byvqkmt" path="res://ui/game_ui/debug_menu/add_cash_edit_button.gd" id="3_oj4ql"]
+[ext_resource type="Script" uid="uid://cjrwko5ieksjt" path="res://ui/game_ui/debug_menu/add_life_edit_button.gd" id="4_c1lay"]
+[ext_resource type="Script" uid="uid://b4u2704o6as1c" path="res://ui/game_ui/debug_menu/skip_wave_button.gd" id="5_tpgk1"]
+
+[node name="DebugMenu" type="FoldableContainer" unique_id=370316337]
+offset_right = 182.0
+offset_bottom = 167.0
+theme_override_font_sizes/font_size = 29
+title = "调试菜单"
+script = ExtResource("1_1705i")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1152954598]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="GridContainer" parent="MarginContainer" unique_id=1606442948]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+
+[node name="AddCashEditButton" parent="MarginContainer/HBoxContainer" unique_id=295310891 instance=ExtResource("1_6gdjp")]
+layout_mode = 2
+
+[node name="Button" parent="MarginContainer/HBoxContainer/AddCashEditButton" index="0" unique_id=567501581]
+text = "+增加金币"
+script = ExtResource("3_oj4ql")
+
+[node name="LineEdit" parent="MarginContainer/HBoxContainer/AddCashEditButton" index="1" unique_id=757766350]
+text = "1000"
+
+[node name="AddLifeEditButton" parent="MarginContainer/HBoxContainer" unique_id=1546114991 instance=ExtResource("1_6gdjp")]
+layout_mode = 2
+
+[node name="Button" parent="MarginContainer/HBoxContainer/AddLifeEditButton" index="0" unique_id=567501581]
+text = "+增加生命"
+script = ExtResource("4_c1lay")
+
+[node name="SkipWaveButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=856790840]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "跳过当前波次"
+script = ExtResource("5_tpgk1")
+
+[editable path="MarginContainer/HBoxContainer/AddCashEditButton"]
+[editable path="MarginContainer/HBoxContainer/AddLifeEditButton"]

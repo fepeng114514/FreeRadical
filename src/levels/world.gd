@@ -7,15 +7,18 @@ extends Node2D
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		return
+		pass
+	else:
+		SystemMgr.append_insert_queue.connect(_on_create_entity)
 		
-	SystemMgr.append_insert_queue.connect(_on_create_entity)
-	
-	for e: Entity in get_children():
-		EntityMgr.process_create(e)
+		for e: Entity in get_children():
+			if e.name == &"WaveSpawner":
+				WaveMgr.wave_spawner = e
 			
-		e.insert_entity()
-		
+			EntityMgr.process_create(e)
+				
+			e.insert_entity()
+			
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warn: PackedStringArray = []

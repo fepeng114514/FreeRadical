@@ -82,16 +82,7 @@ var selected: bool = false
 ## 上一帧位置
 var last_position := Vector2.ZERO
 ## 状态
-var state: int = Entity.State.IDLE:
-	set(v):
-		state = v
-		
-		if v & Entity.State.WAITING:
-			
-			print(self, "设置状态", v)
-			print_stack()
-		else:
-			print(self, "设置状态", v)
+var state: int = Entity.State.IDLE
 ## 看向的点
 var look_point := Vector2.INF
 ## 是否是首次更新
