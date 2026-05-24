@@ -10,9 +10,13 @@ func _on_insert(e: Entity) -> bool:
 	if not fx_c:
 		return true
 		
-	if await e.y_wait_animation(e.idle_animation):
-		return true
-
-	e.remove_entity()
+	_play_animation(e)
 		
 	return true
+
+
+func _play_animation(e: Entity) -> void:
+	if await e.y_wait_animation(e.idle_animation):
+		return
+
+	e.remove_entity()

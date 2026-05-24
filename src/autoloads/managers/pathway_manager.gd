@@ -3,6 +3,12 @@ extends Node
 ##
 ## 存储所有路径与相关数据
 
+
+@warning_ignore_start("unused_signal")
+signal draw_pathway_changed
+@warning_ignore_restore("unused_signal")
+
+
 ## 路径列表
 var pathway_list: Array[Pathway] = []
 ## 所有路径上的节点
@@ -17,6 +23,11 @@ var subpathway_spacing: float = 20
 var node_count: int = 256
 ## 路径节点相交距离阈值
 var intersect_dist_threshold: float = 16
+
+var is_draw_pathway: bool = false:
+	set(value):
+		is_draw_pathway = value
+		draw_pathway_changed.emit()
 
 
 func _load() -> void:

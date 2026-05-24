@@ -26,11 +26,17 @@ func _ready() -> void:
 	length = curve.get_baked_length()
 	node_list = _get_equally_spaced_nodes()
 
+	PathwayMgr.draw_pathway_changed.connect(_on_draw_pathway_changed)
+
+
+func _on_draw_pathway_changed() -> void:
+	queue_redraw()
+
 
 func _draw() -> void:
-	if parent_pathway.is_debug:
+	if PathwayMgr.is_draw_pathway:
 		for node: PathwayNode in node_list:
-			draw_circle(node.pos, 2, Color.RED)
+			draw_circle(node.pos, 3, Color.RED)
 
 
 ## 创建偏移曲线

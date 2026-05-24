@@ -18,7 +18,9 @@ enum SPAWN_GROUP_FLAGS {
 
 func _spawner() -> void:
 	AudioMgr.play_sfx(wave_interval_start_sfx)
+	WaveMgr.is_wait_first_release_wave = true
 	await WaveMgr.first_release_wave
+	WaveMgr.is_wait_first_release_wave = false
 	
 	var wave_list: Array[Wave] = wave_group.wave_list
 	

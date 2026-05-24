@@ -24,7 +24,7 @@ func _init_trajectory(bullet_c: BulletComponent, e: Entity, _target: Entity) -> 
 	)
 	bullet_c.velocity = velocity
 
-	var next_pos: Vector2 = U.position_in_parabola(
+	var next_pos: Vector2 = U.get_position_in_parabola(
 		velocity, from, 0.1, flight_gravity
 	)
 
@@ -33,12 +33,12 @@ func _init_trajectory(bullet_c: BulletComponent, e: Entity, _target: Entity) -> 
 
 
 func _update_trajectory(e: Entity, bullet_c: BulletComponent, _target: Entity, flying_time: float, _delta: float) -> void:
-	var current_pos: Vector2 = U.position_in_parabola(
+	var current_pos: Vector2 = U.get_position_in_parabola(
 		bullet_c.velocity, bullet_c.from, flying_time, flight_gravity
 	)
 
 	var next_time: float = flying_time + TimeMgr.frame_length
-	var next_pos: Vector2 = U.position_in_parabola(
+	var next_pos: Vector2 = U.get_position_in_parabola(
 		bullet_c.velocity, bullet_c.from, next_time, flight_gravity
 	)
 

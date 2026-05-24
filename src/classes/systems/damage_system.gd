@@ -67,6 +67,18 @@ func _on_update(_delta: float) -> void:
 				actual_damage
 			]
 		)
+		var damage_number := DamageNumber.new()
+		damage_number.value = actual_damage
+		damage_number.damage_type = d.damage_type
+		var from: Vector2 = target.global_position
+		if target.hit_offsets:
+			var hit_offset: Vector2 = target.hit_offsets.get_offset_for_point(
+				target.global_position, target.look_point
+			)
+			from += hit_offset
+		damage_number.global_position = from
+		
+		add_child(damage_number)
 		
 		if health_c.hp <= 0:
 			_death(d, target, health_c, source)

@@ -7,7 +7,9 @@ signal release_wave
 signal start_wave_timer
 @warning_ignore_restore("unused_signal")
 
+
 var wave_spawner: Entity = null
+var is_wait_first_release_wave: bool = false
 ## 是否跳过波次计时
 var is_release_wave: bool = false
 ## 当前波次

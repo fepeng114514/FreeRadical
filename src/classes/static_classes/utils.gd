@@ -160,7 +160,7 @@ static func initial_parabola_velocity(
 	
 	
 ## 根据时间与速度计算位于抛物线上的位置
-static func position_in_parabola(
+static func get_position_in_parabola(
 		velocity: Vector2, from: Vector2, t: float, g: float
 	) -> Vector2:
 	var x: float = velocity.x * t + from.x
