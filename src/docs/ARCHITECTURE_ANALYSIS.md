@@ -487,8 +487,8 @@ WaveGroup（波次集合）
   └─ wave_list: Array[Wave]
        └─ Wave（波次）
             ├─ interval: float（波次间隔）
-            └─ spawn_group_list: Array[WaveSpawnGroup]
-                 └─ WaveSpawnGroup（生成批次）
+            └─ spawn_group_list: Array[SubWave]
+                 └─ SubWave（生成批次）
                       ├─ pathway_idx: int（路径索引）
                       ├─ delay: float（批次延迟）
                       └─ spawn_list: Array[WaveSpawn]
@@ -514,14 +514,14 @@ WaveSpawner（波次生成器实体）
       ├─ 可被 is_release_wave 跳过等待
       ├─ 播放波次音效
       │
-      └─ 并发启动所有 WaveSpawnGroup（_spawn_group_spawner）
+      └─ 并发启动所有 SubWave（_spawn_group_spawner）
           └─ 对每个 WaveSpawn：
               ├─ 等待 delay
               ├─ 循环 count 次：
               │   ├─ EntityMgr.create_entity(entity)
               │   ├─ 设置 NavPathComponent（路径/子路径/起点）
               │   └─ 等待 interval
-              └─ 等待 next_interval
+              └─ 等待 spawn_interval
       │
       └─ 所有批次完成后继续下一波
 ```

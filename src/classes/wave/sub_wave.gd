@@ -1,13 +1,11 @@
 extends Resource
-class_name WaveSpawnGroup
-## 生成批次资源
+class_name SubWave
+## 子波次资源
 
 
 ## 生成路径
 @export var pathway_idx: int = 0
-## 批次延迟，单位为秒
-##
-## 因为所有批次都是并发的所以使用延迟控制
+## 延迟，单位为秒
 @export var delay: float = 0
 ## 敌人生成列表
 @export var spawn_list: Array[WaveSpawn] = []

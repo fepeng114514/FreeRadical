@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://k8jjifduvh0w"]
+
+[ext_resource type="Script" uid="uid://2uv0ppchn0i" path="res://controls/track_editor/track_editor.gd" id="1_472n8"]
+[ext_resource type="PackedScene" uid="uid://b0b76ce35okm7" path="res://controls/track_editor/track_item.tscn" id="3_472n8"]
+[ext_resource type="PackedScene" uid="uid://dduxbtv4oy4sr" path="res://controls/track_editor/tick.tscn" id="5_6mkei"]
+[ext_resource type="Script" uid="uid://qc7bxstxd8c5" path="res://controls/track_editor/ruler_panel_container.gd" id="5_7bxi6"]
+[ext_resource type="PackedScene" uid="uid://bmuhmrhbtm0ci" path="res://controls/track_editor/left_track_tool_bar_item.tscn" id="5_kgcki"]
+[ext_resource type="Texture2D" uid="uid://c54tm7kk728cu" path="res://assets/plus_sign.svg" id="5_pcrig"]
+[ext_resource type="Texture2D" uid="uid://dpmabvtr1cilx" path="res://assets/down_arrow.svg" id="6_7iynv"]
+[ext_resource type="Script" uid="uid://ndbqiqq8o6j" path="res://controls/track_editor/add_track_button.gd" id="6_wrheq"]
+[ext_resource type="PackedScene" uid="uid://yynu1sipymxy" path="res://controls/track_editor/track.tscn" id="7_a2i43"]
+[ext_resource type="PackedScene" uid="uid://d36nkd3rxi1vp" path="res://controls/track_editor/right_track_tool_bar_item.tscn" id="7_kgcki"]
+
+[sub_resource type="DPITexture" id="DPITexture_kgcki"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\">
+  <!-- 背景透明，没有任何背景遮罩或填充 -->
+  <!-- 白色加号，使用圆角端点 -->
+  <path d=\"M4 12H20M12 4V20\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\"/>
+</svg>"
+color_map = {
+Color(1, 1, 1, 1): Color(0.18039216, 0.5019608, 1, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_jo1cx"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\">
+  <!-- 背景透明，没有任何背景遮罩或填充 -->
+  <!-- 白色加号，使用圆角端点 -->
+  <path d=\"M4 12H20M12 4V20\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\"/>
+</svg>"
+color_map = {
+Color(1, 1, 1, 1): Color(0.8109714, 0.8109714, 0.8109714, 1)
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60x5f"]
+bg_color = Color(0.4033567, 0.4033568, 0.40335652, 1)
+border_width_left = 3
+
+[node name="TrackEditor" type="VBoxContainer" unique_id=1678412003 node_paths=PackedStringArray("track_length_spin_box", "tick_length_spin_box", "add_track_button", "ruler", "pointer", "track_vbox_container", "left_track_tool_bar", "right_track_tool_bar")]
+theme_override_constants/separation = 0
+script = ExtResource("1_472n8")
+track_length_spin_box = NodePath("ToolBar/TrackLengthSpinBox")
+tick_length_spin_box = NodePath("ToolBar/TickLengthSpinBox")
+add_track_button = NodePath("ToolBar/AddTrackButton")
+ruler = NodePath("HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/RulerPanelContainer/Ruler")
+pointer = NodePath("HBoxContainer/ScrollContainer/HBoxContainer/Control/Pointer")
+track_vbox_container = NodePath("HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/TrackVBoxContainer")
+left_track_tool_bar = NodePath("HBoxContainer/LeftVBoxContainer/LeftTrackToolBar")
+right_track_tool_bar = NodePath("HBoxContainer/RightVBoxContainer/RightTrackToolBar")
+tick_scene = ExtResource("5_6mkei")
+track_item_scene = ExtResource("3_472n8")
+track_scene = ExtResource("7_a2i43")
+left_track_tool_bar_item_scene = ExtResource("5_kgcki")
+right_track_tool_bar_item_scene = ExtResource("7_kgcki")
+
+[node name="ToolBar" type="HBoxContainer" parent="." unique_id=1742351762]
+layout_mode = 2
+
+[node name="TrackLengthLabel" type="Label" parent="ToolBar" unique_id=2002247920]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "轨道长度"
+
+[node name="TrackLengthSpinBox" type="SpinBox" parent="ToolBar" unique_id=1703325649]
+layout_mode = 2
+max_value = 10000.0
+value = 1000.0
+
+[node name="VSeparator" type="VSeparator" parent="ToolBar" unique_id=1692882126]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TickLengthLabel" type="Label" parent="ToolBar" unique_id=1716528314]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "刻度长度"
+
+[node name="TickLengthSpinBox" type="SpinBox" parent="ToolBar" unique_id=45777939]
+layout_mode = 2
+value = 10.0
+
+[node name="Spacer" type="Control" parent="ToolBar" unique_id=64172861]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddTrackButton" type="TextureButton" parent="ToolBar" unique_id=666475839 node_paths=PackedStringArray("track_editor")]
+layout_mode = 2
+tooltip_text = "增加轨道"
+texture_normal = ExtResource("5_pcrig")
+texture_pressed = SubResource("DPITexture_kgcki")
+texture_hover = SubResource("DPITexture_jo1cx")
+script = ExtResource("6_wrheq")
+track_editor = NodePath("../..")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1481428959]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="LeftVBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1096749825]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Spacer" type="Control" parent="HBoxContainer/LeftVBoxContainer" unique_id=46048246]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="LeftTrackToolBar" type="VBoxContainer" parent="HBoxContainer/LeftVBoxContainer" unique_id=1203747641]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer" unique_id=162028184]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+vertical_scroll_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ScrollContainer" unique_id=823258911]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Control" type="Control" parent="HBoxContainer/ScrollContainer/HBoxContainer" unique_id=1471348930]
+z_index = 1000
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Pointer" type="Control" parent="HBoxContainer/ScrollContainer/HBoxContainer/Control" unique_id=1946942630]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 81.0
+offset_right = 81.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/ScrollContainer/HBoxContainer/Control/Pointer" unique_id=850210360]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 2.0
+offset_bottom = 99999.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+mouse_filter = 2
+color = Color(0.18039216, 0.5019608, 1, 1)
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/ScrollContainer/HBoxContainer/Control/Pointer" unique_id=56222796]
+modulate = Color(0.18039216, 0.5019608, 1, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -9.0
+offset_top = -3.0
+offset_right = 11.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_7iynv")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer/HBoxContainer" unique_id=1986328995]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="RulerPanelContainer" type="PanelContainer" parent="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer" unique_id=1439455651 node_paths=PackedStringArray("track_editor")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_60x5f")
+script = ExtResource("5_7bxi6")
+track_editor = NodePath("../../../../..")
+
+[node name="Ruler" type="HBoxContainer" parent="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/RulerPanelContainer" unique_id=1949756596]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="TrackVBoxContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer" unique_id=1612039541]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="RightVBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=431925008]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Spacer" type="Control" parent="HBoxContainer/RightVBoxContainer" unique_id=1066561741]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="RightTrackToolBar" type="VBoxContainer" parent="HBoxContainer/RightVBoxContainer" unique_id=686138776]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1

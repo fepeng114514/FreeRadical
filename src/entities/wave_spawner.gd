@@ -2,10 +2,10 @@
 extends Entity
 
 
-signal all_spawn_group_done
+signal all_sub_wave_done
 
 
-enum SPAWN_GROUP_FLAGS {
+enum SUB_WAVE_STATE_FLAGS {
 	SPAWNING,
 	DONE,
 }
@@ -43,17 +43,17 @@ func _spawner() -> void:
 		WaveMgr.is_release_wave = false
 		Log.debug(">>> 开始第 %d 波出怪" % (wave_idx + 1))
 		
-		var spawn_group_list: Array[WaveSpawnGroup] = wave.spawn_group_list
-		var spawn_group_list_size: int = spawn_group_list.size()
-		var spawn_group_states := PackedInt32Array()
-		spawn_group_states.resize(spawn_group_list_size)
-		spawn_group_states.fill(SPAWN_GROUP_FLAGS.SPAWNING)
+		var sub_wave_list: Array[SubWave] = wave.sub_wave_list
+		var sub_wave_list_size: int = sub_wave_list.size()
+		var sub_wave_state_list := PackedInt32Array()
+		sub_wave_state_list.resize(sub_wave_list_size)
+		sub_wave_state_list.fill(SUB_WAVE_STATE_FLAGS.SPAWNING)
 		
-		for i: int in spawn_group_list_size:
-			var spawn_group: WaveSpawnGroup = spawn_group_list[i]
-			_spawn_group_spawner(i, spawn_group, spawn_group_states)
+		for i: int in sub_wave_list_size:
+			var sub_wave: SubWave = sub_wave_list[i]
+			_sub_wave_spawner(i, sub_wave, sub_wave_state_list)
 			
-		await all_spawn_group_done
+		await all_sub_wave_done
 		WaveMgr.is_skip_wave = false
 		Log.debug("-------第 %d 波释放完毕-------" % (wave_idx + 1))
 			
@@ -61,18 +61,21 @@ func _spawner() -> void:
 	WaveMgr.waves_finished = true
 
 
-func _spawn_group_spawner(
+func _sub_wave_spawner(
 		idx: int,
-		spawn_group: WaveSpawnGroup, 
-		spawn_group_states: PackedInt32Array
+		sub_wave: SubWave, 
+		sub_wave_state_list: PackedInt32Array
 	) -> void:
 	await get_tree().physics_frame
 		
-	if not await y_wait(spawn_group.delay, _skip_break_fn):
-		var pathway_idx: int = spawn_group.pathway_idx
+	if not await y_wait(sub_wave.delay, _skip_break_fn):
+		var pathway_idx: int = sub_wave.pathway_idx
 		var is_break: bool = false
 		
-		for spawn: WaveSpawn in spawn_group.spawn_list:
+		for spawn: WaveSpawn in sub_wave.spawn_list:
+			if await y_wait(spawn.interval, _skip_break_fn):
+				break
+
 			for i: int in spawn.count:
 				var e: Entity = EntityMgr.create_entity(spawn.entity)
 				
@@ -90,22 +93,19 @@ func _spawn_group_spawner(
 				
 				e.insert_entity()
 				
-				if await y_wait(spawn.interval, _skip_break_fn):
+				if await y_wait(spawn.spawn_interval, _skip_break_fn):
 					is_break = true
 					break
 					
 			if is_break:
 				break
-				
-			if await y_wait(spawn.next_interval, _skip_break_fn):
-				break
 	
-	spawn_group_states[idx] = SPAWN_GROUP_FLAGS.DONE
-	for flag: int in spawn_group_states:
-		if not flag & SPAWN_GROUP_FLAGS.DONE:
+	sub_wave_state_list[idx] = SUB_WAVE_STATE_FLAGS.DONE
+	for flag: int in sub_wave_state_list:
+		if not flag & SUB_WAVE_STATE_FLAGS.DONE:
 			break
 			
-		all_spawn_group_done.emit()
+		all_sub_wave_done.emit()
 
 
 func _skip_break_fn() -> bool:

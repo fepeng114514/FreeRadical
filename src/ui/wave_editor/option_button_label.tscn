@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dmm6qq04j3mhl"]
+
+[ext_resource type="PackedScene" uid="uid://dobj4y7u8wjr8" path="res://controls/option_button_label.tscn" id="1_3p8a0"]
+
+[node name="OptionButtonLabel" unique_id=82350687 instance=ExtResource("1_3p8a0")]
+
+[node name="Label" parent="." index="0" unique_id=973402172]
+theme_override_font_sizes/font_size = 18

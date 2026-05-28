@@ -1,8 +1,8 @@
-extends DebugMenuEditButton
+extends SpinBoxButton
 
 
 func _ready() -> void:
-	pressed.connect(_on_pressed)
+	button.pressed.connect(_on_pressed)
 	
 	
 func _on_pressed() -> void:
@@ -13,5 +13,5 @@ func _on_pressed() -> void:
 	var d := Damage.new()
 	d.target_id = target.id
 	d.damage_type = C.DamageType.HP_MAX_PERCENT
-	d.value = float(line_edit.text) / 100
+	d.value = spin_box.value / 100
 	d.insert_damage()

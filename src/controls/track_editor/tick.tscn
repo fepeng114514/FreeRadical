@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dduxbtv4oy4sr"]
+
+[ext_resource type="Script" uid="uid://b5fr73q66yktv" path="res://controls/track_editor/tick.gd" id="1_b7pkt"]
+
+[node name="Tick" type="HBoxContainer" unique_id=171740860 node_paths=PackedStringArray("label")]
+offset_right = 64.0
+offset_bottom = 30.0
+mouse_filter = 2
+script = ExtResource("1_b7pkt")
+label = NodePath("Label")
+
+[node name="Control" type="Control" parent="." unique_id=1235368073]
+custom_minimum_size = Vector2(4, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="." unique_id=1183840553]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "0000"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=353641622]
+custom_minimum_size = Vector2(2, 22)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.83137256, 0.83137256, 0.83137256, 1)

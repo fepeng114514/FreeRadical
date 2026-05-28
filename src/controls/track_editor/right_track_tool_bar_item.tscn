@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://d36nkd3rxi1vp"]
+
+[ext_resource type="Script" uid="uid://cle64iqks2bl4" path="res://controls/track_editor/right_track_tool_bar_item.gd" id="1_bp6it"]
+[ext_resource type="Texture2D" uid="uid://4usbi1ipg078" path="res://assets/rubbish_bin.svg" id="2_bp6it"]
+[ext_resource type="Script" uid="uid://tdhc5v48vmc8" path="res://controls/track_editor/delete_track_button.gd" id="3_wtcqw"]
+
+[sub_resource type="DPITexture" id="DPITexture_wtcqw"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\">
+  <!-- 垃圾桶主体 -->
+  <path d=\"M6 6 L8 20 L16 20 L18 6 Z\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>
+  <!-- 顶部边缘 -->
+  <path d=\"M4 6 L20 6\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>
+  <!-- 把手 -->
+  <path d=\"M9 6 L9 3 L15 3 L15 6\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>
+  <!-- 桶身竖纹（表示垃圾内容） -->
+  <line x1=\"10\" y1=\"9\" x2=\"10\" y2=\"17\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\"/>
+  <line x1=\"14\" y1=\"9\" x2=\"14\" y2=\"17\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\"/>
+</svg>"
+color_map = {
+Color(1, 1, 1, 1): Color(0.8, 0.24705882, 0.24705882, 1)
+}
+
+[sub_resource type="DPITexture" id="DPITexture_ee0e3"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\">
+  <!-- 垃圾桶主体 -->
+  <path d=\"M6 6 L8 20 L16 20 L18 6 Z\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>
+  <!-- 顶部边缘 -->
+  <path d=\"M4 6 L20 6\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>
+  <!-- 把手 -->
+  <path d=\"M9 6 L9 3 L15 3 L15 6\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>
+  <!-- 桶身竖纹（表示垃圾内容） -->
+  <line x1=\"10\" y1=\"9\" x2=\"10\" y2=\"17\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\"/>
+  <line x1=\"14\" y1=\"9\" x2=\"14\" y2=\"17\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\"/>
+</svg>"
+color_map = {
+Color(1, 1, 1, 1): Color(0.8117647, 0.8117647, 0.8117647, 1)
+}
+
+[node name="RightTrackEditorTrackToolBarItem" type="VBoxContainer" unique_id=1483068377]
+custom_minimum_size = Vector2(0, 63)
+offset_right = 24.0
+offset_bottom = 63.0
+theme_override_constants/separation = 0
+alignment = 1
+script = ExtResource("1_bp6it")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=934389490]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer" unique_id=1940946213 node_paths=PackedStringArray("right_track_tool_bar_item")]
+layout_mode = 2
+tooltip_text = "删除轨道"
+texture_normal = ExtResource("2_bp6it")
+texture_pressed = SubResource("DPITexture_wtcqw")
+texture_hover = SubResource("DPITexture_ee0e3")
+script = ExtResource("3_wtcqw")
+right_track_tool_bar_item = NodePath("../..")
