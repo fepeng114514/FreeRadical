@@ -24,6 +24,6 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 sprite_frames = ExtResource("4_16p6m")
 animation = &"idle"
 
-[node name="FXComponent" type="Node" parent="." unique_id=619916811]
+[node name="FXComponent" type="Node2D" parent="." unique_id=987371124]
 script = ExtResource("5_j262p")
 metadata/_custom_type_script = "uid://bvipq6dw3lalv"

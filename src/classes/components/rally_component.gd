@@ -1,5 +1,5 @@
 @tool
-extends NavigationAgent2D
+extends Component
 class_name RallyComponent
 ## 集结组件
 ##
@@ -19,6 +19,16 @@ var arrived: bool = false
 var is_force_rally: bool = false
 var rally_center_position := Vector2.ZERO
 
+## 血条节点引用
+@onready var navigation_agent: NavigationAgent2D = get_node_or_null("NavigationAgent2D")
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+	if not navigation_agent:
+		return ["请增加一个 NavigationAgent2D 子节点用作导航。"]
+		
+	return []
+
 
 ## 设置新的集结位置
 func new_rally_position(
@@ -29,7 +39,7 @@ func new_rally_position(
 	) -> void:
 	is_force_rally = is_force
 	arrived = false
-	target_position = pos
+	navigation_agent.target_position = pos
 	rally_center_position = center
 	
 	if play_sfx:

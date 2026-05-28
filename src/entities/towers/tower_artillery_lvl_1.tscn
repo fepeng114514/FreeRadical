@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://entities/towers/tower.tscn" id="1_og8n7"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_snldt"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_67tlk"]
-[ext_resource type="Script" uid="uid://bcthb5ophrody" path="res://classes/components/sprite_group.gd" id="4_v8ksx"]
+[ext_resource type="Script" uid="uid://bcthb5ophrody" path="res://classes/sprite_group.gd" id="4_v8ksx"]
 [ext_resource type="SpriteFrames" uid="uid://cad0bk8hmnfi4" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer1.tres" id="5_ds7h4"]
 [ext_resource type="SpriteFrames" uid="uid://c3yc8fdiekstw" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer2.tres" id="6_ipws0"]
 [ext_resource type="SpriteFrames" uid="uid://bxg2oa34vjixw" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer3.tres" id="7_st7oj"]

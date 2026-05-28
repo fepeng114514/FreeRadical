@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+extends Component
 class_name SkillComponent
 ## 技能组件
 ##

@@ -1,4 +1,4 @@
-extends Node
+extends Component
 class_name ModifierComponent
 ## 状态效果组件
 ##

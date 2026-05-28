@@ -26,6 +26,6 @@ scene_name = "wave_spawner"
 idle_animation = SubResource("Resource_x08x5")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpawnerComponent" type="Node" parent="." unique_id=1029713442]
+[node name="SpawnerComponent" type="Node2D" parent="." unique_id=319630515]
 script = ExtResource("2_0y0gd")
 metadata/_custom_type_script = "uid://db67y0qigop4w"

@@ -88,7 +88,7 @@ offset_right = 21.0
 offset_bottom = -34.0
 scale = Vector2(1, 1.1)
 
-[node name="NavPathComponent" type="Node" parent="." unique_id=655679987]
+[node name="NavPathComponent" type="Node2D" parent="." unique_id=1202679749]
 script = ExtResource("5_gt3hg")
 speed = 100.0
 motion_animation = SubResource("Resource_atygg")
@@ -98,7 +98,6 @@ metadata/_custom_type_script = "uid://btct3ysbbulk0"
 script = ExtResource("8_wdwo4")
 motion_animation = SubResource("Resource_atygg")
 melee_pos_offsets = SubResource("Resource_fu215")
-is_blocked = true
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="SkillMelee" type="Node2D" parent="MeleeComponent" unique_id=1304104648]

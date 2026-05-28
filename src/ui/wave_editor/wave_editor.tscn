@@ -214,7 +214,7 @@ text = "生成子路径"
 
 [node name="EntityOptionButtonLabel" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=82350687 instance=ExtResource("5_sh4oc")]
 layout_mode = 2
-text = "生成怪物"
+text = "生成实体"
 
 [node name="CountSpinBoxLabel" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1357087638 instance=ExtResource("4_pj2lv")]
 layout_mode = 2

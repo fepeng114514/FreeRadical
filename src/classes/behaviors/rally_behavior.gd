@@ -13,7 +13,7 @@ func _on_update(e: Entity) -> bool:
 	if not rally_c.is_force_rally and not e.state & (Entity.State.IDLE | Entity.State.RALLY):
 		return false
 		
-	if rally_c.is_navigation_finished():
+	if rally_c.navigation_agent.is_navigation_finished():
 		rally_c.arrived = true
 		rally_c.is_force_rally = false
 		e.state = Entity.State.IDLE
@@ -21,7 +21,7 @@ func _on_update(e: Entity) -> bool:
 		e._on_arrived_rally(rally_c)
 		return false
 
-	var next_position: Vector2 = rally_c.get_next_path_position()
+	var next_position: Vector2 = rally_c.navigation_agent.get_next_path_position()
 	e.look_point = next_position
 	e.play_animation_by_look(rally_c.motion_animation, &"walk")
 	
@@ -34,7 +34,7 @@ func _on_update(e: Entity) -> bool:
 		* rally_c.speed 
 		* TimeMgr.frame_length
 	)
-	rally_c.velocity = velocity
+	rally_c.navigation_agent.velocity = velocity
 	e.global_position += velocity
 	e.state = Entity.State.RALLY
 	

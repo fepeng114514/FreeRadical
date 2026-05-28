@@ -1,5 +1,5 @@
 @tool
-extends Node
+extends Component
 class_name DodgeComponent
 ## 闪避组件
 ##

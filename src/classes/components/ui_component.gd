@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+extends Component
 class_name UIComponent
 
 ## 选择矩形大小

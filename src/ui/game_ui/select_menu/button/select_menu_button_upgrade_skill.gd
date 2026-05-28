@@ -1,4 +1,4 @@
-extends SelectMenuButtonSell
+extends SelectMenuButton
 class_name SelectMenuButtonUpgradeSkill
 
 

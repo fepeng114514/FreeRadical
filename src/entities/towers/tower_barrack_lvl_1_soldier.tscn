@@ -112,13 +112,15 @@ delay = 0.2
 animation = SubResource("Resource_p1ots")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
-[node name="RallyComponent" type="NavigationAgent2D" parent="." unique_id=905200269]
-navigation_layers = 2
+[node name="RallyComponent" type="Node2D" parent="." unique_id=1216108052]
 script = ExtResource("9_uhicr")
 speed = 208.0
 can_select_rally = false
 motion_animation = SubResource("Resource_enhu5")
 metadata/_custom_type_script = "uid://2keyy5hsydyv"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="RallyComponent" unique_id=375943738]
+navigation_layers = 2
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=346591849]
 script = ExtResource("10_700db")
