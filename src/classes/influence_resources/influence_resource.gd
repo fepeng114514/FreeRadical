@@ -15,8 +15,8 @@ class_name InfluenceResource
 ## 是否启用范围影响
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var area_enable: bool = false
 @export var search: SearchResource = null:
-	set(value):
-		search = value
+	set(v): 
+		search = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(search, emit_changed)
 			emit_changed()

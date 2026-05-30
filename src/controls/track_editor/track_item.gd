@@ -10,10 +10,11 @@ var is_selected: bool = false
 var is_draging: bool = false
 var last_global_x: float = 0
 var last_tick_length: float = -1
+var last_idx: int = -1
 var idx: int = -1:
-	set(value):
-		idx = value
-		order_label.text = track_editor.order_label_format % (value + 1)
+	set(v):
+		idx = v
+		order_label.text = track_editor.order_label_format % (v + 1)
 
 var track_editor: TrackEditor = null
 

@@ -53,8 +53,8 @@ enum State {
 @export var spawn_sfx: AudioGroup = null
 ## 击中位置偏移
 @export var hit_offsets: OffsetGroup = null:
-	set(value):
-		hit_offsets = value
+	set(v): 
+		hit_offsets = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(hit_offsets, queue_redraw)
 			queue_redraw()
@@ -205,6 +205,11 @@ func remove_entity() -> void:
 	Log.debug("移除实体: %s" % self)
 
 	SystemMgr.remove_queue.append(self)
+
+
+## 获取本土化名称
+func get_localized_name() -> String:
+	return tr(scene_name.to_upper())
 
 
 ## 设定实体位置，根据拥有的组件智能赋值

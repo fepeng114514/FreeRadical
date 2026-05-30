@@ -1,16 +1,17 @@
 extends Control
 
-@export_group("Node Ref")
+
+@export_group("Tween")
+## 补间缩放时长
+@export var tween_scale_time: float = 0.15
+
+@export_group("Ref")
 @export var ranged_min_range_circle: InfoCircle = null
 @export var ranged_max_range_circle: InfoCircle = null
 @export var rally_min_range_circle: InfoCircle = null
 @export var rally_max_range_circle: InfoCircle = null
 @export var melee_min_range_circle: InfoCircle = null
 @export var melee_max_range_circle: InfoCircle = null
-
-@export_group("Tween")
-## 补间缩放时长
-@export var tween_scale_time: float = 0.15
 
 ## 所有圆圈
 @onready var all_circle: Array[InfoCircle] = [

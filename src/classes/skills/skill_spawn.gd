@@ -6,14 +6,14 @@ class_name SkillSpawn
 
 @export var spawns: Array[StringName] = []
 @export var spawn_offsets: OffsetGroup = null:
-	set(value):
-		spawn_offsets = value
+	set(v): 
+		spawn_offsets = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(spawn_offsets, queue_redraw)
 			queue_redraw()
 @export var search: SearchResource = null:
-	set(value):
-		search = value
+	set(v): 
+		search = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(search, queue_redraw)
 			queue_redraw()

@@ -27,8 +27,8 @@ enum MeleeState {
 @export var motion_animation: AnimationGroup = null
 ## 近战位置偏移
 @export var melee_pos_offsets: OffsetGroup = null:
-	set(value):
-		melee_pos_offsets = value
+	set(v): 
+		melee_pos_offsets = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(melee_pos_offsets, queue_redraw)
 			queue_redraw()

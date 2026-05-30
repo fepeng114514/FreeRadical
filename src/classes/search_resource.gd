@@ -4,21 +4,21 @@ class_name SearchResource
 
 
 @export var center_offsets: OffsetGroup = null:
-	set(value):
-		center_offsets = value
+	set(v): 
+		center_offsets = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(center_offsets, emit_changed)
 			emit_changed()
 ## 最小半径
 @export var min_radius: float = 0:
-	set(value):
-		min_radius = value
+	set(v): 
+		min_radius = v
 		if Engine.is_editor_hint():
 			emit_changed()
 ## 最大半径
 @export var max_radius: float = 0:
-	set(value):
-		max_radius = value
+	set(v): 
+		max_radius = v
 		if Engine.is_editor_hint():
 			emit_changed()
 ## 最大搜索数量

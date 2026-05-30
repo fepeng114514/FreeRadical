@@ -8,38 +8,38 @@ class_name OffsetGroup
 
 ## 左方向的偏移
 @export var left := Vector2.ZERO:
-	set(value):
-		left = value
+	set(v): 
+		left = v
 		emit_changed()
 ## 左方向偏移是否作为右偏移的镜像
 @export var mirror_horizontal: bool = false:
-	set(value):
-		mirror_horizontal = value
+	set(v): 
+		mirror_horizontal = v
 		notify_property_list_changed()
 ## 右方向的偏移
 @export var right := Vector2.ZERO:
-	set(value):
-		right = value
+	set(v): 
+		right = v
 		emit_changed()
 ## 上方向的偏移
 @export var up := Vector2.ZERO:
-	set(value):
-		up = value
+	set(v): 
+		up = v
 		emit_changed()
 ## 上方向偏移是否作为下偏移的镜像
 @export var mirror_vertical: bool = false:
-	set(value):
-		mirror_vertical = value
+	set(v): 
+		mirror_vertical = v
 		notify_property_list_changed()
 ## 下方向的偏移
 @export var down := Vector2.ZERO:
-	set(value):
-		down = value
+	set(v): 
+		down = v
 		emit_changed()
 ## 任意方向的偏移
 @export var any := Vector2.ZERO:
-	set(value):
-		any = value
+	set(v): 
+		any = v
 		emit_changed()
 
 

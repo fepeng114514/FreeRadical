@@ -21,8 +21,8 @@ enum BulletSpawnMode {
 ## 拦截目标时是否可以释放远程技能
 @export var with_melee: bool = false
 @export var search: SearchResource = null:
-	set(value):
-		search = value
+	set(v): 
+		search = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(search, queue_redraw)
 			queue_redraw()
@@ -34,8 +34,8 @@ enum BulletSpawnMode {
 @export var bullet_count: int = 1
 ## 子弹初始位置偏移
 @export var bullet_offsets: OffsetGroup = null:
-	set(value):
-		bullet_offsets = value
+	set(v): 
+		bullet_offsets = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(bullet_offsets, queue_redraw)
 			queue_redraw()
@@ -45,8 +45,8 @@ enum BulletSpawnMode {
 @export var bullet_spawn_mode: BulletSpawnMode = BulletSpawnMode.EQUAL_INTERVAL
 ## 伤害/治疗/范围伤害 统一资源
 @export var influence: InfluenceResource = null:
-	set(value):
-		influence = value
+	set(v): 
+		influence = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(influence, queue_redraw)
 			queue_redraw()

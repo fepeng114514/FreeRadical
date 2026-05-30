@@ -5,136 +5,166 @@
 [ext_resource type="PackedScene" uid="uid://dduxbtv4oy4sr" path="res://controls/track_editor/tick.tscn" id="5_6mkei"]
 [ext_resource type="Script" uid="uid://qc7bxstxd8c5" path="res://controls/track_editor/ruler_panel_container.gd" id="5_7bxi6"]
 [ext_resource type="PackedScene" uid="uid://bmuhmrhbtm0ci" path="res://controls/track_editor/left_track_tool_bar_item.tscn" id="5_kgcki"]
-[ext_resource type="Texture2D" uid="uid://c54tm7kk728cu" path="res://assets/plus_sign.svg" id="5_pcrig"]
-[ext_resource type="Texture2D" uid="uid://dpmabvtr1cilx" path="res://assets/down_arrow.svg" id="6_7iynv"]
+[ext_resource type="Texture2D" uid="uid://dpmabvtr1cilx" path="res://assets/dpi_textures/down_arrow.svg" id="6_7iynv"]
 [ext_resource type="Script" uid="uid://ndbqiqq8o6j" path="res://controls/track_editor/add_track_button.gd" id="6_wrheq"]
 [ext_resource type="PackedScene" uid="uid://yynu1sipymxy" path="res://controls/track_editor/track.tscn" id="7_a2i43"]
 [ext_resource type="PackedScene" uid="uid://d36nkd3rxi1vp" path="res://controls/track_editor/right_track_tool_bar_item.tscn" id="7_kgcki"]
+[ext_resource type="Script" uid="uid://dgjmsbmwcjkq8" path="res://controls/adaptive_scroll_container.gd" id="10_8txtn"]
+[ext_resource type="Script" uid="uid://dc5jy2srafsgq" path="res://controls/track_editor/v_scroll_bar_v_box_container.gd" id="11_4i0i6"]
+[ext_resource type="Script" uid="uid://disyc1hamv5rs" path="res://controls/track_editor/v_scroll_bar.gd" id="11_7ffg0"]
+[ext_resource type="Script" uid="uid://bqqona4xuokpl" path="res://controls/track_editor/h_scroll_bar_h_box_container.gd" id="12_4i0i6"]
+[ext_resource type="Script" uid="uid://c8wec7jnf8v6d" path="res://controls/track_editor/h_scroll_bar.gd" id="12_alvx0"]
 
-[sub_resource type="DPITexture" id="DPITexture_kgcki"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\">
-  <!-- 背景透明，没有任何背景遮罩或填充 -->
-  <!-- 白色加号，使用圆角端点 -->
-  <path d=\"M4 12H20M12 4V20\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\"/>
+[sub_resource type="DPITexture" id="DPITexture_sntea"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"64\" height=\"64\">
+  <path d=\"M10.67 32H53.33M32 10.67V53.33\" stroke=\"white\" stroke-width=\"5.33\" stroke-linecap=\"round\"/>
 </svg>"
+base_scale = 0.5
+
+[sub_resource type="DPITexture" id="DPITexture_8txtn"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"64\" height=\"64\">
+  <path d=\"M10.67 32H53.33M32 10.67V53.33\" stroke=\"white\" stroke-width=\"5.33\" stroke-linecap=\"round\"/>
+</svg>"
+base_scale = 0.5
 color_map = {
 Color(1, 1, 1, 1): Color(0.18039216, 0.5019608, 1, 1)
 }
 
-[sub_resource type="DPITexture" id="DPITexture_jo1cx"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\">
-  <!-- 背景透明，没有任何背景遮罩或填充 -->
-  <!-- 白色加号，使用圆角端点 -->
-  <path d=\"M4 12H20M12 4V20\" stroke=\"white\" stroke-width=\"2\" stroke-linecap=\"round\"/>
+[sub_resource type="DPITexture" id="DPITexture_kahbk"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"64\" height=\"64\">
+  <path d=\"M10.67 32H53.33M32 10.67V53.33\" stroke=\"white\" stroke-width=\"5.33\" stroke-linecap=\"round\"/>
 </svg>"
+base_scale = 0.5
 color_map = {
-Color(1, 1, 1, 1): Color(0.8109714, 0.8109714, 0.8109714, 1)
+Color(1, 1, 1, 1): Color(0.8117647, 0.8117647, 0.8117647, 1)
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60x5f"]
 bg_color = Color(0.4033567, 0.4033568, 0.40335652, 1)
 border_width_left = 3
 
-[node name="TrackEditor" type="VBoxContainer" unique_id=1678412003 node_paths=PackedStringArray("track_length_spin_box", "tick_length_spin_box", "add_track_button", "ruler", "pointer", "track_vbox_container", "left_track_tool_bar", "right_track_tool_bar")]
-theme_override_constants/separation = 0
+[node name="TrackEditor" type="PanelContainer" unique_id=1813960242 node_paths=PackedStringArray("track_length_spin_box", "tick_length_spin_box", "add_track_button", "ruler", "pointer", "track_vbox_container", "left_track_tool_bar", "right_track_tool_bar")]
+offset_right = 372.0
+offset_bottom = 61.0
 script = ExtResource("1_472n8")
-track_length_spin_box = NodePath("ToolBar/TrackLengthSpinBox")
-tick_length_spin_box = NodePath("ToolBar/TickLengthSpinBox")
-add_track_button = NodePath("ToolBar/AddTrackButton")
-ruler = NodePath("HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/RulerPanelContainer/Ruler")
-pointer = NodePath("HBoxContainer/ScrollContainer/HBoxContainer/Control/Pointer")
-track_vbox_container = NodePath("HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/TrackVBoxContainer")
-left_track_tool_bar = NodePath("HBoxContainer/LeftVBoxContainer/LeftTrackToolBar")
-right_track_tool_bar = NodePath("HBoxContainer/RightVBoxContainer/RightTrackToolBar")
+track_length_spin_box = NodePath("MarginContainer/VBoxContainer/ToolBar/TrackLengthSpinBox")
+tick_length_spin_box = NodePath("MarginContainer/VBoxContainer/ToolBar/TickLengthSpinBox")
+add_track_button = NodePath("MarginContainer/VBoxContainer/ToolBar/AddTrackButton")
+ruler = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/VBoxContainer/RulerPanelContainer/Ruler")
+pointer = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/PointerControl/Pointer")
+track_vbox_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/VBoxContainer/TrackAdaptiveScrollContainer/TrackVBoxContainer")
+left_track_tool_bar = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/LeftVBoxContainer/ScrollContainer/LeftTrackToolBar")
+right_track_tool_bar = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/RightVBoxContainer/ScrollContainer/RightTrackToolBar")
 tick_scene = ExtResource("5_6mkei")
 track_item_scene = ExtResource("3_472n8")
 track_scene = ExtResource("7_a2i43")
 left_track_tool_bar_item_scene = ExtResource("5_kgcki")
 right_track_tool_bar_item_scene = ExtResource("7_kgcki")
 
-[node name="ToolBar" type="HBoxContainer" parent="." unique_id=1742351762]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=134043615]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=287112433]
 layout_mode = 2
 
-[node name="TrackLengthLabel" type="Label" parent="ToolBar" unique_id=2002247920]
+[node name="ToolBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1742351762]
+layout_mode = 2
+
+[node name="TrackLengthLabel" type="Label" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=2002247920]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "轨道长度"
 
-[node name="TrackLengthSpinBox" type="SpinBox" parent="ToolBar" unique_id=1703325649]
+[node name="TrackLengthSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=1703325649]
 layout_mode = 2
 max_value = 10000.0
 value = 1000.0
 
-[node name="VSeparator" type="VSeparator" parent="ToolBar" unique_id=1692882126]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=1003344209]
 layout_mode = 2
-theme_override_constants/separation = 6
 
-[node name="TickLengthLabel" type="Label" parent="ToolBar" unique_id=1716528314]
+[node name="TickLengthLabel" type="Label" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=1716528314]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "刻度长度"
 
-[node name="TickLengthSpinBox" type="SpinBox" parent="ToolBar" unique_id=45777939]
+[node name="TickLengthSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=45777939]
 layout_mode = 2
 value = 10.0
 
-[node name="Spacer" type="Control" parent="ToolBar" unique_id=64172861]
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=64172861]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddTrackButton" type="TextureButton" parent="ToolBar" unique_id=666475839 node_paths=PackedStringArray("track_editor")]
+[node name="AddTrackButton" type="TextureButton" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=666475839 node_paths=PackedStringArray("track_editor")]
 layout_mode = 2
 tooltip_text = "增加轨道"
-texture_normal = ExtResource("5_pcrig")
-texture_pressed = SubResource("DPITexture_kgcki")
-texture_hover = SubResource("DPITexture_jo1cx")
+texture_normal = SubResource("DPITexture_sntea")
+texture_pressed = SubResource("DPITexture_8txtn")
+texture_hover = SubResource("DPITexture_kahbk")
 script = ExtResource("6_wrheq")
-track_editor = NodePath("../..")
+track_editor = NodePath("../../../..")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1481428959]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1293830557]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1481428959]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="LeftVBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1096749825]
+[node name="LeftVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1096749825]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="Spacer" type="Control" parent="HBoxContainer/LeftVBoxContainer" unique_id=46048246]
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/LeftVBoxContainer" unique_id=46048246]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="LeftTrackToolBar" type="VBoxContainer" parent="HBoxContainer/LeftVBoxContainer" unique_id=1203747641]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/LeftVBoxContainer" unique_id=1444457970]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="LeftTrackToolBar" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/LeftVBoxContainer/ScrollContainer" unique_id=1203747641]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer" unique_id=162028184]
+[node name="MainScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=162028184]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
+horizontal_scroll_mode = 3
 vertical_scroll_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ScrollContainer" unique_id=823258911]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer" unique_id=823258911]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="Control" type="Control" parent="HBoxContainer/ScrollContainer/HBoxContainer" unique_id=1471348930]
+[node name="PointerControl" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer" unique_id=1471348930]
 z_index = 1000
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Pointer" type="Control" parent="HBoxContainer/ScrollContainer/HBoxContainer/Control" unique_id=1946942630]
+[node name="Pointer" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/PointerControl" unique_id=1946942630]
 layout_mode = 1
 anchors_preset = 0
 offset_left = 81.0
 offset_right = 81.0
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/ScrollContainer/HBoxContainer/Control/Pointer" unique_id=850210360]
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/PointerControl/Pointer" unique_id=850210360]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -149,7 +179,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 color = Color(0.18039216, 0.5019608, 1, 1)
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/ScrollContainer/HBoxContainer/Control/Pointer" unique_id=56222796]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/PointerControl/Pointer" unique_id=56222796]
 modulate = Color(0.18039216, 0.5019608, 1, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -167,39 +197,97 @@ mouse_filter = 2
 texture = ExtResource("6_7iynv")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer/HBoxContainer" unique_id=1986328995]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer" unique_id=1986328995]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="RulerPanelContainer" type="PanelContainer" parent="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer" unique_id=1439455651 node_paths=PackedStringArray("track_editor")]
+[node name="RulerPanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/VBoxContainer" unique_id=1439455651 node_paths=PackedStringArray("track_editor")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_60x5f")
 script = ExtResource("5_7bxi6")
-track_editor = NodePath("../../../../..")
+track_editor = NodePath("../../../../../../../..")
 
-[node name="Ruler" type="HBoxContainer" parent="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer/RulerPanelContainer" unique_id=1949756596]
+[node name="Ruler" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/VBoxContainer/RulerPanelContainer" unique_id=1949756596]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="TrackVBoxContainer" type="VBoxContainer" parent="HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer" unique_id=1612039541]
+[node name="TrackAdaptiveScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/VBoxContainer" unique_id=283141753]
+custom_minimum_size = Vector2(0, 252)
+layout_mode = 2
+mouse_filter = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("10_8txtn")
+metadata/_custom_type_script = "uid://dgjmsbmwcjkq8"
+
+[node name="TrackVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/VBoxContainer/TrackAdaptiveScrollContainer" unique_id=1612039541]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="RightVBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=431925008]
+[node name="RightVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=431925008]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="Spacer" type="Control" parent="HBoxContainer/RightVBoxContainer" unique_id=1066561741]
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/RightVBoxContainer" unique_id=1066561741]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="RightTrackToolBar" type="VBoxContainer" parent="HBoxContainer/RightVBoxContainer" unique_id=686138776]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/RightVBoxContainer" unique_id=1784868910]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="RightTrackToolBar" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/RightVBoxContainer/ScrollContainer" unique_id=686138776]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
+
+[node name="VScrollBarVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=248269818 node_paths=PackedStringArray("track_editor", "spacer")]
+layout_mode = 2
+script = ExtResource("11_4i0i6")
+track_editor = NodePath("../../../../..")
+spacer = NodePath("Spacer")
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VScrollBarVBoxContainer" unique_id=676651049]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="VScrollBar" type="VScrollBar" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VScrollBarVBoxContainer" unique_id=1437029182 node_paths=PackedStringArray("track_adaptive_scroll_container", "left_scroll_container", "right_scroll_container")]
+layout_mode = 2
+size_flags_vertical = 3
+max_value = 0.0
+step = 1.0
+script = ExtResource("11_7ffg0")
+track_adaptive_scroll_container = NodePath("../../MainScrollContainer/HBoxContainer/VBoxContainer/TrackAdaptiveScrollContainer")
+left_scroll_container = NodePath("../../LeftVBoxContainer/ScrollContainer")
+right_scroll_container = NodePath("../../RightVBoxContainer/ScrollContainer")
+
+[node name="HScrollBarHBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=2027280361 node_paths=PackedStringArray("track_editor", "left_spacer", "right_spacer")]
+layout_mode = 2
+script = ExtResource("12_4i0i6")
+track_editor = NodePath("../../../..")
+left_spacer = NodePath("LeftSpacer")
+right_spacer = NodePath("RightSpacer")
+
+[node name="LeftSpacer" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/HScrollBarHBoxContainer" unique_id=253124032]
+layout_mode = 2
+
+[node name="HScrollBar" type="HScrollBar" parent="MarginContainer/VBoxContainer/VBoxContainer/HScrollBarHBoxContainer" unique_id=207685857 node_paths=PackedStringArray("main_scroll_container")]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 0.0
+step = 1.0
+script = ExtResource("12_alvx0")
+main_scroll_container = NodePath("../../HBoxContainer/MainScrollContainer")
+
+[node name="RightSpacer" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/HScrollBarHBoxContainer" unique_id=554971751]
+layout_mode = 2

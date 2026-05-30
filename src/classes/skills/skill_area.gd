@@ -5,14 +5,14 @@ class_name SkillArea
 
 
 @export var search: SearchResource = null:
-	set(value):
-		search = value
+	set(v): 
+		search = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(search, queue_redraw)
 			queue_redraw()
 @export var influence: InfluenceResource = null:
-	set(value):
-		influence = value
+	set(v): 
+		influence = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(influence, queue_redraw)
 			queue_redraw()

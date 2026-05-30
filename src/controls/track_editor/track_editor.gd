@@ -1,16 +1,25 @@
-extends VBoxContainer
+extends PanelContainer
 class_name TrackEditor
 
 
 @warning_ignore_start("unused_signal")
 signal item_select(item: TrackEditorTrackItem)
 signal item_deselect
-signal item_order_changed
+signal item_create(item: TrackEditorTrackItem)
+signal item_delete(item: TrackEditorTrackItem)
 @warning_ignore_restore("unused_signal")
 
 
-@export var track_length: float = 1000
-@export var tick_length: float = 10
+@export var track_length: float = 1000:
+	set(v): 
+		track_length = v
+		if track_length_spin_box:
+			track_length_spin_box.value = v
+@export var tick_length: float = 10:
+	set(v): 
+		tick_length = v
+		if tick_length_spin_box:
+			tick_length_spin_box.value = v
 @export var snap_threshold: float = 4
 @export var show_item_order_label: bool = true
 @export var order_label_format: String = "%d"
@@ -40,11 +49,11 @@ var item_list: Array[TrackEditorTrackItem] = []
 
 
 func _ready() -> void:
-	if not multiple_track_enable:
-		add_track_button.visible = false
-	
 	track_length_spin_box.value = track_length
 	tick_length_spin_box.value = tick_length
+
+	if not multiple_track_enable:
+		add_track_button.visible = false
 	
 	track_length_spin_box.value_changed.connect(_show_ticks)
 	tick_length_spin_box.value_changed.connect(_show_ticks)
@@ -83,6 +92,7 @@ func create_item(pos_x: float, track_idx: int = 0) -> void:
 	track.item_container.add_child(track_item)
 
 	update_item_list(track_item)
+	item_create.emit(track_item)
 	
 
 func get_item(idx: int, track_idx: int = 0) -> TrackEditorTrackItem:
@@ -103,13 +113,10 @@ func update_item_list(item: TrackEditorTrackItem) -> void:
 	)
 
 	item_list = new_item_list
-	var in_item_list_idx: int = item_list.find(item)
-	if item.idx != in_item_list_idx:
-		item.idx = in_item_list_idx
-		
-		for i: int in item_list.size():
-			item_list[i].idx = i
-		item_order_changed.emit()
+
+	for i: int in item_list.size():
+		var item_v: TrackEditorTrackItem = item_list[i]
+		item_v.idx = i
 
 
 func get_tick_count() -> int:
@@ -133,7 +140,7 @@ func create_track() -> void:
 		var right_track_tool_bar_item: TrackEditorRightTrackToolBarItem = right_track_tool_bar_item_scene.instantiate()
 		right_track_tool_bar_item.track_editor = self
 		right_track_tool_bar.add_child(right_track_tool_bar_item)
-
+			
 
 func clear_tracks() -> void:
 	for track: TrackEditorTrack in track_vbox_container.get_children():
@@ -144,7 +151,7 @@ func clear_tracks() -> void:
 		
 		var right_track_tool_bar_item: TrackEditorRightTrackToolBarItem = right_track_tool_bar.get_child(0)
 		right_track_tool_bar_item.queue_free()
-
+		
 
 func _show_ticks(_value: float = 0) -> void:
 	var target_tick_count: int = get_tick_count()

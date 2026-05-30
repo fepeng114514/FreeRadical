@@ -9,18 +9,18 @@ class_name BarrackComponent
 @export var disabled: bool = false
 ## 最小集结范围
 @export var rally_min_range: float = 0:
-	set(value):
-		rally_min_range = value
+	set(v): 
+		rally_min_range = v
 		queue_redraw()
 ## 最大集结范围
 @export var rally_max_range: float = 300:
-	set(value):
-		rally_max_range = value
+	set(v): 
+		rally_max_range = v
 		queue_redraw()
 ## 集结点位置
 @export var rally_center_position := Vector2.ZERO:
-	set(value):
-		rally_center_position = value
+	set(v): 
+		rally_center_position = v
 		queue_redraw()
 ## 集结点半径
 @export var rally_radius: float = 30
@@ -31,8 +31,8 @@ class_name BarrackComponent
 @export var spawn_time: float = 10
 ## 士兵生成偏移
 @export var spawn_offsets: OffsetGroup = null:
-	set(value):
-		spawn_offsets = value
+	set(v): 
+		spawn_offsets = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(spawn_offsets, queue_redraw)
 			queue_redraw()

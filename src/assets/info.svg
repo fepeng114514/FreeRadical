@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%">
-  <!-- 圆形边框 -->
-  <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- 字母 "i" 的点 -->
-  <circle cx="12" cy="7" r="1.5" fill="white"/>
-  <!-- 字母 "i" 的主体 -->
-  <path d="M12 11 L12 16" stroke="white" stroke-width="2" stroke-linecap="round"/>
-</svg>

@@ -8,24 +8,14 @@ class_name WaveFlag
 
 ## 箭头旋转角度
 @export_range(-180, 180, 0.1, "radians_as_degrees") var arrow_rotation: float = 0:
-	set(value):
-		arrow_rotation = value
+	set(v):
+		arrow_rotation = v
 		
-		if Engine.is_editor_hint():
-			arrow.rotation = value
-			arrow_glow.rotation = value
-
-@export_group("Ref")
-## 箭头引用
-@export var arrow: TextureRect = null
-## 装饰引用
-@export var decoration: TextureRect = null
-## 进度条引用
-@export var progress_bar: TextureProgressBar = null
-@export var arrow_glow: TextureRect = null
-@export var border_glow: TextureRect = null
-@export var texture_button: TextureButton = null
-	
+		if arrow:
+			arrow.rotation = v
+		if arrow_glow:
+			arrow_glow.rotation = v
+			
 @export_group("Tween")
 ## 循环缩放时长
 @export var tween_loop_scale_duration: float = 0.5
@@ -37,6 +27,14 @@ class_name WaveFlag
 @export var tween_end_target_scale := Vector2(1.5, 1.5)
 ## 计数结束补间调色目标值
 @export var tween_end_modulate_scale := Color.TRANSPARENT
+
+@export_group("Ref")
+@export var arrow: TextureRect = null
+@export var decoration: TextureRect = null
+@export var progress_bar: TextureProgressBar = null
+@export var arrow_glow: TextureRect = null
+@export var border_glow: TextureRect = null
+@export var texture_button: TextureButton = null
 
 var loop_tween: Tween = null
 var value_tween: Tween = null
@@ -58,6 +56,7 @@ func _ready() -> void:
 		mouse_exited.connect(_on_mouse_exited)
 		WaveMgr.start_wave_timer.connect(_show)
 		WaveMgr.release_wave.connect(_on_release_wave)
+		
 		arrow.rotation = arrow_rotation
 		arrow_glow.rotation = arrow_rotation
 		

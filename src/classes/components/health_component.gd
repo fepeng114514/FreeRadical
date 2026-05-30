@@ -67,16 +67,25 @@ enum HealType {
 
 ## 当前血量
 var hp: float = 0:
-	set(value):
-		value = clampf(value, 0, hp_max)
-		hp = value
+	set(v): 
+		v = clampf(v, 0, hp_max)
+		hp = v
 		health_bar.value = get_hp_percent()
 var regen_ts: float = 0
 var idle_regen_ts: float = 0
 
 ## 血条节点引用
 @onready var health_bar: TextureProgressBar = get_node_or_null("HealthBar")
-	
+
+
+func _ready() -> void:
+	child_order_changed.connect(_on_child_order_changed)
+
+
+func _on_child_order_changed() -> void:
+	health_bar = get_node_or_null("HealthBar") 
+	update_configuration_warnings()
+
 
 func _validate_property(property: Dictionary):
 	match property.name:

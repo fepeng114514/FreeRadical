@@ -583,21 +583,6 @@ static func to_percent(num: float) -> float:
 	return num / 100
 
 
-static func pascal_to_snake(pascal_str: String) -> String:
-	var result: String = ""
-	
-	for i: int in pascal_str.length():
-		var c: String = pascal_str[i]
-		if c >= 'A' and c <= 'Z':
-			if i > 0:
-				result += "_"
-			result += c.to_lower()
-		else:
-			result += c
-			
-	return result
-
-
 ## 检查是否是有效数字
 static func is_valid_number(n: float) -> bool:
 	return n != C.UNSET

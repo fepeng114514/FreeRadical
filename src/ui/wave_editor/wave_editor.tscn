@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://k8jjifduvh0w" path="res://controls/track_editor/track_editor.tscn" id="2_pj2lv"]
 [ext_resource type="StyleBox" uid="uid://q23htsaarsrx" path="res://ui/wave_editor/title_style_box_flat.tres" id="2_sh4oc"]
 [ext_resource type="PackedScene" uid="uid://db086v5rs4abc" path="res://ui/wave_editor/spin_box_label.tscn" id="4_pj2lv"]
-[ext_resource type="PackedScene" uid="uid://dmm6qq04j3mhl" path="res://ui/wave_editor/option_button_label.tscn" id="5_sh4oc"]
+[ext_resource type="PackedScene" uid="uid://ctg0igju23p8k" path="res://controls/search_combo_box/search_combo_box.tscn" id="5_sh4oc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7okwi"]
 bg_color = Color(0.3281385, 0.3281385, 0.32813844, 1)
@@ -21,218 +21,223 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_7okwi")
-wave_track_editor = NodePath("MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer/TrackEditor")
-sub_wave_track_editor = NodePath("MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer/TrackEditor")
+wave_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer/TrackEditor")
+sub_wave_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer/TrackEditor")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1629314719]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1901787776]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7okwi")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1629314719]
+layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer" unique_id=1901787776]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7okwi")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer" unique_id=108413557]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=108413557]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=101354983]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=101354983]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=1211697640]
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1211697640]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Level 1"
 horizontal_alignment = 1
 
-[node name="ToolBar" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer" unique_id=1790831834]
+[node name="ToolBar" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=1790831834]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/ToolBar" unique_id=2122607065]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ToolBar" unique_id=2122607065]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="LoadButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/ToolBar/HBoxContainer" unique_id=604632569]
+[node name="LoadButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ToolBar/HBoxContainer" unique_id=604632569]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "加载"
 flat = true
 
-[node name="SaveButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/ToolBar/HBoxContainer" unique_id=2018298014]
+[node name="SaveButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/ToolBar/HBoxContainer" unique_id=2018298014]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "保存"
 flat = true
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer" unique_id=83183308]
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=83183308]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 4
 split_offsets = PackedInt32Array(1325)
 split_offset = 1325
 
-[node name="VSplitContainer" type="VSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer" unique_id=1968789629]
+[node name="VSplitContainer" type="VSplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer" unique_id=1968789629]
 layout_mode = 2
 theme_override_constants/separation = 4
-split_offsets = PackedInt32Array(0, 0)
+split_offsets = PackedInt32Array(-27, 27)
+split_offset = -27
 
-[node name="WavesScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer" unique_id=1472704163]
+[node name="WavesScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer" unique_id=1472704163]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer" unique_id=167059648]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer" unique_id=167059648]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer" unique_id=1430554662]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer" unique_id=1430554662]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer" unique_id=1151707911]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer" unique_id=1151707911]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1126485908]
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1126485908]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "波次"
 horizontal_alignment = 1
 
-[node name="TrackEditor" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1678412003 instance=ExtResource("2_pj2lv")]
+[node name="TrackEditor" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1678412003 instance=ExtResource("2_pj2lv")]
 layout_mode = 2
 
-[node name="SubWavesScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer" unique_id=42532544]
+[node name="SubWavesScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer" unique_id=42532544]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer" unique_id=1650301332]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer" unique_id=1650301332]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer" unique_id=1754468418]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer" unique_id=1754468418]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer" unique_id=397520200]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer" unique_id=397520200]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2039717223]
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2039717223]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "子波次"
 horizontal_alignment = 1
 
-[node name="TrackEditor" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=450601709 instance=ExtResource("2_pj2lv")]
+[node name="TrackEditor" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=450601709 instance=ExtResource("2_pj2lv")]
 layout_mode = 2
 tick_length = 1.0
 multiple_track_enable = true
 
-[node name="SpawnsScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer" unique_id=1256726141]
+[node name="SpawnsScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer" unique_id=1256726141]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer" unique_id=891404328]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer" unique_id=891404328]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer" unique_id=1401570859]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer" unique_id=1401570859]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer" unique_id=382018817]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer" unique_id=382018817]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=607294703]
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=607294703]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "出怪"
 horizontal_alignment = 1
 
-[node name="TrackEditor" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=369752562 instance=ExtResource("2_pj2lv")]
+[node name="TrackEditor" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=369752562 instance=ExtResource("2_pj2lv")]
 layout_mode = 2
 tick_length = 1.0
 
-[node name="SpawnDataScrollContainer" type="ScrollContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer" unique_id=960852534]
+[node name="SpawnDataScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer" unique_id=960852534]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer" unique_id=2119075742]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer" unique_id=2119075742]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_sbrux")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer" unique_id=1627240736]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer" unique_id=1627240736]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer" unique_id=1979516463]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer" unique_id=1979516463]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1312785930]
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1312785930]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "出怪数据"
 horizontal_alignment = 1
 
-[node name="PathwaySpinBoxLabel" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=295310891 instance=ExtResource("4_pj2lv")]
+[node name="PathwaySpinBoxLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=295310891 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
 text = "生成路径"
+step = 1.0
 
-[node name="SubPathwaySpinBoxLabel" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1063998961 instance=ExtResource("4_pj2lv")]
+[node name="SubPathwaySpinBoxLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1063998961 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
 text = "生成子路径"
+step = 1.0
 
-[node name="EntityOptionButtonLabel" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=82350687 instance=ExtResource("5_sh4oc")]
-layout_mode = 2
-text = "生成实体"
-
-[node name="CountSpinBoxLabel" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1357087638 instance=ExtResource("4_pj2lv")]
+[node name="CountSpinBoxLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1357087638 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
 text = "生成数量"
+step = 1.0
 
-[node name="IntervalSpinBoxLabel" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1668806278 instance=ExtResource("4_pj2lv")]
+[node name="IntervalSpinBoxLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1668806278 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
 text = "生成间隔"
+step = 1.0
 value = 1.0
 
-[node name="ReversedCheckButton" type="CheckButton" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=587634718]
+[node name="ReversedCheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=587634718]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "沿相反路径移动"
 
-[node name="LoopCheckButton" type="CheckButton" parent="MarginContainer/PanelContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1379887143]
+[node name="LoopCheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1379887143]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "沿路径循环移动"
+
+[node name="SearchComboBox" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=815419073 instance=ExtResource("5_sh4oc")]
+layout_mode = 2
+text = "text98"

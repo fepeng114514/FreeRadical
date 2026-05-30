@@ -12,8 +12,8 @@ class_name AnimationGroup
 @export var left: StringName = &""
 ## 左方向的动画是否作为右方向的镜像
 @export var mirror_horizontal: bool = false:
-	set(value):
-		mirror_horizontal = value
+	set(v): 
+		mirror_horizontal = v
 		notify_property_list_changed()
 ## 右方向的动画名
 @export var right: StringName = &""
@@ -21,8 +21,8 @@ class_name AnimationGroup
 @export var up: StringName = &""
 ## 上方向的动画是否作为下方向的镜像
 @export var mirror_vertical: bool = false:
-	set(value):
-		mirror_vertical = value
+	set(v): 
+		mirror_vertical = v
 		notify_property_list_changed()
 ## 下方向的动画名
 @export var down: StringName = &""

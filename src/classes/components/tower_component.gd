@@ -22,15 +22,15 @@ enum TowerType {
 @export var tower_type: TowerType = TowerType.TOWER_HOLDER
 ## 显示范围的偏移
 @export var show_range_offset := Vector2.ZERO:
-	set(value):
-		show_range_offset = value
+	set(v): 
+		show_range_offset = v
 		queue_redraw()
 ## 塔位样式
 @export var tower_holder: StringName = &"tower_holder_grass"
 ## 默认集结点
 @export var default_rally_center_local_pos := Vector2.ZERO:
-	set(value):
-		default_rally_center_local_pos = value
+	set(v): 
+		default_rally_center_local_pos = v
 		queue_redraw()
 
 @export_group("Sell")

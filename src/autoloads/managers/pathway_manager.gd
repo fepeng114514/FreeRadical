@@ -25,8 +25,8 @@ var node_count: int = 256
 var intersect_dist_threshold: float = 16
 
 var is_draw_pathway: bool = false:
-	set(value):
-		is_draw_pathway = value
+	set(v):
+		is_draw_pathway = v
 		draw_pathway_changed.emit()
 
 

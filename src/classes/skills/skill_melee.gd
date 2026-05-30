@@ -8,8 +8,8 @@ class_name SkillMelee
 
 ## 伤害/治疗/范围伤害 统一资源
 @export var influence: InfluenceResource = null:
-	set(value):
-		influence = value
+	set(v): 
+		influence = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(influence, queue_redraw)
 			queue_redraw()

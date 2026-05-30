@@ -5,6 +5,8 @@ extends Control
 @export var wave_track_editor: TrackEditor = null
 @export var sub_wave_track_editor: TrackEditor = null
 
+var wave_group_list: Array[WaveGroup] = []
+
 
 func _ready() -> void:
 	sub_wave_track_editor.item_select.connect(_on_sub_wave_track_editor_item_select)

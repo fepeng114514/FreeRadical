@@ -4,14 +4,14 @@ class_name UIComponent
 
 ## 选择矩形大小
 @export var select_rect := Rect2(-16, -16, 32, 32):
-	set(value):
-		select_rect = value
+	set(v): 
+		select_rect = v
 		if Engine.is_editor_hint():
 			queue_redraw()
 ## 是否可以选择
 @export var can_select: bool = true:
-	set(value):
-		can_select = value
+	set(v): 
+		can_select = v
 		if Engine.is_editor_hint():
 			queue_redraw()
 
@@ -19,8 +19,8 @@ class_name UIComponent
 @export var info_bar_type: C.InfoBarType = C.InfoBarType.NONE
 ## 选择菜单偏移
 @export var select_menu_offset := Vector2.ZERO:
-	set(value):
-		select_menu_offset = value
+	set(v): 
+		select_menu_offset = v
 		queue_redraw()
 
 

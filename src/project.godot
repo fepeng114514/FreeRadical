@@ -28,7 +28,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="从零开始的异世界塔防"
-run/main_scene="uid://nvbnnvwovpao"
+run/main_scene="uid://bs45pb21wgq8x"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -39,7 +39,6 @@ buses/default_bus_layout="res://autoloads/managers/audio_bus_layout.tres"
 [autoload]
 
 AudioMgr="*uid://vs7lopahte38"
-I18n="*uid://bwfu5q2p756wl"
 S="*uid://5xpvvkr5hlmu"
 GlobalMgr="*uid://ct01c5jk3ruit"
 GameMgr="*res://autoloads/managers/game_manager.gd"
@@ -102,6 +101,10 @@ ctrl_left_click={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translation_remaps={}
 
 [rendering]
 
