@@ -39,7 +39,7 @@ func check_ready(e: Entity, target: Entity = null) -> bool:
 
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	start_cooldown(e, skill_idx)
-	e.play_animation_by_look(animation, &"melee")
+	e.play_animation(animation, &"melee")
 	if await e.y_wait(delay) or not target:
 		compensate_cooldown(e, skill_idx)
 		return
@@ -52,4 +52,4 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	if await e.y_wait_animation(animation):
 		return
 		
-	e.play_animation_by_look(e.idle_animation, &"idle")
+	e.play_animation(e.idle_animation, &"idle")

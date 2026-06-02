@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://bs45pb21wgq8x"]
 
 [ext_resource type="Script" uid="uid://c4mbk4hxqwnkt" path="res://ui/wave_editor/wave_editor.gd" id="1_7okwi"]
+[ext_resource type="Theme" uid="uid://b1ig1u5waxulw" path="res://ui/wave_editor/theme.tres" id="1_20cq3"]
+[ext_resource type="PackedScene" uid="uid://2efse8231loj" path="res://controls/track_editor/mouse_tool_bar/mouse_tool_bar.tscn" id="2_5p7wg"]
 [ext_resource type="PackedScene" uid="uid://k8jjifduvh0w" path="res://controls/track_editor/track_editor.tscn" id="2_pj2lv"]
 [ext_resource type="StyleBox" uid="uid://q23htsaarsrx" path="res://ui/wave_editor/title_style_box_flat.tres" id="2_sh4oc"]
+[ext_resource type="Script" uid="uid://bumn6jt6uu5gw" path="res://ui/wave_editor/mouse_tool_bar.gd" id="4_p6mtv"]
 [ext_resource type="PackedScene" uid="uid://db086v5rs4abc" path="res://ui/wave_editor/spin_box_label.tscn" id="4_pj2lv"]
-[ext_resource type="PackedScene" uid="uid://ctg0igju23p8k" path="res://controls/search_combo_box/search_combo_box.tscn" id="5_sh4oc"]
+[ext_resource type="PackedScene" uid="uid://dmm6qq04j3mhl" path="res://ui/wave_editor/option_button_label.tscn" id="4_sh4oc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7okwi"]
 bg_color = Color(0.3281385, 0.3281385, 0.32813844, 1)
@@ -12,7 +15,7 @@ bg_color = Color(0.3281385, 0.3281385, 0.32813844, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbrux"]
 bg_color = Color(0.25147, 0.25147006, 0.25147003, 1)
 
-[node name="WaveEditor" type="Control" unique_id=942231242 node_paths=PackedStringArray("wave_track_editor", "sub_wave_track_editor")]
+[node name="WaveEditor" type="Control" unique_id=942231242 node_paths=PackedStringArray("wave_track_editor", "sub_wave_track_editor", "spawn_track_editor", "entity_option_button_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,9 +23,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = ExtResource("1_20cq3")
 script = ExtResource("1_7okwi")
 wave_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer/TrackEditor")
 sub_wave_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer/TrackEditor")
+spawn_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer/VBoxContainer/TrackEditor")
+entity_option_button_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer/EntityOptionButtonLabel")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1901787776]
 layout_mode = 1
@@ -71,6 +77,12 @@ theme_override_font_sizes/font_size = 20
 text = "保存"
 flat = true
 
+[node name="MouseToolBar" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" unique_id=984289234 node_paths=PackedStringArray("wave_editor") instance=ExtResource("2_5p7wg")]
+layout_mode = 2
+alignment = 1
+script = ExtResource("4_p6mtv")
+wave_editor = NodePath("../../../../..")
+
 [node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=83183308]
 layout_mode = 2
 size_flags_vertical = 3
@@ -114,6 +126,7 @@ horizontal_alignment = 1
 
 [node name="TrackEditor" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1678412003 instance=ExtResource("2_pj2lv")]
 layout_mode = 2
+hide_mouse_tool_bar = true
 
 [node name="SubWavesScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer" unique_id=42532544]
 layout_mode = 2
@@ -144,7 +157,9 @@ horizontal_alignment = 1
 
 [node name="TrackEditor" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=450601709 instance=ExtResource("2_pj2lv")]
 layout_mode = 2
-tick_length = 1.0
+track_length = 100.0
+tick_spacing = 1.0
+hide_mouse_tool_bar = true
 multiple_track_enable = true
 
 [node name="SpawnsScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer" unique_id=1256726141]
@@ -176,7 +191,8 @@ horizontal_alignment = 1
 
 [node name="TrackEditor" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=369752562 instance=ExtResource("2_pj2lv")]
 layout_mode = 2
-tick_length = 1.0
+tick_spacing = 1.0
+hide_mouse_tool_bar = true
 
 [node name="SpawnDataScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer" unique_id=960852534]
 layout_mode = 2
@@ -205,6 +221,10 @@ theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "出怪数据"
 horizontal_alignment = 1
 
+[node name="EntityOptionButtonLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=82350687 instance=ExtResource("4_sh4oc")]
+layout_mode = 2
+text = "生成实体"
+
 [node name="PathwaySpinBoxLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=295310891 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
 text = "生成路径"
@@ -214,6 +234,7 @@ step = 1.0
 layout_mode = 2
 text = "生成子路径"
 step = 1.0
+value = -1.0
 
 [node name="CountSpinBoxLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1357087638 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
@@ -223,7 +244,7 @@ step = 1.0
 [node name="IntervalSpinBoxLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1668806278 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
 text = "生成间隔"
-step = 1.0
+step = 0.1
 value = 1.0
 
 [node name="ReversedCheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=587634718]
@@ -237,7 +258,3 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "沿路径循环移动"
-
-[node name="SearchComboBox" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=815419073 instance=ExtResource("5_sh4oc")]
-layout_mode = 2
-text = "text98"

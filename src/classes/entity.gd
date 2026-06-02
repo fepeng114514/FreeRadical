@@ -332,10 +332,12 @@ func clear_has_aura_list() -> void:
 
 #region 动画相关方法
 ## 使一个精灵播放动画
-func play_animation(
+func _play_animation(
 		anim_name: StringName, 
 		sprite: AnimatedSprite2D, 
 		filp_h: bool = false,
+		loop: bool = false,
+		speed: float = 30,
 		force_play: bool = false
 	) -> void:
 	if (
@@ -344,29 +346,36 @@ func play_animation(
 			and sprite.flip_h == filp_h
 		):
 		return
+
+	var sprite_frames: SpriteFrames = sprite.sprite_frames
 		
-	if not sprite.sprite_frames.has_animation(anim_name):
+	if not sprite_frames.has_animation(anim_name):
 		Log.error("%s 未找到动画: %s" % [self, anim_name])
 		return
+
+	sprite_frames.set_animation_loop(anim_name, loop)
+	sprite_frames.set_animation_speed(anim_name, speed)
 		
 	Log.verbose("%s 播放动画: %s, 水平镜像: %s" % [self, anim_name, filp_h])
 	sprite.play(anim_name)
 	sprite.flip_h = filp_h
 	
 	
-## 使一个组中的所有精灵播放对应的动画
-func play_animation_group(
+## 使一个精灵组中的所有精灵播放对应的动画
+func _play_animation_in_group(
 		anim_name: StringName, 
 		group: SpriteGroup, 
 		filp_h: bool = false,
+		loop: bool = false,
+		speed: float = 30,
 		force_play: bool = false
 	) -> void:
 	for sprite: AnimatedSprite2D in group.get_children():
-		play_animation(anim_name, sprite, filp_h, force_play)
+		_play_animation(anim_name, sprite, filp_h, loop, speed, force_play)	
 
 
-## 根据看向的位置播放动画
-func play_animation_by_look(
+## 播放动画
+func play_animation(
 		animation_group: AnimationGroup, 
 		source_animation_key: String = "",
 		force_play: bool = false
@@ -376,6 +385,11 @@ func play_animation_by_look(
 		
 	var play_idx: int = animation_group.play_idx
 	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
+	
+	var play_target: Node2D = sprite_c.get_child(play_idx)
+	if play_target is Sprite2D:
+		return null
+
 	var anim_data: AnimationData = animation_group.get_animation_name_for_point(
 		global_position, look_point
 	)
@@ -383,14 +397,10 @@ func play_animation_by_look(
 	var anim_name: StringName = anim_data.anim_name
 	var filp_h: bool = anim_data.flip_h
 
-	var play_target: Node2D = sprite_c.get_child(play_idx)
-	if play_target is Sprite2D:
-		return null
-
 	if play_target is SpriteGroup:
-		play_animation_group(anim_name, play_target, filp_h, force_play)
+		_play_animation_in_group(anim_name, play_target, filp_h, force_play)
 	else:
-		play_animation(anim_name, play_target, filp_h, force_play)
+		_play_animation(anim_name, play_target, filp_h, force_play)
 
 	## 处理同步动画
 	if sprite_c.sync_source:
@@ -402,7 +412,7 @@ func play_animation_by_look(
 				source_animation_key
 			)
 			if s_animation:
-				source.play_animation_by_look(
+				source.play_animation(
 					s_animation, source_animation_key, force_play
 				)
 				source.y_wait_animation(s_animation)

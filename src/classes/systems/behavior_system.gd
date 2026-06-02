@@ -63,6 +63,6 @@ func _on_update(_delta: float) -> void:
 			if not e.get_node_or_null(C.CN_SPRITE):
 				continue
 				
-			e.play_animation_by_look(e.idle_animation)
+			e.play_animation(e.idle_animation)
 			
 			

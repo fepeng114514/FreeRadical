@@ -4,52 +4,46 @@
 [ext_resource type="PackedScene" uid="uid://b0b76ce35okm7" path="res://controls/track_editor/track_item.tscn" id="3_472n8"]
 [ext_resource type="PackedScene" uid="uid://dduxbtv4oy4sr" path="res://controls/track_editor/tick.tscn" id="5_6mkei"]
 [ext_resource type="Script" uid="uid://qc7bxstxd8c5" path="res://controls/track_editor/ruler_panel_container.gd" id="5_7bxi6"]
-[ext_resource type="PackedScene" uid="uid://bmuhmrhbtm0ci" path="res://controls/track_editor/left_track_tool_bar_item.tscn" id="5_kgcki"]
+[ext_resource type="PackedScene" uid="uid://bmuhmrhbtm0ci" path="res://controls/track_editor/left_track_tool_bar/left_track_tool_bar_item.tscn" id="5_kgcki"]
 [ext_resource type="Texture2D" uid="uid://dpmabvtr1cilx" path="res://assets/dpi_textures/down_arrow.svg" id="6_7iynv"]
 [ext_resource type="Script" uid="uid://ndbqiqq8o6j" path="res://controls/track_editor/add_track_button.gd" id="6_wrheq"]
 [ext_resource type="PackedScene" uid="uid://yynu1sipymxy" path="res://controls/track_editor/track.tscn" id="7_a2i43"]
-[ext_resource type="PackedScene" uid="uid://d36nkd3rxi1vp" path="res://controls/track_editor/right_track_tool_bar_item.tscn" id="7_kgcki"]
+[ext_resource type="Theme" uid="uid://b1ig1u5waxulw" path="res://ui/wave_editor/theme.tres" id="7_ixove"]
+[ext_resource type="PackedScene" uid="uid://d36nkd3rxi1vp" path="res://controls/track_editor/right_track_tool_bar/right_track_tool_bar_item.tscn" id="7_kgcki"]
+[ext_resource type="PackedScene" uid="uid://2efse8231loj" path="res://controls/track_editor/mouse_tool_bar/mouse_tool_bar.tscn" id="8_aade8"]
 [ext_resource type="Script" uid="uid://dgjmsbmwcjkq8" path="res://controls/adaptive_scroll_container.gd" id="10_8txtn"]
 [ext_resource type="Script" uid="uid://dc5jy2srafsgq" path="res://controls/track_editor/v_scroll_bar_v_box_container.gd" id="11_4i0i6"]
 [ext_resource type="Script" uid="uid://disyc1hamv5rs" path="res://controls/track_editor/v_scroll_bar.gd" id="11_7ffg0"]
 [ext_resource type="Script" uid="uid://bqqona4xuokpl" path="res://controls/track_editor/h_scroll_bar_h_box_container.gd" id="12_4i0i6"]
 [ext_resource type="Script" uid="uid://c8wec7jnf8v6d" path="res://controls/track_editor/h_scroll_bar.gd" id="12_alvx0"]
 
-[sub_resource type="DPITexture" id="DPITexture_sntea"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"64\" height=\"64\">
-  <path d=\"M10.67 32H53.33M32 10.67V53.33\" stroke=\"white\" stroke-width=\"5.33\" stroke-linecap=\"round\"/>
-</svg>"
-base_scale = 0.5
+[sub_resource type="InputEventKey" id="InputEventKey_lgfxo"]
+device = -1
+shift_pressed = true
+keycode = 65
+unicode = 65
 
-[sub_resource type="DPITexture" id="DPITexture_8txtn"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"64\" height=\"64\">
-  <path d=\"M10.67 32H53.33M32 10.67V53.33\" stroke=\"white\" stroke-width=\"5.33\" stroke-linecap=\"round\"/>
-</svg>"
-base_scale = 0.5
-color_map = {
-Color(1, 1, 1, 1): Color(0.18039216, 0.5019608, 1, 1)
-}
+[sub_resource type="Shortcut" id="Shortcut_r8icu"]
+events = [SubResource("InputEventKey_lgfxo")]
 
-[sub_resource type="DPITexture" id="DPITexture_kahbk"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 64 64\" width=\"64\" height=\"64\">
-  <path d=\"M10.67 32H53.33M32 10.67V53.33\" stroke=\"white\" stroke-width=\"5.33\" stroke-linecap=\"round\"/>
-</svg>"
-base_scale = 0.5
-color_map = {
-Color(1, 1, 1, 1): Color(0.8117647, 0.8117647, 0.8117647, 1)
-}
+[sub_resource type="DPITexture" id="DPITexture_s3r5i"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m7 1v6h-6v2h6v6h2v-6h6v-2h-6v-6z\"/></svg>
+"
+base_scale = 1.5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60x5f"]
 bg_color = Color(0.4033567, 0.4033568, 0.40335652, 1)
 border_width_left = 3
 
-[node name="TrackEditor" type="PanelContainer" unique_id=1813960242 node_paths=PackedStringArray("track_length_spin_box", "tick_length_spin_box", "add_track_button", "ruler", "pointer", "track_vbox_container", "left_track_tool_bar", "right_track_tool_bar")]
+[node name="TrackEditor" type="PanelContainer" unique_id=1813960242 node_paths=PackedStringArray("track_length_spin_box", "tick_spacing_spin_box", "mouse_tool_bar", "add_track_button", "ruler", "pointer", "track_vbox_container", "left_track_tool_bar", "right_track_tool_bar")]
 offset_right = 372.0
 offset_bottom = 61.0
+theme = ExtResource("7_ixove")
 script = ExtResource("1_472n8")
-track_length_spin_box = NodePath("MarginContainer/VBoxContainer/ToolBar/TrackLengthSpinBox")
-tick_length_spin_box = NodePath("MarginContainer/VBoxContainer/ToolBar/TickLengthSpinBox")
-add_track_button = NodePath("MarginContainer/VBoxContainer/ToolBar/AddTrackButton")
+track_length_spin_box = NodePath("MarginContainer/VBoxContainer/ToolBarContainer/EditorToolBar/TrackLengthSpinBox")
+tick_spacing_spin_box = NodePath("MarginContainer/VBoxContainer/ToolBarContainer/EditorToolBar/TickSpacingSpinBox")
+mouse_tool_bar = NodePath("MarginContainer/VBoxContainer/ToolBarContainer/MouseToolBar")
+add_track_button = NodePath("MarginContainer/VBoxContainer/ToolBarContainer/AddTrackButton")
 ruler = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/VBoxContainer/RulerPanelContainer/Ruler")
 pointer = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/PointerControl/Pointer")
 track_vbox_container = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/MainScrollContainer/HBoxContainer/VBoxContainer/TrackAdaptiveScrollContainer/TrackVBoxContainer")
@@ -71,41 +65,42 @@ theme_override_constants/margin_bottom = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=287112433]
 layout_mode = 2
 
-[node name="ToolBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1742351762]
+[node name="ToolBarContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1742351762]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="EditorToolBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ToolBarContainer" unique_id=345653079]
 layout_mode = 2
 
-[node name="TrackLengthLabel" type="Label" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=2002247920]
+[node name="TrackLengthLabel" type="Label" parent="MarginContainer/VBoxContainer/ToolBarContainer/EditorToolBar" unique_id=2002247920]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
 text = "轨道长度"
 
-[node name="TrackLengthSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=1703325649]
+[node name="TrackLengthSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/ToolBarContainer/EditorToolBar" unique_id=1703325649]
 layout_mode = 2
 max_value = 10000.0
 value = 1000.0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=1003344209]
+[node name="TickSpacingLabel" type="Label" parent="MarginContainer/VBoxContainer/ToolBarContainer/EditorToolBar" unique_id=530022718]
 layout_mode = 2
+text = "刻度间距"
 
-[node name="TickLengthLabel" type="Label" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=1716528314]
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-text = "刻度长度"
-
-[node name="TickLengthSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=45777939]
+[node name="TickSpacingSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/ToolBarContainer/EditorToolBar" unique_id=45777939]
 layout_mode = 2
 value = 10.0
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=64172861]
+[node name="MouseToolBar" parent="MarginContainer/VBoxContainer/ToolBarContainer" unique_id=984289234 instance=ExtResource("8_aade8")]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/ToolBarContainer" unique_id=64172861]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddTrackButton" type="TextureButton" parent="MarginContainer/VBoxContainer/ToolBar" unique_id=666475839 node_paths=PackedStringArray("track_editor")]
+[node name="AddTrackButton" type="Button" parent="MarginContainer/VBoxContainer/ToolBarContainer" unique_id=1176751054 node_paths=PackedStringArray("track_editor")]
 layout_mode = 2
 tooltip_text = "增加轨道"
-texture_normal = SubResource("DPITexture_sntea")
-texture_pressed = SubResource("DPITexture_8txtn")
-texture_hover = SubResource("DPITexture_kahbk")
+shortcut = SubResource("Shortcut_r8icu")
+icon = SubResource("DPITexture_s3r5i")
 script = ExtResource("6_wrheq")
 track_editor = NodePath("../../../..")
 

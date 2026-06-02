@@ -80,7 +80,7 @@ func _spawn_by_time(e: Entity, barrack_c: BarrackComponent) -> void:
 	
 	barrack_c.ts = TimeMgr.tick_ts
 	if soldier_count < max_soldier_count:
-		e.play_animation_by_look(barrack_c.animation)
+		e.play_animation(barrack_c.animation)
 		AudioMgr.play_sfx(barrack_c.sfx)
 		if await e.y_wait(barrack_c.delay):
 			return
@@ -133,7 +133,7 @@ func _spawn_all_soldiers(e: Entity, barrack_c: BarrackComponent) -> void:
 		has_replace_all = false
 
 	if not has_replace_all:
-		e.play_animation_by_look(barrack_c.animation)
+		e.play_animation(barrack_c.animation)
 		AudioMgr.play_sfx(barrack_c.sfx)
 		if await e.y_wait(barrack_c.delay):
 			return

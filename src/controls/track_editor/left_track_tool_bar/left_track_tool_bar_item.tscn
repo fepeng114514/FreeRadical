@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bmuhmrhbtm0ci"]
 
-[ext_resource type="Script" uid="uid://b11blhavayv5y" path="res://controls/track_editor/left_track_tool_bar_item.gd" id="1_18vxg"]
+[ext_resource type="Script" uid="uid://b11blhavayv5y" path="res://controls/track_editor/left_track_tool_bar/left_track_tool_bar_item.gd" id="1_18vxg"]
 
 [node name="LeftTrackEditorTrackToolBarItem" type="VBoxContainer" unique_id=1483068377 node_paths=PackedStringArray("number_label")]
 custom_minimum_size = Vector2(0, 63)
@@ -16,5 +16,4 @@ layout_mode = 2
 
 [node name="NumberLabel" type="Label" parent="HBoxContainer" unique_id=298308377]
 layout_mode = 2
-theme_override_font_sizes/font_size = 17
 text = "1"

@@ -6,7 +6,8 @@ class_name TrackEditor
 signal item_select(item: TrackEditorTrackItem)
 signal item_deselect
 signal item_create(item: TrackEditorTrackItem)
-signal item_delete(item: TrackEditorTrackItem)
+signal item_erase(item: TrackEditorTrackItem)
+signal item_order_changed
 @warning_ignore_restore("unused_signal")
 
 
@@ -15,22 +16,24 @@ signal item_delete(item: TrackEditorTrackItem)
 		track_length = v
 		if track_length_spin_box:
 			track_length_spin_box.value = v
-@export var tick_length: float = 10:
+@export var tick_spacing: float = 10:
 	set(v): 
-		tick_length = v
-		if tick_length_spin_box:
-			tick_length_spin_box.value = v
+		tick_spacing = v
+		if tick_spacing_spin_box:
+			tick_spacing_spin_box.value = v
 @export var snap_threshold: float = 4
 @export var show_item_order_label: bool = true
 @export var order_label_format: String = "%d"
+@export var hide_mouse_tool_bar: bool = false
 
 @export_group("Multiple Track")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var multiple_track_enable: bool = false
 
 @export_group("Ref")
 @export var track_length_spin_box: SpinBox = null
-@export var tick_length_spin_box: SpinBox = null
-@export var add_track_button: TextureButton = null
+@export var tick_spacing_spin_box: SpinBox = null
+@export var mouse_tool_bar: TrackEditorMouseToolBar = null
+@export var add_track_button: Button = null
 @export var ruler: HBoxContainer = null
 @export var pointer: Control = null
 @export var track_vbox_container: VBoxContainer = null
@@ -43,20 +46,23 @@ signal item_delete(item: TrackEditorTrackItem)
 @export var left_track_tool_bar_item_scene: PackedScene = null
 @export var right_track_tool_bar_item_scene: PackedScene = null
 
-var selected_item_list: Array[TrackEditorTrackItem] = []
-var tick_size_x: float = 0
+var selected_item: TrackEditorTrackItem = null
 var item_list: Array[TrackEditorTrackItem] = []
+var tick_size_x: float = 0
 
 
 func _ready() -> void:
 	track_length_spin_box.value = track_length
-	tick_length_spin_box.value = tick_length
+	tick_spacing_spin_box.value = tick_spacing
+	
+	if hide_mouse_tool_bar:
+		mouse_tool_bar.visible = false
 
 	if not multiple_track_enable:
 		add_track_button.visible = false
 	
 	track_length_spin_box.value_changed.connect(_show_ticks)
-	tick_length_spin_box.value_changed.connect(_show_ticks)
+	tick_spacing_spin_box.value_changed.connect(_show_ticks)
 
 	_show_ticks()
 	
@@ -67,18 +73,19 @@ func _ready() -> void:
 
 
 func select_item(item: TrackEditorTrackItem) -> void:
-	selected_item_list.append(item)
-
-	if selected_item_list.size() == 1:
-		item_select.emit(item)
+	selected_item = item
+	item.is_selected = true
+	item_select.emit(item)
 
 
 func deselect_item() -> void:
-	for item: TrackEditorTrackItem in selected_item_list:
-		item.is_selected = false
-		item.is_draging = false
+	if not selected_item:
+		return
 		
-	selected_item_list.clear()
+	selected_item.is_selected = false
+	selected_item.is_draging = false
+		
+	selected_item = null
 	item_deselect.emit()
 
 
@@ -88,23 +95,33 @@ func create_item(pos_x: float, track_idx: int = 0) -> void:
 	var track_item: TrackEditorTrackItem = track_item_scene.instantiate()
 	track_item.position = Vector2(pos_x, 2)
 	track_item.track_editor = self
-	track_item.apply_pos_delta()
+	track_item.apply_pos_delta(0)
 	track.item_container.add_child(track_item)
 
-	update_item_list(track_item)
+	update_item_list()
 	item_create.emit(track_item)
-	
 
+
+func erase_item(item: TrackEditorTrackItem) -> void:
+	item.queue_free()
+	item.removed = true
+	update_item_list()
+	item_erase.emit(item)
+		
+	
 func get_item(idx: int, track_idx: int = 0) -> TrackEditorTrackItem:
 	var track: TrackEditorTrack = get_track(track_idx)
 	return track.item_container.get_child(idx)
 
 
-func update_item_list(item: TrackEditorTrackItem) -> void:
+func update_item_list() -> void:
 	var new_item_list: Array[TrackEditorTrackItem] = []
 
 	for track: TrackEditorTrack in track_vbox_container.get_children():
 		for child: TrackEditorTrackItem in track.item_container.get_children():
+			if child.removed:
+				continue
+
 			new_item_list.append(child)
 
 	new_item_list.sort_custom(
@@ -113,14 +130,25 @@ func update_item_list(item: TrackEditorTrackItem) -> void:
 	)
 
 	item_list = new_item_list
+	var item_list_size: int = item_list.size()
 
-	for i: int in item_list.size():
+	for i: int in item_list_size:
 		var item_v: TrackEditorTrackItem = item_list[i]
 		item_v.idx = i
 
+	var has_order_changed: bool = false
+
+	for i: int in item_list_size:
+		var item_v: TrackEditorTrackItem = item_list[i]
+		if item_v.last_idx != item_v.idx:
+			if not has_order_changed:
+				has_order_changed = true
+				item_order_changed.emit()
+			item_v.last_idx = item_v.idx
+
 
 func get_tick_count() -> int:
-	return ceili(track_length_spin_box.value / tick_length_spin_box.value)
+	return ceili(track_length_spin_box.value / tick_spacing_spin_box.value)
 
 	
 func get_track(track_idx: int = 0) -> TrackEditorTrack:

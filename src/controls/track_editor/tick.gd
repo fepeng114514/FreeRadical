@@ -9,10 +9,10 @@ var track_editor: TrackEditor = null
 
 
 func _ready() -> void:
-	var tick_length_spin_box: SpinBox = track_editor.tick_length_spin_box
-	tick_length_spin_box.value_changed.connect(_update_text)
+	var tick_spacing_spin_box: SpinBox = track_editor.tick_spacing_spin_box
+	tick_spacing_spin_box.value_changed.connect(_update_text)
 	
-	_update_text(tick_length_spin_box.value)
+	_update_text(tick_spacing_spin_box.value)
 	
 	
 func _update_text(value: float) -> void:

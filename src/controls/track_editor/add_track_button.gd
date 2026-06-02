@@ -1,4 +1,4 @@
-extends TextureButton
+extends Button
 
 
 @export var track_editor: TrackEditor = null

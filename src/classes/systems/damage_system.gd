@@ -161,7 +161,7 @@ func _death(d: Damage, target: Entity, health_c: HealthComponent, source: Entity
 	AudioMgr.play_sfx(health_c.death_sfx)
 	var death_animation: AnimationGroup = health_c.death_animation
 	if death_animation:
-		target.play_animation_by_look(death_animation, &"death")
+		target.play_animation(death_animation, &"death")
 		if await target.y_wait_animation(death_animation):
 			return
 

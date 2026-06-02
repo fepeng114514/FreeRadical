@@ -1,4 +1,4 @@
-extends TextureButton
+extends Button
 
 
 @export var right_track_tool_bar_item: TrackEditorRightTrackToolBarItem = null

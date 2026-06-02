@@ -48,7 +48,7 @@ func _on_update(delta: float) -> void:
 	
 func _update_entity(e: Entity, delta: float) -> void:
 	if e.is_first_update:
-		e.play_animation_by_look(e.spawn_animation)
+		e.play_animation(e.spawn_animation)
 		AudioMgr.play_sfx(e.spawn_sfx)
 		if e.spawn_animation:
 			if await e.y_wait_animation(e.spawn_animation):

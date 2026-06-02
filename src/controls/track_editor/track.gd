@@ -11,11 +11,12 @@ var track_editor: TrackEditor = null
 func _gui_input(event: InputEvent) -> void:
 	track_editor.pointer.position.x = event.position.x
 
-	if event is InputEventMouseButton:
-		match event.button_index:
-			MOUSE_BUTTON_LEFT:
-				if event.pressed:
-					track_editor.deselect_item()
-			MOUSE_BUTTON_RIGHT:
-				if event.pressed:
-					track_editor.create_item(event.position.x, get_index())
+	if track_editor.mouse_tool_bar.opened_tools & TrackEditorMouseToolButton.ToolFlag.EDIT:
+		if event.is_action_pressed("track_editor_click"):
+			track_editor.create_item(event.position.x, get_index())
+	else:
+		if event.is_action_pressed("track_editor_click"):
+			track_editor.deselect_item()
+
+		if event.is_action_pressed("track_editor_create_key"):
+			track_editor.create_item(event.position.x, get_index())

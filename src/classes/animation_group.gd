@@ -8,6 +8,10 @@ class_name AnimationGroup
 @export var play_idx: int = 0
 ## 播放次数
 @export var times: int = 1
+## 是否循环播放
+@export var loop: bool = false
+## 动画播放速度，单位为帧/秒
+@export var speed: float = 30
 ## 左方向的动画名
 @export var left: StringName = &""
 ## 左方向的动画是否作为右方向的镜像

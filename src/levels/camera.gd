@@ -36,18 +36,18 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# 滚动事件
-	if event.is_action("scroll_up"):
+	if event.is_action("camera_zoom_in"):
 		_smooth_zoom(false)
 		
-	elif event.is_action("scroll_down"):
+	elif event.is_action("camera_zoom_out"):
 		_smooth_zoom(true)
 	
 	# 左键点击事件开始拖动
-	elif event.is_action_pressed("left_click"):
+	elif event.is_action_pressed("camera_drag"):
 		_dragging = true
 		_drag_start_position = event.position
 	# 左键点击事件松开结束拖动
-	elif event.is_action_released("left_click"):
+	elif event.is_action_released("camera_drag"):
 		_dragging = false
 	
 	# 拖动时鼠标移动移动相机

@@ -44,7 +44,7 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 		e.look_point = target.global_position
 	start_cooldown(e, skill_idx)
 		
-	e.play_animation_by_look(animation)
+	e.play_animation(animation)
 	AudioMgr.play_sfx(sfx)
 	if await e.y_wait(delay) or search and not target:
 		compensate_cooldown(e, skill_idx)

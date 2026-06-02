@@ -166,7 +166,7 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 		if is_first_blocked:
 			if blocker_melee_c.melee_state != MeleeComponent.MeleeState.MELEE_POS_ARRIVED:
 				e.look_point = blocker_global_pos
-				e.play_animation_by_look(e.idle_animation)
+				e.play_animation(e.idle_animation)
 				return true
 		else:
 			if not melee_c.is_passive:
@@ -205,7 +205,7 @@ func _go_melee_pos(e: Entity, melee_c: MeleeComponent, melee_pos: Vector2) -> bo
 
 		var next_position: Vector2 = e.global_position + velocity
 		e.look_point = next_position
-		e.play_animation_by_look(melee_c.motion_animation, &"walk")
+		e.play_animation(melee_c.motion_animation, &"walk")
 		e.global_position = next_position
 		
 		return false
@@ -232,7 +232,7 @@ func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 
 		var next_position: Vector2 = e.global_position + velocity
 		e.look_point = next_position
-		e.play_animation_by_look(melee_c.motion_animation, &"walk")
+		e.play_animation(melee_c.motion_animation, &"walk")
 
 		e.global_position = next_position
 		
@@ -244,7 +244,7 @@ func _try_melee_attack(
 	) -> void:
 	if U.is_valid_entity(target):
 		e.look_point = target.global_position
-	e.play_animation_by_look(e.idle_animation)
+	e.play_animation(e.idle_animation)
 	
 	for i: int in melee_c.get_child_count():
 		if not target:

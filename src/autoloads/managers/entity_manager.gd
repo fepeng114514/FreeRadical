@@ -50,12 +50,18 @@ func _load() -> void:
 		group.clear()
 
 	_next_id = 0
+	
+	_entity_scene_dict = load_entity_scene()
+	init_space_index_grid()
 
+
+func load_entity_scene() -> Dictionary[String, PackedScene]:
 	var json_data: Array = U.load_json(
 		"res://entities/entity_scene_paths.json"
 	)
+
+	var entity_scene_dict: Dictionary[String, PackedScene] = {}
 	
-	# 加载实体场景
 	for path: String in json_data:
 		if not ResourceLoader.exists(path):
 			Log.error("未找到实体场景: %s" % path)
@@ -66,9 +72,13 @@ func _load() -> void:
 		
 		var scene_name: String = path.get_file().get_basename()
 		
-		_entity_scene_dict[scene_name] = scene
+		entity_scene_dict[scene_name] = scene
+		
+	return entity_scene_dict
 
-	# 初始化空间索引网格
+
+
+func init_space_index_grid() -> void:
 	var world_size: Vector2 = GlobalMgr.world_size
 	var grid_count_x: int = ceili(world_size.x / SPACE_INDEX_GRID_SIZE)
 	var grid_count_y: int = ceili(world_size.y / SPACE_INDEX_GRID_SIZE)

@@ -79,7 +79,7 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	e.look_point = target.global_position
 	start_cooldown(e, skill_idx)
 
-	e.play_animation_by_look(animation, &"ranged")
+	e.play_animation(animation, &"ranged")
 	AudioMgr.play_sfx(sfx)
 	if await e.y_wait(delay) or not target:
 		compensate_cooldown(e, skill_idx)

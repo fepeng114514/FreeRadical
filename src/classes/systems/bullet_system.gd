@@ -57,7 +57,7 @@ func _on_update(delta: float) -> void:
 		bullet_c.trajectory._update_trajectory(e, bullet_c, target, flying_time, delta)
 		
 		if bullet_c.flight_animation:
-			e.play_animation_by_look(bullet_c.flight_animation)
+			e.play_animation(bullet_c.flight_animation)
 		e.rotation += bullet_c.rotation_speed * delta
 
 		# 未击中处理
@@ -84,7 +84,7 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 	
 	AudioMgr.play_sfx(bullet_c.miss_sfx)
 	if bullet_c.miss_animation:
-		e.play_animation_by_look(bullet_c.miss_animation)
+		e.play_animation(bullet_c.miss_animation)
 		if await e.y_wait_animation(bullet_c.miss_animation):
 			return
 
@@ -104,7 +104,7 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	AudioMgr.play_sfx(bullet_c.hit_sfx)
 	if bullet_c.hit_animation:
-		e.play_animation_by_look(bullet_c.hit_animation)
+		e.play_animation(bullet_c.hit_animation)
 		if await e.y_wait(bullet_c.hit_delay):
 			return
 		

@@ -26,7 +26,7 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	e.look_point = target.global_position
 	start_cooldown(e, skill_idx)
 	
-	e.play_animation_by_look(animation, &"ranged")
+	e.play_animation(animation, &"ranged")
 	AudioMgr.play_sfx(sfx)
 	if await e.y_wait_animation(animation) or not target:
 		compensate_cooldown(e, skill_idx)
@@ -37,7 +37,7 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 			break
 			
 		e.look_point = target.global_position
-		e.play_animation_by_look(loop_animation)
+		e.play_animation(loop_animation)
 
 		AudioMgr.play_sfx(loop_sfx)
 		if await e.y_wait(delay):
@@ -50,6 +50,6 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	if await e.y_wait_animation(loop_animation):
 		return
 
-	e.play_animation_by_look(end_animation)
+	e.play_animation(end_animation)
 	AudioMgr.play_sfx(end_sfx)
 	await e.y_wait_animation(end_animation)
