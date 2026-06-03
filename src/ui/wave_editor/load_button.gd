@@ -1,9 +1,12 @@
 extends Button
 
 
+@export var file_dialog: FileDialog = null
+
+
 func _ready() -> void:
 	pressed.connect(_on_pressed)
 
 
 func _on_pressed() -> void:
-	LevelMgr.enter_level(1)
+	file_dialog.visible = true

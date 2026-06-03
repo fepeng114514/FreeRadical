@@ -3,10 +3,10 @@ extends Button
 
 
 func _ready() -> void:
-	pressed.connect(_button_pressed)
+	pressed.connect(_on_pressed)
 
 
-func _button_pressed() -> void:
+func _on_pressed() -> void:
 	var dialog: ConfirmationDialog = ConfirmationDialog.new()
 	dialog.title = "请确认"
 	dialog.dialog_text = "确定要退出游戏吗？"

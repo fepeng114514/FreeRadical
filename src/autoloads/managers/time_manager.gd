@@ -4,13 +4,13 @@ extends Node
 ## 存储所有时间信息
 
 ## 自上次初始化后已经过的时间戳
-var tick_ts: float = 0
+var tick_ts: float = 0.0
 ## 自上次初始化后已经过的帧数
 var tick: int = 0
 ## 该变量始终等于 _process(delta) 中的 delta
-var frame_length: float = 0
+var frame_length: float = 0.0
 ## 每秒的经过的帧数，始终等于 Engine.get_frames_per_second()
-var fps: float = 0
+var fps: float = 0.0
 
 
 func _load() -> void:
@@ -33,7 +33,7 @@ func get_time_by_ts(ts: float) -> float:
 ## 协程等待
 ##
 ## break_fn 返回 true 表示中断等待，返回值表示是否中断等待
-func y_wait(time: float = 0, break_fn: Callable = Callable()) -> bool:
+func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 	if time <= 0:
 		return false
 

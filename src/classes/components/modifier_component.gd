@@ -19,7 +19,7 @@ class_name ModifierComponent
 @export var remove_banned: bool = true
 
 ## 时间戳
-var ts: float = 0
+var ts: float = 0.0
 ## 当前周期数
 var curren_cycle: int = 0
 

@@ -8,10 +8,10 @@ class_name AudioGroup
 ## 音频列表
 @export var list: Array[StringName] = []
 ## 音量，单位为分贝
-@export var volume_db: float = 0
+@export var volume_db: float = 0.0
 ## 音量，线性增长而非对数
 @export var volume_linear: float = 1
 ## 延迟，单位为秒
-@export var delay: float = 0
+@export var delay: float = 0.0
 
 var played_idx: int = -1

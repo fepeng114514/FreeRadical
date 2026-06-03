@@ -7,7 +7,7 @@ class_name Pathway
 @export var disabled: bool = false
 
 ## 子路径列表
-var subpathway_list: Array[Subpathway] = []
+var sub_pathway_list: Array[SubPathway] = []
 ## 下一个子路径索引
 var next_spi: int = 0
 ## 路径索引
@@ -17,18 +17,18 @@ var idx: int = C.UNSET
 func _ready() -> void:
 	PathwayMgr.insert_pathway(self)
 	
-	var subpathway_count: int = PathwayMgr.subpathway_count
-	var spacing: float = PathwayMgr.subpathway_spacing
+	var sub_pathway_count: int = PathwayMgr.sub_pathway_count
+	var spacing: float = PathwayMgr.sub_pathway_spacing
 	
-	var half_total_spacing: float = subpathway_count * spacing / 2
+	var half_total_spacing: float = sub_pathway_count * spacing / 2
 
-	for i: int in subpathway_count:
-		var subpathway := Subpathway.new()
-		subpathway.spacing = half_total_spacing - (spacing * i)
-		subpathway.parent_pathway = self
-		subpathway.idx = next_spi
-		add_child(subpathway)
+	for i: int in sub_pathway_count:
+		var sub_pathway := SubPathway.new()
+		sub_pathway.spacing = half_total_spacing - (spacing * i)
+		sub_pathway.parent_pathway = self
+		sub_pathway.idx = next_spi
+		add_child(sub_pathway)
 
-		subpathway_list.append(subpathway)
+		sub_pathway_list.append(sub_pathway)
 
 		next_spi += 1

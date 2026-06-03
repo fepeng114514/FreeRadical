@@ -37,9 +37,7 @@ func _spawner() -> void:
 		await y_wait(wave_interval, func(): return WaveMgr.is_release_wave)
 		
 		WaveMgr.release_wave.emit()
-
 		AudioMgr.play_sfx(wave_interval_finish_sfx)
-		
 		WaveMgr.is_release_wave = false
 		Log.debug(">>> 开始第 %d 波出怪" % (wave_idx + 1))
 		
@@ -51,7 +49,7 @@ func _spawner() -> void:
 		
 		for i: int in sub_wave_list_size:
 			var sub_wave: SubWave = sub_wave_list[i]
-			_sub_wave_spawner(i, sub_wave, sub_wave_state_list)
+			_spawn_sub_wave(i, sub_wave, sub_wave_state_list)
 			
 		await all_sub_wave_done
 		WaveMgr.is_skip_wave = false
@@ -61,7 +59,7 @@ func _spawner() -> void:
 	WaveMgr.waves_finished = true
 
 
-func _sub_wave_spawner(
+func _spawn_sub_wave(
 		idx: int,
 		sub_wave: SubWave, 
 		sub_wave_state_list: PackedInt32Array
@@ -69,7 +67,6 @@ func _sub_wave_spawner(
 	await get_tree().physics_frame
 		
 	if not await y_wait(sub_wave.delay, _skip_break_fn):
-		var pathway_idx: int = sub_wave.pathway_idx
 		var is_break: bool = false
 		
 		for spawn: WaveSpawn in sub_wave.spawn_list:
@@ -78,10 +75,9 @@ func _sub_wave_spawner(
 
 			for i: int in spawn.count:
 				var e: Entity = EntityMgr.create_entity(spawn.entity)
-				
 				var nav_path_c: NavPathComponent = e.get_node_or_null(C.CN_NAV_PATH)
 				if nav_path_c:
-					var spi: int = spawn.subpathway_idx
+					var spi: int = spawn.sub_pathway_idx
 					
 					nav_path_c.reversed = spawn.reversed
 					nav_path_c.loop = spawn.loop
@@ -89,7 +85,7 @@ func _sub_wave_spawner(
 					var node: PathwayNode = nav_path_c.get_pathway_node(
 						PathwayMgr.node_count - 1 if nav_path_c.reversed else 0
 					)
-					nav_path_c.set_nav_path(pathway_idx, spi, node.ni)
+					nav_path_c.set_nav_path(spawn.pathway_idx, spi, node.ni)
 				
 				e.insert_entity()
 				

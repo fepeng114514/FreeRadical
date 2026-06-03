@@ -48,7 +48,7 @@ signal item_order_changed
 
 var selected_item: TrackEditorTrackItem = null
 var item_list: Array[TrackEditorTrackItem] = []
-var tick_size_x: float = 0
+var tick_size_x: float = 0.0
 
 
 func _ready() -> void:
@@ -89,17 +89,17 @@ func deselect_item() -> void:
 	item_deselect.emit()
 
 
-func create_item(pos_x: float, track_idx: int = 0) -> void:
+func create_item(track_idx: int = 0) -> TrackEditorTrackItem:
 	var track: TrackEditorTrack = get_track(track_idx)
 	
 	var track_item: TrackEditorTrackItem = track_item_scene.instantiate()
-	track_item.position = Vector2(pos_x, 2)
+	track_item.position.y = 2
 	track_item.track_editor = self
-	track_item.apply_pos_delta(0)
+	track_item.track_idx = track_idx
 	track.item_container.add_child(track_item)
 
-	update_item_list()
 	item_create.emit(track_item)
+	return track_item
 
 
 func erase_item(item: TrackEditorTrackItem) -> void:
@@ -126,7 +126,13 @@ func update_item_list() -> void:
 
 	new_item_list.sort_custom(
 		func(a: TrackEditorTrackItem, b: TrackEditorTrackItem) -> bool:
-			return a.track_pos < b.track_pos
+			var a_track_pos: float = a.track_pos
+			var b_track_pos: float = b.track_pos
+
+			if a_track_pos == b_track_pos:
+				return a.track_idx < b.track_idx
+			else:
+				return a_track_pos < b_track_pos
 	)
 
 	item_list = new_item_list
@@ -172,16 +178,18 @@ func create_track() -> void:
 
 func clear_tracks() -> void:
 	for track: TrackEditorTrack in track_vbox_container.get_children():
-		track.queue_free()
+		track.free()
 
-		var left_track_tool_bar_item: TrackEditorLeftTrackToolBarItem = left_track_tool_bar.get_child(0)
-		left_track_tool_bar_item.queue_free()
-		
-		var right_track_tool_bar_item: TrackEditorRightTrackToolBarItem = right_track_tool_bar.get_child(0)
-		right_track_tool_bar_item.queue_free()
+		if left_track_tool_bar.get_child_count() > 0:
+			var left_track_tool_bar_item: TrackEditorLeftTrackToolBarItem = left_track_tool_bar.get_child(0)
+			left_track_tool_bar_item.free()
+			
+		if right_track_tool_bar.get_child_count() > 0:
+			var right_track_tool_bar_item: TrackEditorRightTrackToolBarItem = right_track_tool_bar.get_child(0)
+			right_track_tool_bar_item.free()
 		
 
-func _show_ticks(_value: float = 0) -> void:
+func _show_ticks(_value: float = 0.0) -> void:
 	var target_tick_count: int = get_tick_count()
 	var has_tick_count: int = ruler.get_child_count()
 

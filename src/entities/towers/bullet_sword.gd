@@ -3,8 +3,8 @@ extends Entity
 
 @onready var bullet_c = get_node_or_null(C.CN_BULLET)
 var stay_height: int = 0
-var stay_time: float = 0
-var to_predict_time: float = 0
+var stay_time: float = 0.0
+var to_predict_time: float = 0.0
 var is_stay: bool = true
 var is_to_predict: bool = true
 var has_to_predict: bool = false

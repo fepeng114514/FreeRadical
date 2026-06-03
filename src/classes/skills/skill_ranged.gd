@@ -40,7 +40,7 @@ enum BulletSpawnMode {
 			U.connect_resource_changed(bullet_offsets, queue_redraw)
 			queue_redraw()
 ## 子弹发射的角度范围，单位为度
-@export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0
+@export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0.0
 ## 子弹发射模式
 @export var bullet_spawn_mode: BulletSpawnMode = BulletSpawnMode.EQUAL_INTERVAL
 ## 伤害/治疗/范围伤害 统一资源
@@ -103,7 +103,7 @@ func spawn_bullets(
 		b.target_id = target.id
 		b.source_id = e.id
 
-		var b_rotation: float = 0
+		var b_rotation: float = 0.0
 
 		match bullet_spawn_mode:
 			BulletSpawnMode.EQUAL_INTERVAL:

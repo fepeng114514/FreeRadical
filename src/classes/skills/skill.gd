@@ -17,11 +17,11 @@ enum Type {
 ## 冷却时间
 @export var cooldown: float = 1
 ## 冷却时间补偿比例
-@export var compensate_cooldown_percent: float = 0
+@export var compensate_cooldown_percent: float = 0.0
 ## 释放概率
 @export var chance: float = 1
 ## 延迟
-@export var delay: float = 0
+@export var delay: float = 0.0
 ## 动画
 @export var animation: AnimationGroup = null
 ## 音效
@@ -34,7 +34,7 @@ enum Type {
 @export var group_cooldown_offset: float = 0.1
 
 ## 时间戳
-var ts: float = 0
+var ts: float = 0.0
 
 
 @warning_ignore_start("unused_parameter")

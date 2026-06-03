@@ -7,7 +7,7 @@ class_name WaveFlag
 
 
 ## 箭头旋转角度
-@export_range(-180, 180, 0.1, "radians_as_degrees") var arrow_rotation: float = 0:
+@export_range(-180, 180, 0.1, "radians_as_degrees") var arrow_rotation: float = 0.0:
 	set(v):
 		arrow_rotation = v
 		

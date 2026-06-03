@@ -6,16 +6,17 @@ class_name TrackEditorTrackItem
 
 var removed: bool = false
 ## 在轨道上的位置
-var track_pos: float = 0
+var track_pos: float = 0.0
 var is_selected: bool = false
 var is_draging: bool = false
-var last_global_x: float = 0
+var last_global_x: float = 0.0
 var last_tick_spacing: float = -1
-var last_idx: int = -1
+var track_idx: int = -1
 var idx: int = -1:
 	set(v):
 		idx = v
 		order_label.text = track_editor.order_label_format % (v + 1)
+var last_idx: int = -1
 
 var track_editor: TrackEditor = null
 
@@ -94,7 +95,7 @@ func drag_move(event: InputEventMouseMotion) -> void:
 	track_editor.update_item_list()
 
 
-func apply_pos_delta(delta_x: float = 0) -> void:
+func apply_pos_delta(delta_x: float = 0.0) -> void:
 	var to_pos_x: float = position.x + delta_x
 
 	if track_editor.mouse_tool_bar.opened_tools & TrackEditorMouseToolButton.ToolFlag.SNAP:
@@ -112,6 +113,11 @@ func apply_pos_delta(delta_x: float = 0) -> void:
 	var max_x: float = track_editor.ruler.size.x
 	position.x = clampf(to_pos_x, 0, max_x)
 	_update_track_pos()
+
+
+func set_pos_by_track_pos(_track_pos: float) -> void:
+	position.x = _track_pos * track_editor.tick_size_x / track_editor.tick_spacing_spin_box.value
+	track_pos = _track_pos
 
 
 func _update_track_pos() -> void:

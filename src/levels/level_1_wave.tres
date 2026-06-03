@@ -8,6 +8,7 @@
 [sub_resource type="Resource" id="Resource_aerfg"]
 script = ExtResource("4_178aa")
 entity = "enemy_goblin"
+pathway_idx = 0
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
 [sub_resource type="Resource" id="Resource_nmsli"]

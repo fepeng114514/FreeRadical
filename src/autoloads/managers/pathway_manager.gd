@@ -16,9 +16,9 @@ var all_node_list: Array[PathwayNode] = []
 ## 下一个路径索引
 var next_pi: int = 0
 ## 子路径总数量
-var subpathway_count: int = 5
+var sub_pathway_count: int = 5
 ## 子路径间距
-var subpathway_spacing: float = 20
+var sub_pathway_spacing: float = 20
 ## 路径节点总数量
 var node_count: int = 256
 ## 路径节点相交距离阈值
@@ -53,24 +53,24 @@ func get_pathway(pi: int) -> Pathway:
 
 
 ## 获取指定索引的子路径
-func get_subpathway(pi: int, spi: int) -> Subpathway:
+func get_sub_pathway(pi: int, spi: int) -> SubPathway:
 	var pathway: Pathway = pathway_list[pi]
-	var subpathway: Subpathway = pathway.subpathway_list[spi]
-	return subpathway
+	var sub_pathway: SubPathway = pathway.sub_pathway_list[spi]
+	return sub_pathway
 
 
 ## 获取指定索引的节点
 func get_pathway_node(pi: int, spi: int, ni: int) -> PathwayNode:
 	var pathway: Pathway = pathway_list[pi]
-	var subpathway: Subpathway = pathway.subpathway_list[spi]
-	var pathway_node: PathwayNode = subpathway.node_list[ni]
+	var sub_pathway: SubPathway = pathway.sub_pathway_list[spi]
+	var pathway_node: PathwayNode = sub_pathway.node_list[ni]
 
 	return pathway_node
 	
 
 ## 获取中间的子路径索引
 func get_middle_spi() -> int:
-	return roundi(1.0 * subpathway_count / 2)
+	return roundi(1.0 * sub_pathway_count / 2)
 
 
 ## 获取启用的路径
@@ -91,27 +91,27 @@ func get_random_pi() -> int:
 ## 获取指定路径上的随机子路径
 ## 
 ## 若不指定路径索引将会在随机路径上获取
-func get_random_subpathway(pi: int = C.UNSET) -> Subpathway:
+func get_random_sub_pathway(pi: int = C.UNSET) -> SubPathway:
 	if not U.is_valid_number(pi):
 		pi = get_random_pi()
 
 	var pathway: Pathway = pathway_list[pi]
 
-	return pathway.subpathway_list.pick_random()
+	return pathway.sub_pathway_list.pick_random()
 
 
 ## 根据路程获取路程比率
 func get_ratio(pi: int, spi: int, progress: float) -> float:
-	var subpathway: Subpathway = get_subpathway(pi, spi)
+	var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
 		
-	var delta: float = progress / subpathway.length
+	var delta: float = progress / sub_pathway.length
 	return clampf(delta, 0, 1)
 	
 
 ## 获取指定路径比率上的位置
 func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
-	var subpathway: Subpathway = get_subpathway(pi, spi)
-	var path_follow: PathFollow2D = subpathway.follow
+	var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
+	var path_follow: PathFollow2D = sub_pathway.follow
 		
 	path_follow.progress_ratio = ratio
 	var global_position: Vector2 = path_follow.global_position
@@ -121,15 +121,15 @@ func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
 
 ## 根据路程比率获取路程
 func get_progress_by_ratio(pi: int, spi: int, ratio: float) -> float:
-	var subpathway: Subpathway = get_subpathway(pi, spi)
+	var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
 
-	return subpathway.length * ratio
+	return sub_pathway.length * ratio
 	
 
 ## 获取指定路程上的位置
 func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
-	var subpathway: Subpathway = get_subpathway(pi, spi)
-	var path_follow = subpathway.follow
+	var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
+	var path_follow = sub_pathway.follow
 		
 	path_follow.progress = progress
 	var global_position: Vector2 = path_follow.global_position
@@ -164,7 +164,7 @@ func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
 func get_nearst_nodes_list(
 		origin: Vector2, 
 		pi_l: Array = range(get_pathway_count()), 
-		spi_l: Array = range(subpathway_count),
+		spi_l: Array = range(sub_pathway_count),
 		valid_only: bool = true
 	) -> Array[PathwayNode]:
 	var node_list: Array[PathwayNode] = []
@@ -175,9 +175,9 @@ func get_nearst_nodes_list(
 			continue
 
 		for spi: int in spi_l:
-			var subpathway: Subpathway = get_subpathway(pi, spi)
+			var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
 
-			for node: PathwayNode in subpathway.node_list:
+			for node: PathwayNode in sub_pathway.node_list:
 				node.dist_squared = node.pos.distance_squared_to(origin)
 
 				node_list.append(node)
@@ -202,7 +202,7 @@ func get_nearst_node(
 	if not pi_l:
 		pi_l = range(get_pathway_count())
 	if not spi_l:
-		spi_l = range(subpathway_count)
+		spi_l = range(sub_pathway_count)
 
 	var nearst_node: PathwayNode = null
 	
@@ -211,9 +211,9 @@ func get_nearst_node(
 			continue
 		
 		for spi: int in spi_l:
-			var subpathway: Subpathway = get_subpathway(pi, spi)
+			var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
 			
-			for node: PathwayNode in subpathway.node_list:
+			for node: PathwayNode in sub_pathway.node_list:
 				node.dist_squared = node.pos.distance_squared_to(origin)
 				
 				if (

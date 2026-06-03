@@ -6,7 +6,7 @@ class_name BulletTrajectoryTracking
 
 
 ## 子弹的飞行速度
-@export var flight_speed: float = 0
+@export var flight_speed: float = 0.0
 
 
 func _init_trajectory(bullet_c: BulletComponent, e: Entity, _target: Entity) -> void:

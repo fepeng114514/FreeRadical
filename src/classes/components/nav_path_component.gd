@@ -33,13 +33,13 @@ var nav_spi: int = 0
 ## 所在节点索引
 var nav_ni: int = 0
 ## 所在路程比率
-var nav_ratio: float = 0
+var nav_ratio: float = 0.0
 ## 所在路程
-var nav_progress: float = 0
+var nav_progress: float = 0.0
 ## 当前循环次数
 var loop_count: int = 0
 ## 时间戳
-var ts: float = 0
+var ts: float = 0.0
 
 
 ## PathwayMgr.get_subpath 的简写，已传递 nav_pi, nav_spi

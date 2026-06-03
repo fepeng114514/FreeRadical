@@ -13,7 +13,7 @@ class_name BulletComponent
 
 @export_group("Rotation")
 ## 子弹旋转速度（弧度）
-@export var rotation_speed: float = 0
+@export var rotation_speed: float = 0.0
 ## 是否看向目标点，会覆盖 rotation_speed
 @export var look_to: bool = true
 
@@ -25,7 +25,7 @@ class_name BulletComponent
 ## 击中目标后是否移除子弹实体
 @export var hit_remove: bool = true
 ## 击中后造成伤害的延迟（秒）
-@export var hit_delay: float = 0
+@export var hit_delay: float = 0.0
 ## 击中动画
 @export var hit_animation: AnimationGroup = null
 ## 击中音效
@@ -50,7 +50,7 @@ var from := Vector2.ZERO
 ## 目标位置
 var to := Vector2.ZERO
 ## 时间戳（秒）
-var ts: float = 0
+var ts: float = 0.0
 ## 子弹向量速度
 var velocity := Vector2.ZERO
 ## 预判目标位置

@@ -35,7 +35,7 @@ enum TowerType {
 
 @export_group("Sell")
 ## 价格
-@export var price: float = 0
+@export var price: float = 0.0
 ## 出售比例（%）
 @export var sell_ratio: float = 0.5
 @export var sell_sfx: AudioGroup = null
@@ -47,7 +47,7 @@ var upgrade_to: String = ""
 ## 出售状态
 var is_sell: bool = false
 ## 时间戳
-var ts: float = 0
+var ts: float = 0.0
 
 @onready var parent: Entity = get_parent()
 

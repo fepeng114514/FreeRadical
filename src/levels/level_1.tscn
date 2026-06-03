@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://qpfa4bqm51bj"]
 
 [ext_resource type="PackedScene" uid="uid://be4ofxijaafml" path="res://levels/level.tscn" id="1_dga24"]
-[ext_resource type="Texture2D" uid="uid://b24t465wlkwrm" path="res://assets/QQ图片20260528093224.jpg" id="2_5ot28"]
+[ext_resource type="Texture2D" uid="uid://cqieamy7bs3l8" path="res://assets/测试关卡00.png" id="2_l53as"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://levels/pathway.gd" id="3_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/wave_spawner.tscn" id="4_dga24"]
 [ext_resource type="Resource" uid="uid://ww81k4ka5rlw" path="res://levels/level_1_wave.tres" id="4_l53as"]
@@ -14,14 +14,14 @@ script = ExtResource("14_np2pn")
 
 [sub_resource type="Curve2D" id="Curve2D_0iaxv"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 8, -3, -186.37093, 0, 186.37093, 0, 1031, -3, -17.472271, -100.95091, 17.472271, 100.95091, 1413, 374, -178.60547, -11.648183, 178.60547, 11.648183, 1772, 716, 0, 0, 0, 0, 2722, 718)
+"points": PackedVector2Array(0, 0, 0, 0, 1857, -369, 18.087688, -165.37315, -18.087688, 165.37315, 1664, 6, -18.087688, -69.7668, 18.087688, 69.7668, 1881, 339, 118.86195, -113.694046, -118.86195, 113.694046, 1767, 582, -85.27053, -149.86942, 85.27053, 149.86942, 1589, 858, 0, 0, 0, 0, 1705, 1161)
 }
-point_count = 5
+point_count = 6
 
 [node name="Level1" unique_id=1565788906 instance=ExtResource("1_dga24")]
 
 [node name="Background" parent="." index="1" unique_id=74954041]
-texture = ExtResource("2_5ot28")
+texture = ExtResource("2_l53as")
 
 [node name="WaveSpawner" parent="World" parent_id_path=PackedInt32Array(1261225856) index="0" unique_id=708476456 instance=ExtResource("4_dga24")]
 position = Vector2(-1, 0)
@@ -30,13 +30,13 @@ track_target = true
 idle_animation = SubResource("Resource_excbq")
 
 [node name="TowerHolderGrass" parent="World" parent_id_path=PackedInt32Array(1261225856) index="1" unique_id=1898604313 instance=ExtResource("35_hvllt")]
-position = Vector2(1100, 659)
+position = Vector2(1462, 669)
 
 [node name="TowerComponent" parent="World/TowerHolderGrass" index="1" unique_id=286705593]
 default_rally_center_local_pos = Vector2(-191.43, 37.53)
 
 [node name="TowerHolderGrass2" parent="World" parent_id_path=PackedInt32Array(1261225856) index="2" unique_id=1937510618 instance=ExtResource("35_hvllt")]
-position = Vector2(1527, 642)
+position = Vector2(1819, 378)
 
 [node name="TowerComponent" parent="World/TowerHolderGrass2" index="1" unique_id=286705593]
 default_rally_center_local_pos = Vector2(-131.4, 61.74)
@@ -82,22 +82,13 @@ position = Vector2(-104, 311)
 curve = SubResource("Curve2D_0iaxv")
 script = ExtResource("3_sk5k4")
 
-[node name="SelectMenu" parent="." index="6" unique_id=1082728830]
-visible = false
-
-[node name="InfoCircleController" parent="." index="7" unique_id=1487020159]
-visible = false
-
-[node name="GameUILayer" parent="." index="8" unique_id=673863676]
-visible = false
-
 [node name="WaveFlag" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1969317594 instance=ExtResource("10_qxy0u")]
 layout_mode = 1
-offset_left = 114.0
-offset_top = 264.0
-offset_right = 199.0
-offset_bottom = 349.0
-arrow_rotation = -1.5707963267948966
+offset_left = 1608.0
+offset_top = 73.0
+offset_right = 1693.0
+offset_bottom = 158.0
+arrow_rotation = 0.4363323129985824
 
 [editable path="World/TowerHolderGrass"]
 [editable path="World/TowerHolderGrass2"]

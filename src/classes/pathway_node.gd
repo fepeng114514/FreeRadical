@@ -12,11 +12,11 @@ var ni: int = C.UNSET
 ## 节点位置
 var pos := Vector2.ZERO
 ## 位于的路径比率
-var ratio: float = 0
+var ratio: float = 0.0
 ## 位于的路径位置
-var progress: float = 0
+var progress: float = 0.0
 ## 距离
-var dist_squared: float = 0
+var dist_squared: float = 0.0
 ## 与另一个路径相交的节点索引
 var intersecting_ni_list: PackedInt32Array = []
 

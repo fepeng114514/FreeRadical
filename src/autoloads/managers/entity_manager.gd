@@ -511,7 +511,7 @@ var search_config: Dictionary[C.SearchMode, SearchModeConfig] = build_search_con
 func find_targets_in_range(
 		origin: Vector2,
 		max_range: float,
-		min_range: float = 0,
+		min_range: float = 0.0,
 		flags: int = 0,
 		bans: int = 0,
 		filter: Callable = Callable(),
@@ -555,7 +555,7 @@ func search_targets(
 		search_mode: C.SearchMode, 
 		origin: Vector2, 
 		max_range: float, 
-		min_range: float = 0, 
+		min_range: float = 0.0, 
 		flags: int = 0, 
 		bans: int = 0, 
 		filter: Callable = Callable()

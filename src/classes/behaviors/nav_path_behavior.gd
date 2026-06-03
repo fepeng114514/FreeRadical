@@ -12,7 +12,7 @@ func _on_insert(e: Entity) -> bool:
 
 	var nav_pi: int = nav_path_c.nav_pi
 	if not U.is_valid_number(nav_path_c.nav_spi):
-		nav_path_c.nav_spi = PathwayMgr.get_random_subpathway(nav_pi).idx
+		nav_path_c.nav_spi = PathwayMgr.get_random_sub_pathway(nav_pi).idx
 		
 	if nav_path_c.end_ni < 0:
 		nav_path_c.end_ni = PathwayMgr.node_count + nav_path_c.end_ni

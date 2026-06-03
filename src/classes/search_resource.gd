@@ -10,13 +10,13 @@ class_name SearchResource
 			U.connect_resource_changed(center_offsets, emit_changed)
 			emit_changed()
 ## 最小半径
-@export var min_radius: float = 0:
+@export var min_radius: float = 0.0:
 	set(v): 
 		min_radius = v
 		if Engine.is_editor_hint():
 			emit_changed()
 ## 最大半径
-@export var max_radius: float = 0:
+@export var max_radius: float = 0.0:
 	set(v): 
 		max_radius = v
 		if Engine.is_editor_hint():

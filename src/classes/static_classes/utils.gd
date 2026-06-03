@@ -16,7 +16,7 @@ static func dist_factor_inside_radius(
 		center: Vector2, 
 		point: Vector2, 
 		max_radius: float, 
-		min_radius: float = 0, 
+		min_radius: float = 0.0, 
 	) -> float:
 	var dist: float = center.distance_to(point)
 	
@@ -31,7 +31,7 @@ static func dist_factor_inside_radius(
 	
 ## 计算点在指定方向和距离上的另一个点
 static func point_on_circle(
-		point: Vector2, radius: float, angle: float = 0
+		point: Vector2, radius: float, angle: float = 0.0
 	) -> Vector2:
 	var dir: Vector2 = Vector2.from_angle(angle)
 	var d: Vector2 = dir * radius
@@ -68,7 +68,7 @@ static func dist_factor_inside_ellipse(
 		center: Vector2, 
 		point: Vector2, 
 		max_radius: float, 
-		min_radius: float = 0, 
+		min_radius: float = 0.0, 
 		aspect: float = 0.7
 	) -> float:
 	var angle: float = center.angle_to(point)
@@ -89,7 +89,7 @@ static func dist_factor_inside_ellipse(
 
 ## 计算点在指定方向和距离上椭圆空间的另一个点
 static func point_on_ellipse(
-		point: Vector2, radius: float, angle: float = 0, aspect: float = 0.7
+		point: Vector2, radius: float, angle: float = 0.0, aspect: float = 0.7
 	) -> Vector2:
 	var a: float = radius
 	var b: float = radius * aspect
@@ -114,7 +114,7 @@ static func is_in_sector(
 
 ## 判断点是否位于线段中
 static func is_in_line(
-		center: Vector2, point: Vector2, width: float, length: float, angle: float = 0
+		center: Vector2, point: Vector2, width: float, length: float, angle: float = 0.0
 	) -> bool:
 	if is_in_radius(center, point, width):
 		return true

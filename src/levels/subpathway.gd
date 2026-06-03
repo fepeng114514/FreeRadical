@@ -1,5 +1,5 @@
 extends Path2D
-class_name Subpathway
+class_name SubPathway
 ## 子路径类
 
 
@@ -7,11 +7,11 @@ var follow: PathFollow2D = null
 ## 子路径索引
 var idx: int = C.UNSET
 ## 间距
-var spacing: float = 0
+var spacing: float = 0.0
 ## 节点列表
 var node_list: Array[PathwayNode] = []
 ## 子路径长度
-var length: float = 0
+var length: float = 0.0
 ## 父路径
 var parent_pathway: Pathway = null
 

@@ -11,7 +11,7 @@ const value_range_data_dict: Dictionary[Array, Dictionary] = {
 
 
 var damage_type: C.DamageType = C.DamageType.NONE
-var value: float = 0
+var value: float = 0.0
 var scale_duration: float = 0.2
 var target_scale := Vector2.ZERO
 
@@ -21,7 +21,7 @@ var move_to := Vector2.ZERO
 var move_to_radius: float = 50
 var move_velocity := Vector2.ZERO
 var move_gravity: float = 980
-var move_ts: float = 0
+var move_ts: float = 0.0
 
 
 func _ready() -> void:

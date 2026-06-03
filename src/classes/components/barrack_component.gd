@@ -8,7 +8,7 @@ class_name BarrackComponent
 
 @export var disabled: bool = false
 ## 最小集结范围
-@export var rally_min_range: float = 0:
+@export var rally_min_range: float = 0.0:
 	set(v): 
 		rally_min_range = v
 		queue_redraw()
@@ -41,13 +41,13 @@ class_name BarrackComponent
 ## 生成士兵播放的动画
 @export var animation: AnimationGroup = null
 ## 生成士兵延迟
-@export var delay: float = 0
+@export var delay: float = 0.0
 ## 生成士兵播放的音效
 @export var sfx: AudioGroup = null
 
 
 ## 时间戳（秒）
-var ts: float = 0
+var ts: float = 0.0
 var soldier_group: EntityGroup = null
 var last_soldier_count: int = 0
 var last_soldier_group: EntityGroup = null

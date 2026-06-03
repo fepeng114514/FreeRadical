@@ -5,9 +5,9 @@ class_name InfluenceDamageResource
 
 #region 基础伤害
 ## 最小伤害
-@export var damage_min: float = 0
+@export var damage_min: float = 0.0
 ## 最大伤害
-@export var damage_max: float = 0
+@export var damage_max: float = 0.0
 ## 伤害类型
 @export var damage_type: int = C.DamageType.PHYSICAL
 ## 伤害标识

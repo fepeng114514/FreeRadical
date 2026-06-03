@@ -8,7 +8,7 @@ class_name Camera
 ## 缩放时长
 @export var zoom_duration: float = 0.2
 ## 最小缩放
-@export var zoom_min: float = 0
+@export var zoom_min: float = 0.0
 ## 最大缩放
 @export var zoom_max: float = 1.5
 ## 

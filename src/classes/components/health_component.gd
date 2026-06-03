@@ -23,27 +23,27 @@ enum HealType {
 
 @export_group("Buff")
 ## 物理护甲
-@export var physical_armor: float = 0
+@export var physical_armor: float = 0.0
 ## 魔法护甲
-@export var magical_armor: float = 0
+@export var magical_armor: float = 0.0
 ## 毒抗性
-@export var poison_armor: float = 0
+@export var poison_armor: float = 0.0
 ## 回血
-@export var regen_hp: float = 0
+@export var regen_hp: float = 0.0
 ## 回血冷却
 @export var regen_cooldown: float = C.UNSET
 ## 待机回血
-@export var idle_regen_hp: float = 0
+@export var idle_regen_hp: float = 0.0
 ## 待机回血冷却
 @export var idle_regen_cooldown: float = C.UNSET
 ## 伤害抗性
 ##
 ## 伤害抗性可以百分比减少受到的伤害
-@export var damage_resistance: float = 0
+@export var damage_resistance: float = 0.0
 ## 伤害减免
 ##
 ## 伤害减免可以直接减少受到的伤害值
-@export var damage_reduction: float = 0
+@export var damage_reduction: float = 0.0
 ## 反伤
 ##
 ## 对伤害来源的反伤
@@ -55,24 +55,24 @@ enum HealType {
 ## 易伤
 ## 
 ## 易伤可以百分比增加受到的伤害值
-@export var vulnerable: float = 0
+@export var vulnerable: float = 0.0
 
 @export_group("Death")
 ## 死亡赏金
-@export var death_gold: float = 0
+@export var death_gold: float = 0.0
 ## 死亡动画
 @export var death_animation: AnimationGroup = null
 ## 死亡音效
 @export var death_sfx: AudioGroup = null
 
 ## 当前血量
-var hp: float = 0:
+var hp: float = 0.0:
 	set(v): 
 		v = clampf(v, 0, hp_max)
 		hp = v
 		health_bar.value = get_hp_percent()
-var regen_ts: float = 0
-var idle_regen_ts: float = 0
+var regen_ts: float = 0.0
+var idle_regen_ts: float = 0.0
 
 ## 血条节点引用
 @onready var health_bar: TextureProgressBar = get_node_or_null("HealthBar")

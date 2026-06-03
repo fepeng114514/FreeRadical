@@ -194,7 +194,7 @@ src/
 │   │   ├── level.gd               # 关卡逻辑
 │   │   ├── pathway.gd             # 路径绘制
 │   │   ├── pathways.gd            # 路径集合
-│   │   ├── subpathway.gd          # 子路径
+│   │   ├── sub_pathway.gd          # 子路径
 │   │   ├── systems.gd             # 系统列表加载
 │   │   ├── world.gd               # 世界节点（实体父级）
 │   │   └── world.gd               # 世界节点
@@ -496,7 +496,7 @@ WaveGroup（波次集合）
                                 ├─ entity: String（敌人场景名）
                                 ├─ count: int（数量）
                                 ├─ interval: float（敌人间隔）
-                                ├─ subpathway_idx: int（子路径）
+                                ├─ sub_pathway_idx: int（子路径）
                                 ├─ reversed: bool（反方向）
                                 └─ loop: bool（循环）
 ```

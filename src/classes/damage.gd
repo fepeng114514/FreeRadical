@@ -7,7 +7,7 @@ var target_id: int = C.UNSET
 ## 来源实体 ID
 var source_id: int = C.UNSET
 ## 伤害值
-var value: float = 0
+var value: float = 0.0
 ## 伤害类型
 var damage_type: int = C.DamageType.PHYSICAL
 ## 伤害因子

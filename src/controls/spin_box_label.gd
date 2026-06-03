@@ -21,12 +21,12 @@ class_name SpinBoxLabel
 		suffix = v
 		if spin_box:
 			spin_box.suffix = v
-@export var step: float = 0:
+@export var step: float = 0.0:
 	set(v): 
 		step = v
 		if spin_box:
 			spin_box.step = v
-@export var value: float = 0:
+@export var value: float = 0.0:
 	set(v): 
 		value = v
 		if spin_box:

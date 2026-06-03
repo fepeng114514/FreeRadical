@@ -66,9 +66,9 @@ var id: int = C.UNSET
 ## 所有者或来源 ID
 var source_id: int = C.UNSET
 ## 插入时间戳，单位为秒
-var insert_ts: float = 0
+var insert_ts: float = 0.0
 ## 时间戳，单位为秒
-var ts: float = 0
+var ts: float = 0.0
 ## 目标实体 ID
 var target_id: int = C.UNSET
 ## 拥有的状态效果 ID 列表
@@ -249,7 +249,7 @@ func is_waiting() -> bool:
 ## 协程等待
 ##
 ## break_fn 返回 true 表示中断等待，返回值表示是否中断等待
-func y_wait(time: float = 0, break_fn: Callable = Callable()) -> bool:
+func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 	state |= Entity.State.WAITING
 
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
@@ -353,8 +353,8 @@ func _play_animation(
 		Log.error("%s 未找到动画: %s" % [self, anim_name])
 		return
 
-	sprite_frames.set_animation_loop(anim_name, loop)
-	sprite_frames.set_animation_speed(anim_name, speed)
+	#sprite_frames.set_animation_loop(anim_name, loop)
+	#sprite_frames.set_animation_speed(anim_name, speed)
 		
 	Log.verbose("%s 播放动画: %s, 水平镜像: %s" % [self, anim_name, filp_h])
 	sprite.play(anim_name)

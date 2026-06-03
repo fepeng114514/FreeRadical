@@ -5,7 +5,7 @@ class_name InfluenceHealResource
 
 #region 治疗
 ## 治疗值
-@export var heal_value: float = 0
+@export var heal_value: float = 0.0
 ## 治疗类型
 @export var heal_type: HealthComponent.HealType = HealthComponent.HealType.ADD
 #endregion

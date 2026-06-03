@@ -29,7 +29,7 @@ class_name AuraComponent
 ## 当前周期数
 var curren_cycle: int = 0
 ## 时间戳
-var ts: float = 0
+var ts: float = 0.0
 
 
 func _ready() -> void:

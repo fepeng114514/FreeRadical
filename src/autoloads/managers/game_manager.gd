@@ -13,7 +13,7 @@ signal set_life(new_value: float)
 
 
 ## 金币
-var cash: float = 0:
+var cash: float = 0.0:
 	set(v): 
 		set_cash.emit(v)
 		cash = v
