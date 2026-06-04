@@ -336,8 +336,6 @@ func _play_animation(
 		anim_name: StringName, 
 		sprite: AnimatedSprite2D, 
 		filp_h: bool = false,
-		loop: bool = false,
-		speed: float = 30,
 		force_play: bool = false
 	) -> void:
 	if (
@@ -366,12 +364,10 @@ func _play_animation_in_group(
 		anim_name: StringName, 
 		group: SpriteGroup, 
 		filp_h: bool = false,
-		loop: bool = false,
-		speed: float = 30,
 		force_play: bool = false
 	) -> void:
 	for sprite: AnimatedSprite2D in group.get_children():
-		_play_animation(anim_name, sprite, filp_h, loop, speed, force_play)	
+		_play_animation(anim_name, sprite, filp_h, force_play)	
 
 
 ## 播放动画

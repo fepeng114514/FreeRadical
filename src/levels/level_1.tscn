@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://qpfa4bqm51bj"]
 
 [ext_resource type="PackedScene" uid="uid://be4ofxijaafml" path="res://levels/level.tscn" id="1_dga24"]
-[ext_resource type="Texture2D" uid="uid://cqieamy7bs3l8" path="res://assets/测试关卡00.png" id="2_l53as"]
+[ext_resource type="Texture2D" uid="uid://duvliyfyupp1e" path="res://assets/测试关卡00 (1).png" id="2_l53as"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://levels/pathway.gd" id="3_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/wave_spawner.tscn" id="4_dga24"]
-[ext_resource type="Resource" uid="uid://ww81k4ka5rlw" path="res://levels/level_1_wave.tres" id="4_l53as"]
+[ext_resource type="Resource" uid="uid://drjb0436unruj" path="res://levels/level_1_wave.tres" id="4_l53as"]
 [ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://ui/game_ui/wave_flag/wave_flag.tscn" id="10_qxy0u"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="14_np2pn"]
 [ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder_grass.tscn" id="35_hvllt"]
@@ -14,7 +14,7 @@ script = ExtResource("14_np2pn")
 
 [sub_resource type="Curve2D" id="Curve2D_0iaxv"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1857, -369, 18.087688, -165.37315, -18.087688, 165.37315, 1664, 6, -18.087688, -69.7668, 18.087688, 69.7668, 1881, 339, 118.86195, -113.694046, -118.86195, 113.694046, 1767, 582, -85.27053, -149.86942, 85.27053, 149.86942, 1589, 858, 0, 0, 0, 0, 1705, 1161)
+"points": PackedVector2Array(0, 0, 0, 0, 1317, -421, -2.7179718e-05, -111.11011, 2.7179718e-05, 111.11011, 1307, -59, -136.94965, -175.70898, 136.94965, 175.70898, 1819, 145, 38.759327, -67.182846, -38.759327, 67.182846, 1863, 595, -74.93471, -126.61382, 74.93471, 126.61382, 1770, 825, 0, 0, 0, 0, 1987, 1181)
 }
 point_count = 6
 
@@ -30,52 +30,94 @@ track_target = true
 idle_animation = SubResource("Resource_excbq")
 
 [node name="TowerHolderGrass" parent="World" parent_id_path=PackedInt32Array(1261225856) index="1" unique_id=1898604313 instance=ExtResource("35_hvllt")]
-position = Vector2(1462, 669)
+position = Vector2(1191, 912)
 
 [node name="TowerComponent" parent="World/TowerHolderGrass" index="1" unique_id=286705593]
-default_rally_center_local_pos = Vector2(-191.43, 37.53)
+default_rally_center_local_pos = Vector2(-19.08, 119.52)
 
 [node name="TowerHolderGrass2" parent="World" parent_id_path=PackedInt32Array(1261225856) index="2" unique_id=1937510618 instance=ExtResource("35_hvllt")]
-position = Vector2(1819, 378)
+position = Vector2(1573, 845)
 
 [node name="TowerComponent" parent="World/TowerHolderGrass2" index="1" unique_id=286705593]
-default_rally_center_local_pos = Vector2(-131.4, 61.74)
+default_rally_center_local_pos = Vector2(56.61, 170.19)
 
 [node name="TowerHolderGrass3" parent="World" parent_id_path=PackedInt32Array(1261225856) index="3" unique_id=1027679760 instance=ExtResource("35_hvllt")]
-position = Vector2(1301, 990)
+position = Vector2(839, 848)
 
 [node name="TowerComponent" parent="World/TowerHolderGrass3" index="1" unique_id=286705593]
-default_rally_center_local_pos = Vector2(-88.38, 120.33)
+default_rally_center_local_pos = Vector2(-116.01, 120.33)
 
 [node name="TowerHolderGrass4" parent="World" parent_id_path=PackedInt32Array(1261225856) index="4" unique_id=2117389582 instance=ExtResource("35_hvllt")]
-position = Vector2(1293, 345)
+position = Vector2(843, 588)
 
 [node name="TowerComponent" parent="World/TowerHolderGrass4" index="1" unique_id=286705593]
-default_rally_center_local_pos = Vector2(-55.71, -114.48)
+default_rally_center_local_pos = Vector2(-127.98, -114.48)
 
 [node name="TowerHolderGrass5" parent="World" parent_id_path=PackedInt32Array(1261225856) index="5" unique_id=1676628909 instance=ExtResource("35_hvllt")]
-position = Vector2(1580, 761)
+position = Vector2(1585, 544)
 
 [node name="TowerComponent" parent="World/TowerHolderGrass5" index="1" unique_id=286705593]
-default_rally_center_local_pos = Vector2(-71.64, 100.71)
+default_rally_center_local_pos = Vector2(188.55, -25.65)
 
 [node name="TowerHolderGrass6" parent="World" parent_id_path=PackedInt32Array(1261225856) index="6" unique_id=1251918247 instance=ExtResource("35_hvllt")]
-position = Vector2(1577, 534)
+position = Vector2(1884, 1079)
 
 [node name="TowerComponent" parent="World/TowerHolderGrass6" index="1" unique_id=286705593]
-default_rally_center_local_pos = Vector2(-115.2, -99.72)
+default_rally_center_local_pos = Vector2(-181.53, -99.72)
 
 [node name="TowerHolderGrass7" parent="World" parent_id_path=PackedInt32Array(1261225856) index="7" unique_id=1492193814 instance=ExtResource("35_hvllt")]
-position = Vector2(1079, 551)
+position = Vector2(1190, 462)
 
 [node name="TowerComponent" parent="World/TowerHolderGrass7" index="1" unique_id=286705593]
-default_rally_center_local_pos = Vector2(101.61, 120.6)
+default_rally_center_local_pos = Vector2(73.62, -151.47)
 
 [node name="TowerHolderGrass8" parent="World" parent_id_path=PackedInt32Array(1261225856) index="8" unique_id=1847028733 instance=ExtResource("35_hvllt")]
-position = Vector2(1069, 773)
+position = Vector2(968, 1175)
 
 [node name="TowerComponent" parent="World/TowerHolderGrass8" index="1" unique_id=286705593]
-default_rally_center_local_pos = Vector2(73.634, 140.709)
+default_rally_center_local_pos = Vector2(-215.896, 21.369)
+
+[node name="TowerHolderGrass9" parent="World" parent_id_path=PackedInt32Array(1261225856) index="9" unique_id=793349966 instance=ExtResource("35_hvllt")]
+position = Vector2(1449, 1152)
+
+[node name="TowerComponent" parent="World/TowerHolderGrass9" index="1" unique_id=286705593]
+default_rally_center_local_pos = Vector2(240.134, -24.621)
+
+[node name="TowerHolderGrass10" parent="World" parent_id_path=PackedInt32Array(1261225856) index="10" unique_id=650152570 instance=ExtResource("35_hvllt")]
+position = Vector2(971, 201)
+
+[node name="TowerComponent" parent="World/TowerHolderGrass10" index="1" unique_id=286705593]
+default_rally_center_local_pos = Vector2(15.494, 140.709)
+
+[node name="TowerHolderGrass11" parent="World" parent_id_path=PackedInt32Array(1261225856) index="11" unique_id=1257180515 instance=ExtResource("35_hvllt")]
+position = Vector2(1446, 180)
+
+[node name="TowerComponent" parent="World/TowerHolderGrass11" index="1" unique_id=286705593]
+default_rally_center_local_pos = Vector2(-17.086, 149.349)
+
+[node name="TowerHolderGrass12" parent="World" parent_id_path=PackedInt32Array(1261225856) index="12" unique_id=433999309 instance=ExtResource("35_hvllt")]
+position = Vector2(1973, 872)
+
+[node name="TowerComponent" parent="World/TowerHolderGrass12" index="1" unique_id=286705593]
+default_rally_center_local_pos = Vector2(-191.596, -5.811)
+
+[node name="TowerHolderGrass13" parent="World" parent_id_path=PackedInt32Array(1261225856) index="13" unique_id=368979819 instance=ExtResource("35_hvllt")]
+position = Vector2(572, 1081)
+
+[node name="TowerComponent" parent="World/TowerHolderGrass13" index="1" unique_id=286705593]
+default_rally_center_local_pos = Vector2(183.614, 88.419)
+
+[node name="TowerHolderGrass14" parent="World" parent_id_path=PackedInt32Array(1261225856) index="14" unique_id=49278911 instance=ExtResource("35_hvllt")]
+position = Vector2(417, 814)
+
+[node name="TowerComponent" parent="World/TowerHolderGrass14" index="1" unique_id=286705593]
+default_rally_center_local_pos = Vector2(215.564, 47.109)
+
+[node name="TowerHolderGrass15" parent="World" parent_id_path=PackedInt32Array(1261225856) index="15" unique_id=1700946405 instance=ExtResource("35_hvllt")]
+position = Vector2(471, 478)
+
+[node name="TowerComponent" parent="World/TowerHolderGrass15" index="1" unique_id=286705593]
+default_rally_center_local_pos = Vector2(150.674, 140.709)
 
 [node name="Pathway" type="Path2D" parent="PathwayContainer" parent_id_path=PackedInt32Array(189538076) index="0" unique_id=1468860882]
 position = Vector2(-104, 311)
@@ -84,11 +126,10 @@ script = ExtResource("3_sk5k4")
 
 [node name="WaveFlag" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1969317594 instance=ExtResource("10_qxy0u")]
 layout_mode = 1
-offset_left = 1608.0
-offset_top = 73.0
-offset_right = 1693.0
-offset_bottom = 158.0
-arrow_rotation = 0.4363323129985824
+offset_left = 1166.0
+offset_top = 91.0
+offset_right = 1251.0
+offset_bottom = 176.0
 
 [editable path="World/TowerHolderGrass"]
 [editable path="World/TowerHolderGrass2"]
@@ -98,3 +139,10 @@ arrow_rotation = 0.4363323129985824
 [editable path="World/TowerHolderGrass6"]
 [editable path="World/TowerHolderGrass7"]
 [editable path="World/TowerHolderGrass8"]
+[editable path="World/TowerHolderGrass9"]
+[editable path="World/TowerHolderGrass10"]
+[editable path="World/TowerHolderGrass11"]
+[editable path="World/TowerHolderGrass12"]
+[editable path="World/TowerHolderGrass13"]
+[editable path="World/TowerHolderGrass14"]
+[editable path="World/TowerHolderGrass15"]

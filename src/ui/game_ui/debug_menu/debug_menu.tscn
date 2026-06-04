@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://rq35ixpelpas"]
 
-[ext_resource type="PackedScene" uid="uid://cqee4hb2s1agp" path="res://controls/spin_box_button.tscn" id="1_6gdjp"]
+[ext_resource type="PackedScene" path="res://controls/spin_box_button.tscn" id="1_6gdjp"]
 [ext_resource type="Script" uid="uid://b1we6nidkroj5" path="res://ui/game_ui/debug_menu/debug_menu.gd" id="1_1705i"]
 [ext_resource type="Script" uid="uid://b4u2704o6as1c" path="res://ui/game_ui/debug_menu/skip_wave_button.gd" id="5_tpgk1"]
 [ext_resource type="Script" uid="uid://d1k854yj7p8up" path="res://ui/game_ui/debug_menu/draw_pathway_check_button.gd" id="7_ppa2r"]
@@ -39,12 +39,12 @@ text = "对选择的实体造成伤害"
 suffix = "%"
 value = 100.0
 
-[node name="AddCashSpinBoxButton" parent="MarginContainer/GridContainer" unique_id=677853603 instance=ExtResource("1_6gdjp")]
+[node name="AddCashSpinBoxButton" parent="MarginContainer/GridContainer" unique_id=1954389735 instance=ExtResource("1_6gdjp")]
 layout_mode = 2
 text = "增加金币"
 value = 1000.0
 
-[node name="AddLifeSpinBoxButton" parent="MarginContainer/GridContainer" unique_id=1546114991 instance=ExtResource("1_6gdjp")]
+[node name="AddLifeSpinBoxButton" parent="MarginContainer/GridContainer" unique_id=1279913473 instance=ExtResource("1_6gdjp")]
 layout_mode = 2
 text = "增加生命"
 value = 100.0

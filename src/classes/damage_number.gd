@@ -10,7 +10,7 @@ const value_range_data_dict: Dictionary[Array, Dictionary] = {
 }
 
 
-var damage_type: C.DamageType = C.DamageType.NONE
+var damage_type: int = C.DamageType.NONE
 var value: float = 0.0
 var scale_duration: float = 0.2
 var target_scale := Vector2.ZERO

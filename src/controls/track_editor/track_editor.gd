@@ -5,8 +5,8 @@ class_name TrackEditor
 @warning_ignore_start("unused_signal")
 signal item_select(item: TrackEditorTrackItem)
 signal item_deselect
-signal item_create(item: TrackEditorTrackItem)
-signal item_erase(item: TrackEditorTrackItem)
+signal item_insert(item: TrackEditorTrackItem)
+signal item_delete(item: TrackEditorTrackItem)
 signal item_order_changed
 @warning_ignore_restore("unused_signal")
 
@@ -90,23 +90,27 @@ func deselect_item() -> void:
 
 
 func create_item(track_idx: int = 0) -> TrackEditorTrackItem:
-	var track: TrackEditorTrack = get_track(track_idx)
-	
 	var track_item: TrackEditorTrackItem = track_item_scene.instantiate()
 	track_item.position.y = 2
 	track_item.track_editor = self
 	track_item.track_idx = track_idx
-	track.item_container.add_child(track_item)
 
-	item_create.emit(track_item)
 	return track_item
+
+
+func insert_item(item: TrackEditorTrackItem, signal_emit_enabled: bool = true) -> void:
+	var track: TrackEditorTrack = get_track(item.track_idx)
+	track.item_container.add_child(item)
+	update_item_list()
+	if signal_emit_enabled:
+		item_insert.emit(item)
 
 
 func erase_item(item: TrackEditorTrackItem) -> void:
 	item.queue_free()
 	item.removed = true
 	update_item_list()
-	item_erase.emit(item)
+	item_delete.emit(item)
 		
 	
 func get_item(idx: int, track_idx: int = 0) -> TrackEditorTrackItem:

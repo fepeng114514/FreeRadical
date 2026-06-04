@@ -26,4 +26,4 @@ func _create_item(event: InputEvent) -> void:
 	var track_item: TrackEditorTrackItem = track_editor.create_item(get_index())
 	track_item.position.x = event.position.x
 	track_item.apply_pos_delta(0)
-	track_editor.update_item_list()
+	track_editor.insert_item(track_item)

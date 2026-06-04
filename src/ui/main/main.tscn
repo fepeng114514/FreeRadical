@@ -53,21 +53,18 @@ size_flags_horizontal = 0
 theme_override_constants/separation = 15
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=946227739]
-custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "开始游戏"
 script = ExtResource("2_2p1s2")
 
 [node name="SettingButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=623845627]
-custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "游戏设置"
 script = ExtResource("3_vspwy")
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=1967164590]
-custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "退出游戏"

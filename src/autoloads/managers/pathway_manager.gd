@@ -74,8 +74,8 @@ func get_middle_spi() -> int:
 
 
 ## 获取启用的路径
-func get_disabled_pathways() -> Array[Pathway]:
-	return pathway_list.filter(func(p: Pathway): return p.disabled)
+func get_enabled_pathways() -> Array[Pathway]:
+	return pathway_list.filter(func(p: Pathway): return not p.disabled)
 
 
 ## 获取随机路径
