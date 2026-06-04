@@ -14,9 +14,9 @@ script = ExtResource("14_np2pn")
 
 [sub_resource type="Curve2D" id="Curve2D_0iaxv"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1317, -421, -2.7179718e-05, -111.11011, 2.7179718e-05, 111.11011, 1307, -59, -136.94965, -175.70898, 136.94965, 175.70898, 1819, 145, 38.759327, -67.182846, -38.759327, 67.182846, 1863, 595, -74.93471, -126.61382, 74.93471, 126.61382, 1770, 825, 0, 0, 0, 0, 1987, 1181)
+"points": PackedVector2Array(0, 0, 0, 0, 1317, -421, -2.7179718e-05, -111.11011, 2.7179718e-05, 111.11011, 1312, -123, -48.905663, -7.2452836, 48.905663, 7.2452836, 1488, 21, -157.77985, -132.23729, 157.77985, 132.23729, 1810, 147, 38.759327, -67.182846, -38.759327, 67.182846, 1853, 596, 1.1407623, -92.19873, -1.1407623, 92.19873, 1772, 789, 0, 0, 0, 0, 1987, 1181)
 }
-point_count = 6
+point_count = 7
 
 [node name="Level1" unique_id=1565788906 instance=ExtResource("1_dga24")]
 
@@ -123,6 +123,9 @@ default_rally_center_local_pos = Vector2(150.674, 140.709)
 position = Vector2(-104, 311)
 curve = SubResource("Curve2D_0iaxv")
 script = ExtResource("3_sk5k4")
+
+[node name="GameUILayer" parent="." index="8" unique_id=673863676]
+visible = false
 
 [node name="WaveFlag" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1969317594 instance=ExtResource("10_qxy0u")]
 layout_mode = 1

@@ -45,12 +45,13 @@ func _create_offset_curve() -> Curve2D:
 	var new_curve := Curve2D.new()
 	
 	# 沿着曲线采样多个点
-	var sample_points: PackedVector2Array = []
-	var offset_points: PackedVector2Array = []
+	var sample_points := PackedVector2Array()
+	var offset_points := PackedVector2Array()
 	
 	# 获取曲线的长度
 	var curve_length: float = source_pathway_curve.get_baked_length()
-	var sample_count := int(curve_length)
+	# 提高采样密度
+	var sample_count: int = maxi(2, int(curve_length))
 	
 	# 均匀采样
 	for i: int in sample_count:
@@ -63,33 +64,26 @@ func _create_offset_curve() -> Curve2D:
 	for i: int in sample_points.size():
 		var tangent := Vector2.ZERO
 		
-		# 计算切线（前向差分）
-		if i < sample_points.size() - 1:
+		# 使用中心差分计算切线
+		if i > 0 and i < sample_points.size() - 1:
+			tangent = (sample_points[i + 1] - sample_points[i - 1]).normalized()
+		elif i > 0:
+			tangent = (sample_points[i] - sample_points[i - 1]).normalized()
+		elif i < sample_points.size() - 1:
 			tangent = (sample_points[i + 1] - sample_points[i]).normalized()
 		
 		if tangent.length_squared() > 0:
-			# 计算法线并偏移
-			var normal := Vector2(-tangent.y, tangent.x)
+			# 计算法线（相反方向）
+			var normal := Vector2(tangent.y, -tangent.x)
 			var offset_point: Vector2 = sample_points[i] + normal * spacing
 			offset_points.append(offset_point)
+		else:
+			offset_points.append(sample_points[i])
 	
 	# 将偏移点添加到新曲线
 	for i: int in offset_points.size():
 		var point: Vector2 = offset_points[i]
-		
-		# 计算控制点（简化处理）
-		if i == 0 or i == offset_points.size() - 1:
-			new_curve.add_point(point)
-			continue
-		
-		# 使用前后点计算平滑的控制点
-		var prev_point: Vector2 = offset_points[i - 1]
-		var next_point: Vector2 = offset_points[i + 1]
-		
-		var in_vec: Vector2 = (prev_point - point) * 0.25
-		var out_vec: Vector2 = (next_point - point) * 0.25
-		
-		new_curve.add_point(point, in_vec, out_vec)
+		new_curve.add_point(point)
 	
 	return new_curve
 
