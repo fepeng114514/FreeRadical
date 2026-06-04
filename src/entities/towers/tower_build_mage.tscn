@@ -8,13 +8,9 @@ build_target = &"tower_mage_lvl_1"
 scene_name = "tower_build_mage"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1200020081) index="0" unique_id=1433762339]
-position = Vector2(0, -28)
+position = Vector2(0, -32)
 texture = ExtResource("2_nt0rc")
 
 [node name="TextureProgressBar" parent="." index="1" unique_id=1035382269]
 offset_left = -41.0
 offset_right = 45.0
-
-[node name="TowerComponent" parent="." index="2" unique_id=2020079873]
-tower_type = 3
-price = 100.0

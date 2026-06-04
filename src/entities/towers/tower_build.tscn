@@ -40,5 +40,5 @@ texture_progress_offset = Vector2(4, 4)
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=2020079873]
 script = ExtResource("6_u6arj")
-price = 70.0
+tower_type = 5
 metadata/_custom_type_script = "uid://d104itkl6l02e"

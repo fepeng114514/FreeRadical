@@ -14,7 +14,3 @@ texture = ExtResource("2_bvv0h")
 [node name="TextureProgressBar" parent="." index="1" unique_id=1035382269]
 offset_left = -40.0
 offset_right = 46.0
-
-[node name="TowerComponent" parent="." index="2" unique_id=2020079873]
-tower_type = 4
-price = 125.0

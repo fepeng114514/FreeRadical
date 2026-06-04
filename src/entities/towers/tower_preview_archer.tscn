@@ -4,3 +4,6 @@
 
 [node name="TowerPreviewArcher" unique_id=869103732 instance=ExtResource("1_2psow")]
 scene_name = "tower_preview_archer"
+
+[node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1231309932) index="0" unique_id=1097269827]
+position = Vector2(0, -49)

@@ -46,7 +46,7 @@ spawn_sfx = ExtResource("2_cw5qr")
 interact_policy = SubResource("Resource_3sqnj")
 
 [node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
-position = Vector2(0, -48)
+position = Vector2(0, -46)
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=927508667]
 texture = ExtResource("4_4wg18")

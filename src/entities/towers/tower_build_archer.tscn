@@ -8,12 +8,9 @@ build_target = &"tower_archer_lvl_1"
 scene_name = "tower_build_archer"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1200020081) index="0" unique_id=1433762339]
-position = Vector2(0, -47)
+position = Vector2(0, -51)
 
 [node name="TextureProgressBar" parent="." index="1" unique_id=1035382269]
 offset_top = -59.0
 offset_right = 45.0
 offset_bottom = -43.0
-
-[node name="TowerComponent" parent="." index="2" unique_id=2020079873]
-tower_type = 1

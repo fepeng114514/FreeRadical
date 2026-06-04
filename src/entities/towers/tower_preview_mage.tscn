@@ -7,5 +7,5 @@
 scene_name = "tower_preview_mage"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1231309932) index="0" unique_id=1097269827]
-position = Vector2(0, -27)
+position = Vector2(-1, -33)
 texture = ExtResource("2_wiy1g")

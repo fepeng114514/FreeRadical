@@ -41,13 +41,20 @@ func _on_update(_delta: float) -> void:
 			var new_tower: Entity = EntityMgr.create_entity(tower_c.upgrade_to)
 			var new_tower_c: TowerComponent = new_tower.get_node_or_null(C.CN_TOWER)
 			
-			var price: float = new_tower_c.price
-			
+			var price: float = 0.0
+			if new_tower_c.tower_type == TowerComponent.TowerType.TOWER_BUILD:
+				var build_target: Entity = EntityMgr.get_entity_data(new_tower.build_target)
+				var build_target_tower_c: TowerComponent = build_target.get_node_or_null(C.CN_TOWER)
+				price = build_target_tower_c.price
+			else:
+				price = new_tower_c.price
+				
 			new_tower.global_position = e.global_position
 			new_tower_c.total_price = (
 				tower_c.total_price + price
 			)
 			new_tower_c.tower_holder = tower_c.tower_holder
+			new_tower_c.is_builded = tower_c.tower_type == TowerComponent.TowerType.TOWER_BUILD
 			
 			var default_rally_center_local_pos: Vector2 = tower_c.default_rally_center_local_pos
 			new_tower_c.default_rally_center_local_pos = default_rally_center_local_pos
@@ -63,7 +70,9 @@ func _on_update(_delta: float) -> void:
 			
 			new_tower.insert_entity()
 			e.remove_entity()
-			GameMgr.cash -= price
+
+			if not new_tower_c.is_builded:
+				GameMgr.cash -= price
 		if tower_c.is_sell:
 			AudioMgr.play_sfx(tower_c.sell_sfx)
 			

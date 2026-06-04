@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bvtdqhbod7k87"]
 
 [ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://ui/game_ui/select_menu/button/select_menu_button.tscn" id="1_syirs"]
-[ext_resource type="Script" uid="uid://d4aei0pb6po1i" path="res://ui/game_ui/select_menu/button/select_menu_button_upgrade_skill.gd" id="2_dlhbn"]
+[ext_resource type="Script" uid="uid://d4aei0pb6po1i" path="res://ui/game_ui/select_menu/button/button_upgrade_skill.gd" id="2_dlhbn"]
 [ext_resource type="Texture2D" uid="uid://dvmifgpn48i4w" path="res://assets/atlas/atlas_textures/image_icon/special_icons_0001.tres" id="3_t77q2"]
 [ext_resource type="Texture2D" uid="uid://bcne7yj538ccs" path="res://assets/atlas/atlas_textures/image_gui/glow_ico_special.tres" id="4_1nmau"]
 [ext_resource type="PackedScene" uid="uid://cyvvk445spspa" path="res://ui/game_ui/select_menu/price_tag.tscn" id="4_s46yc"]

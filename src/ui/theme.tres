@@ -2,9 +2,9 @@
 
 [sub_resource type="StyleBoxFlat" id="button_disabled"]
 content_margin_left = 35.0
-content_margin_top = 8.0
+content_margin_top = 6.0
 content_margin_right = 35.0
-content_margin_bottom = 8.0
+content_margin_bottom = 6.0
 bg_color = Color(0.1, 0.1, 0.12, 1)
 border_width_left = 2
 border_width_top = 2
@@ -21,9 +21,9 @@ shadow_offset = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="button_hover"]
 content_margin_left = 35.0
-content_margin_top = 8.0
+content_margin_top = 6.0
 content_margin_right = 35.0
-content_margin_bottom = 8.0
+content_margin_bottom = 6.0
 bg_color = Color(0.3, 0.3, 0.35, 1)
 border_width_left = 2
 border_width_top = 2
@@ -40,9 +40,9 @@ shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="button_normal"]
 content_margin_left = 35.0
-content_margin_top = 8.0
+content_margin_top = 6.0
 content_margin_right = 35.0
-content_margin_bottom = 8.0
+content_margin_bottom = 6.0
 bg_color = Color(0.2, 0.2, 0.25, 1)
 border_width_left = 2
 border_width_top = 2
@@ -59,9 +59,9 @@ shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="button_pressed"]
 content_margin_left = 35.0
-content_margin_top = 8.0
+content_margin_top = 6.0
 content_margin_right = 35.0
-content_margin_bottom = 8.0
+content_margin_bottom = 6.0
 bg_color = Color(0.15, 0.15, 0.2, 1)
 border_width_left = 2
 border_width_top = 2

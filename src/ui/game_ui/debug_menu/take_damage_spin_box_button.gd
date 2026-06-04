@@ -7,7 +7,7 @@ func _ready() -> void:
 	
 func _on_pressed() -> void:
 	var target: Entity = SelectMgr.selected_entity
-	if not target:
+	if not U.is_valid_entity(target):
 		return
 
 	var d := Damage.new()

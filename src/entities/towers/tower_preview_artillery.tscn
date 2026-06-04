@@ -7,4 +7,5 @@
 scene_name = "tower_preview_artillery"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1231309932) index="0" unique_id=1097269827]
+position = Vector2(0, -46)
 texture = ExtResource("2_o6oy1")

@@ -15,6 +15,8 @@ enum TowerType {
 	TOWER_MAGE,
 	## 防御塔类型：炮塔
 	TOWER_ARTILLERY,
+	## 防御塔类型：建造
+	TOWER_BUILD,
 }
 
 
@@ -46,6 +48,7 @@ var total_price: float = price
 var upgrade_to: String = ""
 ## 出售状态
 var is_sell: bool = false
+var is_builded: bool = false
 ## 时间戳
 var ts: float = 0.0
 

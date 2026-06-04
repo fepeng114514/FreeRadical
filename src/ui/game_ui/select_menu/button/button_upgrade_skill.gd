@@ -12,4 +12,7 @@ class_name SelectMenuButtonUpgradeSkill
 
 
 #func _on_pressed() -> void:
+	# if not U.is_valid_entity(selected_entity):
+	# 	return
+
 	#var tower_c: TowerComponent = selected_entity.get_node_or_null(C.CN_TOWER)
