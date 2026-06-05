@@ -46,21 +46,23 @@ var value_tween: Tween = null
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		return
+		pass
 	else:
+		visible = false
+
 		for glow: TextureRect in glow_list:
 			glow.visible = false
 		
 		texture_button.pressed.connect(_on_pressed)
 		mouse_entered.connect(_on_mouse_entered)
 		mouse_exited.connect(_on_mouse_exited)
-		WaveMgr.start_wave_timer.connect(_show)
 		WaveMgr.release_wave.connect(_on_release_wave)
 		
 		arrow.rotation = arrow_rotation
 		arrow_glow.rotation = arrow_rotation
 		
 		_create_loop_tween()
+	
 	
 func _on_mouse_entered() -> void:
 	for glow: TextureRect in glow_list:
@@ -82,14 +84,14 @@ func _create_loop_tween() -> void:
 	loop_tween.tween_property(self, "scale", Vector2.ONE, tween_loop_scale_duration)
 	
 
-func _show(wave: Wave) -> void:
+func _show(time: float) -> void:
 	visible = true
 	progress_bar.value = progress_bar.min_value
 	
 	_create_loop_tween()
 	
 	value_tween = create_tween()
-	value_tween.tween_property(progress_bar, "value", progress_bar.max_value, wave.interval)
+	value_tween.tween_property(progress_bar, "value", progress_bar.max_value, time)
 
 	await value_tween.finished
 	
@@ -108,7 +110,7 @@ func _hide() -> void:
 	modulate = Color.WHITE
 
 
-func _on_release_wave() -> void:
+func _on_release_wave(_wave_idx: int) -> void:
 	if loop_tween:
 		loop_tween.kill()
 	if value_tween:

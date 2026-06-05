@@ -4,7 +4,6 @@ class_name TrackEditorTrackItem
 
 @export var order_label: Label = null
 
-var removed: bool = false
 ## 在轨道上的位置
 var track_pos: float = 0.0
 var is_selected: bool = false
@@ -93,6 +92,7 @@ func drag_move(event: InputEventMouseMotion) -> void:
 	track_editor.pointer.position.x = position.x
 	last_global_x = global_position.x
 	track_editor.update_item_list()
+	track_editor.item_move.emit(self)
 
 
 func apply_pos_delta(delta_x: float = 0.0) -> void:

@@ -16,10 +16,18 @@ enum SUB_WAVE_STATE_FLAGS {
 @export var wave_interval_finish_sfx: AudioGroup = null
 
 
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		pass
+	else:
+		WaveMgr.wave_group = wave_group
+
+
 func _spawner() -> void:
 	AudioMgr.play_sfx(wave_interval_start_sfx)
 	WaveMgr.is_wait_first_release_wave = true
 	await WaveMgr.first_release_wave
+	WaveMgr.release_wave.emit(-1)
 	WaveMgr.is_wait_first_release_wave = false
 	
 	var wave_list: Array[Wave] = wave_group.wave_list
@@ -28,7 +36,8 @@ func _spawner() -> void:
 		var wave: Wave = wave_list[wave_idx]
 		var wave_interval: float = wave.interval
 		WaveMgr.current_wave_idx = wave_idx
-		WaveMgr.start_wave_timer.emit(wave)
+
+		WaveMgr.start_wave_timer.emit(wave_idx)
 		
 		if not WaveMgr.is_first_release_wave:
 			AudioMgr.play_sfx(wave_interval_start_sfx)
@@ -36,7 +45,7 @@ func _spawner() -> void:
 		Log.debug("开始第 %d 波计时：%.2f" % [wave_idx + 1, wave_interval])
 		await y_wait(wave_interval, func(): return WaveMgr.is_release_wave)
 		
-		WaveMgr.release_wave.emit()
+		WaveMgr.release_wave.emit(wave_idx)
 		AudioMgr.play_sfx(wave_interval_finish_sfx)
 		WaveMgr.is_release_wave = false
 		Log.debug(">>> 开始第 %d 波出怪" % (wave_idx + 1))

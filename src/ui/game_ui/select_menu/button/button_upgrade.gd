@@ -27,12 +27,11 @@ func _update() -> void:
 		price = build_target_tower_c.price
 	else:
 		price = tower_c.price
+
 	if price > GameMgr.cash:
-		if not disabled:
-			_disable()
+		_disable()
 	else:
-		if disabled:
-			_enable()
+		_enable()
 			
 	price_tag_label.text = "%d" % price
 

@@ -8,9 +8,16 @@ func _ready() -> void:
 	super()
 	item_select.connect(_on_item_select)
 	item_deselect.connect(_on_item_deselect)
-	item_order_changed.connect(_on_item_order_changed)
 	item_insert.connect(_on_item_insert)
 	item_delete.connect(_on_item_delete)
+	item_move.connect(_on_item_move)
+	item_order_changed.connect(_on_item_order_changed)
+
+
+func _hide_sub_track_editor() -> void:
+	wave_editor.sub_wave_track_editor.visible = false
+	wave_editor.spawn_track_editor.visible = false
+	wave_editor.spawn_data_vbox_container.visible = false
 	
 
 func _on_item_select(item: TrackEditorTrackItem) -> void:
@@ -43,28 +50,13 @@ func _on_item_select(item: TrackEditorTrackItem) -> void:
 		
 		var track_item: TrackEditorTrackItem = sub_wave_track_editor.create_item(use_count - 1)
 		track_item.set_pos_by_track_pos(delay)
-		sub_wave_track_editor.insert_item(track_item, false)
+		sub_wave_track_editor.insert_item(track_item, true)
 
 	sub_wave_track_editor.visible = true
 
 
-func _on_item_deselect() -> void:
-	wave_editor.sub_wave_track_editor.visible = false
-	wave_editor.spawn_track_editor.visible = false
-	wave_editor.spawn_data_vbox_container.visible = false
-
-
-func _on_item_order_changed() -> void:
-	var wave_list_size: int = wave_editor.wave_group.wave_list.size()
-
-	var new_wave_list: Array[Wave] = []
-	new_wave_list.resize(wave_list_size)
-
-	for i: int in wave_list_size:
-		var item: TrackEditorTrackItem = item_list[i]
-		new_wave_list[i] = wave_editor.get_wave(item.last_idx)
-
-	wave_editor.wave_group.wave_list = new_wave_list
+func _on_item_deselect(_item: TrackEditorTrackItem) -> void:
+	_hide_sub_track_editor()
 
 
 func _on_item_insert(item: TrackEditorTrackItem) -> void:
@@ -77,3 +69,24 @@ func _on_item_insert(item: TrackEditorTrackItem) -> void:
 
 func _on_item_delete(item: TrackEditorTrackItem) -> void:
 	wave_editor.wave_group.wave_list.remove_at(item.idx)
+	_hide_sub_track_editor()
+
+
+func _on_item_move(item: TrackEditorTrackItem) -> void:
+	var last_item: TrackEditorTrackItem = item_list[item.idx - 1]
+	wave_editor.get_wave(item.idx).interval = item.track_pos - last_item.track_pos
+
+
+func _on_item_order_changed() -> void:
+	var wave_list_size: int = wave_editor.wave_group.wave_list.size()
+	if wave_list_size != item_list.size():
+		return
+
+	var new_wave_list: Array[Wave] = []
+	new_wave_list.resize(wave_list_size)
+
+	for i: int in wave_list_size:
+		var item: TrackEditorTrackItem = item_list[i]
+		new_wave_list[i] = wave_editor.get_wave(item.last_idx)
+
+	wave_editor.wave_group.wave_list = new_wave_list

@@ -59,6 +59,7 @@ func _ready() -> void:
 	move_to = U.point_on_circle(move_from, move_to_radius, randf_range(-PI, PI))
 	move_velocity = U.initial_parabola_velocity(move_from, move_to, move_total_time, move_gravity)
 
+
 func _physics_process(delta: float) -> void:
 	move_ts += delta
 	

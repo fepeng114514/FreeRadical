@@ -4,9 +4,10 @@ class_name TrackEditor
 
 @warning_ignore_start("unused_signal")
 signal item_select(item: TrackEditorTrackItem)
-signal item_deselect
+signal item_deselect(item: TrackEditorTrackItem)
 signal item_insert(item: TrackEditorTrackItem)
 signal item_delete(item: TrackEditorTrackItem)
+signal item_move(item: TrackEditorTrackItem)
 signal item_order_changed
 @warning_ignore_restore("unused_signal")
 
@@ -85,8 +86,8 @@ func deselect_item() -> void:
 	selected_item.is_selected = false
 	selected_item.is_draging = false
 		
+	item_deselect.emit(selected_item)
 	selected_item = null
-	item_deselect.emit()
 
 
 func create_item(track_idx: int = 0) -> TrackEditorTrackItem:
@@ -98,17 +99,18 @@ func create_item(track_idx: int = 0) -> TrackEditorTrackItem:
 	return track_item
 
 
-func insert_item(item: TrackEditorTrackItem, signal_emit_enabled: bool = true) -> void:
+func insert_item(item: TrackEditorTrackItem, signal_emit_disabled: bool = false) -> void:
 	var track: TrackEditorTrack = get_track(item.track_idx)
 	track.item_container.add_child(item)
 	update_item_list()
-	if signal_emit_enabled:
+	if not signal_emit_disabled:
 		item_insert.emit(item)
 
 
 func erase_item(item: TrackEditorTrackItem) -> void:
+	var track: TrackEditorTrack = get_track(item.track_idx)
+	track.item_container.remove_child(item)
 	item.queue_free()
-	item.removed = true
 	update_item_list()
 	item_delete.emit(item)
 		
@@ -123,9 +125,6 @@ func update_item_list() -> void:
 
 	for track: TrackEditorTrack in track_vbox_container.get_children():
 		for child: TrackEditorTrackItem in track.item_container.get_children():
-			if child.removed:
-				continue
-
 			new_item_list.append(child)
 
 	new_item_list.sort_custom(
@@ -180,17 +179,25 @@ func create_track() -> void:
 		right_track_tool_bar.add_child(right_track_tool_bar_item)
 			
 
-func clear_tracks() -> void:
-	for track: TrackEditorTrack in track_vbox_container.get_children():
-		track.free()
+func remove_track(track_idx: int = 0) -> void:
+	var track: TrackEditorTrack = get_track(track_idx)
+	track_vbox_container.remove_child(track)
+	track.queue_free()
 
-		if left_track_tool_bar.get_child_count() > 0:
-			var left_track_tool_bar_item: TrackEditorLeftTrackToolBarItem = left_track_tool_bar.get_child(0)
-			left_track_tool_bar_item.free()
-			
-		if right_track_tool_bar.get_child_count() > 0:
-			var right_track_tool_bar_item: TrackEditorRightTrackToolBarItem = right_track_tool_bar.get_child(0)
-			right_track_tool_bar_item.free()
+	if multiple_track_enable:
+		var right_track_tool_bar_item: TrackEditorRightTrackToolBarItem = right_track_tool_bar.get_child(track_idx)
+		right_track_tool_bar.remove_child(right_track_tool_bar_item)
+		right_track_tool_bar_item.queue_free()		
+		var left_track_tool_bar_item: TrackEditorLeftTrackToolBarItem = left_track_tool_bar.get_child(track_idx)
+		left_track_tool_bar.remove_child(left_track_tool_bar_item)
+		left_track_tool_bar_item.queue_free()
+
+
+func clear_tracks() -> void:
+	for track_idx: int in track_vbox_container.get_child_count():
+		update_item_list()
+
+		remove_track(track_idx)
 		
 
 func _show_ticks(_value: float = 0.0) -> void:

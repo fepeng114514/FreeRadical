@@ -33,12 +33,18 @@ func _update() -> void: pass
 
 		
 func _disable() -> void:
+	if disabled:
+		return
+
 	disabled = true
 	button.disabled = true
 	modulate = disabled_color
 	
 	
 func _enable() -> void:
+	if not disabled:
+		return
+
 	disabled = false
 	button.disabled = false
 	modulate = Color.WHITE

@@ -19,6 +19,7 @@ idle_animation = SubResource("Resource_ycjcd")
 
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
 trajectory = SubResource("Resource_archer_traj")
+hit_distance = 30.0
 
 [node name="SpriteComponent" type="Node2D" parent="." index="1" unique_id=1158787809]
 script = ExtResource("4_6s8cc")

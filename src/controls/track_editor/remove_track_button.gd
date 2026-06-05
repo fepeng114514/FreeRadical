@@ -11,13 +11,7 @@ func _ready() -> void:
 	
 	
 func _on_pressed() -> void:
-	var track_idx: int = get_index()
-	
-	var track: TrackEditorTrack = track_editor.get_track(track_idx)
-	track.queue_free()
-	right_track_tool_bar_item.queue_free()
-	var left_track_tool_bar: VBoxContainer = track_editor.left_track_tool_bar
-	left_track_tool_bar.get_child(track_idx).free()
-	
-	for left_item: TrackEditorLeftTrackToolBarItem in left_track_tool_bar.get_children():
+	track_editor.remove_track(right_track_tool_bar_item.get_index())
+		
+	for left_item: TrackEditorLeftTrackToolBarItem in track_editor.left_track_tool_bar.get_children():
 		left_item.update_number()

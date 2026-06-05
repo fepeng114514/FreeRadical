@@ -3,8 +3,8 @@ extends Node
 
 @warning_ignore_start("unused_signal")
 signal first_release_wave
-signal release_wave
-signal start_wave_timer
+signal release_wave(wave_idx: int)
+signal start_wave_timer(wave_idx: int)
 @warning_ignore_restore("unused_signal")
 
 
@@ -18,3 +18,4 @@ var current_wave_idx: int = 0
 var waves_finished: bool = false
 var is_first_release_wave: bool = true
 var is_skip_wave: bool = false
+var wave_group: WaveGroup = null

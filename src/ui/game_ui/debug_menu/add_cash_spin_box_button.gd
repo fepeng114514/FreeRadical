@@ -1,3 +1,4 @@
+@tool
 extends SpinBoxButton
 
 
@@ -6,8 +7,8 @@ func _ready() -> void:
 	
 
 func _on_pressed() -> void:
-	var value: float = spin_box.value
+	var v: float = spin_box.value
 
-	GameMgr.cash += value
+	GameMgr.cash += v
 		
 	

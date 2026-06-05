@@ -9,9 +9,8 @@ class_name WaveEditor
 @export var spawn_data_vbox_container: WaveEditorSpawnDataVBoxContainer = null
 @export var entity_option_button_label: OptionButtonLabel = null
 
-var entity_name_dict: Dictionary[String, String] = {}
 var entity_name_idx_dict: Dictionary[String, int] = {}
-var entity_idx_name_dict_reverse: Dictionary[int, String] = {}
+var entity_name_list: Array[String] = []
 var wave_group: WaveGroup = null
 var selected_wave: Wave = null
 var selected_sub_wave: SubWave = null
@@ -26,10 +25,9 @@ func _ready() -> void:
 		if not scene_name.begins_with("enemy_"):
 			continue
 		
-		entity_name_dict[scene_name] = scene_name
 		entity_option_button_label.option_button.add_item(scene_name)
 		entity_name_idx_dict[scene_name] = i
-		entity_idx_name_dict_reverse[i] = scene_name
+		entity_name_list.append(scene_name)
 		i += 1
 		
 	sub_wave_track_editor.visible = false
@@ -48,13 +46,13 @@ func load_wave_group(path: String) -> void:
 	var current_time: float = 0
 	for i: int in wave_list.size():
 		var wave: Wave = wave_list[i]
-		var track_item: TrackEditorTrackItem = wave_track_editor.create_item(0)
+		var track_item: TrackEditorTrackItem = wave_track_editor.create_item()
 
 		if i != 0:
 			current_time += wave.interval
 			track_item.set_pos_by_track_pos(current_time)
 
-		wave_track_editor.insert_item(track_item, false)
+		wave_track_editor.insert_item(track_item, true)
 
 
 func save_wave_group(path: String) -> void:

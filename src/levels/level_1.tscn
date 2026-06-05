@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://duvliyfyupp1e" path="res://assets/测试关卡00 (1).png" id="2_l53as"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://levels/pathway.gd" id="3_sk5k4"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/wave_spawner.tscn" id="4_dga24"]
-[ext_resource type="Resource" uid="uid://drjb0436unruj" path="res://levels/level_1_wave.tres" id="4_l53as"]
+[ext_resource type="Resource" uid="uid://bq32lfatsk8jw" path="res://levels/level_1_wave.tres" id="4_l53as"]
 [ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://ui/game_ui/wave_flag/wave_flag.tscn" id="10_qxy0u"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="14_np2pn"]
 [ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder_grass.tscn" id="35_hvllt"]
@@ -14,18 +14,30 @@ script = ExtResource("14_np2pn")
 
 [sub_resource type="Curve2D" id="Curve2D_0iaxv"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1317, -421, -2.7179718e-05, -111.11011, 2.7179718e-05, 111.11011, 1312, -123, -48.905663, -7.2452836, 48.905663, 7.2452836, 1488, 21, -157.77985, -132.23729, 157.77985, 132.23729, 1810, 147, 38.759327, -67.182846, -38.759327, 67.182846, 1853, 596, 1.1407623, -92.19873, -1.1407623, 92.19873, 1772, 789, 0, 0, 0, 0, 1987, 1181)
+"points": PackedVector2Array(0, 0, 0, 0, 1284, -412, -37.922985, -116.94441, 37.922985, 116.94441, 1307, -118, -22.97152, 0.14560318, 22.97152, -0.14560318, 1488, 21, -135.23822, -100.413826, 135.23822, 100.413826, 1810, 147, 91.70561, -89.64491, -91.70561, 89.64491, 1836, 625, 195.27716, 4.067237, -195.27716, -4.067237, 1288, 712, 75.40834, -81.82607, -75.40834, 81.82607, 919, 790, 0, 0, 0, 0, 721, 1161)
 }
-point_count = 7
+point_count = 8
+
+[sub_resource type="Curve2D" id="Curve2D_08mmt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1351, -413, 17.502876, -111.11011, -17.502876, 111.11011, 1339, -133, 117.54297, -43.610966, -117.54297, 43.610966, 1062, 38, 93.08526, -131.15671, -93.08526, 131.15671, 752, 229, -104.50903, -100.54068, 104.50903, 100.54068, 811, 656, -140.89032, -5.664894, 140.89032, 5.664894, 1279, 721, -96.26597, -65.781746, 96.26597, 65.781746, 1696, 749, 0, 0, 0, 0, 1986, 1182)
+}
+point_count = 8
 
 [sub_resource type="Curve2D" id="Curve2D_l53as"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -58, 636, -124.78376, -2.2813015, 124.78376, 2.2813015, 384, 631, -48.93889, -105.76058, 48.93889, 105.76058, 614, 840, -77.4516, -26.939411, 77.4516, 26.939411, 794, 1017, -217.81772, -1.3142815, 217.81772, 1.3142815, 1422, 1027, -51.928932, -105.05841, 51.928932, 105.05841, 1740, 1253, 0, 0, 0, 0, 1869, 1477)
+"points": PackedVector2Array(0, 0, 0, 0, -72, 599, -124.78376, -2.2813015, 124.78376, 2.2813015, 383, 597, -48.93889, -105.76058, 48.93889, 105.76058, 614, 840, -77.4516, -26.939411, 77.4516, 26.939411, 794, 1017, -217.81772, -1.3142815, 217.81772, 1.3142815, 1422, 1027, -51.928932, -105.05841, 51.928932, 105.05841, 1740, 1253, 0, 0, 0, 0, 1869, 1477)
 }
 point_count = 7
 
+[sub_resource type="Curve2D" id="Curve2D_3sk1a"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -70, 683, -124.78376, -2.2813015, 124.78376, 2.2813015, 383, 675, -36.72438, -81.57584, 36.72438, 81.57584, 613, 831, -70.192986, -149.67471, 70.192986, 149.67471, 731, 1041, 47.625, -156.35162, -47.625, 156.35162, 617, 1472)
+}
+point_count = 5
+
 [node name="Level1" unique_id=1565788906 instance=ExtResource("1_dga24")]
-cash = 400
+cash = 300
 
 [node name="Background" parent="." index="1" unique_id=74954041]
 texture = ExtResource("2_l53as")
@@ -130,22 +142,57 @@ position = Vector2(471, 478)
 default_rally_center_local_pos = Vector2(150.674, 140.709)
 
 [node name="Pathway" type="Path2D" parent="PathwayContainer" parent_id_path=PackedInt32Array(189538076) index="0" unique_id=1468860882]
-visible = false
 position = Vector2(-104, 311)
 curve = SubResource("Curve2D_0iaxv")
 script = ExtResource("3_sk5k4")
 
-[node name="Pathway2" type="Path2D" parent="PathwayContainer" parent_id_path=PackedInt32Array(189538076) index="1" unique_id=1219985068]
+[node name="Pathway2" type="Path2D" parent="PathwayContainer" parent_id_path=PackedInt32Array(189538076) index="1" unique_id=29691433]
+visible = false
+position = Vector2(-104, 311)
+curve = SubResource("Curve2D_08mmt")
+script = ExtResource("3_sk5k4")
+
+[node name="Pathway3" type="Path2D" parent="PathwayContainer" parent_id_path=PackedInt32Array(189538076) index="2" unique_id=1219985068]
+visible = false
 curve = SubResource("Curve2D_l53as")
+script = ExtResource("3_sk5k4")
+metadata/_custom_type_script = "uid://5rvcj41ueju4"
+
+[node name="Pathway4" type="Path2D" parent="PathwayContainer" parent_id_path=PackedInt32Array(189538076) index="3" unique_id=1679206438]
+visible = false
+curve = SubResource("Curve2D_3sk1a")
 script = ExtResource("3_sk5k4")
 metadata/_custom_type_script = "uid://5rvcj41ueju4"
 
 [node name="WaveFlag" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1969317594 instance=ExtResource("10_qxy0u")]
 layout_mode = 1
-offset_left = 1166.0
-offset_top = 91.0
-offset_right = 1251.0
-offset_bottom = 176.0
+offset_left = 1206.0
+offset_top = 89.0
+offset_right = 1291.0
+offset_bottom = 174.0
+
+[node name="WaveFlag2" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="1" unique_id=1005784656 instance=ExtResource("10_qxy0u")]
+layout_mode = 1
+offset_left = 1134.0
+offset_top = 89.0
+offset_right = 1219.0
+offset_bottom = 174.0
+
+[node name="WaveFlag3" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="2" unique_id=1375735121 instance=ExtResource("10_qxy0u")]
+layout_mode = 1
+offset_left = 83.0
+offset_top = 553.0
+offset_right = 168.0
+offset_bottom = 638.0
+arrow_rotation = -1.5707963267948966
+
+[node name="WaveFlag4" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="3" unique_id=875018427 instance=ExtResource("10_qxy0u")]
+layout_mode = 1
+offset_left = 83.0
+offset_top = 636.0
+offset_right = 168.0
+offset_bottom = 721.0
+arrow_rotation = -1.5707963267948966
 
 [editable path="World/TowerHolderGrass"]
 [editable path="World/TowerHolderGrass2"]
