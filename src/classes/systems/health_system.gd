@@ -16,13 +16,21 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	var entities: Array = EntityMgr.get_entities_group(C.CN_HEALTH).filter(
-		func(e: Entity) -> bool:
-			return not e.state & Entity.State.DEAD
-	)
-	
-	for e: Entity in entities:
+	for e: Entity in EntityMgr.get_entities_group(C.CN_HEALTH):
 		var health_c: HealthComponent = e.get_node_or_null(C.CN_HEALTH)
+		
+		if e.state & Entity.State.DEAD:
+			if e._on_death():
+				return
+		
+			AudioMgr.play_sfx(health_c.death_sfx)
+			var death_animation: AnimationGroup = health_c.death_animation
+			if death_animation:
+				e.play_animation(death_animation, &"death")
+				if await e.y_wait_animation(death_animation):
+					return
+
+			e.remove_entity()
 
 		if health_c.regen_hp != 0:
 			if TimeMgr.is_ready_time(health_c.regen_ts, health_c.regen_cooldown):
