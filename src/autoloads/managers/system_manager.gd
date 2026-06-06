@@ -9,6 +9,10 @@ extends Node
 signal append_insert_queue(entity: Entity)
 ## 移除实体信号
 signal append_remove_queue(entity: Entity)
+## 系统更新信号
+##
+## 系统更新前发射此信号
+signal update_system
 @warning_ignore_restore("unused_signal")
 
 
@@ -33,6 +37,7 @@ func _load(new_system_list: Array[System]) -> void:
 
 ## 系统主循环
 func _physics_process(delta: float) -> void:
+	update_system.emit()
 	for system: System in system_list:
 		system._on_update(delta)
 	

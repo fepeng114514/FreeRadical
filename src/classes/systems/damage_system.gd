@@ -151,3 +151,17 @@ func _death(d: Damage, target: Entity, health_c: HealthComponent, source: Entity
 
 	if damage_flags & C.DamageFlag.KILL_REMOVE:
 		target.remove_entity()
+	
+	await SystemMgr.update_system
+		
+	if target._on_death():
+		return
+
+	AudioMgr.play_sfx(health_c.death_sfx)
+	var death_animation: AnimationGroup = health_c.death_animation
+	if death_animation:
+		target.play_animation(death_animation, &"death")
+		if await target.y_wait_animation(death_animation):
+			return
+
+	target.remove_entity()
