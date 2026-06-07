@@ -28,7 +28,7 @@ func _on_update(delta: float) -> void:
 	)
 	
 	for e: Entity in entities:
-		if U.is_valid_number(e.duration) and TimeMgr.is_ready_time(e.insert_ts, e.duration):
+		if U.is_valid_number(e.duration) and TimeMgr.has_elapsed(e.insert_ts, e.duration):
 			e.remove_entity()
 			continue
 			

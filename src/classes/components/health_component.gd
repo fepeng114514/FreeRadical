@@ -1,80 +1,75 @@
 @tool
 extends Component
 class_name HealthComponent
-## 血量组件
+## 血量组件。
 ##
-## HealthComponent 可以使实体拥有血量，血量为 0 时移除实体
+## HealthComponent 可以使实体拥有血量，血量为 0 时移除实体。
 
 
+## 治疗类型枚举。
 enum HealType {
-	## 加法
+	## 治疗类型：加法。
 	ADD, 
-	## 当前血量百分比加法
+	## 治疗类型：当前血量百分比加法。
 	HP_ADD_PERCENT, 
-	## 最大血量百分比加法
+	## 治疗类型：最大血量百分比加法。
 	HP_MAX_ADD_PERCENT, 
-	## 乘法
+	## 治疗类型：乘法。
 	MULTIPLY,
 }
 
 
-## 最大血量
+## 最大血量。
 @export var hp_max: float = 100
 
 @export_group("Buff")
-## 物理护甲
+## 物理护甲。
 @export var physical_armor: float = 0.0
-## 魔法护甲
+## 魔法护甲。
 @export var magical_armor: float = 0.0
-## 毒抗性
+## 毒抗性。
 @export var poison_armor: float = 0.0
-## 回血
+## 回血。
 @export var regen_hp: float = 0.0
-## 回血冷却
+## 回血冷却。
 @export var regen_cooldown: float = C.UNSET
-## 待机回血
+## 待机回血。
 @export var idle_regen_hp: float = 0.0
-## 待机回血冷却
+## 待机回血冷却。
 @export var idle_regen_cooldown: float = C.UNSET
-## 伤害抗性
-##
-## 伤害抗性可以百分比减少受到的伤害
+## 伤害抗性，可以百分比减少受到的伤害。
 @export var damage_resistance: float = 0.0
-## 伤害减免
-##
-## 伤害减免可以直接减少受到的伤害值
+## 伤害减免，可以直接减少受到的伤害值。
 @export var damage_reduction: float = 0.0
-## 反伤
-##
-## 对伤害来源的反伤
+## 反伤，对伤害来源的反伤。
 @export var spiked: float = C.UNSET
-## 免疫的伤害类型
+## 免疫的伤害类型。
 @export var immuned: int = C.DamageType.NONE
 
 @export_group("Debuff")
-## 易伤
-## 
-## 易伤可以百分比增加受到的伤害值
+## 易伤，可以百分比增加受到的伤害值。
 @export var vulnerable: float = 0.0
 
 @export_group("Death")
-## 死亡赏金
+## 死亡赏金。
 @export var death_gold: float = 0.0
-## 死亡动画
+## 死亡动画组。
 @export var death_animation: AnimationGroup = null
-## 死亡音效
+## 死亡音效组。
 @export var death_sfx: AudioGroup = null
 
-## 当前血量
+## 当前血量。
 var hp: float = 0.0:
 	set(v): 
 		v = clampf(v, 0, hp_max)
 		hp = v
 		health_bar.value = get_hp_percent()
+## 回血时间戳。
 var regen_ts: float = 0.0
+## 待机回血时间戳。
 var idle_regen_ts: float = 0.0
 
-## 血条节点引用
+## 血条节点引用。
 @onready var health_bar: TextureProgressBar = get_node_or_null("HealthBar")
 
 
@@ -100,11 +95,12 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return []
 
 
-## 获取当前血量百分比
+## 获取当前血量百分比。
 func get_hp_percent() -> float:
 	return float(hp) / float(hp_max) * 100
 
 
+## 治疗。
 func heal(heal_value: float, heal_type: HealType) -> void:
 	match heal_type:
 		HealType.ADD:

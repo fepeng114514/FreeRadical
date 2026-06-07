@@ -63,6 +63,7 @@ auras = PackedStringArray()
 payloads = PackedStringArray()
 area_enable = true
 search = SubResource("Resource_st7oj")
+falloff_enabled = true
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_3uqv8"]

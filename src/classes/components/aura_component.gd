@@ -1,34 +1,37 @@
 extends Component
 class_name AuraComponent
-## 光环组件
+## 光环组件。
 ## 
-## AuraComponent 可以使实体可周期性对范围内其他实体造成影响
+## AuraComponent 可以使实体可周期性对范围内其他实体造成影响。
 
 
 @export_group("Cycle")
-## 周期时间
+## 周期时间。
 @export var cycle_time: float = 1
-## 最大周期数
+## 最大周期数。
 @export var max_cycle: int = C.UNSET
+## 搜索资源。
 @export var search: SearchResource = null:
 	set(v): 
 		search = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(search, queue_redraw)
 			queue_redraw()
+## 影响资源。
 @export var influence: InfluenceResource = null:
 	set(v): 
 		influence = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(influence, queue_redraw)
 			queue_redraw()
+## 相同处理资源。
 @export var same_process: SameProcessResource = null
-## 是否移除被禁止的光环
+## 是否移除被禁止的光环。
 @export var remove_banned: bool = true
 
-## 当前周期数
-var curren_cycle: int = 0
-## 时间戳
+## 当前周期数。
+var current_cycle: int = 0
+## 时间戳。
 var ts: float = 0.0
 
 

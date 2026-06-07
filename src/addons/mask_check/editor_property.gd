@@ -1,15 +1,17 @@
 @tool
 extends EditorProperty
 
-# 被编辑的对象和属性名
+## 被编辑的对象和属性名
 var edited_object: Object = null
+## 被编辑的属性名
 var property_name: String = ""
-
+## 复选框数组
 var checkboxes: Array[CheckBox] = []
+## 枚举属性值
 var enumerate
 
 
-# 设置要处理的属性和目标对象
+## 设置要处理的属性和目标对象。
 func setup(p_name: String, p_object: Object) -> void:
 	property_name = p_name
 	edited_object = p_object

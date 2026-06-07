@@ -1,8 +1,8 @@
 extends Behavior
 class_name SkillBehavior
-## 技能行为系统
+## 技能行为系统。
 ##
-## 处理拥有 [SkillComponent] 技能组件的实体的技能释放
+## 负责处理拥有 [SkillComponent] 技能组件的实体的技能释放。
 
 
 func _on_update(e: Entity) -> bool:

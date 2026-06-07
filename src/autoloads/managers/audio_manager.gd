@@ -1,34 +1,35 @@
 extends Node
-## 音频管理器
+## 音频管理器。
 ##
-## 管理音频播放与总线
+## 负责管理音频与相关操作。
 
 
-## 音频播放模式枚举
+## 音频播放模式枚举。
 enum AudioPlayMode {
-	## 音频播放模式：随机播放音频列表中的音频
-	RANGDOM,
-	## 音频播放模式：按顺序选择并播放音频列表中的音频
+	## 音频播放模式：随机播放音频列表中的音频。
+	RANDOM,
+	## 音频播放模式：按顺序选择并播放音频列表中的音频。
 	SEQUENCE,
-	## 音频播放模式：并行播放音频列表中的音频
+	## 音频播放模式：并行播放音频列表中的音频。
 	CONCURRENCY
 }
 
 
-## 主音频总线
+## 主音频总线。
 const MasterBus: StringName = &"Master"
-## 音乐总线
+## 音乐总线。
 const MusicBus: StringName = &"Music"
-## 音效总线
+## 音效总线。
 const SFXBus: StringName = &"SFX"
 
 
+## 音频流字典，用于根据音频名称获取 [AudioStream]。
 var _audio_stream_dict: Dictionary[StringName, AudioStream] = {}
-## 音乐的 AudioStreamPlayer
+## 音乐的 [AudioStreamPlayer]。
 var _music_player := AudioStreamPlayer.new()
-## 音效 AudioStreamPlayer 总数
+## 音效 [AudioStreamPlayer] 总数。
 var _sfx_player_count: int = 10
-## 音效的 AudioStreamPlayer 数组
+## 音效的 [AudioStreamPlayer] 数组。
 var _sfx_player_list: Array[AudioStreamPlayer] = []
 
 
@@ -64,12 +65,12 @@ func _load() -> void:
 		_audio_stream_dict[stream_name] = stream
 	
 	
-## 播放音乐
+## 播放音频数据内的音乐。
 func play_music(audio_data: AudioGroup) -> void:
 	play_audio(audio_data, _music_player, MusicBus)
 
 
-## 播放音效
+## 播放音频数据内的音效。
 func play_sfx(audio_data: AudioGroup) -> void:
 	if not audio_data:
 		return
@@ -82,7 +83,7 @@ func play_sfx(audio_data: AudioGroup) -> void:
 		return
 		
 		
-## 播放音频
+## 播放音频数据内的音频。
 func play_audio(
 		audio_data: AudioGroup, player: AudioStreamPlayer, bus: StringName
 	) -> void:
@@ -95,7 +96,7 @@ func play_audio(
 	var data_list: Array[StringName] = audio_data.list
 
 	match audio_data.play_mode:
-		AudioPlayMode.RANGDOM:
+		AudioPlayMode.RANDOM:
 			var audio_name: StringName = U.pick_random(data_list)
 			play_list = [audio_name]
 		AudioPlayMode.SEQUENCE:

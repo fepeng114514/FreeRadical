@@ -2,11 +2,28 @@
 
 [ext_resource type="Script" uid="uid://cngol70hyq6tm" path="res://controls/track_editor/track_item.gd" id="1_7bsla"]
 
-[node name="TrackEditorTrackItem" type="Control" unique_id=44902239 node_paths=PackedStringArray("order_label")]
+[node name="TrackEditorTrackItem" type="Control" unique_id=44902239 node_paths=PackedStringArray("track_pos_label", "order_label")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7bsla")
+track_pos_label = NodePath("TrackPosLabel")
 order_label = NodePath("OrderLabel")
+
+[node name="TrackPosLabel" type="Label" parent="." unique_id=1104407425]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -33.0
+offset_right = 6.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+horizontal_alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1124667595]
 layout_mode = 0
@@ -25,10 +42,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = 8.5
-offset_right = 20.0
-offset_bottom = 31.5
+offset_left = -5.0
+offset_top = 8.0
+offset_right = 6.0
+offset_bottom = 31.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "1"

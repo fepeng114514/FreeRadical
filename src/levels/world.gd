@@ -15,7 +15,7 @@ func _ready() -> void:
 			if e.name == &"WaveSpawner":
 				WaveMgr.wave_spawner = e
 			
-			EntityMgr.process_create(e)
+			EntityMgr.setup_entity(e)
 				
 			e.insert_entity()
 			

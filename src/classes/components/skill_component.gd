@@ -1,7 +1,7 @@
 @tool
 extends Component
 class_name SkillComponent
-## 技能组件
+## 技能组件。
 ##
 ## SkillComponent 可以使实体拥有释放技能的能力，技能以 [Skill] 子节点的形式存在。
 

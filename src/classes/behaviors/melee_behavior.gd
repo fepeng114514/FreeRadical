@@ -1,10 +1,8 @@
 extends Behavior
 class_name MeleeBehavior
-## 近战行为系统
+## 近战行为系统。
 ##
-## 处理拥有 [MeleeComponent] 组件的实体的近战技能释放与拦截。
-## 若 [member MeleeComponent.is_blocker] 为 `true`，作为拦截者：搜索并标记被拦截者，前往第一个被拦截者的近战位置。
-## 若 [member MeleeComponent.is_blocker] 为 `false`，作为被拦截者：根据是否第一个被拦截者决定等待拦截者到达，或主动前往拦截者的近战位置。
+## 负责处理拥有 [MeleeComponent] 组件的实体的近战技能释放与拦截。
 
 
 func _on_remove(e: Entity) -> bool:
@@ -55,6 +53,7 @@ func _on_update(e: Entity) -> bool:
 		return _update_blocked(e, melee_c)
 
 
+## 更新拦截者。
 func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	if not melee_c.blocked_id_list:
 		melee_c.is_extra_blocker = false
@@ -144,6 +143,7 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 		return true
 
 
+## 更新被拦截者。
 func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 	var e_global_pos: Vector2 = e.global_position
 	var blocker_id_list: PackedInt32Array = melee_c.blocker_id_list
@@ -184,7 +184,8 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 		_try_melee_attack(e, melee_c, blocker)
 		return true
 	
-	
+
+## 前往近战位置。
 func _go_melee_pos(e: Entity, melee_c: MeleeComponent, melee_pos: Vector2) -> bool:
 	if U.is_at_destination(
 			e.global_position, melee_pos, melee_c.arrived_distance	 
@@ -210,7 +211,8 @@ func _go_melee_pos(e: Entity, melee_c: MeleeComponent, melee_pos: Vector2) -> bo
 		
 		return false
 	
-	
+
+## 返回原点。
 func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 	if U.is_at_destination(
 		e.global_position, melee_c.origin_pos, melee_c.arrived_distance
@@ -239,6 +241,7 @@ func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 		return false
 	
 
+## 尝试近战攻击。
 func _try_melee_attack(
 		e: Entity, melee_c: MeleeComponent, target: Entity
 	) -> void:

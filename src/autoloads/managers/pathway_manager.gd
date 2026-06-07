@@ -1,29 +1,30 @@
 extends Node
-## 路径数据库
+## 路径管理器。
 ##
-## 存储所有路径与相关数据
+## 负责管理路径与相关操作。
 
 
 @warning_ignore_start("unused_signal")
+## 路径绘制状态改变信号。
 signal draw_pathway_changed
 @warning_ignore_restore("unused_signal")
 
 
-## 路径列表
+## 路径列表。
 var pathway_list: Array[Pathway] = []
-## 所有路径上的节点
+## 所有路径上的节点列表。
 var all_node_list: Array[PathwayNode] = []
-## 下一个路径索引
+## 下一个路径索引。
 var next_pi: int = 0
-## 子路径总数量
+## 子路径总数量。
 var sub_pathway_count: int = 5
-## 子路径间距
+## 子路径间距。
 var sub_pathway_spacing: float = 20
-## 路径节点总数量
+## 路径节点总数量。
 var node_count: int = 256
-## 路径节点相交距离阈值
+## 路径节点相交距离阈值。
 var intersect_dist_threshold: float = 16
-
+## 是否绘制路径。
 var is_draw_pathway: bool = false:
 	set(v):
 		is_draw_pathway = v
@@ -35,31 +36,36 @@ func _load() -> void:
 	all_node_list.clear()
 	next_pi = 0
 	
-	
+
+## 插入路径。
+## 
+## 路径索引会自动递增
+## 
+## 路径上的节点会自动添加到所有节点列表中
 func insert_pathway(p: Pathway) -> void:
 	p.idx = next_pi
 	next_pi += 1
 	pathway_list.append(p)
 
 
-## 获取路径数量
+## 获取路径数量。
 func get_pathway_count() -> int:
 	return pathway_list.size()
 
 
-## 获取指定索引的路径
+## 获取指定索引的路径。
 func get_pathway(pi: int) -> Pathway:
 	return pathway_list[pi]
 
 
-## 获取指定索引的子路径
+## 获取指定索引的子路径。
 func get_sub_pathway(pi: int, spi: int) -> SubPathway:
 	var pathway: Pathway = pathway_list[pi]
 	var sub_pathway: SubPathway = pathway.sub_pathway_list[spi]
 	return sub_pathway
 
 
-## 获取指定索引的节点
+## 获取指定索引的节点。
 func get_pathway_node(pi: int, spi: int, ni: int) -> PathwayNode:
 	var pathway: Pathway = pathway_list[pi]
 	var sub_pathway: SubPathway = pathway.sub_pathway_list[spi]
@@ -68,27 +74,27 @@ func get_pathway_node(pi: int, spi: int, ni: int) -> PathwayNode:
 	return pathway_node
 	
 
-## 获取中间的子路径索引
+## 获取中间的子路径索引。
 func get_middle_spi() -> int:
 	return roundi(1.0 * sub_pathway_count / 2)
 
 
-## 获取启用的路径
+## 获取启用的路径。
 func get_enabled_pathways() -> Array[Pathway]:
 	return pathway_list.filter(func(p: Pathway): return not p.disabled)
 
 
-## 获取随机路径
+## 获取随机路径。
 func get_random_pathway() -> Pathway:
 	return pathway_list.pick_random()
 
 
-## 获取随机路径索引
+## 获取随机路径索引。
 func get_random_pi() -> int:
 	return randi_range(0, get_pathway_count() - 1)
 
 
-## 获取指定路径上的随机子路径
+## 获取指定路径上的随机子路径。
 ## 
 ## 若不指定路径索引将会在随机路径上获取
 func get_random_sub_pathway(pi: int = C.UNSET) -> SubPathway:
@@ -100,7 +106,7 @@ func get_random_sub_pathway(pi: int = C.UNSET) -> SubPathway:
 	return pathway.sub_pathway_list.pick_random()
 
 
-## 根据路程获取路程比率
+## 根据路程获取路程比率。
 func get_ratio(pi: int, spi: int, progress: float) -> float:
 	var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
 		
@@ -108,7 +114,7 @@ func get_ratio(pi: int, spi: int, progress: float) -> float:
 	return clampf(delta, 0, 1)
 	
 
-## 获取指定路径比率上的位置
+## 获取指定路径比率上的位置。
 func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
 	var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
 	var path_follow: PathFollow2D = sub_pathway.follow
@@ -119,17 +125,17 @@ func get_ratio_pos(pi: int, spi: int, ratio: float) -> Vector2:
 	return global_position
 
 
-## 根据路程比率获取路程
+## 根据路程比率获取路程。
 func get_progress_by_ratio(pi: int, spi: int, ratio: float) -> float:
 	var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
 
 	return sub_pathway.length * ratio
 	
 
-## 获取指定路程上的位置
+## 获取指定路程上的位置。
 func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
-	var path_follow = sub_pathway.follow
+	var path_follow: PathFollow2D = sub_pathway.follow
 		
 	path_follow.progress = progress
 	var global_position: Vector2 = path_follow.global_position
@@ -137,7 +143,7 @@ func get_progress_pos(pi: int, spi: int, progress: float) -> Vector2:
 	return global_position
 	
 
-## 预判目标位置
+## 预判目标位置。
 func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
 	var predict_pos: Vector2 = target.global_position
 
@@ -158,10 +164,10 @@ func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
 	return predict_pos
 
 
-## 获取指定路径上按距离排序的节点列表
-##
-## 可指定搜索的路径与子路径，不指定将会在所有路径搜索
-func get_nearst_nodes_list(
+## 获取指定路径上按距离排序的节点列表。[br][br]
+## 可指定搜索的路径与子路径，不指定将会在所有路径搜索。[br][br]
+## [b]注意：[/b]为了性能考虑，如果确定只需要一个最近节点，建议使用 [method get_nearst_node]。
+func get_nearst_node_list(
 		origin: Vector2, 
 		pi_l: Array = range(get_pathway_count()), 
 		spi_l: Array = range(sub_pathway_count),
@@ -190,9 +196,8 @@ func get_nearst_nodes_list(
 	return node_list
 	
 
-## 获取最近的路径上的一个节点
-##
-## 可指定搜索的路径、子路径，不指定将会在所有路径搜索
+## 获取最近的路径上的一个节点。[br][br]
+## 可指定搜索的路径、子路径，不指定将会在所有路径搜索。
 func get_nearst_node(
 		origin: Vector2, 
 		pi_l: Array = [], 

@@ -1,8 +1,8 @@
 extends Behavior
 class_name SpawnerBehavior
-## 生成器行为系统
+## 生成器行为系统。
 ##
-## 处理拥有 [SpawnerComponent] 生成器组件的实体
+## 负责处理拥有 [SpawnerComponent] 生成器组件的实体的生成逻辑。
 
 
 func _on_insert(e: Entity) -> bool:

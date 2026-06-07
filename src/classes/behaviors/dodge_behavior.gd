@@ -1,6 +1,8 @@
 extends Behavior
 class_name DodgeBehavior
-## 闪避行为
+## 闪避行为系统。
+##
+## 负责处理拥有 [DodgeComponent] 闪避组件的实体闪避行为。
 
 
 func _on_update(e: Entity) -> bool:

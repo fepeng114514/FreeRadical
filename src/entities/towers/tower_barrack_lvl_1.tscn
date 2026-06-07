@@ -69,6 +69,7 @@ rally_radius = 45.0
 rally_sfx = ExtResource("2_cw5qr")
 soldier = "tower_barrack_lvl_1_soldier"
 spawn_offsets = SubResource("Resource_2u03i")
+max_soldier_count = 1
 animation = SubResource("Resource_xe47h")
 delay = 0.167
 sfx = SubResource("Resource_3ddwr")

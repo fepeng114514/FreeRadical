@@ -23,6 +23,6 @@ func _on_update(_delta: float) -> void:
 	
 	progress_bar.value = value
 	
-	if TimeMgr.is_ready_time(insert_ts, show_time):
+	if TimeMgr.has_elapsed(insert_ts, show_time):
 		var tower_c: TowerComponent = get_node_or_null(C.CN_TOWER)
 		tower_c.upgrade_to = build_target

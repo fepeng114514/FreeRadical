@@ -1,19 +1,22 @@
 @tool
 extends Skill
 class_name SkillMelee
-## 近战技能节点
+## 近战技能节点。
 ##
-## 用于 [MeleeComponent]
+## SkillMelee 与 [SkillArea] 唯一区别的就是没有搜索目标这一步，需要被传入目标。[br]
+## 主要用于 [MeleeComponent] 与 [DodgeComponent] 进行近战攻击。
 
 
-## 伤害/治疗/范围伤害 统一资源
+## 影响资源。
 @export var influence: InfluenceResource = null:
 	set(v): 
 		influence = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(influence, queue_redraw)
 			queue_redraw()
+## 是否搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
 @export var search_target_pos: bool = false
+## 交互策略。
 @export var interact_policy: InteractPolicy = null
 
 
@@ -31,7 +34,7 @@ func check_ready(e: Entity, target: Entity = null) -> bool:
 	if not super(e, target):
 		return false
 		
-	if not InteractPolicy.is_allowed_entity(e, target, interact_policy, target.interact_policy):
+	if not InteractPolicy.is_allowed_target(e, target, interact_policy, target.interact_policy):
 		return false
 		
 	return true
@@ -40,6 +43,7 @@ func check_ready(e: Entity, target: Entity = null) -> bool:
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	start_cooldown(e, skill_idx)
 	e.play_animation(animation, &"melee")
+	AudioMgr.play_sfx(sfx)
 	if await e.y_wait(delay) or not target:
 		compensate_cooldown(e, skill_idx)
 		return

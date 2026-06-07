@@ -1,36 +1,34 @@
 @tool
 extends Resource
 class_name AnimationGroup
-## 动画数据资源
+## 动画组资源。
+##
+## AnimationGroup 存储动画名称，用于根据实体看向的方向获取动画名称。
 
 
-## 要播放的精灵/精灵组索引
+## 要播放的精灵/精灵组索引。
 @export var play_idx: int = 0
-## 播放次数
+## 播放次数。
 @export var times: int = 1
-## 是否循环播放
-@export var loop: bool = false
-## 动画播放速度，单位为帧/秒
-@export var speed: float = 30
-## 左方向的动画名
+## 左方向的动画名。
 @export var left: StringName = &""
-## 左方向的动画是否作为右方向的镜像
+## 左方向的动画是否作为右方向的镜像。
 @export var mirror_horizontal: bool = false:
 	set(v): 
 		mirror_horizontal = v
 		notify_property_list_changed()
-## 右方向的动画名
+## 右方向的动画名。
 @export var right: StringName = &""
-## 上方向的动画名
+## 上方向的动画名。
 @export var up: StringName = &""
-## 上方向的动画是否作为下方向的镜像
+## 上方向的动画是否作为下方向的镜像。
 @export var mirror_vertical: bool = false:
 	set(v): 
 		mirror_vertical = v
 		notify_property_list_changed()
-## 下方向的动画名
+## 下方向的动画名。
 @export var down: StringName = &""
-## 任意方向的动画名
+## 任意方向的动画名。
 @export var any: StringName = &""
 
 
@@ -43,7 +41,8 @@ func _validate_property(property: Dictionary):
 			if mirror_vertical:
 				property.usage = PROPERTY_USAGE_NONE
 
-## 根据实体与目标点的角度返回对应的动画名称
+
+## 根据实体与目标点的角度返回对应的动画名称。
 func get_animation_name_for_point(center: Vector2, point: Vector2) -> AnimationData:
 	var anim_data := AnimationData.new()
 	
@@ -78,7 +77,7 @@ func get_animation_name_for_point(center: Vector2, point: Vector2) -> AnimationD
 	return anim_data
 
 
-## 序列化为字典
+## 序列化为字典。
 func to_dict() -> Dictionary[String, StringName]:
 	return {
 		"left": left,

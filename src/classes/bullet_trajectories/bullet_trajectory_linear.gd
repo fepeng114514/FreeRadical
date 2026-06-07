@@ -1,11 +1,11 @@
 extends BulletTrajectory
 class_name BulletTrajectoryLinear
-## 直线轨迹
+## 直线轨迹。
 ##
-## 子弹沿直线从起点飞向目标点。
+## 负责处理子弹沿直线从起点飞向目标点。
 
 
-## 子弹从发射到命中或消失的时间
+## 子弹从发射到命中或消失的时间。
 @export var flight_total_time: float = 0.0
 
 

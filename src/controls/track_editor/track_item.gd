@@ -2,10 +2,14 @@ extends Control
 class_name TrackEditorTrackItem
 
 
+@export var track_pos_label: Label = null
 @export var order_label: Label = null
 
 ## 在轨道上的位置
-var track_pos: float = 0.0
+var track_pos: float = 0.0:
+	set(v):
+		track_pos = v
+		track_pos_label.text = "%.2f" % v
 var is_selected: bool = false
 var is_draging: bool = false
 var last_global_x: float = 0.0

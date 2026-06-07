@@ -1,14 +1,14 @@
 extends Node
-## 关卡管理器
+## 关卡管理器。
 ##
-## 管理关卡
+## 负责管理关卡与相关操作。
 
 
-## 关卡索引
+## 关卡索引。
 var level_idx: int = 1
 
 
-## 进入指定索引的关卡
+## 进入指定索引的关卡。
 func enter_level(idx: int) -> void:
 	level_idx = idx
 	

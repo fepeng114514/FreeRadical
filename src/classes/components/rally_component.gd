@@ -1,25 +1,28 @@
 @tool
 extends Component
 class_name RallyComponent
-## 集结组件
+## 集结组件。
 ##
 ## RallyComponent 可以使实体移动到指定位置，并支持阵型排列
 
 
-## 移动速度
+## 移动速度。
 @export var speed: float = 100
-## 是否可点击集结
+## 是否可点击集结。
 @export var can_select_rally: bool = true
-## 移动动画
+## 移动动画组。
 @export var motion_animation: AnimationGroup = null
+## 移动音效组。
 @export var motion_sfx: AudioGroup = null
 
-## 是否已到达集结位置
+## 是否已到达集结位置。
 var arrived: bool = false
+## 是否强制强制集结。
 var is_force_rally: bool = false
+## 集结中心位置。
 var rally_center_position := Vector2.ZERO
 
-## 血条节点引用
+## 血条节点引用。
 @onready var navigation_agent: NavigationAgent2D = get_node_or_null("NavigationAgent2D")
 
 
@@ -30,7 +33,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return []
 
 
-## 设置新的集结位置
+## 设置新的集结位置。
 func new_rally_position(
 		pos: Vector2, 
 		is_force: bool = false,

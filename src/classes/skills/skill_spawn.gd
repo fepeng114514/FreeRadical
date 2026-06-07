@@ -1,22 +1,28 @@
 @tool
 extends Skill
 class_name SkillSpawn
-## 生成实体技能节点
+## 生成实体技能节点。
+##
+## SkillSpawn 会生成一个实体。
 
 
+## 生成的实体场景名称数组。
 @export var spawns: Array[StringName] = []
+## 生成的实体初始位置偏移组。
 @export var spawn_offsets: OffsetGroup = null:
 	set(v): 
 		spawn_offsets = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(spawn_offsets, queue_redraw)
 			queue_redraw()
+## 搜索资源。
 @export var search: SearchResource = null:
 	set(v): 
 		search = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(search, queue_redraw)
 			queue_redraw()
+## 是否搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
 @export var search_target_pos: bool = false
 
 

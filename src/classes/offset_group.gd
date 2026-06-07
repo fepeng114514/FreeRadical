@@ -1,42 +1,42 @@
 @tool
 extends Resource
 class_name OffsetGroup
-## 偏移数据资源
+## 偏移组资源。
 ##
-## 根据方向存储偏移
+## OffsetGroup 根据方向存储偏移，用于根据实体看向的方向获取偏移。
 
 
-## 左方向的偏移
+## 左方向的偏移。
 @export var left := Vector2.ZERO:
 	set(v): 
 		left = v
 		emit_changed()
-## 左方向偏移是否作为右偏移的镜像
+## 左方向偏移是否作为右偏移的镜像。
 @export var mirror_horizontal: bool = false:
 	set(v): 
 		mirror_horizontal = v
 		notify_property_list_changed()
-## 右方向的偏移
+## 右方向的偏移。
 @export var right := Vector2.ZERO:
 	set(v): 
 		right = v
 		emit_changed()
-## 上方向的偏移
+## 上方向的偏移。
 @export var up := Vector2.ZERO:
 	set(v): 
 		up = v
 		emit_changed()
-## 上方向偏移是否作为下偏移的镜像
+## 上方向偏移是否作为下偏移的镜像。
 @export var mirror_vertical: bool = false:
 	set(v): 
 		mirror_vertical = v
 		notify_property_list_changed()
-## 下方向的偏移
+## 下方向的偏移。
 @export var down := Vector2.ZERO:
 	set(v): 
 		down = v
 		emit_changed()
-## 任意方向的偏移
+## 任意方向的偏移。
 @export var any := Vector2.ZERO:
 	set(v): 
 		any = v
@@ -53,7 +53,7 @@ func _validate_property(property: Dictionary):
 				property.usage = PROPERTY_USAGE_NONE
 				
 
-## 根据方向获取相应偏移
+## 根据方向获取相应偏移。
 func get_offset_for_point(center: Vector2, point: Vector2) -> Vector2:
 	if any:
 		return any

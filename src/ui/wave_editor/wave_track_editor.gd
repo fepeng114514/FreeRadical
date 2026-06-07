@@ -26,11 +26,16 @@ func _on_item_select(item: TrackEditorTrackItem) -> void:
 
 	var sub_wave_track_editor: TrackEditor = wave_editor.sub_wave_track_editor
 	sub_wave_track_editor.clear_tracks()
+
 	var sub_wave_list: Array[SubWave] = wave.sub_wave_list
-	sub_wave_list.sort_custom(
-		func(a: SubWave, b: SubWave) -> bool:
-			return a.delay < b.delay
-	)
+
+	if not sub_wave_list:
+		sub_wave_track_editor.create_track()
+	else:
+		sub_wave_list.sort_custom(
+			func(a: SubWave, b: SubWave) -> bool:
+				return a.delay < b.delay
+		)
 
 	var delay_use_count_dict: Dictionary[float, int] = {}
 	

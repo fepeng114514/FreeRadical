@@ -16,7 +16,7 @@ func _on_insert(e: Entity) -> bool:
 
 	var interact_p: InteractPolicy = e.interact_policy
 	var t_interact_p: InteractPolicy = target.interact_policy
-	if not InteractPolicy.is_allowed_entity(e, target, interact_p, t_interact_p):
+	if not InteractPolicy.is_allowed_target(e, target, interact_p, t_interact_p):
 		return false
 		
 	aura_c.ts = TimeMgr.tick_ts
@@ -64,7 +64,7 @@ func _on_update(_delta: float) -> void:
 		var aura_c: AuraComponent = e.get_node_or_null(C.CN_AURA)
 
 		# 周期效果
-		if not TimeMgr.is_ready_time(aura_c.ts, aura_c.cycle_time):
+		if not TimeMgr.has_elapsed(aura_c.ts, aura_c.cycle_time):
 			return
 
 		# 最大周期数

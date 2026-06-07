@@ -1,18 +1,19 @@
 @tool
 extends SkillRanged
 class_name SkillRangedMultiple
-## 多次远程技能节点
+## 多次远程技能节点。
+##
+## SkillRangedMultiple 与 [SkillRanged] 相似，但是可以连续攻击多次。
 
-
-## 循环次数
+## 循环次数。
 @export var loop_count: int = 1
-## 循环动画
+## 循环动画组。
 @export var loop_animation: AnimationGroup = null
-## 结束动画
+## 结束动画组。
 @export var end_animation: AnimationGroup = null
-## 攻击音效
+## 攻击音效组。
 @export var loop_sfx: AudioGroup = null
-## 攻击音效
+## 攻击音效组。
 @export var end_sfx: AudioGroup = null
 
 

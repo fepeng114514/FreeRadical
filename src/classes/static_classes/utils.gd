@@ -1,9 +1,9 @@
 class_name U
-## 工具函数库
+## 工具函数库。
 
 
 #region 数学工具函数
-## 判断点是否在圆中
+## 判断点是否在圆中。
 static func is_in_radius(center: Vector2, point: Vector2, radius: float) -> bool:
 	var d_sq: float = center.distance_squared_to(point)
 	var r_sq: float = radius ** 2
@@ -11,7 +11,7 @@ static func is_in_radius(center: Vector2, point: Vector2, radius: float) -> bool
 	return d_sq <= r_sq
 	
 	
-## 计算根据点与圆的距离衰减的因子
+## 计算根据点与圆的距离衰减的因子。
 static func dist_factor_inside_radius(
 		center: Vector2, 
 		point: Vector2, 
@@ -29,7 +29,7 @@ static func dist_factor_inside_radius(
 	return 1 - ring_dist / ring_radius
 	
 	
-## 计算点在指定方向和距离上的另一个点
+## 计算点在指定方向和距离上的另一个点。
 static func point_on_circle(
 		point: Vector2, radius: float, angle: float = 0.0
 	) -> Vector2:
@@ -39,7 +39,7 @@ static func point_on_circle(
 	return point + d
 
 
-## 判断点是否在圆环内
+## 判断点是否在圆环内。
 static func is_in_ring(
 		center: Vector2, point: Vector2, min_radius: float, max_radius: float
 	) -> bool:
@@ -49,7 +49,7 @@ static func is_in_ring(
 	)
 
 
-## 判断点是否位于椭圆中
+## 判断点是否位于椭圆中。
 static func is_in_ellipse(
 		center: Vector2, point: Vector2, radius: float, aspect: float = 0.7
 	) -> bool:
@@ -63,7 +63,7 @@ static func is_in_ellipse(
 	return value <= 1
 
 
-## 计算根据点与椭圆的距离衰减的因子
+## 计算根据点与椭圆的距离衰减的因子。
 static func dist_factor_inside_ellipse(
 		center: Vector2, 
 		point: Vector2, 
@@ -87,7 +87,7 @@ static func dist_factor_inside_ellipse(
 	return (v_len - me_len) / (e_len - me_len)
 
 
-## 计算点在指定方向和距离上椭圆空间的另一个点
+## 计算点在指定方向和距离上椭圆空间的另一个点。
 static func point_on_ellipse(
 		point: Vector2, radius: float, angle: float = 0.0, aspect: float = 0.7
 	) -> Vector2:
@@ -99,7 +99,7 @@ static func point_on_ellipse(
 	return Vector2(x, y)
 
 
-## 判断点是否位于扇形中
+## 判断点是否位于扇形中。
 static func is_in_sector(
 		center: Vector2, point: Vector2, radius: float, angle_range: float, direction_angle: float
 	) -> bool:
@@ -112,7 +112,7 @@ static func is_in_sector(
 	return delta_angle <= angle_range / 2
 
 
-## 判断点是否位于线段中
+## 判断点是否位于线段中。
 static func is_in_line(
 		center: Vector2, point: Vector2, width: float, length: float, angle: float = 0.0
 	) -> bool:
@@ -132,7 +132,7 @@ static func is_in_line(
 	)
 
 
-## 根据距离与时间计算直线速度
+## 根据距离与时间计算直线速度。
 static func initial_linear_velocity(from: Vector2, to: Vector2, t: float) -> Vector2:
 	var x: float = (to.x - from.x) / t
 	var y: float = (to.y - from.y) / t
@@ -140,7 +140,7 @@ static func initial_linear_velocity(from: Vector2, to: Vector2, t: float) -> Vec
 	return Vector2(x, y)
 
 
-## 根据时间与速度计算位于直线上的位置
+## 根据时间与速度计算位于直线上的位置。
 static func position_in_linear(velocity: Vector2, from: Vector2, t: float) -> Vector2:
 	var x: float = velocity.x * t + from.x
 	var y: float = velocity.y * t + from.y
@@ -148,7 +148,7 @@ static func position_in_linear(velocity: Vector2, from: Vector2, t: float) -> Ve
 	return Vector2(x, y)
 	
 	
-## 根据距离与时间计算抛物线速度
+## 根据距离与时间计算抛物线速度。
 static func initial_parabola_velocity(
 		from: Vector2, to: Vector2, t: float, g: float
 	) -> Vector2:
@@ -159,7 +159,7 @@ static func initial_parabola_velocity(
 	return Vector2(x, y)
 	
 	
-## 根据时间与速度计算位于抛物线上的位置
+## 根据时间与速度计算位于抛物线上的位置。
 static func get_position_in_parabola(
 		velocity: Vector2, from: Vector2, t: float, g: float
 	) -> Vector2:
@@ -169,12 +169,14 @@ static func get_position_in_parabola(
 	return Vector2(x, y)
 
 
+## 判断点是否到达目标位置。
 static func is_at_destination(
 		current_pos: Vector2, target_pos: Vector2, threshold: float = 5.0
 	) -> bool:
 	return current_pos.distance_to(target_pos) <= threshold
 
 
+## 根据角度获取方向。
 static func get_direction_by_angle(
 		angle: float, has_horizontal: bool, has_vertical: bool
 	) -> C.Direction:
@@ -200,6 +202,7 @@ static func get_direction_by_angle(
 
 
 #region 路径工具函数
+## 打开目录。
 static func open_directory(path: String) -> DirAccess:
 	var dir: DirAccess = DirAccess.open(path)
 	if not dir:
@@ -214,7 +217,7 @@ static func open_directory(path: String) -> DirAccess:
 
 
 #region JSON 工具函数
-## 加载 JSON 文件
+## 加载 JSON 文件。
 static func load_json(path: String) -> Variant:
 	if not FileAccess.file_exists(path):
 		Log.error("load_json: JSON 文件不存在: %s" % path)
@@ -242,6 +245,7 @@ static func load_json(path: String) -> Variant:
 	return json.get_data()
 	
 	
+## 保存 JSON 文件。
 static func save_json(data: Variant, file_path: String) -> void:
 	var file: FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
 	if not file:
@@ -259,7 +263,7 @@ static func save_json(data: Variant, file_path: String) -> void:
 
 
 #region 深拷贝工具函数
-## 浅拷贝，不同于 duplicate 此方法会安全处理不同类型
+## 浅拷贝，不同于 duplicate 此方法会安全处理不同类型的数据。
 static func clone(value: Variant) -> Variant:
 	if value is Dictionary:
 		var result: Dictionary = {}
@@ -277,7 +281,7 @@ static func clone(value: Variant) -> Variant:
 	return value
 	
 	
-## 深拷贝，不同于 duplicate_deep 此方法会安全处理不同类型
+## 深拷贝，不同于 duplicate_deep 此方法会安全处理不同类型的数据。
 static func deepclone(value: Variant) -> Variant:
 	# 对于字典，递归复制
 	if value is Dictionary:
@@ -301,7 +305,7 @@ static func deepclone(value: Variant) -> Variant:
 	return value
 
 
-## 深合并字典, source 的键值会覆盖或合并到 target
+## 深合并字典, source 的键值会覆盖或合并到 target。
 static func deepmerge_dict(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> void:
@@ -320,7 +324,7 @@ static func deepmerge_dict(
 		target[key] = source_value
 		
 		
-## 创建新字典并深合并字典, source 的键值会覆盖或合并到 target
+## 创建新字典并深合并字典, source 的键值会覆盖或合并到 target。
 static func deepmerge_dict_new(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> Dictionary:
@@ -329,8 +333,7 @@ static func deepmerge_dict_new(
 	return result
 
 
-## 浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 
-## 如果 source 更长，多出的元素会追加到 target
+## 浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
 static func merge_array(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
@@ -348,8 +351,7 @@ static func merge_array(
 		target[i] = mv
 	
 	
-## 创建新数组并浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引,
-## 如果 source 更长，多出的元素会追加到 target
+## 创建新数组并浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
 static func merge_array_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
@@ -358,8 +360,7 @@ static func merge_array_new(
 	return result
 		
 		
-## 深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 
-## 如果 source 更长，多出的元素会追加到 target
+## 深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
 static func deepmerge_array(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
@@ -377,8 +378,7 @@ static func deepmerge_array(
 		target[i] = mv
 
 
-## 创建新数组并深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 
-## 如果 source 更长，多出的元素会追加到 target
+## 创建新数组并深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
 static func deepmerge_array_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
@@ -387,7 +387,7 @@ static func deepmerge_array_new(
 	return result
 	
 	
-## 递归浅合并字典, source 的键值会覆盖或合并到 target
+## 递归浅合并字典, source 的键值会覆盖或合并到 target。
 static func merge_dict_recursive(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> void:
@@ -418,7 +418,7 @@ static func merge_dict_recursive(
 		target[key] = source_value
 		
 		
-## 创建新字典并递归浅合并两个字典, source 的键值会覆盖或合并到 target
+## 创建新字典并递归浅合并两个字典, source 的键值会覆盖或合并到 target。
 static func merge_dict_recursive_new(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> Dictionary:
@@ -427,7 +427,7 @@ static func merge_dict_recursive_new(
 	return result
 
 
-## 递归深合并字典, source 的键值会覆盖或合并到 target
+## 递归深合并字典, source 的键值会覆盖或合并到 target。
 static func deepmerge_dict_recursive(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> void:
@@ -458,7 +458,7 @@ static func deepmerge_dict_recursive(
 		target[key] = source_value
 		
 		
-## 创建新字典并递归深合并两个字典, source 的键值会覆盖或合并到 target
+## 创建新字典并递归深合并两个字典, source 的键值会覆盖或合并到 target。
 static func deepmerge_dict_recursive_new(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> Dictionary:
@@ -467,8 +467,7 @@ static func deepmerge_dict_recursive_new(
 	return result
 
 
-## 递归浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 
-## 如果 source 更长，多出的元素会追加到 target
+## 递归浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
 static func merge_array_recursive(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
@@ -499,8 +498,7 @@ static func merge_array_recursive(
 		target[i] = source_value
 
 
-## 创建新数组并递归浅合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 
-## 如果 source 更长，多出的元素会追加到 target
+## 创建新数组并递归浅合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
 static func merge_array_recursive_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
@@ -509,8 +507,7 @@ static func merge_array_recursive_new(
 	return result
 	
 	
-## 递归深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 
-## 如果 source 更长，多出的元素会追加到 target
+## 递归深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
 static func deepmerge_array_recursive(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
@@ -541,8 +538,7 @@ static func deepmerge_array_recursive(
 		target[i] = source_value
 
 
-## 创建新数组并递归深合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 
-## 如果 source 更长，多出的元素会追加到 target
+## 创建新数组并递归深合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
 static func deepmerge_array_recursive_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
@@ -552,11 +548,12 @@ static func deepmerge_array_recursive_new(
 #endregion
 
 
+## 从节点名称中提取组件名称
 static func get_component_name(node_name: String) -> String:
 	return node_name.replace("Component", "")
 
 
-## 判断实体是否有效
+## 判断实体是否有效。
 static func is_valid_entity(e) -> bool:
 	return (
 		e 
@@ -565,30 +562,33 @@ static func is_valid_entity(e) -> bool:
 	)
 
 
-## 判断 flags 是否被禁止掩码禁止
+## 判断 flags 是否被禁止掩码禁止。
 static func is_banned(flags: int, bans: int) -> bool:
 	return flags & bans
 
 
-## 判断双向禁止：flags1 被 bans2 禁止，或 flags2 被 bans1 禁止
+## 判断双向禁止：flags1 被 bans2 禁止，或 flags2 被 bans1 禁止。
 static func is_mutual_banned(flags1: int, bans1: int, flags2: int, bans2: int) -> bool:
 	return is_banned(flags1, bans2) or is_banned(flags2, bans1)
 
 
+## 秒转换为帧时间。
 static func fts(time: float) -> float:
 	return time / C.FPS
 
 
+## 百分比转换为数字。
 static func to_percent(num: float) -> float:
 	return num / 100
 
 
-## 检查是否是有效数字
+## 检查是否是有效数字。
 static func is_valid_number(n: float) -> bool:
 	return n != C.UNSET
 
 
 #region 位运算相关方法
+## 合并多个标志位。
 static func merge_flags(flag_list: Array) -> int:
 	var new_flags: int = 0
 	
@@ -600,7 +600,7 @@ static func merge_flags(flag_list: Array) -> int:
 
 
 #region 数组相关方法
-## 从数组中随机选择一个元素
+## 从数组中随机选择一个元素，仅用于从紧缩数组中随机选择一个元素。
 static func pick_random(array: Array) -> Variant:
 	if array.is_empty():
 		return null
@@ -610,6 +610,7 @@ static func pick_random(array: Array) -> Variant:
 
 
 #region 绘制相关方法
+## 绘制偏移组。
 static func draw_offset_group(
 		drawer: CanvasItem, offset_group: OffsetGroup, radius: float = 3, color := Color.GREEN
 	) -> void:
@@ -635,6 +636,7 @@ static func draw_offset_group(
 		drawer.draw_line(p3, p4, color, 1.2)
 
 
+## 绘制范围圆。
 static func draw_range_circle(
 		drawer: CanvasItem, 
 		position: Vector2, 
@@ -667,6 +669,7 @@ static func draw_range_circle(
 
 
 #region 编辑器相关方法
+## 连接资源变化信号。
 static func connect_resource_changed(resource: Resource, callable: Callable) -> void:
 	if not resource:
 		return

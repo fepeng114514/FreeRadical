@@ -11,7 +11,12 @@ class_name WaveEditor
 
 var entity_name_idx_dict: Dictionary[String, int] = {}
 var entity_name_list: Array[String] = []
-var wave_group: WaveGroup = null
+var wave_group: WaveGroup = null:
+	get: 
+		if not wave_group:
+			wave_group = WaveGroup.new()
+			
+		return wave_group
 var selected_wave: Wave = null
 var selected_sub_wave: SubWave = null
 var selected_spawn: WaveSpawn = null

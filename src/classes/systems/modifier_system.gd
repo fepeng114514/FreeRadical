@@ -16,7 +16,7 @@ func _on_insert(e: Entity) -> bool:
 		
 	var interact_p: InteractPolicy = e.interact_policy
 	var t_interact_p: InteractPolicy = target.interact_policy
-	if not InteractPolicy.is_allowed_entity(e, target, interact_p, t_interact_p):
+	if not InteractPolicy.is_allowed_target(e, target, interact_p, t_interact_p):
 		return false
 
 	modifier_c.ts = TimeMgr.tick_ts
@@ -100,7 +100,7 @@ func _process_modifier_update() -> void:
 		# 周期效果
 		if (
 			U.is_valid_number(modifier_c.cycle_time) 
-			and not TimeMgr.is_ready_time(modifier_c.ts, modifier_c.cycle_time)
+			and not TimeMgr.has_elapsed(modifier_c.ts, modifier_c.cycle_time)
 		):
 			return
 

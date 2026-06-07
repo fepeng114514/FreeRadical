@@ -20,7 +20,7 @@ func _on_insert(e: Entity) -> bool:
 			
 		for sub_e: Entity in entity_list:
 			sub_e.source_id = e.id
-			EntityMgr.process_create(sub_e)
+			EntityMgr.setup_entity(sub_e)
 			sub_e.insert_entity()
 		
 	if not tower_c.tower_holder:

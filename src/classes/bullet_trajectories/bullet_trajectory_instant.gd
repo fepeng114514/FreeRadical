@@ -1,8 +1,8 @@
 extends BulletTrajectory
 class_name BulletTrajectoryInstant
-## 瞬移轨迹
+## 瞬移轨迹。
 ##
-## 子弹瞬间移动到目标位置。
+## 负责处理子弹瞬间移动到目标位置。
 
 
 func _init_trajectory(_bullet_c: BulletComponent, e: Entity, target: Entity) -> void:

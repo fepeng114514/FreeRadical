@@ -10,7 +10,7 @@ func _parse_property(object: Object, type: Variant.Type, name: String, hint_type
 	if type == TYPE_INT and hint_string.begins_with("mask_enum"):
 		var enum_property: String = hint_string.split(":")[1]
 		
-		var property_editor = preload("mask_check_editor.gd").new(enum_property)
+		var property_editor = preload("editor_property.gd").new(enum_property)
 		property_editor.setup(name, object)
 		add_property_editor(name, property_editor)
 		

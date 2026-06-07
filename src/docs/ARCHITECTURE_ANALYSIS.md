@@ -137,7 +137,7 @@ src/
 ├── resources/                     # 资源文件
 │   ├── atlas_textures/            # 图集纹理
 │   ├── classes/                   # 自定义资源类
-│   │   ├── animation_data.gd      # 动画数据资源
+│   │   ├── animation_data.gd      # 动画组资源
 │   │   ├── animation_group.gd     # 动画组资源
 │   │   ├── audio_group.gd         # 音频组资源
 │   │   ├── death_data.gd          # 死亡数据资源
@@ -400,7 +400,7 @@ src/
 
 #### TimeManager（时间管理器）
 - 追踪 `tick_ts`（时间戳）和 `tick`（帧计数）
-- 提供 `is_ready_time` 判断冷却/等待是否完成
+- 提供 `has_elapsed` 判断冷却/等待是否完成
 - 提供 `y_wait` 协程等待函数（支持中断回调）
 
 ---

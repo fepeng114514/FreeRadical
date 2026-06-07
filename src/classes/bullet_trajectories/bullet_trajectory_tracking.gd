@@ -1,11 +1,11 @@
 extends BulletTrajectory
 class_name BulletTrajectoryTracking
-## 追踪轨迹
+## 追踪轨迹。
 ##
-## 子弹持续追踪目标，实时更新方向。
+## 负责处理子弹持续追踪目标，实时更新方向。
 
 
-## 子弹的飞行速度
+## 子弹的飞行速度。
 @export var flight_speed: float = 0.0
 
 

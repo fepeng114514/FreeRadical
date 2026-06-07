@@ -59,6 +59,7 @@ DevtoolRuntime="*res://addons/godot_devtool/runtime_bridge.gd"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
+window/stretch/aspect="expand"
 
 [editor_plugins]
 

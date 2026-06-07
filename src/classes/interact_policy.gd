@@ -102,7 +102,7 @@ func is_scene_allowed(other_scene_name: StringName) -> bool:
 	return true
 
 
-static func is_allowed_entity(e: Entity, target: Entity, interact_p: InteractPolicy, t_interact_p: InteractPolicy) -> bool:
+static func is_allowed_target(e: Entity, target: Entity, interact_p: InteractPolicy, t_interact_p: InteractPolicy) -> bool:
 	if not interact_p or not t_interact_p:
 		return true
 

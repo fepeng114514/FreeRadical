@@ -1,8 +1,8 @@
 extends Behavior
 class_name NavPathBehavior
-## 导航路径行为系统
+## 导航路径行为系统。
 ##
-## 处理拥有 [NavPathComponent] 行为组件的实体的移动与到达终点判断
+## 负责处理拥有 [NavPathComponent] 行为组件的实体的移动与到达终点判断。
 
 
 func _on_insert(e: Entity) -> bool:
@@ -35,6 +35,7 @@ func _on_update(e: Entity) -> bool:
 		return _update_forward(e, nav_path_c)
 
 
+## 更新正向移动逻辑。
 func _update_forward(e: Entity, nav_path_c: NavPathComponent) -> bool:
 	# 检查终点
 	if nav_path_c.nav_ni == nav_path_c.end_ni:
@@ -67,6 +68,7 @@ func _update_forward(e: Entity, nav_path_c: NavPathComponent) -> bool:
 	return true
 
 
+## 更新反向移动逻辑。
 func _update_reversed(e: Entity, nav_path_c: NavPathComponent) -> bool:
 	# 检查终点
 	if nav_path_c.nav_ni == PathwayMgr.node_count - 1 - nav_path_c.end_ni:
@@ -99,6 +101,7 @@ func _update_reversed(e: Entity, nav_path_c: NavPathComponent) -> bool:
 	return true
 	
 
+## 更新实体位置和动画。
 func _update_entity_position(e: Entity, nav_path_c: NavPathComponent, next_progress: float) -> void:
 	var next_position: Vector2 = nav_path_c.get_progress_pos()
 	e.look_point = next_position
@@ -109,6 +112,7 @@ func _update_entity_position(e: Entity, nav_path_c: NavPathComponent, next_progr
 	e.look_point = nav_path_c.get_progress_pos(next_progress)
 
 
+## 到达终点处理。
 func _arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
 	nav_path_c.reversed = not reversed
 	

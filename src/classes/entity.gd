@@ -45,13 +45,13 @@ enum State {
 @export var track_source: bool = false
 ## 是否追踪 target 实体
 @export var track_target: bool = false
-## 空闲动画数据
+## 空闲动画组
 @export var idle_animation: AnimationGroup = null
 ## 生成时播放的动画
 @export var spawn_animation: AnimationGroup = null
-## 生成时播放的音效
+## 生成时播放的音效组。
 @export var spawn_sfx: AudioGroup = null
-## 击中位置偏移
+## 击中位置偏移组。
 @export var hit_offsets: OffsetGroup = null:
 	set(v): 
 		hit_offsets = v
@@ -227,7 +227,6 @@ func set_pos(pos: Vector2) -> void:
 ## 设置导航路径到当前位置下最近的导航路径
 func set_nav_path_at_pos(pos: Vector2) -> void:
 	var nav_path_c: NavPathComponent = get_node_or_null(C.CN_NAV_PATH)
-
 	var pi_list: Array = []
 	var spi_list: Array = []
 

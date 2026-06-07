@@ -1,10 +1,10 @@
 extends Node
-## 网格数据库
+## 网格管理器
 ##
-## 存储网格数据与工具函数
+## 负责管理网格与相关操作。
 
 
-## 网格引用
+## 网格引用。
 var grid: TileMapLayer = null
 
 

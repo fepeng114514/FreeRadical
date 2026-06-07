@@ -1,15 +1,16 @@
 extends Node
-## 时间数据库
+## 时间数据库管理器。
 ##
-## 存储所有时间信息
+## 负责管理时间与相关操作。
 
-## 自上次初始化后已经过的时间戳
+
+## 自上次初始化后已经过的时间戳。
 var tick_ts: float = 0.0
-## 自上次初始化后已经过的帧数
+## 自上次初始化后已经过的帧数。
 var tick: int = 0
-## 该变量始终等于 _process(delta) 中的 delta
+## 帧长度，始终等于 [method Node._process] 的 delta。
 var frame_length: float = 0.0
-## 每秒的经过的帧数，始终等于 Engine.get_frames_per_second()
+## 每秒的经过的帧数，始终等于 [method Engine.get_frames_per_second]。
 var fps: float = 0.0
 
 
@@ -20,26 +21,24 @@ func _load() -> void:
 	fps = 0
 
 
-## 判断是否经过一定时间
-func is_ready_time(ts: float, time: float) -> bool:
-	return tick_ts - ts > time
+## 判断自指定时间戳以来是否已过了指定时长。
+func has_elapsed(ts: float, duration: float) -> bool:
+	return tick_ts - ts > duration
 	
 
-## 获取自指定时间戳以来过去的时间
-func get_time_by_ts(ts: float) -> float:
+## 获取自指定时间戳以来流逝的时间。
+func get_elapsed_time(ts: float) -> float:
 	return tick_ts - ts
 		
 		
-## 协程等待
-##
-## break_fn 返回 true 表示中断等待，返回值表示是否中断等待
-func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
-	if time <= 0:
+## 协程等待指定时长，break_fn 返回 true 表示中断等待。
+func y_wait(duration: float = 0.0, break_fn: Callable = Callable()) -> bool:
+	if duration <= 0:
 		return false
 
 	var ts: float = tick_ts
 	var is_break: bool = false
-	while not is_ready_time(ts, time):
+	while not has_elapsed(ts, duration):
 		is_break = break_fn.call() if break_fn.is_valid() else false
 		if is_break:
 			break

@@ -1,14 +1,16 @@
 extends BulletTrajectory
 class_name BulletTrajectoryParabola
-## 抛物线轨迹
+## 抛物线轨迹。
 ##
-## 子弹沿抛物线从起点飞向目标点。
+## 负责处理子弹沿抛物线从起点飞向目标点。
 
 
-## 子弹从发射到命中或消失的时间
+## 子弹从发射到命中或消失的时间。
 @export var flight_total_time: float = 0.0
-## 重力加速度
+## 重力加速度。
 @export var flight_gravity: float = 980
+## 检查到达目标点的阈值。
+@export var arrival_threshold: float = 0.8
 
 
 func _get_predict_time() -> float:
@@ -53,7 +55,7 @@ func _should_miss(_bullet_c: BulletComponent, flying_time: float) -> bool:
 
 
 func _has_arrived(e: Entity, bullet_c: BulletComponent, flying_time: float) -> bool:
-	# 抛物线在飞行时间未达到 80% 时不检查是否到达目标
-	if flying_time <= flight_total_time * 0.8:
+	if flying_time <= flight_total_time * arrival_threshold:
 		return false
-	return super._has_arrived(e, bullet_c, flying_time)
+		
+	return super(e, bullet_c, flying_time)

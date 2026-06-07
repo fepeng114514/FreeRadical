@@ -34,7 +34,7 @@
     - 输出格式为 dds bc7。
     - 需要根据图集类型分类（仅作为图像使用与仅作为动画帧使用），便于后续脚本生成 SpriteFrames 与 AtlasTexture。
 2. 根据图集类型将图集放入 src/assets/animated_atlas 或 src/assets/image_atlas 中。
-3. 在 src/tools/sprite_frames_data 输入动画数据。
+3. 在 src/tools/sprite_frames_data 输入动画组。
 4. 在编辑器运行 src/tools/generate_texture 脚本生成 SpriteFrames 与 AtlasTexture。
 
 #### 动画文件格式

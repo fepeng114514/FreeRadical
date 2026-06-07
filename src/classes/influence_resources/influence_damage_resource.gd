@@ -1,19 +1,20 @@
 @tool
 extends InfluenceResource
 class_name InfluenceDamageResource
+## 伤害影响资源。
+##
+## InfluenceDamageResource 用于定义如何对目标实体造成伤害。
 
 
 #region 基础伤害
-## 最小伤害
+## 最小伤害。
 @export var damage_min: float = 0.0
-## 最大伤害
+## 最大伤害。
 @export var damage_max: float = 0.0
-## 伤害类型
+## 伤害类型。
 @export var damage_type: int = C.DamageType.PHYSICAL
-## 伤害标识
+## 伤害标识。
 @export var damage_flags: int = 0
-## 伤害是否随距离衰减
-@export var damage_falloff_enabled: bool = false
 #endregion
 
 
@@ -35,7 +36,7 @@ func _take(source: Entity, target: Entity, source_skill_type: Skill.Type, is_are
 
 	var value: float = d.get_random_value(damage_min, damage_max)
 
-	if damage_falloff_enabled:
+	if falloff_enabled:
 		value *= U.dist_factor_inside_radius(
 			source.global_position, 
 			target.global_position, 

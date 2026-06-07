@@ -1,25 +1,23 @@
 @tool
 extends Skill
 class_name SkillRanged
-## 单次远程技能节点
+## 单次远程技能节点。
+##
+## SkillRanged 会生成一个子弹，以子弹作为中介，对目标造成影响。子弹会以特定轨迹飞行，到达目标后造成影响。
 
 
-
-## 子弹生成模式枚举
+## 子弹生成模式枚举。
 enum BulletSpawnMode {
-	## 子弹生成模式：随机
-	##
-	## 子弹会以 bullet_angle_range 范围内的随机角度生成
+	## 子弹生成模式：随机，子弹会以 [member bullet_angle_range] 范围内的随机角度生成。
 	RANDOM,
-	## 子弹生成模式：等距
-	##
-	## 子弹会以 bullet_angle_range 范围内等距的角度生成
+	## 子弹生成模式：等距，子弹会以 [member bullet_angle_range] 范围内等距的角度生成。
 	EQUAL_INTERVAL,
 }
 
 
-## 拦截目标时是否可以释放远程技能
+## 拦截目标时是否可以释放远程技能。
 @export var with_melee: bool = false
+## 搜索资源。
 @export var search: SearchResource = null:
 	set(v): 
 		search = v
@@ -28,22 +26,22 @@ enum BulletSpawnMode {
 			queue_redraw()
 
 @export_group("Bullet")
-## 子弹场景名称
-@export var bullet: String = ""
-## 子弹发射数量
+## 子弹场景名称。
+@export var bullet: StringName = &""
+## 子弹发射数量。
 @export var bullet_count: int = 1
-## 子弹初始位置偏移
+## 子弹初始位置偏移组。
 @export var bullet_offsets: OffsetGroup = null:
 	set(v): 
 		bullet_offsets = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(bullet_offsets, queue_redraw)
 			queue_redraw()
-## 子弹发射的角度范围，单位为度
+## 子弹发射的角度范围。
 @export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0.0
-## 子弹发射模式
+## 子弹发射模式。
 @export var bullet_spawn_mode: BulletSpawnMode = BulletSpawnMode.EQUAL_INTERVAL
-## 伤害/治疗/范围伤害 统一资源
+## 影响资源。
 @export var influence: InfluenceResource = null:
 	set(v): 
 		influence = v
@@ -90,6 +88,7 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	await e.y_wait_animation(animation)
 
 
+## 生成子弹。
 func spawn_bullets(
 		e: Entity, 
 		target: Entity

@@ -52,7 +52,7 @@ func _on_update(delta: float) -> void:
 			continue
 			
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
-		var flying_time: float = TimeMgr.get_time_by_ts(bullet_c.ts)
+		var flying_time: float = TimeMgr.get_elapsed_time(bullet_c.ts)
 
 		bullet_c.trajectory._update_trajectory(e, bullet_c, target, flying_time, delta)
 		

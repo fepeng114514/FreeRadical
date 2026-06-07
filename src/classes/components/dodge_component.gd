@@ -1,19 +1,21 @@
 @tool
 extends Component
 class_name DodgeComponent
-## 闪避组件
+## 闪避组件。
 ##
 ## DodgeComponent 可以使实体拥有闪避与反击的能力，反击技能以 [Skill] 子节点的形式存在。
+## @deprecated
+## @deprecated: 未实现。
 
 
-## 是否可以闪避远程攻击
+## 是否可以闪避远程攻击。
 @export var can_dodge_ranged: bool = true
-## 是否可以闪避近战攻击
+## 是否可以闪避近战攻击。
 @export var can_dodge_melee: bool = true
-## 是否可以闪避区域攻击
+## 是否可以闪避区域攻击。
 @export var can_dodge_area: bool = false
 
-## 当前准备释放的反击技能索引
+## 当前准备释放的反击技能索引。
 var skill_idx: int = C.UNSET
 var target_id: int = C.UNSET
 

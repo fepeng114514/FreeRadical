@@ -1,28 +1,26 @@
 extends Node
-## 系统管理器
+## 系统管理器。
 ##
-## 控制系统主循环与实体插入移除，使用队列控制实体插入与移除。
+## 负责管理系统与相关操作。
 
 
 @warning_ignore_start("unused_signal")
-## 创建实体信号
+## 创建实体信号。
 signal append_insert_queue(entity: Entity)
-## 移除实体信号
+## 移除实体信号。
 signal append_remove_queue(entity: Entity)
-## 系统更新信号
-##
-## 系统更新前发射此信号
+## 系统更新信号。
 signal update_system
 @warning_ignore_restore("unused_signal")
 
 
-## 系统列表
+## 系统列表。
 var system_list: Array[System] = []
-## 实体移除队列
+## 实体移除队列。
 var remove_queue: Array[Entity] = []
-## 实体插入队列
+## 实体插入队列。
 var insert_queue: Array[Entity] = []
-## 伤害队列
+## 伤害队列。
 var damage_queue: Array[Damage] = []
 
 
@@ -35,7 +33,7 @@ func _load(new_system_list: Array[System]) -> void:
 	system_list = new_system_list
 
 
-## 系统主循环
+## 系统主循环。
 func _physics_process(delta: float) -> void:
 	update_system.emit()
 	for system: System in system_list:
@@ -46,7 +44,7 @@ func _physics_process(delta: float) -> void:
 	call_deferred("_process_remove_queue")
 
 
-## 处理实体插入队列
+## 处理实体插入队列。
 func _process_insert_queue() -> void:
 	var entity_list: Array = EntityMgr.entity_list
 	
@@ -71,7 +69,7 @@ func _process_insert_queue() -> void:
 		e.visible = true
 
 
-## 处理实体移除队列
+## 处理实体移除队列。
 func _process_remove_queue() -> void:	
 	while remove_queue:
 		var e = remove_queue.pop_front()
@@ -88,9 +86,9 @@ func _process_remove_queue() -> void:
 		e.free()
 
 
-## 调用所有系统中的指定回调函数
+## 调用所有系统中的指定回调函数。
 ## 
-## 如果遇到一个返回 false 的系统则返回 false，否则返回 true
+## 如果遇到一个返回 false 的系统则直接返回。
 func call_systems(fn_name: String, arg) -> bool:
 	for system: System in system_list:
 		var system_func = system.get(fn_name)

@@ -1,22 +1,22 @@
 extends Node
-## 实体管理器
+## 实体管理器。
 ##
-## 管理所有实体与相关数据、工具函数
+## 负责管理实体与相关操作。
 
 
 #region 属性
-## 存储实体场景的字典
+## 存储实体场景的字典。
 var _entity_scene_dict: Dictionary[String, PackedScene] = {}
-## 被修改的场景
+## 被修改的场景数组。
 var _dirty_scenes_list: Array[StringName] = []
-## 下一个创建实体的 id
+## 下一个创建实体的 id。
 var _next_id: int = 0
-## 实体数据缓存字典，用于读取数据，不参与游戏
+## 实体数据缓存字典，用于读取数据，不参与游戏。
 var _cached_entities_data: Dictionary[String, Entity] = {}
 
-## 所有实体数组
+## 所有实体数组。
 var entity_list: Array = []
-## 存储实体类型组的字典
+## 存储实体类型组的字典。
 var type_group_list: Dictionary[String, Array] = {
 	"enemies": [],
 	"friendlys": [],
@@ -25,16 +25,16 @@ var type_group_list: Dictionary[String, Array] = {
 	"modifiers": [],
 	"auras": [],
 }
-## 存储组件组的字典
+## 存储组件组的字典。
 var component_group_list: Dictionary[String, Array] = {}
 
-## 空间索引的网格大小
+## 空间索引的网格大小。
 const SPACE_INDEX_GRID_SIZE: float = 100
-## 空间索引列数
+## 空间索引列数。
 var space_index_grid_count_x: int = 0
-## 空间索引行数
+## 空间索引行数。
 var space_index_grid_count_y: int = 0
-## 空间索引网格数组
+## 空间索引网格数组。
 var space_index_grid_list: Array[Dictionary] = []
 #endregion
 
@@ -51,11 +51,12 @@ func _load() -> void:
 
 	_next_id = 0
 	
-	_entity_scene_dict = load_entity_scene()
+	_entity_scene_dict = load_entity_scenes()
 	init_space_index_grid()
 
 
-func load_entity_scene() -> Dictionary[String, PackedScene]:
+## 加载实体场景。
+func load_entity_scenes() -> Dictionary[String, PackedScene]:
 	var json_data: Array = U.load_json(
 		"res://entities/entity_scene_paths.json"
 	)
@@ -77,7 +78,7 @@ func load_entity_scene() -> Dictionary[String, PackedScene]:
 	return entity_scene_dict
 
 
-
+## 初始化空间索引网格。
 func init_space_index_grid() -> void:
 	var world_size: Vector2 = GlobalMgr.world_size
 	var grid_count_x: int = ceili(world_size.x / SPACE_INDEX_GRID_SIZE)
@@ -114,17 +115,17 @@ func init_space_index_grid() -> void:
 
 
 #region 创建实体相关
-## 创建实体
+## 通过场景名创建实体。
 func create_entity(scene_name: String) -> Entity:
 	var e: Entity = get_entity_scene(scene_name).instantiate()
 	
-	return process_create(e)
+	return setup_entity(e)
 	
 	
-## 处理创建
-func process_create(e: Entity) -> Entity:
+## 设置实体，处理实体创建后续操作。
+func setup_entity(e: Entity) -> Entity:
 	e.id = _next_id
-	e.name = "%sI%d" % [e.name, e.id]
+	e.name = "%sI%d" % [e.name, _next_id]
 
 	Log.debug("创建实体: %s" % e)
 	_next_id += 1
@@ -132,7 +133,7 @@ func process_create(e: Entity) -> Entity:
 	return e
 
 
-## 批量创建实体
+## 批量创建实体。
 func create_entities(
 		scene_name_list: PackedStringArray,
 		config_func: Callable = Callable(),
@@ -155,7 +156,7 @@ func create_entities(
 	return created_entities
 
 
-## 创建实体在指定位置
+## 创建实体在指定位置。
 func create_entities_at_pos(
 		scene_name_list: PackedStringArray, 
 		pos: Vector2, 
@@ -166,7 +167,7 @@ func create_entities_at_pos(
 	)
 
 
-## 批量创建状态效果实体
+## 批量创建状态效果实体。
 func create_mods(
 		target_id: int,
 		scene_name_list: PackedStringArray, 
@@ -184,7 +185,7 @@ func create_mods(
 	)
 
 
-## 批量创建光环实体
+## 批量创建光环实体。
 func create_auras(
 		target_id: int,
 		scene_name_list: PackedStringArray, 
@@ -204,7 +205,7 @@ func create_auras(
 
 
 #region 索引相关
-## 根据组名获取组内所有实体
+## 根据组名获取组内所有实体。
 func get_entities_group(group_name: String) -> Array:
 	if group_name in type_group_list:
 		return type_group_list[group_name]
@@ -215,7 +216,7 @@ func get_entities_group(group_name: String) -> Array:
 	return []
 
 
-## 根据 id 索引实体
+## 根据 id 获取实体。
 func get_entity_by_id(id: int) -> Entity:
 	if not U.is_valid_number(id):
 		return null
@@ -227,77 +228,69 @@ func get_entity_by_id(id: int) -> Entity:
 	return e
 
 
-## 获取实体场景
-func get_entity_scene(entity_name: String) -> PackedScene:
-	if not _entity_scene_dict.has(entity_name):
-		Log.error("未找到实体场景: %s" % entity_name)
+## 根据场景名获取实体场景。
+func get_entity_scene(scene_name: String) -> PackedScene:
+	if not _entity_scene_dict.has(scene_name):
+		Log.error("未找到实体场景: %s" % scene_name)
 		return null
 		
-	var scene: PackedScene = _entity_scene_dict[entity_name]
+	var scene: PackedScene = _entity_scene_dict[scene_name]
 		
 	return scene
 	
 
-## 设置实体场景
+## 设置实体场景。
 func set_entity_scene(
-		entity_name: String, scene: PackedScene, new_scene_node: Entity
+		scene_name: String, scene: PackedScene, new_scene_node: Entity
 	) -> void:
 	scene.pack(new_scene_node)
-	_dirty_scenes_list.append(entity_name)
-	_dirty_scenes_list.append(entity_name)
+	_dirty_scenes_list.append(scene_name)
 
 
-## 获取所有有效实体
+## 获取所有有效实体。
 func get_valid_entities() -> Array:
 	return entity_list.filter(
 		func(e) -> bool: return U.is_valid_entity(e)
 	)
 	
-	
-## 获取 source_id 为指定 id 的实体
-func get_entities_by_source(source_id: int):
-	return get_valid_entities().filter(
-		func(e: Entity) -> bool:
-			return e.source_id == source_id
-	)
 
-
-## 获取实体数据，实体数据是一个实体实例，仅用于读取数据，不参与游戏逻辑
-func get_entity_data(entity_name: String) -> Entity:
+## 获取实体数据，实体数据是一个实体实例，仅用于读取数据，不参与游戏逻辑。
+func get_entity_data(scene_name: String) -> Entity:
 	if (
-			not _cached_entities_data.has(entity_name) 
-			or entity_name in _dirty_scenes_list
+			not _cached_entities_data.has(scene_name) 
+			or scene_name in _dirty_scenes_list
 		):
-		var e: Entity = get_entity_scene(entity_name).instantiate()
-		_cached_entities_data[entity_name] = e
-		_dirty_scenes_list.erase(entity_name)
+		var e: Entity = get_entity_scene(scene_name).instantiate()
+		_cached_entities_data[scene_name] = e
+		_dirty_scenes_list.erase(scene_name)
 
-	return _cached_entities_data[entity_name]
+	return _cached_entities_data[scene_name]
 #endregion
 
 
 #region 索敌相关
-## 排序模式枚举
+## 排序模式枚举。
 enum SortMode {
-	## 排序模式: 路程
+	## 排序模式: 路程。
 	PROGRESS,
-	## 排序模式: 距离
+	## 排序模式: 距离。
 	DISTANCE,
-	## 排序模式: 血量
+	## 排序模式: 血量。
 	HEALTH,
-	## 排序模式: 近战伤害
+	## 排序模式: 近战伤害。
 	MELEE_DAMAGE,
-	## 排序模式: 远程伤害
+	## 排序模式: 远程伤害。
 	RANGED_DAMAGE,
-	## 排序模式: 实体 ID
+	## 排序模式: 实体 ID。
 	ID,
-	## 排序模式: 赏金
+	## 排序模式: 赏金。
 	GOLD,
-	## 排序模式: 随机
+	## 排序模式: 随机。
 	RANDOM,
 }
 
 
+## 排序模式: 路程。
 static func _sort_by_progress(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	var p1: float = INF if reversed else -INF
 	var p2: float = INF if reversed else -INF
@@ -313,6 +306,7 @@ static func _sort_by_progress(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	return p1 > p2 if not reversed else p1 < p2
 
 
+## 排序模式: 血量。
 static func _sort_by_health(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	var h1: float = INF if reversed else -INF
 	var h2: float = INF if reversed else -INF
@@ -327,6 +321,7 @@ static func _sort_by_health(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	return h1 > h2 if not reversed else h1 < h2
 
 
+## 排序模式: 赏金。
 static func _sort_by_gold(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	var g1: float = INF if reversed else -INF
 	var g2: float = INF if reversed else -INF
@@ -341,6 +336,7 @@ static func _sort_by_gold(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	return g1 > g2 if not reversed else g1 < g2
 
 
+## 排序模式: 距离。
 static func _sort_by_distance(e1: Entity, e2: Entity, origin: Vector2, reversed: bool) -> bool:
 	var d1: float = e1.global_position.distance_squared_to(origin)
 	var d2: float = e2.global_position.distance_squared_to(origin)
@@ -348,6 +344,7 @@ static func _sort_by_distance(e1: Entity, e2: Entity, origin: Vector2, reversed:
 	return d1 > d2 if not reversed else d1 < d2
 
 
+## 排序模式: 近战伤害。
 static func _sort_by_melee_damage(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	var d1: float = INF if reversed else -INF
 	var d2: float = INF if reversed else -INF
@@ -370,6 +367,7 @@ static func _sort_by_melee_damage(e1: Entity, e2: Entity, reversed: bool) -> boo
 	return d1 > d2 if not reversed else d1 < d2
 
 
+## 排序模式: 远程伤害。
 static func _sort_by_ranged_damage(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	var d1: float = INF if reversed else -INF
 	var d2: float = INF if reversed else -INF
@@ -392,6 +390,7 @@ static func _sort_by_ranged_damage(e1: Entity, e2: Entity, reversed: bool) -> bo
 	return d1 > d2 if not reversed else d1 < d2
 
 
+## 排序模式: 实体 ID。
 static func _sort_by_id(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	var i1: int = e1.id
 	var i2: int = e2.id
@@ -399,7 +398,7 @@ static func _sort_by_id(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	return i1 > i2 if not reversed else i1 < i2
 
 
-## 根据排序模式排序实体，默认最大在前，如果 reversed 为 true 则最小在前
+## 根据排序模式排序实体数组，默认最大在前，如果 reversed 为 true 则最小在前。
 func sort_entities_by_type(
 		entities_array: Array[Entity], sort_type: SortMode, origin: Vector2, reversed: bool = false
 	) -> void:
@@ -428,20 +427,13 @@ func sort_entities_by_type(
 	
 
 #region 实体的搜索模式配置
-const GROUP_DICT: Dictionary[String, StringName] = {
-	"ENTITY": C.GROUP_ENTITIES,
-	"ENEMY": C.GROUP_ENEMIES,
-	"FRIENDLY": C.GROUP_FRIENDLYS,
-	"UNIT": C.GROUP_UNIT,
-}
-
-
-class PropertyMeta:
+## 排序模式属性元数据类，用于存储排序模式属性的元数据。
+class SearchModeMeta:
 	var name: String
 	var sort_mode: SortMode
 	var has_reverse_mode: bool = true
 
-	func _init(p_name: String, p_sort_mode: SortMode, p_has_reverse_mode: bool = true):
+	func _init(p_name: String, p_sort_mode: SortMode, p_has_reverse_mode: bool = false):
 		name = p_name
 		sort_mode = p_sort_mode
 		has_reverse_mode = p_has_reverse_mode
@@ -453,7 +445,7 @@ class PropertyMeta:
 		return "%s_%s_%s" % [group, "MIN" if reversed else "MAX", name]
 
 
-## 搜索模式配置类，包含排序模式、过滤函数和是否反转排序
+## 搜索模式配置类。
 class SearchModeConfig:
 	var sort_mode: SortMode
 	var group: StringName
@@ -465,49 +457,60 @@ class SearchModeConfig:
 		reversed = p_rev
 
 
-## 构建搜索模式配置字典
-static func build_search_config() -> Dictionary[C.SearchMode, SearchModeConfig]:
-	var property_metas: Array[PropertyMeta] = [
-		PropertyMeta.new("PROGRESS", SortMode.PROGRESS, true),
-		PropertyMeta.new("DISTANCE", SortMode.DISTANCE, true),
-		PropertyMeta.new("HEALTH", SortMode.HEALTH, true),
-		PropertyMeta.new("MELEE_DAMAGE", SortMode.MELEE_DAMAGE, true),
-		PropertyMeta.new("RANGED_DAMAGE", SortMode.RANGED_DAMAGE, true),
-		PropertyMeta.new("ID", SortMode.ID, true),
-		PropertyMeta.new("GOLD", SortMode.GOLD, true),
-		PropertyMeta.new("RANDOM", SortMode.RANDOM, false),
+## 搜索模式配置构建器。
+class SearchConfigBuilder:
+	## 实体分组字典。
+	const GROUP_DICT: Dictionary[String, StringName] = {
+		"ENTITY": C.GROUP_ENTITIES,
+		"ENEMY": C.GROUP_ENEMIES,
+		"FRIENDLY": C.GROUP_FRIENDLYS,
+		"UNIT": C.GROUP_UNIT,
+	}
+	## 排序模式属性元数据列表。
+	const search_mode_meta_list: Array[Dictionary] = [
+		{"name": "PROGRESS", "sort_mode": SortMode.PROGRESS, "has_reverse_mode": true},
+		{"name": "DISTANCE", "sort_mode": SortMode.DISTANCE, "has_reverse_mode": true},
+		{"name": "HEALTH", "sort_mode": SortMode.HEALTH, "has_reverse_mode": true},
+		{"name": "MELEE_DAMAGE", "sort_mode": SortMode.MELEE_DAMAGE, "has_reverse_mode": true},
+		{"name": "RANGED_DAMAGE", "sort_mode": SortMode.RANGED_DAMAGE, "has_reverse_mode": true},
+		{"name": "ID", "sort_mode": SortMode.ID, "has_reverse_mode": true},
+		{"name": "GOLD", "sort_mode": SortMode.GOLD, "has_reverse_mode": true},
+		{"name": "RANDOM", "sort_mode": SortMode.RANDOM, "has_reverse_mode": false},
 	]
 
-	var config: Dictionary[C.SearchMode, SearchModeConfig] = {}
+	## 构建搜索模式配置字典。
+	static func build_search_config() -> Dictionary[C.SearchMode, SearchModeConfig]:
+		var config: Dictionary[C.SearchMode, SearchModeConfig] = {}
 
-	for group: String in GROUP_DICT:
-		var group_name: StringName = GROUP_DICT[group]
+		for group: String in GROUP_DICT:
+			var group_name: StringName = GROUP_DICT[group]
 
-		for prop: PropertyMeta in property_metas:
-			var sort: SortMode = prop.sort_mode
-			
-			if prop.has_reverse_mode:
-				# MAX 模式：降序 = false
-				var max_mode_name: String = prop.get_mode_name(group, false)
-				config[C.SearchMode[max_mode_name]] = SearchModeConfig.new(sort, group_name, false)
+			for search_mode_meta: Dictionary in search_mode_meta_list:
+				var sort: SortMode = search_mode_meta["sort_mode"]
 				
-				# MIN 模式：降序 = true
-				var min_mode_name: String = prop.get_mode_name(group, true)
-				config[C.SearchMode[min_mode_name]] = SearchModeConfig.new(sort, group_name, true)
-			else:
-				# 无反转模式
-				var mode_name: String = prop.get_mode_name(group)
-				config[C.SearchMode[mode_name]] = SearchModeConfig.new(sort, group_name, false)
-			
-	return config
+				if search_mode_meta["has_reverse_mode"]:
+					# MAX 模式：降序 = false
+					var max_mode_name: String = "%s_%s_%s" % [group, "MAX", search_mode_meta["name"]]
+					config[C.SearchMode[max_mode_name]] = SearchModeConfig.new(sort, group_name, false)
+					
+					# MIN 模式：降序 = true
+					var min_mode_name: String = "%s_%s_%s" % [group, "MIN", search_mode_meta["name"]]
+					config[C.SearchMode[min_mode_name]] = SearchModeConfig.new(sort, group_name, true)
+				else:
+					# 无反转模式
+					var mode_name: String = "%s_%s" % [group, search_mode_meta["name"]]
+					config[C.SearchMode[mode_name]] = SearchModeConfig.new(sort, group_name, false)
+				
+		return config
 
 
-var search_config: Dictionary[C.SearchMode, SearchModeConfig] = build_search_config()
+## 搜索模式配置字典。
+var search_config: Dictionary[C.SearchMode, SearchModeConfig] = SearchConfigBuilder.build_search_config()
 
 
-## 搜索范围内目标
+## 搜索范围内目标。
 ##
-## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
+## filter 返回 false 表示被过滤。
 func find_targets_in_range(
 		origin: Vector2,
 		max_range: float,
@@ -548,9 +551,9 @@ func find_targets_in_range(
 #endregion
 
 
-## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）
+## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）。
 ##	
-## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
+## filter 返回 false 表示被过滤。
 func search_targets(
 		search_mode: C.SearchMode, 
 		origin: Vector2, 
@@ -581,9 +584,9 @@ func search_targets(
 	return targets
 
 
-## 根据搜索模式在扇形范围内搜索目标
+## 根据搜索模式在扇形范围内搜索目标。
 ##
-## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
+## filter 返回 false 表示被过滤。
 func search_targets_in_sector(
 		search_mode: C.SearchMode,
 		origin: Vector2,
@@ -608,9 +611,9 @@ func search_targets_in_sector(
 	)
 
 
-## 根据搜索模式在矩形范围内搜索目标
+## 根据搜索模式在矩形范围内搜索目标。
 ##
-## filter 匿名函数格式为 func(e: Entity) -> bool, 返回 false 表示被过滤
+## filter 返回 false 表示被过滤。
 func search_targets_in_rectangle(
 		search_mode: C.SearchMode,
 		origin: Vector2,

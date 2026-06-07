@@ -1,8 +1,8 @@
 extends Behavior
 class_name BarrackBehavior
-## 兵营行为系统
+## 兵营行为系统。
 ##
-## 处理拥有 [BarrackComponent] 兵营组件的实体生成士兵
+## 负责处理拥有 [BarrackComponent] 兵营组件的实体生成士兵。
 
 
 func _on_insert(e: Entity) -> bool:
@@ -38,7 +38,7 @@ func _on_update(e: Entity) -> bool:
 	var soldier_group: EntityGroup = barrack_c.soldier_group
 	
 	# 根据重生时间生成士兵
-	if TimeMgr.is_ready_time(barrack_c.ts, barrack_c.spawn_time):
+	if TimeMgr.has_elapsed(barrack_c.ts, barrack_c.spawn_interval):
 		_spawn_by_time(e, barrack_c)
 		return true
 		
@@ -46,12 +46,13 @@ func _on_update(e: Entity) -> bool:
 
 	# 士兵数发生变化重新整队
 	if barrack_c.last_soldier_count != soldier_count:
-		barrack_c.new_rally_center_position(barrack_c.rally_center_position, false, false)
+		barrack_c.set_rally_center_position(barrack_c.rally_center_position, false, false)
 	
 	barrack_c.last_soldier_count = soldier_count
 	return false
 
 
+## 生成士兵。
 func _spawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent, soldier_group: EntityGroup
 	) -> Entity:
@@ -73,6 +74,7 @@ func _spawn_soldier(
 	return soldier
 
 
+## 根据重生时间生成士兵。
 func _spawn_by_time(e: Entity, barrack_c: BarrackComponent) -> void:
 	var soldier_group: EntityGroup = barrack_c.soldier_group
 	var max_soldier_count: int = barrack_c.max_soldier_count
@@ -87,11 +89,12 @@ func _spawn_by_time(e: Entity, barrack_c: BarrackComponent) -> void:
 
 		_spawn_soldier(e, barrack_c, soldier_group)
 		
-		barrack_c.new_rally_center_position(barrack_c.rally_center_position, false, false)
+		barrack_c.set_rally_center_position(barrack_c.rally_center_position, false, false)
 		barrack_c.last_soldier_count = soldier_group.get_child_count()
 		e.y_wait_animation(barrack_c.animation)
 
 
+## 生成所有士兵。
 func _spawn_all_soldiers(e: Entity, barrack_c: BarrackComponent) -> void:
 	var soldier_group: EntityGroup = barrack_c.soldier_group
 	var last_soldier_group: EntityGroup = barrack_c.last_soldier_group
@@ -128,7 +131,7 @@ func _spawn_all_soldiers(e: Entity, barrack_c: BarrackComponent) -> void:
 							melee_c.bind_melee_relations(blocker_id, soldier.id)
 		
 		barrack_c.last_soldier_count = soldier_group.get_child_count()
-		barrack_c.new_rally_center_position(barrack_c.rally_center_position, false)
+		barrack_c.set_rally_center_position(barrack_c.rally_center_position, false)
 	else:
 		has_replace_all = false
 
@@ -144,7 +147,7 @@ func _spawn_all_soldiers(e: Entity, barrack_c: BarrackComponent) -> void:
 		for i: int in range(soldier_group.get_child_count(), max_soldier_count):
 			_spawn_soldier(e, barrack_c, soldier_group)
 
-		barrack_c.new_rally_center_position(barrack_c.rally_center_position, false)
+		barrack_c.set_rally_center_position(barrack_c.rally_center_position, false)
 		barrack_c.last_soldier_count = soldier_group.get_child_count()
 		
 		e.y_wait_animation(barrack_c.animation)
