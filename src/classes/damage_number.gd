@@ -1,26 +1,31 @@
 extends Label
 class_name DamageNumber
+## 伤害数字资源。
 
 
+## 伤害数字数据字典，键为伤害值范围，值为伤害数字的缩放比例和移动时间。
 const value_range_data_dict: Dictionary[Array, Dictionary] = {
 	[0, 15]: { "scale": Vector2(0.2, 0.2), "time": 0.7 },
 	[16, 30]: { "scale": Vector2(0.3, 0.3), "time": 1 },
-	[21, 70]: { "scale": Vector2(0.6, 0.6), "time": 1.5 },
-	[71, INF]: { "scale": Vector2(0.8, 0.8), "time": 2 },
+	[31, 70]: { "scale": Vector2(0.5, 0.5), "time": 1.5 },
+	[71, INF]: { "scale": Vector2(0.7, 0.7), "time": 2 },
 }
 
 
+## 伤害类型。
 var damage_type: int = C.DamageType.NONE
+## 伤害值。
 var value: float = 0.0
+## 缩放持续时间。
 var scale_duration: float = 0.2
+## 目标的缩放比例。
 var target_scale := Vector2.ZERO
 
-var move_total_time: float = 1
-var move_from := Vector2.ZERO
-var move_to := Vector2.ZERO
-var move_to_radius: float = 50
-var move_velocity := Vector2.ZERO
-var move_gravity: float = 980
+## 移动总时间。
+var move_total_time: float = 0.0
+## 移动速度。
+var move_velocity := Vector2.UP
+## 移动时间戳。
 var move_ts: float = 0.0
 
 
@@ -54,17 +59,13 @@ func _ready() -> void:
 
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "scale", target_scale, scale_duration)
-	
-	move_from = global_position
-	move_to = U.point_on_circle(move_from, move_to_radius, randf_range(-PI, PI))
-	move_velocity = U.initial_parabola_velocity(move_from, move_to, move_total_time, move_gravity)
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	move_ts += delta
 	
-	global_position = U.get_position_in_parabola(move_velocity, move_from, move_ts, move_gravity)
+	global_position = move_velocity * delta
 	
-	if U.is_at_destination(global_position, move_to):
+	if move_ts >= move_total_time:
 		queue_free()
 	

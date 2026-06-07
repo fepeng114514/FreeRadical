@@ -1,8 +1,8 @@
 extends System
 class_name DamageSystem
-## 伤害系统
+## 伤害系统。
 ##
-## 处理伤害队列的伤害造成
+## DamageSystem 负责处理伤害队列的伤害造成。
 
 
 func _on_update(_delta: float) -> void:
@@ -86,6 +86,7 @@ func _on_update(_delta: float) -> void:
 	SystemMgr.damage_queue = new_damage_queue
 	
 
+## 预测伤害。
 func _predict_damage(
 		_target: Entity,
 		health_c: HealthComponent, 
@@ -130,6 +131,7 @@ func _predict_damage(
 	return actual_damage
 
 
+## 死亡处理。
 func _death(d: Damage, target: Entity, health_c: HealthComponent, source: Entity) -> void:
 	var damage_flags: int = d.damage_flags
 			

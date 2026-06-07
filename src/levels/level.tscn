@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level1_bg.png" id="23_n8wpv"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://levels/grid_tileset.tres" id="24_iowrn"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://levels/gird.gd" id="25_b2jp2"]
-[ext_resource type="Script" uid="uid://ds1pxsst6ylus" path="res://levels/pathway_container.gd" id="26_ba5b5"]
+[ext_resource type="Script" uid="uid://ds1pxsst6ylus" path="res://levels/pathway/pathway_container.gd" id="26_ba5b5"]
 [ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://levels/world.gd" id="28_8e6uo"]
 [ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://levels/camera.gd" id="36_l4bmn"]
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://ui/game_ui/game_ui_layer.tscn" id="37_g4khr"]

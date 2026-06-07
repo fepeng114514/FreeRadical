@@ -1,8 +1,8 @@
 extends System
 class_name ModifierSystem
-## 状态效果系统
+## 状态效果系统。
 ##
-## 处理拥有 [ModifierComponent] 状态效果组件的实体
+## ModifierSystem 负责处理拥有 [ModifierComponent] 状态效果组件的实体。
 
 
 func _on_insert(e: Entity) -> bool:
@@ -93,6 +93,7 @@ func _on_remove(e: Entity) -> bool:
 	return true
 
 
+## 处理状态效果的更新。
 func _process_modifier_update() -> void:
 	for e: Entity in EntityMgr.get_entities_group(C.GROUP_MODIFIERS):
 		var modifier_c: ModifierComponent = e.get_node_or_null(C.CN_MODIFIER)
@@ -117,6 +118,7 @@ func _process_modifier_update() -> void:
 		modifier_c.ts = TimeMgr.tick_ts
 
 
+## 处理状态效果的属性修改。
 func _process_property_modifiers() -> void:
 	for e: Entity in EntityMgr.get_valid_entities():
 		# 处理状态效果的属性修改
@@ -139,6 +141,7 @@ func _process_property_modifiers() -> void:
 					_apply_modifier(e, property_mod)
 
 
+## 重置实体的属性值。
 func _reset_property(target: Entity, property_mod: PropertyModifier) -> void:
 	var entity_data: Entity = EntityMgr.get_entity_data(target.scene_name)
 	var data_node: Node = entity_data.get_node_or_null(property_mod.node_path)
@@ -154,6 +157,7 @@ func _reset_property(target: Entity, property_mod: PropertyModifier) -> void:
 	node[property] = base_value
 
 
+## 应用状态效果的属性修改。
 func _apply_modifier(target: Entity, property_mod: PropertyModifier) -> void:
 	var node: Node = target.get_node_or_null(property_mod.node_path)
 	if not node:

@@ -2,25 +2,35 @@ extends Control
 class_name TrackEditorTrackItem
 
 
+## 位于轨道上的位置标签。
 @export var track_pos_label: Label = null
+## 项顺序标签。
 @export var order_label: Label = null
 
-## 在轨道上的位置
+## 位于轨道上的位置。
 var track_pos: float = 0.0:
 	set(v):
 		track_pos = v
 		track_pos_label.text = "%.2f" % v
+## 是否选中。
 var is_selected: bool = false
+## 是否拖动中。
 var is_draging: bool = false
+## 上一次拖动时的全局位置。
 var last_global_x: float = 0.0
+## 上一次刻度间距。
 var last_tick_spacing: float = -1
+## 所属轨道索引。
 var track_idx: int = -1
+## 项索引。
 var idx: int = -1:
 	set(v):
 		idx = v
 		order_label.text = track_editor.order_label_format % (v + 1)
+## 上一次项索引。
 var last_idx: int = -1
 
+## 所属轨道编辑器。
 var track_editor: TrackEditor = null
 
 
@@ -74,6 +84,7 @@ func _process(_delta: float) -> void:
 		modulate = Color.WHITE
 
 
+## 选中项。
 func select() -> void:
 	track_editor.deselect_item()
 	last_global_x = global_position.x
@@ -83,10 +94,12 @@ func select() -> void:
 	track_editor.pointer.position.x = position.x
 
 
+## 擦除项。
 func erase() -> void:
 	track_editor.erase_item(self)
 
 
+## 拖动项。
 func drag_move(event: InputEventMouseMotion) -> void:
 	var current_global_x: float = event.global_position.x
 	var delta_x: float = current_global_x - last_global_x
@@ -99,6 +112,7 @@ func drag_move(event: InputEventMouseMotion) -> void:
 	track_editor.item_move.emit(self)
 
 
+## 应用位置增量。
 func apply_pos_delta(delta_x: float = 0.0) -> void:
 	var to_pos_x: float = position.x + delta_x
 
@@ -119,11 +133,13 @@ func apply_pos_delta(delta_x: float = 0.0) -> void:
 	_update_track_pos()
 
 
+## 通过轨道位置设置项位置。
 func set_pos_by_track_pos(_track_pos: float) -> void:
 	position.x = _track_pos * track_editor.tick_size_x / track_editor.tick_spacing_spin_box.value
 	track_pos = _track_pos
 
 
+## 更新项位置。
 func _update_track_pos() -> void:
 	var a: float = track_editor.tick_size_x / track_editor.tick_spacing_spin_box.value
 	track_pos = position.x / a

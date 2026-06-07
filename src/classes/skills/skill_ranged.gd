@@ -64,7 +64,7 @@ func _draw() -> void:
 
 		if search:
 			search.draw(self, position)
-		U.draw_offset_group(self, bullet_offsets)
+		OffsetGroup.draw_offset_group(self, bullet_offsets)
 
 
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:

@@ -1,8 +1,8 @@
 @tool
 extends Node2D
-## 世界类
+## 世界类。
 ##
-## 实体通常会挂载到该节点下
+## 实体通常会挂载到该节点下。
 
 
 func _ready() -> void:

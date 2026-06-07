@@ -1,31 +1,33 @@
 extends System
 class_name BehaviorSystem
-## 行为系统
+## 行为系统。
 ##
-## 处理其下的子行为的调用
+## BehaviorSystem 负责处理与管理行为树。
 
 
-var _behaviors: Array[Behavior] = []
-var _update_cbs: Array[Callable] = []
-var _insert_cbs: Array[Callable] = []
-var _remove_cbs: Array[Callable] = []
-var _skip_cbs: Array[Callable] = []
-var _behavior_count: int = 0
+## 行为的更新方法缓存
+var _update_caches: Array[Callable] = []
+## 行为的插入方法缓存
+var _insert_caches: Array[Callable] = []
+## 行为的移除方法缓存
+var _remove_caches: Array[Callable] = []
+## 行为的跳过方法缓存
+var _skip_caches: Array[Callable] = []
+
+## 行为的数量。
+@onready var _behavior_count: int = get_child_count()
 
 
 func _ready() -> void:
-	_behavior_count = get_child_count()
-
 	for child: Behavior in get_children():
-		_behaviors.append(child)
-		_update_cbs.append(child.get("_on_update"))
-		_insert_cbs.append(child.get("_on_insert"))
-		_remove_cbs.append(child.get("_on_remove"))
-		_skip_cbs.append(child.get("_on_skip"))
+		_update_caches.append(child._on_update)
+		_insert_caches.append(child._on_insert)
+		_remove_caches.append(child._on_remove)
+		_skip_caches.append(child._on_skip)
 
 
 func _on_insert(e: Entity) -> bool:
-	for insert_fn: Callable in _insert_cbs:
+	for insert_fn: Callable in _insert_caches:
 		if not insert_fn.call(e):
 			return false
 
@@ -33,7 +35,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_remove(e: Entity) -> bool:
-	for remove_fn: Callable in _remove_cbs:
+	for remove_fn: Callable in _remove_caches:
 		if not remove_fn.call(e):
 			return false
 
@@ -49,11 +51,11 @@ func _on_update(_delta: float) -> void:
 	for e: Entity in entities:
 		var is_break: bool = false
 		for i: int in _behavior_count:
-			var updata_fn: Callable = _update_cbs[i]
+			var updata_fn: Callable = _update_caches[i]
 			
 			if updata_fn.call(e):
 				for skiped_i: int in range(i + 1, _behavior_count):
-					var skip_fn: Callable = _skip_cbs[skiped_i]
+					var skip_fn: Callable = _skip_caches[skiped_i]
 					skip_fn.call(e)
 				
 				is_break = true

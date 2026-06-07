@@ -610,30 +610,6 @@ static func pick_random(array: Array) -> Variant:
 
 
 #region 绘制相关方法
-## 绘制偏移组。
-static func draw_offset_group(
-		drawer: CanvasItem, offset_group: OffsetGroup, radius: float = 3, color := Color.GREEN
-	) -> void:
-	if not offset_group:
-		return
-
-	var cross_len: float = radius * 1.5
-	for offset_value: Vector2 in offset_group.to_dict().values():
-		if offset_value == Vector2.ZERO:
-			continue
-
-		# 中间的圆
-		var fill_color: Color = Color(color.r, color.g, color.b, 0.4)
-		drawer.draw_circle(offset_value, radius * 0.8, fill_color, true)
-		drawer.draw_circle(offset_value, radius, color, false, 1.2)
-
-		# 十字线
-		var p1: Vector2 = offset_value + Vector2(-cross_len, 0)
-		var p2: Vector2 = offset_value + Vector2(cross_len, 0)
-		var p3: Vector2 = offset_value + Vector2(0, -cross_len)
-		var p4: Vector2 = offset_value + Vector2(0, cross_len)
-		drawer.draw_line(p1, p2, color, 1.2)
-		drawer.draw_line(p3, p4, color, 1.2)
 
 
 ## 绘制范围圆。

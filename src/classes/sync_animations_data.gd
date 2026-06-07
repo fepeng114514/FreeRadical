@@ -1,6 +1,6 @@
 extends Resource
 class_name SyncAnimationsData
-## 同步动画组资源
+## 同步动画组资源。
 
 
 @export var idle: AnimationGroup = null

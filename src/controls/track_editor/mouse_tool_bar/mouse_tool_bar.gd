@@ -2,12 +2,15 @@ extends HBoxContainer
 class_name TrackEditorMouseToolBar
 
 
+## 工具按钮切换信号。
 signal tool_button_toggled(opened_tools: int)
 
 
+## 已打开的工具标志。
 var opened_tools: int = 0
 
 
+## 设置已打开的工具。
 func set_opened_tools(tool_button: TrackEditorMouseToolButton, toggled_on: bool) -> void:
 	if toggled_on:
 		opened_tools |= tool_button.tool_flag

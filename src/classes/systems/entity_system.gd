@@ -1,8 +1,8 @@
 extends System
 class_name EntitySystem
-## 实体系统
+## 实体系统。
 ##
-## 处理实体的回调与更新
+## EntitySystem 负责处理实体的回调与更新。
 
 
 func _on_insert(e: Entity) -> bool:
@@ -45,7 +45,8 @@ func _on_update(delta: float) -> void:
 		if e.is_first_update:
 			e.is_first_update = false
 		
-	
+		
+## 更新实体。
 func _update_entity(e: Entity, delta: float) -> void:
 	if e.is_first_update:
 		e.play_animation(e.spawn_animation)

@@ -1,8 +1,8 @@
 extends System
 class_name AuraSystem
-## 光环系统
+## 光环系统。
 ##
-## 处理拥有 [AuraComponent] 光环组件的实体
+## AuraSystem 负责处理拥有 [AuraComponent] 光环组件的实体。
 
 
 func _on_insert(e: Entity) -> bool:

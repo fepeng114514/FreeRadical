@@ -1,6 +1,9 @@
+@abstract
 extends Node
 class_name System
-## 系统类
+## 系统基类。
+##
+## System 是所有系统的基类，组件的逻辑都是通过系统实现的。
 
 
 #region 回调函数

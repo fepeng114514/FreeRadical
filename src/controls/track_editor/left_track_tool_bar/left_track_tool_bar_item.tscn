@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" uid="uid://b11blhavayv5y" path="res://controls/track_editor/left_track_tool_bar/left_track_tool_bar_item.gd" id="1_18vxg"]
 
-[node name="LeftTrackEditorTrackToolBarItem" type="VBoxContainer" unique_id=1483068377 node_paths=PackedStringArray("number_label")]
+[node name="LeftTrackEditorTrackToolBarItem" type="VBoxContainer" unique_id=1483068377]
 custom_minimum_size = Vector2(0, 63)
 offset_right = 24.0
 offset_bottom = 63.0
 theme_override_constants/separation = 0
 alignment = 1
 script = ExtResource("1_18vxg")
-number_label = NodePath("HBoxContainer/NumberLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=934389490]
 layout_mode = 2

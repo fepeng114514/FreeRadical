@@ -2,14 +2,17 @@ extends VBoxContainer
 class_name TrackEditorLeftTrackToolBarItem
 
 
-@export var number_label: Label = null
+## 轨道序号标签引用。
+@export var track_order_label: Label = null
 
+## 轨道编辑器引用。
 var track_editor: TrackEditor = null
 
 
 func _ready() -> void:
-	update_number()
+	update_track_order_label()
 
 
-func update_number() -> void:
-	number_label.text = str(get_index() + 1)
+## 更新轨道序号标签。
+func update_track_order_label() -> void:
+	track_order_label.text = str(get_index() + 1)

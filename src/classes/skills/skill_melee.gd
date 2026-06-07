@@ -21,7 +21,8 @@ class_name SkillMelee
 
 
 func _ready() -> void:
-	U.connect_resource_changed(influence, queue_redraw)
+	if Engine.is_editor_hint():
+		U.connect_resource_changed(influence, queue_redraw)
 
 
 func _draw() -> void:

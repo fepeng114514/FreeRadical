@@ -1,21 +1,21 @@
 extends Node2D
 class_name Level
-## 关卡节点
+## 关卡节点。
 
 
-## 初始金币
+## 初始金币。
 @export var cash: int = 200
-## 初始生命
+## 初始生命。
 @export var life: int = 20
-## 默认塔位样式
+## 默认塔位样式。
 @export var defaul_tower_holder: StringName = &"tower_holder_grass"
-## 地图大小
+## 地图大小。
 @export var world_size := Vector2(2560, 1440)
 
 @export_group("Music")
-## 准备阶段播放的音乐数据
+## 准备阶段播放的音乐数据。
 @export var ready_music: AudioGroup = null
-## 战斗阶段播放的音乐数据
+## 战斗阶段播放的音乐数据。
 @export var battle_music: AudioGroup = null
 
 

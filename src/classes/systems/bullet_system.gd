@@ -1,8 +1,8 @@
 extends System
 class_name BulletSystem
-## 子弹系统
+## 子弹系统。
 ##
-## 处理拥有 [BulletComponent] 子弹组件的实体的飞行轨迹、命中检测和伤害计算等相关逻辑。
+## BulletSystem 负责处理拥有 [BulletComponent] 子弹组件的实体的飞行轨迹、命中检测和伤害计算等相关逻辑。
 
 
 func _on_insert(e: Entity) -> bool:
@@ -78,7 +78,8 @@ func _on_update(delta: float) -> void:
 				
 			_hit(e, bullet_c, target)
 
-		
+
+## 未击中处理。
 func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 	e._on_bullet_miss(bullet_c)
 	
@@ -100,7 +101,8 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 	if bullet_c.miss_remove:
 		e.remove_entity()
 				
-		
+				
+## 命中处理。
 func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 	AudioMgr.play_sfx(bullet_c.hit_sfx)
 	if bullet_c.hit_animation:

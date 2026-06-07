@@ -1,8 +1,11 @@
 extends HBoxContainer
 
 
+## 轨道编辑器引用。
 @export var track_editor: TrackEditor = null
+## 左间距引用。
 @export var left_spacer: Control = null
+## 右间距引用。
 @export var right_spacer: Control = null
 
 

@@ -1,14 +1,19 @@
 @tool
 extends EditorScript
-## 生成 SpriteFrames 资源，并自动按图集数据文件名创建子文件夹分类存放
+## 生成 [SpriteFrames] 资源的工具，并自动按图集数据文件名创建子文件夹分类存放。
 
 
+## 图集数据文件夹。
 const DIR_SPRITE_FRAMES_DATAS: String = "res://tools/sprite_frames_datas/"
+## 图像图集文件夹。
 const DIR_IMAGE_ATLAS: String = "res://assets/atlas/image_atlas/"
+## 动画图集文件夹。
 const DIR_ANIMATED_ATLAS: String = "res://assets/atlas/animated_atlas/"
 
 
+## 缓存的图集纹理。
 var cached_atlas: Dictionary[String, Texture2D] = {}
+## 图像数据库。
 var image_db: Dictionary[String, AtlasTexture] = {}
 
 
@@ -34,9 +39,10 @@ func _run() -> void:
 		var full_path: String = DIR_SPRITE_FRAMES_DATAS.path_join(data_file)
 		var json_data: Dictionary = U.load_json(full_path)
 		var category: String = _get_category_from_path(full_path)
-		_build_and_save_sprite_frames_from_json(category, json_data)
+		_build_and_save_sprite_frames(category, json_data)
 
 
+## 解析图集数据。
 func _parse_atlas_data(path: String, is_animated_atlas: bool) -> void:
 	var category: String = _get_category_from_path(path)
 	var atlas_data: Dictionary = U.load_json(path)
@@ -80,7 +86,8 @@ func _parse_atlas_data(path: String, is_animated_atlas: bool) -> void:
 				image_db[alias] = atlas_texture
 
 
-func _build_and_save_sprite_frames_from_json(category: String, json_data: Dictionary) -> void:
+## 从 JSON 数据创建 SpriteFrames 资源。
+func _build_and_save_sprite_frames(category: String, json_data: Dictionary) -> void:
 	for sprite_frames_name: String in json_data:
 		var sprite_frames_info: Dictionary = json_data[sprite_frames_name]
 		var is_layered: bool = (
@@ -97,6 +104,7 @@ func _build_and_save_sprite_frames_from_json(category: String, json_data: Dictio
 			_process_and_save_sprite_frames(category, sprite_frames_name, anim_group)
 
 
+## 处理并保存 [SpriteFrames] 资源。
 func _process_and_save_sprite_frames(category: String, sprite_frames_name: String, anim_group: Dictionary) -> void:
 	var sprite_frames := SpriteFrames.new()
 	sprite_frames.remove_animation("default")  # 移除默认的空动画
@@ -129,6 +137,7 @@ func _process_and_save_sprite_frames(category: String, sprite_frames_name: Strin
 	_save_sprite_frames(category, sprite_frames_name, sprite_frames)
 
 
+## 创建图集纹理。
 func _create_atlas_texture(img_data: Dictionary, atlas_file: Texture2D) -> AtlasTexture:
 	var quad_data: Array = img_data["quad"]
 	var atlas_texture: AtlasTexture = AtlasTexture.new()
@@ -140,6 +149,7 @@ func _create_atlas_texture(img_data: Dictionary, atlas_file: Texture2D) -> Atlas
 	return atlas_texture
 
 
+## 保存图集纹理。
 func _save_atlas_texture(category: String, atlas_texture_name: String, atlas_texture: AtlasTexture) -> void:
 	var dir_path: String = "res://assets/atlas/atlas_textures/%s/" % category
 	_ensure_directory(dir_path)
@@ -148,6 +158,7 @@ func _save_atlas_texture(category: String, atlas_texture_name: String, atlas_tex
 	Log.info("生成 AtlasTexture: %s" % save_path)
 
 
+## 保存 [SpriteFrames] 资源。
 func _save_sprite_frames(category: String, sprite_frames_name: String, sprite_frames: SpriteFrames) -> void:
 	var dir_path: String = "res://assets/atlas/sprite_frames/%s/" % category
 	_ensure_directory(dir_path)
@@ -156,11 +167,13 @@ func _save_sprite_frames(category: String, sprite_frames_name: String, sprite_fr
 	Log.info("生成 SpriteFrames: %s" % save_path)
 
 
+## 确保目录存在。
 func _ensure_directory(path: String) -> void:
 	var dir := DirAccess.open("res://")
 	if dir and not dir.dir_exists(path):
 		dir.make_dir_recursive(path)
 
 
+## 从路径中提取分类。
 func _get_category_from_path(path: String) -> String:
-	return path.get_file().get_basename()  # 返回不带路径和扩展名的文件名
+	return path.get_file().get_basename()

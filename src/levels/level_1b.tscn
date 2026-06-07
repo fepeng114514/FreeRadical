@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://classes/wave/sub_wave.gd" id="5_32cln"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="7_6ioow"]
 [ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder_grass.tscn" id="8_oewxi"]
-[ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://levels/pathway.gd" id="9_ups30"]
+[ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://levels/pathway/pathway.gd" id="9_ups30"]
 [ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://ui/game_ui/wave_flag/wave_flag.tscn" id="10_dhsvx"]
 
 [sub_resource type="Resource" id="Resource_kc3v0"]

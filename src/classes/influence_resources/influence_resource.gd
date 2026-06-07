@@ -4,8 +4,7 @@ extends Resource
 class_name InfluenceResource
 ## 影响资源基类。
 ##
-## InfluenceResource 用于定义如何影响目标，例如治疗、造成伤害、给予状态效果等。[br]
-## 影响资源可以是范围影响，也可以是单个实体影响。
+## InfluenceResource 用于定义如何影响目标，例如治疗、造成伤害、给予状态效果等。
 
 
 @export_group("Extra")

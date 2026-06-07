@@ -1,21 +1,20 @@
 extends Camera2D
 class_name Camera
-## 相机类
+## 相机类，用于控制游戏中的相机。
 
 
-## 缩放因子
+## 缩放因子。
 @export var zoom_factor: float = 1.1
-## 缩放时长
+## 缩放时长。
 @export var zoom_duration: float = 0.2
-## 最小缩放
+## 最小缩放。
 @export var zoom_min: float = 0.0
-## 最大缩放
+## 最大缩放。
 @export var zoom_max: float = 1.5
-## 
 
-## 是否正在拖拽
+## 是否正在拖拽。
 var _dragging: bool = false
-## 拖拽位置
+## 拖拽位置。
 var _drag_start_position := Vector2.ZERO
 
 
@@ -57,6 +56,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	_move(event.position)
 
 
+## 平滑缩放。
 func _smooth_zoom(reversed: bool = false) -> void:
 	var target_zoom: Vector2
 	
@@ -75,6 +75,7 @@ func _smooth_zoom(reversed: bool = false) -> void:
 	tween.tween_property(self, "zoom", target_zoom, zoom_duration)
 
 
+## 移动相机。
 func _move(target_pos: Vector2) -> void:
 	# 计算鼠标移动距离
 	var drag_offset: Vector2 = _drag_start_position - target_pos
@@ -83,6 +84,7 @@ func _move(target_pos: Vector2) -> void:
 	_drag_start_position = target_pos
 
 
+## 重置缩放。
 func _reset_zoom() -> void:
 	var window_size_factor: Vector2 = (
 		GlobalMgr.window_size / GlobalMgr.max_window_size

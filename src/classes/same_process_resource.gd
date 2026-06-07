@@ -1,22 +1,28 @@
 extends Resource
 class_name SameProcessResource
+## 相同处理资源。
+##
+## SameProcessResource 用于处理多个相同类型的光环或状态效果如何叠加。
 
 
-enum SameMode {
-	## 允许叠加
+## 处理模式枚举。
+enum Mode {
+	## 允许叠加。
 	MULTIPLE,
-	## 重置持续时间
+	## 重置持续时间。
 	RESET,
-	## 替换相同的光环
+	## 替换相同的光环。
 	REPLACE,
-	## 叠加持续时间
+	## 堆叠持续时间。
 	STACK,
 }
 
 
-@export var same_mode: SameMode = SameMode.REPLACE
+## 处理模式。
+@export var mode: Mode = Mode.REPLACE
 
 
+## 处理相同实体。
 func process(e: Entity, samed_entity_list: Array[Entity]) -> bool:
 	samed_entity_list.sort_custom(
 		func(a1: Entity, a2: Entity) -> bool: 
@@ -25,16 +31,16 @@ func process(e: Entity, samed_entity_list: Array[Entity]) -> bool:
 	var min_level_e: Entity = samed_entity_list[-1]
 	var max_level_e: Entity = samed_entity_list[0]
 	
-	match same_mode:
-		SameMode.MULTIPLE:
+	match mode:
+		Mode.MULTIPLE:
 			return true
-		SameMode.REPLACE:
+		Mode.REPLACE:
 			min_level_e.remove_entity()
 			return true
-		SameMode.RESET:
+		Mode.RESET:
 			max_level_e.insert_ts -= TimeMgr.tick_ts
 			return false
-		SameMode.STACK:
+		Mode.STACK:
 			max_level_e.insert_ts -= e.duration
 			return false
 

@@ -1,8 +1,10 @@
 extends HScrollBar
 
 
+## 主滚动容器引用。
 @export var main_scroll_container: ScrollContainer = null
 
+## 主滚动容器子项引用。
 @onready var main_scroll_container_child: Control = main_scroll_container.get_child(0)
 
 

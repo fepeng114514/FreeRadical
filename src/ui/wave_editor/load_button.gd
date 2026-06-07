@@ -1,6 +1,7 @@
 extends Button
 
 
+## 文件对话框引用。
 @export var file_dialog: FileDialog = null
 
 

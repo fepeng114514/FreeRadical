@@ -1,8 +1,13 @@
 @tool
 extends EditorScript
+## 更新音频路径的工具。
 
 
+## 音频资产目录路径。
 const AUDIO_ASSETS_DIR_PATH: String = "res://assets/audios/"
+
+
+## 音频路径数组。
 var audio_paths := PackedStringArray()
 
 

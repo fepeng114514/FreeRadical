@@ -1,9 +1,9 @@
 @tool
 extends Node2D
 class_name Entity
-## 实体节点
+## 实体节点。
 ##
-## 游戏中所有具有行为和属性的对象都可以被表示为实体，例如: 敌人、友军、塔、子弹、状态效果等。 
+## 游戏中所有具有行为和属性的对象都可以被表示为 Entity，例如: 敌人、友军、防御塔、子弹、状态效果等。 [br][br]
 ## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
 
 
@@ -113,8 +113,7 @@ func _ready() -> void:
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		U.draw_offset_group(self, hit_offsets)
-
+		OffsetGroup.draw_offset_group(self, hit_offsets)
 	
 @warning_ignore_start("unused_parameter")
 ## 插入实体时调用，返回 false 的实体将会被移除

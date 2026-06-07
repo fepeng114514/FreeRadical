@@ -1,6 +1,7 @@
 extends Button
 
 
+## 轨道编辑器引用。
 @export var track_editor: TrackEditor = null
 
 

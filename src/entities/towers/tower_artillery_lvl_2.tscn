@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="11_kj6gf"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="13_3bdla"]
 
-[sub_resource type="Resource" id="Resource_qpetq"]
+[sub_resource type="Resource" id="Resource_3ifdg"]
 resource_local_to_scene = true
 script = ExtResource("2_qpetq")
 flags = 16
@@ -21,7 +21,7 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_opgrv"]
+[sub_resource type="Resource" id="Resource_mhbvy"]
 resource_local_to_scene = true
 script = ExtResource("9_kj6gf")
 max_radius = 300.0
@@ -32,7 +32,7 @@ script = ExtResource("13_3bdla")
 any = Vector2(0, -71.905)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_e0rle"]
+[sub_resource type="Resource" id="Resource_shpx8"]
 resource_local_to_scene = true
 script = ExtResource("11_kj6gf")
 damage_min = 20.0
@@ -45,7 +45,7 @@ metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArtilleryLvl2" unique_id=1600363506 instance=ExtResource("1_mlysv")]
 scene_name = "tower_artillery_lvl_2"
-interact_policy = SubResource("Resource_qpetq")
+interact_policy = SubResource("Resource_3ifdg")
 
 [node name="SpriteGroup" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=557425361]
 position = Vector2(0, -49)
@@ -76,7 +76,7 @@ show_range_offset = Vector2(0, 43.52)
 price = 225.0
 
 [node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
-search = SubResource("Resource_opgrv")
-bullet = "tower_artillery_lvl_2_bullet"
+search = SubResource("Resource_mhbvy")
+bullet = &"tower_artillery_lvl_2_bullet"
 bullet_offsets = SubResource("Resource_thpnf")
-influence = SubResource("Resource_e0rle")
+influence = SubResource("Resource_shpx8")

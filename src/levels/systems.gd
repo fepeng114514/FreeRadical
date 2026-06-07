@@ -1,5 +1,5 @@
 extends Node
-## 系统列表类
+## 系统列表类。
 
 
 func _ready() -> void:

@@ -1,6 +1,7 @@
 extends TrackEditorMouseToolBar
 
 
+## 波次编辑器引用。
 @export var wave_editor: WaveEditor = null
 
 

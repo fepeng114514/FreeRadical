@@ -1,7 +1,10 @@
 extends VBoxContainer
 
 
+@export_group("Ref")
+## 轨道编辑器引用。
 @export var track_editor: TrackEditor = null
+## 间距引用
 @export var spacer: Control = null
 
 

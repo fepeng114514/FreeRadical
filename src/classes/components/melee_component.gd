@@ -76,7 +76,7 @@ func _draw() -> void:
 	if Engine.is_editor_hint():
 		if search:
 			search.draw(self, position)
-		U.draw_offset_group(self, melee_pos_offsets)
+		OffsetGroup.draw_offset_group(self, melee_pos_offsets)
 	
 	
 func _get_configuration_warnings() -> PackedStringArray:

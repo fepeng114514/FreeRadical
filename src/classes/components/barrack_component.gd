@@ -68,7 +68,7 @@ func _ready() -> void:
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		U.draw_offset_group(self, spawn_offsets)
+		OffsetGroup.draw_offset_group(self, spawn_offsets)
 		U.draw_range_circle(self, position, rally_min_range, rally_max_range, Color.BLUE)
 		
 		draw_circle(
