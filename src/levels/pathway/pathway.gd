@@ -1,6 +1,6 @@
 extends Path2D
 class_name Pathway
-## 路径类
+## 路径。
 
 
 ## 是否禁用当前路径

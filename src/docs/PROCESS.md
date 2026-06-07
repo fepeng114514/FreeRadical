@@ -57,7 +57,7 @@
 示例:
 "idle_up" 表示向上的待机动画。
 "walk_left_right" 表示左右的行走动画。
-"melee" 表示无方向的近战攻击动画。
+"melee" 表示无方向的近战技能动画。
 
 ### 导入音频流程
 1. 将音频文件放到 src/assets/audios 中。

@@ -10,7 +10,7 @@ class_name DodgeComponent
 
 ## 是否可以闪避远程攻击。
 @export var can_dodge_ranged: bool = true
-## 是否可以闪避近战攻击。
+## 是否可以闪避近战技能。
 @export var can_dodge_melee: bool = true
 ## 是否可以闪避区域攻击。
 @export var can_dodge_area: bool = false
@@ -39,7 +39,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 				break
 
 			if not can_dodge_melee and has_melee_skill:
-				warnings.append("无法闪避近战攻击，但增加了近战技能。")
+				warnings.append("无法闪避近战技能，但增加了近战技能。")
 			elif not can_dodge_ranged and has_ranged_skill:
 				warnings.append("无法闪避远程攻击，但增加了远程技能。")
 		

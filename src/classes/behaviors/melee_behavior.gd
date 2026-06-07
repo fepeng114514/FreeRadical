@@ -241,7 +241,7 @@ func _back_origin_pos(e: Entity, melee_c: MeleeComponent) -> bool:
 		return false
 	
 
-## 尝试近战攻击。
+## 尝试近战技能。
 func _try_melee_attack(
 		e: Entity, melee_c: MeleeComponent, target: Entity
 	) -> void:

@@ -278,7 +278,7 @@ const CN_TOWER: NodePath = ^"TowerComponent"
 const CN_MODIFIER: NodePath = ^"ModifierComponent"
 ## 组件路径: 光环。
 const CN_AURA: NodePath = ^"AuraComponent"
-## 组件路径: 近战攻击。
+## 组件路径: 近战技能。
 const CN_MELEE: NodePath = ^"MeleeComponent"
 ## 组件路径: 远程攻击。
 const CN_SKILL: NodePath = ^"SkillComponent"

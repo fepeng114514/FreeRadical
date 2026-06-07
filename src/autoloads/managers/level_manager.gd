@@ -14,6 +14,7 @@ func enter_level(idx: int) -> void:
 	
 	AudioMgr._load()
 	EntityMgr._load()
+	SearchMgr._load()
 	PathwayMgr._load()
 	GridMgr._load()
 

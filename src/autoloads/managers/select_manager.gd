@@ -46,7 +46,7 @@ func try_select() -> void:
 		
 		_deselect()
 	else:
-		var targets: Array[Entity] = EntityMgr.search_targets(
+		var targets: Array[Entity] = SearchMgr.search_targets(
 			C.SearchMode.ENTITY_MAX_ID, 
 			InputMgr.mouse_global_position, 
 			9999, 

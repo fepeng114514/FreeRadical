@@ -39,7 +39,7 @@ func search_targets(e: Entity, center: Vector2, filter: = Callable()) -> Array[E
 		var center_offset: Vector2 = center_offsets.get_offset_for_point(e.global_position, e.look_point)
 		center += center_offset
 
-	var targets: Array[Entity] = EntityMgr.search_targets(
+	var targets: Array[Entity] = SearchMgr.search_targets(
 		search_mode, 
 		center, 
 		max_radius, 

@@ -4,7 +4,7 @@ class_name SkillMelee
 ## 近战技能节点。
 ##
 ## SkillMelee 与 [SkillArea] 唯一区别的就是没有搜索目标这一步，需要被传入目标。[br]
-## 主要用于 [MeleeComponent] 与 [DodgeComponent] 进行近战攻击。
+## 主要用于 [MeleeComponent] 与 [DodgeComponent] 进行近战技能。
 
 
 ## 影响资源。
