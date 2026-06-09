@@ -254,14 +254,24 @@ enum InfoBarType {
 
 ## 方向枚举。
 enum Direction {
+	## 方向：无。
+	NONE = 0,
 	## 方向：上。
-	UP,
+	UP = 1,
 	## 方向：下。
-	DOWN,
+	DOWN = 1 << 1,
 	## 方向：左。
-	LEFT,
+	LEFT = 1 << 2,
 	## 方向：右。
-	RIGHT,
+	RIGHT = 1 << 3,
+	## 方向：左上角。
+	LEFT_UP = UP | LEFT,
+	## 方向：左下角。
+	LEFT_DOWN = DOWN | LEFT,
+	## 方向：右上角。
+	RIGHT_UP = UP | RIGHT,
+	## 方向：右下角。
+	RIGHT_DOWN = DOWN | RIGHT,
 }
 
 

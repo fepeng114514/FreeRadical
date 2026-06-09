@@ -176,28 +176,38 @@ static func is_at_destination(
 	return current_pos.distance_to(target_pos) <= threshold
 
 
-## 根据角度获取方向。
-static func get_direction_by_angle(
-		angle: float, has_horizontal: bool, has_vertical: bool
-	) -> C.Direction:
-	if has_vertical and not has_horizontal:
-		# 纯垂直输入（包括单独上、单独下、同时）
-		return C.Direction.UP if angle < 0 else C.Direction.DOWN
-	elif has_horizontal and not has_vertical:
-		# 纯水平输入（包括单独左、单独右、同时）
-		var is_right := angle >= -C.HALF_PI and angle <= C.HALF_PI
-		return C.Direction.RIGHT if is_right else C.Direction.LEFT
+## 根据角度获取四方向中的一个（上/下/左/右）。
+static func get_cardinal_direction(angle: float) -> C.Direction:
+	var quarter_45: float = C.QUARTER_PI
+
+	if angle >= -3 * quarter_45 and angle < -quarter_45:
+		return C.Direction.UP
+	
+	if angle >= quarter_45 and angle < 3 * quarter_45:
+		return C.Direction.DOWN
+	
+	if angle >= -quarter_45 and angle < quarter_45:
+		return C.Direction.RIGHT
+
+	return C.Direction.LEFT
+
+
+## 根据目标点相对于中心点的位置获取象限方向。[br]
+## 返回值是方向位掩码组合，可能包含多个方向（如右上 = UP | RIGHT）
+static func get_quadrant_direction(center: Vector2, point: Vector2) -> C.Direction:
+	var direction: int = C.Direction.NONE
+
+	if point.y <= center.y:
+		direction |= C.Direction.UP
 	else:
-		# 八方向模式（无输入 / 双轴同时 / 双轴都有）
-		var half_45: float = C.QUARTER_PI
-		if angle >= -3 * half_45 and angle < -half_45:
-			return C.Direction.UP
-		elif angle >= half_45 and angle < 3 * half_45:
-			return C.Direction.DOWN
-		elif angle >= -half_45 and angle < half_45:
-			return C.Direction.RIGHT
-		else:
-			return C.Direction.LEFT
+		direction |= C.Direction.DOWN
+	
+	if point.x >= center.x:
+		direction |= C.Direction.RIGHT
+	else:
+		direction |= C.Direction.LEFT
+
+	return direction as C.Direction
 #endregion
 
 

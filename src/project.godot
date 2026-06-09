@@ -39,7 +39,6 @@ buses/default_bus_layout="res://autoloads/managers/audio_bus_layout.tres"
 [autoload]
 
 AudioMgr="*uid://vs7lopahte38"
-S="*uid://5xpvvkr5hlmu"
 GlobalMgr="*uid://ct01c5jk3ruit"
 GameMgr="*res://autoloads/managers/game_manager.gd"
 WaveMgr="*uid://ssg02uvoaqp7"

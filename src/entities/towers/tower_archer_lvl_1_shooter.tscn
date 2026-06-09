@@ -12,8 +12,10 @@
 
 [sub_resource type="Resource" id="Resource_e0w6f"]
 script = ExtResource("2_csl3h")
+right_replace_left = null
 up = &"idle_up"
 down = &"idle_down"
+vertical_mirror = true
 
 [sub_resource type="Resource" id="Resource_uea8m"]
 resource_local_to_scene = true
@@ -23,7 +25,9 @@ metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_367kr"]
 script = ExtResource("7_eanea")
-any = Vector2(5.725, -18.35)
+down_replace_up = true
+down = Vector2(5.725, -18.35)
+vertical_mirror = true
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
 [sub_resource type="Resource" id="Resource_wxd0v"]
@@ -38,8 +42,10 @@ metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_6rlp0"]
 script = ExtResource("2_csl3h")
+right_replace_left = true
 up = &"ranged_up"
 down = &"ranged_down"
+vertical_mirror = true
 
 [node name="TowerArcherLvl1Shooter" type="Node2D" unique_id=2011504655]
 script = ExtResource("1_kc3g7")
@@ -56,13 +62,14 @@ sprite_frames = ExtResource("4_wku2c")
 animation = &"idle_down"
 
 [node name="SkillComponent" type="Node2D" parent="." unique_id=129640034]
+visible = false
 script = ExtResource("5_skugy")
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="SkillRanged" type="Node2D" parent="SkillComponent" unique_id=1939030855]
 script = ExtResource("6_vh14o")
 search = SubResource("Resource_uea8m")
-bullet = "tower_archer_bullet"
+bullet = &"tower_archer_bullet"
 bullet_offsets = SubResource("Resource_367kr")
 influence = SubResource("Resource_wxd0v")
 cooldown = 0.8

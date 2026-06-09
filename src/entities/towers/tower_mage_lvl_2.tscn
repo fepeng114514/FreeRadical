@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_53fa8"]
 [ext_resource type="PackedScene" uid="uid://dy5nu6xryehuk" path="res://entities/towers/tower_mage_lvl_2_shooter.tscn" id="3_6eiy2"]
 
-[sub_resource type="Resource" id="Resource_53fa8"]
+[sub_resource type="Resource" id="Resource_ypuuu"]
 resource_local_to_scene = true
 script = ExtResource("2_53fa8")
 flags = 16
@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerMageLvl2" unique_id=88348674 instance=ExtResource("1_4dbkk")]
 scene_name = "tower_mage_lvl_2"
-interact_policy = SubResource("Resource_53fa8")
+interact_policy = SubResource("Resource_ypuuu")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=793888686]
 sprite_frames = ExtResource("2_4r6pv")
@@ -24,7 +24,7 @@ sprite_frames = ExtResource("2_4r6pv")
 price = 160.0
 
 [node name="TowerMageLvl2Shooter" parent="TowerComponent" index="0" unique_id=1442245649 instance=ExtResource("3_6eiy2")]
-position = Vector2(0, -51)
+position = Vector2(0, -57)
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-60.545, -85.265, 126.87, 110.86)

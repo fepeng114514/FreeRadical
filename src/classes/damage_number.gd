@@ -5,10 +5,31 @@ class_name DamageNumber
 
 ## 伤害数字数据字典，键为伤害值范围，值为伤害数字的缩放比例和移动时间。
 const value_range_data_dict: Dictionary[Array, Dictionary] = {
-	[0, 15]: { "scale": Vector2(0.2, 0.2), "time": 0.7 },
-	[16, 30]: { "scale": Vector2(0.3, 0.3), "time": 1 },
-	[31, 70]: { "scale": Vector2(0.5, 0.5), "time": 1.5 },
-	[71, INF]: { "scale": Vector2(0.7, 0.7), "time": 2 },
+	[0, 15]: { 
+		"scale": 0.2, 
+		"time": 0.5,
+		"speed": 100,
+	},
+	[16, 30]: { 
+		"scale": 0.225, 
+		"time": 0.6,
+		"speed": 83,
+	},
+	[31, 50]: { 
+		"scale": 0.275, 
+		"time": 0.7,
+		"speed": 71,
+	},
+	[51, 90]: { 
+		"scale": 0.325, 
+		"time": 0.8,
+		"speed": 62,
+	},
+	[91, INF]: { 
+		"scale": 0.35, 
+		"time": 0.9,
+		"speed": 55,
+	},
 }
 
 
@@ -24,20 +45,22 @@ var target_scale := Vector2.ZERO
 ## 移动总时间。
 var move_total_time: float = 0.0
 ## 移动速度。
-var move_velocity := Vector2.UP
+var move_speed: float = 100.0
 ## 移动时间戳。
 var move_ts: float = 0.0
 
 
 func _ready() -> void:
-	text = str(value)
+	text = "%d" % value
 
 	for value_range: Array in value_range_data_dict:
 		var min_range: float = value_range[0]
 		var max_range: float = value_range[1]
 		if value >= min_range and value <= max_range:
-			target_scale = value_range_data_dict[value_range]["scale"]
-			move_total_time = value_range_data_dict[value_range]["time"]
+			var s: float = value_range_data_dict[value_range].scale
+			target_scale = Vector2(s, s)
+			move_total_time = value_range_data_dict[value_range].time
+			move_speed = value_range_data_dict[value_range].speed
 			break
 
 	if damage_type & C.DamageType.PHYSICAL:
@@ -50,7 +73,6 @@ func _ready() -> void:
 		modulate = Color.BLUE
 	elif damage_type & C.DamageType.TRUE:
 		modulate = Color.GOLD
-
 	else:
 		modulate = Color(0.5, 1, 0.5, 1)
 
@@ -64,7 +86,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	move_ts += delta
 	
-	global_position = move_velocity * delta
+	global_position += Vector2(0, -move_speed) * delta
 	
 	if move_ts >= move_total_time:
 		queue_free()

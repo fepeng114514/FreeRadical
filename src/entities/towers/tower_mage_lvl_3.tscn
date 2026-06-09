@@ -5,7 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://dikgdn5r2afsi" path="res://assets/atlas/sprite_frames/towers/tower_mage_lvl3.tres" id="2_d1vad"]
 [ext_resource type="PackedScene" uid="uid://cdu8pyq7bit5w" path="res://entities/towers/tower_mage_lvl_3_shooter.tscn" id="4_kjimq"]
 
-[sub_resource type="Resource" id="Resource_6vdtt"]
+[sub_resource type="Resource" id="Resource_2banl"]
 resource_local_to_scene = true
 script = ExtResource("2_6vdtt")
 flags = 16
@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerMageLvl3" unique_id=88348674 instance=ExtResource("1_jbs6t")]
 scene_name = "tower_mage_lvl_3"
-interact_policy = SubResource("Resource_6vdtt")
+interact_policy = SubResource("Resource_2banl")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=793888686]
 sprite_frames = ExtResource("2_d1vad")
@@ -25,7 +25,7 @@ show_range_offset = Vector2(0, -6.43)
 price = 240.0
 
 [node name="TowerMageLvl3Shooter" parent="TowerComponent" index="0" unique_id=1442245649 instance=ExtResource("4_kjimq")]
-position = Vector2(1, -60)
+position = Vector2(0, -66)
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-61.565, -88.7, 126.005, 116.245)

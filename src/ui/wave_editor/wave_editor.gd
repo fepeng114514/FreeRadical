@@ -23,7 +23,7 @@ var selected_spawn: WaveSpawn = null
 
 
 func _ready() -> void:
-	var entity_scene_dict: Dictionary[String, PackedScene] = EntityMgr.load_entity_scene()
+	var entity_scene_dict: Dictionary[String, PackedScene] = EntityMgr.load_entity_scenes()
 
 	var i: int = 0
 	for scene_name: String in entity_scene_dict:
