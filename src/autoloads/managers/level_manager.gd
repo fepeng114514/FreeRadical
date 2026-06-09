@@ -12,7 +12,6 @@ var level_idx: int = 1
 func enter_level(idx: int) -> void:
 	level_idx = idx
 	
-	AudioMgr._load()
 	EntityMgr._load()
 	SearchMgr._load()
 	PathwayMgr._load()

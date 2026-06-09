@@ -2,12 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://entities/towers/tower.tscn" id="1_og8n7"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="2_bcrmv"]
+[ext_resource type="AudioStream" uid="uid://clan5d73j5qax" path="res://assets/audios/archer_ready.ogg" id="2_vhhys"]
+[ext_resource type="AudioStream" uid="uid://b5f5tfbarrnm6" path="res://assets/audios/archer_taunt1.ogg" id="3_5i048"]
 [ext_resource type="Texture2D" uid="uid://dtsvx4dii2nv7" path="res://assets/atlas/atlas_textures/image_towers/tower_archer_0001.tres" id="3_bcrmv"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_wq07w"]
+[ext_resource type="AudioStream" uid="uid://c80a54hn8ph6l" path="res://assets/audios/archer_taunt2.ogg" id="4_r76y5"]
 
 [sub_resource type="Resource" id="Resource_wq07w"]
 script = ExtResource("2_bcrmv")
-list = Array[StringName]([&"archer_ready", &"archer_taunt1", &"archer_taunt2"])
+list = Array[AudioStream]([ExtResource("2_vhhys"), ExtResource("3_5i048"), ExtResource("4_r76y5")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_wgof1"]

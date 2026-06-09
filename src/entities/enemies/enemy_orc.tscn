@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_w5ikr"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_572ol"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_bomnd"]
+[ext_resource type="AudioStream" uid="uid://v0wce41w75e7" path="res://assets/audios/sound_enemy_orc_dead.ogg" id="5_2yp6p"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="5_06yx3"]
 
 [sub_resource type="Resource" id="Resource_06yx3"]
@@ -22,7 +23,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_w5ikr"]
 script = ExtResource("3_bomnd")
-list = Array[StringName]([&"sound_enemy_orc_dead"])
+list = Array[AudioStream]([ExtResource("5_2yp6p")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_2yp6p"]

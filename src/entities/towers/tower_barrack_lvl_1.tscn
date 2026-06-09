@@ -9,6 +9,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cw8llhkfko3ih" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl1_door.tres" id="5_3ddwr"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="7_4wg18"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="8_3sqnj"]
+[ext_resource type="AudioStream" uid="uid://dcnpba3drwfdg" path="res://assets/audios/sound_tower_open_door.ogg" id="9_6vjbv"]
 
 [sub_resource type="Resource" id="Resource_4wg18"]
 script = ExtResource("2_5r4pg")
@@ -36,13 +37,12 @@ any = &"spawn"
 
 [sub_resource type="Resource" id="Resource_3ddwr"]
 script = ExtResource("7_4wg18")
-list = Array[StringName]([&"sound_tower_open_door"])
+list = Array[AudioStream]([ExtResource("9_6vjbv")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerBarrackLvl1" unique_id=187367710 instance=ExtResource("1_og8n7")]
 scene_name = "tower_barrack_lvl_1"
 idle_animation = SubResource("Resource_4wg18")
-spawn_sfx = ExtResource("2_cw5qr")
 interact_policy = SubResource("Resource_3sqnj")
 
 [node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
@@ -69,7 +69,6 @@ rally_radius = 45.0
 rally_sfx = ExtResource("2_cw5qr")
 soldier = "tower_barrack_lvl_1_soldier"
 spawn_offsets = SubResource("Resource_2u03i")
-max_soldier_count = 1
 animation = SubResource("Resource_xe47h")
 delay = 0.167
 sfx = SubResource("Resource_3ddwr")

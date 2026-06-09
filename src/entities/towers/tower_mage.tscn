@@ -4,8 +4,11 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_ewl0l"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_au4tr"]
 [ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/sync_animations_data.gd" id="3_t83il"]
+[ext_resource type="AudioStream" uid="uid://d0f7melsijrru" path="res://assets/audios/mage_ready.ogg" id="3_yq4r1"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_dxk8f"]
+[ext_resource type="AudioStream" uid="uid://ultbty078qj" path="res://assets/audios/mage_taunt1.ogg" id="4_u3wef"]
 [ext_resource type="SpriteFrames" uid="uid://baq8dynl0bjyu" path="res://assets/atlas/sprite_frames/towers/tower_mage_lvl1.tres" id="5_au4tr"]
+[ext_resource type="AudioStream" uid="uid://c5tbkrb0rbuv5" path="res://assets/audios/mage_taunt2.ogg" id="5_crrj5"]
 
 [sub_resource type="Resource" id="Resource_t83il"]
 script = ExtResource("2_ewl0l")
@@ -14,10 +17,10 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [sub_resource type="Resource" id="Resource_dxk8f"]
 script = ExtResource("3_au4tr")
-list = Array[StringName]([&"mage_ready", &"mage_taunt1", &"mage_taunt2"])
+list = Array[AudioStream]([ExtResource("3_yq4r1"), ExtResource("4_u3wef"), ExtResource("5_crrj5")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[sub_resource type="Resource" id="Resource_gtom4"]
+[sub_resource type="Resource" id="Resource_ucvro"]
 resource_local_to_scene = true
 script = ExtResource("4_dxk8f")
 flags = 16
@@ -45,7 +48,7 @@ metadata/_custom_type_script = "uid://qu0synx4c136"
 scene_name = "tower_mage"
 idle_animation = SubResource("Resource_t83il")
 spawn_sfx = SubResource("Resource_dxk8f")
-interact_policy = SubResource("Resource_gtom4")
+interact_policy = SubResource("Resource_ucvro")
 
 [node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
 position = Vector2(-1, -33)

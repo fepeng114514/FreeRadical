@@ -17,8 +17,8 @@
 
 [sub_resource type="Resource" id="Resource_ovm3w"]
 script = ExtResource("2_i4u0u")
-mirror_horizontal = true
 right = &"idle_left_right"
+right_replace_left = true
 
 [sub_resource type="Resource" id="Resource_bn5sp"]
 resource_local_to_scene = true
@@ -30,18 +30,17 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_2a2qa"]
 script = ExtResource("2_i4u0u")
-mirror_horizontal = true
 right = &"death_left_right"
+right_replace_left = true
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [sub_resource type="Resource" id="Resource_enhu5"]
 script = ExtResource("2_i4u0u")
-mirror_horizontal = true
 right = &"walk_left_right"
+right_replace_left = true
 
 [sub_resource type="Resource" id="Resource_prid8"]
 script = ExtResource("8_y4pex")
-mirror_horizontal = true
 right = Vector2(34.92, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
@@ -63,8 +62,8 @@ metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_p1ots"]
 script = ExtResource("2_i4u0u")
-mirror_horizontal = true
 right = &"melee_left_right"
+right_replace_left = true
 
 [node name="TowerBarrackLvl1Soldier" type="Node2D" unique_id=1677548747]
 script = ExtResource("1_0rikb")
