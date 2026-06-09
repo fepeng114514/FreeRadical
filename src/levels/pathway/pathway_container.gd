@@ -9,32 +9,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 		
-	var all_node_list: Array[PathwayNode] = PathwayMgr.all_node_list
-	var all_node_list_size: int = all_node_list.size()
-				
-	# 处理路径相交
-	for i: int in all_node_list_size:
-		if i >= all_node_list_size - 1:
-			continue
-		
-		var n: PathwayNode = all_node_list[i]
-		var n_pi: int = n.pi
-		
-		for j: int in range(i + 1, all_node_list_size + 1):
-			if j >= all_node_list_size:
-				continue
-			
-			var other_n: PathwayNode = all_node_list[j]
-			var other_n_pi: int = other_n.pi
-			
-			if other_n_pi == n_pi:
-				continue
-			
-			if n.pos.distance_to(other_n.pos) > PathwayMgr.intersect_dist_threshold:
-				continue
-				
-			n.intersecting_ni_list.append(other_n.ni)
-			other_n.intersecting_ni_list.append(n.ni)
+	_process_path_intersection()
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -42,3 +17,45 @@ func _get_configuration_warnings() -> PackedStringArray:
 		return ["请至少增加一个 Pathway 子节点，否则所有路径相关的操作会出错。"]
 		
 	return []
+
+
+## 处理路径相交。
+func _process_path_intersection() -> void:
+	var all_node_list: Array[PathwayNode] = PathwayMgr.all_node_list
+	var threshold: float = PathwayMgr.intersect_dist_threshold
+	var cell_size: float = threshold
+
+	var grid: Dictionary = {}
+
+	for n: PathwayNode in all_node_list:
+		var cell_x := int(n.pos.x / cell_size)
+		var cell_y := int(n.pos.y / cell_size)
+		var cell_key: Array[int] = [cell_x, cell_y]
+		
+		if not grid.has(cell_key):
+			grid[cell_key] = []
+		grid[cell_key].append(n)
+		
+	# 只检查相邻网格内的节点
+	for n: PathwayNode in all_node_list:
+		var cell_x := int(n.pos.x / cell_size)
+		var cell_y := int(n.pos.y / cell_size)
+		
+		# 检查 3x3 邻域网格（当前格 + 周围8格）
+		for dx: int in range(-1, 2):
+			for dy: int in range(-1, 2):
+				var neighbor_key: Array[int] = [cell_x + dx, cell_y + dy]
+				if not grid.has(neighbor_key):
+					continue
+				
+				for other_n: PathwayNode in grid[neighbor_key]:
+					# 同一路径的点不比较
+					if other_n.pi == n.pi:
+						continue
+					
+					# 距离检测
+					if n.pos.distance_to(other_n.pos) > threshold:
+						continue
+					
+					n.intersecting_node_list.append(other_n)
+					other_n.intersecting_node_list.append(n)
