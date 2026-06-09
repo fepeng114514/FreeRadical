@@ -17,6 +17,7 @@
 [sub_resource type="Resource" id="Resource_58mnm"]
 script = ExtResource("2_58mnm")
 right = &"idle_left_right"
+right_replace_left = true
 
 [sub_resource type="Resource" id="Resource_mag4a"]
 resource_local_to_scene = true

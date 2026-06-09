@@ -40,7 +40,6 @@ func _load() -> void:
 		group.clear()
 
 	_next_id = 0
-	
 	_entity_scene_dict = load_entity_scenes()
 
 

@@ -224,16 +224,16 @@ class SearchModeConfig:
 
 
 ## 搜索模式配置构建器。
-class SearchConfigBuilder:
+class SearchConfigs:
 	## 实体分组字典。
-	const GROUP_DICT: Dictionary[String, StringName] = {
+	const _GROUP_DICT: Dictionary[String, StringName] = {
 		"ENTITY": C.GROUP_ENTITIES,
 		"ENEMY": C.GROUP_ENEMIES,
 		"FRIENDLY": C.GROUP_FRIENDLYS,
 		"UNIT": C.GROUP_UNIT,
 	}
 	## 排序模式属性元数据列表。
-	const search_mode_meta_list: Array[Dictionary] = [
+	const _search_mode_meta_list: Array[Dictionary] = [
 		{"name": "PROGRESS", "sort_mode": SortMode.PROGRESS, "has_reverse_mode": true},
 		{"name": "DISTANCE", "sort_mode": SortMode.DISTANCE, "has_reverse_mode": true},
 		{"name": "HEALTH", "sort_mode": SortMode.HEALTH, "has_reverse_mode": true},
@@ -243,40 +243,35 @@ class SearchConfigBuilder:
 		{"name": "GOLD", "sort_mode": SortMode.GOLD, "has_reverse_mode": true},
 		{"name": "RANDOM", "sort_mode": SortMode.RANDOM, "has_reverse_mode": false},
 	]
+	var configs: Dictionary[C.SearchMode, SearchModeConfig] = {}
 
 	## 构建搜索模式配置字典。
-	static func build_search_config() -> Dictionary[C.SearchMode, SearchModeConfig]:
-		var config: Dictionary[C.SearchMode, SearchModeConfig] = {}
+	func _init() -> void:
+		for group: String in _GROUP_DICT:
+			var group_name: StringName = _GROUP_DICT[group]
 
-		for group: String in GROUP_DICT:
-			var group_name: StringName = GROUP_DICT[group]
-
-			for search_mode_meta: Dictionary in search_mode_meta_list:
-				var sort: SortMode = search_mode_meta["sort_mode"]
+			for search_mode_meta: Dictionary in _search_mode_meta_list:
+				var sort: SortMode = search_mode_meta.sort_mode	
 				
-				if search_mode_meta["has_reverse_mode"]:
+				if search_mode_meta.has_reverse_mode:	
 					# MAX 模式：降序 = false
-					var max_mode_name: String = "%s_%s_%s" % [group, "MAX", search_mode_meta["name"]]
-					config[C.SearchMode[max_mode_name]] = SearchModeConfig.new(sort, group_name, false)
+					var max_mode_name: String = "%s_%s_%s" % [group, "MAX", search_mode_meta.name]
+					configs[C.SearchMode[max_mode_name]] = SearchModeConfig.new(sort, group_name, false)
 					
 					# MIN 模式：降序 = true
-					var min_mode_name: String = "%s_%s_%s" % [group, "MIN", search_mode_meta["name"]]
-					config[C.SearchMode[min_mode_name]] = SearchModeConfig.new(sort, group_name, true)
+					var min_mode_name: String = "%s_%s_%s" % [group, "MIN", search_mode_meta.name]
+					configs[C.SearchMode[min_mode_name]] = SearchModeConfig.new(sort, group_name, true)
 				else:
 					# 无反转模式
-					var mode_name: String = "%s_%s" % [group, search_mode_meta["name"]]
-					config[C.SearchMode[mode_name]] = SearchModeConfig.new(sort, group_name, false)
-				
-		return config
+					var mode_name: String = "%s_%s" % [group, search_mode_meta.name]
+					configs[C.SearchMode[mode_name]] = SearchModeConfig.new(sort, group_name, false)
 
 
 ## 搜索模式配置字典。
-var search_config: Dictionary[C.SearchMode, SearchModeConfig] = SearchConfigBuilder.build_search_config()
+var search_configs := SearchConfigs.new()
 
 
-## 搜索范围内目标。
-##
-## filter 返回 false 表示被过滤。
+## 搜索范围内目标，filter 返回 false 表示被过滤。
 func find_targets_in_range(
 		origin: Vector2,
 		max_range: float,
@@ -317,9 +312,7 @@ func find_targets_in_range(
 #endregion
 
 
-## 根据搜索模式选择相应索敌函数（搜索范围内单个目标）。
-##	
-## filter 返回 false 表示被过滤。
+## 根据搜索模式选择相应索敌函数（搜索范围内单个目标），filter 返回 false 表示被过滤。
 func search_targets(
 		search_mode: C.SearchMode, 
 		origin: Vector2, 
@@ -329,10 +322,7 @@ func search_targets(
 		bans: int = 0, 
 		filter: Callable = Callable()
 	) -> Array[Entity]:
-	var config: SearchModeConfig = search_config.get(search_mode)
-	if not config:
-		Log.error("未知搜索模式: %s" % search_mode)
-		return []
+	var config: SearchModeConfig = search_configs.configs[search_mode]
 
 	var group: StringName = config.group
 
@@ -350,9 +340,7 @@ func search_targets(
 	return targets
 
 
-## 根据搜索模式在扇形范围内搜索目标。
-##
-## filter 返回 false 表示被过滤。
+## 根据搜索模式在扇形范围内搜索目标，filter 返回 false 表示被过滤。
 func search_targets_in_sector(
 		search_mode: C.SearchMode,
 		origin: Vector2,
@@ -377,9 +365,7 @@ func search_targets_in_sector(
 	)
 
 
-## 根据搜索模式在矩形范围内搜索目标。
-##
-## filter 返回 false 表示被过滤。
+## 根据搜索模式在矩形范围内搜索目标，filter 返回 false 表示被过滤。
 func search_targets_in_rectangle(
 		search_mode: C.SearchMode,
 		origin: Vector2,

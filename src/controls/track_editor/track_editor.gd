@@ -108,6 +108,7 @@ func _ready() -> void:
 
 ## 选中轨道项。
 func select_item(item: TrackEditorTrackItem) -> void:
+	Log.info("选择轨道项: %s" % item.idx)
 	selected_item = item
 	item.is_selected = true
 	item_select.emit(item)
@@ -117,6 +118,8 @@ func select_item(item: TrackEditorTrackItem) -> void:
 func deselect_item() -> void:
 	if not selected_item:
 		return
+
+	Log.info("取消选中轨道项: %s" % selected_item.idx)
 		
 	selected_item.is_selected = false
 	selected_item.is_draging = false
@@ -127,6 +130,8 @@ func deselect_item() -> void:
 
 ## 创建轨道项。
 func create_item(track_idx: int = 0) -> TrackEditorTrackItem:
+	Log.info("创建轨道项: %s" % track_idx)
+		
 	var track_item: TrackEditorTrackItem = track_item_scene.instantiate()
 	track_item.position.y = 2
 	track_item.track_editor = self
@@ -146,6 +151,8 @@ func insert_item(item: TrackEditorTrackItem, signal_emit_disabled: bool = false)
 
 ## 删除轨道项。
 func erase_item(item: TrackEditorTrackItem) -> void:
+	Log.info("删除轨道项: %s" % item.idx)
+		
 	var track: TrackEditorTrack = get_track(item.track_idx)
 	track.item_container.remove_child(item)
 	item.queue_free()
@@ -200,6 +207,7 @@ func update_item_list() -> void:
 func get_tick_count() -> int:
 	return ceili(track_length_spin_box.value / tick_spacing_spin_box.value)
 
+
 ## 获取轨道。
 func get_track(track_idx: int = 0) -> TrackEditorTrack:
 	return track_vbox_container.get_child(track_idx)
@@ -207,6 +215,8 @@ func get_track(track_idx: int = 0) -> TrackEditorTrack:
 
 ## 创建轨道。
 func create_track() -> void:
+	Log.info("创建轨道")
+		
 	var track: TrackEditorTrack = track_scene.instantiate()
 	track.track_editor = self
 	track_vbox_container.add_child(track)
@@ -223,6 +233,8 @@ func create_track() -> void:
 
 ## 删除轨道。
 func remove_track(track_idx: int = 0) -> void:
+	Log.info("删除轨道: %s" % track_idx)
+		
 	var track: TrackEditorTrack = get_track(track_idx)
 	track_vbox_container.remove_child(track)
 	track.queue_free()
@@ -238,6 +250,8 @@ func remove_track(track_idx: int = 0) -> void:
 
 ## 清除所有轨道。
 func clear_tracks() -> void:
+	Log.info("清除所有轨道")
+		
 	for track_idx: int in track_vbox_container.get_child_count():
 		update_item_list()
 

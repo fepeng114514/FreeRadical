@@ -40,7 +40,6 @@ func _on_item_select(item: TrackEditorTrackItem) -> void:
 
 
 func _on_item_deselect(_item: TrackEditorTrackItem) -> void:
-	visible = false
 	_hide_sub_track_editor()
 
 
