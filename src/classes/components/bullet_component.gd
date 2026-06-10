@@ -31,7 +31,7 @@ var rotation_speed: float = 0.0
 ## 击中音效组。
 @export var hit_sfx: AudioGroup = null
 ## 击中目标时创建的实体场景名称列表。
-@export var hit_payloads := PackedStringArray()
+@export var hit_payloads: Array[PackedScene] = []
 
 @export_group("Miss")
 ## 未击中目标时是否移除子弹实体。
@@ -41,7 +41,7 @@ var rotation_speed: float = 0.0
 ## 未击中音效组。
 @export var miss_sfx: AudioGroup = null
 ## 未击中目标时创建的实体场景名称列表。
-@export var miss_payloads := PackedStringArray()
+@export var miss_payloads: Array[PackedScene] = []
 
 ## 影响资源。
 var influence: InfluenceResource = null

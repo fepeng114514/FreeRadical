@@ -27,7 +27,7 @@ enum BulletSpawnMode {
 
 @export_group("Bullet")
 ## 子弹场景名称。
-@export var bullet: StringName = &""
+@export var bullet: PackedScene = null
 ## 子弹发射数量。
 @export var bullet_count: int = 1
 ## 子弹初始位置偏移组。

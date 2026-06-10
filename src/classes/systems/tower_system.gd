@@ -76,13 +76,10 @@ func _on_update(_delta: float) -> void:
 		if tower_c.is_sell:
 			AudioMgr.play_sfx(tower_c.sell_sfx)
 			
-			var tower_holder: Entity = EntityMgr.create_entity(
-				"tower_holder"
-			)
-			var holder_tower_c: TowerComponent = tower_holder.get_node_or_null(C.CN_TOWER)
+			var tower_holder: Entity = EntityMgr.create_entity(tower_c.tower_holder)
 			tower_holder.global_position = e.global_position
+			var holder_tower_c: TowerComponent = tower_holder.get_node_or_null(C.CN_TOWER)
 			holder_tower_c.default_rally_center_local_pos = tower_c.default_rally_center_local_pos
-			holder_tower_c.tower_holder = tower_c.tower_holder
 			
 			tower_holder.insert_entity()
 			e.remove_entity()

@@ -25,7 +25,7 @@ func _process_path_intersection() -> void:
 	var threshold: float = PathwayMgr.intersect_dist_threshold
 	var cell_size: float = threshold
 
-	var grid: Dictionary = {}
+	var grid: Dictionary[Array, Array] = {}
 
 	for n: PathwayNode in all_node_list:
 		var cell_x := int(n.pos.x / cell_size)

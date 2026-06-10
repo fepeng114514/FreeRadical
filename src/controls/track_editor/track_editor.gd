@@ -252,10 +252,8 @@ func remove_track(track_idx: int = 0) -> void:
 func clear_tracks() -> void:
 	Log.info("清除所有轨道")
 		
-	for track_idx: int in track_vbox_container.get_child_count():
-		update_item_list()
-
-		remove_track(track_idx)
+	for i: int in track_vbox_container.get_child_count():
+		remove_track(0)
 		
 
 ## 显示轨道刻度。

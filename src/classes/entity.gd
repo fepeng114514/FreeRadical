@@ -93,9 +93,11 @@ var components: Dictionary[StringName, Node] = {}
 
 
 #region 回调函数
-func _ready() -> void:
+func _init() -> void:
 	scene_name = scene_file_path.get_file().get_basename()
 
+
+func _ready() -> void:
 	if Engine.is_editor_hint():
 		U.connect_resource_changed(hit_offsets, queue_redraw)
 	else:

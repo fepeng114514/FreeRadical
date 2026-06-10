@@ -31,7 +31,7 @@ enum TowerType {
 		show_range_offset = v
 		queue_redraw()
 ## 塔位样式。
-@export var tower_holder: StringName = &"tower_holder_grass"
+@export var tower_holder: PackedScene = null
 ## 默认集结点。
 @export var default_rally_center_local_pos := Vector2.ZERO:
 	set(v): 
@@ -49,7 +49,7 @@ enum TowerType {
 ## 总价格。
 var total_price: float = price
 ## 升级目标。
-var upgrade_to: String = ""
+var upgrade_to: PackedScene = null
 ## 出售状态。
 var is_sell: bool = false
 ## 是否是被建筑建造的防御塔。

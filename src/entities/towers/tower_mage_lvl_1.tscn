@@ -27,4 +27,3 @@ position = Vector2(1, -56)
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-54.73, -83.54, 112.585, 102.565)
-select_menu_offset = Vector2(0, -38.32)

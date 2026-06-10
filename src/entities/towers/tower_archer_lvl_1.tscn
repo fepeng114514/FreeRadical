@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_ea5ax"]
 [ext_resource type="Script" uid="uid://cb268fbjlobm5" path="res://classes/entity_group_2d.gd" id="7_nv2ef"]
 
-[sub_resource type="Resource" id="Resource_ea5ax"]
+[sub_resource type="Resource" id="Resource_l4e2h"]
 resource_local_to_scene = true
 script = ExtResource("2_ea5ax")
 flags = 16
@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerArcherLvl1" unique_id=1010851235 instance=ExtResource("1_4joti")]
 scene_name = "tower_archer_lvl_1"
-interact_policy = SubResource("Resource_ea5ax")
+interact_policy = SubResource("Resource_l4e2h")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 price = 70.0

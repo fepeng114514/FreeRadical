@@ -23,7 +23,7 @@ var sub_pathway_spacing: float = 20
 ## 路径节点总数量。
 var node_count: int = 256
 ## 路径节点相交距离阈值。
-var intersect_dist_threshold: float = 16
+var intersect_dist_threshold: float = 10
 ## 是否绘制路径。
 var is_draw_pathway: bool = false:
 	set(v):

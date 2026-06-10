@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://boyec531alt4"]
 
 [ext_resource type="PackedScene" uid="uid://dw0llloxyurxn" path="res://entities/towers/tower_build.tscn" id="1_bsk30"]
+[ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://entities/towers/tower_archer_lvl_1.tscn" id="2_evsum"]
 
 [node name="TowerBuildArcher" unique_id=1530244974 instance=ExtResource("1_bsk30")]
 show_time = 1.25
-build_target = &"tower_archer_lvl_1"
+build_target = ExtResource("2_evsum")
 scene_name = "tower_build_archer"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1200020081) index="0" unique_id=1433762339]

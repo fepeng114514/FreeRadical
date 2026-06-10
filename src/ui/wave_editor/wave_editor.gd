@@ -9,8 +9,8 @@ class_name WaveEditor
 @export var spawn_data_vbox_container: WaveEditorSpawnDataVBoxContainer = null
 @export var entity_option_button_label: OptionButtonLabel = null
 
-var entity_name_idx_dict: Dictionary[String, int] = {}
-var entity_name_list: Array[String] = []
+var entity_scene_idx_dict: Dictionary[PackedScene, int] = {}
+var entity_scene_list: Array[PackedScene] = []
 var wave_group: WaveGroup = null:
 	get: 
 		if not wave_group:
@@ -23,16 +23,32 @@ var selected_spawn: WaveSpawn = null
 
 
 func _ready() -> void:
-	var entity_scene_dict: Dictionary[String, PackedScene] = EntityMgr.load_entity_scenes()
+	var json_data: Array = U.load_json(
+		"res://entities/entity_scene_paths.json"
+	)
 
+	var entity_scene_dict: Dictionary[String, PackedScene] = {}
+	
+	for path: String in json_data:
+		if not ResourceLoader.exists(path):
+			Log.error("未找到实体场景: %s" % path)
+			continue
+		
+		var scene: PackedScene = load(path)
+		var scene_name: String = path.get_file().get_basename()
+		entity_scene_dict[scene_name] = scene
+		
 	var i: int = 0
 	for scene_name: String in entity_scene_dict:
 		if not scene_name.begins_with("enemy_"):
 			continue
 		
-		entity_option_button_label.option_button.add_item(scene_name)
-		entity_name_idx_dict[scene_name] = i
-		entity_name_list.append(scene_name)
+		var scene: PackedScene = entity_scene_dict[scene_name]
+		
+		var option_item: String = scene_name.replace("enemy_", "").capitalize()
+		entity_option_button_label.option_button.add_item(option_item)
+		entity_scene_idx_dict[scene] = i
+		entity_scene_list.append(scene)
 		i += 1
 		
 	sub_wave_track_editor.visible = false

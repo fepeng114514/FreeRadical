@@ -23,4 +23,4 @@ var life: int = 20:
 		life_changed.emit(v)
 		life = v
 ## 默认塔位样式。
-var defaul_tower_holder: StringName = &"tower_holder_grass"
+var defaul_tower_holder: PackedScene = null

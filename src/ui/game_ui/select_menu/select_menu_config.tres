@@ -6,15 +6,31 @@
 [ext_resource type="Texture2D" uid="uid://cok0ggc46b6o6" path="res://assets/atlas/atlas_textures/image_icon/main_icons_0005.tres" id="4_v4l46"]
 [ext_resource type="Texture2D" uid="uid://jdp34kihhpnt" path="res://assets/atlas/atlas_textures/image_icon/main_icons_0001.tres" id="4_ynb0k"]
 [ext_resource type="Script" uid="uid://bp0u0or6xm1ln" path="res://ui/game_ui/select_menu/button/data/upgrade.gd" id="5_cx3na"]
+[ext_resource type="PackedScene" uid="uid://dsppkbrkx71fr" path="res://entities/towers/tower_preview_archer.tscn" id="5_nyabh"]
 [ext_resource type="Resource" uid="uid://csxx1xces6u0d" path="res://ui/game_ui/select_menu/button/data/rally.tres" id="6_3e8iy"]
+[ext_resource type="PackedScene" uid="uid://71s0bo3xbapv" path="res://entities/towers/tower_archer_lvl_2.tscn" id="6_3mnxq"]
+[ext_resource type="PackedScene" uid="uid://gwdut1ms2ouh" path="res://entities/towers/tower_artillery_lvl_2.tscn" id="7_7kkfe"]
+[ext_resource type="PackedScene" uid="uid://d0kns13pm62mu" path="res://entities/towers/tower_archer_lvl_3.tscn" id="7_t5147"]
+[ext_resource type="PackedScene" uid="uid://687at3ao4err" path="res://entities/towers/tower_artillery_lvl_3.tscn" id="8_n56g7"]
 [ext_resource type="Texture2D" uid="uid://sbts5m2yn6hu" path="res://assets/atlas/atlas_textures/image_icon/main_icons_0002.tres" id="8_tvsp4"]
 [ext_resource type="Texture2D" uid="uid://b63n4ppxbpi16" path="res://assets/atlas/atlas_textures/image_icon/main_icons_0004.tres" id="9_xqq8q"]
+[ext_resource type="PackedScene" uid="uid://2oaukulw4ypd" path="res://entities/towers/tower_barrack_lvl_2.tscn" id="10_3mnxq"]
 [ext_resource type="Texture2D" uid="uid://cyb2k5vd58qbd" path="res://assets/atlas/atlas_textures/image_icon/main_icons_0003.tres" id="10_oql3h"]
 [ext_resource type="Script" uid="uid://i6rnyxwnxl8h" path="res://ui/game_ui/select_menu/select_menu_config.gd" id="10_qvf44"]
+[ext_resource type="PackedScene" uid="uid://c3u01oty250k2" path="res://entities/towers/tower_barrack_lvl_3.tscn" id="11_t5147"]
+[ext_resource type="PackedScene" uid="uid://bwgt8qdihjrc7" path="res://entities/towers/tower_preview_barrack.tscn" id="14_qh70v"]
+[ext_resource type="PackedScene" uid="uid://boyec531alt4" path="res://entities/towers/tower_build_archer.tscn" id="15_qh70v"]
+[ext_resource type="PackedScene" uid="uid://chfqusguy3cig" path="res://entities/towers/tower_preview_artillery.tscn" id="17_86mua"]
+[ext_resource type="PackedScene" uid="uid://dnkbru60qpk3q" path="res://entities/towers/tower_build_barrack.tscn" id="18_6mrrc"]
+[ext_resource type="PackedScene" uid="uid://daxror7vuxh6c" path="res://entities/towers/tower_preview_mage.tscn" id="20_vltid"]
+[ext_resource type="PackedScene" uid="uid://glrib64s8fvl" path="res://entities/towers/tower_build_artillery.tscn" id="21_86mua"]
+[ext_resource type="PackedScene" uid="uid://dy522da6n6jb1" path="res://entities/towers/tower_mage_lvl_2.tscn" id="22_n5rbs"]
+[ext_resource type="PackedScene" uid="uid://cat2wpl113dcs" path="res://entities/towers/tower_mage_lvl_3.tscn" id="23_ot2e4"]
+[ext_resource type="PackedScene" uid="uid://cxy7osvoibnms" path="res://entities/towers/tower_build_mage.tscn" id="24_lxed7"]
 
 [sub_resource type="Resource" id="Resource_amh31"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_archer_lvl_2"
+upgrade_to = ExtResource("6_3mnxq")
 icon = ExtResource("4_v4l46")
 place = 1
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
@@ -26,7 +42,7 @@ metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
 [sub_resource type="Resource" id="Resource_kc0fc"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_archer_lvl_3"
+upgrade_to = ExtResource("7_t5147")
 icon = ExtResource("4_v4l46")
 place = 1
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
@@ -43,7 +59,7 @@ metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
 [sub_resource type="Resource" id="Resource_qffcj"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_artillery_lvl_2"
+upgrade_to = ExtResource("7_7kkfe")
 icon = ExtResource("4_v4l46")
 place = 1
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
@@ -55,7 +71,7 @@ metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
 [sub_resource type="Resource" id="Resource_a1auy"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_artillery_lvl_3"
+upgrade_to = ExtResource("8_n56g7")
 icon = ExtResource("4_v4l46")
 place = 1
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
@@ -72,7 +88,7 @@ metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
 [sub_resource type="Resource" id="Resource_depsw"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_barrack_lvl_2"
+upgrade_to = ExtResource("10_3mnxq")
 icon = ExtResource("4_v4l46")
 place = 1
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
@@ -84,7 +100,7 @@ metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
 [sub_resource type="Resource" id="Resource_go3cf"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_barrack_lvl_3"
+upgrade_to = ExtResource("11_t5147")
 icon = ExtResource("4_v4l46")
 place = 1
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
@@ -101,32 +117,32 @@ metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
 [sub_resource type="Resource" id="Resource_imygi"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_build_archer"
+upgrade_to = ExtResource("15_qh70v")
 icon = ExtResource("4_ynb0k")
-preview = &"tower_preview_archer"
+preview = ExtResource("5_nyabh")
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
 
 [sub_resource type="Resource" id="Resource_5ry4v"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_build_barrack"
+upgrade_to = ExtResource("18_6mrrc")
 icon = ExtResource("8_tvsp4")
-preview = &"tower_preview_barrack"
+preview = ExtResource("14_qh70v")
 place = 2
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
 
 [sub_resource type="Resource" id="Resource_52xag"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_build_artillery"
+upgrade_to = ExtResource("21_86mua")
 icon = ExtResource("9_xqq8q")
-preview = &"tower_preview_artillery"
+preview = ExtResource("17_86mua")
 place = 4
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
 
 [sub_resource type="Resource" id="Resource_k88n7"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_build_mage"
+upgrade_to = ExtResource("24_lxed7")
 icon = ExtResource("10_oql3h")
-preview = &"tower_preview_mage"
+preview = ExtResource("20_vltid")
 place = 6
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
 
@@ -137,7 +153,7 @@ metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
 [sub_resource type="Resource" id="Resource_o3dtp"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_mage_lvl_2"
+upgrade_to = ExtResource("22_n5rbs")
 icon = ExtResource("4_v4l46")
 place = 1
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"
@@ -149,7 +165,7 @@ metadata/_custom_type_script = "uid://c2igk5xsppdxf"
 
 [sub_resource type="Resource" id="Resource_3xcf7"]
 script = ExtResource("5_cx3na")
-upgrade_to = &"tower_mage_lvl_3"
+upgrade_to = ExtResource("23_ot2e4")
 icon = ExtResource("4_v4l46")
 place = 1
 metadata/_custom_type_script = "uid://bp0u0or6xm1ln"

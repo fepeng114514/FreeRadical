@@ -10,11 +10,11 @@ class_name InfluenceResource
 @export_group("Extra")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var extra_enable: bool = false
 ## 击中目标给予的状态效果
-@export var mods := PackedStringArray()
+@export var mods: Array[PackedScene] = []
 ## 击中目标给予的持续状态效果
-@export var auras := PackedStringArray()
+@export var auras: Array[PackedScene] = []
 ## 击中目标时创建的实体场景名称列表。
-@export var payloads := PackedStringArray()
+@export var payloads: Array[PackedScene] = []
 
 #region 范围影响
 @export_group("Area")

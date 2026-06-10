@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/skill_ranged.gd" id="5_vssey"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="7_n6q0g"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="7_vtoys"]
+[ext_resource type="PackedScene" uid="uid://c77v7yq60lpig" path="res://entities/towers/tower_mage_bullet.tscn" id="8_74xm3"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="8_vtoys"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="9_n6q0g"]
 [ext_resource type="AudioStream" uid="uid://b4j870vtyljlk" path="res://assets/audios/sound_mage_shot.ogg" id="10_u3fui"]
@@ -36,9 +37,6 @@ script = ExtResource("9_n6q0g")
 damage_min = 9.0
 damage_max = 17.0
 damage_type = 2
-mods = PackedStringArray()
-auras = PackedStringArray()
-payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_8g6nx"]
@@ -75,7 +73,7 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="SkillRanged" type="Node2D" parent="SkillComponent" unique_id=14077948]
 script = ExtResource("5_vssey")
 search = SubResource("Resource_tuthn")
-bullet = &"tower_mage_bullet"
+bullet = ExtResource("8_74xm3")
 bullet_offsets = SubResource("Resource_c4v6e")
 influence = SubResource("Resource_1g575")
 cooldown = 1.5

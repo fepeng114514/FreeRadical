@@ -36,7 +36,8 @@ func _on_draw_pathway_changed() -> void:
 func _draw() -> void:
 	if PathwayMgr.is_draw_pathway:
 		for node: PathwayNode in node_list:
-			var hue: float = fmod(parent_pathway.get_index() * 0.1, 1.0)           # 0.1 步长可调整，避免相邻颜色太接近
+			var pi: int = parent_pathway.get_index()
+			var hue: float = fmod(pi * 0.1, 1.0)           # 0.1 步长可调整，避免相邻颜色太接近
 			var color: Color = Color.from_hsv(hue, 1.0, 1.0) # 饱和度、亮度最大
 			draw_circle(node.pos, 3, color)
 

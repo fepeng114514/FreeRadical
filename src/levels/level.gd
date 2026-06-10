@@ -8,7 +8,7 @@ class_name Level
 ## 初始生命。
 @export var life: int = 20
 ## 默认塔位样式。
-@export var defaul_tower_holder: StringName = &"tower_holder_grass"
+@export var defaul_tower_holder: PackedScene = null
 ## 地图大小。
 @export var world_size := Vector2(2560, 1440)
 
@@ -21,7 +21,7 @@ class_name Level
 
 func _enter_tree() -> void:
 	GlobalMgr.world_size = world_size
-	
+	GameMgr.defaul_tower_holder = defaul_tower_holder
 	WaveMgr.first_release_wave.connect(_on_first_release_wave)
 
 

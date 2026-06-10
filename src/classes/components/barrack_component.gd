@@ -28,7 +28,7 @@ class_name BarrackComponent
 ## 集结音效组。
 @export var rally_sfx: AudioGroup = null
 ## 士兵场景名称。
-@export var soldier: String = ""
+@export var soldier: PackedScene = null
 ## 生成士兵间隔（秒）。
 @export var spawn_interval: float = 10
 ## 士兵生成偏移组。

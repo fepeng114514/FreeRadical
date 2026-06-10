@@ -19,10 +19,11 @@ func _hide_sub_track_editor() -> void:
 
 
 func _on_item_select(item: TrackEditorTrackItem) -> void:
-	wave_editor.selected_spawn = wave_editor.get_spawn(item.idx)
+	var spawn: WaveSpawn = wave_editor.get_spawn(item.idx)
+	wave_editor.selected_spawn = spawn
 	
 	var spawn_data_vbox_container: WaveEditorSpawnDataVBoxContainer = wave_editor.spawn_data_vbox_container
-	spawn_data_vbox_container.set_spawn_data(wave_editor.selected_spawn)
+	spawn_data_vbox_container.set_spawn_data(spawn)
 	spawn_data_vbox_container.visible = true
 
 
@@ -34,7 +35,7 @@ func _on_item_insert(item: TrackEditorTrackItem) -> void:
 	var last_item: TrackEditorTrackItem = item_list[item.idx - 1]
 
 	var new_spawn := WaveSpawn.new()
-	new_spawn.entity = wave_editor.entity_name_list[0]
+	new_spawn.entity = wave_editor.entity_scene_list[0]
 	new_spawn.interval = item.track_pos - last_item.track_pos
 	wave_editor.selected_sub_wave.spawn_list.append(new_spawn)
 
