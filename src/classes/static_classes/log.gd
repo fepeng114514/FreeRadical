@@ -26,7 +26,7 @@ static var log_level_keys: Array = LogLevels.keys()
 
 ## 内部日志方法。
 static func _log(level: int, message: String) -> void:
-	if level < Conf.LOG_LEVEL:
+	if level < GlobalMgr.log_level:
 		return
 
 	var datetime: String = Time.get_datetime_string_from_system()

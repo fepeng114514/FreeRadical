@@ -1,4 +1,5 @@
 # 流程
+此文档用于规范项目开发流程，包括创建实体、组件、系统等。
 
 ### 创建实体流程：
 1. 在 `src/scenes/entities` 目录创建一个场景，场景根节点为 `Entity` 实体节点。
@@ -61,4 +62,4 @@
 
 ### 导入音频流程
 1. 将音频文件放到 src/assets/audios 中。
-2. 运行 在编辑器运行 src/tools/update_audio_paths 脚本更新 src/assets/audio_paths.json。
+2. 在编辑器运行 src/tools/update_audio_paths 脚本更新 src/assets/audio_paths.json。
