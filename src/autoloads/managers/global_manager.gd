@@ -4,11 +4,6 @@ extends Node
 ## 负责管理全局状态与相关操作。
 
 
-## 发布版本日志级别（低于此级别的日志不会输出）
-var release_log_level: Log.LogLevels = Log.LogLevels.INFO
-## 日志级别（低于此级别的日志不会输出）
-var log_level: Log.LogLevels = Log.LogLevels.VERBOSE
-
 ## 是否为发布版本。
 var is_release: bool = OS.has_feature("release")
 ## 是否为调试版本。
@@ -24,9 +19,6 @@ var world_size := Vector2(2560, 1440)
 func _ready() -> void:
 	get_viewport().size_changed.connect(_on_size_changed)
 	window_size = get_viewport().get_visible_rect().size
-
-	if is_release:
-		log_level = release_log_level
 
 
 func _on_size_changed() -> void:

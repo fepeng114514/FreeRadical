@@ -46,5 +46,13 @@
 				"to": 13
 			}
 		}
+	},
+	"healing_small": {
+		"animations": {
+			"idle": {
+				"from": 1,
+				"to": 24
+			}
+		}
 	}
 }

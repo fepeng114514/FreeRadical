@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://gjv8x6puntrs"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_neop6"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_0xtce"]
+[ext_resource type="SpriteFrames" uid="uid://o7xu3ltdn55e" path="res://assets/atlas/sprite_frames/bases/healing_small.tres" id="3_1ob1w"]
+[ext_resource type="Script" uid="uid://bvipq6dw3lalv" path="res://classes/components/fx_component.gd" id="4_n821v"]
+
+[node name="Heal" type="Node2D" unique_id=797095383]
+script = ExtResource("1_neop6")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1905704003]
+script = ExtResource("2_0xtce")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1375230973]
+sprite_frames = ExtResource("3_1ob1w")
+animation = &"idle"
+
+[node name="FXComponent" type="Node2D" parent="." unique_id=273221000]
+script = ExtResource("4_n821v")
+metadata/_custom_type_script = "uid://bvipq6dw3lalv"

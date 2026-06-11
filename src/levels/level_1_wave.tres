@@ -1,18 +1,19 @@
-[gd_resource type="Resource" script_class="WaveGroup" format=3 uid="uid://c8q3x1cg3ogvk"]
+[gd_resource type="Resource" script_class="WaveGroup" format=3]
 
-[ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://classes/wave/wave_group.gd" id="1_ejpq0"]
-[ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/wave/wave.gd" id="2_hpjop"]
-[ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://classes/wave/sub_wave.gd" id="3_7ur2r"]
-[ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/wave/wave_spawn.gd" id="4_178aa"]
-[ext_resource type="PackedScene" uid="uid://b8mw5gsptj8n1" path="res://entities/enemies/enemy_goblin.tscn" id="5_hpjop"]
-[ext_resource type="PackedScene" uid="uid://drgcomkmcowby" path="res://entities/enemies/enemy_orc.tscn" id="6_7ur2r"]
+[ext_resource type="Script" path="res://classes/wave/wave_group.gd" id="1_ejpq0"]
+[ext_resource type="Script" path="res://classes/wave/wave.gd" id="2_hpjop"]
+[ext_resource type="Script" path="res://classes/wave/sub_wave.gd" id="3_7ur2r"]
+[ext_resource type="Script" path="res://classes/wave/wave_spawn.gd" id="4_178aa"]
+[ext_resource type="PackedScene" path="res://entities/enemies/enemy_shaman.tscn" id="5_178aa"]
+[ext_resource type="PackedScene" path="res://entities/enemies/enemy_goblin.tscn" id="5_hpjop"]
+[ext_resource type="PackedScene" path="res://entities/enemies/enemy_orc.tscn" id="6_7ur2r"]
 
 [sub_resource type="Resource" id="Resource_178aa"]
 script = ExtResource("4_178aa")
 interval = 1.5
-entity = ExtResource("5_hpjop")
+entity = ExtResource("5_178aa")
 pathway_idx = 0
-count = 5
+count = 1
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
 [sub_resource type="Resource" id="Resource_guugm"]

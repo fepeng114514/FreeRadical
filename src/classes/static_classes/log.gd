@@ -6,7 +6,7 @@ class_name Log
 
 
 ## 日志级别枚举。
-enum LogLevels {
+enum LogLevel {
 	## 日志级别：详细信息。
 	VERBOSE = 0,
 	## 日志级别：调试信息。
@@ -20,13 +20,19 @@ enum LogLevels {
 }
 
 
+## 发布版本日志级别（低于此级别的日志不会输出）
+const release_log_level: LogLevel = LogLevel.INFO
+## 调试版本日志级别（低于此级别的日志不会输出）
+const debug_log_level: LogLevel = LogLevel.VERBOSE
+
 ## 日志级别键数组。
-static var log_level_keys: Array = LogLevels.keys()
+static var log_level_keys: Array = LogLevel.keys()
 
 
 ## 内部日志方法。
 static func _log(level: int, message: String) -> void:
-	if level < GlobalMgr.log_level:
+	var log_level: LogLevel = release_log_level if OS.has_feature("release") else debug_log_level
+	if level < log_level:
 		return
 
 	var datetime: String = Time.get_datetime_string_from_system()
@@ -39,10 +45,10 @@ static func _log(level: int, message: String) -> void:
 	]
 	
 	match level:
-		LogLevels.WARN:
+		LogLevel.WARN:
 			print_rich("[color=#F1C40F]● WARN: %s[/color]" % format_message)
 			push_warning(format_message)
-		LogLevels.ERROR:
+		LogLevel.ERROR:
 			var stack: Array = get_stack()
 
 			var sliced: Array = stack.slice(3)
@@ -64,24 +70,24 @@ static func _log(level: int, message: String) -> void:
 
 ## 打印详细日志。
 static func verbose(message: String) -> void:
-	_log(LogLevels.VERBOSE, message)
+	_log(LogLevel.VERBOSE, message)
 
 
 ## 打印调试日志。
 static func debug(message: String) -> void:
-	_log(LogLevels.DEBUG, message)
+	_log(LogLevel.DEBUG, message)
 
 
 ## 打印信息日志。
 static func info(message: String) -> void:
-	_log(LogLevels.INFO, message)
+	_log(LogLevel.INFO, message)
 
 
 ## 打印警告日志。
 static func warn(message: String) -> void:
-	_log(LogLevels.WARN, message)
+	_log(LogLevel.WARN, message)
 
 
 ## 打印错误日志。
 static func error(message: String) -> void:
-	_log(LogLevels.ERROR, message)
+	_log(LogLevel.ERROR, message)

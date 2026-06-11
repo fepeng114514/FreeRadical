@@ -13,7 +13,7 @@ script = ExtResource("2_w5ikr")
 any = Vector2(0, -17.73)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_wra37"]
+[sub_resource type="Resource" id="Resource_2yp6p"]
 resource_local_to_scene = true
 script = ExtResource("3_572ol")
 flags = 1
@@ -26,20 +26,23 @@ script = ExtResource("3_bomnd")
 list = Array[AudioStream]([ExtResource("5_2yp6p")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[sub_resource type="Resource" id="Resource_2yp6p"]
+[sub_resource type="Resource" id="Resource_y0rml"]
+resource_local_to_scene = true
+script = ExtResource("2_w5ikr")
+right = Vector2(30.15, 0)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_n8t6l"]
 resource_local_to_scene = true
 script = ExtResource("5_06yx3")
 damage_min = 4.0
 damage_max = 8.0
-mods = PackedStringArray()
-auras = PackedStringArray()
-payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="EnemyOrc" unique_id=71433118 instance=ExtResource("1_wlnjt")]
 scene_name = "enemy_orc"
 hit_offsets = SubResource("Resource_06yx3")
-interact_policy = SubResource("Resource_wra37")
+interact_policy = SubResource("Resource_2yp6p")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -25)
@@ -59,8 +62,11 @@ scale = Vector2(1.12, 1.1)
 [node name="NavPathComponent" parent="." index="2" unique_id=1202679749]
 speed = 66.0
 
-[node name="SkillMelee" parent="MeleeComponent" parent_id_path=PackedInt32Array(768145759) index="0" unique_id=1304104648]
-influence = SubResource("Resource_2yp6p")
+[node name="MeleeComponent" parent="." index="3" unique_id=768145759]
+melee_pos_offsets = SubResource("Resource_y0rml")
+
+[node name="SkillMelee" parent="MeleeComponent" index="0" unique_id=1304104648]
+influence = SubResource("Resource_n8t6l")
 
 [node name="UIComponent" parent="." index="4" unique_id=673866706]
 select_rect = Rect2(-20.88, -44.235, 41.88, 45.37)

@@ -16,17 +16,17 @@ const value_range_data_dict: Dictionary[Array, Dictionary] = {
 		"speed": 83,
 	},
 	[31, 50]: { 
-		"scale": 0.275, 
+		"scale": 0.25, 
 		"time": 0.7,
 		"speed": 71,
 	},
 	[51, 90]: { 
-		"scale": 0.325, 
+		"scale": 0.275, 
 		"time": 0.8,
 		"speed": 62,
 	},
 	[91, INF]: { 
-		"scale": 0.35, 
+		"scale": 0.3, 
 		"time": 0.9,
 		"speed": 55,
 	},

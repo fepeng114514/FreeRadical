@@ -48,7 +48,7 @@ func search_targets(e: Entity, center: Vector2, filter: = Callable()) -> Array[E
 		interact_policy.bans if interact_policy else 0,
 		filter
 	)
-	if U.is_valid_number(max_search):
+	if U.is_valid_number(max_search) and targets.size() > max_search:
 		targets.resize(max_search)
 
 	return targets

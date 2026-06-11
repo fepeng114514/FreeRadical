@@ -41,13 +41,15 @@ func _draw() -> void:
 		
 		
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
-	if not target:
+	if not target and search_target_pos:
 		var targets: Array[Entity] = search.search_targets(e, e.global_position)
 		if not targets:
 			return
 
 		target = targets[0]
-	e.look_point = target.global_position
+	
+	if target:
+		e.look_point = target.global_position
 	start_cooldown(e, skill_idx)
 
 	e.play_animation(animation)

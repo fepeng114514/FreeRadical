@@ -55,9 +55,6 @@ resource_local_to_scene = true
 script = ExtResource("11_ts01h")
 damage_min = 1.0
 damage_max = 3.0
-mods = PackedStringArray()
-auras = PackedStringArray()
-payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_p1ots"]
@@ -97,7 +94,6 @@ offset_bottom = -40.0
 
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156]
 script = ExtResource("7_xu63r")
-is_passive = true
 speed = 208.0
 motion_animation = SubResource("Resource_enhu5")
 melee_pos_offsets = SubResource("Resource_prid8")
