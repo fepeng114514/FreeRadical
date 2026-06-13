@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://c34pctng5uplj" path="res://assets/audios/sound_bomb1.ogg" id="4_i65oq"]
 [ext_resource type="Texture2D" uid="uid://cpiqi6jk308r1" path="res://assets/atlas/atlas_textures/image_towers/bombs_0001.tres" id="4_jmmy1"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="6_jmmy1"]
+[ext_resource type="PackedScene" uid="uid://dmn3u58sdn7l1" path="res://entities/explosion_air.tscn" id="6_lvynn"]
 [ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://classes/bullet_trajectories/bullet_trajectory_parabola.gd" id="7_k2m4n"]
 
 [sub_resource type="Resource" id="Resource_wmreg"]
@@ -26,11 +27,12 @@ idle_animation = SubResource("Resource_wmreg")
 
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
 trajectory = SubResource("Resource_arty_traj")
+rotation_speed = 6.0
 look_to = false
 hit_sfx = SubResource("Resource_jmmy1")
-hit_payloads = PackedStringArray("explosion_air")
+hit_payloads = Array[PackedScene]([ExtResource("6_lvynn")])
 miss_sfx = SubResource("Resource_jmmy1")
-miss_payloads = PackedStringArray("explosion_air")
+miss_payloads = Array[PackedScene]([ExtResource("6_lvynn")])
 
 [node name="SpriteComponent" type="Node2D" parent="." index="1" unique_id=1297058768]
 script = ExtResource("2_0mq2b")
