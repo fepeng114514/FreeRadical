@@ -105,8 +105,8 @@ func _hide() -> void:
 func _update_unit_info() -> void:
 	var health_c: HealthComponent = selected_entity.get_node_or_null(C.CN_HEALTH)
 	hp_value.text = "%d/%d" % [health_c.hp_max, health_c.hp]
-	phys_armor_value.text = "%d" % health_c.physical_armor
-	magic_armor_value.text = "%d" % health_c.magical_armor
+	phys_armor_value.text = "%d" % (health_c.physical_armor * 100)
+	magic_armor_value.text = "%d" % (health_c.magical_armor * 100)
 	
 	var melee_c: MeleeComponent = selected_entity.get_node_or_null(C.CN_MELEE)
 	if melee_c and melee_c.get_child(0):
