@@ -43,8 +43,13 @@ static func point_on_circle(
 static func is_in_ring(
 		center: Vector2, point: Vector2, min_radius: float, max_radius: float
 	) -> bool:
+	var is_in_max_radius: bool = U.is_in_radius(center, point, max_radius)
+
+	if min_radius <= 0:
+		return is_in_max_radius
+
 	return (
-		U.is_in_radius(center, point, max_radius)
+		is_in_max_radius
 		and not U.is_in_radius(center, point, min_radius)
 	)
 
