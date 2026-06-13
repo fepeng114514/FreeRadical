@@ -52,7 +52,8 @@ func try_select() -> void:
 			9999, 
 			0, 
 			0, 
-			0, 
+			0,
+			false,
 			func(entity: Entity) -> bool:
 				var ui_c: UIComponent = entity.get_node_or_null(C.CN_UI)
 				if not ui_c:

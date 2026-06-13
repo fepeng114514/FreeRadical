@@ -319,14 +319,15 @@ func search_targets(
 		max_range: float, 
 		min_range: float = 0.0, 
 		flags: int = 0, 
-		bans: int = 0, 
+		bans: int = 0,
+		is_enemy: bool = false,
 		filter: Callable = Callable()
 	) -> Array[Entity]:
 	var config: SearchModeConfig = search_configs.configs[search_mode]
 
 	var group: StringName = config.group
 
-	if flags & C.Flag.ENEMY:
+	if is_enemy:
 		match config.group:
 			C.GROUP_ENEMIES:
 				group = C.GROUP_FRIENDLYS
@@ -349,6 +350,7 @@ func search_targets_in_sector(
 		angle_range: float,
 		flags: int = 0,
 		bans: int = 0,
+		is_enemy: bool = false,
 		filter: Callable = Callable()
 	) -> Array:
 	var sector_filter: Callable = func(e: Entity) -> bool:
@@ -361,7 +363,7 @@ func search_targets_in_sector(
 		) and (not filter.is_valid() or filter.call(e))
 
 	return search_targets(
-		search_mode, origin, radius, 0, flags, bans, sector_filter
+		search_mode, origin, radius, 0, flags, bans, is_enemy, sector_filter
 	)
 
 
@@ -374,6 +376,7 @@ func search_targets_in_rectangle(
 		length: float,
 		flags: int = 0,
 		bans: int = 0,
+		is_enemy: bool = false,
 		filter: Callable = Callable()
 	) -> Array:
 	var rectangle_filter: Callable = func(e: Entity) -> bool:
@@ -386,5 +389,5 @@ func search_targets_in_rectangle(
 		) and (not filter.is_valid() or filter.call(e))
 
 	return search_targets(
-		search_mode, origin, length, 0, flags, bans, rectangle_filter
+		search_mode, origin, length, 0, flags, bans, is_enemy, rectangle_filter
 	)
