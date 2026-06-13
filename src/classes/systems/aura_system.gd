@@ -15,8 +15,7 @@ func _on_insert(e: Entity) -> bool:
 		return false
 
 	var interact_p: InteractPolicy = e.interact_policy
-	var t_interact_p: InteractPolicy = target.interact_policy
-	if not InteractPolicy.is_allowed_target(e, target, interact_p, t_interact_p):
+	if not InteractPolicy.is_allowed_target(e, target, interact_p, target.interact_policy):
 		return false
 		
 	aura_c.ts = TimeMgr.tick_ts
@@ -27,19 +26,21 @@ func _on_insert(e: Entity) -> bool:
 	for other_aura: Entity in target.get_has_aura_list():
 		if other_aura == e:
 			continue
+
+		var other_interact_p: InteractPolicy = other_aura.interact_policy
 		
 		# 检查是否被其他光环禁止
 		if (
-			t_interact_p.is_banned(interact_p) 
-			or t_interact_p.is_aura_type_banned(interact_p)
-			or not t_interact_p.is_scene_allowed(e.scene_name)
+			other_interact_p.is_banned(interact_p) 
+			or other_interact_p.is_aura_type_banned(interact_p)
+			or not other_interact_p.is_scene_allowed(e.scene_name)
 		):
 			return false
 		
 		# 检查是否被当前光环禁止
 		if (
-			interact_p.is_banned(t_interact_p) 
-			or interact_p.is_aura_type_banned(t_interact_p)
+			interact_p.is_banned(other_interact_p) 
+			or interact_p.is_aura_type_banned(other_interact_p)
 			or not interact_p.is_scene_allowed(target.scene_name)
 		):
 			if aura_c.remove_banned:
@@ -62,25 +63,32 @@ func _on_insert(e: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	for e: Entity in EntityMgr.get_entities_group(C.GROUP_AURAS):
 		var aura_c: AuraComponent = e.get_node_or_null(C.CN_AURA)
+		if aura_c.track_target:
+			var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
+			if target:
+				var new_global_position: Vector2 = target.global_position
+				if target.aura_offsets:
+					var offset: Vector2 = target.aura_offsets.get_offset_for_point(
+						target.global_position, target.look_point
+					)
+					new_global_position += offset
+				e.global_position = new_global_position
 
-		# 周期效果
 		if not TimeMgr.has_elapsed(aura_c.ts, aura_c.cycle_time):
-			return
+			continue
 
-		# 最大周期数
 		if U.is_valid_number(aura_c.max_cycle):
 			if aura_c.curren_cycle > aura_c.max_cycle:
 				e.remove_entity()
-				return
+				continue
 
 		var targets: Array[Entity] = aura_c.search.search_targets(e, e.global_position)
 		for target: Entity in targets:
 			aura_c.influence.take_influence(e, target, target.global_position)
-
-		e._on_aura_period(targets, aura_c)
-
-		aura_c.curren_cycle += 1
+			
 		aura_c.ts = TimeMgr.tick_ts
+		aura_c.curren_cycle += 1
+		e._on_aura_cycle(targets, aura_c)
 
 
 func _on_remove(e: Entity) -> bool:

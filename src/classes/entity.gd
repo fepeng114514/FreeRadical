@@ -41,10 +41,6 @@ enum State {
 @export var scene_name: String = ""
 ## 持续时间
 @export var duration: float = C.UNSET
-## 是否追踪 source 实体
-@export var track_source: bool = false
-## 是否追踪 target 实体
-@export var track_target: bool = false
 ## 空闲动画组
 @export var idle_animation: AnimationGroup = null
 ## 生成时播放的动画
@@ -57,6 +53,13 @@ enum State {
 		hit_offsets = v
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(hit_offsets, queue_redraw)
+			queue_redraw()
+## 光环位置偏移组。
+@export var aura_offsets: OffsetGroup = null:
+	set(v): 
+		aura_offsets = v
+		if Engine.is_editor_hint():
+			U.connect_resource_changed(aura_offsets, queue_redraw)
 			queue_redraw()
 @export var interact_policy: InteractPolicy = null
 
@@ -100,6 +103,7 @@ func _init() -> void:
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		U.connect_resource_changed(hit_offsets, queue_redraw)
+		U.connect_resource_changed(aura_offsets, queue_redraw)
 	else:
 		for child: Node in get_children():
 			var node_script: GDScript = child.get_script()
@@ -116,6 +120,7 @@ func _ready() -> void:
 func _draw() -> void:
 	if Engine.is_editor_hint():
 		OffsetGroup.draw_offset_group(self, hit_offsets)
+		OffsetGroup.draw_offset_group(self, aura_offsets)
 	
 @warning_ignore_start("unused_parameter")
 ## 插入实体时调用，返回 false 的实体将会被移除
@@ -165,11 +170,11 @@ func _on_barrack_respawn(soldier: Entity, barrack_c: BarrackComponent) -> bool: 
 
 
 ## 状态效果实体周期调用
-func _on_modifier_period(target: Entity, modifier_c: ModifierComponent) -> void: pass
+func _on_modifier_cycle(target: Entity, modifier_c: ModifierComponent) -> void: pass
 
 
 ## 光环实体周期调用
-func _on_aura_period(targets: Array, aura_c: AuraComponent) -> void: pass
+func _on_aura_cycle(targets: Array, aura_c: AuraComponent) -> void: pass
 
 
 ## 子弹命中目标时调用

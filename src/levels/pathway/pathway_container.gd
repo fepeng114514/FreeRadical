@@ -1,5 +1,5 @@
 @tool
-extends Control
+extends Node2D
 ## 路径管理器
 ##
 ## 管理路径子节点 [Pathway]

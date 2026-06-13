@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://jx3pxi4skntv"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_cif8p"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_loeeo"]
+[ext_resource type="Script" uid="uid://dj5pmhne1ihna" path="res://classes/components/modifier_component.gd" id="3_v18ut"]
+
+[sub_resource type="Resource" id="Resource_qbsm6"]
+script = ExtResource("2_loeeo")
+flags = 32
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[node name="Modifier" type="Node2D" unique_id=1286372614]
+script = ExtResource("1_cif8p")
+interact_policy = SubResource("Resource_qbsm6")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="ModifierComponent" type="Node2D" parent="." unique_id=790439513]
+script = ExtResource("3_v18ut")
+metadata/_custom_type_script = "uid://dj5pmhne1ihna"

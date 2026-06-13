@@ -10,7 +10,7 @@
 
 [sub_resource type="Resource" id="Resource_06yx3"]
 script = ExtResource("2_w5ikr")
-any = Vector2(0, -17.73)
+any = Vector2(0, -14.67)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
 [sub_resource type="Resource" id="Resource_2yp6p"]

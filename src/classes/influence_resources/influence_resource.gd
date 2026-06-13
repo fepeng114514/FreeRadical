@@ -1,4 +1,3 @@
-@abstract
 @tool
 extends Resource
 class_name InfluenceResource
@@ -9,11 +8,11 @@ class_name InfluenceResource
 
 @export_group("Extra")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var extra_enable: bool = false
-## 击中目标给予的状态效果
+## 给予的状态效果
 @export var mods: Array[PackedScene] = []
-## 击中目标给予的持续状态效果
+## 给予的持续状态效果
 @export var auras: Array[PackedScene] = []
-## 击中目标时创建的实体场景名称列表。
+## 创建的实体场景名称列表。
 @export var payloads: Array[PackedScene] = []
 
 #region 范围影响
@@ -27,7 +26,7 @@ class_name InfluenceResource
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(search, emit_changed)
 			emit_changed()
-## 是否可以多次影响敌人。
+## 是否可以多次影响目标。
 @export var can_influence_multiple: bool = false
 ## 是否随距离衰减。
 @export var falloff_enabled: bool = false

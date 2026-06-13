@@ -67,11 +67,12 @@ func _update() -> void:
 	
 	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
 	if skill_c:
-		var first_ranged_skill: SkillRanged = skill_c.get_child(0)
-		var search: SearchResource = first_ranged_skill.search
+		var first_ranged_skill: SkillRanged = skill_c.get_child(0) as SkillRanged
+		if first_ranged_skill:
+			var search: SearchResource = first_ranged_skill.search
 
-		ranged_min_range_circle._show(search.min_radius, base_position, tween_scale_time)
-		ranged_max_range_circle._show(search.max_radius, base_position, tween_scale_time)
+			ranged_min_range_circle._show(search.min_radius, base_position, tween_scale_time)
+			ranged_max_range_circle._show(search.max_radius, base_position, tween_scale_time)
 
 	var melee_c: MeleeComponent = selected_entity.get_node_or_null(C.CN_MELEE)
 	if melee_c:

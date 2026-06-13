@@ -116,7 +116,8 @@ func _update_unit_info() -> void:
 		melee_type_icon.visible = false
 		
 	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
-	if skill_c and skill_c.get_child(0):
+	var first_ranged_skill: SkillRanged = skill_c.get_child(0) as SkillRanged
+	if skill_c and first_ranged_skill:
 		_set_value_ranged(skill_c)
 	else:
 		ranged_value.visible = false

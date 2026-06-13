@@ -22,8 +22,6 @@ class_name SkillArea
 		if Engine.is_editor_hint():
 			U.connect_resource_changed(influence, queue_redraw)
 			queue_redraw()
-## 是否搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
-@export var search_target_pos: bool = false
 
 
 func _ready() -> void:
@@ -41,7 +39,7 @@ func _draw() -> void:
 		
 		
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
-	if not target and search_target_pos:
+	if search:
 		var targets: Array[Entity] = search.search_targets(e, e.global_position)
 		if not targets:
 			return
@@ -54,11 +52,11 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 
 	e.play_animation(animation)
 	AudioMgr.play_sfx(sfx)
-	if await e.y_wait(delay) or not target:
+	if await e.y_wait(delay) or search and not target:
 		compensate_cooldown(e, skill_idx)
 		return
 
-	if search_target_pos:
+	if search:
 		influence.take_influence(e, target, target.global_position)
 	else:
 		influence.take_influence(e, target, e.global_position)

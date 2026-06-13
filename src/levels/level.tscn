@@ -60,9 +60,7 @@ metadata/_custom_type_script = "uid://c2hgryphol5kq"
 y_sort_enabled = true
 script = ExtResource("28_8e6uo")
 
-[node name="PathwayContainer" type="Control" parent="." unique_id=189538076]
-layout_mode = 3
-anchors_preset = 0
+[node name="PathwayContainer" type="Node2D" parent="." unique_id=886912364]
 script = ExtResource("26_ba5b5")
 
 [node name="SelectMenu" parent="." unique_id=1082728830 instance=ExtResource("10_qogh7")]

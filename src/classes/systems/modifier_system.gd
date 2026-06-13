@@ -15,29 +15,30 @@ func _on_insert(e: Entity) -> bool:
 		return false
 		
 	var interact_p: InteractPolicy = e.interact_policy
-	var t_interact_p: InteractPolicy = target.interact_policy
-	if not InteractPolicy.is_allowed_target(e, target, interact_p, t_interact_p):
+	if not InteractPolicy.is_allowed_target(e, target, interact_p, target.interact_policy):
 		return false
 
 	modifier_c.ts = TimeMgr.tick_ts
 	e.global_position = target.global_position
 
 	var same_mod_list: Array[Entity] = []
-
+	
 	for other_mod: Entity in target.get_has_mod_list():
 		if other_mod == e:
 			continue
+			
+		var other_interact_p: InteractPolicy = other_mod.interact_policy
 		
 		if (
-			t_interact_p.is_banned(interact_p) 
-			or t_interact_p.is_aura_type_banned(interact_p)
-			or not t_interact_p.is_scene_allowed(e.scene_name)
+			other_interact_p.is_banned(interact_p) 
+			or other_interact_p.is_aura_type_banned(interact_p)
+			or not other_interact_p.is_scene_allowed(e.scene_name)
 		):
 			return false
 			
 		if (
-			interact_p.is_banned(t_interact_p) 
-			or interact_p.is_aura_type_banned(t_interact_p)
+			interact_p.is_banned(other_interact_p) 
+			or interact_p.is_aura_type_banned(other_interact_p)
 			or not interact_p.is_scene_allowed(target.scene_name)
 		):
 			if modifier_c.remove_banned:
@@ -97,25 +98,48 @@ func _on_remove(e: Entity) -> bool:
 func _process_modifier_update() -> void:
 	for e: Entity in EntityMgr.get_entities_group(C.GROUP_MODIFIERS):
 		var modifier_c: ModifierComponent = e.get_node_or_null(C.CN_MODIFIER)
-		
-		# 周期效果
-		if (
-			U.is_valid_number(modifier_c.cycle_time) 
-			and not TimeMgr.has_elapsed(modifier_c.ts, modifier_c.cycle_time)
-		):
-			return
-
-		# 最大周期数
-		if U.is_valid_number(modifier_c.max_cycle) and modifier_c.curren_cycle > modifier_c.max_cycle:
-			e.remove_entity()
-			return
 
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
-		modifier_c.influence.take_influence(e, target, target.global_position)
-		e._on_modifier_period(target, modifier_c)
+		if modifier_c.track_target:
+			if target:
+				var new_global_position: Vector2 = target.global_position
 
-		modifier_c.curren_cycle += 1
-		modifier_c.ts = TimeMgr.tick_ts
+				if target.hit_offsets:
+					var offset: Vector2 = target.hit_offsets.get_offset_for_point(
+						target.global_position, target.look_point
+					)
+					new_global_position += offset
+				e.global_position = new_global_position
+
+		if e.is_waiting():
+			continue
+
+		if modifier_c.cycle_enable:
+			if U.is_valid_number(modifier_c.max_cycle):
+				if modifier_c.curren_cycle > modifier_c.max_cycle:
+					e.remove_entity()
+					continue
+			
+			if TimeMgr.has_elapsed(modifier_c.ts, modifier_c.cycle_time):
+				continue
+
+			modifier_c.curren_cycle += 1
+			modifier_c.ts = TimeMgr.tick_ts
+			e._on_modifier_cycle(target, modifier_c)
+		
+			modifier_c.influence.take_influence(e, target, target.global_position)
+		else:
+			if not e.is_first_update:
+				continue
+			
+			_take_influfluence(e, modifier_c, target)
+		
+
+func _take_influfluence(e: Entity, modifier_c: ModifierComponent, target: Entity) -> void:
+	modifier_c.influence.take_influence(e, target, target.global_position)
+	await e.y_wait_animation(e.idle_animation)
+
+	e.remove_entity()
 
 
 ## 处理状态效果的属性修改。

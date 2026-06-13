@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://p5qdr2d4pwd4"]
+
+[ext_resource type="PackedScene" uid="uid://jx3pxi4skntv" path="res://entities/modifier.tscn" id="1_hruso"]
+
+[node name="Modifierss" unique_id=1286372614 instance=ExtResource("1_hruso")]

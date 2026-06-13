@@ -32,13 +32,6 @@ func _on_update(delta: float) -> void:
 			e.remove_entity()
 			continue
 			
-		if e.track_source:
-			var source: Entity = EntityMgr.get_entity_by_id(e.source_id)
-			if not source:
-				continue
-				
-			e.global_position = source.global_position
-			
 		_update_entity(e, delta)
 		
 	for e: Entity in EntityMgr.get_valid_entities():

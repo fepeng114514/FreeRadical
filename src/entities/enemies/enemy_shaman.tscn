@@ -7,12 +7,17 @@
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="4_6r1go"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="6_t5fix"]
 [ext_resource type="Script" uid="uid://d3i11n4j7bnvl" path="res://classes/skills/skill_area.gd" id="7_8umbj"]
+[ext_resource type="Script" uid="uid://bu7q2xp2xd78b" path="res://classes/influence_resources/influence_resource.gd" id="8_2lsbh"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="8_6majh"]
 [ext_resource type="PackedScene" uid="uid://gjv8x6puntrs" path="res://entities/heal.tscn" id="9_8umbj"]
-[ext_resource type="Script" uid="uid://ckhydj2qpt5tb" path="res://classes/influence_resources/influence_heal_resource.gd" id="9_kwo0b"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="10_xr4ln"]
 
-[sub_resource type="Resource" id="Resource_s4s51"]
+[sub_resource type="Resource" id="Resource_6majh"]
+script = ExtResource("4_6r1go")
+any = Vector2(0, -12.24)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_kwo0b"]
 resource_local_to_scene = true
 script = ExtResource("2_jyvth")
 flags = 1
@@ -20,38 +25,33 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_pvsfh"]
+[sub_resource type="Resource" id="Resource_xr4ln"]
 resource_local_to_scene = true
 script = ExtResource("4_6r1go")
 right = Vector2(42.84, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_7cuwb"]
+[sub_resource type="Resource" id="Resource_s4s51"]
 resource_local_to_scene = true
 script = ExtResource("3_6r1go")
 damage_min = 3.0
 damage_max = 5.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
-[sub_resource type="Resource" id="Resource_8la0e"]
-script = ExtResource("8_6majh")
-max_radius = 126.0
-metadata/_custom_type_script = "uid://4dsevfnug1a1"
-
 [sub_resource type="Resource" id="Resource_8umbj"]
 script = ExtResource("8_6majh")
 max_radius = 126.0
 max_search = 3
+search_mode = 30
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
-[sub_resource type="Resource" id="Resource_gkahd"]
-script = ExtResource("9_kwo0b")
-heal_value = 50.0
+[sub_resource type="Resource" id="Resource_t5fix"]
+script = ExtResource("8_2lsbh")
 extra_enable = true
-payloads = Array[PackedScene]([ExtResource("9_8umbj")])
+mods = Array[PackedScene]([ExtResource("9_8umbj")])
 area_enable = true
 search = SubResource("Resource_8umbj")
-metadata/_custom_type_script = "uid://ckhydj2qpt5tb"
+metadata/_custom_type_script = "uid://bu7q2xp2xd78b"
 
 [sub_resource type="Resource" id="Resource_lc2l3"]
 script = ExtResource("10_xr4ln")
@@ -60,11 +60,13 @@ right_replace_left = true
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [node name="EnemyShaman" unique_id=71433118 instance=ExtResource("1_xhv65")]
-interact_policy = SubResource("Resource_s4s51")
+hit_offsets = SubResource("Resource_6majh")
+interact_policy = SubResource("Resource_kwo0b")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
-position = Vector2(0, -35)
+position = Vector2(0, -36)
 sprite_frames = ExtResource("3_jyvth")
+animation = &"heal_left_right"
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 100.0
@@ -80,24 +82,23 @@ speed = 50.0
 
 [node name="MeleeComponent" parent="." index="3" unique_id=768145759]
 speed = 82.0
-melee_pos_offsets = SubResource("Resource_pvsfh")
+melee_pos_offsets = SubResource("Resource_xr4ln")
 
 [node name="SkillMelee" parent="MeleeComponent" index="0" unique_id=1304104648]
-influence = SubResource("Resource_7cuwb")
+influence = SubResource("Resource_s4s51")
 
 [node name="UIComponent" parent="." index="4" unique_id=673866706]
 select_rect = Rect2(-22.53, -46.875, 53.06, 49.37)
 
 [node name="SkillComponent" type="Node2D" parent="." index="5" unique_id=1265011533]
-position = Vector2(-20, -54.3)
 scale = Vector2(1, 1.1)
 script = ExtResource("6_t5fix")
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="SkillArea" type="Node2D" parent="SkillComponent" index="0" unique_id=816441794]
 script = ExtResource("7_8umbj")
-search = SubResource("Resource_8la0e")
-influence = SubResource("Resource_gkahd")
+influence = SubResource("Resource_t5fix")
 cooldown = 8.0
+delay = 0.267
 animation = SubResource("Resource_lc2l3")
 metadata/_custom_type_script = "uid://d3i11n4j7bnvl"

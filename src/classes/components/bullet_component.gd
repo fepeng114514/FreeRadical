@@ -13,7 +13,7 @@ class_name BulletComponent
 
 @export_group("Rotation")
 ## 子弹旋转速度。
-var rotation_speed: float = 0.0
+@export var rotation_speed: float = 0.0
 ## 是否看向目标点，会覆盖 [member rotation_speed]。
 @export var look_to: bool = true
 
