@@ -7,3 +7,6 @@ func _ready() -> void:
 
 func _on_pressed() -> void:
 	LevelMgr.enter_level(1)
+	#get_tree().change_scene_to_file(
+		#"res://ui/map/map.tscn"
+	#)

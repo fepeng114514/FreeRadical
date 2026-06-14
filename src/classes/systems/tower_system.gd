@@ -10,18 +10,10 @@ func _on_insert(e: Entity) -> bool:
 	if not tower_c:
 		return true
 		
-	for child: Node in tower_c.get_children():
-		var entity_list: Array = []
-		
-		if child is EntityGroup2D:
-			entity_list = child.get_children()
-		else:
-			entity_list = [child]
-			
-		for sub_e: Entity in entity_list:
-			sub_e.source_id = e.id
-			EntityMgr.setup_entity(sub_e)
-			sub_e.insert_entity()
+	for child: Entity in tower_c.get_children():
+		child.source_id = e.id
+		EntityMgr.setup_entity(child)
+		child.insert_entity()
 		
 	if not tower_c.tower_holder:
 		tower_c.tower_holder = GameMgr.defaul_tower_holder
@@ -64,7 +56,7 @@ func _on_update(_delta: float) -> void:
 				var barrack_c: BarrackComponent = e.get_node_or_null(C.CN_BARRACK)
 				if barrack_c:
 					new_barrack_c.rally_center_position = barrack_c.rally_center_position
-					new_barrack_c.last_soldier_group = barrack_c.soldier_group
+					new_barrack_c.last_soldier_list = barrack_c.soldier_list
 				else:
 					new_barrack_c.rally_center_position = tower_c.to_global(default_rally_center_local_pos)
 			

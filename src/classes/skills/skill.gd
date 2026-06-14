@@ -66,18 +66,16 @@ func start_cooldown(e: Entity, skill_idx: int) -> void:
 	ts = tick_ts
 
 	if group_cooldown_enable:
-		var parent: Node = e.get_parent()
-		if parent is EntityGroup2D:
-			for group_member: Entity in parent.get_children():
-				if group_member == e:
-					continue
+		for group_member: Entity in e.get_parent().get_children():
+			if group_member == e:
+				continue
+			
+			var group_member_skill_c: SkillComponent = group_member.get_node_or_null(C.CN_SKILL)
+			if not group_member_skill_c:
+				continue
 				
-				var group_member_skill_c: SkillComponent = group_member.get_node_or_null(C.CN_SKILL)
-				if not group_member_skill_c:
-					continue
-					
-				var group_member_s: Skill = group_member_skill_c.get_child(skill_idx)
-				group_member_s.ts = tick_ts - group_cooldown_offset 
+			var group_member_s: Skill = group_member_skill_c.get_child(skill_idx)
+			group_member_s.ts = tick_ts - group_cooldown_offset 
 		
 
 ## 补偿技能冷却时间。
@@ -85,16 +83,14 @@ func compensate_cooldown(e: Entity, skill_idx: int) -> void:
 	ts -= compensate_cooldown_percent * cooldown
 
 	if group_cooldown_enable:
-		var parent: Node = e.get_parent()
-		if parent is EntityGroup2D:
-			for group_member: Entity in parent.get_children():
-				if group_member == e:
-					continue
+		for group_member: Entity in e.get_parent().get_children():
+			if group_member == e:
+				continue
+			
+			var group_member_skill_c: SkillComponent = group_member.get_node_or_null(C.CN_SKILL)
+			if not group_member_skill_c:
+				continue
 				
-				var group_member_skill_c: SkillComponent = group_member.get_node_or_null(C.CN_SKILL)
-				if not group_member_skill_c:
-					continue
-					
-				var group_member_s: Skill = group_member_skill_c.get_child(skill_idx)
-				group_member_s.ts -= compensate_cooldown_percent * group_member_s.cooldown
+			var group_member_s: Skill = group_member_skill_c.get_child(skill_idx)
+			group_member_s.ts -= compensate_cooldown_percent * group_member_s.cooldown
 		

@@ -22,7 +22,7 @@ func _on_remove(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	var entities: Array = EntityMgr.get_valid_entities().filter(
+	var entities: Array[Entity] = EntityMgr.get_valid_entities().filter(
 		func(e: Entity) -> bool:
 			return not e.state & Entity.State.DEAD and not e.is_waiting()
 	)

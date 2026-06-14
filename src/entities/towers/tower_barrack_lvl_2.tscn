@@ -31,4 +31,4 @@ price = 110.0
 select_rect = Rect2(-61.3, -91.985, 120.505, 108.965)
 
 [node name="BarrackComponent" parent="." index="3" unique_id=441339810]
-soldier = ExtResource("5_esuh8")
+soldier_scene = ExtResource("5_esuh8")

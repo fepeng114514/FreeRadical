@@ -20,6 +20,11 @@ class_name Level
 
 
 func _enter_tree() -> void:
+	EntityMgr._load()
+	SearchMgr._load()
+	PathwayMgr._load()
+	GridMgr._load()
+	
 	GlobalMgr.world_size = world_size
 	GameMgr.defaul_tower_holder = defaul_tower_holder
 	WaveMgr.first_release_wave.connect(_on_first_release_wave)

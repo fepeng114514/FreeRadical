@@ -136,11 +136,8 @@ func _update_tower_info() -> void:
 			ranged_type_icon.visible = false
 			ranged_value.visible = false
 	else:
-		var first_entity = tower_c.get_child(0)
-		if first_entity is EntityGroup2D:
-			first_entity = first_entity.get_child(0)
+		var first_entity: Entity = tower_c.get_child(0)
 		var skill_c: SkillComponent = first_entity.get_node_or_null(C.CN_SKILL)
-
 		if skill_c:
 			_set_value_ranged(skill_c)
 

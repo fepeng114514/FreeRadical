@@ -1,0 +1,14 @@
+{
+	"map_flag": {
+		"animations": {
+			"unlock": {
+				"from": 1,
+				"to": 20
+			},
+			"unlocked": {
+				"from": 21,
+				"to": 64
+			}
+		}
+	}
+}

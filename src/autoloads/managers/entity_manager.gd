@@ -176,12 +176,18 @@ func get_entity_by_id(id: int) -> Entity:
 
 
 ## 获取所有有效实体。
-func get_valid_entities() -> Array:
-	return entity_list.filter(
-		func(e) -> bool: return U.is_valid_entity(e)
-	)
-	
+func get_valid_entities() -> Array[Entity]:
+	var valid_entities: Array[Entity] = []
 
+	for e in entity_list:
+		if not U.is_valid_entity(e):
+			continue
+		
+		valid_entities.append(e)
+	
+	return valid_entities
+
+	
 ## 获取实体数据，实体数据是一个实体实例，仅用于读取原始数据，不参与游戏逻辑。
 func get_entity_data(entity_scene: PackedScene) -> Entity:
 	if not _cached_entities_data.has(entity_scene) :
