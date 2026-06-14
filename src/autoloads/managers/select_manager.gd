@@ -19,9 +19,9 @@ enum SelectMode {
 
 @warning_ignore_start("unused_signal")
 ## 选择实体信号。
-signal select_entity(e: Entity)
+signal entity_selected(e: Entity)
 ## 取消选择实体信号。
-signal deselect_entity
+signal entity_deselected
 @warning_ignore_restore("unused_signal")
 
 
@@ -82,7 +82,7 @@ func _select(e: Entity) -> void:
 	if rally_c and rally_c.can_select_rally:
 		select_mode = SelectMode.RALLY
 		
-	select_entity.emit(e)
+	entity_selected.emit(e)
 
 
 ## 取消选择实体。
@@ -131,4 +131,4 @@ func _deselect() -> void:
 
 	select_mode = SelectMode.NONE
 	selected_entity = null
-	deselect_entity.emit()
+	entity_deselected.emit()

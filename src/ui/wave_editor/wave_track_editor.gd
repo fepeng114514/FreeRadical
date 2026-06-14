@@ -6,11 +6,11 @@ extends TrackEditor
 
 func _ready() -> void:
 	super()
-	item_select.connect(_on_item_select)
-	item_deselect.connect(_on_item_deselect)
-	item_insert.connect(_on_item_insert)
-	item_delete.connect(_on_item_delete)
-	item_move.connect(_on_item_move)
+	item_selected.connect(_on_item_selected)
+	item_deselected.connect(_on_item_deselected)
+	item_inserted.connect(_on_item_inserted)
+	item_deleted.connect(_on_item_deleted)
+	item_moved.connect(_on_item_moved)
 	item_order_changed.connect(_on_item_order_changed)
 
 
@@ -20,7 +20,7 @@ func _hide_sub_track_editor() -> void:
 	wave_editor.spawn_data_vbox_container.visible = false
 	
 
-func _on_item_select(item: TrackEditorTrackItem) -> void:
+func _on_item_selected(item: TrackEditorTrackItem) -> void:
 	var wave: Wave = wave_editor.get_wave(item.idx)
 	wave_editor.selected_wave = wave
 
@@ -60,11 +60,11 @@ func _on_item_select(item: TrackEditorTrackItem) -> void:
 	sub_wave_track_editor.visible = true
 
 
-func _on_item_deselect(_item: TrackEditorTrackItem) -> void:
+func _on_item_deselected(_item: TrackEditorTrackItem) -> void:
 	_hide_sub_track_editor()
 
 
-func _on_item_insert(item: TrackEditorTrackItem) -> void:
+func _on_item_inserted(item: TrackEditorTrackItem) -> void:
 	var last_item: TrackEditorTrackItem = item_list[item.idx - 1]
 
 	var new_wave := Wave.new()
@@ -72,12 +72,12 @@ func _on_item_insert(item: TrackEditorTrackItem) -> void:
 	wave_editor.wave_group.wave_list.append(new_wave)
 
 
-func _on_item_delete(item: TrackEditorTrackItem) -> void:
+func _on_item_deleted(item: TrackEditorTrackItem) -> void:
 	wave_editor.wave_group.wave_list.remove_at(item.idx)
 	_hide_sub_track_editor()
 
 
-func _on_item_move(item: TrackEditorTrackItem) -> void:
+func _on_item_moved(item: TrackEditorTrackItem) -> void:
 	var last_item: TrackEditorTrackItem = item_list[item.idx - 1]
 	wave_editor.get_wave(item.idx).interval = item.track_pos - last_item.track_pos
 

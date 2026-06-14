@@ -29,8 +29,8 @@ var selected_entity: Entity = null
 
 
 func _ready() -> void:
-	SelectMgr.select_entity.connect(_show)
-	SelectMgr.deselect_entity.connect(_hide)
+	SelectMgr.entity_selected.connect(_show)
+	SelectMgr.entity_deselected.connect(_hide)
 	visible = false
 	
 	

@@ -88,11 +88,12 @@ func set_rally_center_position(
 		AudioMgr.play_sfx(rally_sfx)
 		
 	rally_center_position = center_position
+	var soldier_size: int = soldier_list.size()
 	
-	for i: int in soldier_list.size():
+	for i: int in soldier_size:
 		var soldier: Entity = soldier_list[i]
 		var s_rally_c: RallyComponent = soldier.get_node_or_null(C.CN_RALLY)
-		var formation_position: Vector2 = to_formation_position(rally_center_position, max_soldier_count, i)
+		var formation_position: Vector2 = to_formation_position(rally_center_position, soldier_size, i)
 		s_rally_c.new_rally_position(formation_position, is_force, rally_center_position, false)
 		
 		var melee_c: MeleeComponent = soldier.get_node_or_null(C.CN_MELEE)

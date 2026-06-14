@@ -82,7 +82,7 @@ func _process_remove_queue() -> void:
 			e.visible = true
 			e.state &= ~Entity.State.REMOVED
 			continue
-			
+		
 		e.free()
 
 

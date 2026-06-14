@@ -20,8 +20,9 @@ func _on_remove(e: Entity) -> bool:
 	if not barrack_c:
 		return true
 	
-	for soldier: Entity in barrack_c.soldier_list:
-		soldier.remove_entity()
+	var soldier_list: Array[Entity] = barrack_c.soldier_list
+	for _i: int in soldier_list.size():
+		soldier_list[0].remove_entity()
 
 	return true
 
@@ -39,12 +40,12 @@ func _on_update(e: Entity) -> bool:
 		_spawn_by_time(e, barrack_c)
 		return true
 		
-	var soldier_count: int = barrack_c.soldier_list.size()
+	var soldier_list_size: int = barrack_c.soldier_list.size()
 
 	# 士兵数发生变化重新整队
-	if barrack_c.last_soldier_count != soldier_count:
+	if barrack_c.last_soldier_count != soldier_list_size:
 		barrack_c.set_rally_center_position(barrack_c.rally_center_position, false, false)
-		barrack_c.last_soldier_count = soldier_count
+		barrack_c.last_soldier_count = soldier_list_size
 	return false
 
 
@@ -53,6 +54,8 @@ func _spawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent
 	) -> Entity:
 	var soldier: Entity = EntityMgr.create_entity(barrack_c.soldier_scene)
+	soldier.entity_removed.connect(_on_soldier_removed.bind(barrack_c))
+
 	var barrack_global_pos: Vector2 = barrack.global_position
 	var soldier_global_pos: Vector2 = barrack_global_pos
 	if barrack_c.spawn_offsets:
@@ -69,6 +72,10 @@ func _spawn_soldier(
 	soldier.insert_entity()
 	
 	return soldier
+
+
+func _on_soldier_removed(soldier: Entity, barrack_c: BarrackComponent) -> void:
+	barrack_c.soldier_list.erase(soldier)
 
 
 ## 根据重生时间生成士兵。

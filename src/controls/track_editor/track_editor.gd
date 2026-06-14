@@ -7,15 +7,15 @@ class_name TrackEditor
 
 @warning_ignore_start("unused_signal")
 ## 项选中信号。
-signal item_select(item: TrackEditorTrackItem)
+signal item_selected(item: TrackEditorTrackItem)
 ## 项取消选中信号。
-signal item_deselect(item: TrackEditorTrackItem)
+signal item_deselected(item: TrackEditorTrackItem)
 ## 项插入信号。
-signal item_insert(item: TrackEditorTrackItem)
+signal item_inserted(item: TrackEditorTrackItem)
 ## 项删除信号。
-signal item_delete(item: TrackEditorTrackItem)
+signal item_deleted(item: TrackEditorTrackItem)
 ## 项移动信号。
-signal item_move(item: TrackEditorTrackItem)
+signal item_moved(item: TrackEditorTrackItem)
 ## 项顺序改变信号。
 signal item_order_changed
 @warning_ignore_restore("unused_signal")
@@ -111,7 +111,7 @@ func select_item(item: TrackEditorTrackItem) -> void:
 	Log.info("选择轨道项: %s" % item.idx)
 	selected_item = item
 	item.is_selected = true
-	item_select.emit(item)
+	item_selected.emit(item)
 
 
 ## 取消选中轨道项。
@@ -124,7 +124,7 @@ func deselect_item() -> void:
 	selected_item.is_selected = false
 	selected_item.is_draging = false
 		
-	item_deselect.emit(selected_item)
+	item_deselected.emit(selected_item)
 	selected_item = null
 
 
@@ -146,7 +146,7 @@ func insert_item(item: TrackEditorTrackItem, signal_emit_disabled: bool = false)
 	track.item_container.add_child(item)
 	update_item_list()
 	if not signal_emit_disabled:
-		item_insert.emit(item)
+		item_inserted.emit(item)
 
 
 ## 删除轨道项。
@@ -157,7 +157,7 @@ func erase_item(item: TrackEditorTrackItem) -> void:
 	track.item_container.remove_child(item)
 	item.queue_free()
 	update_item_list()
-	item_delete.emit(item)
+	item_deleted.emit(item)
 		
 	
 ## 获取轨道项。

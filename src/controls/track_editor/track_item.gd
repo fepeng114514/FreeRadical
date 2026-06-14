@@ -109,7 +109,7 @@ func drag_move(event: InputEventMouseMotion) -> void:
 	track_editor.pointer.position.x = position.x
 	last_global_x = global_position.x
 	track_editor.update_item_list()
-	track_editor.item_move.emit(self)
+	track_editor.item_moved.emit(self)
 
 
 ## 应用位置增量。

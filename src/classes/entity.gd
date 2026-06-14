@@ -7,6 +7,10 @@ class_name Entity
 ## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
 
 
+## 实体移除信号。
+signal entity_removed(entity: Entity)
+
+
 ## 状态标志枚举
 enum State {
 	## 状态: 空闲
@@ -207,6 +211,7 @@ func insert_entity() -> void:
 func remove_entity() -> void:
 	visible = false
 	state |= State.REMOVED
+	entity_removed.emit(self)
 	SystemMgr.append_remove_queue.emit(self)
 	Log.debug("移除实体: %s" % self)
 

@@ -48,8 +48,8 @@ var info_bar_type: C.InfoBarType = C.InfoBarType.UNIT
 
 
 func _ready() -> void:
-	SelectMgr.select_entity.connect(_show)
-	SelectMgr.deselect_entity.connect(_hide)
+	SelectMgr.entity_selected.connect(_show)
+	SelectMgr.entity_deselected.connect(_hide)
 	visible = false
 
 
@@ -116,9 +116,10 @@ func _update_unit_info() -> void:
 		melee_type_icon.visible = false
 		
 	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
-	var first_ranged_skill: SkillRanged = skill_c.get_child(0) as SkillRanged
-	if skill_c and first_ranged_skill:
-		_set_value_ranged(skill_c)
+	
+	if skill_c:
+		if skill_c.get_child(0) as SkillRanged:
+			_set_value_ranged(skill_c)
 	else:
 		ranged_value.visible = false
 		ranged_type_icon.visible = false

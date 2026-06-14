@@ -35,8 +35,8 @@ var is_animating: bool = false
 func _ready() -> void:
 	visible = false
 	
-	SelectMgr.select_entity.connect(_show)
-	SelectMgr.deselect_entity.connect(_hide)
+	SelectMgr.entity_selected.connect(_show)
+	SelectMgr.entity_deselected.connect(_hide)
 	hide_select_menu.connect(_hide)
 	
 	
