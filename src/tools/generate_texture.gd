@@ -5,10 +5,8 @@ extends EditorScript
 
 ## 图集数据文件夹。
 const DIR_SPRITE_FRAMES_DATAS: String = "res://tools/sprite_frames_datas/"
-## 图像图集文件夹。
-const DIR_IMAGE_ATLAS: String = "res://assets/atlas/image_atlas/"
-## 动画图集文件夹。
-const DIR_ANIMATED_ATLAS: String = "res://assets/atlas/animated_atlas/"
+## 图集文件夹。
+const DIR_ATLAS: String = "res://assets/atlas/"
 
 
 ## 缓存的图集纹理。
@@ -19,20 +17,12 @@ var image_db: Dictionary[String, AtlasTexture] = {}
 
 func _run() -> void:
 	# 处理图像图集（生成 AtlasTexture 并保存为 .tres）
-	for file: String in U.open_directory(DIR_IMAGE_ATLAS).get_files():
+	for file: String in U.open_directory(DIR_ATLAS).get_files():
 		if file.get_extension() != "json":
 			continue
-		var full_path: String = DIR_IMAGE_ATLAS.path_join(file)
-		Log.debug("处理图像图集: %s" % full_path)
-		_parse_atlas_data(full_path, false)
-
-	# 处理动画图集（只创建 AtlasTexture 存入 image_db，不单独保存）
-	for file: String in U.open_directory(DIR_ANIMATED_ATLAS).get_files():
-		if file.get_extension() != "json":
-			continue
-		var full_path: String = DIR_ANIMATED_ATLAS.path_join(file)
-		Log.debug("处理动画图集: %s" % full_path)
-		_parse_atlas_data(full_path, true)
+		var full_path: String = DIR_ATLAS.path_join(file)
+		Log.debug("处理图集: %s" % full_path)
+		_parse_atlas_data(full_path)
 
 	# 逐个处理 SpriteFrames 定义文件，生成并按分类保存 SpriteFrames
 	for data_file: String in U.open_directory(DIR_SPRITE_FRAMES_DATAS).get_files():
@@ -43,47 +33,57 @@ func _run() -> void:
 
 
 ## 解析图集数据。
-func _parse_atlas_data(path: String, is_animated_atlas: bool) -> void:
+func _parse_atlas_data(path: String) -> void:
 	var category: String = _get_category_from_path(path)
 	var atlas_data: Dictionary = U.load_json(path)
 
 	for atlas_name: String in atlas_data:
-		var images_data: Dictionary = atlas_data[atlas_name]
-		var atlas_path: String = ""
+		var atlas_file: Texture2D = _load_atlas(DIR_ATLAS.path_join(atlas_name))
 
-		if not is_animated_atlas:
-			atlas_path = DIR_IMAGE_ATLAS.path_join(atlas_name)
-		else:
-			atlas_path = DIR_ANIMATED_ATLAS.path_join(atlas_name)
+		var image_types: Dictionary = atlas_data[atlas_name]
+		var atlas_texture_dict: Dictionary = image_types.atlas_texture
 
-		var atlas_file: Texture2D = null
-		if cached_atlas.has(atlas_path):
-			atlas_file = cached_atlas[atlas_path]
-		else:
-			atlas_file = load(atlas_path)
-			cached_atlas[atlas_path] = atlas_file
+		for name: String in atlas_texture_dict:
+			var img_data: Dictionary = image_types[name]
+			var atlas_texture: AtlasTexture = _add_atlas_texture(name, atlas_file, img_data)
 
-		for img_name: String in images_data:
-			var img_data: Dictionary = images_data[img_name]
-			var atlas_texture: AtlasTexture = _create_atlas_texture(img_data, atlas_file)
+			_save_atlas_texture(category, name, atlas_texture)
 
-			# 设置修剪边距
-			var trim: Array = img_data.trim
-			var trim_x: int = trim[0]
-			var trim_y: int = trim[1]
-			var trim_w: int = trim_x + trim[2]
-			var trim_h: int = trim_y + trim[3]
-			atlas_texture.margin = Rect2(trim_x, trim_y, trim_w, trim_h)
+		var sprite_frames_dict: Dictionary = image_types.sprite_frames
 
-			# 非动画图集需要单独保存 AtlasTexture 文件
-			if not is_animated_atlas:
-				_save_atlas_texture(category, img_name, atlas_texture)
+		for name: String in sprite_frames_dict:
+			var img_data: Dictionary = sprite_frames_dict[name]
+			_add_atlas_texture(name, atlas_file, img_data)
 
-			image_db[img_name] = atlas_texture
 
-			# 处理别名
-			for alias: String in img_data.alias:
-				image_db[alias] = atlas_texture
+func _add_atlas_texture(name: String, atlas_file: Texture2D, img_data: Dictionary) -> AtlasTexture:
+	var atlas_texture: AtlasTexture = _create_atlas_texture(img_data, atlas_file)
+
+	# 设置修剪边距
+	var trim: Array = img_data.trim
+	var trim_x: int = trim[0]
+	var trim_y: int = trim[1]
+	var trim_w: int = trim_x + trim[2]
+	var trim_h: int = trim_y + trim[3]
+	atlas_texture.margin = Rect2(trim_x, trim_y, trim_w, trim_h)
+
+	image_db[name] = atlas_texture
+
+	# 处理别名
+	for alias: String in img_data.alias:
+		image_db[alias] = atlas_texture
+
+	return atlas_texture
+
+
+func _load_atlas(path: String) -> Texture2D:
+	if cached_atlas.has(path):
+		return cached_atlas[path]
+	else:
+		var atlas_file: Texture2D = load(path)
+		cached_atlas[path] = atlas_file
+
+		return atlas_file
 
 
 ## 从 JSON 数据创建 SpriteFrames 资源。

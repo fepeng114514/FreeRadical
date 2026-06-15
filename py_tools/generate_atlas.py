@@ -19,11 +19,6 @@ SHOR_TSIDE = "short_side"
 TYPE_RECT = "rect"
 TYPE_FREE_RECT = "free_rect"
 
-image_atlas_path = config.output_path / "image_atlas"
-animated_atlas_path = config.output_path / "animated_atlas"
-image_atlas_path.mkdir(exist_ok=True)
-animated_atlas_path.mkdir(exist_ok=True)
-
 
 class AtlasGeneratorApp:
     def __init__(self, root):
@@ -260,6 +255,7 @@ def process_single_image(image_file, hash_groups):
             "trim": trim,  # 裁剪信息
             "file_size": file_size,
             "aspect_ratio": img.width / img.height if img.height > 0 else 0,
+            "path": image_file,
         }
 
         # 更新哈希分组
@@ -285,9 +281,8 @@ def process_directory(directory_path, padding):
     images = []
 
     # 预收集所有图片文件路径
-    image_files = list(directory_path.glob("*.*"))
     image_files = [
-        f for f in image_files if f.suffix.lower() in {".png", ".jpg", ".jpeg"}
+        f for f in directory_path.rglob("*.*") if f.suffix.lower() in {".png", ".jpg", ".jpeg"}
     ]
 
     # 2. 批量处理图片（减少IO操作）
@@ -682,14 +677,7 @@ def write_atlas(images, result):
     # 创建空白图集
     with Image.new("RGBA", tuple(result["atlas_size"]), (0, 0, 0, 0)) as atlas:
         atlas_name = result["name"]
-
-        output_path = config.output_path
-        if atlas_name.startswith("image"):
-            output_path = image_atlas_path
-        elif atlas_name.startswith("animated"):
-            output_path = animated_atlas_path
-
-        output_file = output_path / f"{atlas_name}.png"
+        output_file = config.output_path / f"{atlas_name}.png"
 
         # 将所有图片粘贴到图集上
         for rect in result["rectangles"]:
@@ -729,7 +717,7 @@ def write_atlas(images, result):
         if output_format == "bc7" or output_format == "bc3":
             save_to_dds(
                 output_file,
-                output_path,
+                config.output_path,
                 output_format,
                 setting_var["delete_temp_var"],
             )
@@ -740,7 +728,6 @@ def write_atlas(images, result):
 
 
 def gen_json_content(images, results):
-    padding = setting_var["padding_var"]
     json_content = {}
 
     # 遍历所有打包结果
@@ -752,9 +739,13 @@ def gen_json_content(images, results):
             )
 
             if not json_content.get(atlas_name):
-                json_content[atlas_name] = {}
+                json_content[atlas_name] = {
+                    "atlas_texture": {},
+                    "sprite_frames": {},
+                }
 
             atlas = json_content[atlas_name]
+            atlas = atlas["sprite_frames"] if img["path"].parent.name == "sprite_frames" else atlas["atlas_texture"]
             atlas[img["name"]] = {}
             current_frame = atlas[img["name"]]
 
@@ -793,13 +784,7 @@ def write_json_data(images, results, atlas_name):
     """
     json_content = gen_json_content(images, results)
     
-    output_path = config.output_path
-    if atlas_name.startswith("image"):
-        output_path = image_atlas_path
-    elif atlas_name.startswith("animated"):
-        output_path = animated_atlas_path
-
-    file = output_path / f"{atlas_name}.json"
+    file = config.output_path / f"{atlas_name}.json"
     log.info(f"写入图集数据 {file}")
 
     with open(file, "w", encoding="utf-8") as f:
