@@ -346,6 +346,7 @@ func _play_animation(
 		anim_name: StringName, 
 		sprite: AnimatedSprite2D, 
 		filp_h: bool = false,
+		speed_scale: float = 1.0,
 		force_play: bool = false
 	) -> void:
 	if (
@@ -365,8 +366,9 @@ func _play_animation(
 	#sprite_frames.set_animation_speed(anim_name, speed)
 		
 	Log.verbose("%s 播放动画: %s, 水平镜像: %s" % [self, anim_name, filp_h])
-	sprite.play(anim_name)
 	sprite.flip_h = filp_h
+	sprite.speed_scale = speed_scale
+	sprite.play(anim_name)
 	
 	
 ## 使一个精灵组中的所有精灵播放对应的动画
@@ -374,10 +376,11 @@ func _play_animation_in_group(
 		anim_name: StringName, 
 		group: SpriteGroup, 
 		filp_h: bool = false,
+		speed_scale: float = 1.0,
 		force_play: bool = false
 	) -> void:
 	for sprite: AnimatedSprite2D in group.get_children():
-		_play_animation(anim_name, sprite, filp_h, force_play)	
+		_play_animation(anim_name, sprite, filp_h, speed_scale, force_play)	
 
 
 ## 播放动画
@@ -404,9 +407,9 @@ func play_animation(
 	var filp_h: bool = anim_data.flip_h
 
 	if play_target is SpriteGroup:
-		_play_animation_in_group(anim_name, play_target, filp_h, force_play)
+		_play_animation_in_group(anim_name, play_target, filp_h, animation_group.speed_scale, force_play)
 	else:
-		_play_animation(anim_name, play_target, filp_h, force_play)
+		_play_animation(anim_name, play_target, filp_h, animation_group.speed_scale, force_play)
 
 	## 处理同步动画
 	if sprite_c.sync_source:

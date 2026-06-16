@@ -13,6 +13,8 @@ class_name AnimationGroup
 @export var play_idx: int = 0
 ## 播放次数。
 @export var times: int = 1
+## 播放倍速。
+@export var speed_scale: float = 1.0
 ## 左方向的动画名。
 @export var left: StringName = &""
 ## 右方向的动画名。
