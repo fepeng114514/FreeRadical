@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_vp3d5"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_l0kx4"]
-[ext_resource type="Texture2D" uid="uid://dn0ddsh8l5xy8" path="res://assets/atlas/atlas_textures/image_towers/tower_preview_archer.tres" id="3_l0kx4"]
 
 [node name="TowerPreview" type="Node2D" unique_id=869103732]
 script = ExtResource("1_vp3d5")
@@ -16,4 +15,3 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1097269827]
 modulate = Color(1, 1, 1, 0.69803923)
 position = Vector2(0, -48)
-texture = ExtResource("3_l0kx4")

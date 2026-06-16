@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dgdv4ixqwp3ot" path="res://entities/towers/tower_mage.tscn" id="1_jbs6t"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_6vdtt"]
-[ext_resource type="SpriteFrames" uid="uid://dikgdn5r2afsi" path="res://assets/atlas/sprite_frames/towers/tower_mage_lvl3.tres" id="2_d1vad"]
+[ext_resource type="SpriteFrames" uid="uid://bvdae1kbmkv5q" path="res://assets/atlas/sprite_frames/towers/tower_mage_lvl3.tres" id="2_d1vad"]
 [ext_resource type="PackedScene" uid="uid://cdu8pyq7bit5w" path="res://entities/towers/tower_mage_lvl_3_shooter.tscn" id="4_kjimq"]
 
 [sub_resource type="Resource" id="Resource_2banl"]

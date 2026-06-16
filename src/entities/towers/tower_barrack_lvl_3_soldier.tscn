@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bg7aeaobp45q8"]
 
 [ext_resource type="PackedScene" uid="uid://f30rl46i8akx" path="res://entities/towers/tower_barrack_lvl_1_soldier.tscn" id="1_6fjjf"]
-[ext_resource type="SpriteFrames" uid="uid://cmctafndafvs4" path="res://assets/atlas/sprite_frames/towers/tower_barracks_soldier_lvl3.tres" id="2_41ehm"]
+[ext_resource type="SpriteFrames" uid="uid://cgn27n5ybf23x" path="res://assets/atlas/sprite_frames/towers/tower_barracks_soldier_lvl3.tres" id="2_41ehm"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_obj8f"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="3_uposi"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="4_uposi"]
@@ -25,9 +25,6 @@ resource_local_to_scene = true
 script = ExtResource("4_uposi")
 damage_min = 6.0
 damage_max = 10.0
-mods = PackedStringArray()
-auras = PackedStringArray()
-payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerBarrackLvl3Soldier" unique_id=1677548747 instance=ExtResource("1_6fjjf")]

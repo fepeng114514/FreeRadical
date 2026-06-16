@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dw0llloxyurxn" path="res://entities/towers/tower_build.tscn" id="1_bsk30"]
 [ext_resource type="PackedScene" uid="uid://biuewnv7ms46d" path="res://entities/towers/tower_archer_lvl_1.tscn" id="2_evsum"]
+[ext_resource type="Texture2D" uid="uid://7ic7ga1sd2k8" path="res://assets/atlas/atlas_textures/towers/tower_constructing_0004.tres" id="3_jldj6"]
 
 [node name="TowerBuildArcher" unique_id=1530244974 instance=ExtResource("1_bsk30")]
 show_time = 1.25
@@ -10,6 +11,7 @@ scene_name = "tower_build_archer"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1200020081) index="0" unique_id=1433762339]
 position = Vector2(3, -51)
+texture = ExtResource("3_jldj6")
 
 [node name="TextureProgressBar" parent="." index="1" unique_id=1035382269]
 offset_left = -43.0

@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://ui/game_ui/select_menu/button/select_menu_button.tscn" id="1_0114p"]
 [ext_resource type="Script" uid="uid://b5vcdr1g0hglx" path="res://ui/game_ui/select_menu/button/button_rally.gd" id="2_jitr5"]
-[ext_resource type="Texture2D" uid="uid://dbwp0gvq3bkju" path="res://assets/atlas/atlas_textures/image_icon/sub_icons_0001.tres" id="3_rfxde"]
-[ext_resource type="Texture2D" uid="uid://h76l5pbx4cgb" path="res://assets/atlas/atlas_textures/image_icon/glow_ico_sub.tres" id="4_sy30k"]
+[ext_resource type="Texture2D" uid="uid://caotd3m0b0eje" path="res://assets/atlas/atlas_textures/icon/sub_icons_0001.tres" id="3_kfqig"]
+[ext_resource type="Texture2D" uid="uid://c2u0t83ksc0i5" path="res://assets/atlas/atlas_textures/icon/glow_ico_sub.tres" id="4_cv36c"]
 
 [node name="SelectMenuButtonRally" unique_id=614263521 instance=ExtResource("1_0114p")]
 script = ExtResource("2_jitr5")
@@ -13,11 +13,11 @@ offset_left = -51.0
 offset_top = -51.0
 offset_right = 51.0
 offset_bottom = 51.0
-icon = ExtResource("3_rfxde")
+icon = ExtResource("3_kfqig")
 
 [node name="Glow" parent="Button" index="0" unique_id=1711401767]
 offset_left = -50.5
 offset_top = -49.0
 offset_right = 50.5
 offset_bottom = 49.0
-texture = ExtResource("4_sy30k")
+texture = ExtResource("4_cv36c")

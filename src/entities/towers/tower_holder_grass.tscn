@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://ckf2o2h3wv2xo"]
 
 [ext_resource type="PackedScene" uid="uid://ck4m2qigdae35" path="res://entities/towers/tower_holder.tscn" id="1_yible"]
+[ext_resource type="Texture2D" uid="uid://0566nc2tgjxo" path="res://assets/atlas/atlas_textures/towers/build_terrain_0001.tres" id="2_jmfsc"]
 
 [node name="TowerHolderGrass" unique_id=1898604313 instance=ExtResource("1_yible")]
 scene_name = "tower_holder_grass"
 
-[node name="TowerComponent" parent="." index="1" unique_id=286705593]
-tower_holder = null
+[node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(234304454) index="0" unique_id=2043930113]
+texture = ExtResource("2_jmfsc")

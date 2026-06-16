@@ -1,20 +1,20 @@
 [gd_scene format=3 uid="uid://gwdut1ms2ouh"]
 
 [ext_resource type="PackedScene" uid="uid://fx352ubic8aw" path="res://entities/towers/tower_artillery_lvl_1.tscn" id="1_mlysv"]
-[ext_resource type="SpriteFrames" uid="uid://c25c26kl1stjc" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer1.tres" id="2_i0kly"]
+[ext_resource type="SpriteFrames" uid="uid://deocnxyj5sui3" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer1.tres" id="2_i0kly"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_qpetq"]
-[ext_resource type="SpriteFrames" uid="uid://bpqjm084kj2vj" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer2.tres" id="3_4x7de"]
-[ext_resource type="SpriteFrames" uid="uid://dk6cwedytp3ix" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer3.tres" id="4_kj6gf"]
-[ext_resource type="SpriteFrames" uid="uid://bs7ou1b0yju52" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer4.tres" id="5_qpetq"]
-[ext_resource type="SpriteFrames" uid="uid://bhakq223ta83" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer5.tres" id="6_opgrv"]
-[ext_resource type="SpriteFrames" uid="uid://5lcnqcwo0nwu" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer6.tres" id="7_e0rle"]
-[ext_resource type="SpriteFrames" uid="uid://dfrtroogabqr0" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer7.tres" id="8_4pii2"]
+[ext_resource type="SpriteFrames" uid="uid://bwikywyjysose" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer2.tres" id="3_4x7de"]
+[ext_resource type="SpriteFrames" uid="uid://bvv6l8i0n83df" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer3.tres" id="4_kj6gf"]
+[ext_resource type="SpriteFrames" uid="uid://ej8t1ung4jcv" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer4.tres" id="5_qpetq"]
+[ext_resource type="SpriteFrames" uid="uid://drbfp2f8wk6vg" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer5.tres" id="6_opgrv"]
+[ext_resource type="SpriteFrames" uid="uid://gdv3a0nfa71x" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer6.tres" id="7_e0rle"]
+[ext_resource type="SpriteFrames" uid="uid://lp24hqx6qfk0" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer7.tres" id="8_4pii2"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="9_kj6gf"]
 [ext_resource type="PackedScene" uid="uid://byog4qgt2vdy5" path="res://entities/towers/tower_artillery_lvl_2_bullet.tscn" id="11_113xl"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="11_kj6gf"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="13_3bdla"]
 
-[sub_resource type="Resource" id="Resource_3ifdg"]
+[sub_resource type="Resource" id="Resource_113xl"]
 resource_local_to_scene = true
 script = ExtResource("2_qpetq")
 flags = 16
@@ -22,7 +22,7 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_mhbvy"]
+[sub_resource type="Resource" id="Resource_3ifdg"]
 resource_local_to_scene = true
 script = ExtResource("9_kj6gf")
 max_radius = 300.0
@@ -33,7 +33,7 @@ script = ExtResource("13_3bdla")
 any = Vector2(0, -71.905)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_shpx8"]
+[sub_resource type="Resource" id="Resource_mhbvy"]
 resource_local_to_scene = true
 script = ExtResource("11_kj6gf")
 damage_min = 20.0
@@ -43,7 +43,7 @@ metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArtilleryLvl2" unique_id=1600363506 instance=ExtResource("1_mlysv")]
 scene_name = "tower_artillery_lvl_2"
-interact_policy = SubResource("Resource_3ifdg")
+interact_policy = SubResource("Resource_113xl")
 
 [node name="SpriteGroup" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=557425361]
 position = Vector2(0, -49)
@@ -74,7 +74,7 @@ show_range_offset = Vector2(0, 43.52)
 price = 225.0
 
 [node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
-search = SubResource("Resource_mhbvy")
+search = SubResource("Resource_3ifdg")
 bullet = ExtResource("11_113xl")
 bullet_offsets = SubResource("Resource_thpnf")
-influence = SubResource("Resource_shpx8")
+influence = SubResource("Resource_mhbvy")

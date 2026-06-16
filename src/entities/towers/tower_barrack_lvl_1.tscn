@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://entities/towers/tower.tscn" id="1_og8n7"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_5r4pg"]
 [ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack_spawn_sfx.tres" id="2_cw5qr"]
+[ext_resource type="Texture2D" uid="uid://fcpj16d35cum" path="res://assets/atlas/atlas_textures/towers/tower_barrack_0001.tres" id="4_2u03i"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_3ddwr"]
-[ext_resource type="Texture2D" uid="uid://bd6itgmmk37jy" path="res://assets/atlas/atlas_textures/image_towers/tower_barrack_0001.tres" id="4_4wg18"]
 [ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="4_u6jgq"]
-[ext_resource type="SpriteFrames" uid="uid://cw8llhkfko3ih" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl1_door.tres" id="5_3ddwr"]
+[ext_resource type="SpriteFrames" uid="uid://c3kr0u7ptrtbr" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl1_door.tres" id="5_3ddwr"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="7_4wg18"]
 [ext_resource type="PackedScene" uid="uid://f30rl46i8akx" path="res://entities/towers/tower_barrack_lvl_1_soldier.tscn" id="8_2u03i"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="8_3sqnj"]
@@ -50,7 +50,7 @@ interact_policy = SubResource("Resource_4trds")
 position = Vector2(0, -46)
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=927508667]
-texture = ExtResource("4_4wg18")
+texture = ExtResource("4_2u03i")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="1" unique_id=1766989563]
 sprite_frames = ExtResource("5_3ddwr")

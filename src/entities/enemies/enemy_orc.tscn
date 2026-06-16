@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://drgcomkmcowby"]
 
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://entities/enemies/enemy.tscn" id="1_wlnjt"]
-[ext_resource type="SpriteFrames" uid="uid://due0kyivwouc7" path="res://assets/atlas/sprite_frames/enemies/enemy_orc.tres" id="2_bomnd"]
+[ext_resource type="SpriteFrames" uid="uid://cp7wdkolenv7s" path="res://assets/atlas/sprite_frames/enemies/enemy_orc.tres" id="2_bomnd"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_w5ikr"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_572ol"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_bomnd"]
@@ -47,6 +47,7 @@ interact_policy = SubResource("Resource_2yp6p")
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -25)
 sprite_frames = ExtResource("2_bomnd")
+animation = &"death_left_right"
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 80.0

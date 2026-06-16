@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ca75dg47m1q1a"]
 
 [ext_resource type="Script" uid="uid://cu2n4eqm2rpbd" path="res://ui/game_ui/info_circle/info_circle_container.gd" id="1_dgwu4"]
-[ext_resource type="Texture2D" uid="uid://j3uk3xoys3jx" path="res://assets/atlas/atlas_textures/image_gui/range_circle.tres" id="2_b1x22"]
+[ext_resource type="Texture2D" uid="uid://mlqpy2kc2prv" path="res://assets/atlas/atlas_textures/game_gui/range_circle.tres" id="2_nut1x"]
 [ext_resource type="Script" uid="uid://xqwd5vws2go" path="res://ui/game_ui/info_circle/info_circle.gd" id="3_505d5"]
-[ext_resource type="Texture2D" uid="uid://7tvqk88sbv7s" path="res://assets/atlas/atlas_textures/image_gui/rally_circle.tres" id="3_l26lk"]
+[ext_resource type="Texture2D" uid="uid://dagw4jd1dojh0" path="res://assets/atlas/atlas_textures/game_gui/rally_circle.tres" id="4_qhglb"]
 
 [node name="InfoCircleController" type="Control" unique_id=1487020159 node_paths=PackedStringArray("ranged_min_range_circle", "ranged_max_range_circle", "rally_min_range_circle", "rally_max_range_circle", "melee_min_range_circle", "melee_max_range_circle")]
 layout_mode = 3
@@ -32,7 +32,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("2_b1x22")
+texture = ExtResource("2_nut1x")
 script = ExtResource("3_505d5")
 metadata/_custom_type_script = "uid://xqwd5vws2go"
 
@@ -51,7 +51,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("2_b1x22")
+texture = ExtResource("2_nut1x")
 script = ExtResource("3_505d5")
 metadata/_custom_type_script = "uid://xqwd5vws2go"
 
@@ -70,7 +70,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("3_l26lk")
+texture = ExtResource("4_qhglb")
 script = ExtResource("3_505d5")
 metadata/_custom_type_script = "uid://xqwd5vws2go"
 
@@ -89,7 +89,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("3_l26lk")
+texture = ExtResource("4_qhglb")
 script = ExtResource("3_505d5")
 metadata/_custom_type_script = "uid://xqwd5vws2go"
 
@@ -108,7 +108,7 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("3_l26lk")
+texture = ExtResource("4_qhglb")
 script = ExtResource("3_505d5")
 metadata/_custom_type_script = "uid://xqwd5vws2go"
 
@@ -127,6 +127,6 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
 mouse_filter = 2
-texture = ExtResource("3_l26lk")
+texture = ExtResource("4_qhglb")
 script = ExtResource("3_505d5")
 metadata/_custom_type_script = "uid://xqwd5vws2go"

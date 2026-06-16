@@ -1,5 +1,6 @@
 @tool
 extends EditorScript
+#class_name GenerateTexture
 ## 生成 [SpriteFrames] 资源的工具，并自动按图集数据文件名创建子文件夹分类存放。
 
 
@@ -16,7 +17,7 @@ var image_db: Dictionary[String, AtlasTexture] = {}
 
 
 func _run() -> void:
-	# 处理图像图集（生成 AtlasTexture 并保存为 .tres）
+	# 处理图集
 	for file: String in U.open_directory(DIR_ATLAS).get_files():
 		if file.get_extension() != "json":
 			continue
@@ -41,18 +42,17 @@ func _parse_atlas_data(path: String) -> void:
 		var atlas_file: Texture2D = _load_atlas(DIR_ATLAS.path_join(atlas_name))
 
 		var image_types: Dictionary = atlas_data[atlas_name]
-		var atlas_texture_dict: Dictionary = image_types.atlas_texture
+		var atlas_texture_data_dict: Dictionary = image_types.atlas_texture
 
-		for name: String in atlas_texture_dict:
-			var img_data: Dictionary = image_types[name]
+		for name: String in atlas_texture_data_dict:
+			var img_data: Dictionary = atlas_texture_data_dict[name]
 			var atlas_texture: AtlasTexture = _add_atlas_texture(name, atlas_file, img_data)
-
 			_save_atlas_texture(category, name, atlas_texture)
 
-		var sprite_frames_dict: Dictionary = image_types.sprite_frames
+		var sprite_frames_data_dict: Dictionary = image_types.sprite_frames
 
-		for name: String in sprite_frames_dict:
-			var img_data: Dictionary = sprite_frames_dict[name]
+		for name: String in sprite_frames_data_dict:
+			var img_data: Dictionary = sprite_frames_data_dict[name]
 			_add_atlas_texture(name, atlas_file, img_data)
 
 

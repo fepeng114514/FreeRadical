@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_8g6nx"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_i3jkb"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="4_nhbol"]
-[ext_resource type="SpriteFrames" uid="uid://j6iq1p753voi" path="res://assets/atlas/sprite_frames/towers/tower_mage_shooter.tres" id="4_vtoys"]
+[ext_resource type="SpriteFrames" uid="uid://dlb447m72ai8p" path="res://assets/atlas/sprite_frames/towers/tower_mage_shooter.tres" id="4_vtoys"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/skill_ranged.gd" id="5_vssey"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="7_n6q0g"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="7_vtoys"]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_kc3g7"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_csl3h"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_seev1"]
-[ext_resource type="SpriteFrames" uid="uid://k047bwqmb2cf" path="res://assets/atlas/sprite_frames/towers/tower_archer_lvl1_shooter.tres" id="4_wku2c"]
+[ext_resource type="SpriteFrames" uid="uid://ba1rf3psfd023" path="res://assets/atlas/sprite_frames/towers/tower_archer_lvl1_shooter.tres" id="4_wku2c"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="5_skugy"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/skill_ranged.gd" id="6_vh14o"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="7_eanea"]

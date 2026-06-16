@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ckw5os80ertnp" path="res://ui/game_ui/select_menu/button/button_sell.tscn" id="4_dt3ol"]
 [ext_resource type="PackedScene" uid="uid://c4qyoe342uqq1" path="res://ui/game_ui/select_menu/button/button_upgrade.tscn" id="5_phmeo"]
 [ext_resource type="PackedScene" uid="uid://bvtdqhbod7k87" path="res://ui/game_ui/select_menu/button/button_upgrade_skill.tscn" id="6_wm3u5"]
-[ext_resource type="Texture2D" uid="uid://3wv80xv74csy" path="res://assets/atlas/atlas_textures/image_gui/gui_ring.tres" id="7_w8i34"]
+[ext_resource type="Texture2D" uid="uid://0kn0asfpj8lb" path="res://assets/atlas/atlas_textures/game_gui/gui_ring.tres" id="7_3ssbk"]
 [ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://ui/game_ui/select_menu/place_holders.gd" id="8_qg2iw"]
 [ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://ui/game_ui/select_menu/place_holder.tscn" id="9_qmhfd"]
 
@@ -29,10 +29,9 @@ offset_top = -139.0
 offset_right = 139.0
 offset_bottom = 139.0
 mouse_filter = 2
-texture = ExtResource("7_w8i34")
+texture = ExtResource("7_3ssbk")
 
 [node name="PlaceHolders" type="Control" parent="Ring" unique_id=274001826]
-visible = false
 anchors_preset = 0
 script = ExtResource("8_qg2iw")
 

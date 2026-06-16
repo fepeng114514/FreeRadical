@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://entities/enemies/enemy.tscn" id="1_xhv65"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_jyvth"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="3_6r1go"]
-[ext_resource type="SpriteFrames" uid="uid://6xhgufkydvwe" path="res://assets/atlas/sprite_frames/enemies/enemy_shaman.tres" id="3_jyvth"]
+[ext_resource type="SpriteFrames" uid="uid://ba0u8ijfxgx4p" path="res://assets/atlas/sprite_frames/enemies/enemy_shaman.tres" id="3_jyvth"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="4_6r1go"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="6_t5fix"]
 [ext_resource type="Script" uid="uid://d3i11n4j7bnvl" path="res://classes/skills/skill_area.gd" id="7_8umbj"]
@@ -66,7 +66,6 @@ interact_policy = SubResource("Resource_kwo0b")
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -36)
 sprite_frames = ExtResource("3_jyvth")
-animation = &"heal_left_right"
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 100.0
