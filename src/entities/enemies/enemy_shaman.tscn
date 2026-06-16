@@ -28,6 +28,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 [sub_resource type="Resource" id="Resource_xr4ln"]
 resource_local_to_scene = true
 script = ExtResource("4_6r1go")
+right_replace_left = true
 right = Vector2(42.84, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 

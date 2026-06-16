@@ -41,6 +41,7 @@ right_replace_left = true
 
 [sub_resource type="Resource" id="Resource_prid8"]
 script = ExtResource("8_y4pex")
+right_replace_left = true
 right = Vector2(34.92, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
