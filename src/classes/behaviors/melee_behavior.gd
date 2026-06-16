@@ -55,63 +55,10 @@ func _on_update(e: Entity) -> bool:
 
 ## 更新拦截者。
 func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
-	if not melee_c.blocked_id_list:
-		melee_c.is_extra_blocker = false
-
-	var e_global_pos: Vector2 = e.global_position
+	if melee_c.blocked_count < melee_c.max_blocked_count or melee_c.is_extra_blocker:
+		_blocker_search_and_bind_melee_relations(e, melee_c)
 	
-	# 索敌
-	var center: Vector2 = e_global_pos
-	var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
-	if rally_c:
-		var rally_center_position: Vector2 = rally_c.rally_center_position
-		
-		if rally_center_position != Vector2.ZERO:
-			center = rally_center_position
-	
-	var pending_blockeds: Array[Entity] = melee_c.search.search_targets(
-		e,
-		center,
-		func(t: Entity) -> bool:
-			var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
-			if not t_melee_c:
-				return false
-			return not t_melee_c.blocker_id_list
-	)
-	
-	if pending_blockeds:
-		if melee_c.blocked_id_list and melee_c.is_extra_blocker:
-			var first_blocked_id: int = melee_c.blocked_id_list[0]
-			var first_blocked_target: Entity = EntityMgr.get_entity_by_id(first_blocked_id)
-			var blocked_melee_c: MeleeComponent = first_blocked_target.get_node_or_null(C.CN_MELEE)
-			if blocked_melee_c.blocker_id_list.size() > 1:
-				melee_c.blocked_count = 0
-				melee_c.unbind_melee_relations(e.id)
-		
-		var max_blocked_count: int = melee_c.max_blocked_count
-		for t: Entity in pending_blockeds:
-			if melee_c.blocked_count >= max_blocked_count:
-				break
-			
-			melee_c.bind_melee_relations(e.id, t.id)
-	else:
-		if not melee_c.blocked_id_list:
-			var blocked_targets: Array[Entity] = melee_c.search.search_targets(
-				e,
-				center,
-				func(t: Entity) -> bool:
-				var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
-				if not t_melee_c:
-					return false
-					
-				return true
-			)
-			var first_blocked_target: Entity = blocked_targets[0] if blocked_targets else null
-			if first_blocked_target and not melee_c.is_extra_blocker:
-				melee_c.bind_melee_relations(e.id, first_blocked_target.id)
-				melee_c.is_extra_blocker = true
-	
-	var blocked_id_list: Array = melee_c.blocked_id_list
+	var blocked_id_list: PackedInt32Array = melee_c.blocked_id_list
 	if not blocked_id_list:
 		match melee_c.melee_state:
 			MeleeComponent.MeleeState.ORIGIN_POS_ARRIVED:
@@ -124,14 +71,19 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 	else:
 		e.state = Entity.State.MELEE
 		var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id_list[0])
+		var blocked_global_pos: Vector2 = blocked.global_position
 		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
 		
-		# 不是被动被拦截者，前往近战位置
-		if not melee_c.is_passive:
-			var melee_pos: Vector2 = blocked.global_position
+		if melee_c.is_passive:
+			if blocked_melee_c.melee_state != MeleeComponent.MeleeState.MELEE_POS_ARRIVED:
+				e.look_point = blocked_global_pos
+				e.play_animation(e.idle_animation)
+				return true
+		else:
+			var melee_pos: Vector2 = blocked_global_pos
 			if blocked_melee_c.melee_pos_offsets:
 				var melee_pos_offset: Vector2 = blocked_melee_c.melee_pos_offsets.get_offset_for_point(
-					melee_pos, e_global_pos
+					melee_pos, e.global_position
 				)
 				melee_pos += melee_pos_offset
 
@@ -142,6 +94,77 @@ func _update_blocker(e: Entity, melee_c: MeleeComponent) -> bool:
 		_try_melee_attack(e, melee_c, blocked)
 		return true
 
+
+## 拦截者搜索目标
+func _blocker_search_and_bind_melee_relations(e: Entity, melee_c: MeleeComponent) -> void:
+	var center: Vector2 = e.global_position
+	var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
+	if rally_c:
+		var rally_center_position: Vector2 = rally_c.rally_center_position
+		
+		if rally_center_position != Vector2.ZERO:
+			center = rally_center_position
+	
+	# 1. 首先搜索没有被拦截的目标
+	var pending_blockeds: Array[Entity] = melee_c.search.search_targets(
+		e,
+		center,
+		func(t: Entity) -> bool:
+			var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
+			if not t_melee_c:
+				return false
+
+			if t_melee_c.is_passive and melee_c.is_passive:
+				return false
+
+			return not t_melee_c.blocker_id_list
+	)
+	
+	if pending_blockeds:
+		# 先解除额外拦截者关系
+		if melee_c.is_extra_blocker:
+			if melee_c.blocked_id_list:
+				var first_blocked_id: int = melee_c.blocked_id_list[0]
+				var first_blocked_target: Entity = EntityMgr.get_entity_by_id(first_blocked_id)
+				var blocked_melee_c: MeleeComponent = first_blocked_target.get_node_or_null(C.CN_MELEE)
+				if blocked_melee_c.blocker_id_list.size() > 1:
+					melee_c.blocked_count -= blocked_melee_c.block_cost
+					melee_c.unbind_melee_relations(e.id)
+
+			melee_c.is_extra_blocker = false
+		
+		var max_blocked_count: int = melee_c.max_blocked_count
+		for t: Entity in pending_blockeds:
+			if melee_c.blocked_count >= max_blocked_count:
+				break
+
+			var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
+
+			if t_melee_c.is_passive and melee_c.blocked_id_list:
+				continue
+			
+			melee_c.bind_melee_relations(e.id, t.id)
+	else:
+		# 2. 处理额外拦截者，搜索第一个被拦截的目标
+		if not melee_c.blocked_id_list and not melee_c.is_passive:
+			var blocked_targets: Array[Entity] = melee_c.search.search_targets(
+				e,
+				center,
+				func(t: Entity) -> bool:
+					var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
+					if not t_melee_c:
+						return false
+
+					if t_melee_c.is_passive and melee_c.is_passive:
+						return false
+						
+					return true
+			)
+			var first_blocked_target: Entity = blocked_targets[0] if blocked_targets else null
+			if first_blocked_target:
+				melee_c.bind_melee_relations(e.id, first_blocked_target.id)
+				melee_c.is_extra_blocker = true
+	
 
 ## 更新被拦截者。
 func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
@@ -163,7 +186,7 @@ func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
 		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
 		var is_first_blocked: bool = e.id == blocker_melee_c.blocked_id_list[0]
 
-		if is_first_blocked:
+		if is_first_blocked and not blocker_melee_c.is_passive:
 			if blocker_melee_c.melee_state != MeleeComponent.MeleeState.MELEE_POS_ARRIVED:
 				e.look_point = blocker_global_pos
 				e.play_animation(e.idle_animation)
