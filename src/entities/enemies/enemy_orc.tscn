@@ -61,9 +61,10 @@ offset_bottom = -45.999996
 scale = Vector2(1.12, 1.1)
 
 [node name="NavPathComponent" parent="." index="2" unique_id=1202679749]
-speed = 66.0
+speed = 41.0
 
 [node name="MeleeComponent" parent="." index="3" unique_id=768145759]
+speed = 41.0
 melee_pos_offsets = SubResource("Resource_y0rml")
 
 [node name="SkillMelee" parent="MeleeComponent" index="0" unique_id=1304104648]

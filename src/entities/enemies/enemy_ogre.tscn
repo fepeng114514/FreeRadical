@@ -56,7 +56,7 @@ speed = 35.0
 life_cost = 3
 
 [node name="MeleeComponent" parent="." index="3" unique_id=768145759]
-speed = 58.0
+speed = 35.0
 melee_pos_offsets = SubResource("Resource_prilf")
 
 [node name="SkillMelee" parent="MeleeComponent" index="0" unique_id=1304104648]

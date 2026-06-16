@@ -95,7 +95,7 @@ offset_bottom = -40.0
 
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156]
 script = ExtResource("7_xu63r")
-speed = 208.0
+speed = 175.0
 motion_animation = SubResource("Resource_enhu5")
 melee_pos_offsets = SubResource("Resource_prid8")
 search = SubResource("Resource_vrdxj")
@@ -111,7 +111,7 @@ metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
 [node name="RallyComponent" type="Node2D" parent="." unique_id=1216108052]
 script = ExtResource("9_uhicr")
-speed = 208.0
+speed = 175.0
 can_select_rally = false
 motion_animation = SubResource("Resource_enhu5")
 metadata/_custom_type_script = "uid://2keyy5hsydyv"

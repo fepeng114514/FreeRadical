@@ -87,12 +87,13 @@ scale = Vector2(1, 1.1)
 
 [node name="NavPathComponent" type="Node2D" parent="." unique_id=1202679749]
 script = ExtResource("5_gt3hg")
-speed = 100.0
+speed = 61.0
 motion_animation = SubResource("Resource_atygg")
 metadata/_custom_type_script = "uid://btct3ysbbulk0"
 
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=768145759]
 script = ExtResource("8_wdwo4")
+speed = 61.0
 motion_animation = SubResource("Resource_atygg")
 melee_pos_offsets = SubResource("Resource_fu215")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
