@@ -84,6 +84,8 @@ var has_mods_id_list := PackedInt32Array()
 var last_has_mods_id_list_size: int = 0
 ## 拥有的光环 ID 列表
 var has_auras_id_list := PackedInt32Array()
+## 以此实体为目标的子弹 ID 列表
+var target_bullet_id_list := PackedInt32Array()
 ## 是否被点击选择
 var selected: bool = false
 ## 上一帧位置

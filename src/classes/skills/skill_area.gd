@@ -40,11 +40,9 @@ func _draw() -> void:
 		
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	if search:
-		var targets: Array[Entity] = search.search_targets(e, e.global_position)
-		if not targets:
+		target = search.search_target(e, e.global_position)
+		if not target:
 			return
-
-		target = targets[0]
 	
 	if target:
 		e.look_point = target.global_position

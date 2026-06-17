@@ -17,6 +17,9 @@ class_name InfluenceDamageResource
 @export var damage_flags: int = 0
 #endregion
 
+## 伤害值，用于使用外部的伤害值，会覆盖后续自动计算伤害。
+var damage_value: float = C.UNSET
+
 
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
@@ -34,16 +37,26 @@ func _take(source: Entity, target: Entity, source_skill_type: Skill.Type, is_are
 	d.source_skill_type = source_skill_type
 	d.is_area = is_area
 
-	var value: float = d.get_random_value(damage_min, damage_max)
-
-	if falloff_enabled:
-		value *= U.dist_factor_inside_radius(
-			source.global_position, 
-			target.global_position, 
-			search.max_radius,
-			search.min_radius
-		)
+	var value: float = 0.0
+	if U.is_valid_number(damage_value):
+		value = damage_value
+	else:
+		value = get_damage_value(source.global_position, target.global_position)
 	d.value = value
 	d.damage_type = damage_type
 	d.damage_flags = damage_flags
 	d.insert_damage()
+
+
+func get_damage_value(source_position: Vector2, target_position: Vector2) -> float:
+	var value: float = randf_range(damage_min, damage_max)
+	
+	if falloff_enabled:
+		value *= U.dist_factor_inside_radius(
+			source_position, 
+			target_position, 
+			search.max_radius,
+			search.min_radius
+		)
+
+	return value

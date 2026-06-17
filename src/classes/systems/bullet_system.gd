@@ -13,7 +13,8 @@ func _on_insert(e: Entity) -> bool:
 	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
 	if not target:
 		return false
-
+		
+	target.target_bullet_id_list.append(e.id)
 	bullet_c.ts = TimeMgr.tick_ts
 	var predict_time: float = bullet_c.trajectory._get_predict_time() if bullet_c.trajectory else 0.0
 	if predict_time:
@@ -37,6 +38,22 @@ func _on_insert(e: Entity) -> bool:
 	if bullet_c.trajectory:
 		bullet_c.trajectory._init_trajectory(bullet_c, e, target)
 
+	var influence: InfluenceResource = bullet_c.influence
+	influence.damage_value = influence.get_damage_value(to, target.global_position)
+
+	return true
+
+
+func _on_remove(e: Entity) -> bool:
+	var bullet_c: BulletComponent = e.get_node_or_null(C.CN_BULLET)
+	if not bullet_c:
+		return true
+		
+	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
+	if not target:
+		return true
+		
+	target.target_bullet_id_list.erase(e.id)
 	return true
 
 

@@ -25,8 +25,3 @@ var is_area: bool = false
 ## 插入伤害。
 func insert_damage() -> void:
 	SystemMgr.damage_queue.append(self)
-
-
-## 获取随机伤害值。
-func get_random_value(damage_min: float, damage_max: float) -> float:
-	return randf_range(damage_min, damage_max)

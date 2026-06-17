@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://2efse8231loj"]
 
 [ext_resource type="Script" uid="uid://oqqykk70js3y" path="res://controls/track_editor/mouse_tool_bar/mouse_tool_bar.gd" id="1_k2gt3"]
-[ext_resource type="Theme" uid="uid://b1ig1u5waxulw" path="res://ui/wave_editor/theme.tres" id="1_v5whm"]
+[ext_resource type="Theme" uid="uid://b1ig1u5waxulw" path="res://main/wave_editor/theme.tres" id="1_v5whm"]
 [ext_resource type="Script" uid="uid://cgr6yhj36myth" path="res://controls/track_editor/mouse_tool_bar/tool_button.gd" id="9_fqoka"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_7uqxx"]

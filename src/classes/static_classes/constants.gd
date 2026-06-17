@@ -238,6 +238,14 @@ enum SearchMode {
 	UNIT_RANDOM,
 }
 
+## 搜索标识枚举。
+enum SearchFlag {
+	## 搜索标识: 无。
+	NONE = 0,
+	## 搜索标识: 跳过即将死亡的目标。
+	SKIP_READY_DEAD = 1,
+}
+
 
 ## 实体信息栏类型枚举。
 enum InfoBarType {

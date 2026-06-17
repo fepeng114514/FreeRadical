@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dpmabvtr1cilx" path="res://assets/dpi_textures/down_arrow.svg" id="6_7iynv"]
 [ext_resource type="Script" uid="uid://ndbqiqq8o6j" path="res://controls/track_editor/add_track_button.gd" id="6_wrheq"]
 [ext_resource type="PackedScene" uid="uid://yynu1sipymxy" path="res://controls/track_editor/track.tscn" id="7_a2i43"]
-[ext_resource type="Theme" uid="uid://b1ig1u5waxulw" path="res://ui/wave_editor/theme.tres" id="7_ixove"]
+[ext_resource type="Theme" uid="uid://b1ig1u5waxulw" path="res://main/wave_editor/theme.tres" id="7_ixove"]
 [ext_resource type="PackedScene" uid="uid://d36nkd3rxi1vp" path="res://controls/track_editor/right_track_tool_bar/right_track_tool_bar_item.tscn" id="7_kgcki"]
 [ext_resource type="PackedScene" uid="uid://2efse8231loj" path="res://controls/track_editor/mouse_tool_bar/mouse_tool_bar.tscn" id="8_aade8"]
 [ext_resource type="Script" uid="uid://dgjmsbmwcjkq8" path="res://controls/adaptive_scroll_container.gd" id="10_8txtn"]

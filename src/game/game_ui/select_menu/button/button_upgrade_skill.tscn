@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bvtdqhbod7k87"]
+
+[ext_resource type="PackedScene" uid="uid://btvuol38n5gp" path="res://game/game_ui/select_menu/button/select_menu_button.tscn" id="1_syirs"]
+[ext_resource type="Script" uid="uid://d4aei0pb6po1i" path="res://game/game_ui/select_menu/button/button_upgrade_skill.gd" id="2_dlhbn"]
+[ext_resource type="Texture2D" uid="uid://b1h7s6evbmvys" path="res://assets/atlas/atlas_textures/icon/special_icons_0001.tres" id="3_ys6vh"]
+[ext_resource type="PackedScene" uid="uid://cyvvk445spspa" path="res://game/game_ui/select_menu/price_tag.tscn" id="4_s46yc"]
+[ext_resource type="Texture2D" uid="uid://cq8q6wly4hunq" path="res://assets/atlas/atlas_textures/icon/glow_ico_special.tres" id="4_uetvg"]
+[ext_resource type="Texture2D" uid="uid://22ehl4f2j0bs" path="res://assets/atlas/atlas_textures/game_gui/price_tag.tres" id="6_ecfoj"]
+
+[node name="SelectMenuButtonUpgradeSkill" unique_id=614263521 node_paths=PackedStringArray("price_tag") instance=ExtResource("1_syirs")]
+script = ExtResource("2_dlhbn")
+upgrade_skill_idx = -1
+price_tag = NodePath("Button/PriceTag")
+
+[node name="Button" parent="." index="0" unique_id=2068864467]
+offset_left = -58.5
+offset_top = -54.5
+offset_right = 58.5
+offset_bottom = 54.5
+icon = ExtResource("3_ys6vh")
+
+[node name="Glow" parent="Button" index="0" unique_id=1711401767]
+offset_left = -60.0
+offset_top = -57.0
+offset_right = 60.0
+offset_bottom = 57.0
+texture = ExtResource("4_uetvg")
+
+[node name="PriceTag" parent="Button" index="1" unique_id=1309840442 instance=ExtResource("4_s46yc")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -33.5
+offset_top = -35.0
+offset_right = 33.5
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("6_ecfoj")

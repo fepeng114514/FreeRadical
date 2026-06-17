@@ -11,5 +11,5 @@ var level_idx: int = 1
 ## 进入指定索引的关卡。
 func enter_level(idx: int) -> void:
 	get_tree().change_scene_to_file(
-		"res://levels/level_%d.tscn" % idx
+		"res://game/levels/level_%d.tscn" % idx
 	)

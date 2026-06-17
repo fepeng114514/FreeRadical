@@ -74,8 +74,10 @@ folder_colors={
 "res://entities/": "green",
 "res://entities/enemies/": "red",
 "res://entities/towers/": "teal",
-"res://levels/": "green",
-"res://ui/": "green"
+"res://game/": "green",
+"res://game/levels/": "green",
+"res://main/": "green",
+"res://map/": "green"
 }
 
 [input]

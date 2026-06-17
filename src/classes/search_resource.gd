@@ -29,8 +29,16 @@ class_name SearchResource
 @export var max_search: int = C.UNSET
 ## 搜索模式。
 @export var search_mode: C.SearchMode = C.SearchMode.ENEMY_MAX_PROGRESS
+## 搜索标识。
+@export var search_flag: int = C.SearchFlag.NONE
 ## 交互策略。
 @export var interact_policy: InteractPolicy = null
+
+
+func _validate_property(property: Dictionary) -> void:
+	match property.name:
+		"search_flag":
+			property.hint_string = "mask_enum:SearchFlag"
 
 
 ## 搜索目标。
@@ -53,6 +61,15 @@ func search_targets(e: Entity, center: Vector2, filter: = Callable()) -> Array[E
 		targets.resize(max_search)
 
 	return targets
+
+
+## 搜索单个目标。
+func search_target(e: Entity, center: Vector2, filter: = Callable()) -> Entity:
+	var targets: Array[Entity] = search_targets(e, center, filter)
+	if targets:
+		return targets[0]
+
+	return null
 
 
 ## 绘制搜索范围。

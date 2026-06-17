@@ -115,7 +115,7 @@ static func _sort_by_progress(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	if e2_nav_c:
 		p2 = e2_nav_c.nav_progress
 
-	return p1 > p2 if not reversed else p1 < p2
+	return p1 < p2 if reversed else p1 > p2
 
 
 ## 排序模式: 血量。
@@ -130,7 +130,7 @@ static func _sort_by_health(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	if e2_health_c:
 		h2 = e2_health_c.hp
 
-	return h1 > h2 if not reversed else h1 < h2
+	return h1 < h2 if reversed else h1 > h2
 
 
 ## 排序模式: 赏金。
@@ -145,7 +145,7 @@ static func _sort_by_gold(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	if e2_health_c:
 		g2 = e2_health_c.death_gold
 
-	return g1 > g2 if not reversed else g1 < g2
+	return g1 < g2 if reversed else g1 > g2
 
 
 ## 排序模式: 距离。
@@ -153,7 +153,7 @@ static func _sort_by_distance(e1: Entity, e2: Entity, origin: Vector2, reversed:
 	var d1: float = e1.global_position.distance_squared_to(origin)
 	var d2: float = e2.global_position.distance_squared_to(origin)
 
-	return d1 > d2 if not reversed else d1 < d2
+	return d1 < d2 if reversed else d1 > d2
 
 
 ## 排序模式: 近战伤害。
@@ -176,7 +176,7 @@ static func _sort_by_melee_damage(e1: Entity, e2: Entity, reversed: bool) -> boo
 		if influence:
 			d2 = influence.damage_max
 
-	return d1 > d2 if not reversed else d1 < d2
+	return d1 < d2 if reversed else d1 > d2
 
 
 ## 排序模式: 远程伤害。
@@ -199,7 +199,7 @@ static func _sort_by_ranged_damage(e1: Entity, e2: Entity, reversed: bool) -> bo
 		if influence:
 			d2 = influence.damage_max
 
-	return d1 > d2 if not reversed else d1 < d2
+	return d1 < d2 if reversed else d1 > d2
 
 
 ## 排序模式: 实体 ID。
@@ -207,7 +207,7 @@ static func _sort_by_id(e1: Entity, e2: Entity, reversed: bool) -> bool:
 	var i1: int = e1.id
 	var i2: int = e2.id
 	
-	return i1 > i2 if not reversed else i1 < i2
+	return i1 < i2 if reversed else i1 > i2
 
 
 #region 实体的搜索模式配置

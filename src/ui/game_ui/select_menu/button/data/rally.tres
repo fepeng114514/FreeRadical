@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="SelectMenuButtonDataRally" format=3 uid="uid://csxx1xces6u0d"]
-
-[ext_resource type="Script" uid="uid://bee5beykx0mfi" path="res://ui/game_ui/select_menu/button/data/rally.gd" id="1_7skbf"]
-
-[resource]
-script = ExtResource("1_7skbf")
-place = 4
-metadata/_custom_type_script = "uid://bee5beykx0mfi"
