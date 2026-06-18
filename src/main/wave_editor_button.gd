@@ -7,5 +7,5 @@ func _ready() -> void:
 
 func _on_pressed() -> void:
 	get_tree().change_scene_to_file(
-		"res://ui/wave_editor/wave_editor.tscn"
+		"res://main/wave_editor/wave_editor.tscn"
 	)

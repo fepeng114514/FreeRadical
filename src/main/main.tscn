@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bpgiiva7q52y5" path="res://assets/main_background.png" id="3_ubw8e"]
 [ext_resource type="Script" uid="uid://clad8hrp65q4q" path="res://main/setting_button.gd" id="3_vspwy"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="4_tun4x"]
+[ext_resource type="Script" uid="uid://clbcxid2atee" path="res://main/confirmation_dialog.gd" id="10_0i4oc"]
 
 [sub_resource type="Resource" id="Resource_gw48u"]
 script = ExtResource("4_tun4x")
@@ -82,10 +83,18 @@ layout_mode = 2
 text = "游戏设置"
 script = ExtResource("3_vspwy")
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=1967164590]
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=1967164590 node_paths=PackedStringArray("confirmation_dialog")]
 layout_mode = 2
 text = "退出游戏"
 script = ExtResource("3_02nsg")
+confirmation_dialog = NodePath("ConfirmationDialog")
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/QuitButton" unique_id=159860050]
+title = "请确认"
+ok_button_text = "退出"
+dialog_text = "确认要退出游戏吗？"
+cancel_button_text = "取消"
+script = ExtResource("10_0i4oc")
 
 [node name="BottomHBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2029199545]
 layout_mode = 2

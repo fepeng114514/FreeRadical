@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 .godot-devtool/
+.godot-devtool/runtime-state.json
 /android/
 lib/__pycache__/
 tools/__pycache__/
