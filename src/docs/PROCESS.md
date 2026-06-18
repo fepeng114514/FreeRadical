@@ -67,6 +67,7 @@
 
 ## 创建关卡流程
 
+### 第一步：创建关卡
 1. 首先在 `src/game/levels` 目录创建一个继承自 `src/game/levels/level.tscn` 场景。
 2. 在 `Background` 节点中添加背景图片。
 3. 在 `PathwayContainer` 节点中添加 `Pathway` 路径节点。
@@ -80,3 +81,11 @@
 7. 最后在 `World` 节点中添加塔位等实体。
    - 塔位需要设置 `default_rally_center_local_pos`  默认集结点。
 
+### 第二步：添加入口
+1. 在 `src/map/map.tscn` 的 `FlagController` 节点中添加 `Flag` 关卡旗帜节点。
+   - 旗帜节点需要指定 `level_idx` 关卡索引。
+
+### 第三步：编辑出怪
+1. 首先在主页的左上角点击 `波次编辑器` 按钮。
+2. 在波次编辑器中编辑出怪。
+3. 最后保存波次。
