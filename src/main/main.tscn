@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bu0fdtwv8h2os" path="res://main/wave_editor_button.gd" id="3_1xy46"]
 [ext_resource type="Script" uid="uid://c0h3rhfsyy6dp" path="res://main/quit_button.gd" id="3_02nsg"]
 [ext_resource type="AudioStream" uid="uid://xjo3s0skjv4q" path="res://assets/audios/music_main_menu.ogg" id="3_qbxjj"]
-[ext_resource type="Texture2D" uid="uid://bpgiiva7q52y5" path="res://assets/homeMenu_bg.png" id="3_ubw8e"]
+[ext_resource type="Texture2D" uid="uid://bpgiiva7q52y5" path="res://assets/main_background.png" id="3_ubw8e"]
 [ext_resource type="Script" uid="uid://clad8hrp65q4q" path="res://main/setting_button.gd" id="3_vspwy"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="4_tun4x"]
 

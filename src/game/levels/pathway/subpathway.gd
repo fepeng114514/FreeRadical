@@ -1,3 +1,4 @@
+#@tool
 extends Path2D
 class_name SubPathway
 ## 子路径。
@@ -26,15 +27,11 @@ func _ready() -> void:
 	length = curve.get_baked_length()
 	node_list = _get_equally_spaced_nodes()
 
-	PathwayMgr.draw_pathway_changed.connect(_on_draw_pathway_changed)
-
-
-func _on_draw_pathway_changed() -> void:
-	queue_redraw()
+	PathwayMgr.draw_pathway_changed.connect(queue_redraw)
 
 
 func _draw() -> void:
-	if PathwayMgr.is_draw_pathway:
+	if PathwayMgr.is_draw_pathway or Engine.is_editor_hint():
 		for node: PathwayNode in node_list:
 			var pi: int = parent_pathway.get_index()
 			var hue: float = fmod(pi * 0.1, 1.0)           # 0.1 步长可调整，避免相邻颜色太接近

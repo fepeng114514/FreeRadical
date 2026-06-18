@@ -6,6 +6,9 @@ class_name WaveFlag
 ## 用于显示波次到来时间与释放波次
 
 
+## 对应的路径索引。
+@export var pathway_idx: int = C.UNSET
+
 ## 箭头旋转角度
 @export_range(-180, 180, 0.1, "radians_as_degrees") var arrow_rotation: float = 0.0:
 	set(v):

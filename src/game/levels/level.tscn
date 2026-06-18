@@ -8,14 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://c2ifsgk1fsdc5" path="res://game/levels/system_container.tscn" id="8_8iyoh"]
 [ext_resource type="PackedScene" uid="uid://co5ehekpd71r8" path="res://game/game_ui/select_menu/select_menu.tscn" id="10_qogh7"]
 [ext_resource type="PackedScene" uid="uid://ca75dg47m1q1a" path="res://game/game_ui/info_circle/info_circle_container.tscn" id="11_8iyoh"]
-[ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level1_bg.png" id="23_n8wpv"]
+[ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level_1_background.png" id="23_n8wpv"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://game/levels/grid_tileset.tres" id="24_iowrn"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://game/levels/gird.gd" id="25_b2jp2"]
 [ext_resource type="Script" uid="uid://ds1pxsst6ylus" path="res://game/levels/pathway/pathway_container.gd" id="26_ba5b5"]
 [ext_resource type="Script" uid="uid://cp6veql787ckj" path="res://game/levels/world.gd" id="28_8e6uo"]
 [ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="36_l4bmn"]
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://game/game_ui/game_ui_layer.tscn" id="37_g4khr"]
-[ext_resource type="Script" uid="uid://xe8e38fn85ws" path="res://game/game_ui/wave_flag/wave_flag_container.gd" id="39_475l0"]
+[ext_resource type="Script" uid="uid://xe8e38fn85ws" path="res://game/levels/wave_flag/wave_flag_container.gd" id="39_475l0"]
 
 [sub_resource type="Resource" id="Resource_7h2jl"]
 script = ExtResource("3_xp3ar")
@@ -64,12 +64,15 @@ script = ExtResource("28_8e6uo")
 script = ExtResource("26_ba5b5")
 
 [node name="SelectMenu" parent="." unique_id=1082728830 instance=ExtResource("10_qogh7")]
+visible = false
 z_index = 1000
 
 [node name="InfoCircleController" parent="." unique_id=1487020159 instance=ExtResource("11_8iyoh")]
+visible = false
 z_index = 1000
 
 [node name="GameUILayer" parent="." unique_id=673863676 instance=ExtResource("37_g4khr")]
+visible = false
 
 [node name="WaveFlagContainer" type="Control" parent="." unique_id=64694769]
 z_index = 1000

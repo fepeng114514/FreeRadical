@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c5hro33w6n8dc" path="res://assets/atlas/atlas_textures/map/levelSelect_closeBtn_0003.tres" id="3_tjxjo"]
 [ext_resource type="Texture2D" uid="uid://f7k88nyyfemo" path="res://assets/atlas/atlas_textures/map/levelSelect_closeBtn_0002.tres" id="4_vr1pb"]
 [ext_resource type="Texture2D" uid="uid://dnsuk40s8jbdc" path="res://assets/atlas/atlas_textures/map/levelSelect_thumbFrame.tres" id="5_tjxjo"]
-[ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level1_bg.png" id="6_vr1pb"]
+[ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level_1_background.png" id="6_vr1pb"]
 [ext_resource type="Texture2D" uid="uid://tspmqo54scn3" path="res://assets/atlas/atlas_textures/map/levelSelect_startMode_notxt_0001.tres" id="7_7ir4p"]
 [ext_resource type="Texture2D" uid="uid://j4g0niurkdwu" path="res://assets/atlas/atlas_textures/map/levelSelect_startMode_notxt_0002.tres" id="8_srxdd"]
 [ext_resource type="PackedScene" uid="uid://cf150ltsa83gk" path="res://map/map_ui/level_select_menu/title_label.tscn" id="9_srxdd"]

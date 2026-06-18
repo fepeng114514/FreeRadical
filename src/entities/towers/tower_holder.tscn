@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ck4m2qigdae35"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_jrk33"]
+[ext_resource type="Script" uid="uid://ph3p063jst6j" path="res://entities/towers/tower_holder.gd" id="1_8t0vl"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_pyfu2"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="3_qfsqy"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_eclg5"]
@@ -15,8 +15,9 @@ shader = ExtResource("5_rh6e0")
 shader_parameter/outline_size = 20.0
 shader_parameter/outline_color = Color(1, 1, 0, 1)
 
-[node name="TowerHolder" type="Node2D" unique_id=1898604313]
-script = ExtResource("1_jrk33")
+[node name="TowerHolder" type="Node2D" unique_id=1898604313 node_paths=PackedStringArray("tower_c")]
+script = ExtResource("1_8t0vl")
+tower_c = NodePath("TowerComponent")
 scene_name = "tower_holder"
 idle_animation = SubResource("Resource_fdaav")
 metadata/_custom_type_script = "uid://dnp44u8703gud"

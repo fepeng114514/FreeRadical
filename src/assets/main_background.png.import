@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duvliyfyupp1e"
-path="res://.godot/imported/测试关卡00 (1).png-e956b05560131b0580fbf688977fcba6.ctex"
+uid="uid://bpgiiva7q52y5"
+path="res://.godot/imported/main_background.png-e4d07e18603c5231a1290c3a0e0429cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/测试关卡00 (1).png"
-dest_files=["res://.godot/imported/测试关卡00 (1).png-e956b05560131b0580fbf688977fcba6.ctex"]
+source_file="res://assets/main_background.png"
+dest_files=["res://.godot/imported/main_background.png-e4d07e18603c5231a1290c3a0e0429cf.ctex"]
 
 [params]
 

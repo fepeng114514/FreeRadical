@@ -1,3 +1,4 @@
+#@tool
 extends Path2D
 class_name Pathway
 ## 路径。

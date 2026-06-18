@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c11om1kadv7d3" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_0001.tres" id="2_ilu3t"]
 [ext_resource type="Texture2D" uid="uid://dt0harv0mxdnq" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_0002.tres" id="3_4ddap"]
-[ext_resource type="Script" uid="uid://0qq3qdmjbpyf" path="res://game/game_ui/wave_flag/wave_flag.gd" id="3_h1xy6"]
+[ext_resource type="Script" uid="uid://0qq3qdmjbpyf" path="res://game/levels/wave_flag/wave_flag.gd" id="3_h1xy6"]
 [ext_resource type="Texture2D" uid="uid://c23uoo4lvuayk" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_0020.tres" id="4_8po3v"]
 [ext_resource type="Texture2D" uid="uid://vvm2idgjrf8y" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_glow_0003.tres" id="5_2nob4"]
 [ext_resource type="Texture2D" uid="uid://61uquvxhh8s2" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_glow_0001.tres" id="6_aggcx"]
