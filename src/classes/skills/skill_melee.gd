@@ -11,9 +11,7 @@ class_name SkillMelee
 @export var influence: InfluenceResource = null:
 	set(v): 
 		influence = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(influence, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, influence)
 ## 是否搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
 @export var search_target_pos: bool = false
 ## 交互策略。

@@ -10,14 +10,12 @@ class_name UIComponent
 @export var select_rect := Rect2(-16, -16, 32, 32):
 	set(v): 
 		select_rect = v
-		if Engine.is_editor_hint():
-			queue_redraw()
+		U.redraw_setter(self)
 ## 是否可以选择。
 @export var can_select: bool = true:
 	set(v): 
 		can_select = v
-		if Engine.is_editor_hint():
-			queue_redraw()
+		U.redraw_setter(self)
 
 ## 信息栏类型。
 @export var info_bar_type: C.InfoBarType = C.InfoBarType.NONE
@@ -25,7 +23,7 @@ class_name UIComponent
 @export var select_menu_offset := Vector2.ZERO:
 	set(v): 
 		select_menu_offset = v
-		queue_redraw()
+		U.redraw_setter(self)
 
 
 func _draw() -> void:

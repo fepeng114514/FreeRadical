@@ -12,16 +12,12 @@ class_name SkillSpawn
 @export var spawn_offsets: OffsetGroup = null:
 	set(v): 
 		spawn_offsets = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(spawn_offsets, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, spawn_offsets)
 ## 搜索资源。
 @export var search: SearchResource = null:
 	set(v): 
 		search = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(search, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, search)
 ## 是否搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
 @export var search_target_pos: bool = false
 

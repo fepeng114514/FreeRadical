@@ -670,4 +670,17 @@ static func connect_resource_changed(resource: Resource, callable: Callable) -> 
 		return
 
 	changed.connect(callable)
+
+
+## 连接资源变化信号并触发重绘。
+static func resource_redraw_setter(drawer: CanvasItem, resource: Resource) -> void:
+	if Engine.is_editor_hint():
+		U.connect_resource_changed(resource, drawer.queue_redraw)
+		drawer.queue_redraw()
+
+
+## 触发重绘。
+static func redraw_setter(drawer: CanvasItem) -> void:
+	if Engine.is_editor_hint():
+		drawer.queue_redraw()
 #endregion

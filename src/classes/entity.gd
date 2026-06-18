@@ -55,16 +55,12 @@ enum State {
 @export var hit_offsets: OffsetGroup = null:
 	set(v): 
 		hit_offsets = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(hit_offsets, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, hit_offsets)
 ## 光环位置偏移组。
 @export var aura_offsets: OffsetGroup = null:
 	set(v): 
 		aura_offsets = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(aura_offsets, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, aura_offsets)
 @export var interact_policy: InteractPolicy = null
 
 
@@ -127,7 +123,8 @@ func _draw() -> void:
 	if Engine.is_editor_hint():
 		OffsetGroup.draw_offset_group(self, hit_offsets)
 		OffsetGroup.draw_offset_group(self, aura_offsets)
-	
+
+
 @warning_ignore_start("unused_parameter")
 ## 插入实体时调用，返回 false 的实体将会被移除
 func _on_insert() -> bool: return true

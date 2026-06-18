@@ -21,9 +21,7 @@ enum BulletSpawnMode {
 @export var search: SearchResource = null:
 	set(v): 
 		search = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(search, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, search)
 
 @export_group("Bullet")
 ## 子弹场景名称。
@@ -34,9 +32,7 @@ enum BulletSpawnMode {
 @export var bullet_offsets: OffsetGroup = null:
 	set(v): 
 		bullet_offsets = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(bullet_offsets, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, bullet_offsets)
 ## 子弹发射的角度范围。
 @export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0.0
 ## 子弹发射模式。
@@ -45,9 +41,7 @@ enum BulletSpawnMode {
 @export var influence: InfluenceResource = null:
 	set(v): 
 		influence = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(influence, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, influence)
 
 
 func _ready() -> void:

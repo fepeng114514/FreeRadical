@@ -31,9 +31,7 @@ enum MeleeState {
 @export var melee_pos_offsets: OffsetGroup = null:
 	set(v): 
 		melee_pos_offsets = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(melee_pos_offsets, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, melee_pos_offsets)
 ## 到达位置的阈值。
 @export var arrived_distance: float = 10
 

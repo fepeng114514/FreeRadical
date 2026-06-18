@@ -15,16 +15,12 @@ class_name AuraComponent
 @export var influence: InfluenceResource = null:
 	set(v): 
 		influence = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(influence, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, influence)
 ## 搜索资源。
 @export var search: SearchResource = null:
 	set(v): 
 		search = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(search, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, search)
 
 @export_group("Cycle")
 ## 周期时间。

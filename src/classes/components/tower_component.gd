@@ -29,14 +29,14 @@ enum TowerType {
 @export var show_range_offset := Vector2.ZERO:
 	set(v): 
 		show_range_offset = v
-		queue_redraw()
+		U.redraw_setter(self)
 ## 塔位样式。
 @export var tower_holder: PackedScene = null
 ## 默认集结点。
 @export var default_rally_center_local_pos := Vector2.ZERO:
 	set(v): 
 		default_rally_center_local_pos = v
-		queue_redraw()
+		U.redraw_setter(self)
 
 @export_group("Sell")
 ## 价格。

@@ -15,7 +15,8 @@ script = ExtResource("4_tun4x")
 list = Array[AudioStream]([ExtResource("3_qbxjj")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[node name="Main" type="PanelContainer" unique_id=1825947900]
+[node name="Main" type="Control" unique_id=1865518000]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -26,11 +27,22 @@ script = ExtResource("1_7n028")
 music = SubResource("Resource_gw48u")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1956220554]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_ubw8e")
+expand_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=504228336]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20

@@ -12,17 +12,17 @@ class_name BarrackComponent
 @export var rally_min_range: float = 0.0:
 	set(v): 
 		rally_min_range = v
-		queue_redraw()
+		U.redraw_setter(self)
 ## 最大集结范围。
 @export var rally_max_range: float = 300:
 	set(v): 
 		rally_max_range = v
-		queue_redraw()
+		U.redraw_setter(self)
 ## 集结点位置。
 @export var rally_center_position := Vector2.ZERO:
 	set(v): 
 		rally_center_position = v
-		queue_redraw()
+		U.redraw_setter(self)
 ## 集结点半径。
 @export var rally_radius: float = 30
 ## 集结音效组。
@@ -35,9 +35,7 @@ class_name BarrackComponent
 @export var spawn_offsets: OffsetGroup = null:
 	set(v): 
 		spawn_offsets = v
-		if Engine.is_editor_hint():
-			U.connect_resource_changed(spawn_offsets, queue_redraw)
-			queue_redraw()
+		U.resource_redraw_setter(self, spawn_offsets)
 ## 最大士兵数量。
 @export var max_soldier_count: int = 3
 ## 生成士兵播放的动画。
