@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://em3keumd4oxl"]
+
+[ext_resource type="Texture2D" uid="uid://cx7jspwwfxc6h" path="res://assets/atlas/atlas_textures/map/levelSelect_background.tres" id="1_echwk"]
+[ext_resource type="Texture2D" uid="uid://se1l8rg1t7dl" path="res://assets/atlas/atlas_textures/map/levelSelect_closeBtn_0001.tres" id="2_hn4yn"]
+[ext_resource type="Texture2D" uid="uid://c5hro33w6n8dc" path="res://assets/atlas/atlas_textures/map/levelSelect_closeBtn_0003.tres" id="3_tjxjo"]
+[ext_resource type="Texture2D" uid="uid://f7k88nyyfemo" path="res://assets/atlas/atlas_textures/map/levelSelect_closeBtn_0002.tres" id="4_vr1pb"]
+[ext_resource type="Texture2D" uid="uid://dnsuk40s8jbdc" path="res://assets/atlas/atlas_textures/map/levelSelect_thumbFrame.tres" id="5_tjxjo"]
+[ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level1_bg.png" id="6_vr1pb"]
+[ext_resource type="Texture2D" uid="uid://tspmqo54scn3" path="res://assets/atlas/atlas_textures/map/levelSelect_startMode_notxt_0001.tres" id="7_7ir4p"]
+[ext_resource type="Texture2D" uid="uid://j4g0niurkdwu" path="res://assets/atlas/atlas_textures/map/levelSelect_startMode_notxt_0002.tres" id="8_srxdd"]
+[ext_resource type="PackedScene" uid="uid://cf150ltsa83gk" path="res://map/map_ui/level_select_menu/title_label.tscn" id="9_srxdd"]
+
+[sub_resource type="Gradient" id="Gradient_7lyie"]
+offsets = PackedFloat32Array(0.91430134, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.527)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5jdw0"]
+gradient = SubResource("Gradient_7lyie")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+metadata/_snap_enabled = true
+
+[node name="MapUILayer" type="CanvasLayer" unique_id=1482319342]
+
+[node name="Border" type="TextureRect" parent="." unique_id=1294441978]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_5jdw0")
+
+[node name="LevelSelectMenu" type="CenterContainer" parent="." unique_id=506857876]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackGround" type="TextureRect" parent="LevelSelectMenu" unique_id=1022619165]
+layout_mode = 2
+texture = ExtResource("1_echwk")
+
+[node name="CloseTextureButton" type="TextureButton" parent="LevelSelectMenu/BackGround" unique_id=356428924]
+layout_mode = 0
+offset_left = 1151.0
+offset_top = 20.0
+offset_right = 1185.0
+offset_bottom = 52.0
+texture_normal = ExtResource("2_hn4yn")
+texture_pressed = ExtResource("3_tjxjo")
+texture_hover = ExtResource("4_vr1pb")
+
+[node name="LevelPreview" type="Control" parent="LevelSelectMenu/BackGround" unique_id=540984645]
+anchors_preset = 0
+offset_left = 370.0
+offset_top = 293.0
+offset_right = 410.0
+offset_bottom = 333.0
+
+[node name="Preview" type="TextureRect" parent="LevelSelectMenu/BackGround/LevelPreview" unique_id=1305592669]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -173.5
+offset_top = -122.0
+offset_right = 173.5
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_vr1pb")
+expand_mode = 1
+
+[node name="Mask" type="ColorRect" parent="LevelSelectMenu/BackGround/LevelPreview" unique_id=256053026]
+custom_minimum_size = Vector2(347, 244)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -173.5
+offset_top = -122.0
+offset_right = 173.5
+offset_bottom = 122.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.99071157, 0.42091367, 0.26700002)
+
+[node name="Boder" type="TextureRect" parent="LevelSelectMenu/BackGround/LevelPreview" unique_id=1016742155]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.0
+offset_top = -140.0
+offset_right = 185.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_tjxjo")
+
+[node name="PlayTextureButton" type="TextureButton" parent="LevelSelectMenu/BackGround" unique_id=1762425070]
+layout_mode = 0
+offset_left = 808.0
+offset_top = 468.0
+offset_right = 930.0
+offset_bottom = 582.0
+texture_normal = ExtResource("7_7ir4p")
+texture_pressed = ExtResource("8_srxdd")
+texture_hover = ExtResource("8_srxdd")
+
+[node name="LevelTitleLabel" parent="LevelSelectMenu/BackGround" unique_id=660891763 instance=ExtResource("9_srxdd")]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 102.0
+offset_right = 691.0
+offset_bottom = 144.0
+
+[node name="DescTitleLabel" parent="LevelSelectMenu/BackGround" unique_id=1204978327 instance=ExtResource("9_srxdd")]
+layout_mode = 0
+offset_left = 592.0
+offset_top = 69.0
+offset_right = 1192.0
+offset_bottom = 111.0
+scale = Vector2(0.9, 0.9)
+text = "战役"

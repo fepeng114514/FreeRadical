@@ -4,40 +4,60 @@
 [ext_resource type="AudioStream" uid="uid://c7p3s0tsgx8fw" path="res://assets/audios/music_map.ogg" id="2_brb1y"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_pu1n1"]
 [ext_resource type="Texture2D" uid="uid://svqsjk8u7rkl" path="res://assets/map_background.png" id="4_brb1y"]
+[ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="5_7lyie"]
 [ext_resource type="PackedScene" uid="uid://ju7hsbp0pev4" path="res://map/flag.tscn" id="5_pu1n1"]
+[ext_resource type="PackedScene" uid="uid://dhvwgkbjyuayy" path="res://map/flag_bullet.tscn" id="7_5jdw0"]
+[ext_resource type="PackedScene" uid="uid://em3keumd4oxl" path="res://map/map_ui/map_ui_layer.tscn" id="8_kxmgb"]
 
 [sub_resource type="Resource" id="Resource_igyvp"]
 script = ExtResource("3_pu1n1")
 list = Array[AudioStream]([ExtResource("2_brb1y")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[node name="Map" type="Control" unique_id=81239883]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Map" type="Node2D" unique_id=257249172]
 script = ExtResource("1_724gr")
 music = SubResource("Resource_igyvp")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=2082693116]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Background" type="Sprite2D" parent="." unique_id=1291214235]
+position = Vector2(1277, 718)
 texture = ExtResource("4_brb1y")
 
-[node name="FlagController" type="Control" parent="." unique_id=1797508120]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Camera" type="Camera2D" parent="." unique_id=1516315118]
+position = Vector2(800, 450)
+script = ExtResource("5_7lyie")
+metadata/_custom_type_script = "uid://dkcjwrd81mf1p"
+
+[node name="FlagController" type="Node2D" parent="." unique_id=1786673521]
+y_sort_enabled = true
 
 [node name="Flag" parent="FlagController" unique_id=698417457 instance=ExtResource("5_pu1n1")]
-layout_mode = 1
-offset_left = 136.0
-offset_top = 758.0
-offset_right = 136.0
-offset_bottom = 758.0
+position = Vector2(395, 1122)
+level_idx = 1
+
+[node name="FlagBullet" parent="FlagController/Flag" unique_id=1426610057 instance=ExtResource("7_5jdw0")]
+position = Vector2(16, -14)
+
+[node name="FlagBullet2" parent="FlagController/Flag" unique_id=17866381 instance=ExtResource("7_5jdw0")]
+position = Vector2(26, -24)
+
+[node name="FlagBullet3" parent="FlagController/Flag" unique_id=1693912104 instance=ExtResource("7_5jdw0")]
+position = Vector2(28, -38)
+
+[node name="FlagBullet4" parent="FlagController/Flag" unique_id=183130287 instance=ExtResource("7_5jdw0")]
+position = Vector2(43, -45)
+
+[node name="Flag2" parent="FlagController" unique_id=2107266607 instance=ExtResource("5_pu1n1")]
+position = Vector2(455, 1064)
+level_idx = 2
+
+[node name="FlagBullet" parent="FlagController/Flag2" unique_id=2061449260 instance=ExtResource("7_5jdw0")]
+position = Vector2(16, -24)
+
+[node name="FlagBullet2" parent="FlagController/Flag2" unique_id=364536951 instance=ExtResource("7_5jdw0")]
+position = Vector2(172, -29)
+
+[node name="Flag3" parent="FlagController" unique_id=1154152721 instance=ExtResource("5_pu1n1")]
+position = Vector2(654, 1040)
+level_idx = 3
+
+[node name="MapUILayer" parent="." unique_id=1482319342 instance=ExtResource("8_kxmgb")]

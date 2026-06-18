@@ -10,5 +10,17 @@
 				"to": 64
 			}
 		}
+	},
+	"flag_bullet": {
+		"animations": {
+			"idle": {
+				"from": 10,
+				"to": 10
+			},
+			"unlock": {
+				"from": 1,
+				"to": 10
+			}
+		}
 	}
 }

@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cf150ltsa83gk"]
+
+[ext_resource type="Script" uid="uid://c20oa1agq2cdo" path="res://map/map_ui/level_select_menu/title_label.gd" id="1_cib53"]
+[ext_resource type="Texture2D" uid="uid://434vpycgad6f" path="res://assets/atlas/atlas_textures/map/levelSelect_volutas_0001.tres" id="2_iqtji"]
+
+[node name="TitleLabel" type="HBoxContainer" unique_id=1204978327 node_paths=PackedStringArray("label")]
+custom_minimum_size = Vector2(600, 0)
+offset_right = 338.0
+offset_bottom = 42.0
+alignment = 1
+script = ExtResource("1_cib53")
+text = "第一关"
+label = NodePath("Label")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=715318730]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer" unique_id=111973127]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer" unique_id=603934225]
+layout_mode = 2
+texture = ExtResource("2_iqtji")
+flip_h = true
+
+[node name="Label" type="Label" parent="." unique_id=2004113459]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.35686275, 0.21176471, 1)
+theme_override_font_sizes/font_size = 30
+text = "第一关"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=551626579]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer2" unique_id=270257669]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer2" unique_id=108501358]
+layout_mode = 2
+texture = ExtResource("2_iqtji")
