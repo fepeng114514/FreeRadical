@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://entities/enemies/enemy.tscn" id="1_xhv65"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_jyvth"]
-[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="3_6r1go"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="3_6r1go"]
 [ext_resource type="SpriteFrames" uid="uid://ba0u8ijfxgx4p" path="res://assets/atlas/sprite_frames/enemies/enemy_shaman.tres" id="3_jyvth"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="4_6r1go"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="6_t5fix"]
-[ext_resource type="Script" uid="uid://d3i11n4j7bnvl" path="res://classes/skills/skill_area.gd" id="7_8umbj"]
-[ext_resource type="Script" uid="uid://bu7q2xp2xd78b" path="res://classes/influence_resources/influence_resource.gd" id="8_2lsbh"]
+[ext_resource type="Script" uid="uid://d3i11n4j7bnvl" path="res://classes/skills/area_skill.gd" id="7_8umbj"]
+[ext_resource type="Script" uid="uid://bu7q2xp2xd78b" path="res://classes/influences/influence.gd" id="8_2lsbh"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="8_6majh"]
 [ext_resource type="PackedScene" uid="uid://gjv8x6puntrs" path="res://entities/heal.tscn" id="9_8umbj"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="10_xr4ln"]
@@ -84,7 +84,7 @@ speed = 50.0
 speed = 82.0
 melee_pos_offsets = SubResource("Resource_xr4ln")
 
-[node name="SkillMelee" parent="MeleeComponent" index="0" unique_id=1304104648]
+[node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1304104648]
 influence = SubResource("Resource_s4s51")
 
 [node name="UIComponent" parent="." index="4" unique_id=673866706]
@@ -95,7 +95,7 @@ scale = Vector2(1, 1.1)
 script = ExtResource("6_t5fix")
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
-[node name="SkillArea" type="Node2D" parent="SkillComponent" index="0" unique_id=816441794]
+[node name="AreaSkill" type="Node2D" parent="SkillComponent" index="0" unique_id=816441794]
 script = ExtResource("7_8umbj")
 influence = SubResource("Resource_t5fix")
 cooldown = 8.0

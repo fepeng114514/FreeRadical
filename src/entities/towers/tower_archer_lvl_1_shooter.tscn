@@ -5,11 +5,11 @@
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_seev1"]
 [ext_resource type="SpriteFrames" uid="uid://ba1rf3psfd023" path="res://assets/atlas/sprite_frames/towers/tower_archer_lvl1_shooter.tres" id="4_wku2c"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="5_skugy"]
-[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/skill_ranged.gd" id="6_vh14o"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/ranged_skill.gd" id="6_vh14o"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="7_eanea"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="7_miroj"]
 [ext_resource type="PackedScene" uid="uid://d25hnem6unbul" path="res://entities/towers/tower_archer_bullet.tscn" id="8_aj3f4"]
-[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="9_miroj"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="9_miroj"]
 
 [sub_resource type="Resource" id="Resource_e0w6f"]
 script = ExtResource("2_csl3h")
@@ -63,7 +63,7 @@ visible = false
 script = ExtResource("5_skugy")
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
-[node name="SkillRanged" type="Node2D" parent="SkillComponent" unique_id=1939030855]
+[node name="RangedSkill" type="Node2D" parent="SkillComponent" unique_id=1939030855]
 script = ExtResource("6_vh14o")
 search = SubResource("Resource_uea8m")
 bullet = ExtResource("8_aj3f4")

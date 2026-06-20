@@ -4,7 +4,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cgn27n5ybf23x" path="res://assets/atlas/sprite_frames/towers/tower_barracks_soldier_lvl3.tres" id="2_41ehm"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_obj8f"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="3_uposi"]
-[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="4_uposi"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="4_uposi"]
 
 [sub_resource type="Resource" id="Resource_t8qan"]
 resource_local_to_scene = true
@@ -42,7 +42,7 @@ idle_regen_hp = 10.0
 [node name="MeleeComponent" parent="." index="2" unique_id=668314156]
 search = SubResource("Resource_sve1a")
 
-[node name="SkillMelee" parent="MeleeComponent" index="0" unique_id=1014449767]
+[node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1014449767]
 influence = SubResource("Resource_h5oex")
 
 [node name="UIComponent" parent="." index="4" unique_id=346591849]

@@ -1,9 +1,9 @@
 @tool
 extends Skill
-class_name SkillSpawn
+class_name SpawnSkill
 ## 生成实体技能节点。
 ##
-## SkillSpawn 会生成一个实体。
+## SpawnSkill 会生成一个实体。
 
 
 ## 生成的实体场景名称数组。

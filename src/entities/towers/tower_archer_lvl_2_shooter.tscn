@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://entities/towers/tower_archer_lvl_1_shooter.tscn" id="1_rfise"]
 [ext_resource type="SpriteFrames" uid="uid://dbtbhq4ed8qvt" path="res://assets/atlas/sprite_frames/towers/tower_archer_lvl2_shooter.tres" id="2_suvr7"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="3_6omst"]
-[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="4_6omst"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="4_6omst"]
 
 [sub_resource type="Resource" id="Resource_kbiqo"]
 resource_local_to_scene = true
@@ -24,7 +24,7 @@ scene_name = "tower_archer_lvl_2_shooter"
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(650442870) index="0" unique_id=1785141033]
 sprite_frames = ExtResource("2_suvr7")
 
-[node name="SkillRanged" parent="SkillComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
+[node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
 search = SubResource("Resource_kbiqo")
 influence = SubResource("Resource_fsp6p")
 cooldown = 0.6

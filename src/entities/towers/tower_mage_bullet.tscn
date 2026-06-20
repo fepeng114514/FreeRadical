@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_4g6k2"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_23yll"]
 [ext_resource type="SpriteFrames" uid="uid://c67baw6nrd87f" path="res://assets/atlas/sprite_frames/towers/tower_mage_bolt.tres" id="4_halcm"]
-[ext_resource type="Script" uid="uid://dik34npwy07xl" path="res://classes/bullet_trajectories/bullet_trajectory_tracking.gd" id="5_m7k2d"]
+[ext_resource type="Script" uid="uid://dik34npwy07xl" path="res://classes/bullet_trajectories/track_trajectory.gd" id="5_m7k2d"]
 
 [sub_resource type="Resource" id="Resource_hf44a"]
 script = ExtResource("2_4g6k2")

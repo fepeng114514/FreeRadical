@@ -1,9 +1,9 @@
 @tool
 extends Skill
-class_name SkillRanged
+class_name RangedSkill
 ## 单次远程技能节点。
 ##
-## SkillRanged 会生成一个子弹，以子弹作为中介，对目标造成影响。子弹会以特定轨迹飞行，到达目标后造成影响。
+## RangedSkill 会生成一个子弹，以子弹作为中介，对目标造成影响。子弹会以特定轨迹飞行，到达目标后造成影响。
 
 
 ## 子弹生成模式枚举。
@@ -38,7 +38,7 @@ enum BulletSpawnMode {
 ## 子弹发射模式。
 @export var bullet_spawn_mode: BulletSpawnMode = BulletSpawnMode.EQUAL_INTERVAL
 ## 影响资源。
-@export var influence: InfluenceResource = null:
+@export var influence: Influence = null:
 	set(v): 
 		influence = v
 		U.resource_redraw_setter(self, influence)

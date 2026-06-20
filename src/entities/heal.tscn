@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_0xtce"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_1ob1w"]
 [ext_resource type="SpriteFrames" uid="uid://brstgmheglt1u" path="res://assets/atlas/sprite_frames/bases/healing_small.tres" id="3_1ob1w"]
-[ext_resource type="Script" uid="uid://ckhydj2qpt5tb" path="res://classes/influence_resources/influence_heal_resource.gd" id="6_n821v"]
+[ext_resource type="Script" uid="uid://ckhydj2qpt5tb" path="res://classes/influences/heal_influence.gd" id="6_n821v"]
 
 [sub_resource type="Resource" id="Resource_n821v"]
 script = ExtResource("2_1ob1w")

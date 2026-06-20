@@ -44,7 +44,7 @@ class_name BulletComponent
 @export var miss_payloads: Array[PackedScene] = []
 
 ## 影响资源。
-var influence: InfluenceResource = null
+var influence: Influence = null
 ## 起始位置。
 var from := Vector2.ZERO
 ## 目标位置。

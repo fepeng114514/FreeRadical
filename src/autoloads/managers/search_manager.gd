@@ -163,15 +163,15 @@ static func _sort_by_melee_damage(e1: Entity, e2: Entity, reversed: bool) -> boo
 	
 	var e1_melee_c: MeleeComponent = e1.get_node_or_null(C.CN_MELEE)
 	if e1_melee_c:
-		var first_skill: SkillMelee = e1_melee_c.get_child(0)
-		var influence: InfluenceResource = first_skill.influence
+		var first_skill: MeleeSkill = e1_melee_c.get_child(0)
+		var influence: Influence = first_skill.influence
 
 		if influence:
 			d1 = influence.damage_max
 	var e2_melee_c: MeleeComponent = e2.get_node_or_null(C.CN_MELEE)
 	if e2_melee_c:
-		var first_skill: SkillMelee = e2_melee_c.get_child(0)
-		var influence: InfluenceResource = first_skill.influence
+		var first_skill: MeleeSkill = e2_melee_c.get_child(0)
+		var influence: Influence = first_skill.influence
 
 		if influence:
 			d2 = influence.damage_max
@@ -187,14 +187,14 @@ static func _sort_by_ranged_damage(e1: Entity, e2: Entity, reversed: bool) -> bo
 	var e1_skill_c: SkillComponent = e1.get_node_or_null(C.CN_SKILL)
 	if e1_skill_c:
 		var first_skill: Skill = e1_skill_c.get_child(0)
-		var influence: InfluenceResource = first_skill.influence
+		var influence: Influence = first_skill.influence
 
 		if influence:
 			d1 = influence.damage_max
 	var e2_skill_c: SkillComponent = e2.get_node_or_null(C.CN_SKILL)
 	if e2_skill_c:
 		var first_skill: Skill = e2_skill_c.get_child(0)
-		var influence: InfluenceResource = first_skill.influence
+		var influence: Influence = first_skill.influence
 
 		if influence:
 			d2 = influence.damage_max

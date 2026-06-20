@@ -1,9 +1,9 @@
 @tool
-extends InfluenceResource
-class_name InfluenceDamageResource
+extends Influence
+class_name DamageInfluence
 ## 伤害影响资源。
 ##
-## InfluenceDamageResource 用于定义如何对目标实体造成伤害。
+## DamageInfluence 用于定义如何对目标实体造成伤害。
 
 
 #region 基础伤害

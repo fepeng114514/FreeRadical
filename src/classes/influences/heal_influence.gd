@@ -1,9 +1,9 @@
 @tool
-extends InfluenceResource
-class_name InfluenceHealResource
+extends Influence
+class_name HealInfluence
 ## 治疗影响资源。
 ##
-## InfluenceHealResource 用于定义如何治疗目标实体。
+## HealInfluence 用于定义如何治疗目标实体。
 
 
 #region 治疗

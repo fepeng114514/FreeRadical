@@ -1,9 +1,9 @@
 @tool
-extends SkillRanged
-class_name SkillRangedMultiple
+extends RangedSkill
+class_name MultipleRangedSkill
 ## 多次远程技能节点。
 ##
-## SkillRangedMultiple 与 [SkillRanged] 相似，但是可以连续攻击多次。
+## MultipleRangedSkill 与 [RangedSkill] 相似，但是可以连续攻击多次。
 
 ## 循环次数。
 @export var loop_count: int = 1

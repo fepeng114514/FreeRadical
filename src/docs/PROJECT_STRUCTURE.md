@@ -59,10 +59,10 @@ Zero-Based-Isekai-Tower-Defense/
 │   │   │   └── spawner_behavior.gd           # 生成器行为
 │   │   ├── bullet_trajectories/              # 子弹轨迹类目录
 │   │   │   ├── bullet_trajectory.gd          # 子弹轨迹基类
-│   │   │   ├── bullet_trajectory_instant.gd  # 瞬移轨迹
-│   │   │   ├── bullet_trajectory_linear.gd   # 直线轨迹
-│   │   │   ├── bullet_trajectory_parabola.gd # 抛物线轨迹
-│   │   │   └── bullet_trajectory_tracking.gd # 追踪轨迹
+│   │   │   ├── instant_bullet_trajectory.gd  # 瞬移轨迹
+│   │   │   ├── linear_bullet_trajectory.gd   # 直线轨迹
+│   │   │   ├── parabola_bullet_trajectory.gd # 抛物线轨迹
+│   │   │   └── track_bullet_trajectory.gd    # 追踪轨迹
 │   │   ├── components/                       # 组件类目录
 │   │   │   ├── aura_component.gd             # 光环组件
 │   │   │   ├── barrack_component.gd          # 兵营组件
@@ -81,17 +81,17 @@ Zero-Based-Isekai-Tower-Defense/
 │   │   │   ├── sprite_component.gd           # 精灵组件
 │   │   │   ├── tower_component.gd            # 防御塔组件
 │   │   │   └── ui_component.gd               # UI组件
-│   │   ├── influence_resources/              # 影响资源类目录
-│   │   │   ├── influence_damage_resource.gd  # 伤害影响资源
-│   │   │   ├── influence_heal_resource.gd    # 治疗影响资源
-│   │   │   └── influence_resource.gd         # 影响资源基类
+│   │   ├── influences/                       # 影响资源类目录
+│   │   │   ├── damage_influence.gd           # 伤害影响资源
+│   │   │   ├── heal_influence.gd             # 治疗影响资源
+│   │   │   └── influence.gd                  # 影响资源基类
 │   │   ├── skills/                           # 技能类目录
 │   │   │   ├── skill.gd                      # 技能基类
-│   │   │   ├── skill_area.gd                 # 范围技能
-│   │   │   ├── skill_melee.gd                # 近战技能
-│   │   │   ├── skill_ranged.gd               # 远程技能
-│   │   │   ├── skill_ranged_multiple.gd      # 多次远程技能
-│   │   │   └── skill_spawn.gd                # 生成技能
+│   │   │   ├── area_skill.gd                 # 范围技能
+│   │   │   ├── melee_skill.gd                # 近战技能
+│   │   │   ├── ranged_skill.gd               # 远程技能
+│   │   │   ├── multiple_ranged_skill.gd      # 多次远程技能
+│   │   │   └── spawn_skill.gd                # 生成技能
 │   │   ├── static_classes/                   # 静态类目录（常量、工具函数）
 │   │   │   ├── constants.gd                  # 常量定义
 │   │   │   ├── log.gd                        # 日志工具

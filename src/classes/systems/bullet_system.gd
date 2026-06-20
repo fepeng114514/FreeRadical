@@ -38,7 +38,7 @@ func _on_insert(e: Entity) -> bool:
 	if bullet_c.trajectory:
 		bullet_c.trajectory._init_trajectory(bullet_c, e, target)
 
-	var influence: InfluenceResource = bullet_c.influence
+	var influence: Influence = bullet_c.influence
 	influence.damage_value = influence.get_damage_value(to, target.global_position)
 
 	return true
@@ -106,7 +106,7 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 		if await e.y_wait_animation(bullet_c.miss_animation):
 			return
 
-	var influence: InfluenceResource = bullet_c.influence
+	var influence: Influence = bullet_c.influence
 	if influence and influence.area_enable:
 		influence.take_influence(e, null, bullet_c.to, Skill.Type.RANGED)
 	EntityMgr.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)

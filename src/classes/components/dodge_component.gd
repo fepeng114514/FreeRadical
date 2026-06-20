@@ -32,7 +32,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 			var has_melee_skill: bool = false
 			var has_ranged_skill: bool = false
 			for child: Node in get_children():
-				if child is SkillMelee:
+				if child is MeleeSkill:
 					has_melee_skill = true
 				else:
 					has_ranged_skill = true
@@ -58,7 +58,7 @@ func select_skill(e: Entity, d: Damage, source: Entity) -> bool:
 		
 		match d.source_skill_type:
 			Skill.Type.MELEE:
-				if skill is SkillMelee:
+				if skill is MeleeSkill:
 					continue
 
 				var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
@@ -75,7 +75,7 @@ func select_skill(e: Entity, d: Damage, source: Entity) -> bool:
 				if not can_dodge_ranged:
 					continue
 
-				if skill is SkillMelee:
+				if skill is MeleeSkill:
 					continue
 
 		skill_idx = i

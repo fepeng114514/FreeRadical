@@ -8,12 +8,12 @@
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component.gd" id="5_uecfs"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_bar.tscn" id="6_7yqqd"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="7_xu63r"]
-[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/skill_melee.gd" id="8_qo1np"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="8_qo1np"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="8_y4pex"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="9_ts01h"]
 [ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://classes/components/rally_component.gd" id="9_uhicr"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="10_700db"]
-[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influence_resources/influence_damage_resource.gd" id="11_ts01h"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="11_ts01h"]
 
 [sub_resource type="Resource" id="Resource_ovm3w"]
 script = ExtResource("2_i4u0u")
@@ -101,7 +101,7 @@ melee_pos_offsets = SubResource("Resource_prid8")
 search = SubResource("Resource_vrdxj")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
-[node name="SkillMelee" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
+[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
 script = ExtResource("8_qo1np")
 influence = SubResource("Resource_tcdjf")
 cooldown = 1.36

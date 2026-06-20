@@ -1,14 +1,14 @@
 @tool
 extends Skill
-class_name SkillMelee
+class_name MeleeSkill
 ## 近战技能节点。
 ##
-## SkillMelee 与 [SkillArea] 唯一区别的就是没有搜索目标这一步，需要被传入目标。[br]
+## MeleeSkill 与 [AreaSkill] 唯一区别的就是没有搜索目标这一步，需要被传入目标。[br]
 ## 主要用于 [MeleeComponent] 与 [DodgeComponent] 进行近战技能。
 
 
 ## 影响资源。
-@export var influence: InfluenceResource = null:
+@export var influence: Influence = null:
 	set(v): 
 		influence = v
 		U.resource_redraw_setter(self, influence)

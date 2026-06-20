@@ -118,7 +118,7 @@ func _update_unit_info() -> void:
 	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
 	
 	if skill_c:
-		if skill_c.get_child(0) as SkillRanged:
+		if skill_c.get_child(0) as RangedSkill:
 			_set_value_ranged(skill_c)
 	else:
 		ranged_value.visible = false
@@ -144,12 +144,12 @@ func _update_tower_info() -> void:
 
 
 func _set_value_ranged(skill_c: SkillComponent) -> void:
-	var first_ranged_skill: SkillRanged = skill_c.get_child(0)
-	var infl_res: InfluenceResource = first_ranged_skill.influence
+	var first_ranged_skill: RangedSkill = skill_c.get_child(0)
+	var infl_res: Influence = first_ranged_skill.influence
 	ranged_value.text = "%d-%d/%.1f" % [infl_res.damage_min, infl_res.damage_max, first_ranged_skill.cooldown]
 	
 	
 func _set_value_melee(melee_c: MeleeComponent) -> void:
-	var first_melee_skill: SkillMelee = melee_c.get_child(0)
-	var infl_res: InfluenceResource = first_melee_skill.influence
+	var first_melee_skill: MeleeSkill = melee_c.get_child(0)
+	var infl_res: Influence = first_melee_skill.influence
 	melee_value.text = "%d-%d/%.1f" % [infl_res.damage_min, infl_res.damage_max, first_melee_skill.cooldown]

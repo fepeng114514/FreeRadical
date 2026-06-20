@@ -15,7 +15,7 @@ class_name ModifierComponent
 @export var remove_banned: bool = true
 
 ## 影响资源。
-@export var influence: InfluenceResource = null
+@export var influence: Influence = null
 
 @export_group("Cycle")
 ## 是否启用周期影响。

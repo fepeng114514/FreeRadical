@@ -1,9 +1,9 @@
 @tool
 extends Resource
-class_name InfluenceResource
+class_name Influence
 ## 影响资源基类。
 ##
-## InfluenceResource 用于定义如何影响目标，例如治疗、造成伤害、给予状态效果等。
+## Influence 用于定义如何影响目标，例如治疗、造成伤害、给予状态效果等。
 
 
 @export_group("Extra")

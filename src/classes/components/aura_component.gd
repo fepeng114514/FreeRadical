@@ -12,7 +12,7 @@ class_name AuraComponent
 ## 是否移除被禁止的光环。
 @export var remove_banned: bool = true
 ## 影响资源。
-@export var influence: InfluenceResource = null:
+@export var influence: Influence = null:
 	set(v): 
 		influence = v
 		U.resource_redraw_setter(self, influence)

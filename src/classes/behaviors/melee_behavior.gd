@@ -275,7 +275,7 @@ func _try_melee_attack(
 	for i: int in melee_c.get_child_count():
 		if not target:
 			break
-		var skill: SkillMelee = melee_c.get_child(i)
+		var skill: MeleeSkill = melee_c.get_child(i)
 
 		if not skill.check_ready(e, target):
 			continue
