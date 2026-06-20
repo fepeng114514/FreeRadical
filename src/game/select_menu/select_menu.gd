@@ -29,7 +29,8 @@ signal hide_select_menu
 
 ## 当前选择的实体
 var selected_entity: Entity = null
-var is_animating: bool = false
+var scale_tween: Tween = null
+var is_scale_tweening: bool = false
 
 
 func _ready() -> void:
@@ -55,11 +56,7 @@ func _process(_delta: float) -> void:
 	global_position = selected_entity.global_position + ui_c.select_menu_offset
 
 	
-	
 func _show(e: Entity) -> void:
-	if is_animating:
-		return
-	
 	_clear()
 	
 	var ui_c: UIComponent = e.get_node_or_null(C.CN_UI)
@@ -108,18 +105,13 @@ func _show(e: Entity) -> void:
 	scale = Vector2.ZERO
 	global_position = e.global_position + ui_c.select_menu_offset
 		
-	tween_set_scale(tween_target_scale)
+	_create_scale_tween(tween_target_scale)
 	
 	
 func _hide() -> void:
-	if is_animating:
-		return
-		
-	var tween: Tween = tween_set_scale(Vector2.ZERO)
+	_create_scale_tween(Vector2.ZERO)
 	
-	is_animating = true
-	await tween.finished
-	is_animating = false
+	await scale_tween.finished
 	_clear()
 	
 	
@@ -135,10 +127,11 @@ func _clear() -> void:
 
 
 ## 使用补间缩放
-func tween_set_scale(target_s: Vector2) -> Tween:
-	var tween: Tween = create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.tween_property(self, "scale", target_s, tween_scale_time)
-	
-	return tween
+func _create_scale_tween(target_scale: Vector2) -> void:
+	if scale_tween:
+		scale_tween.kill()
+		
+	scale_tween = create_tween()
+	scale_tween.set_ease(Tween.EASE_OUT)
+	scale_tween.set_trans(Tween.TRANS_SINE)
+	scale_tween.tween_property(self, "scale", target_scale, tween_scale_time)

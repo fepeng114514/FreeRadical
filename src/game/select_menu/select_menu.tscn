@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://co5ehekpd71r8"]
 
-[ext_resource type="Script" uid="uid://fjttbo7hu6y1" path="res://game/game_ui/select_menu/select_menu.gd" id="1_3ssbk"]
-[ext_resource type="Resource" uid="uid://diakuvgmjbwrh" path="res://game/game_ui/select_menu/select_menu_config.tres" id="2_bbwk3"]
-[ext_resource type="PackedScene" uid="uid://c3aw3opkejlbd" path="res://game/game_ui/select_menu/button/button_rally.tscn" id="3_57nlo"]
-[ext_resource type="PackedScene" uid="uid://ckw5os80ertnp" path="res://game/game_ui/select_menu/button/button_sell.tscn" id="4_dt3ol"]
-[ext_resource type="PackedScene" uid="uid://c4qyoe342uqq1" path="res://game/game_ui/select_menu/button/button_upgrade.tscn" id="5_phmeo"]
-[ext_resource type="PackedScene" uid="uid://bvtdqhbod7k87" path="res://game/game_ui/select_menu/button/button_upgrade_skill.tscn" id="6_wm3u5"]
+[ext_resource type="Script" uid="uid://fjttbo7hu6y1" path="res://game/select_menu/select_menu.gd" id="1_3ssbk"]
+[ext_resource type="Resource" uid="uid://diakuvgmjbwrh" path="res://game/select_menu/select_menu_config.tres" id="2_bbwk3"]
+[ext_resource type="PackedScene" uid="uid://c3aw3opkejlbd" path="res://game/select_menu/button/button_rally.tscn" id="3_57nlo"]
+[ext_resource type="PackedScene" uid="uid://ckw5os80ertnp" path="res://game/select_menu/button/button_sell.tscn" id="4_dt3ol"]
+[ext_resource type="PackedScene" uid="uid://c4qyoe342uqq1" path="res://game/select_menu/button/button_upgrade.tscn" id="5_phmeo"]
+[ext_resource type="PackedScene" uid="uid://bvtdqhbod7k87" path="res://game/select_menu/button/button_upgrade_skill.tscn" id="6_wm3u5"]
 [ext_resource type="Texture2D" uid="uid://0kn0asfpj8lb" path="res://assets/atlas/atlas_textures/game_gui/gui_ring.tres" id="7_3ssbk"]
-[ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://game/game_ui/select_menu/place_holders.gd" id="8_qg2iw"]
-[ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://game/game_ui/select_menu/place_holder.tscn" id="9_qmhfd"]
+[ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://game/select_menu/place_holders.gd" id="8_qg2iw"]
+[ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://game/select_menu/place_holder.tscn" id="9_qmhfd"]
 
 [node name="SelectMenu" type="Control" unique_id=1082728830 node_paths=PackedStringArray("place_holders", "ring")]
 layout_mode = 3
@@ -32,6 +32,7 @@ mouse_filter = 2
 texture = ExtResource("7_3ssbk")
 
 [node name="PlaceHolders" type="Control" parent="Ring" unique_id=274001826]
+visible = false
 anchors_preset = 0
 script = ExtResource("8_qg2iw")
 

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SelectMenuButtonDataSell" format=3 uid="uid://cqtyan2kxswn2"]
 
-[ext_resource type="Script" uid="uid://c4luxefveeh5y" path="res://game/game_ui/select_menu/button/data/sell.gd" id="1_vi04q"]
+[ext_resource type="Script" uid="uid://c4luxefveeh5y" path="res://game/select_menu/button/data/sell.gd" id="1_vi04q"]
 
 [resource]
 script = ExtResource("1_vi04q")

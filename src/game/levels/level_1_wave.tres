@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="WaveGroup" format=3 uid="uid://cqt0kqx74t786"]
 
-[ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://game/levels/wave/wave_group.gd" id="1_ejpq0"]
-[ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://game/levels/wave/wave.gd" id="2_hpjop"]
-[ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://game/levels/wave/sub_wave.gd" id="3_7ur2r"]
-[ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://game/levels/wave/wave_spawn.gd" id="4_178aa"]
+[ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://game/wave/wave_group.gd" id="1_ejpq0"]
+[ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://game/wave/wave.gd" id="2_hpjop"]
+[ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://game/wave/sub_wave.gd" id="3_7ur2r"]
+[ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://game/wave/wave_spawn.gd" id="4_178aa"]
 [ext_resource type="PackedScene" uid="uid://b8mw5gsptj8n1" path="res://entities/enemies/enemy_goblin.tscn" id="5_hpjop"]
 
 [sub_resource type="Resource" id="Resource_3xfhy"]

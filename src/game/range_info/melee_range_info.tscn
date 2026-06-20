@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bunet3v8xsr0f"]
+
+[ext_resource type="PackedScene" uid="uid://frjkwtph1ejr" path="res://game/range_info/range_info.tscn" id="1_1u8qr"]
+[ext_resource type="Script" uid="uid://b5fc6bcowb8xw" path="res://game/range_info/melee_range_info.gd" id="2_0qsgk"]
+[ext_resource type="Texture2D" uid="uid://dagw4jd1dojh0" path="res://assets/atlas/atlas_textures/game_gui/rally_circle.tres" id="2_4p178"]
+
+[node name="MeleeRangeInfo" unique_id=1039592159 instance=ExtResource("1_1u8qr")]
+script = ExtResource("2_0qsgk")
+
+[node name="MinRangeCircle" parent="." index="0" unique_id=1130982685]
+texture = ExtResource("2_4p178")
+
+[node name="MaxRangeCircle" parent="." index="1" unique_id=1133710701]
+texture = ExtResource("2_4p178")

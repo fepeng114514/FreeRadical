@@ -150,26 +150,26 @@ Zero-Based-Isekai-Tower-Defense/
 │   │   └── towers/                           # 防御塔目录
 │   ├── game/                                 # 游戏目录
 │   │   ├── game_ui/                          # 游戏界面
-│   │   │   ├── debug_menu/                   # 调试菜单
-│   │   │   ├── info_circle/                  # 信息圈
-│   │   │   ├── select_menu/                  # 选择菜单
-│   │   │   └── wave_flag/                    # 波次旗帜
-│   │   └── levels/                           # 关卡目录
-│   │       ├── wave/                         # 波次相关类目录
-│   │       │   ├── sub_wave.gd               # 子波次
-│   │       │   ├── wave.gd                   # 波次
-│   │       │   ├── wave_group.gd             # 波次组
-│   │       │   └── wave_spawn.gd             # 波次生成
-│   │       ├── pathway/                      # 路径目录
-│   │       │   ├── pathway.gd                # 路径
-│   │       │   ├── pathway_container.gd      # 路径容器
-│   │       │   ├── pathway_node.gd           # 路径节点
-│   │       │   └── subpathway.gd             # 子路径
-│   │       ├── gird.gd                       # 网格
-│   │       ├── level.gd                      # 关卡基类
-│   │       ├── system_container.gd           # 系统容器
-│   │       ├── system_container.tscn         # 系统容器场景
-│   │       └── world.gd                      # 世界
+│   │   ├── levels/                           # 关卡目录
+│   │   │   └── level.gd                      # 关卡基类
+│   │   ├── debug_menu/                       # 调试菜单
+│   │   ├── range_info/                       # 范围信息
+│   │   ├── select_menu/                      # 选择菜单
+│   │   ├── wave_flag/                        # 波次旗帜
+│   │   ├── wave/                             # 波次相关类目录
+│   │   │   ├── sub_wave.gd                   # 子波次类
+│   │   │   ├── wave.gd                       # 波次类
+│   │   │   ├── wave_group.gd                 # 波次组类
+│   │   │   └── wave_spawn.gd                 # 波次生成类
+│   │   ├── pathway/                          # 路径目录
+│   │   │   ├── pathway.gd                    # 路径
+│   │   │   ├── pathway_container.gd          # 路径容器
+│   │   │   ├── pathway_node.gd               # 路径节点
+│   │   │   └── subpathway.gd                 # 子路径
+│   │   ├── gird.gd                           # 网格
+│   │   ├── system_container.gd               # 系统容器
+│   │   ├── system_container.tscn             # 系统容器场景
+│   │   └── world.gd                          # 世界类
 │   ├── docs/                                 # 文档目录
 │   │   ├── CODE_SPEC.md                      # 代码规范文档
 │   │   ├── COMMITS_SPEC.md                   # 提交规范文档

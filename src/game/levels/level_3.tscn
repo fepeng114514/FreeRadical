@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://be4ofxijaafml" path="res://game/levels/level.tscn" id="1_4awbs"]
 [ext_resource type="Texture2D" uid="uid://dsh5d14d02idg" path="res://assets/level_3_background.png" id="2_5rwuc"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/wave_spawner.tscn" id="3_pkj3y"]
-[ext_resource type="Resource" uid="uid://b66n0dnffwvuv" path="res://game/levels/level_3_wave.tres" id="4_nangp"]
-[ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://game/levels/pathway/pathway.gd" id="5_nangp"]
+[ext_resource type="Resource" uid="uid://bwuhxvlaq1rnx" path="res://game/levels/level_3_wave.tres" id="4_nangp"]
+[ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://game/pathway/pathway.gd" id="5_nangp"]
 [ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder_grass.tscn" id="5_yh1g4"]
-[ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://game/levels/wave_flag/wave_flag.tscn" id="6_5rwuc"]
+[ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://game/wave_flag/wave_flag.tscn" id="6_5rwuc"]
 
 [sub_resource type="Curve2D" id="Curve2D_5rwuc"]
 _data = {
@@ -35,7 +35,7 @@ curve = SubResource("Curve2D_5rwuc")
 script = ExtResource("5_nangp")
 metadata/_custom_type_script = "uid://5rvcj41ueju4"
 
-[node name="WaveFlag" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1005784656 instance=ExtResource("6_5rwuc")]
+[node name="WaveFlag" parent="WaveFlagController" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1005784656 instance=ExtResource("6_5rwuc")]
 layout_mode = 0
 offset_left = 1057.0
 offset_top = 28.0

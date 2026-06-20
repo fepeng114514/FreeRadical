@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ca75dg47m1q1a"]
+
+[ext_resource type="Script" uid="uid://bykjvv7a7q7ry" path="res://game/range_info/range_info_controller.gd" id="1_8svem"]
+[ext_resource type="PackedScene" uid="uid://2djpa08d7dw8" path="res://game/range_info/skill_range_info.tscn" id="2_86ju5"]
+[ext_resource type="PackedScene" uid="uid://bunet3v8xsr0f" path="res://game/range_info/melee_range_info.tscn" id="3_qksm6"]
+[ext_resource type="PackedScene" uid="uid://dacigpy8exby8" path="res://game/range_info/barrack_rally_range_info.tscn" id="5_m81rm"]
+
+[node name="RangeInfoController" type="Control" unique_id=1487020159]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+script = ExtResource("1_8svem")
+skill_range_info_scene = ExtResource("2_86ju5")
+melee_range_info_scene = ExtResource("3_qksm6")
+barrack_rally_range_info_scene = ExtResource("5_m81rm")

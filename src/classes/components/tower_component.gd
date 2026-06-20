@@ -25,11 +25,6 @@ enum TowerType {
 
 ## 防御塔类型。
 @export var tower_type: TowerType = TowerType.TOWER_HOLDER
-## 显示范围的偏移。
-@export var show_range_offset := Vector2.ZERO:
-	set(v): 
-		show_range_offset = v
-		U.redraw_setter(self)
 ## 塔位样式。
 @export var tower_holder: PackedScene = null
 ## 默认集结点。
@@ -63,13 +58,6 @@ var ts: float = 0.0
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		draw_circle(
-			show_range_offset, 
-			3,
-			Color.GREEN, 
-			true
-		)
-		
 		if default_rally_center_local_pos != Vector2.ZERO:
 			draw_circle(
 				default_rally_center_local_pos,

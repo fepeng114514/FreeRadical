@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://be4ofxijaafml" path="res://game/levels/level.tscn" id="1_dga24"]
 [ext_resource type="Texture2D" uid="uid://duvliyfyupp1e" path="res://assets/level_2_background.png" id="2_l53as"]
-[ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://game/levels/pathway/pathway.gd" id="3_sk5k4"]
+[ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://game/pathway/pathway.gd" id="3_sk5k4"]
 [ext_resource type="Resource" uid="uid://d3f8k37sije6n" path="res://game/levels/level_2_wave.tres" id="4_bxukv"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/wave_spawner.tscn" id="4_dga24"]
-[ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://game/levels/wave_flag/wave_flag.tscn" id="10_qxy0u"]
+[ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://game/wave_flag/wave_flag.tscn" id="10_qxy0u"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="14_np2pn"]
 [ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder_grass.tscn" id="35_hvllt"]
 
@@ -128,7 +128,7 @@ script = ExtResource("3_sk5k4")
 curve = SubResource("Curve2D_3sk1a")
 script = ExtResource("3_sk5k4")
 
-[node name="WaveFlag" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1969317594 instance=ExtResource("10_qxy0u")]
+[node name="WaveFlag" parent="WaveFlagController" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1969317594 instance=ExtResource("10_qxy0u")]
 layout_mode = 1
 offset_left = 1134.0
 offset_top = 89.0
@@ -136,7 +136,7 @@ offset_right = 1219.0
 offset_bottom = 174.0
 pathway_idx = 0
 
-[node name="WaveFlag2" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="1" unique_id=1005784656 instance=ExtResource("10_qxy0u")]
+[node name="WaveFlag2" parent="WaveFlagController" parent_id_path=PackedInt32Array(64694769) index="1" unique_id=1005784656 instance=ExtResource("10_qxy0u")]
 layout_mode = 1
 offset_left = 1206.0
 offset_top = 89.0
@@ -144,7 +144,7 @@ offset_right = 1291.0
 offset_bottom = 174.0
 pathway_idx = 1
 
-[node name="WaveFlag3" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="2" unique_id=1375735121 instance=ExtResource("10_qxy0u")]
+[node name="WaveFlag3" parent="WaveFlagController" parent_id_path=PackedInt32Array(64694769) index="2" unique_id=1375735121 instance=ExtResource("10_qxy0u")]
 layout_mode = 1
 offset_left = 83.0
 offset_top = 553.0
@@ -153,7 +153,7 @@ offset_bottom = 638.0
 pathway_idx = 2
 arrow_rotation = -1.5707963267948966
 
-[node name="WaveFlag4" parent="WaveFlagContainer" parent_id_path=PackedInt32Array(64694769) index="3" unique_id=875018427 instance=ExtResource("10_qxy0u")]
+[node name="WaveFlag4" parent="WaveFlagController" parent_id_path=PackedInt32Array(64694769) index="3" unique_id=875018427 instance=ExtResource("10_qxy0u")]
 layout_mode = 1
 offset_left = 83.0
 offset_top = 636.0
