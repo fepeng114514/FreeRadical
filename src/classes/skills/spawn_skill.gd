@@ -48,9 +48,15 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 		
 	e.play_animation(animation)
 	AudioMgr.play_sfx(sfx)
-	if await e.y_wait(delay) or search and not target:
+	if await e.y_wait(delay):
 		compensate_cooldown(e, skill_idx)
 		return
+
+	if search and not target:
+		target = search.search_target(e, e.global_position)
+		if not target:
+			compensate_cooldown(e, skill_idx)
+			return
 
 	var e_global_pos: Vector2 = e.global_position
 	var spawn_pos: Vector2 = target.global_position if search_target_pos else e_global_pos

@@ -28,9 +28,15 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	
 	e.play_animation(animation, &"ranged")
 	AudioMgr.play_sfx(sfx)
-	if await e.y_wait_animation(animation) or not target:
+	if await e.y_wait_animation(animation):
 		compensate_cooldown(e, skill_idx)
 		return
+
+	if not target:
+		target = search.search_target(e, e.global_position)
+		if not target:
+			compensate_cooldown(e, skill_idx)
+			return
 
 	for i: int in loop_count:
 		if not U.is_valid_entity(target):

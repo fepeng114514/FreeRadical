@@ -50,6 +50,12 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 		compensate_cooldown(e, skill_idx)
 		return
 
+	if search and not target:
+		target = search.search_target(e, e.global_position)
+		if not target:
+			compensate_cooldown(e, skill_idx)
+			return
+
 	if search:
 		influence.take_influence(e, target, target.global_position)
 	else:
