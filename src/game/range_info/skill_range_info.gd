@@ -4,7 +4,7 @@ extends RangeInfo
 func _update() -> void:
 	var skill_c: SkillComponent = target_entity.get_node_or_null(C.CN_SKILL)
 	var first_skill: Skill = skill_c.get_child(0)
-	var search: SearchResource = first_skill.get("search")
+	var search: Search = first_skill.get("search")
 	if not search:
 		return
 		

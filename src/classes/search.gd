@@ -1,9 +1,9 @@
 @tool
 extends Resource
-class_name SearchResource
+class_name Search
 ## 搜索资源。
 ##
-## SearchResource 用于根据位置、半径等条件搜索实体。
+## Search 用于根据位置、半径等条件搜索实体。
 
 
 ## 中心偏移量。

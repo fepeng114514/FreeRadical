@@ -1,7 +1,7 @@
 @tool
 extends Influence
 class_name DamageInfluence
-## 伤害影响资源。
+## 伤害影响资源，用于对目标造成伤害或治愈目标。
 ##
 ## DamageInfluence 用于定义如何对目标实体造成伤害。
 

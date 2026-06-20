@@ -11,13 +11,13 @@ class_name AuraComponent
 @export var same_process: SameProcessResource = null
 ## 是否移除被禁止的光环。
 @export var remove_banned: bool = true
-## 影响资源。
+## 影响资源，用于对目标造成伤害或治愈目标。
 @export var influence: Influence = null:
 	set(v): 
 		influence = v
 		U.resource_redraw_setter(self, influence)
-## 搜索资源。
-@export var search: SearchResource = null:
+## 搜索资源，用于搜索目标。
+@export var search: Search = null:
 	set(v): 
 		search = v
 		U.resource_redraw_setter(self, search)

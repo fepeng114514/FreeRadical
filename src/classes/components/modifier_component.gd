@@ -14,7 +14,7 @@ class_name ModifierComponent
 ## 是否移除被禁止的状态效果。
 @export var remove_banned: bool = true
 
-## 影响资源。
+## 影响资源，用于对目标造成伤害或治愈目标。
 @export var influence: Influence = null
 
 @export_group("Cycle")

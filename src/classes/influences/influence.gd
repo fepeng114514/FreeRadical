@@ -1,7 +1,7 @@
 @tool
 extends Resource
 class_name Influence
-## 影响资源基类。
+## 影响资源，基类。
 ##
 ## Influence 用于定义如何影响目标，例如治疗、造成伤害、给予状态效果等。
 
@@ -19,8 +19,8 @@ class_name Influence
 @export_group("Area")
 ## 是否启用范围影响。
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var area_enable: bool = false
-## 搜索资源。
-@export var search: SearchResource = null:
+## 搜索资源，用于搜索目标。
+@export var search: Search = null:
 	set(v): 
 		search = v
 		if Engine.is_editor_hint():

@@ -1,7 +1,7 @@
 @tool
 extends Influence
 class_name HealInfluence
-## 治疗影响资源。
+## 治疗影响资源，用于对目标造成伤害或治愈目标。
 ##
 ## HealInfluence 用于定义如何治疗目标实体。
 

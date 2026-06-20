@@ -17,8 +17,8 @@ enum BulletSpawnMode {
 
 ## 拦截目标时是否可以释放远程技能。
 @export var with_melee: bool = false
-## 搜索资源。
-@export var search: SearchResource = null:
+## 搜索资源，用于搜索目标。
+@export var search: Search = null:
 	set(v): 
 		search = v
 		U.resource_redraw_setter(self, search)
@@ -37,7 +37,7 @@ enum BulletSpawnMode {
 @export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0.0
 ## 子弹发射模式。
 @export var bullet_spawn_mode: BulletSpawnMode = BulletSpawnMode.EQUAL_INTERVAL
-## 影响资源。
+## 影响资源，用于对目标造成伤害或治愈目标。
 @export var influence: Influence = null:
 	set(v): 
 		influence = v
@@ -56,13 +56,12 @@ func _draw() -> void:
 		if influence:
 			influence.draw(self, position)
 
-		if search:
-			search.draw(self, position)
+		search.draw(self, position)
 		OffsetGroup.draw_offset_group(self, bullet_offsets)
 
 
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
-	if not target and search:
+	if not target:
 		target = search.search_target(e, e.global_position)
 		if not target:
 			return
@@ -73,9 +72,15 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 
 	e.play_animation(animation, &"ranged")
 	AudioMgr.play_sfx(sfx)
-	if await e.y_wait(delay) or not target:
+	if await e.y_wait(delay):
 		compensate_cooldown(e, skill_idx)
 		return
+
+	if not target:
+		target = search.search_target(e, e.global_position)
+		if not target:
+			compensate_cooldown(e, skill_idx)
+			return
 
 	spawn_bullets(e, target)
 

@@ -36,8 +36,8 @@ enum MeleeState {
 @export var arrived_distance: float = 10
 
 @export_group("Blocker")
-## 搜索资源。
-@export var search: SearchResource = null
+## 搜索资源，用于搜索目标。
+@export var search: Search = null
 ## 最大被拦截者数量。
 @export var max_blocked_count: int = 1
 

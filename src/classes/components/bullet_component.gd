@@ -43,7 +43,7 @@ class_name BulletComponent
 ## 未击中目标时创建的实体场景名称列表。
 @export var miss_payloads: Array[PackedScene] = []
 
-## 影响资源。
+## 影响资源，用于对目标造成伤害或治愈目标。
 var influence: Influence = null
 ## 起始位置。
 var from := Vector2.ZERO

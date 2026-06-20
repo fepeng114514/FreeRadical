@@ -8,12 +8,12 @@ class_name AreaSkill
 ## 相当于对 [Influence] 封装了一个搜索目标的机制，以搜索到的第一个目标为中心造成影响。
 
 
-## 搜索资源。
-@export var search: SearchResource = null:
+## 搜索资源，用于搜索目标，如果设置改资源，将会以搜索到的第一个目标为中心造成影响。
+@export var search: Search = null:
 	set(v): 
 		search = v
 		U.resource_redraw_setter(self, search)
-## 影响资源。
+## 影响资源，用于对目标造成伤害或治愈目标。
 @export var influence: Influence = null:
 	set(v): 
 		influence = v

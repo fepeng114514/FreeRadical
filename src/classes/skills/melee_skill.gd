@@ -7,7 +7,7 @@ class_name MeleeSkill
 ## 主要用于 [MeleeComponent] 与 [DodgeComponent] 进行近战技能。
 
 
-## 影响资源。
+## 影响资源，用于对目标造成伤害或治愈目标。
 @export var influence: Influence = null:
 	set(v): 
 		influence = v

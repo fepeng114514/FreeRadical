@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="13_l5l73"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="14_ds7h4"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/ranged_skill.gd" id="14_n4ua5"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search_resource.gd" id="14_st7oj"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search.gd" id="14_st7oj"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="15_v8ksx"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="16_st7oj"]
 [ext_resource type="PackedScene" uid="uid://cx35c0rfd1fwr" path="res://entities/towers/tower_artillery_lvl_1_bullet.tscn" id="19_7extc"]
