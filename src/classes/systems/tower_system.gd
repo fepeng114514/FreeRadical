@@ -70,8 +70,7 @@ func _on_update(_delta: float) -> void:
 			
 			var tower_holder: Entity = EntityMgr.create_entity(tower_c.tower_holder)
 			tower_holder.global_position = e.global_position
-			var holder_tower_c: TowerComponent = tower_holder.get_node_or_null(C.CN_TOWER)
-			holder_tower_c.default_rally_center_local_pos = tower_c.default_rally_center_local_pos
+			tower_holder.default_rally_center_local_pos = tower_c.default_rally_center_local_pos
 			
 			tower_holder.insert_entity()
 			e.remove_entity()
