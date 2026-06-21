@@ -111,133 +111,6 @@ enum AuraType {
 }
 
 
-## 搜索模式枚举。
-enum SearchMode {
-	## 搜索模式: 实体路程最远。
-	ENTITY_MAX_PROGRESS,
-	## 搜索模式: 实体路程最近。
-	ENTITY_MIN_PROGRESS,
-	## 搜索模式: 实体距离最远。
-	ENTITY_MAX_DISTANCE,
-	## 搜索模式: 实体距离最近。
-	ENTITY_MIN_DISTANCE,
-	## 搜索模式: 实体血量最高。
-	ENTITY_MAX_HEALTH,
-	## 搜索模式: 实体血量最低。
-	ENTITY_MIN_HEALTH,
-	## 搜索模式: 实体近战伤害最高。
-	ENTITY_MAX_MELEE_DAMAGE,
-	## 搜索模式: 实体近战伤害最低。
-	ENTITY_MIN_MELEE_DAMAGE,
-	## 搜索模式: 实体远程伤害最高。
-	ENTITY_MAX_RANGED_DAMAGE,
-	## 搜索模式: 实体远程伤害最低。
-	ENTITY_MIN_RANGED_DAMAGE,
-	## 搜索模式: 实体 ID 最大。
-	ENTITY_MAX_ID,
-	## 搜索模式: 实体 ID 最小。
-	ENTITY_MIN_ID,
-	## 搜索模式: 实体赏金最高。
-	ENTITY_MAX_GOLD,
-	## 搜索模式: 实体赏金最低。
-	ENTITY_MIN_GOLD,
-	## 搜索模式: 实体随机。
-	ENTITY_RANDOM,
-
-	## 搜索模式: 敌人路程最远。
-	ENEMY_MAX_PROGRESS,
-	## 搜索模式: 敌人路程最近。
-	ENEMY_MIN_PROGRESS,
-	## 搜索模式: 敌人距离最远。
-	ENEMY_MAX_DISTANCE,
-	## 搜索模式: 敌人距离最近。
-	ENEMY_MIN_DISTANCE,
-	## 搜索模式: 敌人血量最高
-	ENEMY_MAX_HEALTH,
-	## 搜索模式: 敌人血量最低。
-	ENEMY_MIN_HEALTH,
-	## 搜索模式: 敌人近战伤害最高。
-	ENEMY_MAX_MELEE_DAMAGE,
-	## 搜索模式: 敌人近战伤害最低。
-	ENEMY_MIN_MELEE_DAMAGE,
-	## 搜索模式: 敌人远程伤害最高。
-	ENEMY_MAX_RANGED_DAMAGE,
-	## 搜索模式: 敌人远程伤害最低。
-	ENEMY_MIN_RANGED_DAMAGE,
-	## 搜索模式: 敌人 ID 最大。
-	ENEMY_MAX_ID,
-	## 搜索模式: 敌人 ID 最小。
-	ENEMY_MIN_ID,
-	## 搜索模式: 敌人赏金最高。
-	ENEMY_MAX_GOLD,
-	## 搜索模式: 敌人赏金最低。
-	ENEMY_MIN_GOLD,
-	## 搜索模式: 敌人随机。
-	ENEMY_RANDOM,
-
-	## 搜索模式: 友军路程最远。
-	FRIENDLY_MAX_PROGRESS,
-	## 搜索模式: 友军路程最近。
-	FRIENDLY_MIN_PROGRESS,
-	## 搜索模式: 友军距离最近。
-	FRIENDLY_MIN_DISTANCE,
-	## 搜索模式: 友军距离最远。
-	FRIENDLY_MAX_DISTANCE,
-	## 搜索模式: 友军血量最高。
-	FRIENDLY_MAX_HEALTH,
-	## 搜索模式: 友军血量最低。
-	FRIENDLY_MIN_HEALTH,
-	## 搜索模式: 友军近战伤害最高。
-	FRIENDLY_MAX_MELEE_DAMAGE,
-	## 搜索模式: 友军近战伤害最低。
-	FRIENDLY_MIN_MELEE_DAMAGE,
-	## 搜索模式: 友军远程伤害最高。
-	FRIENDLY_MAX_RANGED_DAMAGE,
-	## 搜索模式: 友军远程伤害最低。
-	FRIENDLY_MIN_RANGED_DAMAGE,
-	## 搜索模式: 友军 ID 最大。
-	FRIENDLY_MAX_ID,
-	## 搜索模式: 友军 ID 最小。
-	FRIENDLY_MIN_ID,
-	## 搜索模式: 友军赏金最高。
-	FRIENDLY_MAX_GOLD,
-	## 搜索模式: 友军赏金最低。
-	FRIENDLY_MIN_GOLD,
-	## 搜索模式: 友军随机。
-	FRIENDLY_RANDOM,
-
-	## 搜索模式: 单位路程最远。
-	UNIT_MAX_PROGRESS,
-	## 搜索模式: 单位路程最近。
-	UNIT_MIN_PROGRESS,
-	## 搜索模式: 单位距离最近。
-	UNIT_MIN_DISTANCE,
-	## 搜索模式: 单位距离最远。
-	UNIT_MAX_DISTANCE,
-	## 搜索模式: 单位血量最高。
-	UNIT_MAX_HEALTH,
-	## 搜索模式: 单位血量最低。
-	UNIT_MIN_HEALTH,
-	## 搜索模式: 单位近战伤害最高。
-	UNIT_MAX_MELEE_DAMAGE,
-	## 搜索模式: 单位近战伤害最低。
-	UNIT_MIN_MELEE_DAMAGE,
-	## 搜索模式: 单位远程伤害最高。
-	UNIT_MAX_RANGED_DAMAGE,
-	## 搜索模式: 单位远程伤害最低。
-	UNIT_MIN_RANGED_DAMAGE,
-	## 搜索模式: 单位 ID 最大。
-	UNIT_MAX_ID,
-	## 搜索模式: 单位 ID 最小。
-	UNIT_MIN_ID,
-	## 搜索模式: 单位赏金最高。
-	UNIT_MAX_GOLD,
-	## 搜索模式: 单位赏金最低。
-	UNIT_MIN_GOLD,
-	## 搜索模式: 单位随机。
-	UNIT_RANDOM,
-}
-
 ## 搜索标识枚举。
 enum SearchFlag {
 	## 搜索标识: 无。
@@ -319,19 +192,13 @@ const CN_DODGE: NodePath = ^"DodgeComponent"
 
 #region 组名称
 ## 组名: 实体。
-const GROUP_ENTITIES: StringName = &"entities"
+const GROUP_ENTITY: StringName = &"entity"
 ## 组名: 敌人。
-const GROUP_ENEMIES: StringName = &"enemies"
+const GROUP_ENEMY: StringName = &"enemy"
 ## 组名: 友军。
-const GROUP_FRIENDLYS: StringName = &"friendlys"
+const GROUP_FRIENDLY: StringName = &"friendly"
 ## 组名: 单位。
-const GROUP_UNIT: StringName = &"units"
+const GROUP_UNIT: StringName = &"unit"
 ## 组名: 防御塔。
-const GROUP_TOWERS: StringName = &"towers"
-## 组名: 状态效果。
-const GROUP_MODIFIERS: StringName = &"modifiers"
-## 组名: 光环。	
-const GROUP_AURAS: StringName = &"auras"
-## 组名: 子弹。
-const GROUP_BULLETS: StringName = &"bullets"
+const GROUP_TOWER: StringName = &"tower"
 #endregion

@@ -31,6 +31,14 @@ var select_mode: SelectMode = SelectMode.NONE
 var selected_entity: Entity = null
 ## 鼠标实体。
 var cursor: Entity = null
+var searcher: Searcher = null
+
+
+func _ready() -> void:
+	searcher = Searcher.new()
+	searcher.max_radius = 99999
+	searcher.sort_mode = Searcher.SortMode.ID
+	searcher.search_group = Searcher.SearchGroup.ENTITY
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -46,14 +54,9 @@ func try_select() -> void:
 		
 		_deselect()
 	else:
-		var targets: Array[Entity] = SearchMgr.search_targets(
-			C.SearchMode.ENTITY_MAX_ID, 
-			InputMgr.mouse_global_position, 
-			9999, 
-			0, 
-			0, 
-			0,
-			false,
+		var target: Entity = searcher.search_target(
+			InputMgr.mouse_global_position,
+			null,
 			func(entity: Entity) -> bool:
 				var ui_c: UIComponent = entity.get_node_or_null(C.CN_UI)
 				if not ui_c:
@@ -64,10 +67,8 @@ func try_select() -> void:
 					InputMgr.mouse_global_position
 				)
 		)
-		if targets:
-			var e: Entity = targets[0]
-
-			_select(e)
+		if target:
+			_select(target)
 		
 
 ## 选择实体。

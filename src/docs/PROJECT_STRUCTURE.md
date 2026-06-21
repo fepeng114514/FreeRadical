@@ -124,7 +124,7 @@ Zero-Based-Isekai-Tower-Defense/
 │   │   ├── offset_group.gd                   # 偏移组
 │   │   ├── property_modifier.gd              # 属性修饰器
 │   │   ├── same_process_resource.gd          # 同进程资源
-│   │   ├── search.gd                         # 搜索资源
+│   │   ├── searcher.gd                         # 搜索资源
 │   │   ├── sprite_group.gd                   # 精灵组
 │   │   └── sync_animations_data.gd           # 同步动画数据
 │   ├── controls/                             # 控件目录

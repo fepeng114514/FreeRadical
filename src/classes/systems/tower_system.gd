@@ -25,7 +25,7 @@ func _on_insert(e: Entity) -> bool:
 	
 	
 func _on_update(_delta: float) -> void:
-	for e: Entity in EntityMgr.get_entities_group(C.CN_TOWER):
+	for e: Entity in EntityMgr.get_entities_group_by_component(C.CN_TOWER):
 		var tower_c: TowerComponent = e.get_node_or_null(C.CN_TOWER)
 		
 		# 处理防御塔升级

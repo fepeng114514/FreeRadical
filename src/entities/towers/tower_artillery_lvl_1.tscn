@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="13_l5l73"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="14_ds7h4"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/ranged_skill.gd" id="14_n4ua5"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search.gd" id="14_st7oj"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="14_st7oj"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="15_v8ksx"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="16_st7oj"]
 [ext_resource type="PackedScene" uid="uid://cx35c0rfd1fwr" path="res://entities/towers/tower_artillery_lvl_1_bullet.tscn" id="19_7extc"]
@@ -51,20 +51,19 @@ script = ExtResource("15_v8ksx")
 any = Vector2(0, -70.05)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_st7oj"]
-resource_local_to_scene = true
-script = ExtResource("14_st7oj")
-max_radius = 133.0
-metadata/_custom_type_script = "uid://4dsevfnug1a1"
-
 [sub_resource type="Resource" id="Resource_67tlk"]
 resource_local_to_scene = true
 script = ExtResource("16_st7oj")
 damage_min = 8.0
 damage_max = 15.0
 damage_type = 4
+extra_enable = null
+mods = null
+auras = null
+payloads = null
 area_enable = true
-search = SubResource("Resource_st7oj")
+searcher = null
+can_influence_multiple = null
 falloff_enabled = true
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
@@ -130,7 +129,7 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="RangedSkill" type="Node2D" parent="SkillComponent" index="0" unique_id=1342825155]
 script = ExtResource("14_n4ua5")
-search = SubResource("Resource_31xy0")
+searcher = SubResource("Resource_31xy0")
 bullet = ExtResource("19_7extc")
 bullet_offsets = SubResource("Resource_5et4c")
 influence = SubResource("Resource_67tlk")

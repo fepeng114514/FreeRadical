@@ -20,11 +20,11 @@ class_name Influence
 ## 是否启用范围影响。
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var area_enable: bool = false
 ## 搜索资源，用于搜索目标。
-@export var search: Search = null:
+@export var searcher: Searcher = null:
 	set(v): 
-		search = v
+		searcher = v
 		if Engine.is_editor_hint():
-			U.connect_resource_changed(search, emit_changed)
+			U.connect_resource_changed(searcher, emit_changed)
 			emit_changed()
 ## 是否可以多次影响目标。
 @export var can_influence_multiple: bool = false
@@ -35,7 +35,7 @@ class_name Influence
 
 func _init() -> void:
 	if Engine.is_editor_hint():
-		U.connect_resource_changed(search, emit_changed)
+		U.connect_resource_changed(searcher, emit_changed)
 
 
 @warning_ignore_start("unused_parameter")
@@ -49,7 +49,7 @@ func take_influence(source: Entity, base_target: Entity, search_center: Vector2,
 	var targets: Array[Entity] = [null]
 
 	if area_enable:
-		targets = search.search_targets(source, search_center, search_filter)
+		targets = searcher.search_targets(search_center, source, search_filter)
 	else:
 		targets[0] = base_target
 
@@ -70,5 +70,5 @@ func take_influence(source: Entity, base_target: Entity, search_center: Vector2,
 
 ## 绘制影响范围。
 func draw(drawer: CanvasItem, center: Vector2) -> void:
-	if search:
-		search.draw(drawer, center)
+	if searcher:
+		searcher.draw(drawer, center)

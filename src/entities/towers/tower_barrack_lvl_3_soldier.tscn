@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://f30rl46i8akx" path="res://entities/towers/tower_barrack_lvl_1_soldier.tscn" id="1_6fjjf"]
 [ext_resource type="SpriteFrames" uid="uid://cgn27n5ybf23x" path="res://assets/atlas/sprite_frames/towers/tower_barracks_soldier_lvl3.tres" id="2_41ehm"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_obj8f"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search.gd" id="3_uposi"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="3_uposi"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="4_uposi"]
 
 [sub_resource type="Resource" id="Resource_t8qan"]
@@ -25,6 +25,14 @@ resource_local_to_scene = true
 script = ExtResource("4_uposi")
 damage_min = 6.0
 damage_max = 10.0
+extra_enable = null
+mods = null
+auras = null
+payloads = null
+area_enable = null
+searcher = null
+can_influence_multiple = null
+falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerBarrackLvl3Soldier" unique_id=1677548747 instance=ExtResource("1_6fjjf")]
@@ -40,7 +48,7 @@ physical_armor = 0.3
 idle_regen_hp = 10.0
 
 [node name="MeleeComponent" parent="." index="2" unique_id=668314156]
-search = SubResource("Resource_sve1a")
+searcher = SubResource("Resource_sve1a")
 
 [node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1014449767]
 influence = SubResource("Resource_h5oex")

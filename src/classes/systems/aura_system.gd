@@ -61,7 +61,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for e: Entity in EntityMgr.get_entities_group(C.GROUP_AURAS):
+	for e: Entity in EntityMgr.get_entities_group_by_component(C.CN_AURA):
 		var aura_c: AuraComponent = e.get_node_or_null(C.CN_AURA)
 		if aura_c.track_target:
 			var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
@@ -82,7 +82,7 @@ func _on_update(_delta: float) -> void:
 				e.remove_entity()
 				continue
 
-		var targets: Array[Entity] = aura_c.search.search_targets(e, e.global_position)
+		var targets: Array[Entity] = aura_c.searcher.search_targets(e.global_position, e)
 		for target: Entity in targets:
 			aura_c.influence.take_influence(e, target, target.global_position)
 			

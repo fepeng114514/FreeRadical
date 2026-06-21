@@ -17,10 +17,10 @@ class_name AuraComponent
 		influence = v
 		U.resource_redraw_setter(self, influence)
 ## 搜索资源，用于搜索目标。
-@export var search: Search = null:
+@export var searcher: Searcher = null:
 	set(v): 
-		search = v
-		U.resource_redraw_setter(self, search)
+		searcher = v
+		U.resource_redraw_setter(self, searcher)
 
 @export_group("Cycle")
 ## 周期时间。
@@ -36,7 +36,7 @@ var ts: float = 0.0
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		U.connect_resource_changed(search, queue_redraw)
+		U.connect_resource_changed(searcher, queue_redraw)
 		U.connect_resource_changed(influence, queue_redraw)
 
 
@@ -48,8 +48,8 @@ func _validate_property(property: Dictionary):
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		if search:
-			search.draw(self, position)
+		if searcher:
+			searcher.draw(self, position)
 		
 		if influence:
 			influence.draw(self, position)

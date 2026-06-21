@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="6_t5fix"]
 [ext_resource type="Script" uid="uid://d3i11n4j7bnvl" path="res://classes/skills/area_skill.gd" id="7_8umbj"]
 [ext_resource type="Script" uid="uid://bu7q2xp2xd78b" path="res://classes/influences/influence.gd" id="8_2lsbh"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search.gd" id="8_6majh"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="8_6majh"]
 [ext_resource type="PackedScene" uid="uid://gjv8x6puntrs" path="res://entities/heal.tscn" id="9_8umbj"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="10_xr4ln"]
 
@@ -43,7 +43,9 @@ metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 script = ExtResource("8_6majh")
 max_radius = 126.0
 max_search = 3
-search_mode = 30
+sort_mode = 2
+sort_reversed = true
+search_group = 3
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_t5fix"]
@@ -51,7 +53,7 @@ script = ExtResource("8_2lsbh")
 extra_enable = true
 mods = Array[PackedScene]([ExtResource("9_8umbj")])
 area_enable = true
-search = SubResource("Resource_8umbj")
+searcher = SubResource("Resource_8umbj")
 metadata/_custom_type_script = "uid://bu7q2xp2xd78b"
 
 [sub_resource type="Resource" id="Resource_lc2l3"]

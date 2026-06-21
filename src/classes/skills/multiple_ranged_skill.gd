@@ -19,7 +19,7 @@ class_name MultipleRangedSkill
 
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	if not target:
-		target = search.search_target(e, e.global_position)
+		target = searcher.search_target(e.global_position, e)
 		if not target:
 			return
 		
@@ -33,7 +33,7 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 		return
 
 	if not target:
-		target = search.search_target(e, e.global_position)
+		target = searcher.search_target(e.global_position, e)
 		if not target:
 			compensate_cooldown(e, skill_idx)
 			return

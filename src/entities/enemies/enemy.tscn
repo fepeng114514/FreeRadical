@@ -50,6 +50,13 @@ metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 [sub_resource type="Resource" id="Resource_27tcs"]
 resource_local_to_scene = true
 script = ExtResource("11_fu215")
+extra_enable = null
+mods = null
+auras = null
+payloads = null
+area_enable = null
+can_influence_multiple = null
+falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_m3i2n"]

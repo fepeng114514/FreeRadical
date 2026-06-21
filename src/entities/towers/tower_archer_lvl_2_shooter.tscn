@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://entities/towers/tower_archer_lvl_1_shooter.tscn" id="1_rfise"]
 [ext_resource type="SpriteFrames" uid="uid://dbtbhq4ed8qvt" path="res://assets/atlas/sprite_frames/towers/tower_archer_lvl2_shooter.tres" id="2_suvr7"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search.gd" id="3_6omst"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="3_6omst"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="4_6omst"]
 
 [sub_resource type="Resource" id="Resource_kbiqo"]
@@ -16,6 +16,14 @@ resource_local_to_scene = true
 script = ExtResource("4_6omst")
 damage_min = 7.0
 damage_max = 11.0
+extra_enable = null
+mods = null
+auras = null
+payloads = null
+area_enable = null
+searcher = null
+can_influence_multiple = null
+falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArcherLvl2Shooter" unique_id=2011504655 instance=ExtResource("1_rfise")]
@@ -25,6 +33,6 @@ scene_name = "tower_archer_lvl_2_shooter"
 sprite_frames = ExtResource("2_suvr7")
 
 [node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
-search = SubResource("Resource_kbiqo")
+searcher = SubResource("Resource_kbiqo")
 influence = SubResource("Resource_fsp6p")
 cooldown = 0.6

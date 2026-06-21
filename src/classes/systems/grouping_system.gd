@@ -7,12 +7,10 @@ class_name GroupingSystem
 
 ## 根据标识分到哪组的字典。
 const FLAG_TO_GROUP: Dictionary[C.Flag, StringName] = {
-	C.Flag.ENEMY: C.GROUP_ENEMIES,
-	C.Flag.FRIENDLY: C.GROUP_FRIENDLYS,
+	C.Flag.ENEMY: C.GROUP_ENEMY,
+	C.Flag.FRIENDLY: C.GROUP_FRIENDLY,
 	C.Flag.UNIT: C.GROUP_UNIT,
-	C.Flag.TOWER: C.GROUP_TOWERS,
-	C.Flag.MODIFIER: C.GROUP_MODIFIERS,
-	C.Flag.AURA: C.GROUP_AURAS,
+	C.Flag.TOWER: C.GROUP_TOWER,
 }
 
 ## 根据标识分到哪组的字典键。
@@ -21,8 +19,6 @@ const FLAG_TO_GROUP_KEYS: Array[C.Flag] = [
 	C.Flag.FRIENDLY,
 	C.Flag.UNIT,
 	C.Flag.TOWER,
-	C.Flag.MODIFIER,
-	C.Flag.AURA,
 ]
 
 
@@ -68,8 +64,8 @@ func _on_update(_delta: float) -> void:
 
 		var grid_col: Dictionary = space_index_grid_list[x]
 		var grid_row: Dictionary = grid_col.row[y]
-		grid_row.entities.append(e)
-		grid_col.has_entities = true
+		grid_row.entity.append(e)
+		grid_col.has_entity = true
 
 		# 根据实体的标识和组件将实体分组
 		var interact_p: InteractPolicy = e.interact_policy

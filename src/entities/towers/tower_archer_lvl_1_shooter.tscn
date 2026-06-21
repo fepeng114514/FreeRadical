@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="5_skugy"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/ranged_skill.gd" id="6_vh14o"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="7_eanea"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search.gd" id="7_miroj"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="7_miroj"]
 [ext_resource type="PackedScene" uid="uid://d25hnem6unbul" path="res://entities/towers/tower_archer_bullet.tscn" id="8_aj3f4"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="9_miroj"]
 
@@ -34,6 +34,13 @@ resource_local_to_scene = true
 script = ExtResource("9_miroj")
 damage_min = 4.0
 damage_max = 6.0
+extra_enable = null
+mods = null
+auras = null
+payloads = null
+area_enable = null
+can_influence_multiple = null
+falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_6rlp0"]
@@ -57,13 +64,12 @@ sprite_frames = ExtResource("4_wku2c")
 animation = &"idle_down"
 
 [node name="SkillComponent" type="Node2D" parent="." unique_id=129640034]
-visible = false
 script = ExtResource("5_skugy")
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="RangedSkill" type="Node2D" parent="SkillComponent" unique_id=1939030855]
 script = ExtResource("6_vh14o")
-search = SubResource("Resource_uea8m")
+searcher = SubResource("Resource_uea8m")
 bullet = ExtResource("8_aj3f4")
 bullet_offsets = SubResource("Resource_367kr")
 influence = SubResource("Resource_wxd0v")

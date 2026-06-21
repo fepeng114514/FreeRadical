@@ -18,10 +18,10 @@ enum BulletSpawnMode {
 ## 拦截目标时是否可以释放远程技能。
 @export var with_melee: bool = false
 ## 搜索资源，用于搜索目标。
-@export var search: Search = null:
+@export var searcher: Searcher = null:
 	set(v): 
-		search = v
-		U.resource_redraw_setter(self, search)
+		searcher = v
+		U.resource_redraw_setter(self, searcher)
 
 @export_group("Bullet")
 ## 子弹场景名称。
@@ -48,7 +48,7 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		U.connect_resource_changed(bullet_offsets, queue_redraw)
 		U.connect_resource_changed(influence, queue_redraw)
-		U.connect_resource_changed(search, queue_redraw)
+		U.connect_resource_changed(searcher, queue_redraw)
 
 
 func _draw() -> void:
@@ -56,13 +56,13 @@ func _draw() -> void:
 		if influence:
 			influence.draw(self, position)
 
-		search.draw(self, position)
+		searcher.draw(self, position)
 		OffsetGroup.draw_offset_group(self, bullet_offsets)
 
 
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	if not target:
-		target = search.search_target(e, e.global_position)
+		target = searcher.search_target(e.global_position, e)
 		if not target:
 			return
 		
@@ -77,7 +77,7 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 		return
 
 	if not target:
-		target = search.search_target(e, e.global_position)
+		target = searcher.search_target(e.global_position, e)
 		if not target:
 			compensate_cooldown(e, skill_idx)
 			return

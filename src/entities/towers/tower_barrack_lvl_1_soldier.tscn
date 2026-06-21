@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="7_xu63r"]
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="8_qo1np"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="8_y4pex"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search.gd" id="9_ts01h"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="9_ts01h"]
 [ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://classes/components/rally_component.gd" id="9_uhicr"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="10_700db"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="11_ts01h"]
@@ -56,6 +56,14 @@ resource_local_to_scene = true
 script = ExtResource("11_ts01h")
 damage_min = 1.0
 damage_max = 3.0
+extra_enable = null
+mods = null
+auras = null
+payloads = null
+area_enable = null
+searcher = null
+can_influence_multiple = null
+falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_p1ots"]
@@ -98,7 +106,7 @@ script = ExtResource("7_xu63r")
 speed = 175.0
 motion_animation = SubResource("Resource_enhu5")
 melee_pos_offsets = SubResource("Resource_prid8")
-search = SubResource("Resource_vrdxj")
+searcher = SubResource("Resource_vrdxj")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeSkill" type="Node2D" parent="MeleeComponent" unique_id=1014449767]

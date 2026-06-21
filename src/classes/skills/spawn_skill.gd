@@ -14,10 +14,10 @@ class_name SpawnSkill
 		spawn_offsets = v
 		U.resource_redraw_setter(self, spawn_offsets)
 ## 搜索资源，用于搜索目标，如果设置改资源，实体将会生成到搜索到的第一个目标的位置。
-@export var search: Search = null:
+@export var searcher: Searcher = null:
 	set(v): 
-		search = v
-		U.resource_redraw_setter(self, search)
+		searcher = v
+		U.resource_redraw_setter(self, searcher)
 ## 是否搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
 @export var search_target_pos: bool = false
 
@@ -25,20 +25,20 @@ class_name SpawnSkill
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		U.connect_resource_changed(spawn_offsets, queue_redraw)
-		U.connect_resource_changed(search, queue_redraw)
+		U.connect_resource_changed(searcher, queue_redraw)
 
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		if search:
-			search.draw(self, position)
+		if searcher:
+			searcher.draw(self, position)
 
 		OffsetGroup.draw_offset_group(self, spawn_offsets)
 
 
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
-	if not target and search:
-		target = search.search_target(e, e.global_position)
+	if not target and searcher:
+		target = searcher.search_target(e.global_position, e)
 		if not target:
 			return
 			
@@ -52,8 +52,8 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 		compensate_cooldown(e, skill_idx)
 		return
 
-	if search and not target:
-		target = search.search_target(e, e.global_position)
+	if searcher and not target:
+		target = searcher.search_target(e.global_position, e)
 		if not target:
 			compensate_cooldown(e, skill_idx)
 			return

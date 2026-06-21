@@ -9,10 +9,10 @@ class_name AreaSkill
 
 
 ## 搜索资源，用于搜索目标，如果设置改资源，将会以搜索到的第一个目标为中心造成影响。
-@export var search: Search = null:
+@export var searcher: Searcher = null:
 	set(v): 
-		search = v
-		U.resource_redraw_setter(self, search)
+		searcher = v
+		U.resource_redraw_setter(self, searcher)
 ## 影响资源，用于对目标造成伤害或治愈目标。
 @export var influence: Influence = null:
 	set(v): 
@@ -22,21 +22,21 @@ class_name AreaSkill
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		U.connect_resource_changed(search, queue_redraw)
+		U.connect_resource_changed(searcher, queue_redraw)
 		U.connect_resource_changed(influence, queue_redraw)
 
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		if search:
-			search.draw(self, position)
+		if searcher:
+			searcher.draw(self, position)
 		if influence:
 			influence.draw(self, position)
 		
 		
 func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
-	if search:
-		target = search.search_target(e, e.global_position)
+	if searcher:
+		target = searcher.search_target(e.global_position, e)
 		if not target:
 			return
 	
@@ -46,17 +46,17 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 
 	e.play_animation(animation)
 	AudioMgr.play_sfx(sfx)
-	if await e.y_wait(delay) or search and not target:
+	if await e.y_wait(delay) or searcher and not target:
 		compensate_cooldown(e, skill_idx)
 		return
 
-	if search and not target:
-		target = search.search_target(e, e.global_position)
+	if searcher and not target:
+		target = searcher.search_target(e.global_position, e)
 		if not target:
 			compensate_cooldown(e, skill_idx)
 			return
 
-	if search:
+	if searcher:
 		influence.take_influence(e, target, target.global_position)
 	else:
 		influence.take_influence(e, target, e.global_position)

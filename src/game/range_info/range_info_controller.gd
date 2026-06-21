@@ -36,7 +36,7 @@ func _show(e: Entity) -> void:
 	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
 	if skill_c:
 		var first_skill: Skill = skill_c.get_child(0)
-		if first_skill.search:
+		if first_skill.searcher:
 			_create_range_info_circle(skill_range_info_scene, e)
 
 	var tower_c: TowerComponent = selected_entity.get_node_or_null(C.CN_TOWER)
@@ -47,7 +47,7 @@ func _show(e: Entity) -> void:
 				continue
 
 			var first_skill: Skill = sub_entity_skill_c.get_child(0)
-			if first_skill.search:
+			if first_skill.searcher:
 				_create_range_info_circle(skill_range_info_scene, sub_entity, e)
 
 	var melee_c: MeleeComponent = selected_entity.get_node_or_null(C.CN_MELEE)

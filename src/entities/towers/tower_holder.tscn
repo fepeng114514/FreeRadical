@@ -1,42 +1,41 @@
 [gd_scene format=3 uid="uid://ck4m2qigdae35"]
 
 [ext_resource type="Script" uid="uid://ph3p063jst6j" path="res://entities/towers/tower_holder.gd" id="1_8t0vl"]
+[ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://entities/towers/tower.tscn" id="1_og8n7"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_pyfu2"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="3_qfsqy"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_eclg5"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_cdqn2"]
 [ext_resource type="Shader" uid="uid://l8cv48xcfph3" path="res://assets/shaders/tower_holder.gdshader" id="5_rh6e0"]
-[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="12_pyfu2"]
 
 [sub_resource type="Resource" id="Resource_fdaav"]
 script = ExtResource("2_pyfu2")
+
+[sub_resource type="Resource" id="Resource_8t0vl"]
+resource_local_to_scene = true
+script = ExtResource("4_cdqn2")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jcl8y"]
 shader = ExtResource("5_rh6e0")
 shader_parameter/outline_size = 20.0
 shader_parameter/outline_color = Color(1, 1, 0, 1)
 
-[node name="TowerHolder" type="Node2D" unique_id=1898604313 node_paths=PackedStringArray("tower_c")]
+[node name="TowerHolder" unique_id=1898604313 node_paths=PackedStringArray("tower_c") instance=ExtResource("1_og8n7")]
 script = ExtResource("1_8t0vl")
+default_rally_center_local_pos = Vector2(0, 0)
 tower_c = NodePath("TowerComponent")
 scene_name = "tower_holder"
 idle_animation = SubResource("Resource_fdaav")
-metadata/_custom_type_script = "uid://dnp44u8703gud"
+interact_policy = SubResource("Resource_8t0vl")
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=234304454]
+[node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
 position = Vector2(0, -10)
-script = ExtResource("4_eclg5")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=2043930113]
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=2043930113]
 material = SubResource("ShaderMaterial_jcl8y")
 
-[node name="TowerComponent" type="Node2D" parent="." unique_id=286705593]
-script = ExtResource("12_pyfu2")
-metadata/_custom_type_script = "uid://d104itkl6l02e"
-
-[node name="UIComponent" type="Node2D" parent="." unique_id=2005923123]
-script = ExtResource("3_qfsqy")
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-77.425, -59.56, 156.65, 85.995)
-info_bar_type = 2
 select_menu_offset = Vector2(0, -19.71)
-metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

@@ -106,9 +106,9 @@ func _blocker_search_and_bind_melee_relations(e: Entity, melee_c: MeleeComponent
 			center = rally_center_position
 	
 	# 1. 首先搜索没有被拦截的目标
-	var pending_blockeds: Array[Entity] = melee_c.search.search_targets(
-		e,
+	var pending_blockeds: Array[Entity] = melee_c.searcher.search_targets(
 		center,
+		e,
 		func(t: Entity) -> bool:
 			var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
 			if not t_melee_c:
@@ -147,9 +147,9 @@ func _blocker_search_and_bind_melee_relations(e: Entity, melee_c: MeleeComponent
 	else:
 		# 2. 处理额外拦截者，搜索第一个被拦截的目标
 		if not melee_c.blocked_id_list and not melee_c.is_passive:
-			var blocked_targets: Array[Entity] = melee_c.search.search_targets(
-				e,
+			var blocked_targets: Array[Entity] = melee_c.searcher.search_targets(
 				center,
+				e,
 				func(t: Entity) -> bool:
 					var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
 					if not t_melee_c:

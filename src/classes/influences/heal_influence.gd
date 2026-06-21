@@ -20,7 +20,7 @@ func _take(_source: Entity, target: Entity, _source_skill_type: Skill.Type, _is_
 		heal_value *= U.dist_factor_inside_radius(
 			target.global_position, 
 			target.global_position, 
-			search.max_radius,
-			search.min_radius
+			searcher.max_radius,
+			searcher.min_radius
 		)
 	t_health_c.heal(heal_value, heal_type)

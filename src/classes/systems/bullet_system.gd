@@ -58,7 +58,7 @@ func _on_remove(e: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	var entity_list: Array = EntityMgr.get_entities_group(C.CN_BULLET).filter(
+	var entity_list: Array = EntityMgr.get_entities_group_by_component(C.CN_BULLET).filter(
 		func(e: Entity) -> bool:
 			return not e.is_waiting() and not e.state & Entity.State.REMOVED
 	)

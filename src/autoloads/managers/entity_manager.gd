@@ -16,12 +16,10 @@ var _cached_entities_data: Dictionary[PackedScene, Entity] = {}
 var entity_list: Array = []
 ## 存储实体类型组的字典。
 var type_group_list: Dictionary[String, Array] = {
-	"enemies": [],
-	"friendlys": [],
-	"units": [],
-	"towers": [],
-	"modifiers": [],
-	"auras": [],
+	C.GROUP_ENEMY: [],
+	C.GROUP_FRIENDLY: [],
+	C.GROUP_UNIT: [],
+	C.GROUP_TOWER: [],
 }
 ## 存储组件组的字典。
 var component_group_list: Dictionary[String, Array] = {}
@@ -153,14 +151,19 @@ func create_auras(
 
 
 ## 根据组名获取组内所有实体。
-func get_entities_group(group_name: String) -> Array:
-	if group_name in type_group_list:
-		return type_group_list[group_name]
-	
-	if group_name in component_group_list:
-		return component_group_list[group_name]
+func get_entities_group_by_type(group_name: String) -> Array:
+	if not type_group_list.has(group_name):
+		return []
 
-	return []
+	return type_group_list[group_name]
+
+
+## 根据组名获取组内所有实体。
+func get_entities_group_by_component(group_name: String) -> Array:
+	if not component_group_list.has(group_name):
+		return []
+
+	return component_group_list[group_name]
 
 
 ## 根据 id 获取实体。

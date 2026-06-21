@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dy5nu6xryehuk"]
 
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://entities/towers/tower_mage_lvl_1_shooter.tscn" id="1_xmdlt"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/search.gd" id="2_tqiob"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="2_tqiob"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="3_tqiob"]
 
 [sub_resource type="Resource" id="Resource_ksn2s"]
@@ -16,11 +16,19 @@ script = ExtResource("3_tqiob")
 damage_min = 23.0
 damage_max = 43.0
 damage_type = 2
+extra_enable = null
+mods = null
+auras = null
+payloads = null
+area_enable = null
+searcher = null
+can_influence_multiple = null
+falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerMageLvl2Shooter" unique_id=1442245649 instance=ExtResource("1_xmdlt")]
 scene_name = "tower_mage_lvl_2_shooter"
 
 [node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(1268978688) index="0" unique_id=14077948]
-search = SubResource("Resource_ksn2s")
+searcher = SubResource("Resource_ksn2s")
 influence = SubResource("Resource_kc007")

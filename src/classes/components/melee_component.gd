@@ -37,7 +37,7 @@ enum MeleeState {
 
 @export_group("Blocker")
 ## 搜索资源，用于搜索目标。
-@export var search: Search = null
+@export var searcher: Searcher = null
 ## 最大被拦截者数量。
 @export var max_blocked_count: int = 1
 
@@ -72,8 +72,8 @@ func _ready() -> void:
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		if search:
-			search.draw(self, position)
+		if searcher:
+			searcher.draw(self, position)
 		OffsetGroup.draw_offset_group(self, melee_pos_offsets)
 	
 	
@@ -143,7 +143,7 @@ func cleanup_melee_relations(e: Entity) -> void:
 				continue 
 				
 			if not U.is_in_ring(
-					center, blocked.global_position, search.min_radius, search.max_radius
+					center, blocked.global_position, searcher.min_radius, searcher.max_radius
 				):
 				continue
 				

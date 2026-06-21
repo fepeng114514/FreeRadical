@@ -55,8 +55,8 @@ func get_damage_value(source_position: Vector2, target_position: Vector2) -> flo
 		value *= U.dist_factor_inside_radius(
 			source_position, 
 			target_position, 
-			search.max_radius,
-			search.min_radius
+			searcher.max_radius,
+			searcher.min_radius
 		)
 
 	return value
