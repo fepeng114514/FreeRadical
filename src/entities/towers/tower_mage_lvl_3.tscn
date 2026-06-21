@@ -21,7 +21,6 @@ interact_policy = SubResource("Resource_2banl")
 sprite_frames = ExtResource("2_d1vad")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
-show_range_offset = Vector2(0, -6.43)
 price = 240.0
 
 [node name="TowerMageLvl3Shooter" parent="TowerComponent" index="0" unique_id=1442245649 instance=ExtResource("4_kjimq")]

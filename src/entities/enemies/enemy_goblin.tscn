@@ -51,11 +51,7 @@ animation = &"death_left_right"
 death_gold = 3.0
 death_sfx = SubResource("Resource_nf0rk")
 
-[node name="NavPathComponent" parent="." index="2" unique_id=1202679749]
-speed = 61.0
-
 [node name="MeleeComponent" parent="." index="3" unique_id=768145759]
-speed = 61.0
 melee_pos_offsets = SubResource("Resource_f3mmd")
 
 [node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1304104648]

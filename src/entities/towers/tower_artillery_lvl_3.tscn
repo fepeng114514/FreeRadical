@@ -76,7 +76,6 @@ sprite_frames = ExtResource("8_fqb7k")
 sprite_frames = ExtResource("9_j7n3x")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
-show_range_offset = Vector2(0, 43.52)
 price = 320.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]

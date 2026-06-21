@@ -64,7 +64,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=274561601]
 position = Vector2(0, -24)
 sprite_frames = ExtResource("4_vtoys")
-animation = &"idle_down"
+animation = &"ranged_up"
 
 [node name="SkillComponent" type="Node2D" parent="." unique_id=1268978688]
 script = ExtResource("4_nhbol")
@@ -77,7 +77,7 @@ bullet = ExtResource("8_74xm3")
 bullet_offsets = SubResource("Resource_c4v6e")
 influence = SubResource("Resource_1g575")
 cooldown = 1.5
-delay = 0.3
+delay = 0.33
 animation = SubResource("Resource_8g6nx")
 sfx = SubResource("Resource_vtoys")
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

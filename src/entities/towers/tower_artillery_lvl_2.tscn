@@ -70,7 +70,6 @@ sprite_frames = ExtResource("7_e0rle")
 sprite_frames = ExtResource("8_4pii2")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
-show_range_offset = Vector2(0, 43.52)
 price = 225.0
 
 [node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]

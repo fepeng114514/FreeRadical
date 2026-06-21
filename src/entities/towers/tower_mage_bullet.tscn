@@ -33,8 +33,6 @@ idle_animation = SubResource("Resource_hf44a")
 trajectory = SubResource("Resource_mage_traj")
 flight_animation = SubResource("Resource_halcm")
 hit_animation = SubResource("Resource_tx2v8")
-hit_payloads = Array[PackedScene]([])
-miss_payloads = Array[PackedScene]([])
 
 [node name="SpriteComponent" type="Node2D" parent="." index="1" unique_id=1302005454]
 script = ExtResource("3_23yll")

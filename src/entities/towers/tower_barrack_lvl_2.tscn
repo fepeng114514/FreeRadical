@@ -6,7 +6,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cnj6l6um86qt3" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl2_door.tres" id="3_kjn0h"]
 [ext_resource type="PackedScene" uid="uid://nosygoauf7h" path="res://entities/towers/tower_barrack_lvl_2_soldier.tscn" id="5_esuh8"]
 
-[sub_resource type="Resource" id="Resource_dy3r4"]
+[sub_resource type="Resource" id="Resource_esuh8"]
 resource_local_to_scene = true
 script = ExtResource("2_kjn0h")
 flags = 16
@@ -16,7 +16,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerBarrackLvl2" unique_id=187367710 instance=ExtResource("1_kssh0")]
 scene_name = "tower_barrack_lvl_2"
-interact_policy = SubResource("Resource_dy3r4")
+interact_policy = SubResource("Resource_esuh8")
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=927508667]
 texture = ExtResource("3_esuh8")

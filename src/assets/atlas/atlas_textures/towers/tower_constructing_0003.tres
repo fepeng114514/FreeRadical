@@ -4,6 +4,6 @@
 
 [resource]
 atlas = ExtResource("1_vbqym")
-region = Rect2(1096, 3020, 169, 81)
+region = Rect2(1467, 1473, 169, 81)
 margin = Rect2(7, 62, 9, 63)
 filter_clip = true

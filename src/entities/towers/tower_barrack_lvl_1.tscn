@@ -58,7 +58,6 @@ animation = &"idle"
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 2
-show_range_offset = Vector2(0, -16.51)
 price = 70.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]

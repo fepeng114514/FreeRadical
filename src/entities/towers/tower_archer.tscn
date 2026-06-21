@@ -13,7 +13,7 @@ script = ExtResource("2_bcrmv")
 list = Array[AudioStream]([ExtResource("2_vhhys"), ExtResource("3_5i048"), ExtResource("4_r76y5")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[sub_resource type="Resource" id="Resource_5i048"]
+[sub_resource type="Resource" id="Resource_vhhys"]
 resource_local_to_scene = true
 script = ExtResource("3_wq07w")
 flags = 16
@@ -24,7 +24,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 [node name="TowerArcher" unique_id=1010851235 instance=ExtResource("1_og8n7")]
 scene_name = "tower_archer"
 spawn_sfx = SubResource("Resource_wq07w")
-interact_policy = SubResource("Resource_5i048")
+interact_policy = SubResource("Resource_vhhys")
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=708564869]
 position = Vector2(0, -49)
@@ -32,7 +32,6 @@ texture = ExtResource("7_vhhys")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 1
-show_range_offset = Vector2(0, -43.52)
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-48.73, -84.33, 95.585, 101.565)
