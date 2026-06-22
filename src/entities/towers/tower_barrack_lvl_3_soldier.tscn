@@ -23,16 +23,8 @@ metadata/_custom_type_script = "uid://4dsevfnug1a1"
 [sub_resource type="Resource" id="Resource_h5oex"]
 resource_local_to_scene = true
 script = ExtResource("4_uposi")
-damage_min = 6.0
-damage_max = 10.0
-extra_enable = null
-mods = null
-auras = null
-payloads = null
-area_enable = null
-searcher = null
-can_influence_multiple = null
-falloff_enabled = null
+damage_min = 10.0
+damage_max = 14.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerBarrackLvl3Soldier" unique_id=1677548747 instance=ExtResource("1_6fjjf")]
@@ -43,8 +35,8 @@ interact_policy = SubResource("Resource_t8qan")
 sprite_frames = ExtResource("2_41ehm")
 
 [node name="HealthComponent" parent="." index="1" unique_id=949799713]
-hp_max = 150.0
-physical_armor = 0.3
+hp_max = 160.0
+physical_armor = 0.5
 idle_regen_hp = 10.0
 
 [node name="MeleeComponent" parent="." index="2" unique_id=668314156]

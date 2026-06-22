@@ -21,7 +21,7 @@ interact_policy = SubResource("Resource_hr80x")
 texture = ExtResource("3_hr80x")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
-price = 160.0
+price = 120.0
 
 [node name="TowerArcherLvl3Shooter" parent="TowerComponent" index="0" unique_id=2011504655 instance=ExtResource("3_1rmxj")]
 position = Vector2(-15, -66)

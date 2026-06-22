@@ -58,7 +58,7 @@ animation = &"idle"
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 2
-price = 70.0
+price = 80.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-57.155, -82, 112.085, 102.935)

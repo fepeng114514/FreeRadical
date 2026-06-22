@@ -3,12 +3,12 @@
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
 uid="uid://dkn8flw1j5bih"
-path="res://.godot/imported/sound_tesla_attack_2.ogg-6f8be568059be9c0b800762f9bdca352.oggvorbisstr"
+path="res://.godot/imported/Sound_Tesla_attack_2.ogg-0f7793a4a45ee3a18e8d8653a1aca7d6.oggvorbisstr"
 
 [deps]
 
-source_file="res://assets/audios/sound_tesla_attack_2.ogg"
-dest_files=["res://.godot/imported/sound_tesla_attack_2.ogg-6f8be568059be9c0b800762f9bdca352.oggvorbisstr"]
+source_file="res://assets/audios/Sound_Tesla_attack_2.ogg"
+dest_files=["res://.godot/imported/Sound_Tesla_attack_2.ogg-0f7793a4a45ee3a18e8d8653a1aca7d6.oggvorbisstr"]
 
 [params]
 

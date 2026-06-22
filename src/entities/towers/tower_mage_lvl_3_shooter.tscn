@@ -7,23 +7,15 @@
 [sub_resource type="Resource" id="Resource_uebty"]
 resource_local_to_scene = true
 script = ExtResource("2_gseup")
-max_radius = 300.0
+max_radius = 360.0
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_kobwo"]
 resource_local_to_scene = true
 script = ExtResource("3_gseup")
-damage_min = 40.0
-damage_max = 74.0
+damage_min = 60.0
+damage_max = 105.0
 damage_type = 2
-extra_enable = null
-mods = null
-auras = null
-payloads = null
-area_enable = null
-searcher = null
-can_influence_multiple = null
-falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerMageLvl3Shooter" unique_id=1442245649 instance=ExtResource("1_iadta")]

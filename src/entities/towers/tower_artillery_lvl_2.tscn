@@ -25,7 +25,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 [sub_resource type="Resource" id="Resource_3ifdg"]
 resource_local_to_scene = true
 script = ExtResource("9_kj6gf")
-max_radius = 300.0
+max_radius = 340.0
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_thpnf"]
@@ -35,14 +35,14 @@ metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
 [sub_resource type="Resource" id="Resource_w4mo5"]
 script = ExtResource("9_kj6gf")
-max_radius = 133.0
+max_radius = 140.0
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_mhbvy"]
 resource_local_to_scene = true
 script = ExtResource("11_kj6gf")
-damage_min = 20.0
-damage_max = 40.0
+damage_min = 22.0
+damage_max = 44.0
 damage_type = 4
 area_enable = true
 searcher = SubResource("Resource_w4mo5")
@@ -78,7 +78,7 @@ sprite_frames = ExtResource("7_e0rle")
 sprite_frames = ExtResource("8_4pii2")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
-price = 225.0
+price = 240.0
 
 [node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
 searcher = SubResource("Resource_3ifdg")

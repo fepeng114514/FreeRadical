@@ -25,14 +25,6 @@ resource_local_to_scene = true
 script = ExtResource("4_fe88p")
 damage_min = 3.0
 damage_max = 4.0
-extra_enable = null
-mods = null
-auras = null
-payloads = null
-area_enable = null
-searcher = null
-can_influence_multiple = null
-falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerBarrackLvl2Soldier" unique_id=1677548747 instance=ExtResource("1_kwyx1")]
@@ -43,8 +35,8 @@ interact_policy = SubResource("Resource_wahs8")
 sprite_frames = ExtResource("2_lp58n")
 
 [node name="HealthComponent" parent="." index="1" unique_id=949799713]
-hp_max = 100.0
-physical_armor = 0.15
+hp_max = 120.0
+physical_armor = 0.3
 idle_regen_hp = 7.0
 
 [node name="MeleeComponent" parent="." index="2" unique_id=668314156]

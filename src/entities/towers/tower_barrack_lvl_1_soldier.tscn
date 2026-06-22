@@ -56,14 +56,6 @@ resource_local_to_scene = true
 script = ExtResource("11_ts01h")
 damage_min = 1.0
 damage_max = 3.0
-extra_enable = null
-mods = null
-auras = null
-payloads = null
-area_enable = null
-searcher = null
-can_influence_multiple = null
-falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_p1ots"]
@@ -91,6 +83,7 @@ animation = &"idle_left_right"
 [node name="HealthComponent" type="Node2D" parent="." unique_id=949799713]
 script = ExtResource("5_uecfs")
 hp_max = 50.0
+physical_armor = 0.1
 idle_regen_hp = 5.0
 idle_regen_cooldown = 1.0
 death_animation = SubResource("Resource_2a2qa")
@@ -112,7 +105,6 @@ metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 [node name="MeleeSkill" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
 script = ExtResource("8_qo1np")
 influence = SubResource("Resource_tcdjf")
-cooldown = 1.36
 delay = 0.2
 animation = SubResource("Resource_p1ots")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

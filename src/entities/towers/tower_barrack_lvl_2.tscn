@@ -25,10 +25,11 @@ texture = ExtResource("3_esuh8")
 sprite_frames = ExtResource("3_kjn0h")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
-price = 110.0
+price = 140.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-61.3, -91.985, 120.505, 108.965)
 
 [node name="BarrackComponent" parent="." index="3" unique_id=441339810]
+rally_max_range = 320.0
 soldier_scene = ExtResource("5_esuh8")

@@ -17,7 +17,7 @@ scene_name = "tower_archer_lvl_1"
 interact_policy = SubResource("Resource_rjeod")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
-price = 70.0
+price = 50.0
 
 [node name="TowerArcherLvl1Shooter" parent="TowerComponent" index="0" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true

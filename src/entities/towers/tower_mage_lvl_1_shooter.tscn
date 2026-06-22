@@ -34,17 +34,9 @@ metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 [sub_resource type="Resource" id="Resource_1g575"]
 resource_local_to_scene = true
 script = ExtResource("9_n6q0g")
-damage_min = 9.0
-damage_max = 17.0
+damage_min = 15.0
+damage_max = 21.0
 damage_type = 2
-extra_enable = null
-mods = null
-auras = null
-payloads = null
-area_enable = null
-searcher = null
-can_influence_multiple = null
-falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_8g6nx"]
