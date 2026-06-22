@@ -29,20 +29,20 @@ func _ready() -> void:
 func set_spawn_data(_spawn: WaveSpawn) -> void:
 	spawn = _spawn
 
-	interval.value = spawn.interval
+	interval.value = spawn.spawn_interval
 
 	if wave_editor.entity_scene_idx_dict.has(spawn.entity):
 		entity.option_button.select(wave_editor.entity_scene_idx_dict[spawn.entity])
 	pathway.value = spawn.pathway_idx
 	sub_pathway.value = spawn.sub_pathway_idx
 	count.value = spawn.count
-	interval.value = spawn.interval
+	interval.value = spawn.spawn_interval
 	reversed.button_pressed = spawn.reversed
 	loop.button_pressed = spawn.loop
 
 
 func _on_interval_changed(value: float) -> void:
-	spawn.interval = value
+	spawn.spawn_interval = value
 
 
 func _on_entity_changed(index: int) -> void:
