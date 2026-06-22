@@ -22,7 +22,7 @@ func _get_predict_time() -> float:
 	return 0.0
 
 
-## 子弹是否超出飞行时间限制而应该进入未击中处理。
+## 子弹是否应该进入未击中处理。
 func _should_miss(bullet_c: BulletComponent, flying_time: float) -> bool:
 	return false
 
