@@ -77,16 +77,7 @@ func _on_update(delta: float) -> void:
 			e.play_animation(bullet_c.flight_animation)
 		e.rotation += bullet_c.rotation_speed * delta
 
-		# 未击中处理
-		if (
-			bullet_c.trajectory._should_miss(bullet_c, flying_time)
-			or not target
-			and U.is_at_destination(
-				e.global_position, bullet_c.to, bullet_c.hit_distance
-			)
-		):
-			_miss(e, bullet_c)
-		else:
+		if target:
 			if not bullet_c.can_arrived:
 				continue
 			
@@ -94,6 +85,14 @@ func _on_update(delta: float) -> void:
 				continue
 				
 			_hit(e, bullet_c, target)
+		else:
+			if (
+				bullet_c.trajectory._should_miss(bullet_c, flying_time)
+				or U.is_at_destination(
+					e.global_position, bullet_c.to, bullet_c.hit_distance
+				)
+			):
+				_miss(e, bullet_c)
 
 
 ## 未击中处理。
