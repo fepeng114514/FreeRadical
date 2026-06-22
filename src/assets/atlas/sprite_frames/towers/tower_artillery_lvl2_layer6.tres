@@ -2,43 +2,43 @@
 
 [ext_resource type="Texture2D" uid="uid://s0sbblyp14fu" path="res://assets/atlas/towers-1.dds" id="1_gv52p"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0omav"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_35k54"]
 atlas = ExtResource("1_gv52p")
-region = Rect2(280, 4091, 2, 2)
+region = Rect2(2139, 4085, 2, 2)
 margin = Rect2(100, 160, 203, 176)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv52p"]
+atlas = ExtResource("1_gv52p")
+region = Rect2(2730, 3050, 27, 35)
+margin = Rect2(27, 62, 178, 143)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8bvfi"]
 atlas = ExtResource("1_gv52p")
-region = Rect2(2719, 2804, 27, 35)
-margin = Rect2(27, 62, 178, 143)
+region = Rect2(2730, 3581, 26, 37)
+margin = Rect2(34, 39, 179, 141)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0r537"]
 atlas = ExtResource("1_gv52p")
-region = Rect2(2719, 3335, 26, 37)
-margin = Rect2(34, 39, 179, 141)
+region = Rect2(2730, 3087, 27, 38)
+margin = Rect2(47, 27, 178, 140)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ct20"]
 atlas = ExtResource("1_gv52p")
-region = Rect2(2719, 2841, 27, 38)
-margin = Rect2(47, 27, 178, 140)
+region = Rect2(2730, 3620, 26, 36)
+margin = Rect2(63, 27, 179, 142)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6k7tp"]
 atlas = ExtResource("1_gv52p")
-region = Rect2(2719, 3374, 26, 36)
-margin = Rect2(63, 27, 179, 142)
-filter_clip = true
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w6c0h"]
-atlas = ExtResource("1_gv52p")
-region = Rect2(2719, 2881, 27, 36)
+region = Rect2(2730, 3127, 27, 36)
 margin = Rect2(79, 38, 178, 142)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sj30d"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6c0h"]
 atlas = ExtResource("1_gv52p")
 region = Rect2(1057, 4075, 24, 19)
 margin = Rect2(89, 60, 181, 159)
@@ -48,7 +48,7 @@ filter_clip = true
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }],
 "loop": true,
 "name": &"idle",
@@ -56,88 +56,91 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0omav")
+"texture": SubResource("AtlasTexture_35k54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gv52p")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8bvfi")
@@ -149,16 +152,13 @@ animations = [{
 "texture": SubResource("AtlasTexture_6ct20")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6k7tp")
+"texture": SubResource("AtlasTexture_6ct20")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6k7tp")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_w6c0h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sj30d")
 }],
 "loop": true,
 "name": &"ranged",

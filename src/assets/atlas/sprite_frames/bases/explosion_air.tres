@@ -4,61 +4,61 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpado"]
 atlas = ExtResource("1_jpado")
-region = Rect2(2504, 2550, 46, 40)
+region = Rect2(2510, 2796, 46, 40)
 margin = Rect2(62, 66, 122, 128)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vipd2"]
 atlas = ExtResource("1_jpado")
-region = Rect2(2052, 2671, 94, 70)
+region = Rect2(2055, 2936, 94, 70)
 margin = Rect2(34, 49, 74, 98)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b47vr"]
 atlas = ExtResource("1_jpado")
-region = Rect2(1798, 1315, 124, 101)
+region = Rect2(1799, 1559, 124, 101)
 margin = Rect2(19, 33, 44, 67)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e321p"]
 atlas = ExtResource("1_jpado")
-region = Rect2(1642, 3196, 141, 120)
+region = Rect2(1642, 3453, 141, 120)
 margin = Rect2(10, 26, 27, 48)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c4nn8"]
 atlas = ExtResource("1_jpado")
-region = Rect2(1642, 157, 153, 140)
+region = Rect2(1642, 414, 153, 140)
 margin = Rect2(5, 14, 15, 28)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8g3oe"]
 atlas = ExtResource("1_jpado")
-region = Rect2(1467, 1974, 165, 149)
+region = Rect2(1467, 2241, 165, 149)
 margin = Rect2(1, 10, 3, 19)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jafu2"]
 atlas = ExtResource("1_jpado")
-region = Rect2(1467, 1824, 166, 148)
+region = Rect2(1467, 2091, 166, 148)
 margin = Rect2(1, 10, 2, 20)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k60i1"]
 atlas = ExtResource("1_jpado")
-region = Rect2(1467, 2359, 164, 146)
+region = Rect2(1467, 2626, 164, 146)
 margin = Rect2(3, 10, 4, 22)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rbesi"]
 atlas = ExtResource("1_jpado")
-region = Rect2(1467, 2743, 161, 107)
+region = Rect2(1467, 3010, 161, 107)
 margin = Rect2(5, 7, 7, 61)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2mm5e"]
 atlas = ExtResource("1_jpado")
-region = Rect2(1936, 3740, 104, 87)
+region = Rect2(1938, 3995, 104, 87)
 margin = Rect2(27, 21, 64, 81)
 filter_clip = true
 

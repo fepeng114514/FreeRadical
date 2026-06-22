@@ -34,13 +34,6 @@ resource_local_to_scene = true
 script = ExtResource("9_miroj")
 damage_min = 4.0
 damage_max = 6.0
-extra_enable = null
-mods = null
-auras = null
-payloads = null
-area_enable = null
-can_influence_multiple = null
-falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_6rlp0"]

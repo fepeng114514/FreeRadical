@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://kq8u1uyt8ldx"]
+
+[ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://entities/towers/tower_archer.tscn" id="1_x7j23"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_yk4yb"]
+[ext_resource type="Texture2D" uid="uid://blyss2vmto0of" path="res://assets/atlas/atlas_textures/towers/tower_archer_2_0001.tres" id="3_sbvnr"]
+[ext_resource type="Texture2D" uid="uid://bf74hmd14fm31" path="res://assets/atlas/atlas_textures/towers/tower_archer_2_back_0001.tres" id="4_2u2im"]
+[ext_resource type="PackedScene" uid="uid://x5hhb4222pkd" path="res://entities/towers/tower_archer_2_lvl_1_shooter.tscn" id="5_3td4n"]
+
+[sub_resource type="Resource" id="Resource_3wdg1"]
+resource_local_to_scene = true
+script = ExtResource("2_yk4yb")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[node name="TowerArcherLvl1" unique_id=1010851235 instance=ExtResource("1_x7j23")]
+scene_name = "tower_archer_lvl_1"
+interact_policy = SubResource("Resource_3wdg1")
+
+[node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
+position = Vector2(0, -19)
+
+[node name="Sprite2D" parent="SpriteComponent" index="0" unique_id=708564869]
+z_index = 1
+position = Vector2(0, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_sbvnr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="SpriteComponent" index="1" unique_id=2122666225]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_2u2im")
+
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+price = 70.0
+
+[node name="TowerArcherLvl1Shooter" parent="TowerComponent" index="0" unique_id=2011504655 instance=ExtResource("5_3td4n")]
+position = Vector2(-20, -63)
+
+[node name="TowerArcherLvl1Shooter2" parent="TowerComponent" index="1" unique_id=204602590 instance=ExtResource("5_3td4n")]
+position = Vector2(25, -63)
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+z_index = 1
+select_rect = Rect2(-61.69, -97.47, 122.495, 136.755)
+select_menu_offset = Vector2(0, -29.78)

@@ -41,22 +41,22 @@ func _take(source: Entity, target: Entity, source_skill_type: Skill.Type, is_are
 	if U.is_valid_number(damage_value):
 		value = damage_value
 	else:
-		value = get_damage_value(source.global_position, target.global_position)
+		value = get_damage_value()
+	if falloff_enabled:
+		value *= U.dist_factor_inside_radius(
+			source.global_position, 
+			target.global_position, 
+			searcher.max_radius,
+			searcher.min_radius
+		)
+	
 	d.value = value
 	d.damage_type = damage_type
 	d.damage_flags = damage_flags
 	d.insert_damage()
 
 
-func get_damage_value(source_position: Vector2, target_position: Vector2) -> float:
+func get_damage_value() -> float:
 	var value: float = randf_range(damage_min, damage_max)
-	
-	if falloff_enabled:
-		value *= U.dist_factor_inside_radius(
-			source_position, 
-			target_position, 
-			searcher.max_radius,
-			searcher.min_radius
-		)
 
 	return value

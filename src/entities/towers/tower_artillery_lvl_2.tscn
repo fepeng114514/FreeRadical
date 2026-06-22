@@ -33,19 +33,19 @@ script = ExtResource("13_3bdla")
 any = Vector2(0, -71.905)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
+[sub_resource type="Resource" id="Resource_w4mo5"]
+script = ExtResource("9_kj6gf")
+max_radius = 133.0
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
 [sub_resource type="Resource" id="Resource_mhbvy"]
 resource_local_to_scene = true
 script = ExtResource("11_kj6gf")
 damage_min = 20.0
 damage_max = 40.0
 damage_type = 4
-extra_enable = null
-mods = null
-auras = null
-payloads = null
 area_enable = true
-searcher = null
-can_influence_multiple = null
+searcher = SubResource("Resource_w4mo5")
 falloff_enabled = true
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 

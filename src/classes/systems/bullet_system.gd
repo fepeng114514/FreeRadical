@@ -39,7 +39,7 @@ func _on_insert(e: Entity) -> bool:
 		bullet_c.trajectory._init_trajectory(bullet_c, e, target)
 
 	var influence: Influence = bullet_c.influence
-	influence.damage_value = influence.get_damage_value(to, target.global_position)
+	influence.damage_value = influence.get_damage_value()
 
 	return true
 
