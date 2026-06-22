@@ -37,11 +37,8 @@ func _take(source: Entity, target: Entity, source_skill_type: Skill.Type, is_are
 	d.source_skill_type = source_skill_type
 	d.is_area = is_area
 
-	var value: float = 0.0
-	if U.is_valid_number(damage_value):
-		value = damage_value
-	else:
-		value = get_damage_value()
+	var value: float = damage_value if U.is_valid_number(damage_value) else get_damage_value()
+	
 	if falloff_enabled:
 		value *= U.dist_factor_inside_radius(
 			source.global_position, 

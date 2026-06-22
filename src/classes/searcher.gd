@@ -84,13 +84,13 @@ func _validate_property(property: Dictionary) -> void:
 
 
 ## 搜索目标。
-func search_targets(center: Vector2, e: Entity = null, filter: = Callable()) -> Array[Entity]:
-	if e and center_offsets:
-		var center_offset: Vector2 = center_offsets.get_offset_for_point(e.global_position, e.look_point)
+func search_targets(center: Vector2, search_entity: Entity = null, filter: Callable = Callable()) -> Array[Entity]:
+	if search_entity and center_offsets:
+		var center_offset: Vector2 = center_offsets.get_offset_for_point(search_entity.global_position, search_entity.look_point)
 		center += center_offset
 
 	var group: StringName = &""
-	var is_enemy: bool = e and e.interact_policy and e.interact_policy.flags & C.Flag.ENEMY
+	var is_enemy: bool = search_entity and search_entity.interact_policy and search_entity.interact_policy.flags & C.Flag.ENEMY
 
 	match search_group:
 		SearchGroup.ENTITY:
@@ -103,6 +103,10 @@ func search_targets(center: Vector2, e: Entity = null, filter: = Callable()) -> 
 			group = C.GROUP_UNIT
 		SearchGroup.TOWER:
 			group = C.GROUP_TOWER
+
+	match search_flag:
+		C.SearchFlag.SKIP_READY_DEAD:
+			filter = _skip_ready_dead_filter.bind(filter)
 			
 	var targets: Array = SearchMgr.find_targets_in_range(
 		center, 
@@ -121,8 +125,8 @@ func search_targets(center: Vector2, e: Entity = null, filter: = Callable()) -> 
 
 
 ## 搜索单个目标。
-func search_target(center: Vector2, e: Entity = null, filter: = Callable()) -> Entity:
-	var targets: Array[Entity] = search_targets(center, e, filter)
+func search_target(center: Vector2, search_entity: Entity = null, filter: Callable = Callable()) -> Entity:
+	var targets: Array[Entity] = search_targets(center, search_entity, filter)
 	if targets:
 		return targets[0]
 
@@ -179,6 +183,38 @@ func draw(drawer: CanvasItem, center: Vector2) -> void:
 		OffsetGroup.draw_offset_group(drawer, center_offsets)
 	else:
 		U.draw_range_circle(drawer, center, min_radius, max_radius)
+
+
+## 跳过已死亡目标过滤器。
+func _skip_ready_dead_filter(e: Entity, filter := Callable()) -> bool:
+	var health_c: HealthComponent = e.get_node_or_null(C.CN_HEALTH)
+	if health_c:
+		var total_damage: float = 0.0
+
+		for bullet_id: int in e.target_bullet_id_list:
+			var bullet: Entity = EntityMgr.get_entity_by_id(bullet_id)
+			var bullet_c: BulletComponent = bullet.get_node_or_null(C.CN_BULLET)
+			if not bullet_c:
+				continue
+
+			var damage_influence := bullet_c.influence as DamageInfluence
+			if not damage_influence:
+				continue
+		
+			var damage: Damage = Damage.new()
+			damage.damage_type = damage_influence.damage_type
+			damage.value = damage_influence.damage_value
+			damage.damage_flags = damage_influence.damage_flags
+
+			var actual_damage: float = damage.predict_damage(e)
+			total_damage += actual_damage
+			if total_damage >= health_c.hp:
+				return false
+				
+	if filter.is_valid():
+		return filter.call(e)
+
+	return true
 
 
 ## 根据排序模式排序实体数组。

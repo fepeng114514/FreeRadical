@@ -9,6 +9,7 @@
 resource_local_to_scene = true
 script = ExtResource("3_oe5ok")
 max_radius = 300.0
+search_flag = 1
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_ekn6g"]
@@ -16,14 +17,6 @@ resource_local_to_scene = true
 script = ExtResource("4_oe5ok")
 damage_min = 10.0
 damage_max = 16.0
-extra_enable = null
-mods = null
-auras = null
-payloads = null
-area_enable = null
-searcher = null
-can_influence_multiple = null
-falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArcherLvl3Shooter" unique_id=2011504655 instance=ExtResource("1_yxrdi")]

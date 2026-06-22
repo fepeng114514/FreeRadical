@@ -40,9 +40,7 @@ func _on_update(_delta: float) -> void:
 		if d.damage_type & health_c.immuned:
 			continue
 			
-		var actual_damage: float = _predict_damage(
-			target, health_c, d
-		)
+		var actual_damage: float = d.predict_damage(target)
 		health_c.hp -= actual_damage
 		target._on_damage(d)
 		
@@ -85,51 +83,6 @@ func _on_update(_delta: float) -> void:
 
 	SystemMgr.damage_queue = new_damage_queue
 	
-
-## 预测伤害。
-func _predict_damage(
-		_target: Entity,
-		health_c: HealthComponent, 
-		d: Damage
-	) -> float:
-	var damage_type: int = d.damage_type
-		
-	if damage_type & C.DamageType.DISINTEGRATE:
-		return health_c.hp
-	
-	var physical_armor: float = clampf(health_c.physical_armor, 0, 1)
-	var magical_armor: float = clampf(health_c.magical_armor, 0, 1)
-	var poison_armor: float = clampf(health_c.poison_armor, 0, 1)
-	
-	var resistance: float = 1 - health_c.damage_resistance
-
-	if damage_type & C.DamageType.TRUE:
-		pass
-	else:
-		if damage_type & C.DamageType.EXPLOSION:
-			resistance *= 1 - physical_armor / 2.0
-		elif damage_type & C.DamageType.PHYSICAL:
-			resistance *= 1 - physical_armor
-			
-		if damage_type & C.DamageType.MAGICAL_EXPLOSION:
-			resistance *= 1 - magical_armor / 2.0
-		elif damage_type & C.DamageType.MAGICAL:
-			resistance *= 1 - magical_armor
-			
-		if damage_type & C.DamageType.POISON:
-			resistance *= 1 - poison_armor
-	
-	if damage_type & C.DamageType.HP_MAX_PERCENT:
-		d.value *= health_c.hp_max
-	elif damage_type & C.DamageType.HP_PERCENT:
-		d.value *= health_c.hp
-		
-	var total_damage_factor: float = d.damage_factor * resistance * (1 + health_c.vulnerable)
-	var basic_value: float = d.value - health_c.damage_reduction
-	var actual_damage: float = roundi(basic_value * total_damage_factor)
-	
-	return actual_damage
-
 
 ## 死亡处理。
 func _death(d: Damage, target: Entity, health_c: HealthComponent, source: Entity) -> void:

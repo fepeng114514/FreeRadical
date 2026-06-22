@@ -21,6 +21,7 @@ vertical_mirror = true
 resource_local_to_scene = true
 script = ExtResource("7_miroj")
 max_radius = 300.0
+search_flag = 1
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_367kr"]

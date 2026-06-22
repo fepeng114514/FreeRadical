@@ -62,7 +62,7 @@ enum DamageType {
 	## 伤害类型：最大血量百分比
 	HP_MAX_PERCENT = 1 << 39,
 	## 伤害类型: 秒杀。
-	DISINTEGRATE = 1 << 40,
+	INSTAKILL = 1 << 40,
 	## 伤害类型：所有伤害类型。
 	ALL = 1 << 40 - 1,
 }

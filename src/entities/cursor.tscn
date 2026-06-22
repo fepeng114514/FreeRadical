@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_5tp4l"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_8ls02"]
-[ext_resource type="SpriteFrames" uid="uid://dm7p65gu38y6u" path="res://assets/atlas/sprite_frames/ui/cursor.tres" id="3_a73qa"]
+[ext_resource type="SpriteFrames" uid="uid://c5obkovkxdbqj" path="res://assets/atlas/sprite_frames/game_gui/cursor.tres" id="3_e0hwd"]
 
 [node name="Cursor" type="Node2D" unique_id=1674790453]
 script = ExtResource("1_5tp4l")
@@ -14,6 +14,5 @@ script = ExtResource("2_8ls02")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1149712415]
-sprite_frames = ExtResource("3_a73qa")
-animation = &"rally_hover"
-frame_progress = 0.25657022
+sprite_frames = ExtResource("3_e0hwd")
+animation = &"barrack_rally_click"
