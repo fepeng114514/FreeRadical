@@ -22,12 +22,12 @@ func _get_predict_time() -> float:
 	return 0.0
 
 
-## 子弹是否应该进入未击中处理。
-func _should_miss(bullet_c: BulletComponent, flying_time: float) -> bool:
-	return false
+## 子弹是否可以未命中目标实体。
+func _can_miss(e: Entity, bullet_c: BulletComponent, flying_time: float) -> bool:
+	return U.is_at_destination(e.global_position, bullet_c.to, bullet_c.hit_distance)
 
 
-## 子弹是否已到达目标位置。
-func _has_arrived(e: Entity, bullet_c: BulletComponent, flying_time: float) -> bool:
+## 子弹是否可以命中目标实体。
+func _can_hit(e: Entity, bullet_c: BulletComponent, flying_time: float) -> bool:
 	return U.is_at_destination(e.global_position, bullet_c.to, bullet_c.hit_distance)
 @warning_ignore_restore("unused_parameter")

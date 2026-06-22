@@ -50,12 +50,15 @@ func _update_trajectory(e: Entity, bullet_c: BulletComponent, _target: Entity, f
 		e.look_at(next_pos)
 
 
-func _should_miss(_bullet_c: BulletComponent, flying_time: float) -> bool:
-	return flight_total_time > 0 and flying_time >= flight_total_time
+func _can_miss(e: Entity, bullet_c: BulletComponent, flying_time: float) -> bool:
+	return (
+		flight_total_time > 0 and flying_time >= flight_total_time
+		or super(e, bullet_c, flying_time)
+	)
 
 
-func _has_arrived(e: Entity, bullet_c: BulletComponent, flying_time: float) -> bool:
-	if flying_time <= flight_total_time * arrival_threshold:
-		return false
-		
-	return super(e, bullet_c, flying_time)
+func _can_hit(e: Entity, bullet_c: BulletComponent, flying_time: float) -> bool:
+	return (
+		flying_time >= flight_total_time * arrival_threshold 
+		and super(e, bullet_c, flying_time)
+	)

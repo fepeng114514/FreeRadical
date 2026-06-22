@@ -80,7 +80,8 @@ func find_targets_in_range(
 				var interact_p: InteractPolicy = e.interact_policy
 				
 				if (
-						(not interact_p or not U.is_mutual_banned(interact_p.flags, bans, flags, interact_p.bans))
+						not e.state & Entity.State.DEAD
+						and (not interact_p or not U.is_mutual_banned(interact_p.flags, bans, flags, interact_p.bans))
 						and U.is_in_ring(origin, e.global_position, min_range, max_range)
 						and (not filter.is_valid() or filter.call(e))
 				):

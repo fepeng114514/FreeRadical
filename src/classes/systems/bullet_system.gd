@@ -78,20 +78,10 @@ func _on_update(delta: float) -> void:
 		e.rotation += bullet_c.rotation_speed * delta
 
 		if target:
-			if not bullet_c.can_arrived:
-				continue
-			
-			if not bullet_c.trajectory._has_arrived(e, bullet_c, flying_time):
-				continue
-				
-			_hit(e, bullet_c, target)
+			if bullet_c.trajectory._can_hit(e, bullet_c, flying_time):
+				_hit(e, bullet_c, target)
 		else:
-			if (
-				bullet_c.trajectory._should_miss(bullet_c, flying_time)
-				or U.is_at_destination(
-					e.global_position, bullet_c.to, bullet_c.hit_distance
-				)
-			):
+			if bullet_c.trajectory._can_miss(e, bullet_c, flying_time):
 				_miss(e, bullet_c)
 
 

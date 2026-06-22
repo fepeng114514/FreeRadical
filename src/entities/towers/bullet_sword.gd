@@ -67,7 +67,6 @@ func _on_update(_delta: float) -> void:
 	if not has_init_fall:
 		is_to_predict = false
 		has_init_fall = true
-		bullet_c.can_arrived = true
 		bullet_c.from = global_position
 
 		var fall_time: float = (
