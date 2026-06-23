@@ -44,7 +44,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kofli")
 }],
-"loop": true,
+"loop": 1,
 "name": &"flying_left_right",
 "speed": 30.0
 }, {
@@ -73,7 +73,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pu2tq")
 }],
-"loop": true,
+"loop": 1,
 "name": &"hit_left_right",
 "speed": 30.0
 }, {
@@ -81,7 +81,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tbvge")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle_left_right",
 "speed": 30.0
 }]

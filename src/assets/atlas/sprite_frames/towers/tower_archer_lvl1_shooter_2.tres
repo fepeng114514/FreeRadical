@@ -38,7 +38,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dhbro")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 30.0
 }, {
@@ -64,7 +64,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sp4lt")
 }],
-"loop": true,
+"loop": 1,
 "name": &"ranged",
 "speed": 30.0
 }]

@@ -458,7 +458,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aaqnw")
 }],
-"loop": true,
+"loop": 1,
 "name": &"death_left_right",
 "speed": 30.0
 }, {
@@ -547,7 +547,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_elgjf")
 }],
-"loop": true,
+"loop": 1,
 "name": &"heal_left_right",
 "speed": 30.0
 }, {
@@ -555,7 +555,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_58pxg")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle_left_right",
 "speed": 30.0
 }, {
@@ -614,7 +614,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_58pxg")
 }],
-"loop": true,
+"loop": 1,
 "name": &"melee_left_right",
 "speed": 30.0
 }, {
@@ -685,7 +685,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_liqr3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_down",
 "speed": 30.0
 }, {
@@ -756,7 +756,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5qdj5")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_left_right",
 "speed": 30.0
 }, {
@@ -827,7 +827,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fr30d")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk_up",
 "speed": 30.0
 }]

@@ -6,3 +6,6 @@
 
 [node name="Label" parent="." index="0" unique_id=973402172]
 theme_override_font_sizes/font_size = 18
+
+[node name="OptionButton" parent="." index="2" unique_id=1262903927]
+search_bar_enabled = true

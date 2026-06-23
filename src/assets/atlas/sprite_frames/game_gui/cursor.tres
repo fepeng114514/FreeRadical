@@ -425,7 +425,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_upyaf")
 }],
-"loop": true,
+"loop": 1,
 "name": &"barrack_rally_click",
 "speed": 30.0
 }, {
@@ -472,7 +472,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5b5w8")
 }],
-"loop": true,
+"loop": 1,
 "name": &"error_click",
 "speed": 30.0
 }, {
@@ -510,7 +510,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nsvh3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"rally_click",
 "speed": 30.0
 }, {
@@ -545,7 +545,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3pq41")
 }],
-"loop": true,
+"loop": 1,
 "name": &"rally_hover",
 "speed": 30.0
 }]

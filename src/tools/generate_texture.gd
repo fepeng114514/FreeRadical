@@ -121,7 +121,7 @@ func _process_and_save_sprite_frames(category: String, sprite_frames_name: Strin
 		var fps: float = anim_data.get("fps", 30)
 		var loop: bool = anim_data.get("loop", true)
 		sprite_frames.set_animation_speed(anim_name, fps)
-		sprite_frames.set_animation_loop(anim_name, loop)
+		sprite_frames.set_animation_loop_mode(anim_name, SpriteFrames.LoopMode.LOOP_LINEAR if loop else SpriteFrames.LoopMode.LOOP_NONE)
 
 		var from_idx: int = anim_data.from
 		var to_idx: int = anim_data.to

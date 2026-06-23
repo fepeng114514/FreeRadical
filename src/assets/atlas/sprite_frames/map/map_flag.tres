@@ -275,7 +275,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6a84f")
 }],
-"loop": true,
+"loop": 1,
 "name": &"unlock",
 "speed": 30.0
 }, {
@@ -412,7 +412,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vyfsj")
 }],
-"loop": true,
+"loop": 1,
 "name": &"unlocked",
 "speed": 30.0
 }]
