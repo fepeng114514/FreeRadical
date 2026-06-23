@@ -197,14 +197,18 @@ func _skip_ready_dead_filter(e: Entity, filter := Callable()) -> bool:
 			if not bullet_c:
 				continue
 
-			var damage_influence := bullet_c.influence as DamageInfluence
-			if not damage_influence:
+			var damage_infl := bullet_c.influence as DamageInfluence
+			if not damage_infl:
 				continue
 		
 			var damage: Damage = Damage.new()
-			damage.damage_type = damage_influence.damage_type
-			damage.value = damage_influence.damage_value
-			damage.damage_flags = damage_influence.damage_flags
+			match damage_infl.get_value_mode:
+				damage_infl.GetValueMode.RANDOM:
+					damage.value = damage_infl.override_value
+				damage_infl.GetValueMode.RADIAL_FALLOFF:
+					damage.value = damage_infl.max_value
+			damage.damage_type = damage_infl.damage_type
+			damage.damage_flags = damage_infl.damage_flags
 
 			var actual_damage: float = damage.predict_damage(e)
 			total_damage += actual_damage
@@ -305,17 +309,17 @@ func _sort_by_melee_damage(e1: Entity, e2: Entity) -> bool:
 	var e1_melee_c: MeleeComponent = e1.get_node_or_null(C.CN_MELEE)
 	if e1_melee_c:
 		var first_skill: MeleeSkill = e1_melee_c.get_child(0)
-		var influence: Influence = first_skill.influence
+		var damage_infl := first_skill.influence as DamageInfluence
 
-		if influence:
-			d1 = influence.damage_max
+		if damage_infl:
+			d1 = (damage_infl.min_value + damage_infl.damage_max) / 2.0
 	var e2_melee_c: MeleeComponent = e2.get_node_or_null(C.CN_MELEE)
 	if e2_melee_c:
 		var first_skill: MeleeSkill = e2_melee_c.get_child(0)
-		var influence: Influence = first_skill.influence
+		var damage_infl := first_skill.influence as DamageInfluence
 
-		if influence:
-			d2 = influence.damage_max
+		if damage_infl:
+			d2 = (damage_infl.min_value + damage_infl.damage_max) / 2.0
 
 	return d1 < d2 if sort_reversed else d1 > d2
 
@@ -328,17 +332,17 @@ func _sort_by_ranged_damage(e1: Entity, e2: Entity) -> bool:
 	var e1_skill_c: SkillComponent = e1.get_node_or_null(C.CN_SKILL)
 	if e1_skill_c:
 		var first_skill: Skill = e1_skill_c.get_child(0)
-		var influence: Influence = first_skill.influence
+		var damage_infl := first_skill.influence as DamageInfluence
 
-		if influence:
-			d1 = influence.damage_max
+		if damage_infl:
+			d1 = (damage_infl.min_value + damage_infl.damage_max) / 2.0
 	var e2_skill_c: SkillComponent = e2.get_node_or_null(C.CN_SKILL)
 	if e2_skill_c:
 		var first_skill: Skill = e2_skill_c.get_child(0)
-		var influence: Influence = first_skill.influence
+		var damage_infl := first_skill.influence as DamageInfluence
 
-		if influence:
-			d2 = influence.damage_max
+		if damage_infl:
+			d2 = (damage_infl.min_value + damage_infl.damage_max) / 2.0
 
 	return d1 < d2 if sort_reversed else d1 > d2
 

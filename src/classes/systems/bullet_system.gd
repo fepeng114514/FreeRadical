@@ -38,8 +38,11 @@ func _on_insert(e: Entity) -> bool:
 	if bullet_c.trajectory:
 		bullet_c.trajectory._init_trajectory(bullet_c, e, target)
 
-	var influence: Influence = bullet_c.influence
-	influence.damage_value = influence.get_damage_value()
+	var damage_infl := bullet_c.influence as DamageInfluence
+	if damage_infl:
+		match damage_infl.get_value_mode:
+			damage_infl.GetValueMode.RANDOM:
+				damage_infl.override_value = damage_infl.get_damage_value()
 
 	return true
 

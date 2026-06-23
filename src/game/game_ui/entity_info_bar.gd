@@ -145,11 +145,13 @@ func _update_tower_info() -> void:
 
 func _set_value_ranged(skill_c: SkillComponent) -> void:
 	var first_ranged_skill: RangedSkill = skill_c.get_child(0)
-	var infl_res: Influence = first_ranged_skill.influence
-	ranged_value.text = "%d-%d/%.1f" % [infl_res.damage_min, infl_res.damage_max, first_ranged_skill.cooldown]
+	var damage_infl := first_ranged_skill.influence as DamageInfluence
+	if damage_infl:
+		ranged_value.text = "%d-%d/%.1f" % [damage_infl.min_value, damage_infl.max_value, first_ranged_skill.cooldown]
 	
 	
 func _set_value_melee(melee_c: MeleeComponent) -> void:
 	var first_melee_skill: MeleeSkill = melee_c.get_child(0)
-	var infl_res: Influence = first_melee_skill.influence
-	melee_value.text = "%d-%d/%.1f" % [infl_res.damage_min, infl_res.damage_max, first_melee_skill.cooldown]
+	var damage_infl := first_melee_skill.influence as DamageInfluence
+	if damage_infl:
+		melee_value.text = "%d-%d/%.1f" % [damage_infl.min_value, damage_infl.max_value, first_melee_skill.cooldown]

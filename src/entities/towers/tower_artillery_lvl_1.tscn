@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://entities/towers/tower.tscn" id="1_og8n7"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_snldt"]
-[ext_resource type="AudioStream" uid="uid://6rnymn4xntae" path="res://assets/audios/Artillery_Ready.ogg" id="3_crln0"]
-[ext_resource type="AudioStream" uid="uid://da6ftdhir8qn3" path="res://assets/audios/Artillery_Taunt1.ogg" id="4_7extc"]
+[ext_resource type="AudioStream" uid="uid://6rnymn4xntae" path="res://assets/audios/artillery_ready.ogg" id="3_crln0"]
+[ext_resource type="AudioStream" uid="uid://da6ftdhir8qn3" path="res://assets/audios/artillery_taunt1.ogg" id="4_7extc"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_67tlk"]
 [ext_resource type="Script" uid="uid://bcthb5ophrody" path="res://classes/sprite_group.gd" id="4_v8ksx"]
 [ext_resource type="SpriteFrames" uid="uid://srluk7bx7r8k" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer1.tres" id="5_ds7h4"]
-[ext_resource type="AudioStream" uid="uid://defc8m78n4bwc" path="res://assets/audios/Artillery_Taunt2.ogg" id="5_epf81"]
+[ext_resource type="AudioStream" uid="uid://defc8m78n4bwc" path="res://assets/audios/artillery_taunt2.ogg" id="5_epf81"]
 [ext_resource type="SpriteFrames" uid="uid://c1yg3pxf1mcki" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer2.tres" id="6_ipws0"]
 [ext_resource type="SpriteFrames" uid="uid://dn34cfxw2e1hq" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer3.tres" id="7_st7oj"]
 [ext_resource type="SpriteFrames" uid="uid://divyth6cujr3a" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer4.tres" id="8_67tlk"]
@@ -59,12 +59,12 @@ metadata/_custom_type_script = "uid://4dsevfnug1a1"
 [sub_resource type="Resource" id="Resource_67tlk"]
 resource_local_to_scene = true
 script = ExtResource("16_st7oj")
-damage_min = 9.0
-damage_max = 18.0
 damage_type = 4
+min_value = 9.0
+max_value = 18.0
+get_value_mode = 1
 area_enable = true
 searcher = SubResource("Resource_w4mo5")
-falloff_enabled = true
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_3uqv8"]

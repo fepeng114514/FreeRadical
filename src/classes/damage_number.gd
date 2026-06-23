@@ -64,7 +64,7 @@ func _ready() -> void:
 			break
 
 	if damage_type & C.DamageType.PHYSICAL:
-		modulate = Color.GREEN
+		modulate = Color.WHITE
 	elif damage_type & C.DamageType.MAGICAL:
 		modulate = Color.SKY_BLUE
 	elif damage_type & C.DamageType.EXPLOSION:

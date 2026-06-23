@@ -6,6 +6,21 @@ class_name Influence
 ## Influence 用于定义如何影响目标，例如治疗、造成伤害、给予状态效果等。
 
 
+## 取值模式枚举。
+enum GetValueMode {
+	## 取值模式：随机值，根据范围随机取值。
+	RANDOM,
+	## 取值模式：根据距离衰减。
+	RADIAL_FALLOFF,
+}
+
+## 最小影响值。
+@export var min_value: float = 0.0
+## 最大影响值。
+@export var max_value: float = 0.0
+## 取值模式。
+@export var get_value_mode: GetValueMode = GetValueMode.RANDOM
+
 @export_group("Extra")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var extra_enable: bool = false
 ## 给予的状态效果
@@ -15,7 +30,6 @@ class_name Influence
 ## 创建的实体场景名称列表。
 @export var payloads: Array[PackedScene] = []
 
-#region 范围影响
 @export_group("Area")
 ## 是否启用范围影响。
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var area_enable: bool = false
@@ -28,9 +42,9 @@ class_name Influence
 			emit_changed()
 ## 是否可以多次影响目标。
 @export var can_influence_multiple: bool = false
-## 是否随距离衰减。
-@export var falloff_enabled: bool = false
-#endregion
+
+## 覆盖的影响值，用于使用外部的影响值，会覆盖后续计算的影响值。
+var override_value: float = C.UNSET
 
 
 func _init() -> void:
@@ -72,3 +86,23 @@ func take_influence(source: Entity, base_target: Entity, search_center: Vector2,
 func draw(drawer: CanvasItem, center: Vector2) -> void:
 	if searcher:
 		searcher.draw(drawer, center)
+
+
+func get_value(source: Entity, target: Entity) -> float:
+	if U.is_valid_number(override_value):
+		return override_value
+		
+	match get_value_mode:
+		GetValueMode.RANDOM:
+			return randf_range(min_value, max_value)
+		GetValueMode.RADIAL_FALLOFF:
+			return U.get_radial_falloff(
+				source.global_position, 
+				target.global_position, 
+				searcher.min_radius,
+				searcher.max_radius,
+				min_value,
+				max_value
+			)
+		
+	return 0

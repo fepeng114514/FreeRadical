@@ -107,6 +107,6 @@ func to_formation_position(pos: Vector2, count: int, idx: int) -> Vector2:
 	var a: float = 2 * PI / count
 	var angle: float = (idx - 1) * a - C.HALF_PI
 	
-	return U.point_on_circle(
+	return U.get_point_on_circle(
 		pos, rally_radius, angle
 	)

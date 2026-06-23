@@ -4,35 +4,36 @@ class_name U
 
 #region 数学工具函数
 ## 判断点是否在圆中。
-static func is_in_radius(center: Vector2, point: Vector2, radius: float) -> bool:
+static func is_in_circle(center: Vector2, point: Vector2, radius: float) -> bool:
 	var d_sq: float = center.distance_squared_to(point)
 	var r_sq: float = radius ** 2
 	
 	return d_sq <= r_sq
 	
 	
-## 计算根据点与圆的距离衰减的因子。
-static func dist_factor_inside_radius(
+## 计算根据点与圆的距离计算衰减。
+static func get_radial_falloff(
 		center: Vector2, 
 		point: Vector2, 
+		min_radius: float, 
 		max_radius: float, 
-		min_radius: float = 0.0, 
+		min_value: float = 0.0,
+		max_value: float = 1.0
 	) -> float:
+	var dv: float = max_value - min_value
 	var dist: float = center.distance_to(point)
 	
 	if min_radius == 0:
-		return 1 - dist / max_radius
+		return min_value + dv * (1 - dist / max_radius)
 		
 	var ring_dist: float = dist - min_radius
 	var ring_radius: float = max_radius - min_radius
 		
-	return 1 - ring_dist / ring_radius
+	return min_value + dv * (1 - ring_dist / ring_radius)
 	
 	
-## 计算点在指定方向和距离上的另一个点。
-static func point_on_circle(
-		point: Vector2, radius: float, angle: float = 0.0
-	) -> Vector2:
+## 计算点在指定方向和距离上的另一点。
+static func get_point_on_circle(point: Vector2, radius: float, angle: float = 0.0) -> Vector2:
 	var dir: Vector2 = Vector2.from_angle(angle)
 	var d: Vector2 = dir * radius
 		
@@ -43,14 +44,14 @@ static func point_on_circle(
 static func is_in_ring(
 		center: Vector2, point: Vector2, min_radius: float, max_radius: float
 	) -> bool:
-	var is_in_max_radius: bool = U.is_in_radius(center, point, max_radius)
+	var is_in_max_radius: bool = U.is_in_circle(center, point, max_radius)
 
 	if min_radius <= 0:
 		return is_in_max_radius
 
 	return (
 		is_in_max_radius
-		and not U.is_in_radius(center, point, min_radius)
+		and not U.is_in_circle(center, point, min_radius)
 	)
 
 
@@ -69,7 +70,7 @@ static func is_in_ellipse(
 
 
 ## 计算根据点与椭圆的距离衰减的因子。
-static func dist_factor_inside_ellipse(
+static func get_ellipse_radial_falloff(	
 		center: Vector2, 
 		point: Vector2, 
 		max_radius: float, 
@@ -93,7 +94,7 @@ static func dist_factor_inside_ellipse(
 
 
 ## 计算点在指定方向和距离上椭圆空间的另一个点。
-static func point_on_ellipse(
+static func get_point_on_ellipse(
 		point: Vector2, radius: float, angle: float = 0.0, aspect: float = 0.7
 	) -> Vector2:
 	var a: float = radius
@@ -108,7 +109,7 @@ static func point_on_ellipse(
 static func is_in_sector(
 		center: Vector2, point: Vector2, radius: float, angle_range: float, direction_angle: float
 	) -> bool:
-	if not is_in_radius(center, point, radius):
+	if not is_in_circle(center, point, radius):
 		return false
 	
 	var angle_to_point: float = center.angle_to(point)
@@ -121,7 +122,7 @@ static func is_in_sector(
 static func is_in_line(
 		center: Vector2, point: Vector2, width: float, length: float, angle: float = 0.0
 	) -> bool:
-	if is_in_radius(center, point, width):
+	if is_in_circle(center, point, width):
 		return true
 
 	var local_point: Vector2 = point - center

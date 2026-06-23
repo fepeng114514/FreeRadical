@@ -6,19 +6,6 @@ class_name HealthComponent
 ## HealthComponent 可以使实体拥有血量，血量为 0 时移除实体。
 
 
-## 治疗类型枚举。
-enum HealType {
-	## 治疗类型：加法。
-	ADD, 
-	## 治疗类型：当前血量百分比加法。
-	HP_ADD_PERCENT, 
-	## 治疗类型：最大血量百分比加法。
-	HP_MAX_ADD_PERCENT, 
-	## 治疗类型：乘法。
-	MULTIPLY,
-}
-
-
 ## 最大血量。
 @export var hp_max: float = 100
 
@@ -98,16 +85,3 @@ func _get_configuration_warnings() -> PackedStringArray:
 ## 获取当前血量百分比。
 func get_hp_percent() -> float:
 	return float(hp) / float(hp_max) * 100
-
-
-## 治疗。
-func heal(heal_value: float, heal_type: HealType) -> void:
-	match heal_type:
-		HealType.ADD:
-			hp += heal_value
-		HealType.HP_ADD_PERCENT:
-			hp += hp * heal_value
-		HealType.HP_MAX_ADD_PERCENT:
-			hp += hp_max * heal_value
-		HealType.MULTIPLY:
-			hp *= heal_value

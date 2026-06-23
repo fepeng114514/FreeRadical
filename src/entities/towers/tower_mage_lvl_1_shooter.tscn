@@ -34,8 +34,8 @@ metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 [sub_resource type="Resource" id="Resource_1g575"]
 resource_local_to_scene = true
 script = ExtResource("9_n6q0g")
-damage_min = 15.0
-damage_max = 21.0
+min_value = 15.0
+max_value = 21.0
 damage_type = 2
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 

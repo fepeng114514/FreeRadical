@@ -29,8 +29,8 @@ metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 [sub_resource type="Resource" id="Resource_cktve"]
 resource_local_to_scene = true
 script = ExtResource("5_p5seb")
-damage_min = 40.0
-damage_max = 60.0
+min_value = 40.0
+max_value = 60.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="EnemyOgre" unique_id=71433118 instance=ExtResource("1_4svom")]

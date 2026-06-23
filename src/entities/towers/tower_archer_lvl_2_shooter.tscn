@@ -15,8 +15,8 @@ metadata/_custom_type_script = "uid://4dsevfnug1a1"
 [sub_resource type="Resource" id="Resource_fsp6p"]
 resource_local_to_scene = true
 script = ExtResource("4_6omst")
-damage_min = 7.0
-damage_max = 11.0
+min_value = 7.0
+max_value = 11.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArcherLvl2Shooter" unique_id=2011504655 instance=ExtResource("1_rfise")]
