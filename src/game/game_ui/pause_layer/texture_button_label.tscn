@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://41xihndhr041"]
+
+[ext_resource type="PackedScene" uid="uid://dpiqkasfagv0d" path="res://controls/texture_button_label.tscn" id="1_oytvx"]
+[ext_resource type="Texture2D" uid="uid://bxtd50y2kmg5a" path="res://assets/atlas/atlas_textures/gui/options_button_bg_0001.tres" id="2_oytvx"]
+[ext_resource type="Texture2D" uid="uid://c2xjqkytu5fdc" path="res://assets/atlas/atlas_textures/gui/options_button_bg_0002.tres" id="3_du7pn"]
+
+[node name="TextureButtonLabel" unique_id=1893071714 instance=ExtResource("1_oytvx")]
+
+[node name="TextureButton" parent="." index="0" unique_id=429687231]
+texture_normal = ExtResource("2_oytvx")
+texture_hover = ExtResource("3_du7pn")
+
+[node name="Label" parent="." index="1" unique_id=1351141925]
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -3)
+theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.69803923, 1)
+theme_override_font_sizes/font_size = 27
+text = ""
+horizontal_alignment = 1

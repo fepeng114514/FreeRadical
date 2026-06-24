@@ -34,11 +34,11 @@ config/icon="res://icon.svg"
 
 [audio]
 
-buses/default_bus_layout="res://autoloads/managers/audio_bus_layout.tres"
+buses/default_bus_layout="res://autoloads/managers/audio_manager/audio_bus_layout.tres"
 
 [autoload]
 
-AudioMgr="*uid://vs7lopahte38"
+AudioMgr="*uid://cnsbgsxy76nn7"
 GlobalMgr="*uid://ct01c5jk3ruit"
 GameMgr="*res://autoloads/managers/game_manager.gd"
 WaveMgr="*uid://ssg02uvoaqp7"
@@ -53,6 +53,7 @@ GridMgr="*uid://bsty3nv6hyvtv"
 PathwayMgr="*res://autoloads/managers/pathway_manager.gd"
 LevelMgr="*res://autoloads/managers/level_manager.gd"
 CanvasMgr="*uid://bsabxvw5o5g4l"
+LoaderMgr="*uid://bygipxugxq6jf"
 DevtoolRuntime="*res://addons/godot_devtool/runtime_bridge.gd"
 
 [display]

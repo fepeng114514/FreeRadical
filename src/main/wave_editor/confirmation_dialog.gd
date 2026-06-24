@@ -6,6 +6,6 @@ func _ready() -> void:
 
 
 func _on_confirmed() -> void:
-	get_tree().change_scene_to_file(
+	LoaderMgr.enter_scene(
 		"res://main/main.tscn"
 	)

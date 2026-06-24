@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://c2stkn050tbm3"]
+
+[ext_resource type="Script" uid="uid://b4x5cexr6px68" path="res://autoloads/managers/loader_manager/loading_screen.gd" id="1_dtvgi"]
+[ext_resource type="Texture2D" uid="uid://cr2j4pehpliyc" path="res://assets/loading_grass-1.png" id="1_x5k7h"]
+[ext_resource type="Texture2D" uid="uid://1k3y4g3qfkgv" path="res://assets/atlas/atlas_textures/gui/loading_barBg_0001.tres" id="3_8t4iu"]
+[ext_resource type="Texture2D" uid="uid://dabbqqplunss8" path="res://assets/atlas/atlas_textures/gui/loading_barBg_0002.tres" id="4_urp26"]
+[ext_resource type="Texture2D" uid="uid://cmrfk75buetn" path="res://assets/atlas/atlas_textures/gui/loading_bar.tres" id="5_2c15d"]
+[ext_resource type="Script" uid="uid://b1340hblxd35p" path="res://autoloads/managers/loader_manager/texture_progress_bar.gd" id="6_8t4iu"]
+
+[node name="LoadingScreen" type="Control" unique_id=1442373011]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dtvgi")
+
+[node name="Background" type="TextureRect" parent="." unique_id=2140880368]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_x5k7h")
+expand_mode = 1
+
+[node name="LoadingBarBase" type="TextureRect" parent="." unique_id=577856142]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -600.0
+offset_top = -202.0
+offset_right = 600.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_8t4iu")
+
+[node name="LoadingBar" type="TextureRect" parent="LoadingBarBase" unique_id=477391312]
+layout_mode = 0
+offset_right = 1200.0
+offset_bottom = 202.0
+texture = ExtResource("4_urp26")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="LoadingBarBase/LoadingBar" unique_id=1873382945]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 324.0
+offset_top = 145.0
+offset_right = 890.0
+offset_bottom = 185.0
+max_value = 1.0
+step = 0.1
+value = 1.0
+texture_progress = ExtResource("5_2c15d")
+script = ExtResource("6_8t4iu")

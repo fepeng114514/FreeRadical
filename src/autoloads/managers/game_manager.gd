@@ -9,6 +9,10 @@ extends Node
 signal cash_changed(new_cash: float)
 ## 生命变化信号。
 signal life_changed(new_life: int)
+## 暂停游戏信号。
+signal pause_game()
+## 继续游戏信号。
+signal continue_game()
 @warning_ignore_restore("unused_signal")
 
 

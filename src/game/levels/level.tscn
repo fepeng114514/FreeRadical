@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c2ifsgk1fsdc5" path="res://game/system_container.tscn" id="8_8iyoh"]
 [ext_resource type="PackedScene" uid="uid://co5ehekpd71r8" path="res://game/select_menu/select_menu.tscn" id="10_qogh7"]
 [ext_resource type="PackedScene" uid="uid://ca75dg47m1q1a" path="res://game/range_info/range_info_controller.tscn" id="11_8iyoh"]
+[ext_resource type="PackedScene" uid="uid://bvjluqokntevv" path="res://game/game_ui/pause_layer/pause_layer.tscn" id="17_yx81m"]
 [ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level_1_background.png" id="23_n8wpv"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://game/grid_tileset.tres" id="24_iowrn"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://game/gird.gd" id="25_b2jp2"]
@@ -70,9 +71,6 @@ z_index = 1000
 [node name="RangeInfoController" parent="." unique_id=1487020159 instance=ExtResource("11_8iyoh")]
 z_index = 1000
 
-[node name="GameUILayer" parent="." unique_id=673863676 instance=ExtResource("37_g4khr")]
-visible = false
-
 [node name="WaveFlagController" type="Control" parent="." unique_id=64694769]
 z_index = 1000
 layout_mode = 3
@@ -80,3 +78,8 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("39_475l0")
+
+[node name="GameUILayer" parent="." unique_id=673863676 instance=ExtResource("37_g4khr")]
+visible = false
+
+[node name="PauseLayer" parent="." unique_id=1024087080 instance=ExtResource("17_yx81m")]

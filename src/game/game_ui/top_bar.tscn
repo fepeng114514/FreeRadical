@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b2d6l4o80yl4d" path="res://assets/atlas/atlas_textures/game_gui/pause_base.tres" id="5_rnefi"]
 [ext_resource type="Texture2D" uid="uid://dvpechw5vc1lw" path="res://assets/atlas/atlas_textures/game_gui/pause_btn_0001.tres" id="6_ojd7i"]
 [ext_resource type="Texture2D" uid="uid://rc4nl7q77bmq" path="res://assets/atlas/atlas_textures/game_gui/pause_btn_0002.tres" id="7_h3g6y"]
+[ext_resource type="Script" uid="uid://c2b6jq0ncd151" path="res://game/game_ui/pause_texture_button.gd" id="8_4mg1m"]
 
 [node name="TopBar" type="HBoxContainer" unique_id=1978266969]
 size_flags_horizontal = 3
@@ -77,7 +78,7 @@ script = ExtResource("3_c6vw1")
 layout_mode = 2
 texture = ExtResource("5_rnefi")
 
-[node name="PauseButton" type="TextureButton" parent="TopRightControls/PauseBase" unique_id=1274899798]
+[node name="PauseTextureButton" type="TextureButton" parent="TopRightControls/PauseBase" unique_id=1274899798]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = -1
@@ -94,3 +95,4 @@ grow_vertical = 2
 theme = ExtResource("2_rltjd")
 texture_normal = ExtResource("6_ojd7i")
 texture_hover = ExtResource("7_h3g6y")
+script = ExtResource("8_4mg1m")

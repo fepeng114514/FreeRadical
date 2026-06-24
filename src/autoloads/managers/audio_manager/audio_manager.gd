@@ -23,12 +23,13 @@ const MusicBus: StringName = &"Music"
 const SFXBus: StringName = &"SFX"
 
 
-## 音乐的 [AudioStreamPlayer]。
-var _music_player := AudioStreamPlayer.new()
 ## 音效 [AudioStreamPlayer] 总数。
-var _sfx_player_count: int = 10
+@export var _sfx_player_count: int = 10
+
 ## 音效的 [AudioStreamPlayer] 数组。
 var _sfx_player_list: Array[AudioStreamPlayer] = []
+## 音乐的 [AudioStreamPlayer]。
+var _music_player := AudioStreamPlayer.new()
 
 
 func _ready() -> void:

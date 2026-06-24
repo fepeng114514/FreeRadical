@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://bvjluqokntevv"]
+
+[ext_resource type="Texture2D" uid="uid://d2nvpgfv8w3pt" path="res://assets/atlas/atlas_textures/gui/options_bg_notxt.tres" id="1_pumyx"]
+[ext_resource type="Script" uid="uid://bi2r75ykr1ufv" path="res://game/game_ui/pause_layer/pause_layer.gd" id="1_wk7ql"]
+[ext_resource type="PackedScene" uid="uid://41xihndhr041" path="res://game/game_ui/pause_layer/texture_button_label.tscn" id="2_wk7ql"]
+[ext_resource type="Script" uid="uid://dtrgucauq4fsr" path="res://game/game_ui/pause_layer/continue_texture_button_label.gd" id="4_2rqrq"]
+
+[node name="PauseLayer" type="CanvasLayer" unique_id=1024087080]
+process_mode = 3
+script = ExtResource("1_wk7ql")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1171582627]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer" unique_id=112942318]
+layout_mode = 2
+
+[node name="Background" type="TextureRect" parent="PanelContainer/CenterContainer" unique_id=1737225413]
+layout_mode = 2
+texture = ExtResource("1_pumyx")
+
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/Background" unique_id=1728606372]
+layout_mode = 0
+offset_left = 327.0
+offset_top = 34.0
+offset_right = 393.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.69803923, 1)
+theme_override_font_sizes/font_size = 33
+text = "设置"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/Background" unique_id=1049988681]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 441.0
+offset_right = 241.0
+offset_bottom = 517.0
+theme_override_constants/separation = 18
+
+[node name="ExitTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=1893071714 instance=ExtResource("2_wk7ql")]
+layout_mode = 2
+text = "退出"
+
+[node name="ReplayTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=122773123 instance=ExtResource("2_wk7ql")]
+layout_mode = 2
+text = "重新开始"
+
+[node name="ContinueTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=1094724410 instance=ExtResource("2_wk7ql")]
+layout_mode = 2
+script = ExtResource("4_2rqrq")
+text = "继续"
