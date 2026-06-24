@@ -7,3 +7,7 @@ class_name FXComponent
 
 ## 是否是一次性特效。
 @export var is_once: bool = true
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED

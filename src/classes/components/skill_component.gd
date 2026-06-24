@@ -4,6 +4,10 @@ class_name SkillComponent
 ## 技能组件。
 ##
 ## SkillComponent 可以使实体拥有释放技能的能力，技能以 [Skill] 子节点的形式存在。
+		
+		
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
 
 		
 func _get_configuration_warnings() -> PackedStringArray:

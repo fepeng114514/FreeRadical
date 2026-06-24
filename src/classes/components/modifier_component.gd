@@ -31,6 +31,10 @@ var ts: float = 0.0
 var curren_cycle: int = 0
 
 
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+	
+
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
 		"mod_type":

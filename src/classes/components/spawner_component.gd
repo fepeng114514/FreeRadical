@@ -9,3 +9,7 @@ class_name SpawnerComponent
 
 ## 生成器名称。
 @export var spawner_name: String = ""
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED

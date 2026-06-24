@@ -40,6 +40,10 @@ var loop_count: int = 0
 var ts: float = 0.0
 
 
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+	
+
 ## [method PathwayMgr.get_subpath] 的简写，已传递 nav_pi, nav_spi
 func get_subpath() -> Path2D:
 	return PathwayMgr.get_subpath(nav_pi, nav_spi)

@@ -9,7 +9,6 @@ class_name SpriteComponent
 ## 精灵名称。
 @export var sprite_name: String = ""
 
-
 @export_group("Sync Animation")
 ## 是否所有者同步播放动画。
 @export var sync_source: bool = false

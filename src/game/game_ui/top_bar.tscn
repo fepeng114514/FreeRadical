@@ -17,15 +17,15 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
 script = ExtResource("1_ki64j")
-life_value = NodePath("TextureRect/LifeValue")
-cash_value = NodePath("TextureRect/CashValue")
-wave_value = NodePath("TextureRect/WaveValue")
+life_value = NodePath("TopLeft/LifeValue")
+cash_value = NodePath("TopLeft/CashValue")
+wave_value = NodePath("TopLeft/WaveValue")
 
-[node name="TextureRect" type="TextureRect" parent="PlayerResources" unique_id=337611053]
+[node name="TopLeft" type="TextureRect" parent="PlayerResources" unique_id=337611053]
 layout_mode = 2
 texture = ExtResource("2_ki64j")
 
-[node name="LifeValue" type="Label" parent="PlayerResources/TextureRect" unique_id=287686407]
+[node name="LifeValue" type="Label" parent="PlayerResources/TopLeft" unique_id=287686407]
 layout_mode = 0
 offset_left = 106.0
 offset_top = 22.0
@@ -35,7 +35,7 @@ theme = ExtResource("2_rltjd")
 theme_override_font_sizes/font_size = 20
 text = "20"
 
-[node name="CashValue" type="Label" parent="PlayerResources/TextureRect" unique_id=461566231]
+[node name="CashValue" type="Label" parent="PlayerResources/TopLeft" unique_id=461566231]
 layout_mode = 0
 offset_left = 186.0
 offset_top = 22.0
@@ -45,7 +45,7 @@ theme = ExtResource("2_rltjd")
 theme_override_font_sizes/font_size = 20
 text = "500"
 
-[node name="WaveValue" type="Label" parent="PlayerResources/TextureRect" unique_id=29332469]
+[node name="WaveValue" type="Label" parent="PlayerResources/TopLeft" unique_id=29332469]
 layout_mode = 0
 offset_left = 340.0
 offset_top = 22.0
@@ -73,11 +73,11 @@ toggle_mode = true
 text = "1.0x"
 script = ExtResource("3_c6vw1")
 
-[node name="TextureRect" type="TextureRect" parent="TopRightControls" unique_id=1012152388]
+[node name="PauseBase" type="TextureRect" parent="TopRightControls" unique_id=1012152388]
 layout_mode = 2
 texture = ExtResource("5_rnefi")
 
-[node name="PauseButton" type="TextureButton" parent="TopRightControls/TextureRect" unique_id=1274899798]
+[node name="PauseButton" type="TextureButton" parent="TopRightControls/PauseBase" unique_id=1274899798]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = -1

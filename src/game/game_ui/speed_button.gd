@@ -1,7 +1,7 @@
 extends Button
 
 
-const TIME_SCALES = [
+@export var TIME_SCALES: Array[float] = [
 	0,
 	0.5,
 	1,
@@ -21,4 +21,10 @@ func _on_pressed() -> void:
 	
 	var time_scale: float = TIME_SCALES[curren_time_scale_idx]
 	Engine.time_scale = time_scale
+	if time_scale == 0:
+		get_tree().paused = true
+	else:
+		get_tree().paused = false
+
 	text = "%.1fx" % time_scale
+	Log.info("调整游戏倍速: %s" % text)

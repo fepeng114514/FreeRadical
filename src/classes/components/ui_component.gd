@@ -26,6 +26,10 @@ class_name UIComponent
 		U.redraw_setter(self)
 
 
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+
+
 func _draw() -> void:
 	if Engine.is_editor_hint():
 		if not can_select:

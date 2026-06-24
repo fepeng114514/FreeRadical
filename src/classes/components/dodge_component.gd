@@ -20,6 +20,10 @@ var skill_idx: int = C.UNSET
 var target_id: int = C.UNSET
 
 
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
 

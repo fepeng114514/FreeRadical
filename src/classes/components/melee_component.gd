@@ -66,6 +66,8 @@ var melee_state: MeleeState = MeleeState.ORIGIN_POS_ARRIVED
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+		
 	if Engine.is_editor_hint():
 		U.connect_resource_changed(melee_pos_offsets, queue_redraw)
 

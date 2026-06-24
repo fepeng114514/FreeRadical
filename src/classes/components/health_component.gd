@@ -61,6 +61,8 @@ var idle_regen_ts: float = 0.0
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+	
 	child_order_changed.connect(_on_child_order_changed)
 
 

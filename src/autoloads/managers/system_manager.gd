@@ -35,9 +35,6 @@ func _load(new_system_list: Array[System]) -> void:
 
 ## 系统主循环。
 func _physics_process(delta: float) -> void:
-	if not delta:
-		return
-	
 	update_system.emit()
 	for system: System in system_list:
 		system._on_update(delta)

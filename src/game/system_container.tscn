@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://cia8mo148t6pb" path="res://classes/systems/entity_system.gd" id="19_f2rku"]
 
 [node name="SystemContainer" type="Node" unique_id=1876505882]
+process_mode = 4
 script = ExtResource("1_ynbxr")
 metadata/_custom_type_script = "uid://j7j5n4bat6f8"
 

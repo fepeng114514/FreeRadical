@@ -57,3 +57,7 @@ var velocity := Vector2.ZERO
 var predict_target_pos := Vector2.ZERO
 ## 伤害过的实体 ID 列表。
 var damaged_entity_ids := PackedInt32Array()
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED

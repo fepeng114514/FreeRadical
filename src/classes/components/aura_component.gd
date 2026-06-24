@@ -35,6 +35,8 @@ var ts: float = 0.0
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+
 	if Engine.is_editor_hint():
 		U.connect_resource_changed(searcher, queue_redraw)
 		U.connect_resource_changed(influence, queue_redraw)

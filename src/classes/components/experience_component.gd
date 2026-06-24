@@ -9,3 +9,7 @@ class_name ExperienceComponent
 
 ## 实体等级。
 @export var level: int = 1
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
