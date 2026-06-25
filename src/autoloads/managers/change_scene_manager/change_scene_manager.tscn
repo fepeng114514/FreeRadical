@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bygipxugxq6jf"]
+
+[ext_resource type="Script" uid="uid://b5ew2us40spui" path="res://autoloads/managers/change_scene_manager/change_scene_manager.gd" id="1_trihb"]
+[ext_resource type="PackedScene" uid="uid://c2stkn050tbm3" path="res://autoloads/managers/change_scene_manager/loading_screen.tscn" id="2_4pysx"]
+
+[node name="ChangeSceneMgr" type="Node" unique_id=2063218158]
+script = ExtResource("1_trihb")
+loading_screen_scene = ExtResource("2_4pysx")

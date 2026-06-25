@@ -6,6 +6,6 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	LoaderMgr.enter_scene(
+	ChangeSceneMgr.enter_scene(
 		"res://map/map.tscn"
 	)

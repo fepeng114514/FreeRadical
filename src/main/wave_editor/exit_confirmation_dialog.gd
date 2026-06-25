@@ -6,6 +6,6 @@ func _ready() -> void:
 
 
 func _on_confirmed() -> void:
-	LoaderMgr.enter_scene(
+	ChangeSceneMgr.enter_scene(
 		"res://main/main.tscn"
 	)

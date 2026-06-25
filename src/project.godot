@@ -53,7 +53,7 @@ GridMgr="*uid://bsty3nv6hyvtv"
 PathwayMgr="*res://autoloads/managers/pathway_manager.gd"
 LevelMgr="*res://autoloads/managers/level_manager.gd"
 CanvasMgr="*uid://bsabxvw5o5g4l"
-LoaderMgr="*uid://bygipxugxq6jf"
+ChangeSceneMgr="*uid://bygipxugxq6jf"
 DevtoolRuntime="*res://addons/godot_devtool/runtime_bridge.gd"
 
 [display]

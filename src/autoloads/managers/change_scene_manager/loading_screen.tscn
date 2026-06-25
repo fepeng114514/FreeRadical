@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://c2stkn050tbm3"]
 
-[ext_resource type="Script" uid="uid://b4x5cexr6px68" path="res://autoloads/managers/loader_manager/loading_screen.gd" id="1_dtvgi"]
+[ext_resource type="Script" uid="uid://b4x5cexr6px68" path="res://autoloads/managers/change_scene_manager/loading_screen.gd" id="1_dtvgi"]
 [ext_resource type="Texture2D" uid="uid://cr2j4pehpliyc" path="res://assets/loading_grass-1.png" id="1_x5k7h"]
 [ext_resource type="Texture2D" uid="uid://1k3y4g3qfkgv" path="res://assets/atlas/atlas_textures/gui/loading_barBg_0001.tres" id="3_8t4iu"]
 [ext_resource type="Texture2D" uid="uid://dabbqqplunss8" path="res://assets/atlas/atlas_textures/gui/loading_barBg_0002.tres" id="4_urp26"]
 [ext_resource type="Texture2D" uid="uid://cmrfk75buetn" path="res://assets/atlas/atlas_textures/gui/loading_bar.tres" id="5_2c15d"]
-[ext_resource type="Script" uid="uid://b1340hblxd35p" path="res://autoloads/managers/loader_manager/texture_progress_bar.gd" id="6_8t4iu"]
+[ext_resource type="Script" uid="uid://b1340hblxd35p" path="res://autoloads/managers/change_scene_manager/texture_progress_bar.gd" id="6_8t4iu"]
 
 [sub_resource type="Gradient" id="Gradient_7lyie"]
 offsets = PackedFloat32Array(0.91430134, 1)

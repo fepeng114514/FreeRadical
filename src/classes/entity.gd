@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/at-icons/node2d/jigsaw_piece.svg")
 extends Node2D
 class_name Entity
 ## 实体节点。
@@ -264,7 +265,8 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
 	var is_break: bool = await TimeMgr.y_wait(time, func() -> bool:
 		return (
-			state & Entity.State.INTERRUPT_WAIT 
+			not self
+			or state & Entity.State.INTERRUPT_WAIT
 			or break_fn.is_valid() 
 			and break_fn.call()
 		)
@@ -500,7 +502,8 @@ func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Call
 	for _i: int in times:
 		for j: int in frames_remaining:
 			is_break = (
-				state & Entity.State.INTERRUPT_WAIT 
+				not self
+				or state & Entity.State.INTERRUPT_WAIT 
 				or break_fn.is_valid() 
 				and break_fn.call()
 			)

@@ -6,6 +6,6 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	LoaderMgr.enter_scene(
+	ChangeSceneMgr.enter_scene(
 		"res://main/wave_editor/wave_editor.tscn"
 	)

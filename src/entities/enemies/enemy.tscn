@@ -50,13 +50,6 @@ metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 [sub_resource type="Resource" id="Resource_27tcs"]
 resource_local_to_scene = true
 script = ExtResource("11_fu215")
-extra_enable = null
-mods = null
-auras = null
-payloads = null
-area_enable = null
-can_influence_multiple = null
-falloff_enabled = null
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_m3i2n"]
@@ -82,6 +75,7 @@ sprite_frames = ExtResource("5_nrfwl")
 animation = &"idle_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868]
+process_mode = 4
 script = ExtResource("4_bfbt7")
 hp_max = 20.0
 death_animation = SubResource("Resource_43dp3")
@@ -99,6 +93,7 @@ motion_animation = SubResource("Resource_atygg")
 metadata/_custom_type_script = "uid://btct3ysbbulk0"
 
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=768145759]
+process_mode = 4
 script = ExtResource("8_wdwo4")
 speed = 61.0
 motion_animation = SubResource("Resource_atygg")
@@ -113,6 +108,7 @@ animation = SubResource("Resource_m3i2n")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=673866706]
+process_mode = 4
 script = ExtResource("6_ijmwd")
 select_rect = Rect2(-15.69, -32.025, 32, 32)
 info_bar_type = 1

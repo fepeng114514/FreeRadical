@@ -10,7 +10,7 @@ var current_level_idx: int = 1
 
 ## 进入指定索引的关卡。
 func enter_level(idx: int) -> void:
-	LoaderMgr.enter_scene(
+	ChangeSceneMgr.enter_scene(
 		"res://game/levels/level_%d.tscn" % idx
 	)
 
