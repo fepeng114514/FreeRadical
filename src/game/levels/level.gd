@@ -20,6 +20,7 @@ class_name Level
 
 
 func _enter_tree() -> void:
+	SystemMgr._load()
 	EntityMgr._load()
 	SearchMgr._load()
 	PathwayMgr._load()
@@ -28,6 +29,17 @@ func _enter_tree() -> void:
 	GlobalMgr.world_size = world_size
 	GameMgr.defaul_tower_holder = defaul_tower_holder
 	WaveMgr.first_release_wave.connect(_on_first_release_wave)
+
+
+func _exit_tree() -> void:
+	SystemMgr._clear()
+	EntityMgr._clear()
+	SearchMgr._clear()
+	PathwayMgr._clear()
+	GridMgr._clear()
+
+	get_tree().paused = false
+	Engine.time_scale = 1.0
 
 
 func _ready() -> void:

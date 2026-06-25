@@ -34,7 +34,6 @@ fill_to = Vector2(1, 1)
 metadata/_snap_enabled = true
 
 [node name="MapUILayer" type="CanvasLayer" unique_id=1640298559]
-visible = false
 
 [node name="Border" type="TextureRect" parent="." unique_id=1157214676]
 anchors_preset = 15
@@ -45,6 +44,7 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_5jdw0")
 
 [node name="LevelSelectMenu" type="CenterContainer" parent="." unique_id=818820131]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -146,6 +146,7 @@ scale = Vector2(0.9, 0.9)
 text = "战役"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=197592216]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

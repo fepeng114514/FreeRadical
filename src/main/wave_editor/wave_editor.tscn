@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dmm6qq04j3mhl" path="res://main/wave_editor/option_button_label.tscn" id="4_sh4oc"]
 [ext_resource type="Script" uid="uid://dfjvepbywr01y" path="res://main/wave_editor/save_file_dialog.gd" id="6_js2tg"]
 [ext_resource type="Script" uid="uid://cnulxkrphatkm" path="res://main/wave_editor/exit_button.gd" id="9_pdgef"]
-[ext_resource type="Script" uid="uid://ff8c28og5of4" path="res://main/wave_editor/confirmation_dialog.gd" id="10_54qdx"]
+[ext_resource type="Script" uid="uid://ff8c28og5of4" path="res://main/wave_editor/exit_confirmation_dialog.gd" id="10_54qdx"]
 [ext_resource type="Script" uid="uid://dnj4oqhmhuqx" path="res://main/wave_editor/wave_track_editor.gd" id="11_ca708"]
 [ext_resource type="Script" uid="uid://dx0sdei05bcar" path="res://main/wave_editor/spawn_data_v_box_container.gd" id="11_js2tg"]
 [ext_resource type="Script" uid="uid://tso1upy4g2xc" path="res://main/wave_editor/sub_wave_track_editor.gd" id="12_aioto"]
@@ -115,9 +115,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "退出"
 script = ExtResource("9_pdgef")
-confirmation_dialog = NodePath("ConfirmationDialog")
+confirmation_dialog = NodePath("ExitConfirmationDialog")
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/ExitButton" unique_id=1276741739]
+[node name="ExitConfirmationDialog" type="ConfirmationDialog" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/ExitButton" unique_id=1276741739]
 title = "请确认"
 ok_button_text = "退出"
 dialog_text = "确定要退出波次编辑器吗？"

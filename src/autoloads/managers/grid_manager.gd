@@ -9,5 +9,8 @@ var grid: TileMapLayer = null
 
 
 func _load() -> void:
-	grid = null
+	_clear()
 	
+
+func _clear() -> void:
+	grid = null

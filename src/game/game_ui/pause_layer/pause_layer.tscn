@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://bi2r75ykr1ufv" path="res://game/game_ui/pause_layer/pause_layer.gd" id="1_wk7ql"]
 [ext_resource type="PackedScene" uid="uid://41xihndhr041" path="res://game/game_ui/pause_layer/texture_button_label.tscn" id="2_wk7ql"]
 [ext_resource type="Script" uid="uid://dtrgucauq4fsr" path="res://game/game_ui/pause_layer/continue_texture_button_label.gd" id="4_2rqrq"]
+[ext_resource type="Script" uid="uid://b6fn2uciv5jd7" path="res://game/game_ui/pause_layer/replay_button_label.gd" id="4_ha6sc"]
+[ext_resource type="Script" uid="uid://1ay700rgfg2c" path="res://game/game_ui/pause_layer/exit_texture_button_label.gd" id="4_uxsvp"]
 
 [node name="PauseLayer" type="CanvasLayer" unique_id=1024087080]
 process_mode = 3
@@ -43,10 +45,12 @@ theme_override_constants/separation = 18
 
 [node name="ExitTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=1893071714 instance=ExtResource("2_wk7ql")]
 layout_mode = 2
+script = ExtResource("4_uxsvp")
 text = "退出"
 
 [node name="ReplayTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=122773123 instance=ExtResource("2_wk7ql")]
 layout_mode = 2
+script = ExtResource("4_ha6sc")
 text = "重新开始"
 
 [node name="ContinueTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=1094724410 instance=ExtResource("2_wk7ql")]

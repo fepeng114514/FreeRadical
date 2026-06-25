@@ -7,6 +7,17 @@
 [ext_resource type="Texture2D" uid="uid://cmrfk75buetn" path="res://assets/atlas/atlas_textures/gui/loading_bar.tres" id="5_2c15d"]
 [ext_resource type="Script" uid="uid://b1340hblxd35p" path="res://autoloads/managers/loader_manager/texture_progress_bar.gd" id="6_8t4iu"]
 
+[sub_resource type="Gradient" id="Gradient_7lyie"]
+offsets = PackedFloat32Array(0.91430134, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.527)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8t4iu"]
+gradient = SubResource("Gradient_7lyie")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+metadata/_snap_enabled = true
+
 [node name="LoadingScreen" type="Control" unique_id=1442373011]
 layout_mode = 3
 anchors_preset = 15
@@ -15,6 +26,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dtvgi")
+
+[node name="Border" type="TextureRect" parent="." unique_id=2098367712]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_8t4iu")
 
 [node name="Background" type="TextureRect" parent="." unique_id=2140880368]
 layout_mode = 1

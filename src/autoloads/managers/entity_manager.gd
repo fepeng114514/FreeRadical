@@ -27,11 +27,15 @@ var component_group_list: Dictionary[String, Array] = {}
 
 
 func _load() -> void:
+	_clear()
+
+
+func _clear() -> void:
 	_entity_scene_dict.clear()
 	_cached_entities_data.clear()
 	component_group_list.clear()
 	entity_list.clear()
-	
+
 	for group: Array in type_group_list.values():
 		group.clear()
 
@@ -172,7 +176,7 @@ func get_entity_by_id(id: int) -> Entity:
 		return null
 
 	var e = entity_list.get(id)
-	if not e or not is_instance_valid(e) :
+	if not e:
 		return null
 
 	return e

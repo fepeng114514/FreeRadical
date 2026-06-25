@@ -32,6 +32,10 @@ var is_draw_pathway: bool = false:
 
 
 func _load() -> void:
+	_clear()
+	
+
+func _clear() -> void:
 	pathway_list.clear()
 	all_node_list.clear()
 	next_pi = 0

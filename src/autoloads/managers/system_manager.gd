@@ -10,12 +10,12 @@ signal append_insert_queue(entity: Entity)
 ## 移除实体信号。
 signal append_remove_queue(entity: Entity)
 ## 系统更新信号。
-signal update_system
+signal update_system(delta: float)
 @warning_ignore_restore("unused_signal")
 
 
-## 系统列表。
-var system_list: Array[System] = []
+## 系统容器。
+var system_container: Node = null
 ## 实体移除队列。
 var remove_queue: Array[Entity] = []
 ## 实体插入队列。
@@ -24,19 +24,24 @@ var insert_queue: Array[Entity] = []
 var damage_queue: Array[Damage] = []
 
 
-func _load(new_system_list: Array[System]) -> void:
-	system_list.clear()
+func _load() -> void:
+	_clear()
+
+
+func _clear() -> void:
+	system_container = null
 	remove_queue.clear()
 	insert_queue.clear()
 	damage_queue.clear()
-	
-	system_list = new_system_list
 
 
 ## 系统主循环。
 func _physics_process(delta: float) -> void:
-	update_system.emit()
-	for system: System in system_list:
+	if not system_container:
+		return
+
+	update_system.emit(delta)
+	for system: System in system_container.get_children():
 		system._on_update(delta)
 	
 	# 帧末尾处理插入与移除
@@ -90,7 +95,7 @@ func _process_remove_queue() -> void:
 ## 
 ## 如果遇到一个返回 false 的系统则直接返回。
 func call_systems(fn_name: String, arg) -> bool:
-	for system: System in system_list:
+	for system: System in system_container.get_children():
 		var system_func = system.get(fn_name)
 
 		if not system_func.call(arg):

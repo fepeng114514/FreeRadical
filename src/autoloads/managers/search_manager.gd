@@ -19,6 +19,8 @@ var space_index_grid_list: Array[Dictionary] = []
 
 
 func _load() -> void:
+	_clear()
+
 	var world_size: Vector2 = GlobalMgr.world_size
 	var grid_count_x: int = ceili(world_size.x / SPACE_INDEX_GRID_SIZE)
 	var grid_count_y: int = ceili(world_size.y / SPACE_INDEX_GRID_SIZE)
@@ -48,6 +50,12 @@ func _load() -> void:
 	space_index_grid_count_x = grid_count_x
 	space_index_grid_count_y = grid_count_y
 
+
+func _clear() -> void:
+	space_index_grid_list.clear()
+	space_index_grid_count_x = 0
+	space_index_grid_count_y = 0
+	
 
 ## 搜索范围内目标，filter 返回 false 表示被过滤。
 func find_targets_in_range(

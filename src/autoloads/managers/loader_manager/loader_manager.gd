@@ -15,13 +15,8 @@ signal loading_finished()
 var _target_scene_path: String = ""
 
 
-func enter_scene(scene_path: String):
-	_target_scene_path = scene_path
-	
-	get_tree().change_scene_to_packed(loading_screen_scene)
-	
-	set_process(true)
-	ResourceLoader.load_threaded_request(_target_scene_path)
+func _ready():
+	process_mode = Node.PROCESS_MODE_DISABLED
 
 
 func _process(_delta: float):
@@ -30,7 +25,7 @@ func _process(_delta: float):
 	
 	match status:
 		ResourceLoader.THREAD_LOAD_LOADED:
-			set_process(false)
+			process_mode = Node.PROCESS_MODE_DISABLED
 			loading_progress.emit(1.0)
 			
 			await get_tree().create_timer(finish_wait_time).timeout
@@ -41,3 +36,12 @@ func _process(_delta: float):
 			
 		ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 			loading_progress.emit(progress[0])
+
+
+func enter_scene(scene_path: String):
+	_target_scene_path = scene_path
+	
+	get_tree().change_scene_to_packed(loading_screen_scene)
+	
+	process_mode = Node.PROCESS_MODE_INHERIT
+	ResourceLoader.load_threaded_request(_target_scene_path, "", true)

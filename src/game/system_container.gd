@@ -3,9 +3,4 @@ extends Node
 
 
 func _ready() -> void:
-	var list: Array[System] = []
-
-	for child: System in get_children():
-		list.append(child)
-		
-	SystemMgr._load(list)
+	SystemMgr.system_container = self
