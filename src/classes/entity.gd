@@ -263,15 +263,22 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 	state |= Entity.State.WAITING
 
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
-	var is_break: bool = await TimeMgr.y_wait(time, func() -> bool:
-		return (
-			state & Entity.State.INTERRUPT_WAIT
-			or break_fn.is_valid() 
-			and break_fn.call()
+	if time <= 0:
+		return false
+
+	var timestamp: float = TimeMgr.tick_ts
+	var is_break: bool = false
+	while not TimeMgr.has_elapsed(timestamp, time):
+		is_break = (
+			not is_inside_tree()
+			or state & Entity.State.INTERRUPT_WAIT 
+			or break_fn.is_valid() and break_fn.call()
 		)
-	)
-	if is_break:
-		Log.verbose("%s 中断等待: %.2fs" % [self, time])
+		if is_break:
+			Log.verbose("%s 中断等待: %.2fs" % [self, time])
+			break
+
+		await get_tree().process_frame
 
 	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
 
