@@ -265,8 +265,7 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 	Log.verbose("实体等待: %s, %.2fs" % [self, time])
 	var is_break: bool = await TimeMgr.y_wait(time, func() -> bool:
 		return (
-			not self
-			or state & Entity.State.INTERRUPT_WAIT
+			state & Entity.State.INTERRUPT_WAIT
 			or break_fn.is_valid() 
 			and break_fn.call()
 		)
@@ -502,8 +501,7 @@ func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Call
 	for _i: int in times:
 		for j: int in frames_remaining:
 			is_break = (
-				not self
-				or state & Entity.State.INTERRUPT_WAIT 
+				state & Entity.State.INTERRUPT_WAIT 
 				or break_fn.is_valid() 
 				and break_fn.call()
 			)

@@ -5,5 +5,5 @@ class_name SubWave
 
 ## 延迟，单位为秒。
 @export var delay: float = 0.0
-## 敌人生成列表。
+## 生成组列表。
 @export var spawn_list: Array[WaveSpawn] = []

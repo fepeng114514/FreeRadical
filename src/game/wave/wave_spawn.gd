@@ -1,6 +1,6 @@
 extends Resource
 class_name WaveSpawn
-## 波次实体生成资源。
+## 生成组资源。
 
 
 ## 生成下一个实体间隔，单位为秒。

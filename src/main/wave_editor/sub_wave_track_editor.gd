@@ -11,7 +11,6 @@ func _ready() -> void:
 	item_inserted.connect(_on_item_inserted)
 	item_deleted.connect(_on_item_deleted)
 	item_moved.connect(_on_item_moved)
-	item_order_changed.connect(_on_item_order_changed)
 
 
 func _hide_sub_track_editor() -> void:
@@ -33,7 +32,7 @@ func _on_item_selected(item: TrackEditorTrackItem) -> void:
 		var spawn: WaveSpawn = spawn_list[i]
 		current_time += spawn.interval
 		var track_item: TrackEditorTrackItem = spawn_track_editor.create_item()
-		track_item.set_pos_by_track_pos(current_time)
+		track_item.set_track_pos_x(current_time)
 		spawn_track_editor.insert_item(track_item, true)
 
 	spawn_track_editor.visible = true
@@ -44,30 +43,31 @@ func _on_item_deselected(_item: TrackEditorTrackItem) -> void:
 
 
 func _on_item_inserted(item: TrackEditorTrackItem) -> void:
-	var new_sub_wave := SubWave.new()
-	new_sub_wave.delay = item.track_pos
-	wave_editor.selected_wave.sub_wave_list.append(new_sub_wave)
+	var sub_wave := SubWave.new()
+	sub_wave.delay = item.track_pos_x
+	wave_editor.selected_wave.sub_wave_list.insert(item.idx, sub_wave)
 
 
 func _on_item_deleted(item: TrackEditorTrackItem) -> void:
+	if wave_editor.get_sub_wave(item.idx) == wave_editor.selected_sub_wave:
+		_hide_sub_track_editor()
+		
 	wave_editor.selected_wave.sub_wave_list.remove_at(item.idx)
-	_hide_sub_track_editor()
 
 
 func _on_item_moved(item: TrackEditorTrackItem) -> void:
-	wave_editor.get_sub_wave(item.idx).delay = item.track_pos
-	
+	wave_editor.get_sub_wave(item.idx).delay = item.track_pos_x
+	_update_sub_wave_list()
 
-func _on_item_order_changed() -> void:
-	var new_sub_wave_list_size: int = wave_editor.selected_wave.sub_wave_list.size()
-	if new_sub_wave_list_size != item_list.size():
-		return
 
+func _update_sub_wave_list() -> void:
+	var item_list_size: int = item_list.size()
 	var new_sub_wave_list: Array[SubWave] = []
-	new_sub_wave_list.resize(new_sub_wave_list_size)
+	new_sub_wave_list.resize(item_list_size)
 
-	for i: int in new_sub_wave_list_size:
+	for i: int in item_list_size:
 		var item: TrackEditorTrackItem = item_list[i]
-		new_sub_wave_list[i] = wave_editor.get_sub_wave(item.last_idx)
+		var last_sub_wave: SubWave = wave_editor.get_sub_wave(item.last_idx)
+		new_sub_wave_list[i] = last_sub_wave
 
 	wave_editor.selected_wave.sub_wave_list = new_sub_wave_list

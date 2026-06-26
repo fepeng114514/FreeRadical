@@ -16,8 +16,6 @@ signal item_inserted(item: TrackEditorTrackItem)
 signal item_deleted(item: TrackEditorTrackItem)
 ## 项移动信号。
 signal item_moved(item: TrackEditorTrackItem)
-## 项顺序改变信号。
-signal item_order_changed
 @warning_ignore_restore("unused_signal")
 
 
@@ -145,6 +143,7 @@ func insert_item(item: TrackEditorTrackItem, signal_emit_disabled: bool = false)
 	var track: TrackEditorTrack = get_track(item.track_idx)
 	track.item_container.add_child(item)
 	update_item_list()
+	update_item_list_last_idx()
 	if not signal_emit_disabled:
 		item_inserted.emit(item)
 
@@ -158,6 +157,7 @@ func erase_item(item: TrackEditorTrackItem) -> void:
 	item.queue_free()
 	update_item_list()
 	item_deleted.emit(item)
+	update_item_list_last_idx()
 		
 	
 ## 获取轨道项。
@@ -176,31 +176,26 @@ func update_item_list() -> void:
 
 	new_item_list.sort_custom(
 		func(a: TrackEditorTrackItem, b: TrackEditorTrackItem) -> bool:
-			var a_track_pos: float = a.track_pos
-			var b_track_pos: float = b.track_pos
+			var a_track_pos_x: float = a.track_pos_x
+			var b_track_pos_x: float = b.track_pos_x
 
-			if a_track_pos == b_track_pos:
+			if a_track_pos_x == b_track_pos_x:
 				return a.track_idx < b.track_idx
 			else:
-				return a_track_pos < b_track_pos
+				return a_track_pos_x < b_track_pos_x
 	)
 
 	item_list = new_item_list
-	var item_list_size: int = item_list.size()
 
-	for i: int in item_list_size:
-		var item_v: TrackEditorTrackItem = item_list[i]
-		item_v.idx = i
+	for i: int in item_list.size():
+		var item: TrackEditorTrackItem = item_list[i]
+		item.idx = i
 
-	var has_order_changed: bool = false
 
-	for i: int in item_list_size:
-		var item_v: TrackEditorTrackItem = item_list[i]
-		if item_v.last_idx != item_v.idx:
-			if not has_order_changed:
-				has_order_changed = true
-				item_order_changed.emit()
-			item_v.last_idx = item_v.idx
+func update_item_list_last_idx() -> void:
+	for i: int in item_list.size():
+		var item: TrackEditorTrackItem = item_list[i]
+		item.last_idx = i
 
 
 ## 获取轨道刻度数量。

@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cngol70hyq6tm" path="res://controls/track_editor/track_item.gd" id="1_7bsla"]
 
-[node name="TrackEditorTrackItem" type="Control" unique_id=44902239 node_paths=PackedStringArray("track_pos_label", "order_label")]
+[node name="TrackEditorTrackItem" type="Control" unique_id=44902239 node_paths=PackedStringArray("track_pos_x_label", "order_label")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_7bsla")
-track_pos_label = NodePath("TrackPosLabel")
+track_pos_x_label = NodePath("TrackPosXLabel")
 order_label = NodePath("OrderLabel")
 
-[node name="TrackPosLabel" type="Label" parent="." unique_id=1104407425]
+[node name="TrackPosXLabel" type="Label" parent="." unique_id=1104407425]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

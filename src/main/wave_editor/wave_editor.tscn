@@ -160,6 +160,8 @@ theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1126485908]
 layout_mode = 2
+tooltip_text = "波次会按照顺序计时。"
+mouse_filter = 1
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "波次"
@@ -193,6 +195,8 @@ theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2039717223]
 layout_mode = 2
+tooltip_text = "子波次会同步计时并同时生成生成组。"
+mouse_filter = 1
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "子波次"
@@ -229,9 +233,11 @@ theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=607294703]
 layout_mode = 2
+tooltip_text = "出怪组会按照顺序计时，规定什么时候生成实体，生成的实体，生成数量等。"
+mouse_filter = 1
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = ExtResource("2_sh4oc")
-text = "出怪"
+text = "生成组"
 horizontal_alignment = 1
 
 [node name="TrackEditor" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=369752562 node_paths=PackedStringArray("wave_editor") instance=ExtResource("2_pj2lv")]
