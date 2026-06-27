@@ -46,6 +46,7 @@ theme_override_constants/separation = 18
 [node name="ExitTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=1893071714 instance=ExtResource("2_wk7ql")]
 layout_mode = 2
 script = ExtResource("4_uxsvp")
+map_scene_path = "uid://52j7mo7jgfkv"
 text = "退出"
 
 [node name="ReplayTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=122773123 instance=ExtResource("2_wk7ql")]

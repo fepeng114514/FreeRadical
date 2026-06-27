@@ -123,6 +123,7 @@ ok_button_text = "退出"
 dialog_text = "确定要退出波次编辑器吗？"
 cancel_button_text = "取消"
 script = ExtResource("10_54qdx")
+main_scene_path = "uid://nvbnnvwovpao"
 
 [node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=83183308]
 layout_mode = 2
