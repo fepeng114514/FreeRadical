@@ -5,7 +5,7 @@ extends EditorScript
 
 
 ## 图集数据文件夹。
-const DIR_SPRITE_FRAMES_DATAS: String = "res://tools/sprite_frames_datas/"
+const DIR_SPRITE_FRAMES_DATAS: String = "res://tools/generate_texture/sprite_frames_datas/"
 ## 图集文件夹。
 const DIR_ATLAS: String = "res://assets/atlas/"
 

@@ -36,9 +36,9 @@
 2. 使用 `py_tools/generate_atlas` 脚本生成图集：
    - 输出格式为 dds bc7。
 3. 将图集放入 `src/assets/atlas` 中。
-4. 在 `src/tools/sprite_frames_datas/动画类型.json` 中输入动画数据。
+4. 在 `src/tools/generate_texture/sprite_frames_datas/动画类型.json` 中输入动画数据。
    - 动画数据格式见下方。
-5. 最后在编辑器运行 `src/tools/generate_texture` 脚本生成 SpriteFrames 与 AtlasTexture。
+5. 最后在编辑器运行 `src/tools/generate_texture/generate_texture.gd` 脚本生成 SpriteFrames 与 AtlasTexture。
 
 ### 动画文件格式
 ```json
