@@ -57,5 +57,5 @@ func _process_path_intersection() -> void:
 					if n.pos.distance_to(other_n.pos) > threshold:
 						continue
 					
-					n.intersecting_node_list.append(other_n)
-					other_n.intersecting_node_list.append(n)
+					n.intersecting_node_idx_list.append(other_n.ni)
+					other_n.intersecting_node_idx_list.append(n.ni)

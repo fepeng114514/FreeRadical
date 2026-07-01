@@ -19,8 +19,8 @@ var ratio: float = 0.0
 var progress: float = 0.0
 ## 距离。
 var dist_squared: float = 0.0
-## 与另一个路径相交的节点列表。
-var intersecting_node_list: Array[PathwayNode] = []
+## 与另一个路径相交的节点索引列表。
+var intersecting_node_idx_list: Array[int] = []
 
 
 ## [method PathwayMgr.get_subpath] 的简写，已传递 pi, spi
