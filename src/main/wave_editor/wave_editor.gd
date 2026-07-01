@@ -3,16 +3,17 @@ class_name WaveEditor
 
 
 @export_group("Ref")
+@export var entity_scenes: EntityScenes = null
 @export var wave_track_editor: TrackEditor = null
 @export var sub_wave_track_editor: TrackEditor = null
 @export var spawn_track_editor: TrackEditor = null
 @export var spawn_data_vbox_container: WaveEditorSpawnDataVBoxContainer = null
 @export var entity_option_button_label: OptionButtonLabel = null
 
-## 实体场景索引字典。
-var entity_scene_idx_dict: Dictionary[PackedScene, int] = {}
-## 实体场景列表。
-var entity_scene_list: Array[PackedScene] = []
+## 敌人场景到索引的映射。
+var enemy_idx_dict: Dictionary[PackedScene, int] = {}
+## 索引到敌人场景的映射。
+var enemy_scene_dict: Dictionary[int, PackedScene] = {}
 ## 关卡波次组。
 var wave_group: WaveGroup = null:
 	get: 
@@ -29,32 +30,16 @@ var selected_spawn: WaveSpawn = null
 
 
 func _ready() -> void:
-	var json_data: Array = U.load_json(
-		"res://entities/entity_scene_paths.json"
-	)
-
-	var entity_scene_dict: Dictionary[String, PackedScene] = {}
-	
-	for path: String in json_data:
-		if not ResourceLoader.exists(path):
-			Log.error("未找到实体场景: %s" % path)
-			continue
-		
-		var scene: PackedScene = load(path)
-		var scene_name: String = path.get_file().get_basename()
-		entity_scene_dict[scene_name] = scene
-		
 	var i: int = 0
-	for scene_name: String in entity_scene_dict:
+	for scene: PackedScene in entity_scenes.scene_list:
+		var scene_name: String = scene.resource_path.get_file().get_basename()
 		if not scene_name.begins_with("enemy_"):
 			continue
 		
-		var scene: PackedScene = entity_scene_dict[scene_name]
-		
 		var option_item: String = scene_name.replace("enemy_", "").capitalize()
 		entity_option_button_label.option_button.add_item(option_item)
-		entity_scene_idx_dict[scene] = i
-		entity_scene_list.append(scene)
+		enemy_idx_dict[scene] = i
+		enemy_scene_dict[i] = scene
 		i += 1
 
 	wave_track_editor.hide_sub_wave_track_editor()

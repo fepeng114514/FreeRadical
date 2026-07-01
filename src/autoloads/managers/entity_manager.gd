@@ -4,14 +4,6 @@ extends Node
 ## 负责管理实体与相关操作。
 
 
-#region 属性
-## 存储实体场景的字典。
-var _entity_scene_dict: Dictionary[String, PackedScene] = {}
-## 下一个创建实体的 id。
-var _next_id: int = 0
-## 实体数据缓存字典，用于读取数据，不参与游戏。
-var _cached_entities_data: Dictionary[PackedScene, Entity] = {}
-
 ## 所有实体数组。
 var entity_list: Array = []
 ## 存储实体类型组的字典。
@@ -23,11 +15,12 @@ var type_group_list: Dictionary[String, Array] = {
 }
 ## 存储组件组的字典。
 var component_group_list: Dictionary[String, Array] = {}
-#endregion
-
-
-func _load() -> void:
-	_clear()
+## 存储实体场景的字典。
+var _entity_scene_dict: Dictionary[String, PackedScene] = {}
+## 下一个创建实体的 id。
+var _next_id: int = 0
+## 实体数据缓存字典，用于读取数据，不参与游戏。
+var _cached_entities_data: Dictionary[PackedScene, Entity] = {}
 
 
 func _clear() -> void:
@@ -40,28 +33,6 @@ func _clear() -> void:
 		group.clear()
 
 	_next_id = 0
-
-
-## 加载实体场景。
-func load_entity_scenes() -> Dictionary[String, PackedScene]:
-	var json_data: Array = U.load_json(
-		"res://entities/entity_scene_paths.json"
-	)
-
-	var entity_scene_dict: Dictionary[String, PackedScene] = {}
-	
-	for path: String in json_data:
-		if not ResourceLoader.exists(path):
-			Log.error("未找到实体场景: %s" % path)
-			continue
-		
-		Log.verbose("加载实体场景: %s" % path)
-		var scene: PackedScene = load(path)
-		var scene_name: String = path.get_file().get_basename()
-		
-		entity_scene_dict[scene_name] = scene
-		
-	return entity_scene_dict
 
 
 #region 创建实体相关

@@ -7,5 +7,5 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	LevelMgr.enter_level(LevelMgr.current_level_idx)
+	get_tree().reload_current_scene()
 	

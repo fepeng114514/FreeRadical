@@ -28,3 +28,7 @@ var life: int = 20:
 		life = v
 ## 默认塔位样式。
 var defaul_tower_holder: PackedScene = null
+
+
+func _clear() -> void:
+	defaul_tower_holder = null

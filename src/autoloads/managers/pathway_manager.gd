@@ -29,10 +29,6 @@ var is_draw_pathway: bool = false:
 	set(v):
 		is_draw_pathway = v
 		draw_pathway_changed.emit()
-
-
-func _load() -> void:
-	_clear()
 	
 
 func _clear() -> void:

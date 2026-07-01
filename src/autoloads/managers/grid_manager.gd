@@ -6,10 +6,6 @@ extends Node
 
 ## 网格引用。
 var grid: TileMapLayer = null
-
-
-func _load() -> void:
-	_clear()
 	
 
 func _clear() -> void:

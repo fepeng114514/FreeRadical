@@ -3,6 +3,21 @@ class_name U
 
 
 #region 数学工具函数
+## 秒转换为帧时间。
+static func fts(time: float) -> float:
+	return time / C.FPS
+
+
+## 百分比转换为数字。
+static func to_percent(num: float) -> float:
+	return num / 100
+
+
+## 检查是否是有效数字。
+static func is_valid_number(n: float) -> bool:
+	return n != C.UNSET
+
+
 ## 判断点是否在圆中。
 static func is_in_circle(center: Vector2, point: Vector2, radius: float) -> bool:
 	var d_sq: float = center.distance_squared_to(point)
@@ -577,6 +592,7 @@ static func is_valid_entity(e) -> bool:
 	)
 
 
+#region 位运算相关方法
 ## 判断 flags 是否被禁止掩码禁止。
 static func is_banned(flags: int, bans: int) -> bool:
 	return flags & bans
@@ -587,22 +603,6 @@ static func is_mutual_banned(flags1: int, bans1: int, flags2: int, bans2: int) -
 	return is_banned(flags1, bans2) or is_banned(flags2, bans1)
 
 
-## 秒转换为帧时间。
-static func fts(time: float) -> float:
-	return time / C.FPS
-
-
-## 百分比转换为数字。
-static func to_percent(num: float) -> float:
-	return num / 100
-
-
-## 检查是否是有效数字。
-static func is_valid_number(n: float) -> bool:
-	return n != C.UNSET
-
-
-#region 位运算相关方法
 ## 合并多个标志位。
 static func merge_flags(flag_list: Array) -> int:
 	var new_flags: int = 0

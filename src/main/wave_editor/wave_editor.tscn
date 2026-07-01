@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://k8jjifduvh0w" path="res://controls/track_editor/track_editor.tscn" id="2_pj2lv"]
 [ext_resource type="StyleBox" uid="uid://q23htsaarsrx" path="res://main/wave_editor/title_style_box_flat.tres" id="2_sh4oc"]
 [ext_resource type="Script" uid="uid://bdgg5qnil22xj" path="res://main/wave_editor/load_button.gd" id="3_jfbxu"]
+[ext_resource type="Resource" uid="uid://qg2vv4cgb4dt" path="res://entities/entity_scenes.tres" id="3_t5qyo"]
 [ext_resource type="Script" uid="uid://d1xwmmyxhqflq" path="res://main/wave_editor/load_file_dialog.gd" id="4_hhe80"]
 [ext_resource type="Script" uid="uid://caxpk5tid7ngt" path="res://main/wave_editor/save_button.gd" id="4_mx20l"]
 [ext_resource type="Script" uid="uid://bumn6jt6uu5gw" path="res://main/wave_editor/mouse_tool_bar.gd" id="4_p6mtv"]
@@ -35,6 +36,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_20cq3")
 script = ExtResource("1_7okwi")
+entity_scenes = ExtResource("3_t5qyo")
 wave_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/WavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer/TrackEditor")
 sub_wave_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SubWavesScrollContainer/PanelContainer/MarginContainer/VBoxContainer/TrackEditor")
 spawn_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/VSplitContainer/SpawnsScrollContainer/PanelContainer/MarginContainer/VBoxContainer/TrackEditor")

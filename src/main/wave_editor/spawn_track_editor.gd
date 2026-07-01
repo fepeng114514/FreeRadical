@@ -32,7 +32,7 @@ func _on_item_deselected(_item: TrackEditorTrackItem) -> void:
 
 func _on_item_inserted(item: TrackEditorTrackItem) -> void:
 	var new_spawn := WaveSpawn.new()
-	new_spawn.entity = wave_editor.entity_scene_list[0]
+	new_spawn.entity = wave_editor.enemy_scene_dict[0]
 	new_spawn.interval = item.get_relative_track_pos_x()
 	wave_editor.selected_sub_wave.spawn_list.insert(item.idx, new_spawn)
 	_update_interval()

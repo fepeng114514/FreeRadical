@@ -53,8 +53,6 @@ func _load() -> void:
 
 func _clear() -> void:
 	space_index_grid_list.clear()
-	space_index_grid_count_x = 0
-	space_index_grid_count_y = 0
 	
 
 ## 搜索范围内目标，filter 返回 false 表示被过滤。

@@ -38,23 +38,21 @@ buses/default_bus_layout="res://autoloads/managers/audio_manager/audio_bus_layou
 
 [autoload]
 
-AudioMgr="*uid://cnsbgsxy76nn7"
 GlobalMgr="*uid://ct01c5jk3ruit"
+InputMgr="*uid://co6qf5rf1ox2n"
+SettingMgr="*uid://dwcme4eew22uo"
+CanvasMgr="*uid://bsabxvw5o5g4l"
+ChangeSceneMgr="*uid://bygipxugxq6jf"
+AudioMgr="*uid://cnsbgsxy76nn7"
 GameMgr="*res://autoloads/managers/game_manager.gd"
 WaveMgr="*uid://ssg02uvoaqp7"
-InputMgr="*uid://co6qf5rf1ox2n"
 SelectMgr="*uid://ceidpau7qbnp1"
-SettingMgr="*uid://dwcme4eew22uo"
 EntityMgr="*res://autoloads/managers/entity_manager.gd"
 SearchMgr="*uid://dvapafts38b8t"
 SystemMgr="*res://autoloads/managers/system_manager.gd"
 TimeMgr="*res://autoloads/managers/time_manager.gd"
 GridMgr="*uid://bsty3nv6hyvtv"
 PathwayMgr="*res://autoloads/managers/pathway_manager.gd"
-LevelMgr="*res://autoloads/managers/level_manager.gd"
-CanvasMgr="*uid://bsabxvw5o5g4l"
-ChangeSceneMgr="*uid://bygipxugxq6jf"
-DevtoolRuntime="*res://addons/godot_devtool/runtime_bridge.gd"
 
 [display]
 

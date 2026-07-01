@@ -20,11 +20,8 @@ class_name Level
 
 
 func _enter_tree() -> void:
-	SystemMgr._load()
-	EntityMgr._load()
 	SearchMgr._load()
-	PathwayMgr._load()
-	GridMgr._load()
+	SelectMgr._load()
 	
 	GlobalMgr.world_size = world_size
 	GameMgr.defaul_tower_holder = defaul_tower_holder
@@ -32,11 +29,14 @@ func _enter_tree() -> void:
 
 
 func _exit_tree() -> void:
-	SystemMgr._clear()
 	EntityMgr._clear()
-	SearchMgr._clear()
-	PathwayMgr._clear()
+	GameMgr._clear()
 	GridMgr._clear()
+	SearchMgr._clear()
+	SelectMgr._clear()
+	SystemMgr._clear()
+	PathwayMgr._clear()
+	WaveMgr._clear()
 
 	get_tree().paused = false
 	Engine.time_scale = 1.0

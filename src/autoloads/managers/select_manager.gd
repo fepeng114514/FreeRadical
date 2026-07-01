@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 ## 选择管理器。
 ## 
 ## 负责管理选择与相关操作。
@@ -34,11 +34,17 @@ var cursor: Entity = null
 var searcher: Searcher = null
 
 
-func _ready() -> void:
+func _load() -> void:
+	_clear()
 	searcher = Searcher.new()
 	searcher.max_radius = 99999
 	searcher.sort_mode = Searcher.SortMode.ID
 	searcher.search_group = Searcher.SearchGroup.ENTITY
+
+
+func _clear() -> void:
+	searcher = null
+	cursor = null
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -48,6 +54,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## 尝试选择实体。
 func try_select() -> void:
+	if not searcher:
+		return
+	
 	if selected_entity:
 		if U.is_valid_entity(selected_entity):
 			selected_entity.selected = false
@@ -89,47 +98,50 @@ func _select(e: Entity) -> void:
 ## 取消选择实体。
 func _deselect() -> void:
 	if U.is_valid_entity(selected_entity):
-		match select_mode:
-			SelectMode.RALLY:
-				var rally_c: RallyComponent = selected_entity.get_node_or_null(
-					C.CN_RALLY
-				)
-				rally_c.new_rally_position(InputMgr.mouse_global_position, true)
-			SelectMode.BARRACK_RALLY:
-				var barrack_c: BarrackComponent = selected_entity.get_node_or_null(
-					C.CN_BARRACK
-				)
-
-				var to_mouse_dist: float = selected_entity.global_position.distance_to(
-					InputMgr.mouse_global_position
-				)
-
-				if (
-						to_mouse_dist <= barrack_c.rally_max_range
-						and to_mouse_dist >= barrack_c.rally_min_range
-					):
-					barrack_c.set_rally_center_position(InputMgr.mouse_global_position, true)
-				else:
-					var direction_to: Vector2 = selected_entity.global_position.direction_to(
-							InputMgr.mouse_global_position
-						) 
-					
-					var rally_center_position := Vector2.ZERO
-					if to_mouse_dist >= barrack_c.rally_max_range:
-						rally_center_position = (
-							direction_to
-							* barrack_c.rally_max_range 
-							+ selected_entity.global_position
-						)
-					else:
-						rally_center_position = (
-							direction_to
-							* barrack_c.rally_min_range 
-							+ selected_entity.global_position
-						)
-						
-					barrack_c.set_rally_center_position(rally_center_position, true)
+		_process_select_mode()
 
 	select_mode = SelectMode.NONE
 	selected_entity = null
 	entity_deselected.emit()
+
+
+func _process_select_mode() -> void:
+	match select_mode:
+		SelectMode.RALLY:
+			var rally_c: RallyComponent = selected_entity.get_node_or_null(
+				C.CN_RALLY
+			)
+			rally_c.new_rally_position(InputMgr.mouse_global_position, true)
+		SelectMode.BARRACK_RALLY:
+			var barrack_c: BarrackComponent = selected_entity.get_node_or_null(
+				C.CN_BARRACK
+			)
+			var to_mouse_dist: float = selected_entity.global_position.distance_to(
+				InputMgr.mouse_global_position
+			)
+
+			if (
+					to_mouse_dist <= barrack_c.rally_max_range
+					and to_mouse_dist >= barrack_c.rally_min_range
+				):
+				barrack_c.set_rally_center_position(InputMgr.mouse_global_position, true)
+			else:
+				var direction_to: Vector2 = selected_entity.global_position.direction_to(
+						InputMgr.mouse_global_position
+					) 
+				
+				var rally_center_position := Vector2.ZERO
+				if to_mouse_dist >= barrack_c.rally_max_range:
+					rally_center_position = (
+						direction_to
+						* barrack_c.rally_max_range 
+						+ selected_entity.global_position
+					)
+				else:
+					rally_center_position = (
+						direction_to
+						* barrack_c.rally_min_range 
+						+ selected_entity.global_position
+					)
+					
+				barrack_c.set_rally_center_position(rally_center_position, true)

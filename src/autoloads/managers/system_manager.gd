@@ -24,10 +24,6 @@ var insert_queue: Array[Entity] = []
 var damage_queue: Array[Damage] = []
 
 
-func _load() -> void:
-	_clear()
-
-
 func _clear() -> void:
 	system_container = null
 	remove_queue.clear()
