@@ -83,6 +83,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 		
 	return warnings	
 	
+	
 func _on_mouse_entered() -> void:
 	for glow: TextureRect in glow_list:
 		glow.visible = true

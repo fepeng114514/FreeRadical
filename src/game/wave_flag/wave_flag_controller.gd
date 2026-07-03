@@ -10,7 +10,7 @@ func _ready() -> void:
 		pass
 	else:
 		for child: WaveFlag in get_children():
-			wave_flag_dict[child.pathway_node] = child
+			wave_flag_dict[child.bound_pathway_node] = child
 		
 		var wave: Wave = WaveMgr.wave_group.wave_list[WaveMgr.current_wave_idx]
 	
