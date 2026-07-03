@@ -11,7 +11,11 @@ enum SUB_WAVE_STATE_FLAGS {
 }
 
 
-@export var wave_group: WaveGroup = null
+@export var wave_group: WaveGroup = null:
+	set(v):
+		wave_group = v
+		update_configuration_warnings()
+		
 @export var wave_interval_start_sfx: AudioGroup = null
 @export var wave_interval_finish_sfx: AudioGroup = null
 
@@ -21,6 +25,15 @@ func _ready() -> void:
 		pass
 	else:
 		WaveMgr.wave_group = wave_group
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings: PackedStringArray = []
+		
+	if not wave_group:
+		warnings.append("请在 wave_group 中增加一个 WaveGroup 资源，否则无法生成波次。")
+		
+	return warnings
 
 
 func _spawner() -> void:

@@ -77,13 +77,19 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 	if not bound_pathway_node:
 		warnings.append("请在 bound_pathway_node 中绑定一个 Pathway 路径节点。")
+	else:
+		var bound_pathway_idx: int = bound_pathway_node.get_index()
+		var wave_flag_idx: int = get_index()
+		
+		if bound_pathway_idx != wave_flag_idx:
+			warnings.append("bound_pathway_node 绑定的 Pathway 路径节点索引为 %d，但当前波次旗帜索引为 %d，为了规范性建议将它们对应起来。" % [bound_pathway_idx, wave_flag_idx])
 
 	if not arrow_rotation:
 		warnings.append("arrow_rotation 箭头旋转角度为 0，是否忘记设置？。")
 		
 	return warnings	
 	
-	
+
 func _on_mouse_entered() -> void:
 	for glow: TextureRect in glow_list:
 		glow.visible = true

@@ -19,10 +19,12 @@ func _ready() -> void:
 
 
 func _get_configuration_warnings() -> PackedStringArray:
-	if not level_scene_path:
-		return ["请在 level_scene_path 中设置一个关卡场景路径，否则点击旗帜不会进入关卡。"]
+	var warnings: PackedStringArray = []
 		
-	return []
+	if not level_scene_path:
+		warnings.append("请在 level_scene_path 中设置一个关卡场景路径，否则点击旗帜不会进入关卡。")
+		
+	return warnings
 
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int):

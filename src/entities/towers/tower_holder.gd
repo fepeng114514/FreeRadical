@@ -20,7 +20,9 @@ func _ready() -> void:
 
 
 func _get_configuration_warnings() -> PackedStringArray:
-	if default_rally_center_local_pos == Vector2.ZERO:
-		return ["请在 default_rally_center_local_pos 中设置一个默认集结点位置。"]
+	var warnings: PackedStringArray = []
 		
-	return []
+	if default_rally_center_local_pos == Vector2.ZERO:
+		warnings.append("请在 default_rally_center_local_pos 中设置一个默认集结点位置。")
+		
+	return warnings

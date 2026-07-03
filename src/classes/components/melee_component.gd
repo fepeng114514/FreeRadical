@@ -80,12 +80,12 @@ func _draw() -> void:
 	
 	
 func _get_configuration_warnings() -> PackedStringArray:
-	var warn: PackedStringArray = []
+	var warnings: PackedStringArray = []
 	
 	if not get_children():
-		warn.append("请至少增加一个 MeleeSkill 或其类型的子节点，否则实体无法释放近战技能。")
+		warnings.append("请至少增加一个 MeleeSkill 或其类型的子节点，否则实体无法释放近战技能。")
 	
-	return warn
+	return warnings
 
 	
 ## 绑定拦截关系。

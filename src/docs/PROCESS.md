@@ -77,7 +77,7 @@
    - 每个 `WaveFlag` 需要绑定一个 `Pathway` 路径节点，来显示波次到来时间与释放波次。
    - 为了便于管理，请让每个波次旗帜与 `Pathway` 路径节点一一对应，例如：波次旗帜 1 对应路径节点 1，波次旗帜 2 对应路径节点 2，以此类推。
 6. 在 `World` 节点中添加 `WaveSpawner` 波次生成器节点。
-   - `WaveSpawner` 的 `wave_group` 波次组资源需要保存在 `src/game/levels/波次组资源名.tscn` 中，用于波次编辑器加载。
+   - 为 `WaveSpawner` 波次生成器节点添加 `wave_group` 波次组资源，并保存在 `src/game/levels/波次组资源名.tscn` 中，用于波次编辑器加载。
    - 波次组资源名格式为 `level_关卡索引_wave`，例如：第一关的波次组资源名为 `level_1_wave`。
 7. 最后在 `World` 节点中添加塔位等实体。
    - 塔位需要设置 `default_rally_center_local_pos`  默认集结点。

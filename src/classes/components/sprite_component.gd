@@ -17,7 +17,9 @@ class_name SpriteComponent
 
 
 func _get_configuration_warnings() -> PackedStringArray:
-	if not get_children():
-		return ["请至少增加一个 AnimatedSprite2D、Sprite2D、SpriteGroup 节点"]
+	var warnings: PackedStringArray = []
 		
-	return []
+	if not get_children():
+		warnings.append("请至少增加一个 AnimatedSprite2D、Sprite2D、SpriteGroup 节点")
+		
+	return warnings

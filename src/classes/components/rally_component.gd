@@ -27,10 +27,12 @@ var rally_center_position := Vector2.ZERO
 
 
 func _get_configuration_warnings() -> PackedStringArray:
-	if not navigation_agent:
-		return ["请增加一个 NavigationAgent2D 子节点用作导航。"]
+	var warnings: PackedStringArray = []
 		
-	return []
+	if not navigation_agent:
+		warnings.append("请增加一个 NavigationAgent2D 子节点用作导航。")
+		
+	return warnings
 
 
 ## 设置新的集结位置。
