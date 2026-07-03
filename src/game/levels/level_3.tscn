@@ -3,10 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://be4ofxijaafml" path="res://game/levels/level.tscn" id="1_4awbs"]
 [ext_resource type="Texture2D" uid="uid://dsh5d14d02idg" path="res://assets/level_3_background.png" id="2_5rwuc"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/wave_spawner.tscn" id="3_pkj3y"]
-[ext_resource type="Resource" uid="uid://bwuhxvlaq1rnx" path="res://game/levels/level_3_wave.tres" id="4_nangp"]
+[ext_resource type="Resource" uid="uid://joecfcb44l3" path="res://game/levels/level_3_wave.tres" id="4_nangp"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://game/pathway/pathway.gd" id="5_nangp"]
 [ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder_grass.tscn" id="5_yh1g4"]
 [ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://game/wave_flag/wave_flag.tscn" id="6_5rwuc"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="6_lb2qd"]
+
+[sub_resource type="Resource" id="Resource_2lsgo"]
+resource_local_to_scene = true
+script = ExtResource("6_lb2qd")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Curve2D" id="Curve2D_5rwuc"]
 _data = {
@@ -29,17 +38,18 @@ wave_group = ExtResource("4_nangp")
 [node name="TowerHolderGrass" parent="World" parent_id_path=PackedInt32Array(1261225856) index="1" unique_id=1898604313 instance=ExtResource("5_yh1g4")]
 position = Vector2(613, 446)
 default_rally_center_local_pos = Vector2(296.1, 0)
+interact_policy = SubResource("Resource_2lsgo")
 
 [node name="Pathway" type="Path2D" parent="PathwayContainer" parent_id_path=PackedInt32Array(886912364) index="0" unique_id=1638190423]
 curve = SubResource("Curve2D_5rwuc")
 script = ExtResource("5_nangp")
 metadata/_custom_type_script = "uid://5rvcj41ueju4"
 
-[node name="WaveFlag" parent="WaveFlagController" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1005784656 instance=ExtResource("6_5rwuc")]
+[node name="WaveFlag" parent="WaveFlagController" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1005784656 node_paths=PackedStringArray("bound_pathway_node") instance=ExtResource("6_5rwuc")]
 layout_mode = 0
 offset_left = 1057.0
 offset_top = 28.0
 offset_right = 1142.0
 offset_bottom = 113.0
-pathway_idx = 0
+bound_pathway_node = NodePath("../../PathwayContainer/Pathway")
 arrow_rotation = 0.31590459461097353

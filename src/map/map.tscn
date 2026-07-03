@@ -11,6 +11,7 @@
 
 [sub_resource type="Resource" id="Resource_igyvp"]
 script = ExtResource("3_pu1n1")
+play_mode = null
 list = Array[AudioStream]([ExtResource("2_brb1y")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
@@ -32,7 +33,7 @@ y_sort_enabled = true
 
 [node name="Flag" parent="FlagController" unique_id=698417457 instance=ExtResource("5_pu1n1")]
 position = Vector2(395, 1122)
-level_idx = 1
+level_scene_path = "uid://6u3i4l2ycnsj"
 
 [node name="FlagBullet" parent="FlagController/Flag" unique_id=1426610057 instance=ExtResource("7_5jdw0")]
 position = Vector2(16, -14)
@@ -48,7 +49,7 @@ position = Vector2(43, -45)
 
 [node name="Flag2" parent="FlagController" unique_id=2107266607 instance=ExtResource("5_pu1n1")]
 position = Vector2(455, 1064)
-level_idx = 2
+level_scene_path = "uid://6u3i3l2ycnsj"
 
 [node name="FlagBullet" parent="FlagController/Flag2" unique_id=2061449260 instance=ExtResource("7_5jdw0")]
 position = Vector2(16, -24)
@@ -58,6 +59,6 @@ position = Vector2(172, -29)
 
 [node name="Flag3" parent="FlagController" unique_id=1154152721 instance=ExtResource("5_pu1n1")]
 position = Vector2(654, 1040)
-level_idx = 3
+level_scene_path = "uid://cqxh203e5mu8g"
 
 [node name="MapUILayer" parent="." unique_id=1640298559 instance=ExtResource("8_kxmgb")]

@@ -2,7 +2,7 @@
 extends Control
 
 
-var wave_flag_dict: Dictionary[int, WaveFlag] = {}
+var wave_flag_dict: Dictionary[Pathway, WaveFlag] = {}
 
 
 func _ready() -> void:
@@ -10,13 +10,14 @@ func _ready() -> void:
 		pass
 	else:
 		for child: WaveFlag in get_children():
-			wave_flag_dict[child.pathway_idx] = child
+			wave_flag_dict[child.pathway_node] = child
 		
 		var wave: Wave = WaveMgr.wave_group.wave_list[WaveMgr.current_wave_idx]
 	
 		for sub_wave: SubWave in wave.sub_wave_list:
 			for spawn: WaveSpawn in sub_wave.spawn_list:
-				var wave_flag: WaveFlag = wave_flag_dict[spawn.pathway_idx]
+				var bound_pathway_node: Pathway = PathwayMgr.get_pathway(spawn.pathway_idx)
+				var wave_flag: WaveFlag = wave_flag_dict[bound_pathway_node]
 				wave_flag.visible = true
 
 		WaveMgr.start_wave_timer.connect(_on_start_wave_timer)
@@ -28,7 +29,8 @@ func _on_start_wave_timer(wave_idx: int) -> void:
 
 	for sub_wave: SubWave in wave.sub_wave_list:
 		for spawn: WaveSpawn in sub_wave.spawn_list:
-			var wave_flag: WaveFlag = wave_flag_dict[spawn.pathway_idx]
+			var bound_pathway_node: Pathway = PathwayMgr.get_pathway(spawn.pathway_idx)
+			var wave_flag: WaveFlag = wave_flag_dict[bound_pathway_node]
 			wave_flag._show(wave_interval)
 
 

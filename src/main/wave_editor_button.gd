@@ -1,7 +1,7 @@
 extends Button
 
 
-@export_file() var wave_editor_scene_path: String = ""
+@export_file("*.tscn") var wave_editor_scene_path: String = ""
 
 
 func _ready() -> void:

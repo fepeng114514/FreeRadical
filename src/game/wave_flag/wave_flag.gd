@@ -6,8 +6,11 @@ class_name WaveFlag
 ## 用于显示波次到来时间与释放波次
 
 
-## 对应的路径索引。
-@export var pathway_idx: int = C.UNSET
+## 绑定的 [Pathway] 路径节点。
+@export var bound_pathway_node: Pathway = null:
+	set(v):
+		bound_pathway_node = v
+		update_configuration_warnings()
 
 ## 箭头旋转角度
 @export_range(-180, 180, 0.1, "radians_as_degrees") var arrow_rotation: float = 0.0:
@@ -18,6 +21,8 @@ class_name WaveFlag
 			arrow.rotation = v
 		if arrow_glow:
 			arrow_glow.rotation = v
+		
+		update_configuration_warnings()
 			
 @export_group("Tween")
 ## 循环缩放时长
@@ -65,7 +70,18 @@ func _ready() -> void:
 		arrow_glow.rotation = arrow_rotation
 		
 		_create_loop_tween()
-	
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings: PackedStringArray = []
+
+	if not bound_pathway_node:
+		warnings.append("请在 bound_pathway_node 中绑定一个 Pathway 路径节点。")
+
+	if not arrow_rotation:
+		warnings.append("arrow_rotation 箭头旋转角度为 0，是否忘记设置？。")
+		
+	return warnings	
 	
 func _on_mouse_entered() -> void:
 	for glow: TextureRect in glow_list:

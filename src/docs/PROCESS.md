@@ -45,12 +45,12 @@
 "动画资源名": {           # 生成的 SpriteFrames 资源名
    "layer_count": 0,    # 多层动画层数，默认为 0，会创建 n 个 SpriteFrames
    "animations": {      # 动画列表
-      "动画名": {        # SpriteFrames 中的动画名
-         "from": 1,     # 起始帧索引
-         "to": 10,	   # 结束帧索引
-         "fps": 30,	   # 帧率，默认为 30
-         "loop": true   # 是否循环，默认为 true
-      }
+	  "动画名": {        # SpriteFrames 中的动画名
+		 "from": 1,     # 起始帧索引
+		 "to": 10,	   # 结束帧索引
+		 "fps": 30,	   # 帧率，默认为 30
+		 "loop": true   # 是否循环，默认为 true
+	  }
    }
 }
 ```
@@ -70,11 +70,12 @@
 ### 第一步：创建关卡
 1. 首先在 `src/game/levels` 目录创建一个继承自 `src/game/levels/level.tscn` 场景。
 2. 在 `Background` 节点中添加背景图片。
-3. 在 `PathwayContainer` 节点中添加 `Pathway` 路径节点。
+3. 在 `Gird` 节点中绘制地形网格。
+4. 在 `PathwayContainer` 节点中添加 `Pathway` 路径节点。
    - 子路径会自动根据 `Pathway` 生成。
-4. 在 `Gird` 节点中绘制地形网格。
 5. 在 `WaveFlagContainer` 节点中添加 `WaveFlag` 波次旗帜节点。
-   - 每个 `WaveFlag` 需要指定对应的波次索引，从 0 开始。
+   - 每个 `WaveFlag` 需要绑定一个 `Pathway` 路径节点，来显示波次到来时间与释放波次。
+   - 为了便于管理，请让每个波次旗帜与 `Pathway` 路径节点一一对应，例如：波次旗帜 1 对应路径节点 1，波次旗帜 2 对应路径节点 2，以此类推。
 6. 在 `World` 节点中添加 `WaveSpawner` 波次生成器节点。
    - `WaveSpawner` 的 `wave_group` 波次组资源需要保存在 `src/game/levels/波次组资源名.tscn` 中，用于波次编辑器加载。
    - 波次组资源名格式为 `level_关卡索引_wave`，例如：第一关的波次组资源名为 `level_1_wave`。
@@ -83,7 +84,7 @@
 
 ### 第二步：添加入口
 1. 在 `src/map/map.tscn` 的 `FlagController` 节点中添加 `Flag` 关卡旗帜节点。
-   - 旗帜节点需要指定 `level_idx` 关卡索引。
+   - 旗帜节点需要指定 `level_scene_path` 关卡场景路径，来进入该关卡。
 
 ### 第三步：编辑出怪
 1. 首先在主页的左上角点击 `波次编辑器` 按钮。

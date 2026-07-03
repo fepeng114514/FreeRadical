@@ -1,7 +1,7 @@
 extends ConfirmationDialog
 
 
-@export_file() var main_scene_path: String = ""
+@export_file("*.tscn") var main_scene_path: String = ""
 
 
 func _ready() -> void:
