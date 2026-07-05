@@ -14,8 +14,8 @@ func _ready() -> void:
 	GameMgr.cash_changed.connect(_on_cash_changed)
 	GameMgr.life_changed.connect(_on_life_changed)
 	WaveMgr.release_wave.connect(_on_release_wave)
-
-	wave_value.text = "0/%d" % WaveMgr.wave_group.wave_list.size()
+	
+	wave_value.text = "0/%d" % WaveMgr.get_wave_count()
 
 
 func _on_cash_changed(new_cash: float) -> void:
@@ -27,4 +27,4 @@ func _on_life_changed(new_life: int) -> void:
 
 
 func _on_release_wave(wave_idx: int) -> void:
-	wave_value.text = "%d/%d" % [wave_idx + 1, WaveMgr.wave_group.wave_list.size()]
+	wave_value.text = "%d/%d" % [wave_idx + 1, WaveMgr.get_wave_count()]

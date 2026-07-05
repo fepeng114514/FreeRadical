@@ -133,7 +133,7 @@ func cleanup_melee_relations(e: Entity) -> void:
 		if rally_c:
 			var rally_center_position: Vector2 = rally_c.rally_center_position
 			
-			if rally_center_position != Vector2.ZERO:
+			if rally_center_position:
 				center = rally_center_position
 
 		var new_blockeds_ids := PackedInt32Array()

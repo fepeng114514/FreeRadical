@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/at-icons/node2d/chess_rook.svg")
 extends Component
 class_name TowerComponent
 ## 防御塔组件。
@@ -58,7 +59,7 @@ var ts: float = 0.0
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		if default_rally_center_local_pos != Vector2.ZERO:
+		if default_rally_center_local_pos:
 			draw_circle(
 				default_rally_center_local_pos,
 				9,

@@ -41,3 +41,18 @@ func _clear() -> void:
 	waves_finished = false
 	is_first_release_wave = true
 	is_skip_wave = false
+
+
+## 获取当前波次。
+func get_current_wave() -> Wave:
+	return wave_group.wave_list[current_wave_idx]
+
+
+## 获取指定索引的波次。
+func get_wave(idx: int) -> Wave:
+	return wave_group.wave_list[idx]
+
+
+## 获取波次组中的波次数量。
+func get_wave_count() -> int:
+	return wave_group.wave_list.size()

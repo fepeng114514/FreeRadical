@@ -44,6 +44,8 @@ enum State {
 #region 属性
 ## 实体场景名称
 @export var scene_name: String = ""
+## 实体本地化名称
+@export var localization_key: String = ""
 ## 持续时间
 @export var duration: float = C.UNSET
 ## 空闲动画组
@@ -101,6 +103,7 @@ var components: Dictionary[StringName, Node] = {}
 #region 回调函数
 func _init() -> void:
 	scene_name = scene_file_path.get_file().get_basename()
+	localization_key = scene_name.to_upper()
 
 
 func _ready() -> void:

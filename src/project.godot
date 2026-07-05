@@ -39,6 +39,7 @@ buses/default_bus_layout="res://autoloads/managers/audio_manager/audio_bus_layou
 [autoload]
 
 GlobalMgr="*uid://ct01c5jk3ruit"
+TranslationMgr="*uid://duh6g6j1nnv23"
 InputMgr="*uid://co6qf5rf1ox2n"
 SettingMgr="*uid://dwcme4eew22uo"
 CanvasMgr="*uid://bsabxvw5o5g4l"
@@ -150,7 +151,7 @@ track_editor_snap_key_tool={
 [internationalization]
 
 locale/translation_remaps={}
-locale/translations=PackedStringArray("res://assets/lang/zh. en.translation", "res://assets/lang/zh. zh.translation")
+locale/translations=PackedStringArray("res://assets/translations/translation.en.translation", "res://assets/translations/translation.zh.translation")
 
 [rendering]
 

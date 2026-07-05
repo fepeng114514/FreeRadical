@@ -11,6 +11,7 @@ signal hide_select_menu
 @export var select_menu_config: SelectMenuConfig = null
 
 @export_group("Ref")
+@export var animation_player: AnimationPlayer = null
 @export var place_holders: Control = null
 ## 环控件引用
 @export var ring: TextureRect = null
@@ -20,12 +21,6 @@ signal hide_select_menu
 @export var sell_button_scene: PackedScene = null
 @export var upgrade_button_scene: PackedScene = null
 @export var upgrade_skill_button_scene: PackedScene = null
-
-@export_group("Tween")
-## 补间缩放时长
-@export var tween_scale_time: float = 0.15
-## 补间缩放的目标值
-@export var tween_target_scale := Vector2.ONE
 
 ## 当前选择的实体
 var selected_entity: Entity = null
@@ -102,16 +97,15 @@ func _show(e: Entity) -> void:
 		
 	selected_entity = e
 	visible = true
-	scale = Vector2.ZERO
 	global_position = e.global_position + ui_c.select_menu_offset
 		
-	_create_scale_tween(tween_target_scale)
+	animation_player.play("pop")
 	
 	
 func _hide() -> void:
-	_create_scale_tween(Vector2.ZERO)
+	animation_player.play("hide")
 	
-	await scale_tween.finished
+	await animation_player.animation_finished
 	_clear()
 	
 	
@@ -124,14 +118,3 @@ func _clear() -> void:
 			child.queue_free()
 		
 	selected_entity = null
-
-
-## 使用补间缩放
-func _create_scale_tween(target_scale: Vector2) -> void:
-	if scale_tween:
-		scale_tween.kill()
-		
-	scale_tween = create_tween()
-	scale_tween.set_ease(Tween.EASE_OUT)
-	scale_tween.set_trans(Tween.TRANS_SINE)
-	scale_tween.tween_property(self, "scale", target_scale, tween_scale_time)

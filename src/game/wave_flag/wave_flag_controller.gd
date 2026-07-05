@@ -12,7 +12,7 @@ func _ready() -> void:
 		for child: WaveFlag in get_children():
 			wave_flag_dict[child.bound_pathway_node] = child
 		
-		var wave: Wave = WaveMgr.wave_group.wave_list[WaveMgr.current_wave_idx]
+		var wave: Wave = WaveMgr.get_current_wave()
 	
 		for sub_wave: SubWave in wave.sub_wave_list:
 			for spawn: WaveSpawn in sub_wave.spawn_list:
@@ -24,7 +24,7 @@ func _ready() -> void:
 
 
 func _on_start_wave_timer(wave_idx: int) -> void:
-	var wave: Wave = WaveMgr.wave_group.wave_list[wave_idx]
+	var wave: Wave = WaveMgr.get_wave(wave_idx)
 	var wave_interval: float = wave.interval
 
 	for sub_wave: SubWave in wave.sub_wave_list:

@@ -10,11 +10,66 @@
 [ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://game/select_menu/place_holders.gd" id="8_qg2iw"]
 [ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://game/select_menu/place_holder.tscn" id="9_qmhfd"]
 
-[node name="SelectMenu" type="Control" unique_id=1082728830 node_paths=PackedStringArray("place_holders", "ring")]
+[sub_resource type="Animation" id="Animation_fswnn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4hwc6"]
+resource_name = "hide"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 2.0000005),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4nxj4"]
+resource_name = "pop"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4hwc6"]
+_data = {
+&"RESET": SubResource("Animation_fswnn"),
+&"hide": SubResource("Animation_4hwc6"),
+&"pop": SubResource("Animation_4nxj4")
+}
+
+[node name="SelectMenu" type="Control" unique_id=1082728830 node_paths=PackedStringArray("animation_player", "place_holders", "ring")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_3ssbk")
 select_menu_config = ExtResource("2_bbwk3")
+animation_player = NodePath("AnimationPlayer")
 place_holders = NodePath("Ring/PlaceHolders")
 ring = NodePath("Ring")
 rally_button_scene = ExtResource("3_57nlo")
@@ -95,3 +150,6 @@ offset_top = 87.0
 offset_right = 68.00001
 offset_bottom = 185.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2006125253]
+libraries/ = SubResource("AnimationLibrary_4hwc6")

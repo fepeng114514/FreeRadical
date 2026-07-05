@@ -7,6 +7,18 @@
 [ext_resource type="Script" uid="uid://b6fn2uciv5jd7" path="res://game/game_ui/pause_layer/replay_button_label.gd" id="4_ha6sc"]
 [ext_resource type="Script" uid="uid://1ay700rgfg2c" path="res://game/game_ui/pause_layer/exit_texture_button_label.gd" id="4_uxsvp"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uxsvp"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.09985284, 0.09985284, 0.09985284, 0.16700001)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="PauseLayer" type="CanvasLayer" unique_id=1024087080]
 process_mode = 3
 script = ExtResource("1_wk7ql")
@@ -17,6 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uxsvp")
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer" unique_id=112942318]
 layout_mode = 2

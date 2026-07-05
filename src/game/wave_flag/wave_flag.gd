@@ -23,20 +23,9 @@ class_name WaveFlag
 			arrow_glow.rotation = v
 		
 		update_configuration_warnings()
-			
-@export_group("Tween")
-## 循环缩放时长
-@export var tween_loop_scale_duration: float = 0.5
-## 循环补间缩放目标值
-@export var tween_loop_target_scale := Vector2(1.15, 1.15)
-## 计数结束补间缩放时长
-@export var tween_end_duration: float = 0.3
-## 计数结束补间缩放目标值
-@export var tween_end_target_scale := Vector2(1.5, 1.5)
-## 计数结束补间调色目标值
-@export var tween_end_modulate_scale := Color.TRANSPARENT
 
 @export_group("Ref")
+@export var animation_player: AnimationPlayer = null
 @export var arrow: TextureRect = null
 @export var decoration: TextureRect = null
 @export var progress_bar: TextureProgressBar = null
@@ -69,7 +58,7 @@ func _ready() -> void:
 		arrow.rotation = arrow_rotation
 		arrow_glow.rotation = arrow_rotation
 		
-		_create_loop_tween()
+		animation_player.play("loop")
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -98,23 +87,13 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	for glow: TextureRect in glow_list:
 		glow.visible = false
-	
 
-func _create_loop_tween() -> void:
-	loop_tween = create_tween()
-	loop_tween.set_loops()
-	
-	loop_tween.set_ease(Tween.EASE_IN_OUT)
-	loop_tween.set_trans(Tween.TRANS_SINE)
-	loop_tween.tween_property(self, "scale", tween_loop_target_scale, tween_loop_scale_duration)
-	loop_tween.tween_property(self, "scale", Vector2.ONE, tween_loop_scale_duration)
-	
 
 func _show(time: float) -> void:
 	visible = true
 	progress_bar.value = progress_bar.min_value
 	
-	_create_loop_tween()
+	animation_player.play("loop")
 	
 	value_tween = create_tween()
 	value_tween.tween_property(progress_bar, "value", progress_bar.max_value, time)
@@ -125,12 +104,9 @@ func _show(time: float) -> void:
 	
 	
 func _hide() -> void:
-	var end_tween: Tween = create_tween()
-	end_tween.set_parallel(true)
-	end_tween.tween_property(self, "scale", tween_end_target_scale, tween_end_duration)
-	end_tween.tween_property(self, "modulate", tween_end_modulate_scale, tween_end_duration)
+	animation_player.play("release")
 	
-	await end_tween.finished
+	await animation_player.animation_finished
 	
 	visible = false
 	modulate = Color.WHITE

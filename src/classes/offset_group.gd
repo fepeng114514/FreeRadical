@@ -138,7 +138,7 @@ static func draw_offset_group(
 
 	var cross_len: float = radius * 1.5
 	for offset_value: Vector2 in offset_group.to_dict().values():
-		if offset_value == Vector2.ZERO:
+		if not offset_value:
 			continue
 
 		# 中间的圆

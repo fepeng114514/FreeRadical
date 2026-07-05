@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c23uoo4lvuayk" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_0020.tres" id="4_8po3v"]
 [ext_resource type="Texture2D" uid="uid://vvm2idgjrf8y" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_glow_0003.tres" id="5_2nob4"]
 [ext_resource type="Texture2D" uid="uid://61uquvxhh8s2" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_glow_0001.tres" id="6_aggcx"]
+[ext_resource type="PackedScene" uid="uid://cf08xm81w3sg8" path="res://game/wave_flag/wave_info.tscn" id="7_dsdc2"]
 
 [sub_resource type="Gradient" id="Gradient_kwfvo"]
 offsets = PackedFloat32Array(0.999, 1)
@@ -20,7 +21,85 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 metadata/_snap_enabled = true
 
-[node name="WaveFlag" type="Control" unique_id=1005784656 node_paths=PackedStringArray("arrow", "decoration", "progress_bar", "arrow_glow", "border_glow", "texture_button")]
+[sub_resource type="Animation" id="Animation_dsdc2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_drlv5"]
+resource_name = "loop"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.15, 1.15), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_b35fy"]
+resource_name = "release"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.033333335, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b35fy"]
+_data = {
+&"RESET": SubResource("Animation_dsdc2"),
+&"loop": SubResource("Animation_drlv5"),
+&"release": SubResource("Animation_b35fy")
+}
+
+[node name="WaveFlag" type="Control" unique_id=1005784656 node_paths=PackedStringArray("animation_player", "arrow", "decoration", "progress_bar", "arrow_glow", "border_glow", "texture_button")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 85.0
@@ -29,6 +108,7 @@ pivot_offset = Vector2(42.5, 42.5)
 focus_mode = 2
 mouse_filter = 1
 script = ExtResource("3_h1xy6")
+animation_player = NodePath("AnimationPlayer")
 arrow = NodePath("Arrow")
 decoration = NodePath("Decoration")
 progress_bar = NodePath("TextureProgressBar")
@@ -139,3 +219,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("6_aggcx")
+
+[node name="WaveInfo" parent="." unique_id=567776743 node_paths=PackedStringArray("wave_flag") instance=ExtResource("7_dsdc2")]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 73.0
+offset_right = 92.0
+offset_bottom = 85.0
+wave_flag = NodePath("..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1145700189]
+libraries/ = SubResource("AnimationLibrary_b35fy")

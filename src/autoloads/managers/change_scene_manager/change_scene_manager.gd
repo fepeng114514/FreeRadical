@@ -26,9 +26,6 @@ func _process(_delta: float):
 	match status:
 		ResourceLoader.THREAD_LOAD_LOADED:
 			process_mode = Node.PROCESS_MODE_DISABLED
-			loading_progress.emit(1.0)
-			
-			await get_tree().create_timer(finish_wait_time).timeout
 			
 			var packed_scene: PackedScene = ResourceLoader.load_threaded_get(_target_scene_path)
 			get_tree().change_scene_to_packed(packed_scene)
