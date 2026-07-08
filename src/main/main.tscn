@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://nvbnnvwovpao"]
 
 [ext_resource type="Script" uid="uid://h30p1th8hx0x" path="res://main/main.gd" id="1_7n028"]
-[ext_resource type="Script" uid="uid://2q2ogyvl3u7p" path="res://main/play_button.gd" id="2_2p1s2"]
+[ext_resource type="Script" uid="uid://2q2ogyvl3u7p" path="res://main/main_menu/play_button.gd" id="2_2p1s2"]
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="2_f7o8s"]
 [ext_resource type="Script" uid="uid://bu0fdtwv8h2os" path="res://main/wave_editor_button.gd" id="3_1xy46"]
-[ext_resource type="Script" uid="uid://c0h3rhfsyy6dp" path="res://main/quit_button.gd" id="3_02nsg"]
+[ext_resource type="Script" uid="uid://c0h3rhfsyy6dp" path="res://main/main_menu/quit_button.gd" id="3_02nsg"]
 [ext_resource type="AudioStream" uid="uid://xjo3s0skjv4q" path="res://assets/audios/music_main_menu.ogg" id="3_qbxjj"]
 [ext_resource type="Texture2D" uid="uid://bpgiiva7q52y5" path="res://assets/main_background.png" id="3_ubw8e"]
-[ext_resource type="Script" uid="uid://clad8hrp65q4q" path="res://main/setting_button.gd" id="3_vspwy"]
+[ext_resource type="Script" uid="uid://clad8hrp65q4q" path="res://main/main_menu/setting_button.gd" id="3_vspwy"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="4_tun4x"]
-[ext_resource type="Script" uid="uid://clbcxid2atee" path="res://main/confirmation_dialog.gd" id="10_0i4oc"]
+[ext_resource type="Script" uid="uid://clbcxid2atee" path="res://main/main_menu/quit_confirmation_dialog.gd" id="10_0i4oc"]
 
 [sub_resource type="Resource" id="Resource_gw48u"]
 script = ExtResource("4_tun4x")
@@ -28,7 +28,7 @@ theme = ExtResource("2_f7o8s")
 script = ExtResource("1_7n028")
 music = SubResource("Resource_gw48u")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1956220554]
+[node name="Background" type="TextureRect" parent="." unique_id=1956220554]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,30 +70,32 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer" unique_id=1509343781]
+[node name="MainMenuVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer" unique_id=1509343781]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/separation = 15
 
-[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=946227739]
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer" unique_id=946227739]
 layout_mode = 2
 text = "开始游戏"
 script = ExtResource("2_2p1s2")
 map_scene_path = "uid://52j7mo7jgfkv"
 
-[node name="SettingButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=623845627]
+[node name="SettingButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer" unique_id=623845627]
 layout_mode = 2
 text = "游戏设置"
 script = ExtResource("3_vspwy")
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=1967164590 node_paths=PackedStringArray("confirmation_dialog")]
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer" unique_id=1967164590 node_paths=PackedStringArray("confirmation_dialog")]
 layout_mode = 2
 text = "退出游戏"
 script = ExtResource("3_02nsg")
-confirmation_dialog = NodePath("ConfirmationDialog")
+confirmation_dialog = NodePath("QuitConfirmationDialog")
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/QuitButton" unique_id=159860050]
+[node name="QuitConfirmationDialog" type="ConfirmationDialog" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer/QuitButton" unique_id=159860050]
+oversampling_override = 1.0
 title = "请确认"
+size = Vector2i(244, 100)
 ok_button_text = "退出"
 dialog_text = "确认要退出游戏吗？"
 cancel_button_text = "取消"

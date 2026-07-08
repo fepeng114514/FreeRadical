@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d2nvpgfv8w3pt" path="res://assets/atlas/atlas_textures/gui/options_bg_notxt.tres" id="1_pumyx"]
 [ext_resource type="Script" uid="uid://bi2r75ykr1ufv" path="res://game/game_ui/pause_layer/pause_layer.gd" id="1_wk7ql"]
-[ext_resource type="PackedScene" uid="uid://41xihndhr041" path="res://game/game_ui/pause_layer/texture_button_label.tscn" id="2_wk7ql"]
+[ext_resource type="PackedScene" uid="uid://41xihndhr041" path="res://game/game_ui/pause_layer/labeled_texture_button.tscn" id="2_wk7ql"]
 [ext_resource type="Script" uid="uid://dtrgucauq4fsr" path="res://game/game_ui/pause_layer/continue_texture_button_label.gd" id="4_2rqrq"]
 [ext_resource type="Script" uid="uid://b6fn2uciv5jd7" path="res://game/game_ui/pause_layer/replay_button_label.gd" id="4_ha6sc"]
 [ext_resource type="Script" uid="uid://1ay700rgfg2c" path="res://game/game_ui/pause_layer/exit_texture_button_label.gd" id="4_uxsvp"]
@@ -12,16 +12,107 @@ content_margin_left = 0.0
 content_margin_top = 0.0
 content_margin_right = 0.0
 content_margin_bottom = 0.0
-bg_color = Color(0.09985284, 0.09985284, 0.09985284, 0.16700001)
+bg_color = Color(0.09985284, 0.09985284, 0.09985284, 0.209)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[node name="PauseLayer" type="CanvasLayer" unique_id=1024087080]
+[sub_resource type="Animation" id="Animation_ghp12"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/PausePanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/PausePanel:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8hs2i"]
+resource_name = "hide"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/PausePanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/PausePanel:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -30)]
+}
+
+[sub_resource type="Animation" id="Animation_uxsvp"]
+resource_name = "show"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/PausePanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/PausePanel:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector2(0, -30), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ghp12"]
+_data = {
+&"RESET": SubResource("Animation_ghp12"),
+&"hide": SubResource("Animation_8hs2i"),
+&"show": SubResource("Animation_uxsvp")
+}
+
+[node name="PauseLayer" type="CanvasLayer" unique_id=1024087080 node_paths=PackedStringArray("animation_player")]
 process_mode = 3
 script = ExtResource("1_wk7ql")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1171582627]
 anchors_preset = 15
@@ -34,11 +125,12 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_uxsvp")
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer" unique_id=112942318]
 layout_mode = 2
 
-[node name="Background" type="TextureRect" parent="PanelContainer/CenterContainer" unique_id=1737225413]
+[node name="PausePanel" type="TextureRect" parent="PanelContainer/CenterContainer" unique_id=1737225413]
 layout_mode = 2
+offset_transform_enabled = true
 texture = ExtResource("1_pumyx")
 
-[node name="Label" type="Label" parent="PanelContainer/CenterContainer/Background" unique_id=1728606372]
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/PausePanel" unique_id=1728606372]
 layout_mode = 0
 offset_left = 327.0
 offset_top = 34.0
@@ -48,7 +140,7 @@ theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.69803923, 1)
 theme_override_font_sizes/font_size = 33
 text = "设置"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/Background" unique_id=1049988681]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/PausePanel" unique_id=1049988681]
 layout_mode = 0
 offset_left = 47.0
 offset_top = 441.0
@@ -56,18 +148,22 @@ offset_right = 241.0
 offset_bottom = 517.0
 theme_override_constants/separation = 18
 
-[node name="ExitTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=1893071714 instance=ExtResource("2_wk7ql")]
+[node name="ExitLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" unique_id=1893071714 instance=ExtResource("2_wk7ql")]
 layout_mode = 2
 script = ExtResource("4_uxsvp")
 map_scene_path = "uid://52j7mo7jgfkv"
 text = "退出"
 
-[node name="ReplayTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=122773123 instance=ExtResource("2_wk7ql")]
+[node name="ReplayLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" unique_id=122773123 instance=ExtResource("2_wk7ql")]
 layout_mode = 2
 script = ExtResource("4_ha6sc")
 text = "重新开始"
 
-[node name="ContinueTextureButtonLabel" parent="PanelContainer/CenterContainer/Background/HBoxContainer" unique_id=1094724410 instance=ExtResource("2_wk7ql")]
+[node name="ContinueLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" unique_id=1094724410 instance=ExtResource("2_wk7ql")]
 layout_mode = 2
 script = ExtResource("4_2rqrq")
 text = "继续"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=538159607]
+root_node = NodePath("../PanelContainer")
+libraries/ = SubResource("AnimationLibrary_ghp12")

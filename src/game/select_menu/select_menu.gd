@@ -58,7 +58,7 @@ func _show(e: Entity) -> void:
 	if not ui_c:
 		return
 		
-	var group: SelectMenuGroup = null
+	var group: SelectMenuButtonGroup = null
 		
 	var tower_c: TowerComponent = e.get_node_or_null(C.CN_TOWER)
 	if tower_c and tower_c.tower_type == TowerComponent.TowerType.TOWER_HOLDER:
@@ -99,7 +99,7 @@ func _show(e: Entity) -> void:
 	visible = true
 	global_position = e.global_position + ui_c.select_menu_offset
 		
-	animation_player.play("pop")
+	animation_player.play("show")
 	
 	
 func _hide() -> void:

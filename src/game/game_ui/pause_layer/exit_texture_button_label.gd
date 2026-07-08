@@ -1,5 +1,5 @@
 @tool
-extends TextureButtonLabel
+extends LabeledTextureButton
 
 
 @export_file("*.tscn") var map_scene_path: String = ""

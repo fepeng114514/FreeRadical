@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dhvwgkbjyuayy"]
+
+[ext_resource type="Script" uid="uid://dxi4lmlaqwqyv" path="res://map/flag/flag_bullet.gd" id="1_il218"]
+[ext_resource type="SpriteFrames" uid="uid://d4fmaaxt48vfd" path="res://assets/atlas/sprite_frames/map/flag_bullet.tres" id="2_rcduf"]
+
+[node name="FlagBullet" type="Node2D" unique_id=1426610057]
+script = ExtResource("1_il218")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=890170394]
+sprite_frames = ExtResource("2_rcduf")
+animation = &"idle"
+frame_progress = 0.47407922

@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://fjttbo7hu6y1" path="res://game/select_menu/select_menu.gd" id="1_3ssbk"]
 [ext_resource type="Resource" uid="uid://diakuvgmjbwrh" path="res://game/select_menu/select_menu_config.tres" id="2_bbwk3"]
-[ext_resource type="PackedScene" uid="uid://c3aw3opkejlbd" path="res://game/select_menu/button/button_rally.tscn" id="3_57nlo"]
-[ext_resource type="PackedScene" uid="uid://ckw5os80ertnp" path="res://game/select_menu/button/button_sell.tscn" id="4_dt3ol"]
-[ext_resource type="PackedScene" uid="uid://c4qyoe342uqq1" path="res://game/select_menu/button/button_upgrade.tscn" id="5_phmeo"]
-[ext_resource type="PackedScene" uid="uid://bvtdqhbod7k87" path="res://game/select_menu/button/button_upgrade_skill.tscn" id="6_wm3u5"]
+[ext_resource type="PackedScene" uid="uid://c3aw3opkejlbd" path="res://game/select_menu/buttons/button_rally.tscn" id="3_57nlo"]
+[ext_resource type="PackedScene" uid="uid://ckw5os80ertnp" path="res://game/select_menu/buttons/button_sell.tscn" id="4_dt3ol"]
+[ext_resource type="PackedScene" uid="uid://c4qyoe342uqq1" path="res://game/select_menu/buttons/button_upgrade.tscn" id="5_phmeo"]
+[ext_resource type="PackedScene" uid="uid://bvtdqhbod7k87" path="res://game/select_menu/buttons/button_upgrade_skill.tscn" id="6_wm3u5"]
 [ext_resource type="Texture2D" uid="uid://0kn0asfpj8lb" path="res://assets/atlas/atlas_textures/game_gui/gui_ring.tres" id="7_3ssbk"]
-[ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://game/select_menu/place_holders.gd" id="8_qg2iw"]
-[ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://game/select_menu/place_holder.tscn" id="9_qmhfd"]
+[ext_resource type="Script" uid="uid://baxub53aqqp8a" path="res://game/select_menu/place_holder/place_holders.gd" id="8_qg2iw"]
+[ext_resource type="PackedScene" uid="uid://gp0xhls187yw" path="res://game/select_menu/place_holder/place_holder.tscn" id="9_qmhfd"]
 
 [sub_resource type="Animation" id="Animation_fswnn"]
 length = 0.001
@@ -42,7 +42,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_4nxj4"]
-resource_name = "pop"
+resource_name = "show"
 length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -61,7 +61,7 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_fswnn"),
 &"hide": SubResource("Animation_4hwc6"),
-&"pop": SubResource("Animation_4nxj4")
+&"show": SubResource("Animation_4nxj4")
 }
 
 [node name="SelectMenu" type="Control" unique_id=1082728830 node_paths=PackedStringArray("animation_player", "place_holders", "ring")]

@@ -1,5 +1,5 @@
 @tool
-extends TextureButtonLabel
+extends LabeledTextureButton
 
 
 func _ready() -> void:

@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://2efse8231loj"]
+
+[ext_resource type="Script" uid="uid://oqqykk70js3y" path="res://controls/track_editor/tool_bar/mouse_tool_bar/mouse_tool_bar.gd" id="1_k2gt3"]
+[ext_resource type="Theme" uid="uid://b1ig1u5waxulw" path="res://main/wave_editor/theme.tres" id="1_v5whm"]
+[ext_resource type="Script" uid="uid://cgr6yhj36myth" path="res://controls/track_editor/tool_bar/mouse_tool_bar/tool_button.gd" id="9_fqoka"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_7uqxx"]
+action = &"track_editor_select_key_tool"
+
+[sub_resource type="Shortcut" id="Shortcut_pchhq"]
+events = [SubResource("InputEventAction_7uqxx")]
+
+[sub_resource type="DPITexture" id="DPITexture_7uqxx"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M14 6.932 2 1.995l4.936 12 1.421-4.23 2.826 2.825 1.412-1.412L9.77 8.352z\"/></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="InputEventAction" id="InputEventAction_muacy"]
+action = &"track_editor_edit_key_tool"
+
+[sub_resource type="Shortcut" id="Shortcut_0688a"]
+events = [SubResource("InputEventAction_muacy")]
+
+[sub_resource type="DPITexture" id="DPITexture_muacy"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M12 1a1 1 0 0 0-1 1v2h4V2a1 1 0 0 0-1-1zM1.226 7.46a.76.76 0 0 0 0 1.078l3.236 3.236a.76.76 0 0 0 1.078 0L8.775 8.54a.76.76 0 0 0 0-1.078L5.54 4.225a.76.76 0 0 0-1.08 0zM11 5v7l2 3 2-3V5zm1 1h1v5h-1z\"/></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="InputEventAction" id="InputEventAction_ekhq1"]
+action = &"track_editor_erase_key_tool"
+
+[sub_resource type="Shortcut" id="Shortcut_5kk1k"]
+events = [SubResource("InputEventAction_ekhq1")]
+
+[sub_resource type="DPITexture" id="DPITexture_ekhq1"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"M10 1.5.5 11 4 14.5h4L15.5 7Zm-4.5 7 3 3-1 1h-3L3 11Z\"/></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="InputEventAction" id="InputEventAction_165ci"]
+action = &"track_editor_move_key_tool"
+
+[sub_resource type="Shortcut" id="Shortcut_esg41"]
+events = [SubResource("InputEventAction_165ci")]
+
+[sub_resource type="DPITexture" id="DPITexture_165ci"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><g fill=\"#e0e0e0\"><circle cx=\"8\" cy=\"8\" r=\"2\"/><path d=\"M8 1a1 1 0 0 0-.691.291l-2 2 1.414 1.414 1.293-1.293 1.293 1.293 1.414-1.414-2-2A1 1 0 0 0 8 1zM3.309 5.291l-2 2a1 1 0 0 0 0 1.414l2 2 1.414-1.414L3.43 7.998l1.293-1.293-1.414-1.414zm9.414 0-1.414 1.414 1.293 1.293-1.293 1.293 1.414 1.414 2-2a1 1 0 0 0 0-1.414l-2-2zm-6 6-1.414 1.414 2 2a1 1 0 0 0 1.414 0l2-2-1.414-1.414-1.293 1.293-1.293-1.293z\"/></g></svg>
+"
+base_scale = 1.5
+
+[sub_resource type="InputEventAction" id="InputEventAction_dt7t5"]
+action = &"track_editor_snap_key_tool"
+
+[sub_resource type="Shortcut" id="Shortcut_lgfxo"]
+events = [SubResource("InputEventAction_dt7t5")]
+
+[sub_resource type="DPITexture" id="DPITexture_dt7t5"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m 7,13 v 2 h 2 v -2 z m 6,0 v 2 h 2 v -2 z\"/><path fill=\"#fff\" fill-opacity=\".686\" d=\"m 7,13 h 2 v -2 a 2,2 0 0 1 4,0 v 2 h 2 v -2 a 4,4 0 0 0 -8,0 z\"/><path fill=\"#fff\" d=\"m 1,2 3,3 v 9 H 6 V 5 L 9,2 Z\"/></svg>
+"
+base_scale = 1.5
+
+[node name="MouseToolBar" type="HBoxContainer" unique_id=890797523]
+offset_right = 176.0
+offset_bottom = 24.0
+script = ExtResource("1_k2gt3")
+
+[node name="SelectButton" type="Button" parent="." unique_id=1903254406]
+layout_mode = 2
+tooltip_text = "选择模式
+左键：选择键
+左键+拖拽：移动选中键
+右键：增加键
+Ctrl+右键：删除键"
+theme = ExtResource("1_v5whm")
+toggle_mode = true
+button_pressed = true
+shortcut = SubResource("Shortcut_pchhq")
+icon = SubResource("DPITexture_7uqxx")
+script = ExtResource("9_fqoka")
+tool_flag = 1
+is_single_selection = true
+metadata/_custom_type_script = "uid://cgr6yhj36myth"
+
+[node name="VSeparator" type="VSeparator" parent="." unique_id=416600887]
+layout_mode = 2
+
+[node name="EditButton" type="Button" parent="." unique_id=515546032]
+layout_mode = 2
+tooltip_text = "编辑模式"
+toggle_mode = true
+shortcut = SubResource("Shortcut_0688a")
+icon = SubResource("DPITexture_muacy")
+script = ExtResource("9_fqoka")
+tool_flag = 2
+is_single_selection = true
+metadata/_custom_type_script = "uid://cgr6yhj36myth"
+
+[node name="EraseButton" type="Button" parent="." unique_id=629698750]
+layout_mode = 2
+tooltip_text = "擦除模式"
+toggle_mode = true
+shortcut = SubResource("Shortcut_5kk1k")
+icon = SubResource("DPITexture_ekhq1")
+script = ExtResource("9_fqoka")
+tool_flag = 4
+is_single_selection = true
+metadata/_custom_type_script = "uid://cgr6yhj36myth"
+
+[node name="MoveButton" type="Button" parent="." unique_id=515625815]
+layout_mode = 2
+tooltip_text = "移动模式"
+toggle_mode = true
+shortcut = SubResource("Shortcut_esg41")
+icon = SubResource("DPITexture_165ci")
+script = ExtResource("9_fqoka")
+tool_flag = 8
+is_single_selection = true
+metadata/_custom_type_script = "uid://cgr6yhj36myth"
+
+[node name="VSeparator2" type="VSeparator" parent="." unique_id=1864101683]
+layout_mode = 2
+
+[node name="SnapButton" type="Button" parent="." unique_id=1526356179]
+layout_mode = 2
+tooltip_text = "轨道吸附"
+toggle_mode = true
+button_pressed = true
+shortcut = SubResource("Shortcut_lgfxo")
+icon = SubResource("DPITexture_dt7t5")
+script = ExtResource("9_fqoka")
+tool_flag = 16
+metadata/_custom_type_script = "uid://cgr6yhj36myth"

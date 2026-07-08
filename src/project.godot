@@ -68,16 +68,27 @@ enabled=PackedStringArray("res://addons/mask_check/plugin.cfg")
 [file_customization]
 
 folder_colors={
-"res://classes/components/": "blue",
-"res://classes/systems/": "blue",
-"res://controls/": "green",
+"res://autoloads/": "gray",
+"res://classes/": "gray",
+"res://classes/components/": "green",
+"res://classes/systems/": "green",
+"res://controls/": "gray",
+"res://docs/": "purple",
 "res://entities/": "green",
 "res://entities/enemies/": "red",
 "res://entities/towers/": "teal",
 "res://game/": "green",
-"res://game/levels/": "green",
-"res://main/": "green",
-"res://map/": "green"
+"res://game/game_ui/": "gray",
+"res://game/pathway/": "gray",
+"res://game/range_info/": "gray",
+"res://game/select_menu/": "gray",
+"res://game/wave/": "gray",
+"res://game/wave_flag/": "gray",
+"res://main/": "gray",
+"res://map/": "green",
+"res://map/flag/": "gray",
+"res://map/map_ui/": "gray",
+"res://tools/": "teal"
 }
 
 [input]

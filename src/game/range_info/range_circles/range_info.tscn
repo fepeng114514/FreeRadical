@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://frjkwtph1ejr"]
+
+[ext_resource type="Texture2D" uid="uid://mlqpy2kc2prv" path="res://assets/atlas/atlas_textures/game_gui/range_circle.tres" id="1_a6dlc"]
+[ext_resource type="Script" uid="uid://c55tnaxc7lwmp" path="res://game/range_info/range_circles/range_info.gd" id="2_xrkrr"]
+[ext_resource type="Script" uid="uid://dwfq8ydsvelbm" path="res://game/range_info/range_circles/range_circle.gd" id="3_a7tnm"]
+
+[node name="RangeInfo" type="Control" unique_id=1039592159 node_paths=PackedStringArray("min_range_circle", "max_range_circle")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("2_xrkrr")
+min_range_circle = NodePath("MinRangeCircle")
+max_range_circle = NodePath("MaxRangeCircle")
+
+[node name="MinRangeCircle" type="TextureRect" parent="." unique_id=1130982685]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_filter = 2
+texture = ExtResource("1_a6dlc")
+script = ExtResource("3_a7tnm")
+
+[node name="MaxRangeCircle" type="TextureRect" parent="." unique_id=1133710701]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_filter = 2
+texture = ExtResource("1_a6dlc")
+script = ExtResource("3_a7tnm")

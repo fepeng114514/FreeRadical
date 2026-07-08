@@ -10,8 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://j4g0niurkdwu" path="res://assets/atlas/atlas_textures/map/levelSelect_startMode_notxt_0002.tres" id="8_srxdd"]
 [ext_resource type="PackedScene" uid="uid://cf150ltsa83gk" path="res://map/map_ui/level_select_menu/title_label.tscn" id="9_srxdd"]
 [ext_resource type="Texture2D" uid="uid://cto1koeceieb3" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0001.tres" id="10_mcavn"]
+[ext_resource type="Texture2D" uid="uid://bql8qexe34fb0" path="res://assets/atlas/atlas_textures/gui/map_configBtn_0001.tres" id="10_tsvym"]
 [ext_resource type="Texture2D" uid="uid://didjux0vtpo2f" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0003.tres" id="11_jpn0e"]
+[ext_resource type="Texture2D" uid="uid://cem5hycr07xl" path="res://assets/atlas/atlas_textures/gui/map_configBtn_0003.tres" id="11_l61cl"]
 [ext_resource type="Texture2D" uid="uid://cj61nh3nfa6we" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0002.tres" id="12_60vsd"]
+[ext_resource type="Texture2D" uid="uid://c0lgfc175k0he" path="res://assets/atlas/atlas_textures/gui/map_configBtn_0002.tres" id="12_v0olx"]
 [ext_resource type="Texture2D" uid="uid://mhs0016itiua" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0010.tres" id="13_tsvym"]
 [ext_resource type="Texture2D" uid="uid://bo3pc8bdmwcsn" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0012.tres" id="14_l61cl"]
 [ext_resource type="Texture2D" uid="uid://88kk2icw3ahw" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0011.tres" id="15_v0olx"]
@@ -146,7 +149,6 @@ scale = Vector2(0.9, 0.9)
 text = "战役"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=197592216]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -156,11 +158,22 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=323858202]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1992788273]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1943195678]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1132652813]
+layout_mode = 2
+texture_normal = ExtResource("10_tsvym")
+texture_pressed = ExtResource("11_l61cl")
+texture_hover = ExtResource("12_v0olx")
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1992788273]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=800831573]
+visible = false
 layout_mode = 2
 alignment = 2
 

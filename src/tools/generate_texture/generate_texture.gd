@@ -1,6 +1,5 @@
-@tool
-extends EditorScript
-#class_name GenerateTexture
+extends PanelContainer
+class_name GenerateTexture
 ## 生成 [SpriteFrames] 资源的工具，并自动按图集数据文件名创建子文件夹分类存放。
 
 
@@ -21,6 +20,7 @@ func _run() -> void:
 	for file: String in U.open_directory(DIR_ATLAS).get_files():
 		if file.get_extension() != "json":
 			continue
+			
 		var full_path: String = DIR_ATLAS.path_join(file)
 		Log.debug("处理图集: %s" % full_path)
 		_parse_atlas_data(full_path)

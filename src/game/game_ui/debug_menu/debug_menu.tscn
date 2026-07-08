@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://rq35ixpelpas"]
 
-[ext_resource type="PackedScene" uid="uid://bcpvwfqdmmq0o" path="res://controls/spin_box_button.tscn" id="1_6gdjp"]
+[ext_resource type="PackedScene" uid="uid://bcpvwfqdmmq0o" path="res://controls/submit_spin_box.tscn" id="1_6gdjp"]
 [ext_resource type="Script" uid="uid://b1we6nidkroj5" path="res://game/game_ui/debug_menu/debug_menu.gd" id="1_1705i"]
 [ext_resource type="Script" uid="uid://36t0lghloy1b" path="res://game/game_ui/debug_menu/take_damage_spin_box_button.gd" id="4_46cou"]
 [ext_resource type="Script" uid="uid://csrlc6byvqkmt" path="res://game/game_ui/debug_menu/add_cash_spin_box_button.gd" id="5_2fa0m"]
@@ -37,7 +37,7 @@ theme_override_font_sizes/font_size = 16
 text = "跳过当前波次"
 script = ExtResource("5_tpgk1")
 
-[node name="TakeDamageSpinBoxButton" parent="MarginContainer/GridContainer" unique_id=295310891 instance=ExtResource("1_6gdjp")]
+[node name="TakeDamageSubmitSpinBox" parent="MarginContainer/GridContainer" unique_id=295310891 instance=ExtResource("1_6gdjp")]
 layout_mode = 2
 script = ExtResource("4_46cou")
 text = "对选择的实体造成伤害"
@@ -45,13 +45,13 @@ suffix = "%"
 step = 1.0
 value = 100.0
 
-[node name="AddCashSpinBoxButton" parent="MarginContainer/GridContainer" unique_id=1954389735 instance=ExtResource("1_6gdjp")]
+[node name="AddCashSubmitSpinBox" parent="MarginContainer/GridContainer" unique_id=1954389735 instance=ExtResource("1_6gdjp")]
 layout_mode = 2
 script = ExtResource("5_2fa0m")
 text = "增加金币"
 value = 1000.0
 
-[node name="AddLifeSpinBoxButton" parent="MarginContainer/GridContainer" unique_id=1279913473 instance=ExtResource("1_6gdjp")]
+[node name="AddLifeSubmitSpinBox" parent="MarginContainer/GridContainer" unique_id=1279913473 instance=ExtResource("1_6gdjp")]
 layout_mode = 2
 script = ExtResource("6_8t4y0")
 text = "增加生命"

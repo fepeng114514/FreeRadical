@@ -1,3 +1,4 @@
+@tool
 extends PanelContainer
 class_name TrackEditor
 ## 轨道编辑器。
@@ -38,11 +39,19 @@ signal item_moved(item: TrackEditorTrackItem)
 ## 项顺序标签格式。
 @export var order_label_format: String = "%d"
 ## 是否隐藏鼠标工具栏。
-@export var hide_mouse_tool_bar: bool = false
+@export var hide_mouse_tool_bar: bool = false:
+	set(v):
+		hide_mouse_tool_bar = v
+		if v and mouse_tool_bar:
+			_hide_mouse_tool_bar()
 
 @export_group("Multiple Track")
 ## 是否启用多轨道模式。
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var multiple_track_enable: bool = false
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var multiple_track_enable: bool = false:
+	set(v):
+		multiple_track_enable = v
+		if not v and add_track_button:
+			_hide_add_track_button()
 
 @export_group("Ref")
 ## 轨道长度旋钮引用。
@@ -64,6 +73,7 @@ signal item_moved(item: TrackEditorTrackItem)
 ## 右轨道工具栏引用。
 @export var right_track_tool_bar: VBoxContainer = null
 
+@export_subgroup("Scenes")
 ## 轨道刻度场景引用。
 @export var tick_scene: PackedScene = null
 ## 轨道项场景引用。
@@ -88,20 +98,23 @@ func _ready() -> void:
 	tick_spacing_spin_box.value = tick_spacing
 	
 	if hide_mouse_tool_bar:
-		mouse_tool_bar.visible = false
+		_hide_mouse_tool_bar()
 
 	if not multiple_track_enable:
-		add_track_button.visible = false
-	
-	track_length_spin_box.value_changed.connect(_show_ticks)
-	tick_spacing_spin_box.value_changed.connect(_show_ticks)
+		_hide_add_track_button()
+			
+	if Engine.is_editor_hint():
+		pass
+	else:
+		track_length_spin_box.value_changed.connect(_show_ticks)
+		tick_spacing_spin_box.value_changed.connect(_show_ticks)
 
-	_show_ticks()
-	
-	var first_tick: TrackEditorTick = ruler.get_child(0)
-	tick_size_x = first_tick.size.x
-	
-	create_track()
+		_show_ticks()
+		
+		var first_tick: TrackEditorTick = ruler.get_child(0)
+		tick_size_x = first_tick.size.x
+		
+		create_track()
 
 
 ## 选中轨道项。
@@ -250,6 +263,14 @@ func clear_tracks() -> void:
 	for i: int in track_vbox_container.get_child_count():
 		remove_track(0)
 		
+
+func _hide_mouse_tool_bar() -> void:
+	mouse_tool_bar.visible = false
+
+
+func _hide_add_track_button() -> void:
+	add_track_button.visible = false
+
 
 ## 显示轨道刻度。
 func _show_ticks(_value: float = 0.0) -> void:

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bcpvwfqdmmq0o"]
+
+[ext_resource type="Script" uid="uid://dduycj8meeh86" path="res://controls/submit_spin_box.gd" id="1_1gnax"]
+
+[node name="SubmitSpinBox" type="HBoxContainer" unique_id=295310891 node_paths=PackedStringArray("spin_box", "button")]
+script = ExtResource("1_1gnax")
+spin_box = NodePath("SpinBox")
+button = NodePath("Button")
+
+[node name="Button" type="Button" parent="." unique_id=567501581]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+
+[node name="Spacer" type="Control" parent="." unique_id=1433858864]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpinBox" type="SpinBox" parent="." unique_id=397380344]
+layout_mode = 2
+tooltip_text = "键入以设置增加量"
+step = 0.0
+allow_greater = true
+allow_lesser = true

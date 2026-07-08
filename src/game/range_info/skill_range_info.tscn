@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://2djpa08d7dw8"]
-
-[ext_resource type="PackedScene" uid="uid://frjkwtph1ejr" path="res://game/range_info/range_info.tscn" id="1_hnvur"]
-[ext_resource type="Script" uid="uid://bgp5vryq5407g" path="res://game/range_info/skill_range_info.gd" id="2_p3of5"]
-
-[node name="SkillRangeInfo" unique_id=1039592159 instance=ExtResource("1_hnvur")]
-script = ExtResource("2_p3of5")

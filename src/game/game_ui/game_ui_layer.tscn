@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c3pw2s2ybgdou"]
 
-[ext_resource type="PackedScene" uid="uid://cxohlj7mh8hb6" path="res://game/game_ui/top_bar.tscn" id="1_olxg3"]
+[ext_resource type="PackedScene" uid="uid://cxohlj7mh8hb6" path="res://game/game_ui/top_bar/top_bar.tscn" id="1_olxg3"]
 [ext_resource type="Script" uid="uid://cpnmrjrpdut1d" path="res://game/game_ui/game_ui_layer.gd" id="1_x1lfd"]
-[ext_resource type="PackedScene" uid="uid://dguwvlhp3jmgn" path="res://game/game_ui/bottom_bar.tscn" id="2_x1lfd"]
+[ext_resource type="PackedScene" uid="uid://dguwvlhp3jmgn" path="res://game/game_ui/bottom_bar/bottom_bar.tscn" id="2_x1lfd"]
 [ext_resource type="PackedScene" uid="uid://rq35ixpelpas" path="res://game/game_ui/debug_menu/debug_menu.tscn" id="4_ebiw6"]
 
 [node name="GameUILayer" type="CanvasLayer" unique_id=934359936]

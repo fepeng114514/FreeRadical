@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c23uoo4lvuayk" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_0020.tres" id="4_8po3v"]
 [ext_resource type="Texture2D" uid="uid://vvm2idgjrf8y" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_glow_0003.tres" id="5_2nob4"]
 [ext_resource type="Texture2D" uid="uid://61uquvxhh8s2" path="res://assets/atlas/atlas_textures/game_gui/nextwaveTimer_glow_0001.tres" id="6_aggcx"]
-[ext_resource type="PackedScene" uid="uid://cf08xm81w3sg8" path="res://game/wave_flag/wave_info.tscn" id="7_dsdc2"]
+[ext_resource type="PackedScene" uid="uid://cf08xm81w3sg8" path="res://game/wave_flag/wave_info/wave_info.tscn" id="7_dsdc2"]
 
 [sub_resource type="Gradient" id="Gradient_kwfvo"]
 offsets = PackedFloat32Array(0.999, 1)

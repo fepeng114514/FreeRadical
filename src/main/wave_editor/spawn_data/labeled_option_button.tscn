@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dmm6qq04j3mhl"]
+
+[ext_resource type="PackedScene" uid="uid://6fm7nxopasme" path="res://controls/labeled_option_button.tscn" id="1_rvqhd"]
+
+[node name="LabeledOptionButton" unique_id=82350687 instance=ExtResource("1_rvqhd")]
+
+[node name="Label" parent="." index="0" unique_id=973402172]
+theme_override_font_sizes/font_size = 18
+
+[node name="OptionButton" parent="." index="2" unique_id=1262903927]
+search_bar_enabled = true

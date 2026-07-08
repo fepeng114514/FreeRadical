@@ -8,7 +8,7 @@ class_name WaveEditor
 @export var sub_wave_track_editor: TrackEditor = null
 @export var spawn_track_editor: TrackEditor = null
 @export var spawn_data_vbox_container: WaveEditorSpawnDataVBoxContainer = null
-@export var entity_option_button_label: OptionButtonLabel = null
+@export var entity_option_button_label: LabeledOptionButton = null
 
 ## 敌人场景到索引的映射。
 var enemy_idx_dict: Dictionary[PackedScene, int] = {}

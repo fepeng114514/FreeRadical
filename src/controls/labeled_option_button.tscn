@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://6fm7nxopasme"]
+
+[ext_resource type="Script" uid="uid://bfsll8q5b53vk" path="res://controls/labeled_option_button.gd" id="1_k57vg"]
+
+[node name="LabeledOptionButton" type="HBoxContainer" unique_id=82350687 node_paths=PackedStringArray("option_button", "label")]
+script = ExtResource("1_k57vg")
+option_button = NodePath("OptionButton")
+label = NodePath("Label")
+
+[node name="Label" type="Label" parent="." unique_id=973402172]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="Spacer" type="Control" parent="." unique_id=1130097071]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=1262903927]
+custom_minimum_size = Vector2(86.5, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+fit_to_longest_item = false

@@ -1,5 +1,5 @@
 @tool
-extends SpinBoxButton
+extends SubmitSpinBox
 
 
 func _ready() -> void:
