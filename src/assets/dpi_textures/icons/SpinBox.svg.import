@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/SpinBox.svg-e4d9700f8e71fa7a9e23303c9d5ab6cd.
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

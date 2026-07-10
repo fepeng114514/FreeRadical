@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MethodOverrideAndSlot.svg-6c35c89e7a4190ca5a3
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

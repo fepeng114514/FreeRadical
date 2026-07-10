@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Orientation.svg-8fb6680c66caec6675b16220a0d6d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

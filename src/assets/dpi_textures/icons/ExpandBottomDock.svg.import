@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ExpandBottomDock.svg-1a6a0ae22a317532dc4a738d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Skeleton2D.svg-9bc1334ea5370c32cc0a0a08c2724f
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

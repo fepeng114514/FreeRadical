@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CharacterBody2D.svg-6a133feb7c410920321c35c97
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

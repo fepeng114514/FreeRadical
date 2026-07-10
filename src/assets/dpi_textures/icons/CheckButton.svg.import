@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CheckButton.svg-9481fa6be162e7d414de8f1b92b53
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CollapseTree.svg-3f56e87d04b5e2da726f850995a3
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

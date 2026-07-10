@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/BoxOccluder3D.svg-3950ff3e0c87462277f96151641
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

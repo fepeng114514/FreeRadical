@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/RayCast2D.svg-6eedd859b4b810ea7469246e24ad25a
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/HSeparator.svg-8e1e2171dc3c167833b10c02f246b0
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

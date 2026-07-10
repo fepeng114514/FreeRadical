@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/VisualShaderNodeVec3Uniform.svg-124f3d11c84ec
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

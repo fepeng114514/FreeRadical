@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/DebugContinue.svg-00fffb4bb730c75451bd566aec4
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

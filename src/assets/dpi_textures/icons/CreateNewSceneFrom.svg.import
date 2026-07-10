@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CreateNewSceneFrom.svg-6decc04f0d42f4ca45ff0e
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

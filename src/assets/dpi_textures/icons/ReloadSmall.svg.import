@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ReloadSmall.svg-3f671b6fac67baf7e9b9790a808aa
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

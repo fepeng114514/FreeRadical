@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/AnimatedTexture.svg-8e7dd0f9b4d650be94b7d9f6f
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

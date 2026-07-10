@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Control.svg-e193ba3e5b15e243eb53757ded78afa5.
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

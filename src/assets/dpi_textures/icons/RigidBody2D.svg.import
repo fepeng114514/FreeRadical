@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/RigidBody2D.svg-fe618f06d2671d102a9897fbe3840
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

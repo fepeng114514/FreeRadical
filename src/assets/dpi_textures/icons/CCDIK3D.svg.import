@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CCDIK3D.svg-85e2e8d9eea9da5b790c7122babbd869.
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

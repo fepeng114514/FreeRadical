@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/AnimationTrackGroup.svg-cb160794b7f8d2b4bfd0a
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

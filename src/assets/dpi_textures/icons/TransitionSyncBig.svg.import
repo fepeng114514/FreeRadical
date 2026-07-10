@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/TransitionSyncBig.svg-52a2ba08bed171b2115087f
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

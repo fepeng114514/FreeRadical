@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MaterialPreviewQuad.svg-3509a31d827323f4dff6d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

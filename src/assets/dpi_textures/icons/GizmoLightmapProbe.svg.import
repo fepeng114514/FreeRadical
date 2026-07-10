@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GizmoLightmapProbe.svg-8946439e23b0a0e4f038c1
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

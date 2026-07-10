@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Sky.svg-dc722bf2ecf463599bc52beddd771f2f.dpit
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

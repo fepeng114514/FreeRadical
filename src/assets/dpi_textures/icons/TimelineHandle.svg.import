@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/TimelineHandle.svg-77fe750bb679290614aaaf1d85
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

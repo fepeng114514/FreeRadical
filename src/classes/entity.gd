@@ -504,6 +504,7 @@ func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Call
 		return false
 			
 	var frames_remaining: int = get_frames_remaining(play_target)
+	var loop_mode: SpriteFrames.LoopMode = play_target.sprite_frames.get_animation_loop_mode(play_target.animation)
 	var times: int = animation_group.times
 
 	state |= Entity.State.WAITING
@@ -517,7 +518,14 @@ func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Call
 			)
 			if is_break:
 				break
-			await play_target.frame_changed
+
+			if (
+				loop_mode == SpriteFrames.LoopMode.LOOP_NONE 
+				and j == frames_remaining - 1
+			):
+				await play_target.animation_finished
+			else:
+				await play_target.frame_changed
 
 		if is_break:
 			Log.verbose("%s 中断等待动画: %s" % [self, play_target.animation])

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Label3D.svg-17b0387f179405e563ad091ce61a3006.
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

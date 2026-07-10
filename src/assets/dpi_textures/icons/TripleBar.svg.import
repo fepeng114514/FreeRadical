@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/TripleBar.svg-2891fbd2781a55182726481461ed2f9
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

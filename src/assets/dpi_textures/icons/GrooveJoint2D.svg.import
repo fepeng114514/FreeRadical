@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GrooveJoint2D.svg-65e8f0968dfc7be002b4d3e0aea
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

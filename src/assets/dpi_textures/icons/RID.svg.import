@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/RID.svg-9bd737d95d5af66bd5ed163c399fca7f.dpit
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

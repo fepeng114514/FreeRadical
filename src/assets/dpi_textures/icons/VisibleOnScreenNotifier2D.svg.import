@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/VisibleOnScreenNotifier2D.svg-1bee7ee07cddc4b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

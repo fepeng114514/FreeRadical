@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MatchCase.svg-06f72d3fa25eda4714cd667164ee5a6
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

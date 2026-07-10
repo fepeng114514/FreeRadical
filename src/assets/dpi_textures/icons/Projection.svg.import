@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Projection.svg-fc5fc7801fdffaed37b6d36097dcbb
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

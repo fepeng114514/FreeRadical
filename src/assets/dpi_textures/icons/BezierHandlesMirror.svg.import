@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/BezierHandlesMirror.svg-9ac2d371c1d320d13c31e
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

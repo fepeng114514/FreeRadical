@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/EditorCurveHandle.svg-a2f43f4c6e751a0a3a93129
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

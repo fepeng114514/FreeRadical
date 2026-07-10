@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ShapeCast3D.svg-f29a8237e79a9ba9933970efde596
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

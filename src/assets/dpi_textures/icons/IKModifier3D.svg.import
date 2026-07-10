@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/IKModifier3D.svg-e49721a0478148d36fe1a176d468
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CPUParticles2D.svg-aaea91d4b7055baa8b0df2d891
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/PackedVector4Array.svg-aa06efb793fc8425389969
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

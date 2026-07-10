@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/KeyTrackPosition.svg-24ae3234f5898634e7253b3f
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

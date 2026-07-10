@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ControlAlignVCenterWide.svg-f69450aeedcd8d7e9
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

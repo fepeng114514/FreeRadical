@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/AudioBusMute.svg-cfc23e266e621ef73d20d9b0e3ad
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

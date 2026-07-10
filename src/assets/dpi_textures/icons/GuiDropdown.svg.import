@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiDropdown.svg-bb7c565678b215f36047159aac807
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

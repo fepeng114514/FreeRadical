@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/AudioStream.svg-1ae67518efa3d8e47629c001e4b6b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

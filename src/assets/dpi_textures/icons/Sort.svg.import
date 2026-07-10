@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Sort.svg-cc2a68bd0ee869d34ab9d42f231de80a.dpi
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

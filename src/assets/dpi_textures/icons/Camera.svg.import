@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Camera.svg-bf769cf233cdb0780aa30bc561464f6a.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

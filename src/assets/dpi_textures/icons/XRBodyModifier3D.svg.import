@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/XRBodyModifier3D.svg-be41c533b4f57776f783432d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

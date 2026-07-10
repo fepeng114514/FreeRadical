@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/VehicleWheel3D.svg-090181a3dd23275a754c396cfc
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

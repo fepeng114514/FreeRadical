@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/TabBar.svg-e239d0b96a74c73084912c12c5b70e70.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

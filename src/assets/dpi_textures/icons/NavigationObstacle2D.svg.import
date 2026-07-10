@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/NavigationObstacle2D.svg-f66fa67dfbda4e43de2b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

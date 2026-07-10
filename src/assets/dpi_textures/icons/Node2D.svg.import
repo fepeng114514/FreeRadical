@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Node2D.svg-3124a81893270d9913f562596c8373b7.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

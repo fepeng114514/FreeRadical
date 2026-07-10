@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ToolAddNode.svg-9dd2e395b5ed5ad45996200f00109
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

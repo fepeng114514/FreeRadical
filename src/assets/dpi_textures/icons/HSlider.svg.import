@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/HSlider.svg-ffc9d378a7507d2f489bcb88b9117f37.
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

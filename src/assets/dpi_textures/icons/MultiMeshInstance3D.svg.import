@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MultiMeshInstance3D.svg-da8bb4565bb29f38b5f37
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

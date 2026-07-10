@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/World2D.svg-da75de4ec702b22c429ea6412dc30b0e.
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

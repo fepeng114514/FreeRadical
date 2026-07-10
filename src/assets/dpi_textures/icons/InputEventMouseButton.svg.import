@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/InputEventMouseButton.svg-2e899c706c37c2b5a77
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

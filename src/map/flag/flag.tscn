@@ -15,7 +15,7 @@ area = NodePath("Area2D")
 position = Vector2(1, -56)
 sprite_frames = ExtResource("1_poj8k")
 animation = &"unlocked"
-frame_progress = 0.266711
+frame_progress = 0.88169736
 
 [node name="Timer" type="Timer" parent="." unique_id=877005824]
 

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Eraser.svg-9e481f932420fc771e567faa84fd737c.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

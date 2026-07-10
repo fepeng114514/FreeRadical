@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/FoldableContainer.svg-1069e60051ac7d100aaff00
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

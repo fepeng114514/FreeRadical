@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ConvexPolygonShape2D.svg-1c99672ee464e021f801
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

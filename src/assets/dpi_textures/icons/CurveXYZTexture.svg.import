@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CurveXYZTexture.svg-460936b2d01c762febc3bf414
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/TextEditorPlay.svg-d815b23ef0826b01aa3b698cca
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

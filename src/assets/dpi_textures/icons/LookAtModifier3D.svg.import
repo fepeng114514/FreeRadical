@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/LookAtModifier3D.svg-162b98a7a02d3bdcbc374c1c
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

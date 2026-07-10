@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/BoxContainer.svg-0efd1bacb0a0505f3aac8cddc8a3
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

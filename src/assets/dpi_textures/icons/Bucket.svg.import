@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Bucket.svg-e59926f427fd01285b6a07d9ce0b8d1f.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

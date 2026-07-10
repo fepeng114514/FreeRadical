@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/SpringBoneCollision3D.svg-1a068b9b3d74a651057
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

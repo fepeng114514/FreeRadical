@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Label.svg-d71fe74aac5f9bff625af339c48987ac.dp
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

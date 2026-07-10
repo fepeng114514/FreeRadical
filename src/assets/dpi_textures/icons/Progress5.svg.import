@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Progress5.svg-69cfcdaee9b326a831c342e367b791c
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

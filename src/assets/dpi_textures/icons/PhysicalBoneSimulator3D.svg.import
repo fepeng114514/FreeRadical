@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/PhysicalBoneSimulator3D.svg-573ec2c3825284585
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/EditorResourcePicker.svg-e217e7a7f918d8b99d98
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

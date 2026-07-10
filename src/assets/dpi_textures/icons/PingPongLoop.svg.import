@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/PingPongLoop.svg-b35ee4341672cde304a50c235ef4
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

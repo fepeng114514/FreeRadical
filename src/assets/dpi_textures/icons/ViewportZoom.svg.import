@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ViewportZoom.svg-6b9f9a7d42434bee8799503e24ab
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/XROrigin3D.svg-1d7d766d81118108865cd2bc2d54e1
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

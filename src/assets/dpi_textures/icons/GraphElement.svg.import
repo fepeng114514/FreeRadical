@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GraphElement.svg-dede3df1405f36f5c3f27cb1c5d2
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

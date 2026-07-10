@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MemberOperator.svg-0956c5e351751c686479b9c5ad
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

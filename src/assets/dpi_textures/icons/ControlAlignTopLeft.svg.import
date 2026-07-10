@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ControlAlignTopLeft.svg-3374cac91edf0edfd53aa
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

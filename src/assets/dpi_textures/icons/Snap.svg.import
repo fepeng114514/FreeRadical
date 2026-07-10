@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Snap.svg-4741133c2144a98c46c083a5eb98b77e.dpi
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/SplineIK3D.svg-84bde67669b6ddea347ed62d406713
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

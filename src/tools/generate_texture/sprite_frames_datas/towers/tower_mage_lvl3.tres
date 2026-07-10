@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="SpriteFramesData" format=3 uid="uid://dqvelb4ugkwea"]
+
+[ext_resource type="Script" uid="uid://dbrtetj0qraqj" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_animation_data.gd" id="1_pckqc"]
+[ext_resource type="Script" uid="uid://buwtm8hwwun77" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_data.gd" id="2_tfpot"]
+
+[sub_resource type="Resource" id="Resource_8glt0"]
+script = ExtResource("1_pckqc")
+from = 1
+to = 1
+loop_mode = 1
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[sub_resource type="Resource" id="Resource_c7dsn"]
+script = ExtResource("1_pckqc")
+from = 1
+to = 12
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[resource]
+script = ExtResource("2_tfpot")
+animation_dict = Dictionary[String, ExtResource("1_pckqc")]({
+"idle": SubResource("Resource_8glt0"),
+"ranged": SubResource("Resource_c7dsn")
+})
+metadata/_custom_type_script = "uid://buwtm8hwwun77"

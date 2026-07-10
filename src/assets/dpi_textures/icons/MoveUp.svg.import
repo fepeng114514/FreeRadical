@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MoveUp.svg-0524f9d3f2051bd5ff3a339eed358c68.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

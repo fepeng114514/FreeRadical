@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiVisibilityXray.svg-67eac090310fdfbc8b1330f
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

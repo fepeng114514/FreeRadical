@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/InterpCubic.svg-61b9641f884ba1b41ec8cfc5a6d2d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

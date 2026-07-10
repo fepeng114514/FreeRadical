@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GridLayout.svg-502648043f516cf667dfcd5b9d9ea4
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/EditorPosition.svg-1c5045d58856b91f3392e3422d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GizmoDecal.svg-54d0d33043371d9d8251a2f4f9a31b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ColorPicker.svg-90efe8e392709f2a8615096c7f4d8
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

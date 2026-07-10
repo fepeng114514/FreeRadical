@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ImageTexture.svg-ca19420bfaf6d0974e4ac3523f9f
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

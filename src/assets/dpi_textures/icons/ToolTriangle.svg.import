@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ToolTriangle.svg-b2fe6931c544502b229b9116251b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

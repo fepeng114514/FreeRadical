@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiArrowUp.svg-eeb1989a3f2a0e352f281ee0d07bf2
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

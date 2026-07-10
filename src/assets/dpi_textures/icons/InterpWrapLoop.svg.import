@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/InterpWrapLoop.svg-26361c84dbb4c49da1b96013db
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

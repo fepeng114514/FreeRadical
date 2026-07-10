@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiTreeUpdown.svg-dbc63ca3a29b78d46f4cc97de89
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

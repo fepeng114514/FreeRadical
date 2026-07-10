@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/KeyXPosition.svg-2a9fabe4ed9fb9e5800eb3fe8e62
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

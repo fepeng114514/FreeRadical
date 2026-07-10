@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/InputEventAction.svg-91a457a6675c7fcd2bc56a50
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

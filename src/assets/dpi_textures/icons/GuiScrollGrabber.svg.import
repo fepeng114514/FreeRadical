@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiScrollGrabber.svg-7048f46abfec639c27a68d1b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

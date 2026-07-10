@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Collapse.svg-8c29b3f90bd28b41cfb56868684f9e81
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

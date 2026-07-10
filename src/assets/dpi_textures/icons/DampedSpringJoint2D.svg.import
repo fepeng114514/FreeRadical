@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/DampedSpringJoint2D.svg-b5b30acf8f4ccb6619d76
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

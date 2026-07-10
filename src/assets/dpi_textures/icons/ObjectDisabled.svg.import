@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ObjectDisabled.svg-78b904e49e6ad860223e1ae781
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

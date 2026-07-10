@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/SegmentShape2D.svg-61076625d8e683aa60c9a3018b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

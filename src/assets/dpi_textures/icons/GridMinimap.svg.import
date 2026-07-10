@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GridMinimap.svg-3b1dede5a7a63ffc1622489853018
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

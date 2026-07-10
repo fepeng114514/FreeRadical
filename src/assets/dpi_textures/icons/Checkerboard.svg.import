@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Checkerboard.svg-80dc5569c6574700d6d3b95a6c6e
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

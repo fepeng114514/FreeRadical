@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/PointMesh.svg-4d468b75a6dc7de24ec2a48bbff5ea8
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

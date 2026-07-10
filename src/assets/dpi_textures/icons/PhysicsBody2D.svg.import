@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/PhysicsBody2D.svg-9b855d1d8d1f7329bc7254dd0a9
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

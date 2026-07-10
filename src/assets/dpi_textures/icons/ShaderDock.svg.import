@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ShaderDock.svg-15d94a01735948660c41f4ae9eb01e
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

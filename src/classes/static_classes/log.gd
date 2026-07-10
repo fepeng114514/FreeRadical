@@ -51,7 +51,7 @@ static func _log(level: int, message: String) -> void:
 		LogLevel.ERROR:
 			var stack: Array = get_stack()
 
-			var sliced: Array = stack.slice(3)
+			var sliced: Array = stack.slice(2)
 			var result: Array = [
 				"Traceback:"
 			]

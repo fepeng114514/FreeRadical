@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ViewportTexture.svg-1e9a86b9daf590b09c7faf7ba
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/JoyButton.svg-d6bf8708b275a2d0a299bbc69f103cb
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

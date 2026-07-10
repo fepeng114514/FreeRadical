@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Line2D.svg-5e4b4dad25bd1c1f289df06b88f955b4.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

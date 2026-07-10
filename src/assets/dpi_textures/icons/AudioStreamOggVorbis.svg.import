@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/AudioStreamOggVorbis.svg-50b27b1998cf8f5e00bc
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

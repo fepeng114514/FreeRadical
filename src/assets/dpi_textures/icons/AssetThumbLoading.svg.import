@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/AssetThumbLoading.svg-598946c060d554fd09865fb
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

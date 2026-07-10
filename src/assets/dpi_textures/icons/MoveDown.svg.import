@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MoveDown.svg-ec0b773f379f6c81304e67017ffae647
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

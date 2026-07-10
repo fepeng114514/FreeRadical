@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MiniObject.svg-4659f82fa3d5367d115dbaf1557a86
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

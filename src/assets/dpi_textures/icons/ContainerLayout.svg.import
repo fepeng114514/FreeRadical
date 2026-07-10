@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ContainerLayout.svg-702559611a921736ffc9a8574
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

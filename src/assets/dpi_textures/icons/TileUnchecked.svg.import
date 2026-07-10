@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/TileUnchecked.svg-04d408d3122d1d3ef1a84b2c698
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

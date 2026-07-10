@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/SubViewport.svg-bbd7656a6b01c248e17529f5e6643
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/SceneUniqueName.svg-9202b035dec4489d31e59f5fe
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

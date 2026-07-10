@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/AudioStreamRandomizer.svg-e44f5418569e65146fb
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

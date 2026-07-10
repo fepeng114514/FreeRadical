@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/LockViewport.svg-1d9a096365332197e3da19187063
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

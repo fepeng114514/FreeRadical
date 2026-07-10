@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ProjectDowngradeMajor.svg-ba410aa3c7fc6db7fda
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

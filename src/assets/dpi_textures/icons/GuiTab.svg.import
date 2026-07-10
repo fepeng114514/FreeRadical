@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiTab.svg-7dc0164686cf960994c4b0ec918fe029.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

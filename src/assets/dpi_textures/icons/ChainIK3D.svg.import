@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ChainIK3D.svg-f5fe91ef6907f4d800b9ca78c205c1f
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

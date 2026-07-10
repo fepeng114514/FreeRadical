@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Rect2i.svg-d867bce8709eb54a6c3b7bb95134e919.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

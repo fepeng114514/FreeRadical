@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Geometry3D.svg-2f61dfbd1f5222d6263303562b4b6c
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

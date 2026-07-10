@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Hierarchy.svg-c22469637dca303e882493f56cde39f
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

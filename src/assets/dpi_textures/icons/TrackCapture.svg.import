@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/TrackCapture.svg-d14f4a7ae9abffea088afa176eaf
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

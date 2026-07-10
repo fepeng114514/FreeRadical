@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/DirectionalLight3D.svg-4e8d3c151696bee53751c4
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

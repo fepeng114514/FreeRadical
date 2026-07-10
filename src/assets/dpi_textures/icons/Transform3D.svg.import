@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Transform3D.svg-b8ac8f1254814e93efdb94697829f
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/VoxelGIData.svg-3d3d9b7e0acf49e7e11df881a453e
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/PreviewSun.svg-cb449f59ef07ea32f3ecd86b2613bb
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiUncheckedDisabled.svg-8fcd97436656462f3379
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

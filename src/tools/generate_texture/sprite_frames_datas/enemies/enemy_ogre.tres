@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="SpriteFramesData" format=3 uid="uid://bpfvems1ojrfw"]
+
+[ext_resource type="Script" uid="uid://dbrtetj0qraqj" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_animation_data.gd" id="1_qc8p5"]
+[ext_resource type="Script" uid="uid://buwtm8hwwun77" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_data.gd" id="2_4ut7n"]
+
+[sub_resource type="Resource" id="Resource_cetmt"]
+script = ExtResource("1_qc8p5")
+from = 130
+to = 145
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[sub_resource type="Resource" id="Resource_c8b3p"]
+script = ExtResource("1_qc8p5")
+from = 80
+to = 80
+loop_mode = 1
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[sub_resource type="Resource" id="Resource_rlitx"]
+script = ExtResource("1_qc8p5")
+from = 80
+to = 106
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[sub_resource type="Resource" id="Resource_smu6w"]
+script = ExtResource("1_qc8p5")
+from = 53
+to = 78
+loop_mode = 1
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[sub_resource type="Resource" id="Resource_vfsol"]
+script = ExtResource("1_qc8p5")
+from = 1
+to = 26
+loop_mode = 1
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[sub_resource type="Resource" id="Resource_1l0tm"]
+script = ExtResource("1_qc8p5")
+from = 27
+to = 52
+loop_mode = 1
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[resource]
+script = ExtResource("2_4ut7n")
+animation_dict = Dictionary[String, ExtResource("1_qc8p5")]({
+"death_left_right": SubResource("Resource_cetmt"),
+"idle_left_right": SubResource("Resource_c8b3p"),
+"melee_left_right": SubResource("Resource_rlitx"),
+"walk_down": SubResource("Resource_smu6w"),
+"walk_left_right": SubResource("Resource_vfsol"),
+"walk_up": SubResource("Resource_1l0tm")
+})
+metadata/_custom_type_script = "uid://buwtm8hwwun77"

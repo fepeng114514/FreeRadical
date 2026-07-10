@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/InputEventScreenDrag.svg-4365bfe47b5061b54f1b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Shader.svg-b9787f3844b2f6c98440ee603e5a8601.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

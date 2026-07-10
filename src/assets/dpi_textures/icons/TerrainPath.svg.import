@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/TerrainPath.svg-59cd46b0768b23a3a5bbf5c270b62
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

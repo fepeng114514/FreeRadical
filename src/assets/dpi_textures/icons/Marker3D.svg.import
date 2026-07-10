@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Marker3D.svg-c134ea479f30c798054a05371e1b0866
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

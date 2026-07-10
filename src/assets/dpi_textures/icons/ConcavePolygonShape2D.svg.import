@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ConcavePolygonShape2D.svg-8588f217f568f4e8a04
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

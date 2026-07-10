@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiRadioChecked.svg-f040f408fd192df89cfbda2c4
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

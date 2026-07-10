@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CapsuleMesh.svg-088f66d0653f8189376b769ba5461
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

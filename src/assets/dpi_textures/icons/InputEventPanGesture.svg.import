@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/InputEventPanGesture.svg-446c67a1db9f6d223207
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

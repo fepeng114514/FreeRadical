@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/NodeWarnings4Plus.svg-5d7c85a3eac8bdf54e58b6b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CheckBox.svg-28071916d03ba7c8fb71b474d4fceab9
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

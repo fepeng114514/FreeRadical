@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/PinJoint2D.svg-206385652652c2671d40e7bc371294
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

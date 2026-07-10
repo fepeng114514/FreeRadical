@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/RotateRight.svg-1c53dae59265275784bbf75713c1c
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

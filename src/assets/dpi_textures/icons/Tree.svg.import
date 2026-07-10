@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Tree.svg-53aa69ab37e72f1e539e579b5087d856.dpi
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

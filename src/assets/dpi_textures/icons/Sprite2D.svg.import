@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Sprite2D.svg-70cbd6577039b5c51f107041c6f70284
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

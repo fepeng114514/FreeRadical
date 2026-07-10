@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/FogVolume.svg-cdeed892d93fad49880930005199b6b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

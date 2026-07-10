@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/KeyBezierSelected.svg-7874b9b440d0c4c5952c0da
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

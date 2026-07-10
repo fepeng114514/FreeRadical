@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/OverbrightIndicator.svg-4c11fb4747ee4673af9ab
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Onion.svg-6d41f3992ded537746e2ec8304f597dc.dp
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

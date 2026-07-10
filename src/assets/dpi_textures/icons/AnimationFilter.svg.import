@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/AnimationFilter.svg-ceeb58d0e6a388326cb0acde3
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

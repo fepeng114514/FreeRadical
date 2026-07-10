@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/VcsBranches.svg-37f72e2ba68af21bed0500daed6b7
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

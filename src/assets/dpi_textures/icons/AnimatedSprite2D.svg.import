@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/AnimatedSprite2D.svg-14fa4906ea3fc2f2eb3ba175
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

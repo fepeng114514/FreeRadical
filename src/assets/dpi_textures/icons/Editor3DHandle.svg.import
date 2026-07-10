@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Editor3DHandle.svg-39631c22ab1272f6a79dabb3d5
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

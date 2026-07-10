@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/FPS.svg-05729c7e2070529007de3c286f4986dc.dpit
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

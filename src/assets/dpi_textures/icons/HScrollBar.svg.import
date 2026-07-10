@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/HScrollBar.svg-81686abd07ce5412cc491a6ad9a60d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

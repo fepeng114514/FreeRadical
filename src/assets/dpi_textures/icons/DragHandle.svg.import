@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/DragHandle.svg-a1397012fa3b3157a60dd536c81bdd
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

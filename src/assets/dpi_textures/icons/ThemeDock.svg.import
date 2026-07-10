@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ThemeDock.svg-9da3810aeb2a82b8b8133e4c5b62e9d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

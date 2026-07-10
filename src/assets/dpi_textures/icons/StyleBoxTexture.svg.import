@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/StyleBoxTexture.svg-7f0501d5c05657e8bfebd4b06
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

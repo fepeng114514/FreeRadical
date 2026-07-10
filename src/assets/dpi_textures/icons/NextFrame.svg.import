@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/NextFrame.svg-0389edd50c1c9426c326eca5eb255d0
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

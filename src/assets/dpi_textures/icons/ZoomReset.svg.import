@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ZoomReset.svg-c4ed9e49020efe325546dbc1dfff8ce
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

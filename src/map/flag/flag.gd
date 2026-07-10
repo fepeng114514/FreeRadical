@@ -15,7 +15,7 @@ extends Node2D
 func _ready() -> void:
 	area.input_event.connect(_on_input_event)
 	
-	animated_sprite.play("unlocked")
+	animated_sprite.play("unlocked_idle")
 
 
 func _get_configuration_warnings() -> PackedStringArray:

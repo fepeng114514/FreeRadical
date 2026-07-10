@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiHsplitter.svg-78b458e72f02ced20d721ea2b74a
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

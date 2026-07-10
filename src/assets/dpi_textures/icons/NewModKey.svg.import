@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/NewModKey.svg-7fa6f4893a9bf53fcedcf49746de754
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

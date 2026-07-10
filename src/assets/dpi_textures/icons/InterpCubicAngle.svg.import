@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/InterpCubicAngle.svg-d2d3d0fa053de4de7f20da8a
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

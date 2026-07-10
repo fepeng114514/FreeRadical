@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/SpriteFrames.svg-af10673c8693d52bd642b1788d07
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

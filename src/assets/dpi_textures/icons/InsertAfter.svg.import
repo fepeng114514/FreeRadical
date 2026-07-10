@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/InsertAfter.svg-902339519bd3a86ccb8dcb7424cce
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

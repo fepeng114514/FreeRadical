@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CanvasItem.svg-75542a9b2ae0b3983209cb69d56c8b
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

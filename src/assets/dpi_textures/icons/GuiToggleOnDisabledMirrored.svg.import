@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiToggleOnDisabledMirrored.svg-9900d62858fae
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

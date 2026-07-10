@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/EditorInspector.svg-ceceea49f759f52381affa839
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

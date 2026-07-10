@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/TileMapDock.svg-4d44735ebb0c2a725f06658809188
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

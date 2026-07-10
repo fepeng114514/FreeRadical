@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/NavigationRegion3D.svg-0db1ddb512e5cea980830a
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

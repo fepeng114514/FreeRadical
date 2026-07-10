@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CurveConstant.svg-ec6df0ca3302b2923bf8339d8f1
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

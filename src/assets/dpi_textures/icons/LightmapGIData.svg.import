@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/LightmapGIData.svg-f0b19462b19ebb2ee6728d79a7
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

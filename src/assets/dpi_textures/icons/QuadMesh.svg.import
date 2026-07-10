@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/QuadMesh.svg-ff6dfb8509df6773d550f5696e9917b8
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

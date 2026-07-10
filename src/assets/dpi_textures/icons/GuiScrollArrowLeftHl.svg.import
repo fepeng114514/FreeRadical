@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiScrollArrowLeftHl.svg-c285a6ddea597f5cbd86
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

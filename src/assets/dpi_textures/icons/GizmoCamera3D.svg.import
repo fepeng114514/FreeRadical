@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GizmoCamera3D.svg-221b26d24f884a7a207e150a8ac
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

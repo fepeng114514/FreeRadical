@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ExpandTree.svg-8d2e84b280af67597c4de8a963c9e7
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

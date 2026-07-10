@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/XRFaceModifier3D.svg-55ed3d63aa222ebbd20e37d8
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

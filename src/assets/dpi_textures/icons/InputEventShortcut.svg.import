@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/InputEventShortcut.svg-dd0efdc8ab9bedda8ff8f6
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

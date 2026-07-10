@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/AutoPlay.svg-b07906a8e56e654b26a28ec9894b6262
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

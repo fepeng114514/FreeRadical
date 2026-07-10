@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MarginContainer.svg-7f03dd0ab114bf087957c50ed
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

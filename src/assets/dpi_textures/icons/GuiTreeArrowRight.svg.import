@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiTreeArrowRight.svg-5c44e8d77f0a68783a251fd
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

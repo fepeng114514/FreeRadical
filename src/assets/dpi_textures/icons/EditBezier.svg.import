@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/EditBezier.svg-f19a310320b96e8a2bbc3de976aea0
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

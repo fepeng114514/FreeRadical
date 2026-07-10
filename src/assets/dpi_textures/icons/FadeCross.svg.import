@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/FadeCross.svg-52a314c4d07e1ca47be0dc29a60eefe
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

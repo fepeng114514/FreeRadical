@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Override.svg-080e7b51a7bf785d9d3a291f79a52c90
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/RemoteTransform3D.svg-e6edbd11382752ddc677f3c
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

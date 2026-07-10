@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/PathFollow2D.svg-a76e6555ce6830c4fa0c890a4ccd
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

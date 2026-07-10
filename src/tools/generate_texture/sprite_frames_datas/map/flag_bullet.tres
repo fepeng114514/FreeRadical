@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="SpriteFramesData" format=3 uid="uid://765qagi5f3pt"]
+
+[ext_resource type="Script" uid="uid://dbrtetj0qraqj" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_animation_data.gd" id="1_u02l2"]
+[ext_resource type="Script" uid="uid://buwtm8hwwun77" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_data.gd" id="2_qwmpl"]
+
+[sub_resource type="Resource" id="Resource_kdp4s"]
+script = ExtResource("1_u02l2")
+from = 10
+to = 10
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[sub_resource type="Resource" id="Resource_btj1w"]
+script = ExtResource("1_u02l2")
+from = 1
+to = 10
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[resource]
+script = ExtResource("2_qwmpl")
+animation_dict = Dictionary[String, ExtResource("1_u02l2")]({
+"idle": SubResource("Resource_kdp4s"),
+"unlocking": SubResource("Resource_btj1w")
+})
+metadata/_custom_type_script = "uid://buwtm8hwwun77"

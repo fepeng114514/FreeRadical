@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/FontSize.svg-b4bb16c633ccedf8f70f09c59b3db5ba
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

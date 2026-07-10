@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Joypad.svg-257a29921c0d80ec40a954b6da9260a6.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

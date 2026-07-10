@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/PagePrevious.svg-ec8a19af589b4d0d14713998b0f2
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

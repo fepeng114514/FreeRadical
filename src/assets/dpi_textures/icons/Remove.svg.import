@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Remove.svg-d6d804133196f1a2e8038cd7d24783f2.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

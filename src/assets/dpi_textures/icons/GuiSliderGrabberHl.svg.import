@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiSliderGrabberHl.svg-1c7c50572c339d8f64ffcd
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

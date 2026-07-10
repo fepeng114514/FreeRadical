@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MirrorX.svg-a6287ef26de12aeefb9b74b53a13f47c.
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

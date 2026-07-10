@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Signal.svg-82ea7fc40b7324ab8df1b332c750e265.d
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

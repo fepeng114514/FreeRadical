@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ThumbsUp.svg-e91f0f4fdee562a3a820eb4abe611c6c
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Generic6DOFJoint3D.svg-2bb18eb83a86a4905e9083
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

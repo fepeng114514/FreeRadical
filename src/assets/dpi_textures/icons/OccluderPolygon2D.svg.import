@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/OccluderPolygon2D.svg-6970bf48722313670b5bc3e
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

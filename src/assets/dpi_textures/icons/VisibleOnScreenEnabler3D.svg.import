@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/VisibleOnScreenEnabler3D.svg-94ee88389d82b9d2
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Ungroup.svg-5613212e33803c83413310e301ce894b.
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

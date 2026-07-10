@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SpriteFramesData" format=3 uid="uid://bbhfu4bd0paqm"]
+
+[ext_resource type="Script" uid="uid://dbrtetj0qraqj" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_animation_data.gd" id="1_arfm4"]
+[ext_resource type="Script" uid="uid://buwtm8hwwun77" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_data.gd" id="2_mmiip"]
+
+[resource]
+script = ExtResource("2_mmiip")
+metadata/_custom_type_script = "uid://buwtm8hwwun77"

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/SeparationRayShape3D.svg-2f5f17c95a3a1792143a
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

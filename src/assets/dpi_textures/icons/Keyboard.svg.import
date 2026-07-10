@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Keyboard.svg-f07eb1520ee7a935895923f4fcf5b268
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

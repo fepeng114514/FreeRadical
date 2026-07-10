@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/MemberTheme.svg-fe21aa507a96fbf855d30e11573e9
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/Panels2Alt.svg-287b4e2c6d990f92c6db884aa68e1f
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

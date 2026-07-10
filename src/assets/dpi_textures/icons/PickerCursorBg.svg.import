@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/PickerCursorBg.svg-2146af575babfd375445265615
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

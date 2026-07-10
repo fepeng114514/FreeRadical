@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/CurveOutIn.svg-dbbe76d65f5de9e2ae9716a8314619
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

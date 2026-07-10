@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ParallaxBackground.svg-5d8249b6d6948e3ca67718
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

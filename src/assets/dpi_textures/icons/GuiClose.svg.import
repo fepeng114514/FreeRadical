@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/GuiClose.svg-a4224b0ae4ad4d5c5ca91caf018fcc17
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

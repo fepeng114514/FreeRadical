@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/RemoveInternal.svg-84a5b2481d416799a1a50b3946
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

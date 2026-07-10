@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/ViewportSpeed.svg-5063e1433ba12a68596d22aca53
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true

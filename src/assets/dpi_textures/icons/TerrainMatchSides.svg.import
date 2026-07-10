@@ -15,4 +15,6 @@ dest_files=["res://.godot/imported/TerrainMatchSides.svg-d6b1f676f0f93a28639ae8c
 base_scale=1.0
 saturation=1.0
 color_map={}
+fix_alpha_border=false
+premult_alpha=false
 compress=true
