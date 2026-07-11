@@ -113,6 +113,7 @@ func _death(d: Damage, target: Entity, health_c: HealthComponent, source: Entity
 		return
 
 	AudioMgr.play_sfx(health_c.death_sfx)
+	target.state &= ~Entity.State.INTERRUPT_WAIT
 	var death_animation: AnimationGroup = health_c.death_animation
 	if death_animation:
 		target.play_animation(death_animation, &"death")

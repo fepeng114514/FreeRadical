@@ -97,7 +97,7 @@ func _generate_atlas_texture() -> void:
 		_ensure_directory(dir_path)
 		var save_path: String = dir_path.path_join(atlas_texture_name + ".tres")
 
-		ResourceSaver.save(atlas_texture_item.atlas_texture, save_path, ResourceSaver.FLAG_CHANGE_PATH)
+		ResourceSaver.save(atlas_texture_item.atlas_texture, save_path)
 		Log.info("生成 AtlasTexture: %s" % save_path)
 
 
@@ -163,7 +163,7 @@ func _generate_sprite_frames() -> void:
 		_ensure_directory(dir_path)
 		var save_path: String = dir_path.path_join(sprite_frames_name + ".tres")
 
-		ResourceSaver.save(sprite_frames_item.sprite_frames, save_path, ResourceSaver.FLAG_CHANGE_PATH)
+		ResourceSaver.save(sprite_frames_item.sprite_frames, save_path)
 		Log.info("生成 SpriteFrames: %s" % save_path)
 
 

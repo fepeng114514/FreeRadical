@@ -58,6 +58,7 @@ sprite_frames = ExtResource("4_wku2c")
 animation = &"idle_down"
 
 [node name="SkillComponent" type="Node2D" parent="." unique_id=129640034]
+process_mode = 4
 script = ExtResource("5_skugy")
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 

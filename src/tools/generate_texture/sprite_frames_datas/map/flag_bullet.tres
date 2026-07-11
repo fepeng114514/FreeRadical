@@ -7,6 +7,7 @@
 script = ExtResource("1_u02l2")
 from = 10
 to = 10
+loop_mode = 1
 metadata/_custom_type_script = "uid://dbrtetj0qraqj"
 
 [sub_resource type="Resource" id="Resource_btj1w"]

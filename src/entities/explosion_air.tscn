@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_tmxxw"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_xp12o"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_5qgwn"]
-[ext_resource type="SpriteFrames" uid="uid://d14mk8af38v74" path="res://assets/atlas/sprite_frames/bases/explosion_air.tres" id="4_16p6m"]
+[ext_resource type="SpriteFrames" uid="uid://eq3bgpd67tq2" path="res://assets/atlas/sprite_frames/commons/explosion_air.tres" id="4_fjwbf"]
 [ext_resource type="Script" uid="uid://bvipq6dw3lalv" path="res://classes/components/fx_component.gd" id="5_j262p"]
 
 [sub_resource type="Resource" id="Resource_qvfn2"]
@@ -21,7 +21,7 @@ script = ExtResource("3_5qgwn")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=172993599]
-sprite_frames = ExtResource("4_16p6m")
+sprite_frames = ExtResource("4_fjwbf")
 animation = &"idle"
 
 [node name="FXComponent" type="Node2D" parent="." unique_id=987371124]

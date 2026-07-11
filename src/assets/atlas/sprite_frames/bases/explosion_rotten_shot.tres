@@ -1,9 +1,0 @@
-[gd_resource type="SpriteFrames" format=3 uid="uid://cx6g7h0ywg2lr"]
-
-[resource]
-animations = [{
-"frames": [],
-"loop": 1,
-"name": &"idle",
-"speed": 30.0
-}]

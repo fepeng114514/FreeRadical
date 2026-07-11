@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SpriteFramesData" format=3 uid="uid://dyyc46o8xdl6u"]
+
+[ext_resource type="Script" uid="uid://dbrtetj0qraqj" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_animation_data.gd" id="1_4wnm7"]
+[ext_resource type="Script" uid="uid://buwtm8hwwun77" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_data.gd" id="2_5xgfl"]
+
+[sub_resource type="Resource" id="Resource_5iq1a"]
+script = ExtResource("1_4wnm7")
+from = 1
+to = 24
+loop_mode = 1
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[resource]
+script = ExtResource("2_5xgfl")
+animation_dict = Dictionary[String, ExtResource("1_4wnm7")]({
+"idle": SubResource("Resource_5iq1a")
+})
+metadata/_custom_type_script = "uid://buwtm8hwwun77"

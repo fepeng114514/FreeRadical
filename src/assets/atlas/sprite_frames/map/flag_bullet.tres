@@ -96,7 +96,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_k7cfa")
 }],
-"loop": 1,
-"name": &"unlock",
+"loop": 0,
+"name": &"unlocking",
 "speed": 30.0
 }]

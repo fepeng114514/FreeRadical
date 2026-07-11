@@ -3,17 +3,16 @@
 [ext_resource type="Script" uid="uid://dbrtetj0qraqj" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_animation_data.gd" id="1_77tca"]
 [ext_resource type="Script" uid="uid://buwtm8hwwun77" path="res://tools/generate_texture/sprite_frames_datas/sprite_frames_data.gd" id="2_ksmh7"]
 
-[sub_resource type="Resource" id="Resource_ry5i0"]
-script = ExtResource("1_77tca")
-from = 1
-to = 10
-loop_mode = 1
-metadata/_custom_type_script = "uid://dbrtetj0qraqj"
-
 [sub_resource type="Resource" id="Resource_77tca"]
 script = ExtResource("1_77tca")
 from = 11
 to = 40
+metadata/_custom_type_script = "uid://dbrtetj0qraqj"
+
+[sub_resource type="Resource" id="Resource_1ah7b"]
+script = ExtResource("1_77tca")
+from = 52
+to = 65
 metadata/_custom_type_script = "uid://dbrtetj0qraqj"
 
 [sub_resource type="Resource" id="Resource_nl4hi"]
@@ -22,10 +21,11 @@ from = 41
 to = 51
 metadata/_custom_type_script = "uid://dbrtetj0qraqj"
 
-[sub_resource type="Resource" id="Resource_1ah7b"]
+[sub_resource type="Resource" id="Resource_ry5i0"]
 script = ExtResource("1_77tca")
-from = 52
-to = 65
+from = 1
+to = 10
+loop_mode = 1
 metadata/_custom_type_script = "uid://dbrtetj0qraqj"
 
 [resource]

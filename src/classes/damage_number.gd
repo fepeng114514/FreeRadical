@@ -79,6 +79,9 @@ func _ready() -> void:
 	scale = Vector2(0, 0)
 	add_theme_font_size_override("font_size", 100)
 
+	var tween: Tween = create_tween()
+	tween.tween_property(self, "scale", target_scale, scale_duration)
+
 
 func _process(delta: float) -> void:
 	move_ts += delta

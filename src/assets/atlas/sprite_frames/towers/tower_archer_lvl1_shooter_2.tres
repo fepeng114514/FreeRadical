@@ -2,31 +2,31 @@
 
 [ext_resource type="Texture2D" uid="uid://s0sbblyp14fu" path="res://assets/atlas/towers-1.dds" id="1_g34c7"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dhbro"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_g34c7"]
 atlas = ExtResource("1_g34c7")
 region = Rect2(3, 1222, 214, 223)
 margin = Rect2(92, 61, 126, 113)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gi06l"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhbro"]
 atlas = ExtResource("1_g34c7")
 region = Rect2(590, 2222, 197, 234)
 margin = Rect2(102, 61, 143, 102)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rri8x"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gi06l"]
 atlas = ExtResource("1_g34c7")
 region = Rect2(901, 1821, 194, 251)
 margin = Rect2(94, 61, 146, 85)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x11mu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rri8x"]
 atlas = ExtResource("1_g34c7")
 region = Rect2(901, 2074, 194, 251)
 margin = Rect2(94, 61, 146, 85)
 filter_clip = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sp4lt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x11mu"]
 atlas = ExtResource("1_g34c7")
 region = Rect2(901, 2436, 188, 234)
 margin = Rect2(102, 61, 152, 102)
@@ -36,35 +36,35 @@ filter_clip = true
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dhbro")
+"texture": SubResource("AtlasTexture_g34c7")
 }],
 "loop": 1,
-"name": &"idle",
+"name": &"idle_left_right",
 "speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gi06l")
+"texture": SubResource("AtlasTexture_dhbro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhbro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhbro")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gi06l")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gi06l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rri8x")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rri8x")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x11mu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_sp4lt")
 }],
-"loop": 1,
-"name": &"ranged",
+"loop": 0,
+"name": &"ranged_left_right",
 "speed": 30.0
 }]

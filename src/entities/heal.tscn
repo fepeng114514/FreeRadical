@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://jx3pxi4skntv" path="res://entities/modifier.tscn" id="1_hruso"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_0xtce"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_1ob1w"]
-[ext_resource type="SpriteFrames" uid="uid://brstgmheglt1u" path="res://assets/atlas/sprite_frames/bases/healing_small.tres" id="3_1ob1w"]
+[ext_resource type="SpriteFrames" uid="uid://bdkldfew1v4q7" path="res://assets/atlas/sprite_frames/commons/healing_small.tres" id="5_0xtce"]
 [ext_resource type="Script" uid="uid://ckhydj2qpt5tb" path="res://classes/influences/heal_influence.gd" id="6_n821v"]
 
 [sub_resource type="Resource" id="Resource_n821v"]
@@ -13,7 +13,6 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [sub_resource type="Resource" id="Resource_1ob1w"]
 script = ExtResource("6_n821v")
-heal_value = 50.0
 metadata/_custom_type_script = "uid://ckhydj2qpt5tb"
 
 [node name="Heal" unique_id=797095383 instance=ExtResource("1_hruso")]
@@ -29,5 +28,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=1375230973]
 position = Vector2(0, -19)
-sprite_frames = ExtResource("3_1ob1w")
+sprite_frames = ExtResource("5_0xtce")
 animation = &"idle"
+frame = 23
+frame_progress = 1.0

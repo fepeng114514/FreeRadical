@@ -112,7 +112,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p51s3")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"spawn",
 "speed": 30.0
 }]

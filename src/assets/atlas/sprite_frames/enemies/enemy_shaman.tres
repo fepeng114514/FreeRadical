@@ -458,7 +458,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aaqnw")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"death_left_right",
 "speed": 30.0
 }, {
@@ -547,7 +547,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_elgjf")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"heal_left_right",
 "speed": 30.0
 }, {
@@ -614,7 +614,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_58pxg")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"melee_left_right",
 "speed": 30.0
 }, {
