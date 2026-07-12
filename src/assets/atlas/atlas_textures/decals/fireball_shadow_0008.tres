@@ -1,0 +1,9 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://cvlpcbb3a0qne"]
+
+[ext_resource type="Texture2D" uid="uid://duobsilyxvtd7" path="res://assets/atlas/decals-1.dds" id="1_okmcm"]
+
+[resource]
+atlas = ExtResource("1_okmcm")
+region = Rect2(3, 1483, 41, 16)
+margin = Rect2(20, 5, 39, 11)
+filter_clip = true

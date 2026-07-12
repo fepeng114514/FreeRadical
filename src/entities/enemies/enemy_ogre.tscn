@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://entities/enemies/enemy.tscn" id="1_4svom"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_gsmxj"]
-[ext_resource type="SpriteFrames" uid="uid://c6kr77vu1lju7" path="res://assets/atlas/sprite_frames/enemies/enemy_ogre.tres" id="3_prilf"]
+[ext_resource type="SpriteFrames" uid="uid://dsxx3coef64np" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_ogre.tres" id="4_4svom"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="4_cktve"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="5_p5seb"]
 
@@ -39,8 +39,7 @@ interact_policy = SubResource("Resource_gsmxj")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -45)
-sprite_frames = ExtResource("3_prilf")
-animation = &"melee_left_right"
+sprite_frames = ExtResource("4_4svom")
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 800.0

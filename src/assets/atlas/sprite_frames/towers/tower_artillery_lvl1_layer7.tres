@@ -4,7 +4,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p6vu0"]
 atlas = ExtResource("1_p6vu0")
-region = Rect2(240, 2795, 45, 48)
+region = Rect2(240, 2056, 45, 48)
 margin = Rect2(10, 104, 145, 130)
 filter_clip = true
 

@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://drgcomkmcowby"]
 
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://entities/enemies/enemy.tscn" id="1_wlnjt"]
-[ext_resource type="SpriteFrames" uid="uid://cp7wdkolenv7s" path="res://assets/atlas/sprite_frames/enemies/enemy_orc.tres" id="2_bomnd"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_w5ikr"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_572ol"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_bomnd"]
+[ext_resource type="SpriteFrames" uid="uid://cnk16hmugl15f" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_orc.tres" id="4_2yp6p"]
 [ext_resource type="AudioStream" uid="uid://v0wce41w75e7" path="res://assets/audios/sound_enemy_orc_dead.ogg" id="5_2yp6p"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="5_06yx3"]
 
@@ -13,7 +13,7 @@ script = ExtResource("2_w5ikr")
 any = Vector2(0, -14.67)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_2yp6p"]
+[sub_resource type="Resource" id="Resource_y0rml"]
 resource_local_to_scene = true
 script = ExtResource("3_572ol")
 flags = 1
@@ -23,17 +23,18 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_w5ikr"]
 script = ExtResource("3_bomnd")
+play_mode = null
 list = Array[AudioStream]([ExtResource("5_2yp6p")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[sub_resource type="Resource" id="Resource_y0rml"]
+[sub_resource type="Resource" id="Resource_n8t6l"]
 resource_local_to_scene = true
 script = ExtResource("2_w5ikr")
 right_replace_left = true
 right = Vector2(30.15, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_n8t6l"]
+[sub_resource type="Resource" id="Resource_t6npt"]
 resource_local_to_scene = true
 script = ExtResource("5_06yx3")
 min_value = 4.0
@@ -43,11 +44,11 @@ metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 [node name="EnemyOrc" unique_id=71433118 instance=ExtResource("1_wlnjt")]
 scene_name = "enemy_orc"
 hit_offsets = SubResource("Resource_06yx3")
-interact_policy = SubResource("Resource_2yp6p")
+interact_policy = SubResource("Resource_y0rml")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -25)
-sprite_frames = ExtResource("2_bomnd")
+sprite_frames = ExtResource("4_2yp6p")
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 80.0
@@ -65,10 +66,10 @@ speed = 41.0
 
 [node name="MeleeComponent" parent="." index="3" unique_id=768145759]
 speed = 41.0
-melee_pos_offsets = SubResource("Resource_y0rml")
+melee_pos_offsets = SubResource("Resource_n8t6l")
 
 [node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1304104648]
-influence = SubResource("Resource_n8t6l")
+influence = SubResource("Resource_t6npt")
 
 [node name="UIComponent" parent="." index="4" unique_id=673866706]
 select_rect = Rect2(-20.88, -44.235, 41.88, 45.37)

@@ -4,61 +4,61 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jc52h"]
 atlas = ExtResource("1_jc52h")
-region = Rect2(2609, 3753, 38, 35)
+region = Rect2(2725, 2788, 38, 35)
 margin = Rect2(5, 10, 10, 10)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4a100"]
 atlas = ExtResource("1_jc52h")
-region = Rect2(2609, 2034, 40, 35)
+region = Rect2(2725, 1069, 40, 35)
 margin = Rect2(3, 10, 8, 10)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2m8r5"]
 atlas = ExtResource("1_jc52h")
-region = Rect2(2730, 3857, 25, 41)
+region = Rect2(2843, 2950, 25, 41)
 margin = Rect2(9, 4, 23, 4)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aqd66"]
 atlas = ExtResource("1_jc52h")
-region = Rect2(2730, 1539, 29, 42)
+region = Rect2(2843, 643, 29, 42)
 margin = Rect2(6, 3, 19, 3)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_11kfv"]
 atlas = ExtResource("1_jc52h")
-region = Rect2(2693, 3780, 32, 42)
+region = Rect2(2807, 2854, 32, 42)
 margin = Rect2(3, 3, 16, 3)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h06fo"]
 atlas = ExtResource("1_jc52h")
-region = Rect2(2693, 1383, 34, 42)
+region = Rect2(2807, 457, 34, 42)
 margin = Rect2(2, 3, 14, 3)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n13vc"]
 atlas = ExtResource("1_jc52h")
-region = Rect2(2730, 3474, 26, 40)
+region = Rect2(2843, 2567, 26, 40)
 margin = Rect2(10, 5, 22, 5)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lbfn0"]
 atlas = ExtResource("1_jc52h")
-region = Rect2(2730, 1583, 29, 42)
+region = Rect2(2843, 687, 29, 42)
 margin = Rect2(7, 3, 19, 3)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cmr2c"]
 atlas = ExtResource("1_jc52h")
-region = Rect2(2693, 2319, 33, 42)
+region = Rect2(2807, 1393, 33, 42)
 margin = Rect2(5, 3, 15, 3)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2rdje"]
 atlas = ExtResource("1_jc52h")
-region = Rect2(2693, 367, 35, 42)
+region = Rect2(2768, 3521, 35, 42)
 margin = Rect2(3, 3, 13, 3)
 filter_clip = true
 

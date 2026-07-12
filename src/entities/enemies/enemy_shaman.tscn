@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://entities/enemies/enemy.tscn" id="1_xhv65"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_jyvth"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="3_6r1go"]
-[ext_resource type="SpriteFrames" uid="uid://ba0u8ijfxgx4p" path="res://assets/atlas/sprite_frames/enemies/enemy_shaman.tres" id="3_jyvth"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="4_6r1go"]
+[ext_resource type="SpriteFrames" uid="uid://bb7jpmptcas3q" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_shaman.tres" id="4_8umbj"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="6_t5fix"]
 [ext_resource type="Script" uid="uid://d3i11n4j7bnvl" path="res://classes/skills/area_skill.gd" id="7_8umbj"]
 [ext_resource type="Script" uid="uid://bu7q2xp2xd78b" path="res://classes/influences/influence.gd" id="8_2lsbh"]
@@ -68,7 +68,7 @@ interact_policy = SubResource("Resource_kwo0b")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -36)
-sprite_frames = ExtResource("3_jyvth")
+sprite_frames = ExtResource("4_8umbj")
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 100.0
@@ -93,6 +93,7 @@ influence = SubResource("Resource_s4s51")
 select_rect = Rect2(-22.53, -46.875, 53.06, 49.37)
 
 [node name="SkillComponent" type="Node2D" parent="." index="5" unique_id=1265011533]
+process_mode = 4
 scale = Vector2(1, 1.1)
 script = ExtResource("6_t5fix")
 metadata/_custom_type_script = "uid://7hja048qjkj0"
