@@ -29,6 +29,7 @@ any = &"idle"
 
 [sub_resource type="Resource" id="Resource_ds7h4"]
 script = ExtResource("14_ds7h4")
+play_mode = null
 list = Array[AudioStream]([ExtResource("3_crln0"), ExtResource("4_7extc"), ExtResource("5_epf81")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
@@ -40,10 +41,20 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
+[sub_resource type="Resource" id="Resource_b3pid"]
+resource_local_to_scene = true
+script = ExtResource("4_67tlk")
+flags = 1048576
+bans = 128
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
 [sub_resource type="Resource" id="Resource_31xy0"]
 resource_local_to_scene = true
 script = ExtResource("14_st7oj")
 max_radius = 330.0
+interact_policy = SubResource("Resource_b3pid")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_5et4c"]
@@ -52,6 +63,7 @@ any = Vector2(0, -70.05)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
 [sub_resource type="Resource" id="Resource_w4mo5"]
+resource_local_to_scene = true
 script = ExtResource("14_st7oj")
 max_radius = 120.0
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
@@ -73,12 +85,12 @@ any = &"ranged"
 
 [sub_resource type="Resource" id="Resource_ipws0"]
 script = ExtResource("14_ds7h4")
+play_mode = null
 list = Array[AudioStream]([ExtResource("22_epf81")])
 delay = 0.466
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerArtilleryLvl1" unique_id=1600363506 instance=ExtResource("1_og8n7")]
-scene_name = "tower_artillery_lvl_1"
 idle_animation = SubResource("Resource_rn4jw")
 spawn_sfx = SubResource("Resource_ds7h4")
 interact_policy = SubResource("Resource_epf81")
@@ -121,9 +133,11 @@ tower_type = 4
 price = 150.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
+process_mode = 4
 select_rect = Rect2(-86.54, -74.465, 169.89, 98.105)
 
 [node name="SkillComponent" type="Node2D" parent="." index="3" unique_id=52126447]
+process_mode = 4
 script = ExtResource("13_l5l73")
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 

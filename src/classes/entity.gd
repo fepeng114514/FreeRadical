@@ -42,10 +42,6 @@ enum State {
 
 
 #region 属性
-## 实体场景名称
-@export var scene_name: String = ""
-## 实体本地化名称
-@export var localization_key: String = ""
 ## 持续时间
 @export var duration: float = C.UNSET
 ## 空闲动画组
@@ -66,7 +62,10 @@ enum State {
 		U.resource_redraw_setter(self, aura_offsets)
 @export var interact_policy: InteractPolicy = null
 
-
+## 实体场景名称
+var scene_name: String = ""
+## 实体本地化名称
+var localization_key: String = ""
 ## 实体唯一 ID
 var id: int = C.UNSET
 ## 所有者或来源 ID
@@ -101,16 +100,14 @@ var components: Dictionary[StringName, Node] = {}
 
 
 #region 回调函数
-func _init() -> void:
-	scene_name = scene_file_path.get_file().get_basename()
-	localization_key = scene_name.to_upper()
-
-
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		U.connect_resource_changed(hit_offsets, queue_redraw)
 		U.connect_resource_changed(aura_offsets, queue_redraw)
 	else:
+		scene_name = scene_file_path.get_file().get_basename()
+		localization_key = scene_name.to_upper()
+	
 		for child: Node in get_children():
 			var node_script: GDScript = child.get_script()
 			if not node_script:

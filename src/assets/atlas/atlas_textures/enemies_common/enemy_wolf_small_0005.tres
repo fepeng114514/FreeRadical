@@ -1,0 +1,9 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://ca27qu6deis1m"]
+
+[ext_resource type="Texture2D" uid="uid://c05u2a4eluxbl" path="res://assets/atlas/enemies_common-1.dds" id="1_ufgbb"]
+
+[resource]
+atlas = ExtResource("1_ufgbb")
+region = Rect2(652, 2685, 53, 45)
+margin = Rect2(12, 2, 21, 8)
+filter_clip = true

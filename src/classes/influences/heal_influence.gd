@@ -23,7 +23,7 @@ enum HealType {
 @export var heal_type: HealType = HealType.ADD
 
 
-func _take(source: Entity, target: Entity, _source_skill_type: Skill.Type, _is_area: bool) -> void:
+func _take(source: Entity, target: Entity, _is_area: bool) -> void:
 	var health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
 	var heal_value: float = get_value(source, target)
 

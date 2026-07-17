@@ -100,7 +100,7 @@ func _miss(e: Entity, bullet_c: BulletComponent) -> void:
 
 	var influence: Influence = bullet_c.influence
 	if influence and influence.area_enable:
-		influence.take_influence(e, null, bullet_c.to, Skill.Type.RANGED)
+		influence.take_influence(e, null, bullet_c.to)
 	EntityMgr.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
 
 	if bullet_c.miss_animation:
@@ -119,7 +119,7 @@ func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 		if await e.y_wait(bullet_c.hit_delay):
 			return
 		
-	bullet_c.influence.take_influence(e, target, bullet_c.to, Skill.Type.RANGED)
+	bullet_c.influence.take_influence(e, target, bullet_c.to)
 	EntityMgr.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
 	e._on_bullet_hit(target, bullet_c)
 	

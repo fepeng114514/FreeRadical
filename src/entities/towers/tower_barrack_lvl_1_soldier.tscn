@@ -45,18 +45,36 @@ right_replace_left = true
 right = Vector2(34.92, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
+[sub_resource type="Resource" id="Resource_a76o7"]
+resource_local_to_scene = true
+script = ExtResource("3_tcdjf")
+flags = 2097152
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
 [sub_resource type="Resource" id="Resource_vrdxj"]
 resource_local_to_scene = true
 script = ExtResource("9_ts01h")
 max_radius = 100.0
+interact_policy = SubResource("Resource_a76o7")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_tcdjf"]
 resource_local_to_scene = true
 script = ExtResource("11_ts01h")
+damage_flags = 2097152
 min_value = 1.0
 max_value = 3.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
+
+[sub_resource type="Resource" id="Resource_jt8y0"]
+resource_local_to_scene = true
+script = ExtResource("3_tcdjf")
+flags = 2097152
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_p1ots"]
 script = ExtResource("2_i4u0u")
@@ -65,7 +83,6 @@ right_replace_left = true
 
 [node name="TowerBarrackLvl1Soldier" type="Node2D" unique_id=1677548747]
 script = ExtResource("1_0rikb")
-scene_name = "tower_barrack_lvl_1_soldier"
 idle_animation = SubResource("Resource_ovm3w")
 interact_policy = SubResource("Resource_bn5sp")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
@@ -81,6 +98,7 @@ sprite_frames = ExtResource("4_xkrn4")
 animation = &"idle_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=949799713]
+process_mode = 4
 script = ExtResource("5_uecfs")
 hp_max = 50.0
 physical_armor = 0.1
@@ -95,6 +113,7 @@ offset_right = 21.0
 offset_bottom = -40.0
 
 [node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156]
+process_mode = 4
 script = ExtResource("7_xu63r")
 speed = 175.0
 motion_animation = SubResource("Resource_enhu5")
@@ -105,9 +124,17 @@ metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 [node name="MeleeSkill" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
 script = ExtResource("8_qo1np")
 influence = SubResource("Resource_tcdjf")
+interact_policy = SubResource("Resource_jt8y0")
 delay = 0.2
 animation = SubResource("Resource_p1ots")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
+
+[node name="UIComponent" type="Node2D" parent="." unique_id=346591849]
+process_mode = 4
+script = ExtResource("10_700db")
+select_rect = Rect2(-15.555, -38.17, 30.45, 38.605)
+info_bar_type = 1
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
 [node name="RallyComponent" type="Node2D" parent="." unique_id=1216108052]
 script = ExtResource("9_uhicr")
@@ -118,9 +145,3 @@ metadata/_custom_type_script = "uid://2keyy5hsydyv"
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="RallyComponent" unique_id=375943738]
 navigation_layers = 2
-
-[node name="UIComponent" type="Node2D" parent="." unique_id=346591849]
-script = ExtResource("10_700db")
-select_rect = Rect2(-15.555, -38.17, 30.45, 38.605)
-info_bar_type = 1
-metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cdiuclmjr8gt2"]
+
+[ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://entities/enemies/enemy.tscn" id="1_4kgy2"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_7x46u"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_kg3jr"]
+[ext_resource type="SpriteFrames" uid="uid://ccyganex0o726" path="res://assets/atlas/sprite_frames/enemies_common/enemy_gargoyle.tres" id="3_jm5r2"]
+[ext_resource type="Texture2D" uid="uid://ddiixp2bcat8s" path="res://assets/atlas/atlas_textures/decals/decal_flying_shadow.tres" id="4_jm5r2"]
+
+[sub_resource type="Resource" id="Resource_7x46u"]
+script = ExtResource("2_7x46u")
+any = Vector2(0, -81.9)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_b1trd"]
+resource_local_to_scene = true
+script = ExtResource("2_kg3jr")
+flags = 129
+bans = 2097152
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[node name="EnemyGargoyle" unique_id=71433118 instance=ExtResource("1_4kgy2")]
+hit_offsets = SubResource("Resource_7x46u")
+interact_policy = SubResource("Resource_b1trd")
+
+[node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
+position = Vector2(0, -68)
+sprite_frames = ExtResource("3_jm5r2")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="1" unique_id=1265356523]
+texture = ExtResource("4_jm5r2")
+
+[node name="HealthComponent" parent="." index="1" unique_id=1435825868]
+hp_max = 90.0
+death_gold = 12.0
+
+[node name="HealthBar" parent="HealthComponent" index="0" unique_id=1048256100]
+offset_top = -116.13
+offset_bottom = -111.13
+
+[node name="UIComponent" parent="." index="3" unique_id=673866706]
+select_rect = Rect2(-32.34, -110.505, 59.63, 51.26)

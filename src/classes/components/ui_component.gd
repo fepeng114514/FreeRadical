@@ -35,10 +35,12 @@ func _draw() -> void:
 		if not can_select:
 			return
 
-		draw_rect(
-			Rect2(select_menu_offset - Vector2(4, 4), Vector2(8, 8)), 
+		draw_circle(
+			select_menu_offset, 
+			4,
 			Color.GREEN, 
-			true
+			false,
+			1
 		)
 			
 		# 绘制半透明填充和边框

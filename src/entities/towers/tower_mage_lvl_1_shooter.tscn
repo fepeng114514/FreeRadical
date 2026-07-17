@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/ranged_skill.gd" id="5_vssey"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="7_n6q0g"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="7_vtoys"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="7_yr2st"]
 [ext_resource type="PackedScene" uid="uid://c77v7yq60lpig" path="res://entities/towers/tower_mage_bullet.tscn" id="8_74xm3"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="8_vtoys"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="9_n6q0g"]
@@ -19,10 +20,19 @@ up = &"idle_up"
 down = &"idle_down"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
+[sub_resource type="Resource" id="Resource_yutqe"]
+resource_local_to_scene = true
+script = ExtResource("7_yr2st")
+flags = 1048576
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
 [sub_resource type="Resource" id="Resource_tuthn"]
 resource_local_to_scene = true
 script = ExtResource("7_n6q0g")
 max_radius = 300.0
+interact_policy = SubResource("Resource_yutqe")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_c4v6e"]
@@ -53,7 +63,6 @@ metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerMageLvl1Shooter" type="Node2D" unique_id=1442245649]
 script = ExtResource("1_3kgdc")
-scene_name = "tower_mage_lvl_1_shooter"
 idle_animation = SubResource("Resource_i3jkb")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -65,7 +74,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=274561601]
 position = Vector2(0, -24)
 sprite_frames = ExtResource("4_vtoys")
-animation = &""
+animation = &"idle_down"
 
 [node name="SkillComponent" type="Node2D" parent="." unique_id=1268978688]
 process_mode = 4

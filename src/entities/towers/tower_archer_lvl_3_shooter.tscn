@@ -2,17 +2,27 @@
 
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://entities/towers/tower_archer_lvl_1_shooter.tscn" id="1_yxrdi"]
 [ext_resource type="SpriteFrames" uid="uid://c5m75dmediley" path="res://assets/atlas/sprite_frames/towers/tower_archer_lvl3_shooter.tres" id="2_il870"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_ekn6g"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="3_oe5ok"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="4_oe5ok"]
 
-[sub_resource type="Resource" id="Resource_4pod8"]
+[sub_resource type="Resource" id="Resource_tv64f"]
+resource_local_to_scene = true
+script = ExtResource("3_ekn6g")
+flags = 1048576
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_04fow"]
 resource_local_to_scene = true
 script = ExtResource("3_oe5ok")
 max_radius = 650.0
 search_flag = 1
+interact_policy = SubResource("Resource_tv64f")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
-[sub_resource type="Resource" id="Resource_ekn6g"]
+[sub_resource type="Resource" id="Resource_fup5l"]
 resource_local_to_scene = true
 script = ExtResource("4_oe5ok")
 min_value = 11.0
@@ -20,12 +30,11 @@ max_value = 16.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArcherLvl3Shooter" unique_id=2011504655 instance=ExtResource("1_yxrdi")]
-scene_name = "tower_archer_lvl_3_shooter"
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(650442870) index="0" unique_id=1785141033]
 sprite_frames = ExtResource("2_il870")
 
 [node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
-searcher = SubResource("Resource_4pod8")
-influence = SubResource("Resource_ekn6g")
+searcher = SubResource("Resource_04fow")
+influence = SubResource("Resource_fup5l")
 cooldown = 0.6

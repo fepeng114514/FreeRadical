@@ -6,13 +6,16 @@
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_5b6xs"]
 [ext_resource type="AudioStream" uid="uid://7glcb2t5yqxk" path="res://assets/audios/sound_enemy_goblin_dead.ogg" id="4_6fhya"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="4_nff4e"]
+[ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="7_idosn"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="8_lb0ef"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="9_ppcjn"]
 
 [sub_resource type="Resource" id="Resource_nff4e"]
 script = ExtResource("2_nf0rk")
 any = Vector2(0, -11.79)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_6fhya"]
+[sub_resource type="Resource" id="Resource_idosn"]
 resource_local_to_scene = true
 script = ExtResource("3_5b6xs")
 flags = 1
@@ -26,31 +29,61 @@ play_mode = null
 list = Array[AudioStream]([ExtResource("4_6fhya")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[sub_resource type="Resource" id="Resource_f3mmd"]
+[sub_resource type="Resource" id="Resource_atygg"]
+script = ExtResource("8_lb0ef")
+right = &"walk_left_right"
+right_replace_left = true
+up = &"walk_up"
+down = &"walk_down"
+
+[sub_resource type="Resource" id="Resource_3cvl5"]
 resource_local_to_scene = true
 script = ExtResource("2_nf0rk")
 right_replace_left = true
 right = Vector2(30.15, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_dlayy"]
+[sub_resource type="Resource" id="Resource_50sm2"]
 resource_local_to_scene = true
 script = ExtResource("4_nff4e")
+damage_flags = 2097152
 min_value = 1.0
 max_value = 4.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
+[sub_resource type="Resource" id="Resource_gm0c1"]
+resource_local_to_scene = true
+script = ExtResource("3_5b6xs")
+flags = 2097152
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_m3i2n"]
+script = ExtResource("8_lb0ef")
+right = &"melee_left_right"
+right_replace_left = true
+
 [node name="EnemyGoblin" unique_id=71433118 instance=ExtResource("1_bfbt7")]
-scene_name = "enemy_goblin"
 hit_offsets = SubResource("Resource_nff4e")
-interact_policy = SubResource("Resource_6fhya")
+interact_policy = SubResource("Resource_idosn")
 
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 death_gold = 3.0
 death_sfx = SubResource("Resource_nf0rk")
 
-[node name="MeleeComponent" parent="." index="3" unique_id=768145759]
-melee_pos_offsets = SubResource("Resource_f3mmd")
+[node name="MeleeComponent" type="Node2D" parent="." index="4" unique_id=311186355]
+process_mode = 4
+script = ExtResource("7_idosn")
+speed = 61.0
+motion_animation = SubResource("Resource_atygg")
+melee_pos_offsets = SubResource("Resource_3cvl5")
+metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
-[node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1304104648]
-influence = SubResource("Resource_dlayy")
+[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" index="0" unique_id=1177542709]
+script = ExtResource("9_ppcjn")
+influence = SubResource("Resource_50sm2")
+interact_policy = SubResource("Resource_gm0c1")
+delay = 0.3
+animation = SubResource("Resource_m3i2n")
+metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

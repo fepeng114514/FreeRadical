@@ -5,10 +5,12 @@
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="3_6r1go"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="4_6r1go"]
 [ext_resource type="SpriteFrames" uid="uid://bb7jpmptcas3q" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_shaman.tres" id="4_8umbj"]
+[ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="6_kwo0b"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="6_t5fix"]
 [ext_resource type="Script" uid="uid://d3i11n4j7bnvl" path="res://classes/skills/area_skill.gd" id="7_8umbj"]
 [ext_resource type="Script" uid="uid://bu7q2xp2xd78b" path="res://classes/influences/influence.gd" id="8_2lsbh"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="8_6majh"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="8_xr4ln"]
 [ext_resource type="PackedScene" uid="uid://gjv8x6puntrs" path="res://entities/heal.tscn" id="9_8umbj"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="10_xr4ln"]
 
@@ -25,30 +27,61 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_xr4ln"]
+[sub_resource type="Resource" id="Resource_atygg"]
+script = ExtResource("10_xr4ln")
+right = &"walk_left_right"
+right_replace_left = true
+up = &"walk_up"
+down = &"walk_down"
+
+[sub_resource type="Resource" id="Resource_pvsfh"]
 resource_local_to_scene = true
 script = ExtResource("4_6r1go")
 right_replace_left = true
 right = Vector2(42.84, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_s4s51"]
+[sub_resource type="Resource" id="Resource_7cuwb"]
 resource_local_to_scene = true
 script = ExtResource("3_6r1go")
 min_value = 3.0
 max_value = 5.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
+[sub_resource type="Resource" id="Resource_cq7mr"]
+resource_local_to_scene = true
+script = ExtResource("2_jyvth")
+flags = 2097152
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_m3i2n"]
+script = ExtResource("10_xr4ln")
+right = &"melee_left_right"
+right_replace_left = true
+
+[sub_resource type="Resource" id="Resource_0kv7w"]
+resource_local_to_scene = true
+script = ExtResource("2_jyvth")
+flags = 32
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
 [sub_resource type="Resource" id="Resource_8umbj"]
+resource_local_to_scene = true
 script = ExtResource("8_6majh")
 max_radius = 126.0
 max_search = 3
 sort_mode = 2
 sort_reversed = true
 search_group = 3
+interact_policy = SubResource("Resource_0kv7w")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_t5fix"]
+resource_local_to_scene = true
 script = ExtResource("8_2lsbh")
 extra_enable = true
 mods = Array[PackedScene]([ExtResource("9_8umbj")])
@@ -82,15 +115,24 @@ offset_bottom = -49.0
 [node name="NavPathComponent" parent="." index="2" unique_id=1202679749]
 speed = 50.0
 
-[node name="MeleeComponent" parent="." index="3" unique_id=768145759]
-speed = 82.0
-melee_pos_offsets = SubResource("Resource_xr4ln")
-
-[node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1304104648]
-influence = SubResource("Resource_s4s51")
-
-[node name="UIComponent" parent="." index="4" unique_id=673866706]
+[node name="UIComponent" parent="." index="3" unique_id=673866706]
 select_rect = Rect2(-22.53, -46.875, 53.06, 49.37)
+
+[node name="MeleeComponent" type="Node2D" parent="." index="4" unique_id=1858120056]
+process_mode = 4
+script = ExtResource("6_kwo0b")
+speed = 82.0
+motion_animation = SubResource("Resource_atygg")
+melee_pos_offsets = SubResource("Resource_pvsfh")
+metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
+
+[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" index="0" unique_id=836830054]
+script = ExtResource("8_xr4ln")
+influence = SubResource("Resource_7cuwb")
+interact_policy = SubResource("Resource_cq7mr")
+delay = 0.3
+animation = SubResource("Resource_m3i2n")
+metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
 [node name="SkillComponent" type="Node2D" parent="." index="5" unique_id=1265011533]
 process_mode = 4

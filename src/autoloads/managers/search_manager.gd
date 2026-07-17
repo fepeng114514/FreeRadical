@@ -74,23 +74,25 @@ func find_targets_in_range(
 
 	for grid_x: int in range(grid_min_x, grid_max_x + 1):
 		var grid_col: Dictionary = space_index_grid_list[grid_x]
-
 		if not grid_col["has_" + group]:
 			continue
 
 		var grid_row: Array = grid_col.row
-
 		for grid_y: int in range(grid_min_y, grid_max_y + 1):
-			var grid: Array = grid_row[grid_y][group]
-			for e: Entity in grid:
-				var interact_p: InteractPolicy = e.interact_policy
+			for e: Entity in grid_row[grid_y][group]:
+				if e.state & Entity.State.DEAD:
+					continue
 				
-				if (
-						not e.state & Entity.State.DEAD
-						and (not interact_p or not U.is_mutual_banned(interact_p.flags, bans, flags, interact_p.bans))
-						and U.is_in_ring(origin, e.global_position, min_range, max_range)
-						and (not filter.is_valid() or filter.call(e))
-				):
-					targets.append(e)
+				var interact_p: InteractPolicy = e.interact_policy
+				if interact_p and U.is_mutual_banned(interact_p.flags, bans, flags, interact_p.bans):
+					continue
+				
+				if not U.is_in_ring(origin, e.global_position, min_range, max_range):
+					continue
+					
+				if filter.is_valid() and not filter.call(e):
+					continue
+					
+				targets.append(e)
 
 	return targets

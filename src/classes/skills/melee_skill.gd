@@ -29,7 +29,7 @@ func _draw() -> void:
 			influence.draw(self, position)
 
 
-func check_ready(e: Entity, target: Entity = null) -> bool:
+func can_do(e: Entity, target: Entity = null) -> bool:
 	if not super(e, target):
 		return false
 		
@@ -48,9 +48,9 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 		return
 	
 	if search_target_pos:
-		influence.take_influence(e, target, target.global_position, Skill.Type.MELEE)
+		influence.take_influence(e, target, target.global_position)
 	else:
-		influence.take_influence(e, target, e.global_position, Skill.Type.MELEE)
+		influence.take_influence(e, target, e.global_position)
 	
 	if await e.y_wait_animation(animation):
 		return

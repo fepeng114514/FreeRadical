@@ -16,7 +16,7 @@ const QUARTER_PI: float = PI / 4
 #endregion
 
 
-## 实体标志枚举。
+## 标识枚举。
 enum Flag {
 	## 标识: 无。
 	NONE = 0,
@@ -38,6 +38,11 @@ enum Flag {
 	AURA = 1 << 6,
 	## 标识: 飞行。
 	FLYING = 1 << 7,
+	
+	## 标识: 远程。
+	RANGED = 1 << 20,
+	## 标识: 近战。
+	MELEE = 1 << 21,
 }
 
 
@@ -80,6 +85,10 @@ enum DamageFlag {
 	NO_DODGE = 1 << 2,
 	## 伤害标识：无法反伤。
 	NO_SPIKED = 1 << 3,
+	## 伤害标识: 远程。
+	RANGED = 1 << 20,
+	## 伤害标识: 近战。
+	MELEE = 1 << 21,
 }
 
 

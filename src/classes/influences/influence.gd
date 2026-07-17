@@ -54,25 +54,24 @@ func _init() -> void:
 
 @warning_ignore_start("unused_parameter")
 ## 每次影响实体时调用。
-func _take(source: Entity, target: Entity, source_skill_type: Skill.Type, is_area: bool) -> void: pass
+func _take(source: Entity, target: Entity, is_area: bool) -> void: pass
 @warning_ignore_restore("unused_parameter")
 
 
 ## 对实体造成影响。
-func take_influence(source: Entity, base_target: Entity, search_center: Vector2, source_skill_type: Skill.Type = Skill.Type.NONE, search_filter := Callable()) -> Array[Entity]:
+func take_influence(source: Entity, base_target: Entity, search_center: Vector2, search_filter := Callable()) -> Array[Entity]:
 	var targets: Array[Entity] = [null]
-
 	if area_enable:
 		targets = searcher.search_targets(search_center, source, search_filter)
 	else:
 		targets[0] = base_target
 
 	var source_id: int = source.id
-
+	
 	for target: Entity in targets:
 		var target_id: int = target.id
 
-		_take(source, target, source_skill_type, area_enable)
+		_take(source, target, area_enable)
 
 		if extra_enable:
 			EntityMgr.create_mods(target_id, mods, source_id)

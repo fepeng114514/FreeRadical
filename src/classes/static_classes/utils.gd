@@ -600,7 +600,7 @@ static func is_banned(flags: int, bans: int) -> bool:
 
 ## 判断双向禁止：flags1 被 bans2 禁止，或 flags2 被 bans1 禁止。
 static func is_mutual_banned(flags1: int, bans1: int, flags2: int, bans2: int) -> bool:
-	return is_banned(flags1, bans2) or is_banned(flags2, bans1)
+	return is_banned(flags1, bans1) or is_banned(flags2, bans2)
 
 
 ## 合并多个标志位。

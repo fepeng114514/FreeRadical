@@ -3,16 +3,26 @@
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://entities/towers/tower_archer_lvl_1_shooter.tscn" id="1_rfise"]
 [ext_resource type="SpriteFrames" uid="uid://dbtbhq4ed8qvt" path="res://assets/atlas/sprite_frames/towers/tower_archer_lvl2_shooter.tres" id="2_suvr7"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="3_6omst"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_fsp6p"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="4_6omst"]
 
-[sub_resource type="Resource" id="Resource_kbiqo"]
+[sub_resource type="Resource" id="Resource_apj7t"]
+resource_local_to_scene = true
+script = ExtResource("3_fsp6p")
+flags = 1048576
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_ae7a7"]
 resource_local_to_scene = true
 script = ExtResource("3_6omst")
 max_radius = 550.0
 search_flag = 1
+interact_policy = SubResource("Resource_apj7t")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
-[sub_resource type="Resource" id="Resource_fsp6p"]
+[sub_resource type="Resource" id="Resource_vypox"]
 resource_local_to_scene = true
 script = ExtResource("4_6omst")
 min_value = 7.0
@@ -20,12 +30,11 @@ max_value = 11.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArcherLvl2Shooter" unique_id=2011504655 instance=ExtResource("1_rfise")]
-scene_name = "tower_archer_lvl_2_shooter"
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(650442870) index="0" unique_id=1785141033]
 sprite_frames = ExtResource("2_suvr7")
 
 [node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
-searcher = SubResource("Resource_kbiqo")
-influence = SubResource("Resource_fsp6p")
+searcher = SubResource("Resource_ae7a7")
+influence = SubResource("Resource_vypox")
 cooldown = 0.7

@@ -16,19 +16,35 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_sve1a"]
 resource_local_to_scene = true
-script = ExtResource("3_uposi")
-max_radius = 100.0
-metadata/_custom_type_script = "uid://4dsevfnug1a1"
+script = ExtResource("2_obj8f")
+flags = 2097152
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_h5oex"]
 resource_local_to_scene = true
+script = ExtResource("3_uposi")
+max_radius = 100.0
+interact_policy = SubResource("Resource_sve1a")
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_s2rej"]
+resource_local_to_scene = true
 script = ExtResource("4_uposi")
+damage_flags = 2097152
 min_value = 10.0
 max_value = 14.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
+[sub_resource type="Resource" id="Resource_dngmn"]
+script = ExtResource("2_obj8f")
+flags = 2097152
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
 [node name="TowerBarrackLvl3Soldier" unique_id=1677548747 instance=ExtResource("1_6fjjf")]
-scene_name = "tower_barrack_lvl_3_soldier"
 interact_policy = SubResource("Resource_t8qan")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(389197924) index="0" unique_id=1889529730]
@@ -40,10 +56,11 @@ physical_armor = 0.5
 idle_regen_hp = 10.0
 
 [node name="MeleeComponent" parent="." index="2" unique_id=668314156]
-searcher = SubResource("Resource_sve1a")
+searcher = SubResource("Resource_h5oex")
 
 [node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1014449767]
-influence = SubResource("Resource_h5oex")
+influence = SubResource("Resource_s2rej")
+interact_policy = SubResource("Resource_dngmn")
 
-[node name="UIComponent" parent="." index="4" unique_id=346591849]
+[node name="UIComponent" parent="." index="3" unique_id=346591849]
 select_rect = Rect2(-15.555, -40.245, 32.735, 40.255)

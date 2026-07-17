@@ -13,7 +13,7 @@ class_name SpawnSkill
 	set(v): 
 		spawn_offsets = v
 		U.resource_redraw_setter(self, spawn_offsets)
-## 搜索资源，用于搜索目标，如果设置改资源，实体将会生成到搜索到的第一个目标的位置。
+## 搜索资源，用于搜索目标，如果设置了该资源，实体将会生成到搜索到的第一个目标的位置。
 @export var searcher: Searcher = null:
 	set(v): 
 		searcher = v

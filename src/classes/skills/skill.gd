@@ -6,17 +6,6 @@ class_name Skill
 ## Skill 是所有技能节点的基类，提供了技能的基本属性和功能。
 
 
-## 技能类型枚举。
-enum Type {
-	## 技能类型：无。
-	NONE,
-	## 技能类型：近战。
-	MELEE,
-	## 技能类型：远程。
-	RANGED
-}
-
-
 ## 是否禁用技能。
 @export var disabled: bool = false
 ## 技能冷却时间。
@@ -45,7 +34,7 @@ var ts: float = 0.0
 
 @warning_ignore_start("unused_parameter")
 ## 检查技能是否可以释放。
-func check_ready(e: Entity, target: Entity = null) -> bool:
+func can_do(e: Entity, target: Entity = null) -> bool:
 	if not TimeMgr.has_elapsed(ts, cooldown):
 		return false
 

@@ -22,10 +22,20 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
+[sub_resource type="Resource" id="Resource_pwnv5"]
+resource_local_to_scene = true
+script = ExtResource("2_qpetq")
+flags = 1048576
+bans = 128
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
 [sub_resource type="Resource" id="Resource_3ifdg"]
 resource_local_to_scene = true
 script = ExtResource("9_kj6gf")
 max_radius = 340.0
+interact_policy = SubResource("Resource_pwnv5")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_thpnf"]
@@ -50,7 +60,6 @@ searcher = SubResource("Resource_w4mo5")
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArtilleryLvl2" unique_id=1600363506 instance=ExtResource("1_mlysv")]
-scene_name = "tower_artillery_lvl_2"
 interact_policy = SubResource("Resource_113xl")
 
 [node name="SpriteGroup" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=557425361]
@@ -80,7 +89,13 @@ sprite_frames = ExtResource("8_4pii2")
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 price = 240.0
 
-[node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+process_mode = 4
+
+[node name="SkillComponent" parent="." index="3" unique_id=52126447]
+process_mode = 4
+
+[node name="RangedSkill" parent="SkillComponent" index="0" unique_id=1342825155]
 searcher = SubResource("Resource_3ifdg")
 bullet = ExtResource("11_113xl")
 bullet_offsets = SubResource("Resource_thpnf")

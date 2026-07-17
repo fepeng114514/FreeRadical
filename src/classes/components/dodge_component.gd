@@ -54,33 +54,30 @@ func select_skill(e: Entity, d: Damage, source: Entity) -> bool:
 	for i: int in get_child_count():
 		var skill: Skill = get_child(i)
 
-		if not skill.check_ready(e):
+		if not skill.can_do(e):
 			continue
 
 		if not can_dodge_area and d.is_area:
 			continue
 		
-		match d.source_skill_type:
-			Skill.Type.MELEE:
-				if skill is MeleeSkill:
-					continue
+		var damage_flags: int = d.damage_flags
+		if damage_flags & C.DamageFlag.MELEE:
+			var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
+			if not melee_c:
+				continue
 
-				var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
-				if not melee_c:
+			if melee_c.is_blocker:
+				if not melee_c.blocked_id_list:
 					continue
+			else:
+				if not melee_c.blocker_id_list:
+					continue
+		elif damage_flags & C.DamageFlag.RANGED:
+			if not can_dodge_ranged:
+				continue
 
-				if melee_c.is_blocker:
-					if not melee_c.blocked_id_list:
-						continue
-				else:
-					if not melee_c.blocker_id_list:
-						continue
-			Skill.Type.RANGED:
-				if not can_dodge_ranged:
-					continue
-
-				if skill is MeleeSkill:
-					continue
+			if skill is MeleeSkill:
+				continue
 
 		skill_idx = i
 		target_id = source.id

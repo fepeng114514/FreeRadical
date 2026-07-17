@@ -5,13 +5,16 @@
 [ext_resource type="SpriteFrames" uid="uid://dsxx3coef64np" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_ogre.tres" id="4_4svom"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="4_cktve"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="5_p5seb"]
+[ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="6_cktve"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="7_p5seb"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="8_gm0c1"]
 
 [sub_resource type="Resource" id="Resource_4svom"]
 script = ExtResource("4_cktve")
 any = Vector2(0, -37.35)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_gsmxj"]
+[sub_resource type="Resource" id="Resource_cktve"]
 resource_local_to_scene = true
 script = ExtResource("2_gsmxj")
 flags = 1
@@ -19,23 +22,44 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_prilf"]
+[sub_resource type="Resource" id="Resource_atygg"]
+script = ExtResource("7_p5seb")
+right = &"walk_left_right"
+right_replace_left = true
+up = &"walk_up"
+down = &"walk_down"
+
+[sub_resource type="Resource" id="Resource_cq7mr"]
 resource_local_to_scene = true
 script = ExtResource("4_cktve")
 right_replace_left = true
 right = Vector2(56.7, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_cktve"]
+[sub_resource type="Resource" id="Resource_0kv7w"]
 resource_local_to_scene = true
 script = ExtResource("5_p5seb")
+damage_flags = 2097152
 min_value = 40.0
 max_value = 60.0
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
+[sub_resource type="Resource" id="Resource_p5seb"]
+resource_local_to_scene = true
+script = ExtResource("2_gsmxj")
+flags = 2097152
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_m3i2n"]
+script = ExtResource("7_p5seb")
+right = &"melee_left_right"
+right_replace_left = true
+
 [node name="EnemyOgre" unique_id=71433118 instance=ExtResource("1_4svom")]
 hit_offsets = SubResource("Resource_4svom")
-interact_policy = SubResource("Resource_gsmxj")
+interact_policy = SubResource("Resource_cktve")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -45)
@@ -54,13 +78,21 @@ scale = Vector2(1.72, 1.12)
 speed = 35.0
 life_cost = 3
 
-[node name="MeleeComponent" parent="." index="3" unique_id=768145759]
-speed = 35.0
-melee_pos_offsets = SubResource("Resource_prilf")
-
-[node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1304104648]
-influence = SubResource("Resource_cktve")
-delay = 0.5
-
-[node name="UIComponent" parent="." index="4" unique_id=673866706]
+[node name="UIComponent" parent="." index="3" unique_id=673866706]
 select_rect = Rect2(-40.08, -85.125, 80.06, 89.87)
+
+[node name="MeleeComponent" type="Node2D" parent="." index="4" unique_id=552956952]
+process_mode = 4
+script = ExtResource("6_cktve")
+speed = 35.0
+motion_animation = SubResource("Resource_atygg")
+melee_pos_offsets = SubResource("Resource_cq7mr")
+metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
+
+[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" index="0" unique_id=18873919]
+script = ExtResource("8_gm0c1")
+influence = SubResource("Resource_0kv7w")
+interact_policy = SubResource("Resource_p5seb")
+delay = 0.5
+animation = SubResource("Resource_m3i2n")
+metadata/_custom_type_script = "uid://bqbrh6n3im1ii"

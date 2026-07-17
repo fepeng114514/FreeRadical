@@ -16,8 +16,6 @@ var damage_factor: float = 1
 var damage_flags: int = C.DamageFlag.NONE
 ## 来源实体名称。
 var source_name: StringName = &""
-## 来源实体技能名称。
-var source_skill_type: Skill.Type = Skill.Type.NONE
 ## 是否为区域伤害。
 var is_area: bool = false
 

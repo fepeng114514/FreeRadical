@@ -8,7 +8,7 @@ class_name AreaSkill
 ## 相当于对 [Influence] 封装了一个搜索目标的机制，以搜索到的第一个目标为中心造成影响。
 
 
-## 搜索资源，用于搜索目标，如果设置改资源，将会以搜索到的第一个目标为中心造成影响。
+## 搜索资源，用于搜索目标，如果设置了该资源，将会以搜索到的第一个目标为中心造成影响。
 @export var searcher: Searcher = null:
 	set(v): 
 		searcher = v
@@ -56,7 +56,7 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 			compensate_cooldown(e, skill_idx)
 			return
 
-	if searcher:
+	if not searcher:
 		influence.take_influence(e, target, target.global_position)
 	else:
 		influence.take_influence(e, target, e.global_position)
