@@ -2,16 +2,15 @@ extends SelectMenuButton
 class_name SelectMenuButtonUpgrade
 
 
-## 升级为的实体场景。
-@export var upgrade_to: PackedScene = null
-
 @export_group("Ref")
 ## 价格标签引用。
 @export var price_tag: TextureRect = null
 
 @onready var price_tag_label: Label = price_tag.get_node("Label")
 
-var preview: PackedScene = null
+## 升级为的实体场景路径。
+var upgrade_to: String = ""
+var preview: String = ""
 var preview_entity: Entity = null
 
 

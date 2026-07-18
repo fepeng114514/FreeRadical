@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://k8jjifduvh0w" path="res://controls/track_editor/track_editor.tscn" id="2_pj2lv"]
 [ext_resource type="StyleBox" uid="uid://q23htsaarsrx" path="res://main/wave_editor/title_style_box_flat.tres" id="2_sh4oc"]
 [ext_resource type="Script" uid="uid://bdgg5qnil22xj" path="res://main/wave_editor/tool_bar/load_button.gd" id="3_jfbxu"]
-[ext_resource type="Resource" uid="uid://qg2vv4cgb4dt" path="res://entities/entity_scenes.tres" id="3_t5qyo"]
+[ext_resource type="Resource" uid="uid://qg2vv4cgb4dt" path="res://entities/entity_scene_path_data.tres" id="3_t5qyo"]
 [ext_resource type="Script" uid="uid://d1xwmmyxhqflq" path="res://main/wave_editor/tool_bar/load_file_dialog.gd" id="4_hhe80"]
 [ext_resource type="Script" uid="uid://caxpk5tid7ngt" path="res://main/wave_editor/tool_bar/save_button.gd" id="4_mx20l"]
 [ext_resource type="Script" uid="uid://bumn6jt6uu5gw" path="res://main/wave_editor/tool_bar/mouse_tool_bar.gd" id="4_p6mtv"]
@@ -44,7 +44,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_20cq3")
 script = ExtResource("1_7okwi")
-entity_scenes = ExtResource("3_t5qyo")
+entity_scene_path_data = ExtResource("3_t5qyo")
 wave_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/MarginContainer/TrackEditorVBoxContainer/WaveVBoxContainer/WaveTrackEditor")
 sub_wave_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/MarginContainer/TrackEditorVBoxContainer/SubWaveVBoxContainer/SubWaveTrackEditor")
 spawn_track_editor = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/MarginContainer/TrackEditorVBoxContainer/SpawnVBoxContainer/SpawnTrackEditor")
@@ -247,11 +247,11 @@ theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "生成数据"
 horizontal_alignment = 1
 
-[node name="SpawnDataVBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=887176936 node_paths=PackedStringArray("interval", "entity", "pathway", "sub_pathway", "count", "reversed", "loop", "wave_editor")]
+[node name="SpawnDataVBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=887176936 node_paths=PackedStringArray("spawn_interval", "entity", "pathway", "sub_pathway", "count", "reversed", "loop", "wave_editor")]
 layout_mode = 2
 theme_override_constants/separation = 8
 script = ExtResource("11_js2tg")
-interval = NodePath("IntervalLabeledSpinBox")
+spawn_interval = NodePath("SpawnIntervalLabeledSpinBox")
 entity = NodePath("EntityLabeledOptionButton")
 pathway = NodePath("PathwayLabeledSpinBox")
 sub_pathway = NodePath("SubPathwayLabeledSpinBox")
@@ -260,7 +260,13 @@ reversed = NodePath("ReversedCheckButton")
 loop = NodePath("LoopCheckButton")
 wave_editor = NodePath("../../../../../../../../..")
 
-[node name="IntervalLabeledSpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=1668806278 instance=ExtResource("4_pj2lv")]
+[node name="SpawnIntervalLabeledSpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=1668806278 instance=ExtResource("4_pj2lv")]
+layout_mode = 2
+text = "生成间隔"
+step = 0.1
+value = 1.0
+
+[node name="SpawnIntervalLabeledSpinBox2" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=295310891 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
 text = "生成间隔"
 step = 0.1
@@ -270,7 +276,7 @@ value = 1.0
 layout_mode = 2
 text = "生成实体"
 
-[node name="PathwayLabeledSpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=295310891 instance=ExtResource("4_pj2lv")]
+[node name="PathwayLabeledSpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=92625463 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
 text = "生成路径"
 step = 1.0

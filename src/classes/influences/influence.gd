@@ -23,12 +23,12 @@ enum GetValueMode {
 
 @export_group("Extra")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var extra_enable: bool = false
-## 给予的状态效果
-@export var mods: Array[PackedScene] = []
-## 给予的持续状态效果
-@export var auras: Array[PackedScene] = []
-## 创建的实体场景名称列表。
-@export var payloads: Array[PackedScene] = []
+## 给予的状态效果路径列表。
+@export_file("*.tscn") var mods := PackedStringArray()
+## 给予的持续状态效果路径列表。
+@export_file("*.tscn") var auras := PackedStringArray()
+## 创建的实体场景路径列表。
+@export_file("*.tscn") var payloads := PackedStringArray()
 
 @export_group("Area")
 ## 是否启用范围影响。

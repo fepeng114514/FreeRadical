@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://3wgsu2jj2mdg"]
+
+[ext_resource type="PackedScene" uid="uid://2b477amx3god" path="res://entities/bullet.tscn" id="1_jsuq1"]
+[ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://classes/bullet_trajectories/parabola_bullet_trajectory.gd" id="3_h0o77"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_jkp05"]
+[ext_resource type="Texture2D" uid="uid://bmmgqntk6sci5" path="res://assets/atlas/atlas_textures/towers/arrow_2.tres" id="4_pv6bm"]
+
+[sub_resource type="Resource" id="Resource_archer_traj"]
+script = ExtResource("3_h0o77")
+flight_total_time = 0.7
+
+[node name="TowerArcherBullet" unique_id=43521632 instance=ExtResource("1_jsuq1")]
+
+[node name="BulletComponent" parent="." index="0" unique_id=490791954]
+process_mode = 4
+trajectory = SubResource("Resource_archer_traj")
+hit_payloads = PackedStringArray()
+miss_payloads = PackedStringArray()
+
+[node name="SpriteComponent" type="Node2D" parent="." index="1" unique_id=1158787809]
+script = ExtResource("4_jkp05")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1900013004]
+position = Vector2(0, -1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_pv6bm")

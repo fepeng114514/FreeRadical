@@ -3,17 +3,17 @@ class_name WaveEditor
 
 
 @export_group("Ref")
-@export var entity_scenes: EntityScenes = null
+@export var entity_scene_path_data: EntityScenePathData = null
 @export var wave_track_editor: TrackEditor = null
 @export var sub_wave_track_editor: TrackEditor = null
 @export var spawn_track_editor: TrackEditor = null
 @export var spawn_data_vbox_container: WaveEditorSpawnDataVBoxContainer = null
 @export var entity_option_button_label: LabeledOptionButton = null
 
-## 敌人场景到索引的映射。
-var enemy_idx_dict: Dictionary[PackedScene, int] = {}
-## 索引到敌人场景的映射。
-var enemy_scene_dict: Dictionary[int, PackedScene] = {}
+## 敌人场景路径到索引的映射。
+var enemy_idx_dict: Dictionary[String, int] = {}
+## 索引到敌人场景路径的映射。
+var enemy_scene_dict: Dictionary[int, String] = {}
 ## 关卡波次组。
 var wave_group: WaveGroup = null:
 	get: 
@@ -25,21 +25,22 @@ var wave_group: WaveGroup = null:
 var selected_wave: Wave = null
 ## 选中的子波次。
 var selected_sub_wave: SubWave = null
-## 选中的波次。
+## 选中的生成组。
 var selected_spawn: WaveSpawn = null
 
 
 func _ready() -> void:
 	var i: int = 0
-	for scene: PackedScene in entity_scenes.scene_list:
-		var scene_name: String = scene.resource_path.get_file().get_basename()
+	for scene_path: String in entity_scene_path_data.scene_path_dict.values():
+		var scene_name: String = scene_path.get_file().get_basename()
 		if not scene_name.begins_with("enemy_"):
 			continue
 		
 		var option_item: String = scene_name.replace("enemy_", "").capitalize()
 		entity_option_button_label.option_button.add_item(option_item)
-		enemy_idx_dict[scene] = i
-		enemy_scene_dict[i] = scene
+		
+		enemy_idx_dict[scene_path] = i
+		enemy_scene_dict[i] = scene_path
 		i += 1
 
 	wave_track_editor.hide_sub_wave_track_editor()

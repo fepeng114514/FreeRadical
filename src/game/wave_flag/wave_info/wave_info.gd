@@ -22,7 +22,7 @@ func _on_mouse_entered() -> void:
 	for sub_wave: SubWave in current_wave.sub_wave_list:
 		for spawn: WaveSpawn in sub_wave.spawn_list:
 			var item: SpawnListItem = spawn_list_item_scene.instantiate()
-			item.spawn_entity_text = spawn.entity.resource_path.get_file().get_basename().to_upper()
+			item.spawn_entity_text = ResourceUID.uid_to_path(spawn.entity).get_file().get_basename().to_upper()
 			item.spawn_count_text = "x%d" % spawn.count
 			spawn_list.add_child(item)
 

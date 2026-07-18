@@ -4,9 +4,8 @@
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_kjn0h"]
 [ext_resource type="Texture2D" uid="uid://d2cevetil660g" path="res://assets/atlas/atlas_textures/towers/tower_barrack_0002.tres" id="3_esuh8"]
 [ext_resource type="SpriteFrames" uid="uid://cnj6l6um86qt3" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl2_door.tres" id="3_kjn0h"]
-[ext_resource type="PackedScene" uid="uid://nosygoauf7h" path="res://entities/towers/tower_barrack_lvl_2_soldier.tscn" id="5_esuh8"]
 
-[sub_resource type="Resource" id="Resource_esuh8"]
+[sub_resource type="Resource" id="Resource_gt1mp"]
 resource_local_to_scene = true
 script = ExtResource("2_kjn0h")
 flags = 16
@@ -15,8 +14,7 @@ blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerBarrackLvl2" unique_id=187367710 instance=ExtResource("1_kssh0")]
-scene_name = "tower_barrack_lvl_2"
-interact_policy = SubResource("Resource_esuh8")
+interact_policy = SubResource("Resource_gt1mp")
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=927508667]
 texture = ExtResource("3_esuh8")
@@ -28,8 +26,10 @@ sprite_frames = ExtResource("3_kjn0h")
 price = 140.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
+process_mode = 4
 select_rect = Rect2(-61.3, -91.985, 120.505, 108.965)
 
 [node name="BarrackComponent" parent="." index="3" unique_id=441339810]
+process_mode = 4
 rally_max_range = 320.0
-soldier_scene = ExtResource("5_esuh8")
+soldier = "uid://nosygoauf7h"

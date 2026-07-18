@@ -2,7 +2,7 @@ extends VBoxContainer
 class_name WaveEditorSpawnDataVBoxContainer
 
 
-@export var interval: LabeledSpinBox = null
+@export var spawn_interval: LabeledSpinBox = null
 @export var entity: LabeledOptionButton = null
 @export var pathway: LabeledSpinBox = null
 @export var sub_pathway: LabeledSpinBox = null
@@ -17,7 +17,7 @@ var spawn: WaveSpawn = null
 
 
 func _ready() -> void:
-	interval.spin_box.value_changed.connect(_on_interval_changed)
+	spawn_interval.spin_box.value_changed.connect(_on_interval_changed)
 	entity.option_button.item_selected.connect(_on_entity_changed)
 	pathway.spin_box.value_changed.connect(_on_pathway_changed)
 	sub_pathway.spin_box.value_changed.connect(_on_sub_pathway_changed)
@@ -26,17 +26,16 @@ func _ready() -> void:
 	loop.toggled.connect(_on_loop_toggled)
 
 
-func set_spawn_data(_spawn: WaveSpawn) -> void:
-	spawn = _spawn
+func set_spawn_data(new_spawn: WaveSpawn) -> void:
+	spawn = new_spawn
 
-	interval.value = spawn.spawn_interval
+	spawn_interval.value = spawn.spawn_interval
 
-	if wave_editor.enemy_idx_dict.has(spawn.entity):
-		entity.option_button.select(wave_editor.enemy_idx_dict[spawn.entity])
+	entity.option_button.select(wave_editor.enemy_idx_dict[spawn.entity])
 	pathway.value = spawn.pathway_idx
 	sub_pathway.value = spawn.sub_pathway_idx
 	count.value = spawn.count
-	interval.value = spawn.spawn_interval
+	spawn_interval.value = spawn.spawn_interval
 	reversed.button_pressed = spawn.reversed
 	loop.button_pressed = spawn.loop
 

@@ -29,6 +29,7 @@ var is_scale_tweening: bool = false
 
 
 func _ready() -> void:
+	scale = Vector2.ZERO
 	visible = false
 	
 	SelectMgr.entity_selected.connect(_show)

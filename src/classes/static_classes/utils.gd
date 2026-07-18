@@ -244,6 +244,27 @@ static func open_directory(path: String) -> DirAccess:
 		)
 
 	return dir
+
+
+## 递归获取目录下所有文件。
+static func get_files_from_nested_directory(dir_path: String, match_pattern: String = "") -> Array[String]:
+	var file_path_list: Array[String] = []
+	var dir: DirAccess = open_directory(dir_path)
+
+	dir.list_dir_begin()
+	var item: String = dir.get_next()
+	while item != "":
+		var item_path: String = dir_path.path_join(item)
+
+		if dir.dir_exists(item_path):
+			file_path_list.append_array(get_files_from_nested_directory(item_path, match_pattern))
+		elif dir.file_exists(item_path) and item_path.match(match_pattern):
+			file_path_list.append(item_path)
+
+		item = dir.get_next()
+	dir.list_dir_end()
+
+	return file_path_list
 #endregion
 
 

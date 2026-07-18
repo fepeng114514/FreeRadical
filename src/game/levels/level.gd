@@ -8,7 +8,7 @@ class_name Level
 ## 初始生命。
 @export var life: int = 20
 ## 默认塔位样式。
-@export var defaul_tower_holder: PackedScene = null
+@export_file("*.tscn") var defaul_tower_holder: String = ""
 ## 地图大小。
 @export var world_size := Vector2(2560, 1440)
 
@@ -20,6 +20,7 @@ class_name Level
 
 
 func _enter_tree() -> void:
+	EntityMgr._load()
 	SearchMgr._load()
 	SelectMgr._load()
 	
@@ -30,7 +31,6 @@ func _enter_tree() -> void:
 
 func _exit_tree() -> void:
 	EntityMgr._clear()
-	GameMgr._clear()
 	GridMgr._clear()
 	SearchMgr._clear()
 	SelectMgr._clear()

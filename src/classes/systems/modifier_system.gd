@@ -167,7 +167,7 @@ func _process_property_modifiers() -> void:
 
 ## 重置实体的属性值。
 func _reset_property(target: Entity, property_mod: PropertyModifier) -> void:
-	var entity_data: Entity = EntityMgr.get_entity_data(load(target.scene_file_path))
+	var entity_data: Entity = EntityMgr.get_entity_data(target.scene_file_path)
 	var data_node: Node = entity_data.get_node_or_null(property_mod.node_path)
 	if not data_node:
 		return

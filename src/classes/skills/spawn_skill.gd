@@ -7,7 +7,7 @@ class_name SpawnSkill
 
 
 ## 生成的实体场景名称数组。
-@export var spawns: Array[PackedScene] = []
+@export_file("*.tscn") var spawns := PackedStringArray()
 ## 生成的实体初始位置偏移组。
 @export var spawn_offsets: OffsetGroup = null:
 	set(v): 

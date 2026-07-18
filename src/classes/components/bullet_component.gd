@@ -30,8 +30,8 @@ class_name BulletComponent
 @export var hit_animation: AnimationGroup = null
 ## 击中音效组。
 @export var hit_sfx: AudioGroup = null
-## 击中目标时创建的实体场景名称列表。
-@export var hit_payloads: Array[PackedScene] = []
+## 击中目标时创建的实体场景路径列表。
+@export_file("*.tscn") var hit_payloads := PackedStringArray()
 
 @export_group("Miss")
 ## 未击中目标时是否移除子弹实体。
@@ -40,8 +40,8 @@ class_name BulletComponent
 @export var miss_animation: AnimationGroup = null
 ## 未击中音效组。
 @export var miss_sfx: AudioGroup = null
-## 未击中目标时创建的实体场景名称列表。
-@export var miss_payloads: Array[PackedScene] = []
+## 未击中目标时创建的实体场景路径列表。
+@export_file("*.tscn") var miss_payloads := PackedStringArray()
 
 ## 影响资源，用于对目标造成伤害或治愈目标。
 var influence: Influence = null

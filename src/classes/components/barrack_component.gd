@@ -27,8 +27,8 @@ class_name BarrackComponent
 @export var rally_radius: float = 30
 ## 集结音效组。
 @export var rally_sfx: AudioGroup = null
-## 士兵场景名称。
-@export var soldier_scene: PackedScene = null
+## 士兵场景路径。
+@export_file("*.tscn") var soldier: String = ""
 ## 生成士兵间隔（秒）。
 @export var spawn_interval: float = 10
 ## 士兵生成偏移组。
@@ -91,12 +91,12 @@ func set_rally_center_position(
 	var soldier_size: int = soldier_list.size()
 	
 	for i: int in soldier_size:
-		var soldier: Entity = soldier_list[i]
-		var s_rally_c: RallyComponent = soldier.get_node_or_null(C.CN_RALLY)
+		var s: Entity = soldier_list[i]
+		var s_rally_c: RallyComponent = s.get_node_or_null(C.CN_RALLY)
 		var formation_position: Vector2 = to_formation_position(rally_center_position, soldier_size, i)
 		s_rally_c.new_rally_position(formation_position, is_force, rally_center_position, false)
 		
-		var melee_c: MeleeComponent = soldier.get_node_or_null(C.CN_MELEE)
+		var melee_c: MeleeComponent = s.get_node_or_null(C.CN_MELEE)
 		if melee_c:
 			melee_c.origin_pos = formation_position
 	

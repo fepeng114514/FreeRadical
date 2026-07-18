@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://yur7o864jejr" path="res://game/levels/level.gd" id="1_7ttr4"]
 [ext_resource type="AudioStream" uid="uid://7echvynekxwf" path="res://assets/audios/music_battle_preparations_forest.ogg" id="2_0qmeg"]
-[ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder_grass.tscn" id="2_ta7ci"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_xp3ar"]
 [ext_resource type="AudioStream" uid="uid://04sy43fjgyg6" path="res://assets/audios/music_battle_under_attack_forest1.ogg" id="4_ta7ci"]
 [ext_resource type="PackedScene" uid="uid://c2ifsgk1fsdc5" path="res://game/system_container.tscn" id="8_8iyoh"]
@@ -20,20 +19,18 @@
 
 [sub_resource type="Resource" id="Resource_7h2jl"]
 script = ExtResource("3_xp3ar")
-play_mode = null
 list = Array[AudioStream]([ExtResource("2_0qmeg")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_qogh7"]
 script = ExtResource("3_xp3ar")
-play_mode = null
 list = Array[AudioStream]([ExtResource("4_ta7ci")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="Level" type="Node2D" unique_id=1565788906]
 script = ExtResource("1_7ttr4")
 cash = 9999
-defaul_tower_holder = ExtResource("2_ta7ci")
+defaul_tower_holder = "uid://ckf2o2h3wv2xo"
 ready_music = SubResource("Resource_7h2jl")
 battle_music = SubResource("Resource_qogh7")
 metadata/_custom_type_script = "uid://yur7o864jejr"

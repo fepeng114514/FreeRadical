@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://db00ag4ekb4be" path="res://assets/atlas/atlas_textures/towers/bombs_0002.tres" id="2_4xf6g"]
 
 [node name="TowerArtilleryLvl2Bullet" unique_id=2094980939 instance=ExtResource("1_tgx8g")]
-scene_name = "tower_artillery_lvl_2_bullet"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1297058768) index="0" unique_id=2139566938]
 position = Vector2(0, -5)

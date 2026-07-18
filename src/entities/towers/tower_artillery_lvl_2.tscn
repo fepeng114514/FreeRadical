@@ -10,11 +10,10 @@
 [ext_resource type="SpriteFrames" uid="uid://gdv3a0nfa71x" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer6.tres" id="7_e0rle"]
 [ext_resource type="SpriteFrames" uid="uid://lp24hqx6qfk0" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer7.tres" id="8_4pii2"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="9_kj6gf"]
-[ext_resource type="PackedScene" uid="uid://byog4qgt2vdy5" path="res://entities/towers/tower_artillery_lvl_2_bullet.tscn" id="11_113xl"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="11_kj6gf"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="13_3bdla"]
 
-[sub_resource type="Resource" id="Resource_113xl"]
+[sub_resource type="Resource" id="Resource_ng7od"]
 resource_local_to_scene = true
 script = ExtResource("2_qpetq")
 flags = 16
@@ -22,7 +21,7 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_pwnv5"]
+[sub_resource type="Resource" id="Resource_113xl"]
 resource_local_to_scene = true
 script = ExtResource("2_qpetq")
 flags = 1048576
@@ -35,7 +34,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 resource_local_to_scene = true
 script = ExtResource("9_kj6gf")
 max_radius = 340.0
-interact_policy = SubResource("Resource_pwnv5")
+interact_policy = SubResource("Resource_113xl")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_thpnf"]
@@ -55,12 +54,15 @@ damage_type = 4
 min_value = 22.0
 max_value = 44.0
 get_value_mode = 1
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
 area_enable = true
 searcher = SubResource("Resource_w4mo5")
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArtilleryLvl2" unique_id=1600363506 instance=ExtResource("1_mlysv")]
-interact_policy = SubResource("Resource_113xl")
+interact_policy = SubResource("Resource_ng7od")
 
 [node name="SpriteGroup" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=557425361]
 position = Vector2(0, -49)
@@ -89,14 +91,8 @@ sprite_frames = ExtResource("8_4pii2")
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 price = 240.0
 
-[node name="UIComponent" parent="." index="2" unique_id=602361207]
-process_mode = 4
-
-[node name="SkillComponent" parent="." index="3" unique_id=52126447]
-process_mode = 4
-
-[node name="RangedSkill" parent="SkillComponent" index="0" unique_id=1342825155]
+[node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
 searcher = SubResource("Resource_3ifdg")
-bullet = ExtResource("11_113xl")
+bullet = "uid://byog4qgt2vdy5"
 bullet_offsets = SubResource("Resource_thpnf")
 influence = SubResource("Resource_mhbvy")

@@ -26,8 +26,8 @@ enum TowerType {
 
 ## 防御塔类型。
 @export var tower_type: TowerType = TowerType.TOWER_HOLDER
-## 塔位样式。
-@export var tower_holder: PackedScene = null
+## 塔位场景路径。
+@export_file("*.tscn") var tower_holder: String = ""
 ## 默认集结点。
 @export var default_rally_center_local_pos := Vector2.ZERO:
 	set(v): 
@@ -44,8 +44,8 @@ enum TowerType {
 
 ## 总价格。
 var total_price: float = price
-## 升级目标。
-var upgrade_to: PackedScene = null
+## 升级目标场景路径。
+var upgrade_to: String = ""
 ## 出售状态。
 var is_sell: bool = false
 ## 是否是被建筑建造的防御塔。

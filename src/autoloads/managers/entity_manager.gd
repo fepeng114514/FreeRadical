@@ -15,19 +15,21 @@ var type_group_list: Dictionary[String, Array] = {
 }
 ## 存储组件组的字典。
 var component_group_list: Dictionary[String, Array] = {}
-## 存储实体场景的字典。
-var _entity_scene_dict: Dictionary[String, PackedScene] = {}
+
 ## 下一个创建实体的 id。
 var _next_id: int = 0
 ## 实体数据缓存字典，用于读取数据，不参与游戏。
-var _cached_entities_data: Dictionary[PackedScene, Entity] = {}
+var _cached_entities_data: Dictionary[String, Entity] = {}
+
+
+func _load() -> void:
+	pass
 
 
 func _clear() -> void:
-	_entity_scene_dict.clear()
-	_cached_entities_data.clear()
 	component_group_list.clear()
 	entity_list.clear()
+	_cached_entities_data.clear()
 
 	for group: Array in type_group_list.values():
 		group.clear()
@@ -36,9 +38,9 @@ func _clear() -> void:
 
 
 #region 创建实体相关
-## 通过场景名创建实体。
-func create_entity(entity_scene: PackedScene) -> Entity:
-	var e: Entity = entity_scene.instantiate()
+## 通过场景路径创建实体。
+func create_entity(entity_scene_path: String) -> Entity:
+	var e: Entity = load(entity_scene_path).instantiate()
 		
 	return setup_entity(e)
 	
@@ -56,15 +58,15 @@ func setup_entity(e: Entity) -> Entity:
 
 ## 批量创建实体。
 func create_entities(
-		scene_list: Array[PackedScene],	
+		entity_scene_name_list: PackedStringArray,	
 		config_func: Callable = Callable(),
 		auto_insert: bool = true
 	) -> Array[Entity]:
-	
+		
 	var created_entities: Array[Entity] = []
 	
-	for scene: PackedScene in scene_list:
-		var e: Entity = create_entity(scene)
+	for entity_scene_name: String in entity_scene_name_list:
+		var e: Entity = create_entity(entity_scene_name)
 		
 		if config_func.is_valid():
 			config_func.call(e)
@@ -79,25 +81,25 @@ func create_entities(
 
 ## 创建实体在指定位置。
 func create_entities_at_pos(
-		scene_list: Array[PackedScene], 
+		entity_scene_name_list: PackedStringArray, 
 		pos: Vector2, 
 		auto_insert: bool = true 
 	) -> Array[Entity]:
 	return create_entities(
-		scene_list, func(e): e.set_pos(pos), auto_insert
+		entity_scene_name_list, func(e): e.set_pos(pos), auto_insert
 	)
 
 
 ## 批量创建状态效果实体。
 func create_mods(
 		target_id: int,
-		scene_list: Array[PackedScene], 
+		entity_scene_name_list: PackedStringArray, 
 		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
 	return create_entities(
-		scene_list, 
+		entity_scene_name_list, 
 		func(e):
 		e.target_id = target_id
 		e.source_id = source_id
@@ -109,13 +111,13 @@ func create_mods(
 ## 批量创建光环实体。
 func create_auras(
 		target_id: int,
-		scene_list: Array[PackedScene], 
+		entity_scene_name_list: PackedStringArray, 
 		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
 	return create_entities(
-		scene_list, 
+		entity_scene_name_list, 
 		func(e):
 		e.target_id = target_id
 		e.source_id = source_id
@@ -167,9 +169,9 @@ func get_valid_entities() -> Array[Entity]:
 
 	
 ## 获取实体数据，实体数据是一个实体实例，仅用于读取原始数据，不参与游戏逻辑。
-func get_entity_data(entity_scene: PackedScene) -> Entity:
-	if not _cached_entities_data.has(entity_scene) :
-		var e: Entity = entity_scene.instantiate()
-		_cached_entities_data[entity_scene] = e
+func get_entity_data(entity_scene_path: String) -> Entity:
+	if not _cached_entities_data.has(entity_scene_path) :
+		var e: Entity = load(entity_scene_path).instantiate()
+		_cached_entities_data[entity_scene_path] = e
 
-	return _cached_entities_data[entity_scene]
+	return _cached_entities_data[entity_scene_path]

@@ -26,9 +26,5 @@ var life: int = 20:
 	set(v): 
 		life_changed.emit(v)
 		life = v
-## 默认塔位样式。
-var defaul_tower_holder: PackedScene = null
-
-
-func _clear() -> void:
-	defaul_tower_holder = null
+## 默认塔位场景路径。
+var defaul_tower_holder: String = ""

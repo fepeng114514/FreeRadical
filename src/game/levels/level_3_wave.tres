@@ -4,12 +4,11 @@
 [ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://game/wave/wave.gd" id="2_qb1q8"]
 [ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://game/wave/sub_wave.gd" id="3_csrtm"]
 [ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://game/wave/wave_spawn.gd" id="4_p33vm"]
-[ext_resource type="PackedScene" uid="uid://b8mw5gsptj8n1" path="res://entities/enemies/enemy_goblin.tscn" id="5_csrtm"]
 
 [sub_resource type="Resource" id="Resource_p33vm"]
 script = ExtResource("4_p33vm")
 interval = 0.5
-entity = ExtResource("5_csrtm")
+entity = "uid://drgcomkmcowby"
 pathway_idx = 0
 count = 20
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"

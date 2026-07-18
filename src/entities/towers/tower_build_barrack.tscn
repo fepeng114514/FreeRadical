@@ -1,12 +1,10 @@
 [gd_scene format=3 uid="uid://dnkbru60qpk3q"]
 
 [ext_resource type="PackedScene" uid="uid://dw0llloxyurxn" path="res://entities/towers/tower_build.tscn" id="1_of2wb"]
-[ext_resource type="PackedScene" uid="uid://cc3v5b7ci4wxv" path="res://entities/towers/tower_barrack_lvl_1.tscn" id="2_ditd3"]
 [ext_resource type="Texture2D" uid="uid://d08yo6hr067" path="res://assets/atlas/atlas_textures/towers/tower_constructing_0002.tres" id="3_ditd3"]
 
 [node name="TowerBuildBarrack" unique_id=1530244974 instance=ExtResource("1_of2wb")]
-build_target = ExtResource("2_ditd3")
-scene_name = "tower_build_barrack"
+build_target = "uid://cc3v5b7ci4wxv"
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1200020081) index="0" unique_id=1433762339]
 position = Vector2(0, -45)

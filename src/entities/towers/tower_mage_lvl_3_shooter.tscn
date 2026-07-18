@@ -26,10 +26,14 @@ script = ExtResource("3_gseup")
 damage_type = 2
 min_value = 60.0
 max_value = 105.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerMageLvl3Shooter" unique_id=1442245649 instance=ExtResource("1_iadta")]
 
 [node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(1268978688) index="0" unique_id=14077948]
 searcher = SubResource("Resource_ciwqe")
+bullet = "uid://c77v7yq60lpig"
 influence = SubResource("Resource_7bx38")

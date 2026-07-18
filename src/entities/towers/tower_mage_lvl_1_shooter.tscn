@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="7_n6q0g"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="7_vtoys"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="7_yr2st"]
-[ext_resource type="PackedScene" uid="uid://c77v7yq60lpig" path="res://entities/towers/tower_mage_bullet.tscn" id="8_74xm3"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="8_vtoys"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="9_n6q0g"]
 [ext_resource type="AudioStream" uid="uid://b4j870vtyljlk" path="res://assets/audios/sound_mage_shot.ogg" id="10_u3fui"]
@@ -47,6 +46,9 @@ script = ExtResource("9_n6q0g")
 damage_type = 2
 min_value = 15.0
 max_value = 21.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_8g6nx"]
@@ -56,7 +58,6 @@ down = &"ranged_down"
 
 [sub_resource type="Resource" id="Resource_vtoys"]
 script = ExtResource("8_vtoys")
-play_mode = null
 list = Array[AudioStream]([ExtResource("10_u3fui")])
 delay = 0.3
 metadata/_custom_type_script = "uid://b2b214g352w4u"
@@ -84,7 +85,7 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedSkill" type="Node2D" parent="SkillComponent" unique_id=14077948]
 script = ExtResource("5_vssey")
 searcher = SubResource("Resource_tuthn")
-bullet = ExtResource("8_74xm3")
+bullet = "uid://c77v7yq60lpig"
 bullet_offsets = SubResource("Resource_c4v6e")
 influence = SubResource("Resource_1g575")
 cooldown = 1.5

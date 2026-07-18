@@ -20,7 +20,6 @@
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="14_st7oj"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="15_v8ksx"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="16_st7oj"]
-[ext_resource type="PackedScene" uid="uid://cx35c0rfd1fwr" path="res://entities/towers/tower_artillery_lvl_1_bullet.tscn" id="19_7extc"]
 [ext_resource type="AudioStream" uid="uid://nc72uwjv2uxa" path="res://assets/audios/sound_engineer_shot.ogg" id="22_epf81"]
 
 [sub_resource type="Resource" id="Resource_rn4jw"]
@@ -29,11 +28,10 @@ any = &"idle"
 
 [sub_resource type="Resource" id="Resource_ds7h4"]
 script = ExtResource("14_ds7h4")
-play_mode = null
 list = Array[AudioStream]([ExtResource("3_crln0"), ExtResource("4_7extc"), ExtResource("5_epf81")])
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[sub_resource type="Resource" id="Resource_epf81"]
+[sub_resource type="Resource" id="Resource_7extc"]
 resource_local_to_scene = true
 script = ExtResource("4_67tlk")
 flags = 16
@@ -75,6 +73,9 @@ damage_type = 4
 min_value = 9.0
 max_value = 18.0
 get_value_mode = 1
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
 area_enable = true
 searcher = SubResource("Resource_w4mo5")
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
@@ -85,7 +86,6 @@ any = &"ranged"
 
 [sub_resource type="Resource" id="Resource_ipws0"]
 script = ExtResource("14_ds7h4")
-play_mode = null
 list = Array[AudioStream]([ExtResource("22_epf81")])
 delay = 0.466
 metadata/_custom_type_script = "uid://b2b214g352w4u"
@@ -93,7 +93,7 @@ metadata/_custom_type_script = "uid://b2b214g352w4u"
 [node name="TowerArtilleryLvl1" unique_id=1600363506 instance=ExtResource("1_og8n7")]
 idle_animation = SubResource("Resource_rn4jw")
 spawn_sfx = SubResource("Resource_ds7h4")
-interact_policy = SubResource("Resource_epf81")
+interact_policy = SubResource("Resource_7extc")
 
 [node name="SpriteGroup" type="Node2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=557425361]
 position = Vector2(-3, -51)
@@ -144,7 +144,7 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedSkill" type="Node2D" parent="SkillComponent" index="0" unique_id=1342825155]
 script = ExtResource("14_n4ua5")
 searcher = SubResource("Resource_31xy0")
-bullet = ExtResource("19_7extc")
+bullet = "uid://cx35c0rfd1fwr"
 bullet_offsets = SubResource("Resource_5et4c")
 influence = SubResource("Resource_67tlk")
 cooldown = 3.0

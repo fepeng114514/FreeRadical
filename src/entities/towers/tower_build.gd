@@ -3,7 +3,7 @@ extends Entity
 
 
 @export var show_time: float = 1
-@export var build_target: PackedScene = null
+@export_file("*.tscn") var build_target: String = ""
 
 @export_group("Ref")
 @export var progress_bar: TextureProgressBar = null

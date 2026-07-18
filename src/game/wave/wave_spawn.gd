@@ -5,8 +5,8 @@ class_name WaveSpawn
 
 ## 生成下一个实体间隔，单位为秒。
 @export var interval: float = 1
-## 生成的实体场景。
-@export var entity: PackedScene = null
+## 生成的实体场景路径。
+@export_file("*.tscn") var entity: String = ""
 ## 生成的路径，-1 表示随机。
 @export var pathway_idx: int = C.UNSET
 ## 生成的子路径，-1 表示随机。

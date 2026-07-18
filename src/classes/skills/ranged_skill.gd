@@ -24,8 +24,8 @@ enum BulletSpawnMode {
 		U.resource_redraw_setter(self, searcher)
 
 @export_group("Bullet")
-## 子弹场景名称。
-@export var bullet: PackedScene = null
+## 子弹场景路径。
+@export_file("*.tscn") var bullet: String = ""
 ## 子弹发射数量。
 @export var bullet_count: int = 1
 ## 子弹初始位置偏移组。
@@ -66,8 +66,7 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 		if not target:
 			return
 		
-	if target:
-		e.look_point = target.global_position
+	e.look_point = target.global_position
 	start_cooldown(e, skill_idx)
 
 	e.play_animation(animation, &"ranged")
