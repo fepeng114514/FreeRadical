@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://52j7mo7jgfkv"]
 
 [ext_resource type="Script" uid="uid://biweduwpjvth6" path="res://map/map.gd" id="1_724gr"]
-[ext_resource type="AudioStream" uid="uid://c7p3s0tsgx8fw" path="res://assets/audios/music_map.ogg" id="2_brb1y"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_pu1n1"]
 [ext_resource type="Texture2D" uid="uid://svqsjk8u7rkl" path="res://assets/map_background.png" id="4_brb1y"]
 [ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="5_7lyie"]
@@ -11,7 +10,7 @@
 
 [sub_resource type="Resource" id="Resource_igyvp"]
 script = ExtResource("3_pu1n1")
-list = Array[AudioStream]([ExtResource("2_brb1y")])
+list = PackedStringArray("uid://c7p3s0tsgx8fw")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="Map" type="Node2D" unique_id=257249172]

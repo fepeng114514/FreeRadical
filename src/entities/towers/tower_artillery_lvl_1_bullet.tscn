@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://2b477amx3god" path="res://entities/bullet.tscn" id="1_y76x6"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_0mq2b"]
-[ext_resource type="AudioStream" uid="uid://c34pctng5uplj" path="res://assets/audios/sound_bomb1.ogg" id="4_i65oq"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="6_jmmy1"]
 [ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://classes/bullet_trajectories/parabola_bullet_trajectory.gd" id="7_k2m4n"]
 [ext_resource type="Texture2D" uid="uid://d1gbwpn3epj2t" path="res://assets/atlas/atlas_textures/towers/bombs_0001.tres" id="8_lvynn"]
@@ -13,7 +12,7 @@ flight_total_time = 1.5
 
 [sub_resource type="Resource" id="Resource_jmmy1"]
 script = ExtResource("6_jmmy1")
-list = Array[AudioStream]([ExtResource("4_i65oq")])
+list = PackedStringArray("uid://c34pctng5uplj")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerArtilleryLvl1Bullet" unique_id=2094980939 instance=ExtResource("1_y76x6")]

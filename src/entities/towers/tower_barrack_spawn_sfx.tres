@@ -1,12 +1,8 @@
 [gd_resource type="Resource" script_class="AudioGroup" format=3 uid="uid://clhshesmvk8at"]
 
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="1_84euy"]
-[ext_resource type="AudioStream" uid="uid://wp6s75jf2hn3" path="res://assets/audios/barrack_ready.ogg" id="1_utoow"]
-[ext_resource type="AudioStream" uid="uid://bbn4l62svhdc2" path="res://assets/audios/barrack_taunt1.ogg" id="2_2hnpk"]
-[ext_resource type="AudioStream" uid="uid://vg7mlvvampln" path="res://assets/audios/barrack_taunt2.ogg" id="3_aaonf"]
-[ext_resource type="AudioStream" uid="uid://d20q4a3ghe4n3" path="res://assets/audios/barrack_move.ogg" id="4_p5ay2"]
 
 [resource]
 script = ExtResource("1_84euy")
-list = Array[AudioStream]([ExtResource("1_utoow"), ExtResource("2_2hnpk"), ExtResource("3_aaonf"), ExtResource("4_p5ay2")])
+list = PackedStringArray("uid://wp6s75jf2hn3", "uid://bbn4l62svhdc2", "uid://vg7mlvvampln", "uid://d20q4a3ghe4n3")
 metadata/_custom_type_script = "uid://b2b214g352w4u"

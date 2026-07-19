@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dw0llloxyurxn"]
 
 [ext_resource type="Script" uid="uid://wwnvcleqo7tf" path="res://entities/towers/tower_build.gd" id="1_iilrv"]
-[ext_resource type="AudioStream" uid="uid://d0m4poic6q3ge" path="res://assets/audios/sound_tower_building.ogg" id="2_die5b"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_iilrv"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="2_u6arj"]
 [ext_resource type="Texture2D" uid="uid://chyxjndu181vq" path="res://assets/atlas/atlas_textures/towers/buildbar_bg.tres" id="6_die5b"]
@@ -10,13 +9,12 @@
 
 [sub_resource type="Resource" id="Resource_1cokw"]
 script = ExtResource("2_u6arj")
-list = Array[AudioStream]([ExtResource("2_die5b")])
+list = PackedStringArray("uid://d0m4poic6q3ge")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerBuild" type="Node2D" unique_id=1530244974 node_paths=PackedStringArray("progress_bar")]
 script = ExtResource("1_iilrv")
 progress_bar = NodePath("TextureProgressBar")
-scene_name = "tower_build"
 spawn_sfx = SubResource("Resource_1cokw")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 

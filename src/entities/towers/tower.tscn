@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_wcexa"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_vrxc8"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="4_1tafr"]
-[ext_resource type="AudioStream" uid="uid://cvqa1g2cy5ol1" path="res://assets/audios/sound_tower_sell.ogg" id="5_irjtw"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="5_r47bq"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="6_6m6kf"]
 
@@ -18,12 +17,11 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_wcexa"]
 script = ExtResource("4_1tafr")
-list = Array[AudioStream]([ExtResource("5_irjtw")])
+list = PackedStringArray("uid://cvqa1g2cy5ol1")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="Tower" type="Node2D" unique_id=794445410]
 script = ExtResource("1_lq4cm")
-scene_name = "tower"
 interact_policy = SubResource("Resource_wcsue")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
@@ -38,6 +36,7 @@ sell_sfx = SubResource("Resource_wcexa")
 metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="UIComponent" type="Node2D" parent="." unique_id=602361207]
+process_mode = 4
 script = ExtResource("6_6m6kf")
 select_rect = Rect2(-48.73, -98.54, 95.585, 101.565)
 info_bar_type = 2

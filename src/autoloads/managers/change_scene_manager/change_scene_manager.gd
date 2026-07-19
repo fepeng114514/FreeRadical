@@ -36,6 +36,9 @@ func _process(_delta: float):
 
 
 func enter_scene(scene_path: String):
+	AudioMgr.stop_music()
+	AudioMgr.stop_sfx()
+			
 	_target_scene_path = scene_path
 	
 	get_tree().change_scene_to_packed(loading_screen_scene)

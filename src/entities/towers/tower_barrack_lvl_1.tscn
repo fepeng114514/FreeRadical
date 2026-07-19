@@ -9,7 +9,6 @@
 [ext_resource type="SpriteFrames" uid="uid://c3kr0u7ptrtbr" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl1_door.tres" id="5_3ddwr"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="7_4wg18"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="8_3sqnj"]
-[ext_resource type="AudioStream" uid="uid://dcnpba3drwfdg" path="res://assets/audios/sound_tower_open_door.ogg" id="9_6vjbv"]
 
 [sub_resource type="Resource" id="Resource_4wg18"]
 script = ExtResource("2_5r4pg")
@@ -17,7 +16,7 @@ play_idx = 1
 any = &"idle"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
-[sub_resource type="Resource" id="Resource_6vjbv"]
+[sub_resource type="Resource" id="Resource_3sqnj"]
 resource_local_to_scene = true
 script = ExtResource("4_3ddwr")
 flags = 16
@@ -37,12 +36,12 @@ any = &"spawn"
 
 [sub_resource type="Resource" id="Resource_3ddwr"]
 script = ExtResource("7_4wg18")
-list = Array[AudioStream]([ExtResource("9_6vjbv")])
+list = PackedStringArray("uid://dcnpba3drwfdg")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [node name="TowerBarrackLvl1" unique_id=187367710 instance=ExtResource("1_og8n7")]
 idle_animation = SubResource("Resource_4wg18")
-interact_policy = SubResource("Resource_6vjbv")
+interact_policy = SubResource("Resource_3sqnj")
 
 [node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
 position = Vector2(0, -46)
@@ -59,7 +58,6 @@ tower_type = 2
 price = 80.0
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
-process_mode = 4
 select_rect = Rect2(-57.155, -82, 112.085, 102.935)
 
 [node name="BarrackComponent" type="Node2D" parent="." index="3" unique_id=441339810]

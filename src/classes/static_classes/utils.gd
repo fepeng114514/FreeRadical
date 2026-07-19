@@ -247,8 +247,8 @@ static func open_directory(path: String) -> DirAccess:
 
 
 ## 递归获取目录下所有文件。
-static func get_files_from_nested_directory(dir_path: String, match_pattern: String = "") -> Array[String]:
-	var file_path_list: Array[String] = []
+static func get_files_from_nested_directory(dir_path: String, match_pattern: String = "") -> PackedStringArray:	
+	var file_path_list := PackedStringArray()
 	var dir: DirAccess = open_directory(dir_path)
 
 	dir.list_dir_begin()

@@ -72,27 +72,37 @@ func play_audio(
 		
 	await TimeMgr.y_wait(audio_data.delay)
 	
-	var play_list: Array[AudioStream] = []
-	var data_list: Array[AudioStream] = audio_data.list
-
+	var play_list := PackedStringArray()
+	var data_list: PackedStringArray = audio_data.list
+	
 	match audio_data.play_mode:
 		AudioPlayMode.RANDOM:
-			var stream: AudioStream = U.pick_random(data_list)
-			play_list = [stream]
+			var stream_path: String = U.pick_random(data_list)
+			play_list = [stream_path]
+			
 		AudioPlayMode.SEQUENCE:
 			var play_idx: int = audio_data.played_idx + 1
 			play_idx %= data_list.size()
 			
-			var stream: AudioStream = data_list[play_idx]
+			var stream_path: String = data_list[play_idx]
 			audio_data.played_idx = play_idx
 			
-			play_list = [stream]
+			play_list = [stream_path]
 		AudioPlayMode.CONCURRENCY:
 			play_list = data_list
 			
-	for stream: AudioStream in play_list:
-		player.stream = stream
+	for stream_path: String in play_list:
+		player.stream = load(stream_path)
 		player.volume_db = audio_data.volume_db
 		player.volume_linear = audio_data.volume_linear
 		player.bus = bus
 		player.play()
+
+
+func stop_music() -> void:
+	_music_player.stop()
+
+
+func stop_sfx() -> void:
+	for sfx_player: AudioStreamPlayer in _sfx_player_list:
+		sfx_player.stop()
