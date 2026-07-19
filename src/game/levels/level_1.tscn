@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://be4ofxijaafml" path="res://game/levels/level.tscn" id="1_oyy57"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/wave_spawner.tscn" id="2_4ykn6"]
-[ext_resource type="Resource" uid="uid://gl6f4krxfk5j" path="res://game/levels/level_1_wave.tres" id="3_rifvl"]
+[ext_resource type="Resource" uid="uid://duckkkjf0svrb" path="res://game/levels/level_1_wave.tres" id="3_rifvl"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="6_l6jt4"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="7_6ioow"]
-[ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder_grass.tscn" id="8_oewxi"]
+[ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder/tower_holder_grass.tscn" id="8_oewxi"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://game/pathway/pathway.gd" id="9_ups30"]
 [ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://game/wave_flag/wave_flag.tscn" id="10_dhsvx"]
 

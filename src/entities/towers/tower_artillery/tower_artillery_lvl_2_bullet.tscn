@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://byog4qgt2vdy5"]
+
+[ext_resource type="PackedScene" uid="uid://cx35c0rfd1fwr" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1_bullet.tscn" id="1_tgx8g"]
+[ext_resource type="Texture2D" uid="uid://db00ag4ekb4be" path="res://assets/atlas/atlas_textures/towers/bombs_0002.tres" id="2_4xf6g"]
+
+[node name="TowerArtilleryLvl2Bullet" unique_id=2094980939 instance=ExtResource("1_tgx8g")]
+
+[node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1297058768) index="0" unique_id=2139566938]
+position = Vector2(0, -5)
+texture = ExtResource("2_4xf6g")

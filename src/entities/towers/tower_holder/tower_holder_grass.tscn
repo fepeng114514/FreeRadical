@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://ckf2o2h3wv2xo"]
+
+[ext_resource type="PackedScene" uid="uid://ck4m2qigdae35" path="res://entities/towers/tower_holder/tower_holder.tscn" id="1_yible"]
+[ext_resource type="Texture2D" uid="uid://0566nc2tgjxo" path="res://assets/atlas/atlas_textures/towers/build_terrain_0001.tres" id="2_jmfsc"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_qu0l2"]
+
+[sub_resource type="Resource" id="Resource_qu0l2"]
+resource_local_to_scene = true
+script = ExtResource("2_qu0l2")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[node name="TowerHolderGrass" unique_id=1898604313 instance=ExtResource("1_yible")]
+scene_name = "tower_holder_grass"
+localization_name = null
+interact_policy = SubResource("Resource_qu0l2")
+
+[node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=2043930113]
+texture = ExtResource("2_jmfsc")
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+process_mode = 4

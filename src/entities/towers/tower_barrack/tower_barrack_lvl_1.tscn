@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://cc3v5b7ci4wxv"]
+
+[ext_resource type="PackedScene" uid="uid://cwd2mclx8dgs7" path="res://entities/towers/tower.tscn" id="1_og8n7"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_5r4pg"]
+[ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack/tower_barrack_spawn_sfx.tres" id="2_cw5qr"]
+[ext_resource type="Texture2D" uid="uid://fcpj16d35cum" path="res://assets/atlas/atlas_textures/towers/tower_barrack_0001.tres" id="4_2u03i"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_3ddwr"]
+[ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="4_u6jgq"]
+[ext_resource type="SpriteFrames" uid="uid://c3kr0u7ptrtbr" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl1_door.tres" id="5_3ddwr"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="7_4wg18"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="8_3sqnj"]
+
+[sub_resource type="Resource" id="Resource_4wg18"]
+script = ExtResource("2_5r4pg")
+play_idx = 1
+any = &"idle"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_3sqnj"]
+resource_local_to_scene = true
+script = ExtResource("4_3ddwr")
+flags = 16
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_2u03i"]
+script = ExtResource("8_3sqnj")
+any = Vector2(0, 17.55)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_xe47h"]
+script = ExtResource("2_5r4pg")
+play_idx = 1
+any = &"spawn"
+
+[sub_resource type="Resource" id="Resource_3ddwr"]
+script = ExtResource("7_4wg18")
+list = PackedStringArray("uid://dcnpba3drwfdg")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[node name="TowerBarrackLvl1" unique_id=187367710 instance=ExtResource("1_og8n7")]
+idle_animation = SubResource("Resource_4wg18")
+interact_policy = SubResource("Resource_3sqnj")
+
+[node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
+position = Vector2(0, -46)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=927508667]
+texture = ExtResource("4_2u03i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="1" unique_id=1766989563]
+sprite_frames = ExtResource("5_3ddwr")
+animation = &"idle"
+
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+tower_type = 2
+price = 80.0
+
+[node name="UIComponent" parent="." index="2" unique_id=602361207]
+select_rect = Rect2(-57.155, -82, 112.085, 102.935)
+
+[node name="BarrackComponent" type="Node2D" parent="." index="3" unique_id=441339810]
+process_mode = 4
+script = ExtResource("4_u6jgq")
+rally_radius = 45.0
+rally_sfx = ExtResource("2_cw5qr")
+soldier = "uid://f30rl46i8akx"
+spawn_offsets = SubResource("Resource_2u03i")
+animation = SubResource("Resource_xe47h")
+delay = 0.167
+sfx = SubResource("Resource_3ddwr")
+metadata/_custom_type_script = "uid://b3vhika61oa7p"

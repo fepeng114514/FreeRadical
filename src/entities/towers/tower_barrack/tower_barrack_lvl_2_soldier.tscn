@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://nosygoauf7h"]
+
+[ext_resource type="PackedScene" uid="uid://f30rl46i8akx" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier.tscn" id="1_kwyx1"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_73wc2"]
+[ext_resource type="SpriteFrames" uid="uid://egv7m8r40cso" path="res://assets/atlas/sprite_frames/towers/tower_barracks_soldier_lvl2.tres" id="2_lp58n"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="3_fe88p"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="4_fe88p"]
+
+[sub_resource type="Resource" id="Resource_wahs8"]
+resource_local_to_scene = true
+script = ExtResource("2_73wc2")
+flags = 4
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_odm3f"]
+resource_local_to_scene = true
+script = ExtResource("2_73wc2")
+flags = 2097152
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_uxamv"]
+resource_local_to_scene = true
+script = ExtResource("3_fe88p")
+max_radius = 100.0
+interact_policy = SubResource("Resource_odm3f")
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_gfm8b"]
+resource_local_to_scene = true
+script = ExtResource("4_fe88p")
+damage_flags = 2097152
+min_value = 3.0
+max_value = 4.0
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
+
+[sub_resource type="Resource" id="Resource_2f6ys"]
+resource_local_to_scene = true
+script = ExtResource("2_73wc2")
+flags = 2097152
+whitelist = PackedStringArray()
+blacklist = PackedStringArray()
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[node name="TowerBarrackLvl2Soldier" unique_id=1677548747 instance=ExtResource("1_kwyx1")]
+interact_policy = SubResource("Resource_wahs8")
+
+[node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(389197924) index="0" unique_id=1889529730]
+sprite_frames = ExtResource("2_lp58n")
+
+[node name="HealthComponent" parent="." index="1" unique_id=949799713]
+hp_max = 120.0
+physical_armor = 0.3
+idle_regen_hp = 7.0
+
+[node name="MeleeComponent" parent="." index="2" unique_id=668314156]
+searcher = SubResource("Resource_uxamv")
+
+[node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1014449767]
+influence = SubResource("Resource_gfm8b")
+interact_policy = SubResource("Resource_2f6ys")

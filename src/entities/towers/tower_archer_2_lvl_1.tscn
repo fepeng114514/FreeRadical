@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://kq8u1uyt8ldx"]
 
-[ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://entities/towers/tower_archer.tscn" id="1_x7j23"]
+[ext_resource type="PackedScene" uid="uid://cvijiwoloou1l" path="res://entities/towers/tower_archer/tower_archer.tscn" id="1_x7j23"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_yk4yb"]
 [ext_resource type="Texture2D" uid="uid://blyss2vmto0of" path="res://assets/atlas/atlas_textures/towers/tower_archer_2_0001.tres" id="3_sbvnr"]
 [ext_resource type="Texture2D" uid="uid://bf74hmd14fm31" path="res://assets/atlas/atlas_textures/towers/tower_archer_2_back_0001.tres" id="4_2u2im"]
