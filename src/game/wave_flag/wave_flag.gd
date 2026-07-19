@@ -62,7 +62,7 @@ func _ready() -> void:
 
 
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings: PackedStringArray = []
+	var warnings := PackedStringArray()
 
 	if not bound_pathway_node:
 		warnings.append("请在 bound_pathway_node 中绑定一个 Pathway 路径节点。")

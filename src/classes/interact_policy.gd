@@ -19,9 +19,13 @@ class_name InteractPolicy
 ## 禁止的光环类型。
 @export var aura_type_bans: int = 0
 ## 白名单场景名称。
-@export var whitelist: PackedStringArray = []
+@export var whitelist := PackedStringArray()
 ## 黑名单场景名称。
-@export var blacklist: PackedStringArray = []
+@export var blacklist := PackedStringArray()
+
+
+func _init() -> void:
+	resource_local_to_scene = true
 
 
 func _validate_property(property: Dictionary) -> void:

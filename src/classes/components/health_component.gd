@@ -78,7 +78,7 @@ func _validate_property(property: Dictionary):
 			
 
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings: PackedStringArray = []
+	var warnings := PackedStringArray()
 		
 	if not health_bar:
 		warnings.append("请增加一个 HealthBar 子节点，否则实体无法显示血条。")

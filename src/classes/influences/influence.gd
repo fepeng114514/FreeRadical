@@ -48,6 +48,8 @@ var override_value: float = C.UNSET
 
 
 func _init() -> void:
+	resource_local_to_scene = true
+
 	if Engine.is_editor_hint():
 		U.connect_resource_changed(searcher, emit_changed)
 

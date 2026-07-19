@@ -11,7 +11,7 @@ func _ready() -> void:
 
 		
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings: PackedStringArray = []
+	var warnings := PackedStringArray()
 		
 	if not get_children():
 		warnings.append("请至少增加一个 Skill 或其类型的子节点，否则实体无法释放技能。")

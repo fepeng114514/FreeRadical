@@ -19,7 +19,7 @@ func _ready() -> void:
 
 
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings: PackedStringArray = []
+	var warnings := PackedStringArray()
 		
 	if not level_scene_path:
 		warnings.append("请在 level_scene_path 中设置一个关卡场景路径，否则点击旗帜不会进入关卡。")

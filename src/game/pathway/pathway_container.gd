@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings: PackedStringArray = []
+	var warnings := PackedStringArray()
 		
 	if not get_children():
 		warnings.append("请至少增加一个 Pathway 子节点，否则所有路径相关的操作会出错。")

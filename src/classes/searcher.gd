@@ -77,6 +77,10 @@ enum SearchGroup {
 @export var interact_policy: InteractPolicy = null
 
 
+func _init() -> void:
+	resource_local_to_scene = true
+
+
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
 		"search_flag":

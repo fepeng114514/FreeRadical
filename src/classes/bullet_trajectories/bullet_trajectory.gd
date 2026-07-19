@@ -6,6 +6,10 @@ class_name BulletTrajectory
 ## 每种轨迹类型继承此类，实现各自的初始化与更新逻辑。
 
 
+func _init() -> void:
+	resource_local_to_scene = true
+
+
 @warning_ignore_start("unused_parameter")
 ## 子弹创建时调用，初始化子弹的轨迹参数。
 func _init_trajectory(bullet_c: BulletComponent, e: Entity, target: Entity) -> void:
