@@ -17,25 +17,25 @@ class_name MultipleRangedSkill
 @export var end_sfx: AudioGroup = null
 
 
-func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
+func _do_skill(e: Entity, target: Entity = null) -> void:
 	if not target:
 		target = searcher.search_target(e.global_position, e)
 		if not target:
 			return
 		
 	e.look_point = target.global_position
-	start_cooldown(e, skill_idx)
+	start_cooldown(e)
 	
 	e.play_animation(animation, &"ranged")
 	AudioMgr.play_sfx(sfx)
 	if await e.y_wait_animation(animation):
-		compensate_cooldown(e, skill_idx)
+		compensate_cooldown(e)
 		return
 
 	if not target:
 		target = searcher.search_target(e.global_position, e)
 		if not target:
-			compensate_cooldown(e, skill_idx)
+			compensate_cooldown(e)
 			return
 
 	for i: int in loop_count:

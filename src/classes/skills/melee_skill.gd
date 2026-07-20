@@ -39,12 +39,12 @@ func can_do(e: Entity, target: Entity = null) -> bool:
 	return true
 
 
-func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
-	start_cooldown(e, skill_idx)
+func _do_skill(e: Entity, target: Entity = null) -> void:
+	start_cooldown(e)
 	e.play_animation(animation, &"melee")
 	AudioMgr.play_sfx(sfx)
 	if await e.y_wait(delay) or not target:
-		compensate_cooldown(e, skill_idx)
+		compensate_cooldown(e)
 		return
 	
 	if search_target_pos:

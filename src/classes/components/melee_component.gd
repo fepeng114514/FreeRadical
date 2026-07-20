@@ -24,7 +24,7 @@ enum MeleeState {
 ## 是否不主动前往近战位置。
 @export var is_passive: bool = false
 ## 移动速度。
-@export var speed: float = 100
+@export var speed: float = 100.0
 ## 移动动画组。
 @export var motion_animation: AnimationGroup = null
 ## 近战位置偏移组。
@@ -33,7 +33,7 @@ enum MeleeState {
 		melee_pos_offsets = v
 		U.resource_redraw_setter(self, melee_pos_offsets)
 ## 到达位置的阈值。
-@export var arrived_distance: float = 10
+@export var arrived_distance: float = 10.0
 
 @export_group("Blocker")
 ## 搜索资源，用于搜索目标。

@@ -11,7 +11,7 @@ var value: float = 0.0
 ## 伤害类型。
 var damage_type: int = C.DamageType.PHYSICAL
 ## 伤害因子。
-var damage_factor: float = 1
+var damage_factor: float = 1.0
 ## 伤害标识。	
 var damage_flags: int = C.DamageFlag.NONE
 ## 来源实体名称。

@@ -55,7 +55,7 @@ func load_wave_group(path: String) -> void:
 
 	var wave_list: Array[Wave] = wave_group.wave_list
 
-	var current_time: float = 0
+	var current_time: float = 0.0
 	for i: int in wave_list.size():
 		var wave: Wave = wave_list[i]
 		var track_item: TrackEditorTrackItem = wave_track_editor.create_item()

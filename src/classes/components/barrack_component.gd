@@ -24,13 +24,13 @@ class_name BarrackComponent
 		rally_center_position = v
 		U.redraw_setter(self)
 ## 集结点半径。
-@export var rally_radius: float = 30
+@export var rally_radius: float = 30.0
 ## 集结音效组。
 @export var rally_sfx: AudioGroup = null
 ## 士兵场景路径。
 @export_file("*.tscn") var soldier: String = ""
 ## 生成士兵间隔（秒）。
-@export var spawn_interval: float = 10
+@export var spawn_interval: float = 10.0
 ## 士兵生成偏移组。
 @export var spawn_offsets: OffsetGroup = null:
 	set(v): 

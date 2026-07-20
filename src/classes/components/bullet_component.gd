@@ -21,7 +21,7 @@ class_name BulletComponent
 ## 是否可以到达目标位置。
 @export var can_arrived: bool = true
 ## 击中目标的阈值。
-@export var hit_distance: float = 30
+@export var hit_distance: float = 30.0
 ## 击中目标后是否移除子弹实体。
 @export var hit_remove: bool = true
 ## 击中后造成伤害的延迟（秒）。

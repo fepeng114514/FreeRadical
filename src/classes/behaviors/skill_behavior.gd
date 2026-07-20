@@ -12,11 +12,10 @@ func _on_update(e: Entity) -> bool:
 		
 	for i: int in skill_c.get_child_count():
 		var skill: Skill = skill_c.get_child(i)
-		
 		if not skill.can_do(e):
 			continue
 			
-		skill._do_skill(e, i)
+		skill._do_skill(e)
 
 		return true
 			

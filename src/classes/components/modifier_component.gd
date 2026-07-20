@@ -21,7 +21,7 @@ class_name ModifierComponent
 ## 是否启用周期影响。
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_enable: bool = false
 ## 周期时间。
-@export var cycle_time: float = 1
+@export var cycle_time: float = 1.0
 ## 最大周期。
 @export var max_cycle: int = C.UNSET
 

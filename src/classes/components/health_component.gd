@@ -7,7 +7,7 @@ class_name HealthComponent
 
 
 ## 最大血量。
-@export var hp_max: float = 100
+@export var hp_max: float = 100.0
 
 @export_group("Buff")
 ## 物理护甲。

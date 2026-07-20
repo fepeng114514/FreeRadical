@@ -34,7 +34,7 @@ func _draw() -> void:
 			influence.draw(self, position)
 		
 		
-func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
+func _do_skill(e: Entity, target: Entity = null) -> void:
 	if searcher:
 		target = searcher.search_target(e.global_position, e)
 		if not target:
@@ -42,18 +42,18 @@ func _do_skill(e: Entity, skill_idx: int, target: Entity = null) -> void:
 	
 	if target:
 		e.look_point = target.global_position
-	start_cooldown(e, skill_idx)
+	start_cooldown(e)
 
 	e.play_animation(animation)
 	AudioMgr.play_sfx(sfx)
 	if await e.y_wait(delay) or searcher and not target:
-		compensate_cooldown(e, skill_idx)
+		compensate_cooldown(e)
 		return
 
 	if searcher and not target:
 		target = searcher.search_target(e.global_position, e)
 		if not target:
-			compensate_cooldown(e, skill_idx)
+			compensate_cooldown(e)
 			return
 
 	if not searcher:

@@ -33,7 +33,7 @@ signal item_moved(item: TrackEditorTrackItem)
 		if tick_spacing_spin_box:
 			tick_spacing_spin_box.value = v
 ## 项拖动时的吸附阈值。
-@export var snap_threshold: float = 4
+@export var snap_threshold: float = 4.0
 ## 是否显示项顺序标签。
 @export var show_item_order_label: bool = true
 ## 项顺序标签格式。

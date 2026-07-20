@@ -272,13 +272,13 @@ func _try_melee_attack(
 		e.look_point = target.global_position
 	e.play_animation(e.idle_animation)
 	
-	for i: int in melee_c.get_child_count():
-		if not target:
-			break
-		var skill: MeleeSkill = melee_c.get_child(i)
+	if not target:
+		return
 
+	for i: int in melee_c.get_child_count():
+		var skill: MeleeSkill = melee_c.get_child(i)
 		if not skill.can_do(e, target):
 			continue
 
-		skill._do_skill(e, i, target)
+		skill._do_skill(e, target)
 		break

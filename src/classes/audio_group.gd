@@ -10,7 +10,7 @@ class_name AudioGroup
 ## 音量，单位为分贝。
 @export var volume_db: float = 0.0
 ## 音量，线性增长而非对数。
-@export var volume_linear: float = 1
+@export var volume_linear: float = 1.0
 ## 延迟，单位为秒。
 @export var delay: float = 0.0
 

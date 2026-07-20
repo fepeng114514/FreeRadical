@@ -5,7 +5,7 @@ extends Node
 
 
 ## 空间索引的网格大小。
-const SPACE_INDEX_GRID_SIZE: float = 100
+const SPACE_INDEX_GRID_SIZE: float = 100.0
 
 
 #region 属性

@@ -82,5 +82,6 @@ influence = SubResource("Resource_wxd0v")
 cooldown = 0.8
 delay = 0.167
 animation = SubResource("Resource_6rlp0")
-group_cooldown_enable = true
+group_share_cooldown_enable = true
+group_share_cooldown_id = 1
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

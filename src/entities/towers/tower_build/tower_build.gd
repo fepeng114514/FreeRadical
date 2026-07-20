@@ -2,7 +2,7 @@
 extends Entity
 
 
-@export var show_time: float = 1
+@export var show_time: float = 1.0
 @export_file("*.tscn") var build_target: String = ""
 
 @export_group("Ref")

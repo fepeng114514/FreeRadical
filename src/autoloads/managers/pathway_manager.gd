@@ -19,11 +19,11 @@ var next_pi: int = 0
 ## 子路径总数量。
 var sub_pathway_count: int = 5
 ## 子路径间距。
-var sub_pathway_spacing: float = 20
+var sub_pathway_spacing: float = 20.0
 ## 路径节点总数量。
 var node_count: int = 256
 ## 路径节点相交距离阈值。
-var intersect_dist_threshold: float = 10
+var intersect_dist_threshold: float = 10.0
 ## 是否绘制路径。
 var is_draw_pathway: bool = false:
 	set(v):

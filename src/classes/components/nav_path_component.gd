@@ -8,7 +8,7 @@ class_name NavPathComponent
 ## 是否沿相反路线移动。
 @export var reversed: bool = false
 ## 移动速度。
-@export var speed: float = 133
+@export var speed: float = 133.0
 ## 移动动画组。
 @export var motion_animation: AnimationGroup = null
 ## 是否强制与来源实体所在路径同步。

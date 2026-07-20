@@ -7,7 +7,7 @@ class_name RallyComponent
 
 
 ## 移动速度。
-@export var speed: float = 100
+@export var speed: float = 100.0
 ## 是否可点击集结。
 @export var can_select_rally: bool = true
 ## 移动动画组。

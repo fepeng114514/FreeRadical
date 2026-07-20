@@ -23,5 +23,5 @@ func _on_update(e: Entity) -> bool:
 	if not target:
 		return false
 
-	skill._do_skill(e, dodge_c.skill_idx, target)
+	skill._do_skill(e, target)
 	return true

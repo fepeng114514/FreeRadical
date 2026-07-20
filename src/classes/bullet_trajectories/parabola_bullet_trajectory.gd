@@ -8,7 +8,7 @@ class_name ParabolaBulletTrajectory
 ## 子弹从发射到命中或消失的时间。
 @export var flight_total_time: float = 0.0
 ## 重力加速度。
-@export var flight_gravity: float = 980
+@export var flight_gravity: float = 980.0
 ## 检查到达目标点的阈值。
 @export var arrival_threshold: float = 0.8
 

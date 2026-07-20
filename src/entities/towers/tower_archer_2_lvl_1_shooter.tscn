@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/ranged_skill.gd" id="6_d4nto"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="7_5kker"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="7_msl04"]
-[ext_resource type="PackedScene" uid="uid://d25hnem6unbul" path="res://entities/towers/tower_archer/tower_archer_bullet.tscn" id="8_j48am"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="9_iax8m"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="10_cvjge"]
 
@@ -43,6 +42,9 @@ resource_local_to_scene = true
 script = ExtResource("10_cvjge")
 min_value = 4.0
 max_value = 6.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_6rlp0"]
@@ -72,11 +74,12 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedSkill" type="Node2D" parent="SkillComponent" unique_id=1939030855]
 script = ExtResource("6_d4nto")
 searcher = SubResource("Resource_uea8m")
-bullet = ExtResource("8_j48am")
+bullet = "uid://3wgsu2jj2mdg"
 bullet_offsets = SubResource("Resource_367kr")
 influence = SubResource("Resource_wxd0v")
 cooldown = 0.8
 delay = 0.167
 animation = SubResource("Resource_6rlp0")
-group_cooldown_enable = true
+group_share_cooldown_enable = true
+group_share_cooldown_id = 1
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

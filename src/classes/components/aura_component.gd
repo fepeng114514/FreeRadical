@@ -24,7 +24,7 @@ class_name AuraComponent
 
 @export_group("Cycle")
 ## 周期时间。
-@export var cycle_time: float = 1
+@export var cycle_time: float = 1.0
 ## 最大周期数。
 @export var max_cycle: int = C.UNSET
 
