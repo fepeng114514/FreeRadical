@@ -1,6 +1,6 @@
 @tool
 extends EditorScript
-## 更新音频路径的工具。
+## 生成音频路径数据的工具。
 
 
 ## 音频资产目录路径。

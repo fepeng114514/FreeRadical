@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_gsmxj"]
 [ext_resource type="SpriteFrames" uid="uid://dsxx3coef64np" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_ogre.tres" id="4_4svom"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="4_cktve"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="5_gm0c1"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="5_p5seb"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="6_cktve"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="7_p5seb"]
@@ -14,13 +15,18 @@ script = ExtResource("4_cktve")
 any = Vector2(0, -37.35)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_cktve"]
+[sub_resource type="Resource" id="Resource_k5dw5"]
 resource_local_to_scene = true
 script = ExtResource("2_gsmxj")
 flags = 1
 whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_bkrvy"]
+script = ExtResource("5_gm0c1")
+list = PackedStringArray("uid://dg2mw2u4f6y6x")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_atygg"]
 script = ExtResource("7_p5seb")
@@ -42,6 +48,9 @@ script = ExtResource("5_p5seb")
 damage_flags = 2097152
 min_value = 40.0
 max_value = 60.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_p5seb"]
@@ -59,7 +68,7 @@ right_replace_left = true
 
 [node name="EnemyOgre" unique_id=71433118 instance=ExtResource("1_4svom")]
 hit_offsets = SubResource("Resource_4svom")
-interact_policy = SubResource("Resource_cktve")
+interact_policy = SubResource("Resource_k5dw5")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1028021225) index="0" unique_id=814028893]
 position = Vector2(0, -45)
@@ -68,6 +77,7 @@ sprite_frames = ExtResource("4_4svom")
 [node name="HealthComponent" parent="." index="1" unique_id=1435825868]
 hp_max = 800.0
 death_gold = 50.0
+death_sfx = SubResource("Resource_bkrvy")
 
 [node name="HealthBar" parent="HealthComponent" index="0" unique_id=1048256100]
 offset_top = -97.0

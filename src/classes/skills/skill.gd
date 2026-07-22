@@ -88,5 +88,5 @@ func start_cooldown(e: Entity) -> void:
 
 
 ## 补偿技能冷却时间。
-func compensate_cooldown(e: Entity) -> void:
+func compensate_cooldown(_e: Entity) -> void:
 	ts -= compensate_cooldown_percent * cooldown

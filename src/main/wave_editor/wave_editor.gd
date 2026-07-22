@@ -31,7 +31,8 @@ var selected_spawn: WaveSpawn = null
 
 func _ready() -> void:
 	var i: int = 0
-	for scene_path: String in entity_scene_path_data.scene_path_dict.values():
+	for scene_uid: String in entity_scene_path_data.scene_uid_dict.values():
+		var scene_path: String = ResourceUID.uid_to_path(scene_uid)
 		var scene_name: String = scene_path.get_file().get_basename()
 		if not scene_name.begins_with("enemy_"):
 			continue
@@ -39,8 +40,8 @@ func _ready() -> void:
 		var option_item: String = scene_name.replace("enemy_", "").capitalize()
 		entity_option_button_label.option_button.add_item(option_item)
 		
-		enemy_idx_dict[scene_path] = i
-		enemy_scene_dict[i] = scene_path
+		enemy_idx_dict[scene_uid] = i
+		enemy_scene_dict[i] = scene_uid
 		i += 1
 
 	wave_track_editor.hide_sub_wave_track_editor()
