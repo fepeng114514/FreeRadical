@@ -9,6 +9,7 @@
     - [VSCode 下载链接](https://code.visualstudio.com/)
 3. **Godot**：下载 Godot 引擎。
     - [Godot 下载链接](https://godotengine.org/download)
+    - 由于项目使用的是 GDScript 语言，所以需要下载普通版本的 Godot，而不是 .NET 版本。
 4. **Git**：安装 Git 用于版本控制。
     - [Git 下载链接](https://git-scm.com/downloads)
     - 注：若看不懂安装程序，只需要点下一步即可。
@@ -17,8 +18,8 @@
     - 注：如果无法访问 Github，请先打开 Watt Toolkit 加速 Github。
 
 ### 第二步：配置 Git 环境
-1. 在开始菜单中打开 Git Bash。
-2. 输入以下命令配置 Git 用户信息（回车确认）：
+1. 首先在开始菜单中打开 Git Bash。
+2. 最后输入以下命令配置 Git 用户信息（回车确认）：
     ```git
     git config --global user.name "你的姓名"
     git config --global user.email "你的邮箱"
@@ -30,29 +31,32 @@
     ```
 
 ### 第三步：克隆项目仓库
-1. 打开 VSCode。
+1. 首先打开 VSCode。
 2. 点击欢迎页面的 “克隆 Git 仓库” 按钮。
 3. 登录 Github 账号。
 4. 点击从 Github 克隆并输入 https://github.com/fepeng114514/FreeRadical.git。
-5. 选择克隆到的目录即可。
+5. 最后选择克隆到的目录即可。
 
 注：若无法访问服务端，请先打开 Watt Toolkit 加速 Github。
 
 ### 第四步：使用 Godot 打开项目并修改代码
 修改前，需要先拉取最新代码，避免修改时出现冲突。
 
-1. 打开 VSCode。
+1. 首先打开 VSCode。
 2. 点击打开文件夹，选择项目目录。
 3. 点击左侧 “源代码管理” 选项。
 4. 点击图形栏的 “拉取” 按钮，拉取最新代码。
+5. 打开 Godot，选择项目目录。
+    - 首次打开时 Godot 可能会未响应，请耐心等待项目加载完成。
+6. 最后修改代码即可。
 
 ### 第五步：提交代码到仓库
-1. 点击 “源代码管理” 选项。
+1. 首先点击 “源代码管理” 选项。
 2. 输入提交信息。
     - 提交规范见下方。
 3. 点击 “提交” 按钮。
 4. 暂存所有修改。
-5. 点击 “同步更改” 按钮。
+5. 最后点击 “同步更改” 按钮。
 
 注：若无法访问服务端，请先打开 Watt Toolkit 加速 Github。
 

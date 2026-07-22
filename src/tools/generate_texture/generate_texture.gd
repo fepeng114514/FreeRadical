@@ -1,7 +1,7 @@
 @tool
 extends EditorScript
 #class_name GenerateTexture
-## 生成 [SpriteFrames] 资源的工具，并自动按图集数据文件名创建子文件夹分类存放。
+## 生成 [SpriteFrames] 与 [AtlasTexture] 资源的工具，并自动按图集数据文件名创建子文件夹分类存放。
 
 
 ## 图集数据文件夹。

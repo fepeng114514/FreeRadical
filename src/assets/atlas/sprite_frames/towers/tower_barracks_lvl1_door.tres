@@ -2,27 +2,27 @@
 
 [ext_resource type="Texture2D" uid="uid://s0sbblyp14fu" path="res://assets/atlas/towers-1.dds" id="1_p51s3"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p51s3"]
-atlas = ExtResource("1_p51s3")
-region = Rect2(2843, 799, 29, 33)
-margin = Rect2(86, 118, 172, 135)
-filter_clip = true
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_1y2h3"]
 atlas = ExtResource("1_p51s3")
-region = Rect2(2843, 834, 29, 31)
-margin = Rect2(86, 113, 172, 137)
+region = Rect2(2866, 1482, 29, 33)
+margin = Rect2(86, 118, 172, 135)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hoggl"]
 atlas = ExtResource("1_p51s3")
-region = Rect2(2843, 867, 29, 19)
-margin = Rect2(86, 117, 172, 149)
+region = Rect2(2866, 1517, 29, 31)
+margin = Rect2(86, 113, 172, 137)
 filter_clip = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y7htn"]
 atlas = ExtResource("1_p51s3")
-region = Rect2(2807, 4082, 29, 9)
+region = Rect2(2866, 1550, 29, 19)
+margin = Rect2(86, 117, 172, 149)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbeci"]
+atlas = ExtResource("1_p51s3")
+region = Rect2(2866, 1571, 29, 9)
 margin = Rect2(86, 118, 172, 159)
 filter_clip = true
 
@@ -30,7 +30,7 @@ filter_clip = true
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p51s3")
+"texture": SubResource("AtlasTexture_1y2h3")
 }],
 "loop": 1,
 "name": &"idle",
@@ -38,9 +38,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p51s3")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_1y2h3")
 }, {
 "duration": 1.0,
@@ -50,55 +47,61 @@ animations = [{
 "texture": SubResource("AtlasTexture_y7htn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y7htn")
+"texture": SubResource("AtlasTexture_kbeci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbeci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbeci")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y7htn")
@@ -108,9 +111,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1y2h3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p51s3")
 }],
 "loop": 0,
 "name": &"spawn",

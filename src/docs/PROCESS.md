@@ -10,7 +10,7 @@
    - 如：`RangedSkill` 的攻击范围、攻击速度等。
 4. 可以扩展 `Entity` 的脚本来在一些回调中进行一些操作：
    - 如：`_on_update` 回调，每帧会被调用。
-5. 最后运行 `tools/update_entity_scene_paths` 更新场景字典 `scenes/entities/entity_scene_paths.json`。
+5. 最后运行 `tools/generate_entity_scene_path_data` 更新场景路径数据 `scenes/entities/entity_scene_path_data.tres`。
 
 > **注意**：为了可复用性不应该依赖扩展脚本来为实体增加逻辑，而是将逻辑抽象为组件的属性，除非该逻辑不会被复用或过于特例化。
 

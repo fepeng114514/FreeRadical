@@ -7,13 +7,18 @@ extends EditorScript
 const AUDIO_ASSETS_DIR_PATH: String = "res://assets/audios/"
 
 
-## 音频路径数组。
-var audio_path_data: AudioPathData = AudioPathData.new()
+var audio_path_data: AudioPathData = null
 
 
 func _run() -> void:
+	audio_path_data = AudioPathData.new()
+
 	for file: String in U.get_files_from_nested_directory(AUDIO_ASSETS_DIR_PATH, "*.ogg"):	
-		audio_path_data.audio_path_dict[file.get_file().get_basename()] = file
-		Log.verbose("处理 %s" % file)
+		var audio_name: String = file.get_file().get_basename()
+		audio_path_data.audio_path_dict[audio_name] = file
+
+		var audio_uid: String = ResourceUID.path_to_uid(file)
+		audio_path_data.audio_uid_dict[audio_name] = audio_uid
+		Log.verbose("增加音频路径 %s, UID: %s" % [audio_name, audio_uid])
 		
 	ResourceSaver.save(audio_path_data, "res://assets/audio_path_data.tres")

@@ -21,7 +21,7 @@ func _run() -> void:
 		var scene_uid: String = ResourceUID.path_to_uid(file)
 		entity_scene_path_data.scene_uid_dict[scene_name] = scene_uid
 
-		Log.verbose("添加实体场景路径: %s(%s)" % [scene_name, scene_uid])
+		Log.verbose("添加实体场景路径: %s, UID: %s" % [scene_name, scene_uid])
 			
 	var save_path = ENTITY_SCENES_DIR.path_join("entity_scene_path_data.tres")
 	ResourceSaver.save(entity_scene_path_data, save_path)

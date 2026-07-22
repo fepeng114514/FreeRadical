@@ -4,5 +4,5 @@
 
 [resource]
 atlas = ExtResource("1_3jmsv")
-region = Rect2(3, 3315, 400, 400)
+region = Rect2(3, 2821, 400, 400)
 filter_clip = true
