@@ -1,4 +1,5 @@
 @tool
+@icon("res://assets/dpi_textures/at-icons/node2d/heart.svg")
 extends Component
 class_name HealthComponent
 ## 血量组件。

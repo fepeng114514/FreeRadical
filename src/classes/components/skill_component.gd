@@ -1,4 +1,5 @@
 @tool
+@icon("res://assets/dpi_textures/at-icons/node2d/bow_and_arrow.svg")
 extends Component
 class_name SkillComponent
 ## 技能组件。

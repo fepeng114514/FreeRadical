@@ -59,4 +59,23 @@ position = Vector2(172, -29)
 position = Vector2(654, 1040)
 level_scene_path = "uid://cqxh203e5mu8g"
 
+[node name="FlagBullet" parent="FlagController/Flag3" unique_id=2067787307 instance=ExtResource("7_5jdw0")]
+position = Vector2(31, 4)
+
+[node name="FlagBullet2" parent="FlagController/Flag3" unique_id=883187662 instance=ExtResource("7_5jdw0")]
+position = Vector2(57, 15)
+
+[node name="FlagBullet3" parent="FlagController/Flag3" unique_id=1054957361 instance=ExtResource("7_5jdw0")]
+position = Vector2(86, 11)
+
+[node name="FlagBullet4" parent="FlagController/Flag3" unique_id=587132134 instance=ExtResource("7_5jdw0")]
+position = Vector2(143, -27)
+
+[node name="FlagBullet5" parent="FlagController/Flag3" unique_id=242340909 instance=ExtResource("7_5jdw0")]
+position = Vector2(145, -45)
+
+[node name="Flag4" parent="FlagController" unique_id=1438375650 instance=ExtResource("5_pu1n1")]
+position = Vector2(735, 934)
+level_scene_path = "uid://ha3ty12nnta3"
+
 [node name="MapUILayer" parent="." unique_id=1640298559 instance=ExtResource("8_kxmgb")]

@@ -1,4 +1,5 @@
 @tool
+@icon("res://assets/dpi_textures/at-icons/node2d/bullet.svg")
 extends Component
 class_name BulletComponent
 ## 子弹组件。

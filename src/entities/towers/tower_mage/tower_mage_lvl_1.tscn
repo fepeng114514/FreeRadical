@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_lg6ln"]
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://entities/towers/tower_mage/tower_mage_lvl_1_shooter.tscn" id="3_j8o77"]
 
-[sub_resource type="Resource" id="Resource_fr0nw"]
+[sub_resource type="Resource" id="Resource_0ylgq"]
 resource_local_to_scene = true
 script = ExtResource("2_lg6ln")
 flags = 16
@@ -13,8 +13,7 @@ blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerMageLvl1" unique_id=794445410 instance=ExtResource("1_g3ohr")]
-scene_name = "tower_mage_lvl_1"
-interact_policy = SubResource("Resource_fr0nw")
+interact_policy = SubResource("Resource_0ylgq")
 
 [node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
 position = Vector2(-1, -32)

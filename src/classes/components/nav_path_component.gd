@@ -1,3 +1,4 @@
+@icon("res://assets/dpi_textures/at-icons/node2d/itinerary.svg")
 extends Component
 class_name NavPathComponent
 ## 导航路径组件。

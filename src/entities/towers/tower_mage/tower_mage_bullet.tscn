@@ -26,13 +26,15 @@ right = &"hit_left_right"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [node name="TowerMageBullet" unique_id=511000022 instance=ExtResource("1_y76x6")]
-scene_name = "tower_mage_bullet"
 idle_animation = SubResource("Resource_hf44a")
 
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
+process_mode = 4
 trajectory = SubResource("Resource_mage_traj")
 flight_animation = SubResource("Resource_halcm")
 hit_animation = SubResource("Resource_tx2v8")
+hit_payloads = PackedStringArray()
+miss_payloads = PackedStringArray()
 
 [node name="SpriteComponent" type="Node2D" parent="." index="1" unique_id=1302005454]
 script = ExtResource("3_23yll")

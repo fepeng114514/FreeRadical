@@ -7,11 +7,13 @@
 
 [sub_resource type="Resource" id="Resource_jhhff"]
 script = ExtResource("2_11f2j")
+play_mode = null
 list = PackedStringArray("uid://dqj23hrkj1kdw")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [sub_resource type="Resource" id="Resource_p3jos"]
 script = ExtResource("2_11f2j")
+play_mode = null
 list = PackedStringArray("uid://crchyl1rpdc0r")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 

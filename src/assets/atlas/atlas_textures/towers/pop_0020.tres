@@ -4,6 +4,6 @@
 
 [resource]
 atlas = ExtResource("1_tvwod")
-region = Rect2(802, 2205, 86, 29)
+region = Rect2(802, 2287, 86, 29)
 margin = Rect2(27, 2, 52, 4)
 filter_clip = true

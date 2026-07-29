@@ -1,4 +1,5 @@
 @tool
+@icon("res://assets/dpi_textures/at-icons/node2d/location.svg")
 extends Component
 class_name RallyComponent
 ## 集结组件。

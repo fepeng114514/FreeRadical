@@ -1,4 +1,5 @@
 @tool
+@icon("res://assets/dpi_textures/at-icons/node2d/click.svg")
 extends Component
 class_name UIComponent
 ## UI 组件。

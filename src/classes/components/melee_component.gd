@@ -1,4 +1,5 @@
 @tool
+@icon("res://assets/dpi_textures/at-icons/node2d/sword.svg")
 extends Component
 class_name MeleeComponent
 ## 近战组件
