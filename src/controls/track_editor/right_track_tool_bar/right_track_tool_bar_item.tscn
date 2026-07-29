@@ -1,12 +1,8 @@
 [gd_scene format=3 uid="uid://d36nkd3rxi1vp"]
 
 [ext_resource type="Script" uid="uid://cle64iqks2bl4" path="res://controls/track_editor/right_track_tool_bar/right_track_tool_bar_item.gd" id="1_iu5ya"]
+[ext_resource type="Texture2D" uid="uid://1bx0dk7usp76" path="res://assets/dpi_textures/godot_icons/remove.svg" id="2_1xtwx"]
 [ext_resource type="Script" uid="uid://tdhc5v48vmc8" path="res://controls/track_editor/right_track_tool_bar/remove_track_button.gd" id="2_atuno"]
-
-[sub_resource type="DPITexture" id="DPITexture_1xtwx"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m5 1v1h-4v2h14v-2h-4v-1zm-3 4v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8zm1 2h2v6h-2zm4 0h2v6h-2zm4 0h2v6h-2z\"/></svg>
-"
-base_scale = 2.0
 
 [node name="RightTrackEditorTrackToolBarItem" type="VBoxContainer" unique_id=1483068377]
 custom_minimum_size = Vector2(0, 105)
@@ -23,6 +19,6 @@ layout_mode = 2
 layout_mode = 2
 tooltip_text = "删除轨道"
 theme_override_colors/icon_pressed_color = Color(0.8, 0.24705882, 0.24705882, 1)
-icon = SubResource("DPITexture_1xtwx")
+icon = ExtResource("2_1xtwx")
 script = ExtResource("2_atuno")
 right_track_tool_bar_item = NodePath("../..")

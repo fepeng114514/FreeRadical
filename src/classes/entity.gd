@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/at-icons/node2d/jigsaw_piece.svg")
+@icon("res://assets/dpi_textures/at-icons/node2d/chess_rook.svg")
 extends Node2D
 class_name Entity
 ## 实体节点。

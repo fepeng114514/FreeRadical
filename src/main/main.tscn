@@ -12,6 +12,7 @@
 
 [sub_resource type="Resource" id="Resource_gw48u"]
 script = ExtResource("4_tun4x")
+play_mode = null
 list = PackedStringArray("uid://xjo3s0skjv4q")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 

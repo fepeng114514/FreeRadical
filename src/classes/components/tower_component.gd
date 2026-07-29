@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/at-icons/node2d/chess_rook.svg")
+@icon("res://assets/dpi_textures/at-icons/node2d/jigsaw_piece.svg")
 extends Component
 class_name TowerComponent
 ## 防御塔组件。

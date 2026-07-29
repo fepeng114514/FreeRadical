@@ -11,6 +11,7 @@
 [ext_resource type="Theme" uid="uid://b1ig1u5waxulw" path="res://main/wave_editor/theme.tres" id="7_ixove"]
 [ext_resource type="PackedScene" uid="uid://d36nkd3rxi1vp" path="res://controls/track_editor/right_track_tool_bar/right_track_tool_bar_item.tscn" id="7_kgcki"]
 [ext_resource type="PackedScene" uid="uid://2efse8231loj" path="res://controls/track_editor/tool_bar/mouse_tool_bar/mouse_tool_bar.tscn" id="8_aade8"]
+[ext_resource type="Texture2D" uid="uid://d0tgdchb0pkwl" path="res://assets/dpi_textures/godot_icons/add.svg" id="9_s3r5i"]
 [ext_resource type="Script" uid="uid://dgjmsbmwcjkq8" path="res://controls/audo_scroll_container.gd" id="10_8txtn"]
 [ext_resource type="Script" uid="uid://disyc1hamv5rs" path="res://controls/track_editor/scroll_bar/v_scroll_bar.gd" id="11_7ffg0"]
 [ext_resource type="Script" uid="uid://bqqona4xuokpl" path="res://controls/track_editor/scroll_bar/h_scroll_bar_h_box_container.gd" id="12_4i0i6"]
@@ -24,11 +25,6 @@ unicode = 65
 
 [sub_resource type="Shortcut" id="Shortcut_r8icu"]
 events = [SubResource("InputEventKey_lgfxo")]
-
-[sub_resource type="DPITexture" id="DPITexture_s3r5i"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m7 1v6h-6v2h6v6h2v-6h6v-2h-6v-6z\"/></svg>
-"
-base_scale = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60x5f"]
 bg_color = Color(0.4033567, 0.4033568, 0.40335652, 1)
@@ -99,7 +95,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 tooltip_text = "增加轨道"
 shortcut = SubResource("Shortcut_r8icu")
-icon = SubResource("DPITexture_s3r5i")
+icon = ExtResource("9_s3r5i")
 script = ExtResource("6_wrheq")
 track_editor = NodePath("../../../..")
 
@@ -208,6 +204,7 @@ mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="TrackAudoVScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/MainHScrollContainer/VBoxContainer" unique_id=283141753]
+custom_minimum_size = Vector2(876, 0)
 custom_maximum_size = Vector2(-1, 315)
 layout_mode = 2
 mouse_filter = 2

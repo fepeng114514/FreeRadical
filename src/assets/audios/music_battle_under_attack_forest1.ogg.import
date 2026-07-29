@@ -2,7 +2,7 @@
 
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
-uid="uid://04sy43fjgyg6"
+uid="uid://1hu4h6ul3c4c"
 path="res://.godot/imported/music_battle_under_attack_forest1.ogg-6892d2f7a22b0b46b21f652896e4b877.oggvorbisstr"
 
 [deps]
@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/music_battle_under_attack_forest1.ogg-6892d2f
 
 [params]
 
-loop=true
-loop_offset=0.0
-bpm=0.0
+loop=false
+loop_offset=0
+bpm=0
 beat_count=0
 bar_beats=4
