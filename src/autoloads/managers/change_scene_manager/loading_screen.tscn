@@ -53,26 +53,26 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -600.0
-offset_top = -202.0
-offset_right = 600.0
+offset_left = -798.0
+offset_top = -268.0
+offset_right = 798.0
 grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("3_8t4iu")
 
 [node name="LoadingBar" type="TextureRect" parent="LoadingBarBase" unique_id=477391312]
 layout_mode = 0
-offset_right = 1200.0
-offset_bottom = 202.0
+offset_right = 1596.0
+offset_bottom = 268.0
 texture = ExtResource("4_urp26")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="LoadingBarBase/LoadingBar" unique_id=1873382945]
 show_behind_parent = true
 layout_mode = 0
-offset_left = 324.0
-offset_top = 145.0
-offset_right = 890.0
-offset_bottom = 185.0
+offset_left = 431.0
+offset_top = 192.0
+offset_right = 1183.0
+offset_bottom = 232.0
 max_value = 1.0
 step = 0.1
 value = 1.0

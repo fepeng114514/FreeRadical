@@ -58,15 +58,15 @@ func setup_entity(e: Entity) -> Entity:
 
 ## 批量创建实体。
 func create_entities(
-		entity_scene_name_list: PackedStringArray,	
+		entity_scene_path_list: PackedStringArray,	
 		config_func: Callable = Callable(),
 		auto_insert: bool = true
 	) -> Array[Entity]:
 		
 	var created_entities: Array[Entity] = []
 	
-	for entity_scene_name: String in entity_scene_name_list:
-		var e: Entity = create_entity(entity_scene_name)
+	for entity_scene_path: String in entity_scene_path_list:
+		var e: Entity = create_entity(entity_scene_path)
 		
 		if config_func.is_valid():
 			config_func.call(e)
@@ -81,25 +81,25 @@ func create_entities(
 
 ## 创建实体在指定位置。
 func create_entities_at_pos(
-		entity_scene_name_list: PackedStringArray, 
+		entity_scene_path_list: PackedStringArray, 
 		pos: Vector2, 
 		auto_insert: bool = true 
 	) -> Array[Entity]:
 	return create_entities(
-		entity_scene_name_list, func(e): e.set_pos(pos), auto_insert
+		entity_scene_path_list, func(e): e.set_pos(pos), auto_insert
 	)
 
 
 ## 批量创建状态效果实体。
 func create_mods(
 		target_id: int,
-		entity_scene_name_list: PackedStringArray, 
+		entity_scene_path_list: PackedStringArray, 
 		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
 	return create_entities(
-		entity_scene_name_list, 
+		entity_scene_path_list, 
 		func(e):
 		e.target_id = target_id
 		e.source_id = source_id
@@ -111,13 +111,13 @@ func create_mods(
 ## 批量创建光环实体。
 func create_auras(
 		target_id: int,
-		entity_scene_name_list: PackedStringArray, 
+		entity_scene_path_list: PackedStringArray, 
 		source_id: int = C.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	
 	return create_entities(
-		entity_scene_name_list, 
+		entity_scene_path_list, 
 		func(e):
 		e.target_id = target_id
 		e.source_id = source_id

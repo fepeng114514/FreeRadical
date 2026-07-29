@@ -4,6 +4,6 @@
 
 [resource]
 atlas = ExtResource("1_nvmg4")
-region = Rect2(3, 2328, 146, 148)
-margin = Rect2(38, 13, 80, 36)
+region = Rect2(3, 2934, 194, 196)
+margin = Rect2(50, 18, 106, 48)
 filter_clip = true

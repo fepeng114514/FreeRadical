@@ -14,6 +14,4 @@ texture_hover = ExtResource("3_du7pn")
 offset_transform_enabled = true
 offset_transform_position = Vector2(0, -3)
 theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.69803923, 1)
-theme_override_font_sizes/font_size = 27
-text = ""
 horizontal_alignment = 1

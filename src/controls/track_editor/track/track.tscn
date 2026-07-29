@@ -5,7 +5,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ickkv"]
 
 [node name="Track" type="PanelContainer" unique_id=2009568600 node_paths=PackedStringArray("item_container")]
-offset_right = 25.0
+offset_right = 26.0
 offset_bottom = 63.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_ickkv")
@@ -19,11 +19,11 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-theme_override_constants/margin_top = 30
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
 
 [node name="ColorRect" type="ColorRect" parent="HBoxContainer/MarginContainer" unique_id=609479386]
-custom_minimum_size = Vector2(25.29, 3)
+custom_minimum_size = Vector2(35, 5)
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2

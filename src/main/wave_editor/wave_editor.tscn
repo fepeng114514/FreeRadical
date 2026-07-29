@@ -76,7 +76,6 @@ theme_override_constants/separation = 14
 
 [node name="LoadButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ToolBarVBoxContainer" unique_id=604632569 node_paths=PackedStringArray("file_dialog")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
 text = "加载"
 flat = true
 script = ExtResource("3_jfbxu")
@@ -86,16 +85,20 @@ file_dialog = NodePath("LoadFileDialog")
 oversampling_override = 1.0
 title = "Open a File"
 initial_position = 1
-size = Vector2i(800, 450)
+size = Vector2i(1300, 800)
+ok_button_text = "加载"
+cancel_button_text = "取消"
 file_mode = 0
 root_subfolder = "res://game/levels"
 filters = PackedStringArray("level_*_wave.tres")
+hidden_files_toggle_enabled = false
+folder_creation_enabled = false
+deleting_enabled = false
 script = ExtResource("4_hhe80")
 wave_editor = NodePath("../../../../../..")
 
 [node name="SaveButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ToolBarVBoxContainer" unique_id=2018298014 node_paths=PackedStringArray("file_dialog")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
 text = "保存"
 flat = true
 script = ExtResource("4_mx20l")
@@ -104,9 +107,12 @@ file_dialog = NodePath("SaveFileDialog")
 [node name="SaveFileDialog" type="FileDialog" parent="PanelContainer/MarginContainer/VBoxContainer/ToolBarVBoxContainer/SaveButton" unique_id=1614705153 node_paths=PackedStringArray("wave_editor")]
 oversampling_override = 1.0
 initial_position = 1
-size = Vector2i(800, 450)
+size = Vector2i(1300, 800)
 root_subfolder = "res://game/levels"
 filters = PackedStringArray("*.tres")
+hidden_files_toggle_enabled = false
+folder_creation_enabled = false
+deleting_enabled = false
 script = ExtResource("6_js2tg")
 wave_editor = NodePath("../../../../../..")
 
@@ -119,13 +125,15 @@ wave_editor = NodePath("../../../../..")
 
 [node name="ExitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ToolBarVBoxContainer" unique_id=2067169263 node_paths=PackedStringArray("confirmation_dialog")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
 text = "退出"
 script = ExtResource("9_pdgef")
 confirmation_dialog = NodePath("ExitConfirmationDialog")
 
 [node name="ExitConfirmationDialog" type="ConfirmationDialog" parent="PanelContainer/MarginContainer/VBoxContainer/ToolBarVBoxContainer/ExitButton" unique_id=1276741739]
+oversampling_override = 1.0
 title = "请确认"
+initial_position = 1
+size = Vector2i(500, 225)
 ok_button_text = "退出"
 dialog_text = "确定要退出波次编辑器吗？"
 cancel_button_text = "取消"
@@ -154,7 +162,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="TrackEditorVBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/MarginContainer" unique_id=1670026668]
 layout_mode = 2
-theme_override_constants/separation = 13
+theme_override_constants/separation = 16
 
 [node name="WaveVBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/MarginContainer/TrackEditorVBoxContainer" unique_id=1151707911]
 layout_mode = 2
@@ -164,7 +172,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 tooltip_text = "波次：按照顺序计时。"
 mouse_filter = 1
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "波次"
 horizontal_alignment = 1
@@ -183,7 +191,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 tooltip_text = "子波次：同时计时，用于并行执行生成组。"
 mouse_filter = 1
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "子波次"
 horizontal_alignment = 1
@@ -205,7 +213,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 tooltip_text = "出怪组：按照顺序计时，通过生成数据决定如何生成实体。"
 mouse_filter = 1
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "生成组"
 horizontal_alignment = 1
@@ -242,14 +250,14 @@ theme_override_constants/separation = 8
 layout_mode = 2
 tooltip_text = "决定如何生成实体。"
 mouse_filter = 1
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "生成数据"
 horizontal_alignment = 1
 
 [node name="SpawnDataVBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=887176936 node_paths=PackedStringArray("spawn_interval", "entity", "pathway", "sub_pathway", "count", "reversed", "loop", "wave_editor")]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 15
 script = ExtResource("11_js2tg")
 spawn_interval = NodePath("SpawnIntervalLabeledSpinBox")
 entity = NodePath("EntityLabeledOptionButton")
@@ -294,12 +302,8 @@ step = 1.0
 
 [node name="ReversedCheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=587634718]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
 text = "沿相反路径移动"
 
 [node name="LoopCheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=1379887143]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 18
 text = "沿路径循环移动"

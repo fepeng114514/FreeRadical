@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://cm0lw62nmv6p" path="res://assets/atlas/atlas_textures/game_gui/base_info_icons_0001.tres" id="3_1bjmh"]
 [ext_resource type="Texture2D" uid="uid://cgb34cvhritqb" path="res://assets/atlas/atlas_textures/game_gui/base_info_icons_0010.tres" id="4_1b7rs"]
 [ext_resource type="Texture2D" uid="uid://01g5f17eor8s" path="res://assets/atlas/atlas_textures/game_gui/base_info_icons_0003.tres" id="5_dpyxj"]
-[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="5_nlacs"]
 [ext_resource type="Texture2D" uid="uid://bbaa7opsu308v" path="res://assets/atlas/atlas_textures/game_gui/base_info_icons_0004.tres" id="6_rato6"]
 
 [sub_resource type="StyleBoxFlat" id="4"]
@@ -24,16 +23,16 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("4")
 script = ExtResource("1_1ujae")
 entity_name = NodePath("MarginContainer/HBoxContainer/EntityName")
-hp_label = NodePath("MarginContainer/HBoxContainer/HBoxHP/Label")
-hp_value = NodePath("MarginContainer/HBoxContainer/HBoxHP/Value")
-melee_type_icon = NodePath("MarginContainer/HBoxContainer/HBoxMelee/TypeIcon")
-melee_value = NodePath("MarginContainer/HBoxContainer/HBoxMelee/Value")
-ranged_type_icon = NodePath("MarginContainer/HBoxContainer/HBoxRanged/TypeIcon")
-ranged_value = NodePath("MarginContainer/HBoxContainer/HBoxRanged/Value")
-phys_armor_icon = NodePath("MarginContainer/HBoxContainer/HBoxPhysArmor/Icon")
-phys_armor_value = NodePath("MarginContainer/HBoxContainer/HBoxPhysArmor/Value")
-magic_armor_icon = NodePath("MarginContainer/HBoxContainer/HBoxMagicArmor/Icon")
-magic_armor_value = NodePath("MarginContainer/HBoxContainer/HBoxMagicArmor/Value")
+hp_label = NodePath("MarginContainer/HBoxContainer/HpHBoxContainer/Label")
+hp_value = NodePath("MarginContainer/HBoxContainer/HpHBoxContainer/Value")
+melee_type_icon = NodePath("MarginContainer/HBoxContainer/MeleeHBoxContainer/TypeIcon")
+melee_value = NodePath("MarginContainer/HBoxContainer/MeleeHBoxContainer/Value")
+ranged_type_icon = NodePath("MarginContainer/HBoxContainer/RangedHBoxContainer/TypeIcon")
+ranged_value = NodePath("MarginContainer/HBoxContainer/RangedHBoxContainer/Value")
+phys_armor_icon = NodePath("MarginContainer/HBoxContainer/PhysArmorHBoxContainer/Icon")
+phys_armor_value = NodePath("MarginContainer/HBoxContainer/PhysArmorHBoxContainer/Value")
+magic_armor_icon = NodePath("MarginContainer/HBoxContainer/MagicArmorHBoxContainer/Icon")
+magic_armor_value = NodePath("MarginContainer/HBoxContainer/MagicArmorHBoxContainer/Value")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1414186535]
 layout_mode = 2
@@ -50,83 +49,64 @@ theme_override_constants/separation = 12
 
 [node name="EntityName" type="Label" parent="MarginContainer/HBoxContainer" unique_id=444811463]
 layout_mode = 2
-theme = ExtResource("5_nlacs")
-theme_override_font_sizes/font_size = 24
 text = "实体名称"
 
-[node name="HBoxHP" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1657734819]
+[node name="HpHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1657734819]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/HBoxHP" unique_id=735596751]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/HpHBoxContainer" unique_id=735596751]
 layout_mode = 2
-theme = ExtResource("5_nlacs")
-theme_override_font_sizes/font_size = 24
 text = "血量"
 
-[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxHP" unique_id=1871849507]
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HpHBoxContainer" unique_id=1871849507]
 layout_mode = 2
-theme = ExtResource("5_nlacs")
-theme_override_font_sizes/font_size = 24
 text = "100/100"
 
-[node name="HBoxMelee" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=195086090]
+[node name="MeleeHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=195086090]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 20
 
-[node name="TypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxMelee" unique_id=2029457686]
+[node name="TypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/MeleeHBoxContainer" unique_id=2029457686]
 layout_mode = 2
 texture = ExtResource("3_1bjmh")
 
-[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxMelee" unique_id=253791031]
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/MeleeHBoxContainer" unique_id=253791031]
 layout_mode = 2
-theme = ExtResource("5_nlacs")
-theme_override_font_sizes/font_size = 24
 text = "25-25/1"
 
-[node name="HBoxRanged" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1652020457]
+[node name="RangedHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1652020457]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 20
 
-[node name="TypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxRanged" unique_id=1278268678]
+[node name="TypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/RangedHBoxContainer" unique_id=1278268678]
 layout_mode = 2
 texture = ExtResource("4_1b7rs")
 
-[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxRanged" unique_id=1462066987]
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/RangedHBoxContainer" unique_id=1462066987]
 layout_mode = 2
-theme = ExtResource("5_nlacs")
-theme_override_font_sizes/font_size = 24
 text = "25-25/1"
 
-[node name="HBoxPhysArmor" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=849431744]
+[node name="PhysArmorHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=849431744]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 20
 
-[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=1144040450]
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/PhysArmorHBoxContainer" unique_id=1144040450]
 layout_mode = 2
 texture = ExtResource("5_dpyxj")
 
-[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxPhysArmor" unique_id=45631269]
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/PhysArmorHBoxContainer" unique_id=45631269]
 layout_mode = 2
-theme = ExtResource("5_nlacs")
-theme_override_font_sizes/font_size = 24
 text = "20"
 
-[node name="HBoxMagicArmor" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=518199801]
+[node name="MagicArmorHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=518199801]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 20
 
-[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=2084534205]
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/MagicArmorHBoxContainer" unique_id=2084534205]
 layout_mode = 2
 texture = ExtResource("6_rato6")
 
-[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HBoxMagicArmor" unique_id=1608248264]
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/MagicArmorHBoxContainer" unique_id=1608248264]
 layout_mode = 2
-theme = ExtResource("5_nlacs")
-theme_override_font_sizes/font_size = 24
 text = "0"

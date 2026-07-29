@@ -12,6 +12,7 @@
 [node name="TopBar" type="HBoxContainer" unique_id=1978266969]
 size_flags_horizontal = 3
 mouse_filter = 2
+theme = ExtResource("2_rltjd")
 
 [node name="PlayerResources" type="HBoxContainer" parent="." unique_id=883217190]
 layout_mode = 2
@@ -28,32 +29,26 @@ wave_value = NodePath("WaveValue")
 
 [node name="LifeValue" type="Label" parent="PlayerResources/PlayerResources" unique_id=287686407]
 layout_mode = 0
-offset_left = 106.0
+offset_left = 144.0
 offset_top = 22.0
-offset_right = 131.0
-offset_bottom = 53.0
-theme = ExtResource("2_rltjd")
-theme_override_font_sizes/font_size = 20
+offset_right = 178.0
+offset_bottom = 64.0
 text = "20"
 
 [node name="CashValue" type="Label" parent="PlayerResources/PlayerResources" unique_id=461566231]
 layout_mode = 0
-offset_left = 186.0
+offset_left = 247.0
 offset_top = 22.0
-offset_right = 224.0
-offset_bottom = 53.0
-theme = ExtResource("2_rltjd")
-theme_override_font_sizes/font_size = 20
+offset_right = 298.0
+offset_bottom = 64.0
 text = "500"
 
 [node name="WaveValue" type="Label" parent="PlayerResources/PlayerResources" unique_id=29332469]
 layout_mode = 0
-offset_left = 340.0
+offset_left = 449.0
 offset_top = 22.0
-offset_right = 381.0
-offset_bottom = 59.0
-theme = ExtResource("2_rltjd")
-theme_override_font_sizes/font_size = 20
+offset_right = 495.0
+offset_bottom = 64.0
 text = "0/6"
 
 [node name="TopSpacer" type="Control" parent="." unique_id=1638167074]
@@ -64,12 +59,9 @@ mouse_filter = 2
 [node name="Right" type="HBoxContainer" parent="." unique_id=1636473968]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 15
 
 [node name="SpeedButton" type="Button" parent="Right" unique_id=1346277862]
 layout_mode = 2
-theme = ExtResource("2_rltjd")
-theme_override_font_sizes/font_size = 20
 toggle_mode = true
 text = "1.0x"
 script = ExtResource("3_c6vw1")
@@ -79,20 +71,11 @@ layout_mode = 2
 texture = ExtResource("5_rnefi")
 
 [node name="PauseTextureButton" type="TextureButton" parent="Right/PauseBase" unique_id=1274899798]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -27.0
-offset_right = 52.0
-offset_bottom = 27.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_rltjd")
+layout_mode = 0
+offset_left = 66.0
+offset_top = 15.0
+offset_right = 145.0
+offset_bottom = 86.0
 texture_normal = ExtResource("6_ojd7i")
 texture_hover = ExtResource("7_h3g6y")
 script = ExtResource("8_4mg1m")

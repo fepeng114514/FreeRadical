@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://d2nvpgfv8w3pt" path="res://assets/atlas/atlas_textures/gui/options_bg_notxt.tres" id="1_pumyx"]
 [ext_resource type="Script" uid="uid://bi2r75ykr1ufv" path="res://game/game_ui/pause_layer/pause_layer.gd" id="1_wk7ql"]
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="2_ghp12"]
 [ext_resource type="PackedScene" uid="uid://41xihndhr041" path="res://game/game_ui/pause_layer/labeled_texture_button.tscn" id="2_wk7ql"]
 [ext_resource type="Script" uid="uid://dtrgucauq4fsr" path="res://game/game_ui/pause_layer/continue_texture_button_label.gd" id="4_2rqrq"]
 [ext_resource type="Script" uid="uid://b6fn2uciv5jd7" path="res://game/game_ui/pause_layer/replay_button_label.gd" id="4_ha6sc"]
@@ -120,6 +121,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_ghp12")
 theme_override_styles/panel = SubResource("StyleBoxFlat_uxsvp")
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer" unique_id=112942318]
@@ -131,21 +133,28 @@ offset_transform_enabled = true
 texture = ExtResource("1_pumyx")
 
 [node name="Label" type="Label" parent="PanelContainer/CenterContainer/PausePanel" unique_id=1728606372]
-layout_mode = 0
-offset_left = 327.0
-offset_top = 34.0
-offset_right = 393.0
-offset_bottom = 80.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -332.5
+offset_right = 48.0
+offset_bottom = -265.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.69803923, 1)
-theme_override_font_sizes/font_size = 33
+theme_override_font_sizes/font_size = 48
 text = "设置"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/PausePanel" unique_id=1049988681]
 layout_mode = 0
-offset_left = 47.0
-offset_top = 441.0
-offset_right = 241.0
-offset_bottom = 517.0
+offset_left = 69.0
+offset_top = 586.0
+offset_right = 879.0
+offset_bottom = 687.0
 theme_override_constants/separation = 18
 
 [node name="ExitLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" unique_id=1893071714 instance=ExtResource("2_wk7ql")]

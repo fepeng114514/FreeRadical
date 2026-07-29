@@ -1,15 +1,18 @@
 [gd_scene format=3 uid="uid://bcpvwfqdmmq0o"]
 
 [ext_resource type="Script" uid="uid://dduycj8meeh86" path="res://controls/submit_spin_box.gd" id="1_1gnax"]
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="1_scy68"]
 
 [node name="SubmitSpinBox" type="HBoxContainer" unique_id=295310891 node_paths=PackedStringArray("spin_box", "button")]
+theme = ExtResource("1_scy68")
 script = ExtResource("1_1gnax")
+text = "text"
 spin_box = NodePath("SpinBox")
 button = NodePath("Button")
 
 [node name="Button" type="Button" parent="." unique_id=567501581]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+text = "text"
 
 [node name="Spacer" type="Control" parent="." unique_id=1433858864]
 layout_mode = 2

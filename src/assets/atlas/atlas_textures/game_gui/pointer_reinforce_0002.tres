@@ -4,6 +4,6 @@
 
 [resource]
 atlas = ExtResource("1_nvga7")
-region = Rect2(1324, 2496, 82, 61)
-margin = Rect2(34, 50, 78, 99)
+region = Rect2(949, 2477, 80, 59)
+margin = Rect2(35, 50, 79, 100)
 filter_clip = true

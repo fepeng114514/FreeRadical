@@ -2,8 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://cxohlj7mh8hb6" path="res://game/game_ui/top_bar/top_bar.tscn" id="1_olxg3"]
 [ext_resource type="Script" uid="uid://cpnmrjrpdut1d" path="res://game/game_ui/game_ui_layer.gd" id="1_x1lfd"]
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="2_n4uei"]
 [ext_resource type="PackedScene" uid="uid://dguwvlhp3jmgn" path="res://game/game_ui/bottom_bar/bottom_bar.tscn" id="2_x1lfd"]
-[ext_resource type="PackedScene" uid="uid://rq35ixpelpas" path="res://game/game_ui/debug_menu/debug_menu.tscn" id="4_ebiw6"]
+[ext_resource type="Script" uid="uid://b1we6nidkroj5" path="res://game/game_ui/debug_menu/debug_menu.gd" id="4_0ewm1"]
+[ext_resource type="Script" uid="uid://b4u2704o6as1c" path="res://game/game_ui/debug_menu/skip_wave_button.gd" id="5_6k3ot"]
+[ext_resource type="PackedScene" uid="uid://bcpvwfqdmmq0o" path="res://controls/submit_spin_box.tscn" id="6_48lew"]
+[ext_resource type="Script" uid="uid://36t0lghloy1b" path="res://game/game_ui/debug_menu/take_damage_spin_box_button.gd" id="7_8gsoc"]
+[ext_resource type="Script" uid="uid://csrlc6byvqkmt" path="res://game/game_ui/debug_menu/add_cash_spin_box_button.gd" id="8_3jpwn"]
+[ext_resource type="Script" uid="uid://cjrwko5ieksjt" path="res://game/game_ui/debug_menu/add_life_spin_box_button.gd" id="9_kwg1q"]
+[ext_resource type="Script" uid="uid://d1k854yj7p8up" path="res://game/game_ui/debug_menu/draw_pathway_check_button.gd" id="10_sclpk"]
+[ext_resource type="Script" uid="uid://dbmbgltffnygg" path="res://game/game_ui/debug_menu/draw_range_check_button.gd" id="11_bu4h1"]
+[ext_resource type="Script" uid="uid://ck2ky7ouubxga" path="res://game/game_ui/debug_menu/draw_bullet_trajectorie_check_button.gd" id="12_p2oqe"]
 
 [node name="GameUILayer" type="CanvasLayer" unique_id=934359936]
 process_mode = 3
@@ -16,6 +25,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("2_n4uei")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 66
 theme_override_constants/margin_bottom = 20
@@ -30,11 +40,68 @@ theme_override_constants/separation = 20
 [node name="TopBar" parent="MarginContainer/VBoxContainer" unique_id=1978266969 instance=ExtResource("1_olxg3")]
 layout_mode = 2
 
-[node name="DebugMenu" parent="MarginContainer/VBoxContainer" unique_id=370316337 instance=ExtResource("4_ebiw6")]
+[node name="DebugMenu" type="FoldableContainer" parent="MarginContainer/VBoxContainer" unique_id=370316337]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+title = "调试菜单"
 title_alignment = 1
+script = ExtResource("4_0ewm1")
+metadata/_edit_horizontal_guides_ = [-327.0]
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/DebugMenu" unique_id=1152954598]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/DebugMenu/MarginContainer" unique_id=1606442948]
+layout_mode = 2
+columns = 2
+
+[node name="SkipWaveButton" type="Button" parent="MarginContainer/VBoxContainer/DebugMenu/MarginContainer/GridContainer" unique_id=856790840]
+layout_mode = 2
+text = "跳过当前波次"
+script = ExtResource("5_6k3ot")
+
+[node name="TakeDamageSubmitSpinBox" parent="MarginContainer/VBoxContainer/DebugMenu/MarginContainer/GridContainer" unique_id=295310891 instance=ExtResource("6_48lew")]
+layout_mode = 2
+script = ExtResource("7_8gsoc")
+text = "对选择的实体造成伤害"
+suffix = "%"
+step = 1.0
+value = 100.0
+
+[node name="AddCashSubmitSpinBox" parent="MarginContainer/VBoxContainer/DebugMenu/MarginContainer/GridContainer" unique_id=1954389735 instance=ExtResource("6_48lew")]
+layout_mode = 2
+script = ExtResource("8_3jpwn")
+text = "增加金币"
+value = 1000.0
+
+[node name="AddLifeSubmitSpinBox" parent="MarginContainer/VBoxContainer/DebugMenu/MarginContainer/GridContainer" unique_id=1279913473 instance=ExtResource("6_48lew")]
+layout_mode = 2
+script = ExtResource("9_kwg1q")
+text = "增加生命"
+step = 1.0
+value = 100.0
+
+[node name="DrawPathwayCheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/DebugMenu/MarginContainer/GridContainer" unique_id=1507868817]
+layout_mode = 2
+text = "绘制路径"
+script = ExtResource("10_sclpk")
+
+[node name="DrawRangeCheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/DebugMenu/MarginContainer/GridContainer" unique_id=1630273901]
+visible = false
+layout_mode = 2
+text = "绘制攻击范围"
+script = ExtResource("11_bu4h1")
+
+[node name="DrawBulletTrajectorieCheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/DebugMenu/MarginContainer/GridContainer" unique_id=314134425]
+visible = false
+layout_mode = 2
+text = "绘制子弹轨迹"
+script = ExtResource("12_p2oqe")
 
 [node name="MiddleSpacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=528073065]
 layout_mode = 2

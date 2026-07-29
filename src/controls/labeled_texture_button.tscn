@@ -14,3 +14,4 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="." unique_id=1351141925]
 layout_mode = 2
+text = "text"

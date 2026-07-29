@@ -3,6 +3,3 @@
 [ext_resource type="PackedScene" uid="uid://cjddbet1spp8k" path="res://controls/labeled_spin_box.tscn" id="1_p0i03"]
 
 [node name="LabeledSpinBox" unique_id=295310891 instance=ExtResource("1_p0i03")]
-
-[node name="Label" parent="." index="0" unique_id=1177361712]
-theme_override_font_sizes/font_size = 18

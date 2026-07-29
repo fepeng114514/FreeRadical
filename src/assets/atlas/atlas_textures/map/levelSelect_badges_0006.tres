@@ -4,6 +4,6 @@
 
 [resource]
 atlas = ExtResource("1_vmdht")
-region = Rect2(282, 2973, 20, 29)
-margin = Rect2(8, 1, 14, 3)
+region = Rect2(161, 3559, 28, 37)
+margin = Rect2(10, 2, 17, 5)
 filter_clip = true

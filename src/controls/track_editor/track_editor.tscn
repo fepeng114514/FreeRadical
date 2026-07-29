@@ -28,7 +28,7 @@ events = [SubResource("InputEventKey_lgfxo")]
 [sub_resource type="DPITexture" id="DPITexture_s3r5i"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m7 1v6h-6v2h6v6h2v-6h6v-2h-6v-6z\"/></svg>
 "
-base_scale = 1.5
+base_scale = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_60x5f"]
 bg_color = Color(0.4033567, 0.4033568, 0.40335652, 1)
@@ -116,7 +116,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 0
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/LeftVBoxContainer" unique_id=46048246]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="VScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/LeftVBoxContainer" unique_id=1444457970]
@@ -157,7 +157,7 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_right = 2.0
+offset_right = 3.0
 offset_bottom = 99999.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -173,10 +173,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -9.0
-offset_top = -3.0
-offset_right = 11.0
-offset_bottom = 12.0
+offset_left = -13.0
+offset_top = -5.0
+offset_right = 16.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -195,7 +195,7 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
 [node name="RulerPanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/MainHScrollContainer/VBoxContainer" unique_id=1439455651 node_paths=PackedStringArray("track_editor")]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_60x5f")
@@ -208,8 +208,7 @@ mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="TrackAudoVScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/MainHScrollContainer/VBoxContainer" unique_id=283141753]
-custom_minimum_size = Vector2(568, 0)
-custom_maximum_size = Vector2(-1, 189)
+custom_maximum_size = Vector2(-1, 315)
 layout_mode = 2
 mouse_filter = 2
 horizontal_scroll_mode = 0
@@ -229,7 +228,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 0
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/RightVBoxContainer" unique_id=1066561741]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="VScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/RightVBoxContainer" unique_id=1784868910]
@@ -248,11 +247,11 @@ alignment = 1
 layout_mode = 2
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VScrollBarVBoxContainer" unique_id=676651049]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="VScrollBar" type="VScrollBar" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/VScrollBarVBoxContainer" unique_id=1437029182 node_paths=PackedStringArray("track_adaptive_scroll_container", "left_scroll_container", "right_scroll_container")]
-custom_maximum_size = Vector2(4, -1)
+custom_maximum_size = Vector2(6, -1)
 layout_mode = 2
 size_flags_vertical = 3
 max_value = 0.0
@@ -273,7 +272,7 @@ right_spacer = NodePath("RightSpacer")
 layout_mode = 2
 
 [node name="HScrollBar" type="HScrollBar" parent="MarginContainer/VBoxContainer/VBoxContainer/HScrollBarHBoxContainer" unique_id=207685857 node_paths=PackedStringArray("main_h_scroll_container")]
-custom_maximum_size = Vector2(-1, 4)
+custom_maximum_size = Vector2(-1, 6)
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 0.0

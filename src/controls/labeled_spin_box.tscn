@@ -9,7 +9,6 @@ label = NodePath("Label")
 
 [node name="Label" type="Label" parent="." unique_id=1177361712]
 layout_mode = 2
-theme_override_font_sizes/font_size = 25
 
 [node name="Spacer" type="Control" parent="." unique_id=1433858864]
 layout_mode = 2

@@ -6,10 +6,10 @@
 [sub_resource type="DPITexture" id="DPITexture_1xtwx"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#e0e0e0\" d=\"m5 1v1h-4v2h14v-2h-4v-1zm-3 4v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8zm1 2h2v6h-2zm4 0h2v6h-2zm4 0h2v6h-2z\"/></svg>
 "
-base_scale = 1.5
+base_scale = 2.0
 
 [node name="RightTrackEditorTrackToolBarItem" type="VBoxContainer" unique_id=1483068377]
-custom_minimum_size = Vector2(0, 63)
+custom_minimum_size = Vector2(0, 105)
 offset_right = 24.0
 offset_bottom = 63.0
 theme_override_constants/separation = 0

@@ -13,7 +13,6 @@
 [node name="DebugMenu" type="FoldableContainer" unique_id=370316337]
 offset_right = 441.0
 offset_bottom = 333.0
-theme_override_font_sizes/font_size = 18
 title = "调试菜单"
 script = ExtResource("1_1705i")
 metadata/_edit_horizontal_guides_ = [-327.0]
@@ -33,7 +32,6 @@ columns = 2
 
 [node name="SkipWaveButton" type="Button" parent="MarginContainer/GridContainer" unique_id=856790840]
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
 text = "跳过当前波次"
 script = ExtResource("5_tpgk1")
 
@@ -60,20 +58,17 @@ value = 100.0
 
 [node name="DrawPathwayCheckButton" type="CheckButton" parent="MarginContainer/GridContainer" unique_id=1507868817]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
 text = "绘制路径"
 script = ExtResource("7_ppa2r")
 
 [node name="DrawRangeCheckButton" type="CheckButton" parent="MarginContainer/GridContainer" unique_id=1630273901]
 visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
 text = "绘制攻击范围"
 script = ExtResource("8_46cou")
 
 [node name="DrawBulletTrajectorieCheckButton" type="CheckButton" parent="MarginContainer/GridContainer" unique_id=314134425]
 visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 19
 text = "绘制子弹轨迹"
 script = ExtResource("9_2fa0m")
