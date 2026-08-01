@@ -1,8 +1,12 @@
 # 流程
-此文档用于规范项目开发流程，包括创建实体、组件、系统等。
 
-## 创建实体流程
-1. 首先在 `src/scenes/entities` 目录创建一个场景，场景根节点为 `Entity` 实体节点。
+此文档用于说明与规范项目开发流程。
+
+---
+
+## 1. 创建实体流程
+
+1. 在 `src/scenes/entities` 目录创建一个场景，场景根节点为 `Entity` 实体节点。
 2. 为场景挂载各种组件：
    - 如：`SkillComponent` 远程攻击组件，可以使实体向其他实体发射子弹。
    - 一些组件可能有子组件：如 `SkillComponent` 有 `RangedSkill` 单次远程攻击子组件。
@@ -10,12 +14,15 @@
    - 如：`RangedSkill` 的攻击范围、攻击速度等。
 4. 可以扩展 `Entity` 的脚本来在一些回调中进行一些操作：
    - 如：`_on_update` 回调，每帧会被调用。
-5. 最后运行 `tools/generate_entity_scene_path_data` 更新场景路径数据 `scenes/entities/entity_scene_path_data.tres`。
+5. 运行 `tools/generate_entity_scene_path_data` 更新场景路径数据 `scenes/entities/entity_scene_path_data.tres`。
 
 > **注意**：为了可复用性不应该依赖扩展脚本来为实体增加逻辑，而是将逻辑抽象为组件的属性，除非该逻辑不会被复用或过于特例化。
 
-## 创建组件流程
-1. 首先在 `src/classes/components` 中创建一个 `.gd` 脚本：
+---
+
+## 2. 创建组件流程
+
+1. 在 `src/classes/components` 中创建一个 `.gd` 脚本：
    - 命名格式： `组件名_component`，如：`health_component`。
 2. 使用 `class_name` 声明组件类名：
    - 命名格式： `组件名Component`，如：`HealthComponent`。
@@ -28,10 +35,13 @@
    - 命名格式： `系统名System`，如：`HealthSystem`。
 6. 通过一些回调函数对拥有特定组件的实体进行操作：
    - 如：`_on_insert` 回调，会在实体被插入时调用。
-7. 最后将此系统节点增加到需要的场景的 `SystemController` 节点。
+7. 将此系统节点增加到需要的场景的 `SystemController` 节点。
 
-## 导入图集流程
-1. 首先将图像文件放到 `py_tools/generate_atlas/input/图集名称/图像类型` 中。
+---
+
+## 3. 导入图集流程
+
+1. 将图像文件放到 `py_tools/generate_atlas/input/图集名称/图像类型` 中。
    - 图像类型为 `atlas_texture` 或 `sprite_frames` 分别用于生成 `AtlasTexture` 与 `SpriteFrames` 资源。
 2. 使用 `py_tools/generate_atlas` 脚本生成图集：
    - 输出格式：bc7。
@@ -41,13 +51,15 @@
 	- 方向是 `AnimationGroup` 资源的属性: `"up"`、`"down"`、`"left_right"` 等。
 	- 动作是任意描述动画的名称：`"idle"`、`"walk"`、`"melee"`、`"death"` 等。
 	- 如：`"walk_left_right"` 表示左右的行走动画。
-5. 最后在编辑器中运行 `src/tools/generate_texture/generate_texture.gd` 工具生成 `SpriteFrames` 与 `AtlasTexture`。
+5. 在编辑器中运行 `src/tools/generate_texture/generate_texture.gd` 工具生成 `SpriteFrames` 与 `AtlasTexture`。
 
+---
 
-## 创建关卡流程
+## 4. 创建关卡流程
 
-### 第一步：创建关卡
-1. 首先在 `src/game/levels` 目录创建一个继承自 `src/game/levels/level.tscn` 场景。
+### 4.1 创建关卡
+
+1. 在 `src/game/levels` 目录创建一个继承自 `src/game/levels/level.tscn` 场景。
 2. 在 `Background` 节点中添加背景图片。
 3. 在 `Gird` 节点中绘制地形网格。
 4. 在 `PathwayContainer` 节点中添加 `Pathway` 路径节点。
@@ -58,14 +70,14 @@
 6. 在 `World` 节点中添加 `WaveSpawner` 波次生成器节点。
    - 为 `WaveSpawner` 波次生成器节点添加 `wave_group` 波次组资源，并保存在 `src/game/levels/波次组资源名.tscn` 中，用于波次编辑器加载。
    - 波次组资源名格式为 `level_关卡索引_wave`，例如：第一关的波次组资源名为 `level_1_wave`。
-7. 最后在 `World` 节点中添加塔位等实体。
+7. 在 `World` 节点中添加塔位等实体。
    - 塔位需要设置 `default_rally_center_local_pos`  默认集结点。
 
-### 第二步：添加入口
+### 4.2 添加入口
 1. 在 `src/map/map.tscn` 的 `FlagController` 节点中添加 `Flag` 关卡旗帜节点。
    - 旗帜节点需要指定 `level_scene_path` 关卡场景路径，来进入该关卡。
 
-### 第三步：编辑出怪
-1. 首先在主页的左上角点击 `波次编辑器` 按钮。
+### 4.3 编辑出怪
+1. 在主页的左上角点击 `波次编辑器` 按钮。
 2. 在波次编辑器中编辑出怪。
-3. 最后保存波次。
+3. 保存波次。
