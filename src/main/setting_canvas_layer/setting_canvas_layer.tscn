@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://d1hfb3o50c3tw"]
+
+[ext_resource type="PackedScene" uid="uid://d0mqwnwcq1tcj" path="res://controls/setting_canvas_layer/setting_canvas_layer.tscn" id="1_rveu2"]
+[ext_resource type="Script" uid="uid://jdfww7r3iavl" path="res://main/setting_canvas_layer/exit_labeled_texture_button.gd" id="2_egja7"]
+
+[node name="SettingCanvasLayer" unique_id=1317014737 instance=ExtResource("1_rveu2")]
+
+[node name="ExitLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" parent_id_path=PackedInt32Array(1870947683) index="0" unique_id=1893071714]
+script = ExtResource("2_egja7")
+text = "退出游戏"
+
+[node name="ResumeLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" parent_id_path=PackedInt32Array(1870947683) index="1" unique_id=1235633796]
+text = "关闭"

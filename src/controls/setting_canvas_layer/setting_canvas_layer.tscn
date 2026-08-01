@@ -1,0 +1,179 @@
+[gd_scene format=3 uid="uid://d0mqwnwcq1tcj"]
+
+[ext_resource type="Script" uid="uid://cp1kq42gx0l8a" path="res://controls/setting_canvas_layer/setting_canvas_layer.gd" id="1_pakg3"]
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="2_bl2g4"]
+[ext_resource type="Texture2D" uid="uid://d2nvpgfv8w3pt" path="res://assets/atlas/atlas_textures/gui/options_bg_notxt.tres" id="3_edf68"]
+[ext_resource type="PackedScene" uid="uid://dm25o6c1jxrdw" path="res://controls/setting_canvas_layer/labeled_texture_button.tscn" id="4_35fd5"]
+[ext_resource type="Script" uid="uid://bkebmr73wvf80" path="res://controls/setting_canvas_layer/exit_texture_button_label.gd" id="5_mqx7c"]
+[ext_resource type="Script" uid="uid://dqvtc4ao74u28" path="res://controls/setting_canvas_layer/resume_labeled_texture_button.gd" id="6_6vxv8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uxsvp"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.09985284, 0.09985284, 0.09985284, 0.209)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Animation" id="Animation_ghp12"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/PausePanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/PausePanel:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8hs2i"]
+resource_name = "hide"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/PausePanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/PausePanel:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -30)]
+}
+
+[sub_resource type="Animation" id="Animation_uxsvp"]
+resource_name = "show"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/PausePanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/PausePanel:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector2(0, -30), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ghp12"]
+_data = {
+&"RESET": SubResource("Animation_ghp12"),
+&"hide": SubResource("Animation_8hs2i"),
+&"show": SubResource("Animation_uxsvp")
+}
+
+[node name="SettingCanvasLayer" type="CanvasLayer" unique_id=1317014737 node_paths=PackedStringArray("animation_player")]
+process_mode = 3
+script = ExtResource("1_pakg3")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=147860977]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_bl2g4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uxsvp")
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer" unique_id=1143906173]
+layout_mode = 2
+
+[node name="PausePanel" type="TextureRect" parent="PanelContainer/CenterContainer" unique_id=1684746159]
+layout_mode = 2
+offset_transform_enabled = true
+texture = ExtResource("3_edf68")
+
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/PausePanel" unique_id=1404439881]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -332.5
+offset_right = 48.0
+offset_bottom = -265.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9137255, 0.9137255, 0.69803923, 1)
+theme_override_font_sizes/font_size = 48
+text = "设置"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/PausePanel" unique_id=1870947683]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.0
+offset_top = 202.5
+offset_right = 129.0
+offset_bottom = 303.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExitLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" unique_id=1893071714 instance=ExtResource("4_35fd5")]
+layout_mode = 2
+script = ExtResource("5_mqx7c")
+enterted_scene_path = ""
+text = "退出"
+
+[node name="ResumeLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" unique_id=1235633796 node_paths=PackedStringArray("setting_layer") instance=ExtResource("4_35fd5")]
+layout_mode = 2
+script = ExtResource("6_6vxv8")
+setting_layer = NodePath("../../../../..")
+text = "继续"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=13915079]
+root_node = NodePath("../PanelContainer")
+libraries/ = SubResource("AnimationLibrary_ghp12")

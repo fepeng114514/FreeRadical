@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://c0r2koooh4jee"]
+
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="1_l61cl"]
+[ext_resource type="Script" uid="uid://drujx836dqhq3" path="res://map/map_ui_canvas_layer/map_ui_canvas_layer.gd" id="1_p1qwd"]
+[ext_resource type="Texture2D" uid="uid://cto1koeceieb3" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0001.tres" id="10_mcavn"]
+[ext_resource type="Texture2D" uid="uid://bql8qexe34fb0" path="res://assets/atlas/atlas_textures/gui/map_configBtn_0001.tres" id="10_tsvym"]
+[ext_resource type="Texture2D" uid="uid://didjux0vtpo2f" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0003.tres" id="11_jpn0e"]
+[ext_resource type="Texture2D" uid="uid://cem5hycr07xl" path="res://assets/atlas/atlas_textures/gui/map_configBtn_0003.tres" id="11_l61cl"]
+[ext_resource type="Texture2D" uid="uid://cj61nh3nfa6we" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0002.tres" id="12_60vsd"]
+[ext_resource type="Texture2D" uid="uid://c0lgfc175k0he" path="res://assets/atlas/atlas_textures/gui/map_configBtn_0002.tres" id="12_v0olx"]
+[ext_resource type="Texture2D" uid="uid://mhs0016itiua" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0010.tres" id="13_tsvym"]
+[ext_resource type="Texture2D" uid="uid://bo3pc8bdmwcsn" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0012.tres" id="14_l61cl"]
+[ext_resource type="Texture2D" uid="uid://88kk2icw3ahw" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0011.tres" id="15_v0olx"]
+[ext_resource type="Texture2D" uid="uid://dm16k2y00lgd6" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0007.tres" id="16_balyu"]
+[ext_resource type="Texture2D" uid="uid://dseii1pmchvwj" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0009.tres" id="17_rn4k0"]
+[ext_resource type="Texture2D" uid="uid://bueb0b5vhaj3j" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0008.tres" id="18_dvfrp"]
+[ext_resource type="Texture2D" uid="uid://b242mfiwnpcoo" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0004.tres" id="19_fn1rl"]
+[ext_resource type="Texture2D" uid="uid://dk1tltomnkakv" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0006.tres" id="20_48gv4"]
+[ext_resource type="Texture2D" uid="uid://c1jcrkyfgqpfo" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0005.tres" id="21_r4o05"]
+
+[sub_resource type="Gradient" id="Gradient_7lyie"]
+offsets = PackedFloat32Array(0.91430134, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.527)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5jdw0"]
+gradient = SubResource("Gradient_7lyie")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+metadata/_snap_enabled = true
+
+[node name="MapUICanvasLayer" type="CanvasLayer" unique_id=1640298559]
+script = ExtResource("1_p1qwd")
+
+[node name="Control" type="Control" parent="." unique_id=95081434]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_l61cl")
+
+[node name="Border" type="TextureRect" parent="Control" unique_id=1157214676]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 24.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_5jdw0")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=197592216]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2430.0
+offset_bottom = -1310.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=323858202]
+layout_mode = 2
+
+[node name="TopHBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=1943195678]
+layout_mode = 2
+
+[node name="SettingTextureButton" type="TextureButton" parent="Control/MarginContainer/VBoxContainer/TopHBoxContainer" unique_id=1132652813]
+layout_mode = 2
+texture_normal = ExtResource("10_tsvym")
+texture_pressed = ExtResource("11_l61cl")
+texture_hover = ExtResource("12_v0olx")
+
+[node name="Spacer" type="Control" parent="Control/MarginContainer/VBoxContainer" unique_id=1992788273]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BottomHBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer" unique_id=800831573]
+visible = false
+layout_mode = 2
+alignment = 2
+
+[node name="TextureButton" type="TextureButton" parent="Control/MarginContainer/VBoxContainer/BottomHBoxContainer" unique_id=365222173]
+layout_mode = 2
+texture_normal = ExtResource("10_mcavn")
+texture_pressed = ExtResource("11_jpn0e")
+texture_hover = ExtResource("12_60vsd")
+
+[node name="TextureButton2" type="TextureButton" parent="Control/MarginContainer/VBoxContainer/BottomHBoxContainer" unique_id=1542443689]
+layout_mode = 2
+texture_normal = ExtResource("13_tsvym")
+texture_pressed = ExtResource("14_l61cl")
+texture_hover = ExtResource("15_v0olx")
+
+[node name="TextureButton3" type="TextureButton" parent="Control/MarginContainer/VBoxContainer/BottomHBoxContainer" unique_id=1155741568]
+layout_mode = 2
+texture_normal = ExtResource("16_balyu")
+texture_pressed = ExtResource("17_rn4k0")
+texture_hover = ExtResource("18_dvfrp")
+
+[node name="TextureButton4" type="TextureButton" parent="Control/MarginContainer/VBoxContainer/BottomHBoxContainer" unique_id=924191869]
+layout_mode = 2
+texture_normal = ExtResource("19_fn1rl")
+texture_pressed = ExtResource("20_48gv4")
+texture_hover = ExtResource("21_r4o05")
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/TopHBoxContainer/SettingTextureButton" to="." method="_on_setting_texture_button_pressed"]

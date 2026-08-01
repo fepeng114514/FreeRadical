@@ -2,7 +2,7 @@ extends HBoxContainer
 class_name TrackEditorMouseToolBar
 
 
-## 工具按钮切换信号。
+## 工具按钮被切换时发出。
 signal tool_button_toggled(opened_tools: int)
 
 

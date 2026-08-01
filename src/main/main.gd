@@ -1,4 +1,5 @@
-extends Control
+extends Node2D
+class_name Main
 
 
 @export var music: AudioGroup = null

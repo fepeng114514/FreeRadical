@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://b0b7ojrx17j3s"]
+
+[ext_resource type="PackedScene" uid="uid://d0mqwnwcq1tcj" path="res://controls/setting_canvas_layer/setting_canvas_layer.tscn" id="1_bldlo"]
+
+[node name="SettingCanvasLayer" unique_id=1317014737 instance=ExtResource("1_bldlo")]
+
+[node name="ExitLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" parent_id_path=PackedInt32Array(1870947683) index="0" unique_id=1893071714]
+enterted_scene_path = "uid://nvbnnvwovpao"
+text = "退出到主页"
+
+[node name="ResumeLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" parent_id_path=PackedInt32Array(1870947683) index="1" unique_id=1235633796]
+text = "关闭"

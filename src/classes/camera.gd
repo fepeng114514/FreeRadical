@@ -1,3 +1,4 @@
+@tool
 extends Camera2D
 class_name Camera
 ## 相机类，用于控制游戏中的相机。
@@ -19,18 +20,17 @@ var _drag_start_position := Vector2.ZERO
 
 
 func _ready() -> void:
-	get_viewport().size_changed.connect(_on_resized_window)
-
-	var limit_size: Vector2i = GlobalMgr.world_size
-	
 	limit_left = 0
 	limit_top = 0
-	limit_right = limit_size.x
-	limit_bottom = limit_size.y
-	editor_draw_limits = true
-	position = limit_size / 2.0
+	limit_right = 2560
+	limit_bottom = 1440
 	
-	_reset_zoom()
+	if Engine.is_editor_hint():
+		pass
+	else:
+		get_viewport().size_changed.connect(_on_resized_window)
+		
+		_reset_zoom()
 	
 
 func _unhandled_input(event: InputEvent) -> void:

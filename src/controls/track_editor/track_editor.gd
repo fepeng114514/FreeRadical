@@ -7,15 +7,15 @@ class_name TrackEditor
 
 
 @warning_ignore_start("unused_signal")
-## 项选中信号。
+## 轨道项选中时发出。
 signal item_selected(item: TrackEditorTrackItem)
-## 项取消选中信号。
+## 轨道项取消选中时发出。
 signal item_deselected(item: TrackEditorTrackItem)
-## 项插入信号。
+## 轨道项插入时发出。
 signal item_inserted(item: TrackEditorTrackItem)
-## 项删除信号。
+## 轨道项删除时发出。
 signal item_deleted(item: TrackEditorTrackItem)
-## 项移动信号。
+## 轨道项移动时发出。
 signal item_moved(item: TrackEditorTrackItem)
 @warning_ignore_restore("unused_signal")
 
@@ -119,7 +119,7 @@ func _ready() -> void:
 
 ## 选中轨道项。
 func select_item(item: TrackEditorTrackItem) -> void:
-	Log.info("选择轨道项: %s" % item.idx)
+	Log.verbose("选择轨道项: %s" % item.idx)
 	selected_item = item
 	item.is_selected = true
 	item_selected.emit(item)
@@ -130,7 +130,7 @@ func deselect_item() -> void:
 	if not selected_item:
 		return
 
-	Log.info("取消选中轨道项: %s" % selected_item.idx)
+	Log.verbose("取消选中轨道项: %s" % selected_item.idx)
 		
 	selected_item.is_selected = false
 	selected_item.is_draging = false
@@ -141,7 +141,7 @@ func deselect_item() -> void:
 
 ## 创建轨道项。
 func create_item(track_idx: int = 0) -> TrackEditorTrackItem:
-	Log.info("创建轨道项: %s" % track_idx)
+	Log.verbose("创建轨道项: %s" % track_idx)
 		
 	var track_item: TrackEditorTrackItem = track_item_scene.instantiate()
 	track_item.position.y = 2
@@ -163,7 +163,7 @@ func insert_item(item: TrackEditorTrackItem, signal_emit_disabled: bool = false)
 
 ## 删除轨道项。
 func erase_item(item: TrackEditorTrackItem) -> void:
-	Log.info("删除轨道项: %s" % item.idx)
+	Log.verbose("删除轨道项: %s" % item.idx)
 		
 	var track: TrackEditorTrack = get_track(item.track_idx)
 	track.item_container.remove_child(item)
@@ -223,7 +223,7 @@ func get_track(track_idx: int = 0) -> TrackEditorTrack:
 
 ## 创建轨道。
 func create_track() -> void:
-	Log.info("创建轨道")
+	Log.verbose("创建轨道")
 		
 	var track: TrackEditorTrack = track_scene.instantiate()
 	track.track_editor = self
@@ -241,7 +241,7 @@ func create_track() -> void:
 
 ## 删除轨道。
 func remove_track(track_idx: int = 0) -> void:
-	Log.info("删除轨道: %s" % track_idx)
+	Log.verbose("删除轨道: %s" % track_idx)
 		
 	var track: TrackEditorTrack = get_track(track_idx)
 	track_vbox_container.remove_child(track)
@@ -258,7 +258,7 @@ func remove_track(track_idx: int = 0) -> void:
 
 ## 清除所有轨道。
 func clear_tracks() -> void:
-	Log.info("清除所有轨道")
+	Log.verbose("清除所有轨道")
 		
 	for i: int in track_vbox_container.get_child_count():
 		remove_track(0)

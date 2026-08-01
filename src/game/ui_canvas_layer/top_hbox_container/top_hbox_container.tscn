@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://cxohlj7mh8hb6"]
+
+[ext_resource type="Texture2D" uid="uid://fr2p18p8awcs" path="res://assets/atlas/atlas_textures/game_gui/top_left.tres" id="2_ki64j"]
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="2_rltjd"]
+[ext_resource type="Script" uid="uid://b6nruw0fv66nd" path="res://game/ui_canvas_layer/top_hbox_container/life_value_label.gd" id="3_42nug"]
+[ext_resource type="Script" uid="uid://c63j83w3vyiym" path="res://game/ui_canvas_layer/top_hbox_container/speed_button.gd" id="3_c6vw1"]
+[ext_resource type="Script" uid="uid://bwog06cp2x3g4" path="res://game/ui_canvas_layer/top_hbox_container/cash_value_label.gd" id="4_dp1o2"]
+[ext_resource type="Script" uid="uid://0ij1hpn28sd7" path="res://game/ui_canvas_layer/top_hbox_container/wave_value_label.gd" id="5_m2rpv"]
+[ext_resource type="Texture2D" uid="uid://b2d6l4o80yl4d" path="res://assets/atlas/atlas_textures/game_gui/pause_base.tres" id="5_rnefi"]
+[ext_resource type="Texture2D" uid="uid://dvpechw5vc1lw" path="res://assets/atlas/atlas_textures/game_gui/pause_btn_0001.tres" id="6_ojd7i"]
+[ext_resource type="Texture2D" uid="uid://rc4nl7q77bmq" path="res://assets/atlas/atlas_textures/game_gui/pause_btn_0002.tres" id="7_h3g6y"]
+[ext_resource type="Script" uid="uid://c2b6jq0ncd151" path="res://game/ui_canvas_layer/top_hbox_container/pause_texture_button.gd" id="8_4mg1m"]
+
+[node name="TopHBoxContainer" type="HBoxContainer" unique_id=1978266969]
+size_flags_horizontal = 3
+mouse_filter = 2
+theme = ExtResource("2_rltjd")
+
+[node name="PlayerResourceBackground" type="TextureRect" parent="." unique_id=337611053]
+layout_mode = 2
+texture = ExtResource("2_ki64j")
+
+[node name="LifeValueLabel" type="Label" parent="PlayerResourceBackground" unique_id=287686407]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 22.0
+offset_right = 178.0
+offset_bottom = 64.0
+text = "20"
+script = ExtResource("3_42nug")
+
+[node name="CashValueLabel" type="Label" parent="PlayerResourceBackground" unique_id=461566231]
+layout_mode = 0
+offset_left = 247.0
+offset_top = 22.0
+offset_right = 298.0
+offset_bottom = 64.0
+text = "500"
+script = ExtResource("4_dp1o2")
+
+[node name="WaveValueLabel" type="Label" parent="PlayerResourceBackground" unique_id=29332469]
+layout_mode = 0
+offset_left = 449.0
+offset_top = 22.0
+offset_right = 495.0
+offset_bottom = 64.0
+text = "0/6"
+script = ExtResource("5_m2rpv")
+
+[node name="Spacer" type="Control" parent="." unique_id=1638167074]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="SpeedButton" type="Button" parent="." unique_id=1346277862]
+layout_mode = 2
+toggle_mode = true
+text = "1.0x"
+script = ExtResource("3_c6vw1")
+
+[node name="PauseBackground" type="TextureRect" parent="." unique_id=1012152388]
+layout_mode = 2
+texture = ExtResource("5_rnefi")
+
+[node name="PauseTextureButton" type="TextureButton" parent="PauseBackground" unique_id=1274899798]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 15.0
+offset_right = 145.0
+offset_bottom = 86.0
+texture_normal = ExtResource("6_ojd7i")
+texture_hover = ExtResource("7_h3g6y")
+script = ExtResource("8_4mg1m")

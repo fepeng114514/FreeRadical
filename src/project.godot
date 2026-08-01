@@ -79,16 +79,16 @@ folder_colors={
 "res://entities/enemies/": "red",
 "res://entities/towers/": "teal",
 "res://game/": "green",
-"res://game/game_ui/": "gray",
 "res://game/pathway/": "gray",
 "res://game/range_info/": "gray",
 "res://game/select_menu/": "gray",
+"res://game/ui_canvas_layer/": "gray",
 "res://game/wave/": "gray",
 "res://game/wave_flag/": "gray",
 "res://main/": "gray",
 "res://map/": "green",
 "res://map/flag/": "gray",
-"res://map/map_ui/": "gray",
+"res://map/map_ui_canvas_layer/": "gray",
 "res://tools/": "teal"
 }
 

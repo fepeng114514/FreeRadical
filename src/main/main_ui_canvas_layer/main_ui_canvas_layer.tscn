@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://ipk3bcsxqxn0"]
+
+[ext_resource type="Script" uid="uid://bu0fdtwv8h2os" path="res://main/wave_editor_button.gd" id="1_6fq81"]
+[ext_resource type="Script" uid="uid://dc8wijvqo6771" path="res://main/main_ui_canvas_layer/main_ui_canvas_layer.gd" id="1_foetc"]
+[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="1_k2a40"]
+[ext_resource type="Script" uid="uid://2q2ogyvl3u7p" path="res://main/main_ui_canvas_layer/menu_vbox_container/play_button.gd" id="2_ypvuc"]
+[ext_resource type="Script" uid="uid://c0h3rhfsyy6dp" path="res://main/main_ui_canvas_layer/menu_vbox_container/quit_button.gd" id="4_ksu4j"]
+[ext_resource type="Script" uid="uid://clbcxid2atee" path="res://main/main_ui_canvas_layer/menu_vbox_container/quit_confirmation_dialog.gd" id="5_m7rpo"]
+
+[node name="MainUICanvasLayer" type="CanvasLayer" unique_id=1821521537]
+script = ExtResource("1_foetc")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1608616670]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_k2a40")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=628365060]
+layout_mode = 2
+
+[node name="TopHBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1410463724]
+layout_mode = 2
+
+[node name="WaveEditorButton" type="Button" parent="MarginContainer/VBoxContainer/TopHBoxContainer" unique_id=1555576651]
+layout_mode = 2
+text = "波次编辑器"
+script = ExtResource("1_6fq81")
+wave_editor_scene_path = "uid://bs45pb21wgq8x"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1453806134]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer" unique_id=1488218987]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MainMenuVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer" unique_id=836277463]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 15
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer" unique_id=1777998571]
+layout_mode = 2
+text = "开始游戏"
+script = ExtResource("2_ypvuc")
+map_scene_path = "uid://52j7mo7jgfkv"
+
+[node name="SettingButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer" unique_id=889232964]
+layout_mode = 2
+text = "游戏设置"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer" unique_id=40731167 node_paths=PackedStringArray("confirmation_dialog")]
+layout_mode = 2
+text = "退出游戏"
+script = ExtResource("4_ksu4j")
+confirmation_dialog = NodePath("QuitConfirmationDialog")
+
+[node name="QuitConfirmationDialog" type="ConfirmationDialog" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer/QuitButton" unique_id=495413077]
+oversampling_override = 1.0
+title = "请确认"
+size = Vector2i(244, 100)
+ok_button_text = "退出"
+dialog_text = "确认要退出游戏吗？"
+cancel_button_text = "取消"
+script = ExtResource("5_m7rpo")
+
+[node name="BottomHBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1487765449]
+layout_mode = 2
+alignment = 2
+
+[node name="AboutButton" type="Button" parent="MarginContainer/VBoxContainer/BottomHBoxContainer" unique_id=1326944877]
+layout_mode = 2
+text = "关于"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/BottomHBoxContainer" unique_id=1979907821]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="VersionLabel" type="Label" parent="MarginContainer/VBoxContainer/BottomHBoxContainer" unique_id=1145857852]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+text = "v1.0.0"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer/SettingButton" to="." method="_on_setting_button_pressed"]

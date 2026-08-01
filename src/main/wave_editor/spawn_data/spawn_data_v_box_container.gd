@@ -17,7 +17,7 @@ var spawn: WaveSpawn = null
 
 
 func _ready() -> void:
-	spawn_interval.spin_box.value_changed.connect(_on_interval_changed)
+	spawn_interval.spin_box.value_changed.connect(_on_spawn_interval_changed)
 	entity.option_button.item_selected.connect(_on_entity_changed)
 	pathway.spin_box.value_changed.connect(_on_pathway_changed)
 	sub_pathway.spin_box.value_changed.connect(_on_sub_pathway_changed)
@@ -40,7 +40,7 @@ func set_spawn_data(new_spawn: WaveSpawn) -> void:
 	loop.button_pressed = spawn.loop
 
 
-func _on_interval_changed(value: float) -> void:
+func _on_spawn_interval_changed(value: float) -> void:
 	spawn.spawn_interval = value
 
 

@@ -6,23 +6,30 @@
 [ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="5_7lyie"]
 [ext_resource type="PackedScene" uid="uid://ju7hsbp0pev4" path="res://map/flag/flag.tscn" id="5_pu1n1"]
 [ext_resource type="PackedScene" uid="uid://dhvwgkbjyuayy" path="res://map/flag/flag_bullet.tscn" id="7_5jdw0"]
-[ext_resource type="PackedScene" uid="uid://em3keumd4oxl" path="res://map/map_ui/map_ui_layer.tscn" id="8_kxmgb"]
+[ext_resource type="PackedScene" uid="uid://b0b7ojrx17j3s" path="res://map/setting_canvas_layer/setting_canvas_layer.tscn" id="8_e8e5r"]
+[ext_resource type="PackedScene" uid="uid://c0r2koooh4jee" path="res://map/map_ui_canvas_layer/map_ui_canvas_layer.tscn" id="8_kxmgb"]
 
 [sub_resource type="Resource" id="Resource_igyvp"]
 script = ExtResource("3_pu1n1")
 list = PackedStringArray("uid://c7p3s0tsgx8fw")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[node name="Map" type="Node2D" unique_id=257249172]
+[node name="Map" type="Node2D" unique_id=257249172 node_paths=PackedStringArray("map_ui_canvas_layer", "setting_canvas_layer")]
 script = ExtResource("1_724gr")
 music = SubResource("Resource_igyvp")
+map_ui_canvas_layer = NodePath("MapUICanvasLayer")
+setting_canvas_layer = NodePath("SettingCanvasLayer")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1291214235]
 position = Vector2(1277, 718)
 texture = ExtResource("4_brb1y")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1516315118]
-position = Vector2(800, 450)
+position = Vector2(1280, 720)
+limit_left = 0
+limit_top = 0
+limit_right = 2560
+limit_bottom = 1440
 script = ExtResource("5_7lyie")
 metadata/_custom_type_script = "uid://dkcjwrd81mf1p"
 
@@ -78,4 +85,8 @@ position = Vector2(145, -45)
 position = Vector2(735, 934)
 level_scene_path = "uid://ha3ty12nnta3"
 
-[node name="MapUILayer" parent="." unique_id=1640298559 instance=ExtResource("8_kxmgb")]
+[node name="MapUICanvasLayer" parent="." unique_id=1640298559 node_paths=PackedStringArray("setting_canvas_layer") instance=ExtResource("8_kxmgb")]
+setting_canvas_layer = NodePath("../SettingCanvasLayer")
+
+[node name="SettingCanvasLayer" parent="." unique_id=1317014737 instance=ExtResource("8_e8e5r")]
+visible = false

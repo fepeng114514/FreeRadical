@@ -35,8 +35,7 @@ func _update() -> void:
 			
 	price_tag_label.text = "%d" % price
 
-	
-## 点击并松开按钮时调用的信号处理函数
+
 func _on_pressed() -> void:
 	if not U.is_valid_entity(selected_entity):
 		return

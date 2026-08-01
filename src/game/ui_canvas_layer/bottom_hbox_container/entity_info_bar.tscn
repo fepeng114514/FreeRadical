@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://g4ovunr1s3vb"]
+
+[ext_resource type="Script" uid="uid://buh7hjbl847b2" path="res://game/ui_canvas_layer/bottom_hbox_container/entity_info_bar.gd" id="1_1ujae"]
+[ext_resource type="Texture2D" uid="uid://cm0lw62nmv6p" path="res://assets/atlas/atlas_textures/game_gui/base_info_icons_0001.tres" id="3_1bjmh"]
+[ext_resource type="Texture2D" uid="uid://cgb34cvhritqb" path="res://assets/atlas/atlas_textures/game_gui/base_info_icons_0010.tres" id="4_1b7rs"]
+[ext_resource type="Texture2D" uid="uid://01g5f17eor8s" path="res://assets/atlas/atlas_textures/game_gui/base_info_icons_0003.tres" id="5_dpyxj"]
+[ext_resource type="Texture2D" uid="uid://bbaa7opsu308v" path="res://assets/atlas/atlas_textures/game_gui/base_info_icons_0004.tres" id="6_rato6"]
+
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.2, 0.2, 0.25, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.4, 0.5, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="EntityInfoBar" type="PanelContainer" unique_id=1937124006 node_paths=PackedStringArray("entity_name", "hp_label", "hp_value", "melee_type_icon", "melee_value", "ranged_type_icon", "ranged_value", "phys_armor_icon", "phys_armor_value", "magic_armor_icon", "magic_armor_value")]
+mouse_filter = 2
+theme_override_styles/panel = SubResource("4")
+script = ExtResource("1_1ujae")
+entity_name = NodePath("MarginContainer/HBoxContainer/EntityName")
+hp_label = NodePath("MarginContainer/HBoxContainer/HpHBoxContainer/Label")
+hp_value = NodePath("MarginContainer/HBoxContainer/HpHBoxContainer/Value")
+melee_type_icon = NodePath("MarginContainer/HBoxContainer/MeleeHBoxContainer/TypeIcon")
+melee_value = NodePath("MarginContainer/HBoxContainer/MeleeHBoxContainer/Value")
+ranged_type_icon = NodePath("MarginContainer/HBoxContainer/RangedHBoxContainer/TypeIcon")
+ranged_value = NodePath("MarginContainer/HBoxContainer/RangedHBoxContainer/Value")
+phys_armor_icon = NodePath("MarginContainer/HBoxContainer/PhysArmorHBoxContainer/Icon")
+phys_armor_value = NodePath("MarginContainer/HBoxContainer/PhysArmorHBoxContainer/Value")
+magic_armor_icon = NodePath("MarginContainer/HBoxContainer/MagicArmorHBoxContainer/Icon")
+magic_armor_value = NodePath("MarginContainer/HBoxContainer/MagicArmorHBoxContainer/Value")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1414186535]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=645877167]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="EntityName" type="Label" parent="MarginContainer/HBoxContainer" unique_id=444811463]
+layout_mode = 2
+text = "实体名称"
+
+[node name="HpHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1657734819]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/HpHBoxContainer" unique_id=735596751]
+layout_mode = 2
+text = "血量"
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/HpHBoxContainer" unique_id=1871849507]
+layout_mode = 2
+text = "100/100"
+
+[node name="MeleeHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=195086090]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/MeleeHBoxContainer" unique_id=2029457686]
+layout_mode = 2
+texture = ExtResource("3_1bjmh")
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/MeleeHBoxContainer" unique_id=253791031]
+layout_mode = 2
+text = "25-25/1"
+
+[node name="RangedHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1652020457]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TypeIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/RangedHBoxContainer" unique_id=1278268678]
+layout_mode = 2
+texture = ExtResource("4_1b7rs")
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/RangedHBoxContainer" unique_id=1462066987]
+layout_mode = 2
+text = "25-25/1"
+
+[node name="PhysArmorHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=849431744]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/PhysArmorHBoxContainer" unique_id=1144040450]
+layout_mode = 2
+texture = ExtResource("5_dpyxj")
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/PhysArmorHBoxContainer" unique_id=45631269]
+layout_mode = 2
+text = "20"
+
+[node name="MagicArmorHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=518199801]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer/MagicArmorHBoxContainer" unique_id=2084534205]
+layout_mode = 2
+texture = ExtResource("6_rato6")
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/MagicArmorHBoxContainer" unique_id=1608248264]
+layout_mode = 2
+text = "0"

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bvjluqokntevv"]
+
+[ext_resource type="Script" uid="uid://bi2r75ykr1ufv" path="res://game/setting_canvas_layer/setting_canvas_layer.gd" id="1_bh7p8"]
+[ext_resource type="PackedScene" uid="uid://d0mqwnwcq1tcj" path="res://controls/setting_canvas_layer/setting_canvas_layer.tscn" id="1_s26vc"]
+[ext_resource type="PackedScene" uid="uid://dm25o6c1jxrdw" path="res://controls/setting_canvas_layer/labeled_texture_button.tscn" id="3_r1t62"]
+[ext_resource type="Script" uid="uid://b6fn2uciv5jd7" path="res://game/setting_canvas_layer/replay_button_label.gd" id="6_vbb1o"]
+[ext_resource type="Script" uid="uid://dtrgucauq4fsr" path="res://game/setting_canvas_layer/resume_texture_button_label.gd" id="7_lkyq5"]
+
+[node name="SettingCanvasLayer" unique_id=1317014737 instance=ExtResource("1_s26vc")]
+script = ExtResource("1_bh7p8")
+
+[node name="ExitLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" parent_id_path=PackedInt32Array(1870947683) index="0" unique_id=1893071714]
+enterted_scene_path = "uid://52j7mo7jgfkv"
+text = "退出到地图"
+
+[node name="ReplayLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" parent_id_path=PackedInt32Array(1870947683) index="1" unique_id=1880489115 instance=ExtResource("3_r1t62")]
+layout_mode = 2
+script = ExtResource("6_vbb1o")
+text = "重新开始"
+
+[node name="ResumeLabeledTextureButton" parent="PanelContainer/CenterContainer/PausePanel/HBoxContainer" parent_id_path=PackedInt32Array(1870947683) index="2" unique_id=1235633796 node_paths=PackedStringArray("setting_canvas_layer")]
+script = ExtResource("7_lkyq5")
+setting_canvas_layer = NodePath("../../../../..")
+text = "继续游戏"

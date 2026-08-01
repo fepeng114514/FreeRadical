@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://rq35ixpelpas"]
+
+[ext_resource type="Script" uid="uid://b1we6nidkroj5" path="res://game/ui_canvas_layer/debug_menu/debug_menu.gd" id="1_ctb7h"]
+[ext_resource type="Script" uid="uid://b4u2704o6as1c" path="res://game/ui_canvas_layer/debug_menu/skip_wave_button.gd" id="2_mtqar"]
+[ext_resource type="PackedScene" uid="uid://bcpvwfqdmmq0o" path="res://controls/submit_spin_box.tscn" id="3_nu37c"]
+[ext_resource type="Script" uid="uid://36t0lghloy1b" path="res://game/ui_canvas_layer/debug_menu/take_damage_spin_box_button.gd" id="4_uo5t2"]
+[ext_resource type="Script" uid="uid://csrlc6byvqkmt" path="res://game/ui_canvas_layer/debug_menu/add_cash_spin_box_button.gd" id="5_p8wfp"]
+[ext_resource type="Script" uid="uid://cjrwko5ieksjt" path="res://game/ui_canvas_layer/debug_menu/add_life_spin_box_button.gd" id="6_qrfxy"]
+[ext_resource type="Script" uid="uid://d1k854yj7p8up" path="res://game/ui_canvas_layer/debug_menu/draw_pathway_check_button.gd" id="7_imdes"]
+[ext_resource type="Script" uid="uid://dbmbgltffnygg" path="res://game/ui_canvas_layer/debug_menu/draw_range_check_button.gd" id="8_iynre"]
+[ext_resource type="Script" uid="uid://ck2ky7ouubxga" path="res://game/ui_canvas_layer/debug_menu/draw_bullet_trajectorie_check_button.gd" id="9_mvyv1"]
+
+[node name="DebugMenu" type="FoldableContainer" unique_id=1295185256]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+title = "调试菜单"
+title_alignment = 1
+script = ExtResource("1_ctb7h")
+metadata/_edit_horizontal_guides_ = [-327.0]
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1892052493]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer" unique_id=758679374]
+layout_mode = 2
+columns = 2
+
+[node name="SkipWaveButton" type="Button" parent="MarginContainer/GridContainer" unique_id=323698271]
+layout_mode = 2
+text = "跳过当前波次"
+script = ExtResource("2_mtqar")
+
+[node name="TakeDamageSubmitSpinBox" parent="MarginContainer/GridContainer" unique_id=295310891 instance=ExtResource("3_nu37c")]
+layout_mode = 2
+script = ExtResource("4_uo5t2")
+text = "对选择的实体造成伤害"
+suffix = "%"
+step = 1.0
+value = 100.0
+
+[node name="AddCashSubmitSpinBox" parent="MarginContainer/GridContainer" unique_id=537961689 instance=ExtResource("3_nu37c")]
+layout_mode = 2
+script = ExtResource("5_p8wfp")
+text = "增加金币"
+value = 1000.0
+
+[node name="AddLifeSubmitSpinBox" parent="MarginContainer/GridContainer" unique_id=7594323 instance=ExtResource("3_nu37c")]
+layout_mode = 2
+script = ExtResource("6_qrfxy")
+text = "增加生命"
+step = 1.0
+value = 100.0
+
+[node name="DrawPathwayCheckButton" type="CheckButton" parent="MarginContainer/GridContainer" unique_id=443496520]
+layout_mode = 2
+text = "绘制路径"
+script = ExtResource("7_imdes")
+
+[node name="DrawRangeCheckButton" type="CheckButton" parent="MarginContainer/GridContainer" unique_id=1349419863]
+visible = false
+layout_mode = 2
+text = "绘制攻击范围"
+script = ExtResource("8_iynre")
+
+[node name="DrawBulletTrajectorieCheckButton" type="CheckButton" parent="MarginContainer/GridContainer" unique_id=1435857608]
+visible = false
+layout_mode = 2
+text = "绘制子弹轨迹"
+script = ExtResource("9_mvyv1")

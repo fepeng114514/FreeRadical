@@ -1,14 +1,11 @@
 [gd_scene format=3 uid="uid://nvbnnvwovpao"]
 
 [ext_resource type="Script" uid="uid://h30p1th8hx0x" path="res://main/main.gd" id="1_7n028"]
-[ext_resource type="Script" uid="uid://2q2ogyvl3u7p" path="res://main/main_menu/play_button.gd" id="2_2p1s2"]
-[ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="2_f7o8s"]
-[ext_resource type="Script" uid="uid://bu0fdtwv8h2os" path="res://main/wave_editor_button.gd" id="3_1xy46"]
-[ext_resource type="Script" uid="uid://c0h3rhfsyy6dp" path="res://main/main_menu/quit_button.gd" id="3_02nsg"]
 [ext_resource type="Texture2D" uid="uid://bpgiiva7q52y5" path="res://assets/main_background.png" id="3_ubw8e"]
-[ext_resource type="Script" uid="uid://clad8hrp65q4q" path="res://main/main_menu/setting_button.gd" id="3_vspwy"]
+[ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="4_kfbq2"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="4_tun4x"]
-[ext_resource type="Script" uid="uid://clbcxid2atee" path="res://main/main_menu/quit_confirmation_dialog.gd" id="10_0i4oc"]
+[ext_resource type="PackedScene" uid="uid://ipk3bcsxqxn0" path="res://main/main_ui_canvas_layer/main_ui_canvas_layer.tscn" id="5_3wy1v"]
+[ext_resource type="PackedScene" uid="uid://d1hfb3o50c3tw" path="res://main/setting_canvas_layer/setting_canvas_layer.tscn" id="6_kfbq2"]
 
 [sub_resource type="Resource" id="Resource_gw48u"]
 script = ExtResource("4_tun4x")
@@ -16,105 +13,25 @@ play_mode = null
 list = PackedStringArray("uid://xjo3s0skjv4q")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[node name="Main" type="Control" unique_id=1865518000]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_f7o8s")
+[node name="Main" type="Node2D" unique_id=1874824295]
 script = ExtResource("1_7n028")
 music = SubResource("Resource_gw48u")
 
-[node name="Background" type="TextureRect" parent="." unique_id=1956220554]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Background" type="Sprite2D" parent="." unique_id=1089183861]
+position = Vector2(1280, 720)
 texture = ExtResource("3_ubw8e")
-expand_mode = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=504228336]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+[node name="Camera" type="Camera2D" parent="." unique_id=1240186076]
+limit_left = 0
+limit_top = 0
+limit_right = 2560
+limit_bottom = 1440
+editor_draw_limits = true
+script = ExtResource("4_kfbq2")
+metadata/_custom_type_script = "uid://dkcjwrd81mf1p"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1555625661]
-layout_mode = 2
+[node name="UICanvasLayer" parent="." unique_id=1608616670 node_paths=PackedStringArray("setting_canvas_layer") instance=ExtResource("5_3wy1v")]
+setting_canvas_layer = NodePath("../SettingCanvasLayer")
 
-[node name="TopHBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=405916843]
-layout_mode = 2
-
-[node name="WaveEditorButton" type="Button" parent="MarginContainer/VBoxContainer/TopHBoxContainer" unique_id=1784482129]
-layout_mode = 2
-text = "波次编辑器"
-script = ExtResource("3_1xy46")
-wave_editor_scene_path = "uid://bs45pb21wgq8x"
-
-[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=744475152]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer" unique_id=1976053231]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MainMenuVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer" unique_id=1509343781]
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_constants/separation = 15
-
-[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer" unique_id=946227739]
-layout_mode = 2
-text = "开始游戏"
-script = ExtResource("2_2p1s2")
-map_scene_path = "uid://52j7mo7jgfkv"
-
-[node name="SettingButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer" unique_id=623845627]
-layout_mode = 2
-text = "游戏设置"
-script = ExtResource("3_vspwy")
-
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer" unique_id=1967164590 node_paths=PackedStringArray("confirmation_dialog")]
-layout_mode = 2
-text = "退出游戏"
-script = ExtResource("3_02nsg")
-confirmation_dialog = NodePath("QuitConfirmationDialog")
-
-[node name="QuitConfirmationDialog" type="ConfirmationDialog" parent="MarginContainer/VBoxContainer/CenterContainer/MainMenuVBoxContainer/QuitButton" unique_id=159860050]
-oversampling_override = 1.0
-title = "请确认"
-size = Vector2i(244, 100)
-ok_button_text = "退出"
-dialog_text = "确认要退出游戏吗？"
-cancel_button_text = "取消"
-script = ExtResource("10_0i4oc")
-
-[node name="BottomHBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2029199545]
-layout_mode = 2
-alignment = 2
-
-[node name="AboutButton" type="Button" parent="MarginContainer/VBoxContainer/BottomHBoxContainer" unique_id=46850668]
-layout_mode = 2
-text = "关于"
-
-[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/BottomHBoxContainer" unique_id=732985529]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-
-[node name="VersionLabel" type="Label" parent="MarginContainer/VBoxContainer/BottomHBoxContainer" unique_id=930494550]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-text = "v1.0.0"
+[node name="SettingCanvasLayer" parent="." unique_id=1317014737 instance=ExtResource("6_kfbq2")]
+visible = false

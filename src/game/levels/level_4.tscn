@@ -83,7 +83,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Curve2D" id="Curve2D_mthp1"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1160, -52, 110.99004, -112.089615, -110.99004, 112.089615, 992, 448, 45.42901, -140.83101, -45.42901, 140.83101, 663, 724, -153.2588, 5.7744675, 153.2588, -5.7744675, 929, 957, -128.87442, 41.445953, 128.87442, -41.445953, 1581, 733, -28.015839, -128.04416, 28.015839, 128.04416, 1934, 901, 72.19948, -35.297523, -72.19948, 35.297523, 1647, 1161, -24.066492, -128.35468, 24.066492, 128.35468, 1498, 1466)
+"points": PackedVector2Array(0, 0, 0, 0, 1144, -48, 123.80305, -99.27661, -123.80305, 99.27661, 928, 432, 18.308157, -164.74861, -18.308157, 164.74861, 567, 747, -157.9569, 16.66552, 157.9569, -16.66552, 933, 991, -166.67276, 37.60205, 166.67276, -37.60205, 1593, 744, -49.157288, -135.73196, 49.157288, 135.73196, 2007, 907, 72.19948, -35.297523, -72.19948, 35.297523, 1713, 1219, -24.066492, -128.35468, 24.066492, 128.35468, 1536, 1488)
 }
 point_count = 8
 
@@ -91,6 +91,8 @@ point_count = 8
 defaul_tower_holder = "uid://cbim4b2xcnwsy"
 
 [node name="Background" parent="." index="1" unique_id=74954041]
+position = Vector2(1280, 720)
+scale = Vector2(1.1252747, 1.1249999)
 texture = ExtResource("2_12tya")
 
 [node name="Gird" parent="." index="2" unique_id=214359936]
@@ -100,54 +102,54 @@ tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAA
 wave_group = ExtResource("4_r6jdw")
 
 [node name="TowerHolderCloud" parent="World" parent_id_path=PackedInt32Array(1261225856) index="1" unique_id=1898604313 instance=ExtResource("5_u7kdy")]
-position = Vector2(924, 657)
-default_rally_center_local_pos = Vector2(-140.67, -70.56)
+position = Vector2(872, 640)
+default_rally_center_local_pos = Vector2(-152.1, -70.56)
 interact_policy = SubResource("Resource_r6jdw")
 
 [node name="TowerHolderCloud2" parent="World" parent_id_path=PackedInt32Array(1261225856) index="2" unique_id=38102126 instance=ExtResource("5_u7kdy")]
-position = Vector2(856, 829)
-default_rally_center_local_pos = Vector2(-160.83, 43.11)
+position = Vector2(856, 840)
+default_rally_center_local_pos = Vector2(-193.5, 74.43)
 interact_policy = SubResource("Resource_u7kdy")
 metadata/_scene_painted = true
 
 [node name="TowerHolderCloud3" parent="World" parent_id_path=PackedInt32Array(1261225856) index="3" unique_id=1300164976 instance=ExtResource("5_u7kdy")]
-position = Vector2(1124, 758)
+position = Vector2(1112, 776)
 default_rally_center_local_pos = Vector2(57.69, 131.4)
 interact_policy = SubResource("Resource_xoocc")
 metadata/_scene_painted = true
 
 [node name="TowerHolderCloud4" parent="World" parent_id_path=PackedInt32Array(1261225856) index="4" unique_id=1146845422 instance=ExtResource("5_u7kdy")]
-position = Vector2(764, 431)
+position = Vector2(712, 400)
 default_rally_center_local_pos = Vector2(57.78, 131.67)
 interact_policy = SubResource("Resource_1e0px")
 metadata/_scene_painted = true
 
 [node name="TowerHolderCloud5" parent="World" parent_id_path=PackedInt32Array(1261225856) index="5" unique_id=2079938400 instance=ExtResource("5_u7kdy")]
-position = Vector2(516, 890)
+position = Vector2(440, 896)
 default_rally_center_local_pos = Vector2(155.25, -51.84)
 interact_policy = SubResource("Resource_t3mj1")
 metadata/_scene_painted = true
 
 [node name="TowerHolderCloud6" parent="World" parent_id_path=PackedInt32Array(1261225856) index="6" unique_id=520239317 instance=ExtResource("5_u7kdy")]
-position = Vector2(1758, 906)
-default_rally_center_local_pos = Vector2(162.45, 45.99)
+position = Vector2(1816, 896)
+default_rally_center_local_pos = Vector2(195.12, 45.99)
 interact_policy = SubResource("Resource_mthp1")
 metadata/_scene_painted = true
 
 [node name="TowerHolderCloud7" parent="World" parent_id_path=PackedInt32Array(1261225856) index="7" unique_id=65501218 instance=ExtResource("5_u7kdy")]
-position = Vector2(1482, 917)
-default_rally_center_local_pos = Vector2(-60.57, -121.95)
+position = Vector2(1536, 936)
+default_rally_center_local_pos = Vector2(-60.57, -160.29)
 interact_policy = SubResource("Resource_mpb5r")
 metadata/_scene_painted = true
 
 [node name="TowerHolderCloud8" parent="World" parent_id_path=PackedInt32Array(1261225856) index="8" unique_id=1961184971 instance=ExtResource("5_u7kdy")]
-position = Vector2(2029, 734)
+position = Vector2(2112, 744)
 default_rally_center_local_pos = Vector2(-119.97, 109.08)
 interact_policy = SubResource("Resource_i374g")
 metadata/_scene_painted = true
 
 [node name="TowerHolderCloud9" parent="World" parent_id_path=PackedInt32Array(1261225856) index="9" unique_id=1188298540 instance=ExtResource("5_u7kdy")]
-position = Vector2(1628, 586)
+position = Vector2(1680, 584)
 default_rally_center_local_pos = Vector2(5.4, 139.95)
 interact_policy = SubResource("Resource_gwfl1")
 metadata/_scene_painted = true
@@ -159,9 +161,9 @@ metadata/_custom_type_script = "uid://5rvcj41ueju4"
 
 [node name="WaveFlag" parent="WaveFlagController" parent_id_path=PackedInt32Array(64694769) index="0" unique_id=1005784656 node_paths=PackedStringArray("bound_pathway_node") instance=ExtResource("8_r6jdw")]
 layout_mode = 0
-offset_left = 1090.0
+offset_left = 1056.0
 offset_top = 58.0
-offset_right = 1175.0
+offset_right = 1141.0
 offset_bottom = 143.0
 bound_pathway_node = NodePath("../../PathwayContainer/Pathway")
-arrow_rotation = 0.18500490071139883
+arrow_rotation = 0.33335788713091685
