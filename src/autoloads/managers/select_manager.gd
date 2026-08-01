@@ -18,9 +18,9 @@ enum SelectMode {
 
 
 @warning_ignore_start("unused_signal")
-## 选择实体信号。
+## 选择实体时发出。
 signal entity_selected(e: Entity)
-## 取消选择实体信号。
+## 取消选择实体时发出。
 signal entity_deselected
 @warning_ignore_restore("unused_signal")
 

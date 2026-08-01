@@ -7,7 +7,7 @@ class_name Entity
 ## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
 
 
-## 实体移除信号。
+## 实体移除时发出。
 signal entity_removed(entity: Entity)
 
 

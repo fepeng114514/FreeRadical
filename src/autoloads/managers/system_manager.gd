@@ -5,11 +5,11 @@ extends Node
 
 
 @warning_ignore_start("unused_signal")
-## 创建实体信号。
+## 创建实体时发出。
 signal append_insert_queue(entity: Entity)
-## 移除实体信号。
+## 移除实体时发出。
 signal append_remove_queue(entity: Entity)
-## 系统更新信号。
+## 系统更新时发出。
 signal update_system(delta: float)
 @warning_ignore_restore("unused_signal")
 

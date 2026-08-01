@@ -5,7 +5,7 @@ extends Node
 
 
 @warning_ignore_start("unused_signal")
-## 路径绘制状态改变信号。
+## 路径绘制状态发生更改时发出。
 signal draw_pathway_changed
 @warning_ignore_restore("unused_signal")
 

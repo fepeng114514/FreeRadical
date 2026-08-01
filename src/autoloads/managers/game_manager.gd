@@ -5,9 +5,9 @@ extends Node
 
 
 @warning_ignore_start("unused_signal")
-## 金币变化信号。
+## 金币发生更改时发出。
 signal cash_changed(new_cash: float)
-## 生命变化信号。
+## 生命发生更改时发出。
 signal life_changed(new_life: int)
 ## 暂停游戏信号。
 signal pause_game()

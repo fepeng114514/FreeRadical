@@ -5,11 +5,11 @@ extends Node
 
 
 @warning_ignore_start("unused_signal")
-## 第一次释放波次信号。
+## 第一次释放波次时发出。
 signal first_release_wave
-## 释放波次信号。
+## 释放波次时发出。
 signal release_wave(wave_idx: int)
-## 开始波次计时信号。
+## 开始波次计时时发出。
 signal start_wave_timer(wave_idx: int)
 @warning_ignore_restore("unused_signal")
 
