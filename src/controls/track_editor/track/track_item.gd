@@ -91,7 +91,7 @@ func select() -> void:
 	is_draging = true
 	track_editor.select_item(self)
 	
-	track_editor.pointer.position.x = position.x
+	track_editor.pointer.offset_transform_position.x = position.x
 
 
 ## 擦除项。
@@ -106,7 +106,7 @@ func move(global_pos: Vector2) -> void:
 
 	apply_pos_delta(delta_x)
 	
-	track_editor.pointer.position.x = position.x
+	track_editor.pointer.offset_transform_position.x = position.x
 	last_global_x = global_position.x
 	track_editor.update_item_list()
 	track_editor.item_moved.emit(self)

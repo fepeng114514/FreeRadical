@@ -10,8 +10,7 @@ theme_override_constants/separation = 8
 script = ExtResource("1_sgm7p")
 label = NodePath("Label")
 
-[node name="Control" type="Control" parent="." unique_id=1235368073]
-custom_minimum_size = Vector2(4, 0)
+[node name="Spacer" type="Control" parent="." unique_id=1235368073]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="." unique_id=1183840553]

@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://dx0sdei05bcar" path="res://main/wave_editor/spawn_data/spawn_data_v_box_container.gd" id="11_js2tg"]
 [ext_resource type="Script" uid="uid://tso1upy4g2xc" path="res://main/wave_editor/track_editors/sub_wave_track_editor.gd" id="12_aioto"]
 [ext_resource type="Script" uid="uid://dk3qoxou362th" path="res://main/wave_editor/track_editors/spawn_track_editor.gd" id="13_shbln"]
+[ext_resource type="Script" uid="uid://blyax0v6khj0e" path="res://controls/v_scroll_container.gd" id="17_4866g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7okwi"]
 bg_color = Color(0.3281385, 0.3281385, 0.32813844, 1)
@@ -145,8 +146,8 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 4
 theme_override_icons/grabber = SubResource("GradientTexture2D_t5qyo")
-split_offsets = PackedInt32Array(-225)
-split_offset = -225
+split_offsets = PackedInt32Array(-350)
+split_offset = -350
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer" unique_id=167059648]
 layout_mode = 2
@@ -182,6 +183,7 @@ layout_mode = 2
 script = ExtResource("11_ca708")
 wave_editor = NodePath("../../../../../../../../..")
 hide_mouse_tool_bar = true
+multiple_track_enable = false
 
 [node name="SubWaveVBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/MarginContainer/TrackEditorVBoxContainer" unique_id=397520200]
 layout_mode = 2
@@ -203,7 +205,6 @@ wave_editor = NodePath("../../../../../../../../..")
 track_length = 100.0
 tick_spacing = 1.0
 hide_mouse_tool_bar = true
-multiple_track_enable = true
 
 [node name="SpawnVBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/MarginContainer/TrackEditorVBoxContainer" unique_id=382018817]
 layout_mode = 2
@@ -224,10 +225,13 @@ script = ExtResource("13_shbln")
 wave_editor = NodePath("../../../../../../../../..")
 tick_spacing = 1.0
 hide_mouse_tool_bar = true
+multiple_track_enable = false
 
-[node name="SpawnDataVScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer" unique_id=960852534]
+[node name="SpawnDataVScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer" unique_id=583330715]
 layout_mode = 2
 horizontal_scroll_mode = 0
+script = ExtResource("17_4866g")
+metadata/_custom_type_script = "uid://blyax0v6khj0e"
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer" unique_id=2119075742]
 layout_mode = 2

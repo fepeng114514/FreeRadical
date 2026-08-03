@@ -42,16 +42,22 @@ signal item_moved(item: TrackEditorTrackItem)
 @export var hide_mouse_tool_bar: bool = false:
 	set(v):
 		hide_mouse_tool_bar = v
-		if v and mouse_tool_bar:
-			_hide_mouse_tool_bar()
+		if mouse_tool_bar:
+			if v:
+				_hide_mouse_tool_bar()
+			else:
+				_show_mouse_tool_bar()
 
 @export_group("Multiple Track")
 ## 是否启用多轨道模式。
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var multiple_track_enable: bool = false:
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var multiple_track_enable: bool = true:
 	set(v):
 		multiple_track_enable = v
-		if not v and add_track_button:
-			_hide_add_track_button()
+		if add_track_button:
+			if v:
+				_hide_multiple_track_section()
+			else:
+				_show_multiple_track_section()
 
 @export_group("Ref")
 ## 轨道长度旋钮引用。
@@ -99,9 +105,13 @@ func _ready() -> void:
 	
 	if hide_mouse_tool_bar:
 		_hide_mouse_tool_bar()
+	else:
+		_show_mouse_tool_bar()
 
 	if not multiple_track_enable:
-		_hide_add_track_button()
+		_hide_multiple_track_section()
+	else:
+		_show_multiple_track_section()
 			
 	if Engine.is_editor_hint():
 		pass
@@ -268,8 +278,20 @@ func _hide_mouse_tool_bar() -> void:
 	mouse_tool_bar.visible = false
 
 
-func _hide_add_track_button() -> void:
+func _show_mouse_tool_bar() -> void:
+	mouse_tool_bar.visible = true
+
+
+func _hide_multiple_track_section() -> void:
 	add_track_button.visible = false
+	left_track_tool_bar.visible = false
+	right_track_tool_bar.visible = false
+
+
+func _show_multiple_track_section() -> void:
+	add_track_button.visible = true
+	left_track_tool_bar.visible = true
+	right_track_tool_bar.visible = true
 
 
 ## 显示轨道刻度。

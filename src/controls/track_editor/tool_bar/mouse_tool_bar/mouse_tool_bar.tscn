@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://oqqykk70js3y" path="res://controls/track_editor/tool_bar/mouse_tool_bar/mouse_tool_bar.gd" id="1_k2gt3"]
 [ext_resource type="Theme" uid="uid://b1ig1u5waxulw" path="res://main/wave_editor/theme.tres" id="1_v5whm"]
-[ext_resource type="Texture2D" uid="uid://db1onpn27dhox" path="res://assets/dpi_textures/godot_icons/tool_select.svg" id="3_3cqgi"]
-[ext_resource type="Texture2D" uid="uid://dglk76efmipgx" path="res://assets/dpi_textures/godot_icons/edit_key.svg" id="5_45gew"]
-[ext_resource type="Texture2D" uid="uid://bk2kow3dpmfsl" path="res://assets/dpi_textures/godot_icons/eraser.svg" id="6_pdir8"]
-[ext_resource type="Texture2D" uid="uid://dswlueim4nqof" path="res://assets/dpi_textures/godot_icons/tool_move.svg" id="7_3xhm3"]
-[ext_resource type="Texture2D" uid="uid://50mrqvxidlms" path="res://assets/dpi_textures/godot_icons/snap_grid.svg" id="8_45gew"]
+[ext_resource type="Texture2D" uid="uid://db1onpn27dhox" path="res://controls/track_editor/icons/tool_select.svg" id="3_3cqgi"]
+[ext_resource type="Texture2D" uid="uid://dglk76efmipgx" path="res://controls/track_editor/icons/edit_key.svg" id="5_45gew"]
+[ext_resource type="Texture2D" uid="uid://bk2kow3dpmfsl" path="res://controls/track_editor/icons/eraser.svg" id="6_pdir8"]
+[ext_resource type="Texture2D" uid="uid://dswlueim4nqof" path="res://controls/track_editor/icons/tool_move.svg" id="7_3xhm3"]
+[ext_resource type="Texture2D" uid="uid://50mrqvxidlms" path="res://controls/track_editor/icons/snap_grid.svg" id="8_45gew"]
 [ext_resource type="Script" uid="uid://cgr6yhj36myth" path="res://controls/track_editor/tool_bar/mouse_tool_bar/tool_button.gd" id="9_fqoka"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_7uqxx"]

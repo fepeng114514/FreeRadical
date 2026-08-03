@@ -11,8 +11,6 @@ var track_editor: TrackEditor = null
 
 
 func _gui_input(event: InputEvent) -> void:
-	track_editor.pointer.position.x = event.position.x
-
 	if track_editor.mouse_tool_bar.opened_tools & TrackEditorMouseToolButton.ToolFlag.EDIT:
 		if event.is_action_pressed("track_editor_click"):
 			_create_item(event)

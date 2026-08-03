@@ -1,30 +1,30 @@
-[gd_resource type="Resource" script_class="WaveGroup" format=3 uid="uid://duckkkjf0svrb"]
+[gd_resource type="Resource" script_class="WaveGroup" format=3]
 
-[ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://game/wave/wave_group.gd" id="1_ejpq0"]
-[ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://game/wave/wave.gd" id="2_hpjop"]
-[ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://game/wave/sub_wave.gd" id="3_7ur2r"]
-[ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://game/wave/wave_spawn.gd" id="4_178aa"]
+[ext_resource type="Script" path="res://game/wave/wave_group.gd" id="1_ejpq0"]
+[ext_resource type="Script" path="res://game/wave/wave.gd" id="2_hpjop"]
+[ext_resource type="Script" path="res://game/wave/sub_wave.gd" id="3_7ur2r"]
+[ext_resource type="Script" path="res://game/wave/wave_spawn.gd" id="4_178aa"]
 
-[sub_resource type="Resource" id="Resource_yfae4"]
+[sub_resource type="Resource" id="Resource_ljiut"]
 script = ExtResource("4_178aa")
-entity = "uid://b8mw5gsptj8n1"
+entity = "uid://baq6wqur2i2wc"
 pathway_idx = 0
 spawn_interval = 0.5
 count = 50
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
-[sub_resource type="Resource" id="Resource_h6j8q"]
+[sub_resource type="Resource" id="Resource_3xfhy"]
 script = ExtResource("3_7ur2r")
-spawn_list = Array[ExtResource("4_178aa")]([SubResource("Resource_yfae4")])
+spawn_list = Array[ExtResource("4_178aa")]([SubResource("Resource_ljiut")])
 metadata/_custom_type_script = "uid://sexo7n8p0jrb"
 
-[sub_resource type="Resource" id="Resource_r4rcb"]
+[sub_resource type="Resource" id="Resource_yfae4"]
 script = ExtResource("2_hpjop")
 interval = 0.0
-sub_wave_list = Array[ExtResource("3_7ur2r")]([SubResource("Resource_h6j8q")])
+sub_wave_list = Array[ExtResource("3_7ur2r")]([SubResource("Resource_3xfhy")])
 metadata/_custom_type_script = "uid://b1twtcymtb7c1"
 
 [resource]
 script = ExtResource("1_ejpq0")
-wave_list = Array[ExtResource("2_hpjop")]([SubResource("Resource_r4rcb")])
+wave_list = Array[ExtResource("2_hpjop")]([SubResource("Resource_yfae4")])
 metadata/_custom_type_script = "uid://okpyko8fvmx4"
