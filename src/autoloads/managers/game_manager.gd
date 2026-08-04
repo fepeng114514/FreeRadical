@@ -37,11 +37,13 @@ var defaul_tower_holder: String = ""
 
 func pause_game() -> void:
 	is_paused = true
+	get_tree().paused = true
 	paused.emit()
 
 	
 func resume_game() -> void:
 	is_paused = false
+	get_tree().paused = false
 	resumed.emit()
 	
 	
