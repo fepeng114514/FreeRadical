@@ -55,7 +55,8 @@ func _clear() -> void:
 	space_index_grid_list.clear()
 	
 
-## 搜索范围内目标，filter 返回 false 表示被过滤。
+## 搜索范围内目标。[br][br]
+## [param filter]: 过滤函数。返回 [code]false[/code] 表示被过滤。
 func find_targets_in_range(
 		origin: Vector2,
 		max_range: float,

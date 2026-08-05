@@ -20,11 +20,6 @@ var _drag_start_position := Vector2.ZERO
 
 
 func _ready() -> void:
-	limit_left = 0
-	limit_top = 0
-	limit_right = 2560
-	limit_bottom = 1440
-	
 	if Engine.is_editor_hint():
 		pass
 	else:

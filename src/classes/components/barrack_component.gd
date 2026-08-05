@@ -18,12 +18,11 @@ class_name BarrackComponent
 	set(v): 
 		rally_max_range = v
 		U.redraw_setter(self)
+## 默认集结点。
+@export var default_rally_center_local_pos := Vector2.ZERO
 ## 集结点位置。
-@export var rally_center_position := Vector2.ZERO:
-	set(v): 
-		rally_center_position = v
-		U.redraw_setter(self)
-## 集结点半径。
+@export var rally_center_position := Vector2.ZERO
+## 集结点半径，影响士兵与集结点之间的距离。
 @export var rally_radius: float = 30.0
 ## 集结音效组。
 @export var rally_sfx: AudioGroup = null

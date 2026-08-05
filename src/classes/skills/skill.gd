@@ -8,7 +8,7 @@ class_name Skill
 
 ## 是否禁用技能。
 @export var disabled: bool = false
-## 技能冷却时间。
+## 技能冷却时间（秒）。
 @export var cooldown: float = 1.0
 ## 技能冷却时间补偿比例，用于意外情况下被中断释放技能时减少重新冷却的时间。
 @export var compensate_cooldown_percent: float = 0.0

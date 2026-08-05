@@ -23,31 +23,31 @@ var dist_squared: float = 0.0
 var intersecting_node_idx_list: Array[int] = []
 
 
-## [method PathwayMgr.get_subpath] 的简写，已传递 pi, spi
+## [method PathwayMgr.get_subpath] 的简写，已传递 [param pi], [param spi]
 func get_subpath() -> Path2D:
 	return PathwayMgr.get_subpath(pi, spi)
 
 
-## [method PathwayMgr.get_ratio] 的简写，已传递 pi, spi
+## [method PathwayMgr.get_ratio] 的简写，已传递 [param pi], [param spi]
 func get_ratio(pro: float = progress) -> float:
 	return PathwayMgr.get_ratio(pi, spi, pro)
 	
 
-## [method PathwayMgr.get_ratio_pos] 的简写，已传递 pi, spi
+## [method PathwayMgr.get_ratio_pos] 的简写，已传递 [param pi], [param spi]
 func get_ratio_pos(r: float = ratio) -> Vector2:
 	return PathwayMgr.get_ratio_pos(pi, spi, r)
 	
 
-## [method PathwayMgr.get_progress_pos] 的简写，已传递 pi, spi
+## [method PathwayMgr.get_progress_pos] 的简写，已传递 [param pi], [param spi]
 func get_progress_pos(pro: float = progress) -> Vector2:
 	return PathwayMgr.get_progress_pos(pi, spi, pro)
 
 
-## [method PathwayMgr.get_progress_by_ratio] 的简写，已传递 pi, spi
+## [method PathwayMgr.get_progress_by_ratio] 的简写，已传递 [param pi], [param spi]
 func get_progress_by_ratio(r: float = ratio) -> float:
 	return PathwayMgr.get_progress_by_ratio(pi, spi, r)
 
 
-## [method PathwayMgr.get_pathway_node] 的简写，已传递 nav_pi, nav_spi
+## [method PathwayMgr.get_pathway_node] 的简写，已传递 [param nav_pi], [param nav_spi]
 func get_pathway_node(node_idx: int = ni) -> PathwayNode:
 	return PathwayMgr.get_pathway_node(pi, spi, node_idx)

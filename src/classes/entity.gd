@@ -126,11 +126,13 @@ func _draw() -> void:
 
 
 @warning_ignore_start("unused_parameter")
-## 插入实体时调用，返回 false 的实体将会被移除
+## 插入实体时调用。[br][br]
+## -> 是否不移除实体。返回 [code]false[/code] 的实体将会被移除
 func _on_insert() -> bool: return true
 
 
-## 移除实体时调用，返回 false 的实体将不会被移除
+## 移除实体时调用。[br][br]
+## -> 是否移除实体。
 func _on_remove() -> bool: return true
 
 
@@ -158,17 +160,17 @@ func _on_arrived_rally(rally_c: RallyComponent) -> void: pass
 func _on_damage(damage: Damage) -> void: pass
 	
 
-## 实体死亡时调用
-## 
-## 返回 true 表示跳过后续自动移除实体等死亡逻辑
+## 实体死亡时调用。[br][br]
+## -> 是否跳过后续自动移除实体等死亡逻辑。
 func _on_death() -> bool: return false
-	
+		
 
 ## 杀死其他实体时调用
 func _on_kill(target: Entity) -> void: pass
 	
 
-## 兵营生成士兵时调用，返回 false 不生成士兵
+## 兵营生成士兵时调用。[br][br]
+## -> 是否生成士兵。
 func _on_barrack_respawn(soldier: Entity, barrack_c: BarrackComponent) -> bool: return true
 
 
@@ -255,9 +257,9 @@ func is_waiting() -> bool:
 	return state & (Entity.State.BLOCK | Entity.State.WAITING | Entity.State.DISABLED)
 
 
-## 协程等待
-##
-## break_fn 返回 true 表示中断等待，返回值表示是否中断等待
+## 协程等待指定时长。[br][br]
+## [param break_fn]: 中断函数。返回 [code]true[/code] 表示中断等待。
+## -> 等待是否被中断。
 func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 	state |= Entity.State.WAITING
 
@@ -488,9 +490,9 @@ func get_animation_remaining_time(animation_group: AnimationGroup) -> float:
 	return get_frames_remaining(play_target) / sprite_frames.get_animation_speed(animation_name)
 
 
-## 协程等待动画播放完成
-##
-## break_fn 返回 true 表示中断等待，返回值表示是否中断等待
+## 协程等待动画播放完成。[br]
+## [param break_fn] 中断函数。返回 [code]true[/code] 表示中断等待。
+## -> 等待是否被中断。
 func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Callable()) -> bool:
 	if not animation_group:
 		return false

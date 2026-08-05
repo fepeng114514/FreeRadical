@@ -67,7 +67,7 @@ enum SearchGroup {
 @export var max_search: int = C.UNSET
 ## 排序模式。
 @export var sort_mode: SortMode = SortMode.PROGRESS
-## 是否反转排序，默认最大在前，为 true 时最小在前。
+## 是否反转排序，默认最大在前，为 [code]true[/code] 时最小在前。
 @export var sort_reversed: bool = false
 ## 搜索组。
 @export var search_group: SearchGroup = SearchGroup.ENEMY

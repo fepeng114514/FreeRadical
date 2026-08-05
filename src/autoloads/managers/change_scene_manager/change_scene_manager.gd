@@ -28,6 +28,7 @@ func _process(_delta: float):
 			process_mode = Node.PROCESS_MODE_DISABLED
 			
 			var packed_scene: PackedScene = ResourceLoader.load_threaded_get(_target_scene_path)
+			Log.debug("切换场景: %s\n" % ResourceUID.uid_to_path(_target_scene_path))
 			get_tree().change_scene_to_packed(packed_scene)
 			loading_finished.emit()
 			

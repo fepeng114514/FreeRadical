@@ -47,8 +47,9 @@ static func get_radial_falloff(
 	return min_value + dv * (1 - ring_dist / ring_radius)
 	
 	
-## 计算点在指定方向和距离上的另一点。
-static func get_point_on_circle(point: Vector2, radius: float, angle: float = 0.0) -> Vector2:
+## 计算点在指定角度和半径上的另一点。[br][br]
+## [param angle] 角度（弧度）。
+static func get_point_on_circle(point: Vector2, radius: float, angle: float) -> Vector2:
 	var dir: Vector2 = Vector2.from_angle(angle)
 	var d: Vector2 = dir * radius
 		
@@ -79,9 +80,24 @@ static func is_in_ellipse(
 	var dx: float = point.x - center.x
 	var dy: float = point.y - center.y
 	
-	var value = (dx / a) ** 2 + (dy / b) ** 2
+	var value: float = (dx / a) ** 2 + (dy / b) ** 2
 	
 	return value <= 1
+
+
+## 判断点是否位于椭圆环内。
+static func is_in_ellipse_ring(
+		center: Vector2, point: Vector2, min_radius: float, max_radius: float, aspect: float = 0.7
+	) -> bool:
+	var is_in_max_radius: bool = U.is_in_ellipse(center, point, max_radius, aspect)
+
+	if min_radius <= 0:
+		return is_in_max_radius
+
+	return (
+		is_in_max_radius
+		and not U.is_in_ellipse(center, point, min_radius, aspect)
+	)
 
 
 ## 计算根据点与椭圆的距离衰减的因子。
@@ -108,9 +124,10 @@ static func get_ellipse_radial_falloff(
 	return (v_len - me_len) / (e_len - me_len)
 
 
-## 计算点在指定方向和距离上椭圆空间的另一个点。
+## 计算点在指定角度和距离上椭圆空间的另一个点。[br][br]
+## [param angle] 角度（弧度）。
 static func get_point_on_ellipse(
-		point: Vector2, radius: float, angle: float = 0.0, aspect: float = 0.7
+		point: Vector2, radius: float, angle: float, aspect: float = 0.7
 	) -> Vector2:
 	var a: float = radius
 	var b: float = radius * aspect
@@ -197,7 +214,7 @@ static func is_at_destination(
 	return current_pos.distance_to(target_pos) <= threshold
 
 
-## 根据角度获取四方向中的一个（上/下/左/右）。
+## 根据角度获取上/下/左/右四方向中的一个，见 [enum C.Direction]。
 static func get_cardinal_direction(angle: float) -> C.Direction:
 	var quarter_45: float = C.QUARTER_PI
 
@@ -213,8 +230,7 @@ static func get_cardinal_direction(angle: float) -> C.Direction:
 	return C.Direction.LEFT
 
 
-## 根据目标点相对于中心点的位置获取象限方向。[br]
-## 返回值是方向位掩码组合，可能包含多个方向（如右上 = UP | RIGHT）
+## 根据目标点相对于中心点的位置获取象限方向，见 [enum C.Direction]。
 static func get_quadrant_direction(center: Vector2, point: Vector2) -> C.Direction:
 	var direction: int = C.Direction.NONE
 
@@ -357,7 +373,7 @@ static func deepclone(value: Variant) -> Variant:
 	return value
 
 
-## 深合并字典, source 的键值会覆盖或合并到 target。
+## 深合并字典。
 static func deepmerge_dict(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> void:
@@ -376,7 +392,7 @@ static func deepmerge_dict(
 		target[key] = source_value
 		
 		
-## 创建新字典并深合并字典, source 的键值会覆盖或合并到 target。
+## 创建新字典并深合并字典。
 static func deepmerge_dict_new(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> Dictionary:
@@ -385,7 +401,7 @@ static func deepmerge_dict_new(
 	return result
 
 
-## 浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
+## 浅合并数组。
 static func merge_array(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
@@ -403,7 +419,7 @@ static func merge_array(
 		target[i] = mv
 	
 	
-## 创建新数组并浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
+## 创建新数组并浅合并数组。
 static func merge_array_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
@@ -412,7 +428,7 @@ static func merge_array_new(
 	return result
 		
 		
-## 深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
+## 深合并数组。
 static func deepmerge_array(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
@@ -430,7 +446,7 @@ static func deepmerge_array(
 		target[i] = mv
 
 
-## 创建新数组并深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
+## 创建新数组并深合并数组。
 static func deepmerge_array_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
@@ -439,7 +455,7 @@ static func deepmerge_array_new(
 	return result
 	
 	
-## 递归浅合并字典, source 的键值会覆盖或合并到 target。
+## 递归浅合并字典。
 static func merge_dict_recursive(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> void:
@@ -470,7 +486,7 @@ static func merge_dict_recursive(
 		target[key] = source_value
 		
 		
-## 创建新字典并递归浅合并两个字典, source 的键值会覆盖或合并到 target。
+## 创建新字典并递归浅合并两个字典。
 static func merge_dict_recursive_new(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> Dictionary:
@@ -479,7 +495,7 @@ static func merge_dict_recursive_new(
 	return result
 
 
-## 递归深合并字典, source 的键值会覆盖或合并到 target。
+## 递归深合并字典。
 static func deepmerge_dict_recursive(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> void:
@@ -510,7 +526,7 @@ static func deepmerge_dict_recursive(
 		target[key] = source_value
 		
 		
-## 创建新字典并递归深合并两个字典, source 的键值会覆盖或合并到 target。
+## 创建新字典并递归深合并两个字典。
 static func deepmerge_dict_recursive_new(
 		target: Dictionary, source: Dictionary, overwrite: bool = true
 	) -> Dictionary:
@@ -519,7 +535,7 @@ static func deepmerge_dict_recursive_new(
 	return result
 
 
-## 递归浅合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
+## 递归浅合并数组。
 static func merge_array_recursive(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
@@ -550,7 +566,7 @@ static func merge_array_recursive(
 		target[i] = source_value
 
 
-## 创建新数组并递归浅合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
+## 创建新数组并递归浅合并两个数组。
 static func merge_array_recursive_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
@@ -559,7 +575,7 @@ static func merge_array_recursive_new(
 	return result
 	
 	
-## 递归深合并数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
+## 递归深合并数组。
 static func deepmerge_array_recursive(
 		target: Array, source: Array, overwrite: bool = true
 	) -> void:
@@ -590,7 +606,7 @@ static func deepmerge_array_recursive(
 		target[i] = source_value
 
 
-## 创建新数组并递归深合并两个数组, 按索引合并，source 的元素会合并到 target 对应索引, 如果 source 更长，多出的元素会追加到 target。
+## 创建新数组并递归深合并两个数组。
 static func deepmerge_array_recursive_new(
 		target: Array, source: Array, overwrite: bool = true
 	) -> Array:
@@ -614,12 +630,12 @@ static func is_valid_entity(e) -> bool:
 
 
 #region 位运算相关方法
-## 判断 flags 是否被禁止掩码禁止。
+## 判断标识掩码是否被禁止掩码禁止。
 static func is_banned(flags: int, bans: int) -> bool:
 	return flags & bans
 
 
-## 判断双向禁止：flags1 被 bans2 禁止，或 flags2 被 bans1 禁止。
+## 判断标识掩码是否双向被禁止掩码禁止。
 static func is_mutual_banned(flags1: int, bans1: int, flags2: int, bans2: int) -> bool:
 	return is_banned(flags1, bans1) or is_banned(flags2, bans2)
 
@@ -646,36 +662,74 @@ static func pick_random(array: Array) -> Variant:
 
 
 #region 绘制相关方法
-
-
-## 绘制范围圆。
+## 绘制范围圆，包含最小范围和最大范围的填充圆。[br][br]
+## [param position] 为局部空间位置。[br]
+## [param width] 为轮廓的宽度。
 static func draw_range_circle(
 		drawer: CanvasItem, 
 		position: Vector2, 
 		min_range: float, 
 		max_range: float, 
-		color := Color.GREEN,
-		width: float = 1,
-		alpha: float = 0.2
+		color := Color(0, 1, 0, 0.2),
+		width: float = 3
 	) -> void:
-	var filled_color: Color = Color(color.r, color.g, color.b, color.a * alpha)
-	var drawed_ranges: Array[float] = [
+	var range_list := PackedFloat32Array([
 		min_range,
 		max_range
-	]
+	])
 
-	for r: float in drawed_ranges:
+	for radius: float in range_list:
+		# 绘制轮廓
 		drawer.draw_circle(
 			position, 
-			r,
+			radius,
 			color, 
 			false,
 			width
 		)
+		# 绘制填充圆
 		drawer.draw_circle(
 			position, 
-			r,
-			filled_color, 
+			radius,
+			color, 
+		)
+
+
+## 绘制范围椭圆，包含最小范围和最大范围的填充椭圆。[br][br]
+## [param position] 为局部空间位置。[br]
+## [param color] 为椭圆轮廓与填充的颜色。[br]
+## [param width] 为椭圆轮廓的宽度。
+static func draw_range_ellipse(
+		drawer: CanvasItem, 
+		position: Vector2, 
+		min_range: float, 
+		max_range: float, 
+		color := Color(0, 1, 0, 0.2),
+		width: float = 3,
+		aspect: float = 0.7
+	) -> void:
+	var range_list := PackedFloat32Array([
+		min_range,
+		max_range
+	])
+	
+	for radius: float in range_list:
+		var minor: float = radius * aspect
+		# 绘制轮廓
+		drawer.draw_ellipse(
+			position, 
+			radius,
+			minor, 
+			color,
+			false,
+			width
+		)
+		# 绘制填充椭圆
+		drawer.draw_ellipse(
+			position, 
+			radius,
+			minor, 
+			color
 		)
 #endregion
 

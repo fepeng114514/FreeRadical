@@ -19,11 +19,11 @@ class_name HealthComponent
 @export var poison_armor: float = 0.0
 ## 回血。
 @export var regen_hp: float = 0.0
-## 回血冷却。
+## 回血冷却（秒）。
 @export var regen_cooldown: float = C.UNSET
 ## 待机回血。
 @export var idle_regen_hp: float = 0.0
-## 待机回血冷却。
+## 待机回血冷却（秒）。
 @export var idle_regen_cooldown: float = C.UNSET
 ## 伤害抗性，可以百分比减少受到的伤害。
 @export var damage_resistance: float = 0.0

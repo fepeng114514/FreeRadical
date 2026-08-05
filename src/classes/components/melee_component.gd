@@ -5,8 +5,8 @@ class_name MeleeComponent
 ## 近战组件
 ##
 ## MeleeComponent 可以使实体拥有近战技能与拦截的能力，每个近战近战以 [MeleeSkill] 资源子节点的形式存在。[br][br]
-## 若 [member is_blocker] 为 true 作为拦截者：搜索并标记被拦截者，前往第一个被拦截者的近战位置。[br]
-## 若 [member is_blocker] 为 false 作为被拦截者：如果是第一个被拦截等待拦截者到达近战位置，如果拦截者的 [member is_passive] 为 true 则主动前往拦截者的近战位置。
+## 若 [member is_blocker] 为 [code]true[/code] 作为拦截者：搜索并标记被拦截者，前往第一个被拦截者的近战位置。[br]
+## 若 [member is_blocker] 为 [code]false[/code] 作为被拦截者：如果是第一个被拦截等待拦截者到达近战位置，如果拦截者的 [member is_passive] 为 [code]true[/code] 则主动前往拦截者的近战位置。
 
 
 ## 近战状态枚举

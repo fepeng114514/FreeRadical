@@ -38,10 +38,6 @@ func _clear() -> void:
 	
 
 ## 插入路径。
-## 
-## 路径索引会自动递增
-## 
-## 路径上的节点会自动添加到所有节点列表中
 func insert_pathway(p: Pathway) -> void:
 	p.idx = next_pi
 	next_pi += 1
@@ -94,9 +90,8 @@ func get_random_pi() -> int:
 	return randi_range(0, get_pathway_count() - 1)
 
 
-## 获取指定路径上的随机子路径。
-## 
-## 若不指定路径索引将会在随机路径上获取
+## 获取指定路径上的随机子路径。[br][br]
+## [param pi]: 路径索引。路径索引为 -1 时获取随机路径。
 func get_random_sub_pathway(pi: int = C.UNSET) -> SubPathway:
 	if not U.is_valid_number(pi):
 		pi = get_random_pi()
@@ -162,25 +157,26 @@ func predict_target_pos(target: Entity, predict_time: float) -> Vector2:
 		)
 	
 	return predict_pos
-
+	
 
 ## 获取指定路径上按距离排序的节点列表。[br][br]
-## 可指定搜索的路径与子路径，不指定将会在所有路径搜索。[br][br]
-## [b]注意：[/b]为了性能考虑，如果确定只需要一个最近节点，建议使用 [method get_nearst_node]。
+## [param pi_list]: 路径索引列表。默认搜索所有路径。[br]
+## [param spi_list]: 子路径索引列表。默认搜索所有子路径。[br][br]
+## [b]注意[/b]: 为了性能考虑，如果只需要一个最近节点，建议使用 [method get_nearst_node]。
 func get_nearst_node_list(
 		origin: Vector2, 
-		pi_l: Array = range(get_pathway_count()), 
-		spi_l: Array = range(sub_pathway_count),
+		pi_list: Array = range(get_pathway_count()), 
+		spi_list: Array = range(sub_pathway_count),
 		valid_only: bool = true
 	) -> Array[PathwayNode]:
 	var node_list: Array[PathwayNode] = []
 
-	for pi: int in pi_l:
+	for pi: int in pi_list:
 		if valid_only and not get_pathway(pi).is_disabled():
 			Log.debug("路径 %s 已被禁用" % pi)
 			continue
 
-		for spi: int in spi_l:
+		for spi: int in spi_list:
 			var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
 
 			for node: PathwayNode in sub_pathway.node_list:
@@ -197,25 +193,21 @@ func get_nearst_node_list(
 	
 
 ## 获取最近的路径上的一个节点。[br][br]
-## 可指定搜索的路径、子路径，不指定将会在所有路径搜索。
+## [param pi_list]: 路径索引列表。默认搜索所有路径。[br]
+## [param spi_list]: 子路径索引列表。默认搜索所有子路径。
 func get_nearst_node(
 		origin: Vector2, 
-		pi_l: Array = [], 
-		spi_l: Array = [],
+		pi_list: Array = range(get_pathway_count()), 
+		spi_list: Array = range(sub_pathway_count),
 		valid_only: bool = true
 	) -> PathwayNode:
-	if not pi_l:
-		pi_l = range(get_pathway_count())
-	if not spi_l:
-		spi_l = range(sub_pathway_count)
-
 	var nearst_node: PathwayNode = null
 	
-	for pi: int in pi_l:
+	for pi: int in pi_list:
 		if valid_only and not get_pathway(pi).is_disabled():
 			continue
 		
-		for spi: int in spi_l:
+		for spi: int in spi_list:
 			var sub_pathway: SubPathway = get_sub_pathway(pi, spi)
 			
 			for node: PathwayNode in sub_pathway.node_list:

@@ -3,7 +3,7 @@ class_name WaveSpawn
 ## 生成组资源。
 
 
-## 生成下一个实体间隔，单位为秒。
+## 生成下一个实体间隔（秒）。
 @export var interval: float = 1.0
 ## 生成的实体场景路径。
 @export_file("*.tscn") var entity: String = ""

@@ -88,12 +88,11 @@ func _process_remove_queue() -> void:
 
 
 ## 调用所有系统中的指定回调函数。
-## 
-## 如果遇到一个返回 false 的系统则直接返回。
 func call_systems(fn_name: String, arg) -> bool:
 	for system: System in system_container.get_children():
 		var system_func = system.get(fn_name)
 
+		# 遇到返回 false 的系统直接返回 false
 		if not system_func.call(arg):
 			return false
 
