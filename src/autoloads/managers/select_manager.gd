@@ -72,7 +72,7 @@ func try_select() -> void:
 					return false
 				
 				return ui_c.is_click_at(
-					entity.global_position, 
+					entity.global_position,
 					InputMgr.mouse_global_position
 				)
 		)
@@ -113,35 +113,35 @@ func _process_select_mode() -> void:
 			)
 			rally_c.new_rally_position(InputMgr.mouse_global_position, true)
 		SelectMode.BARRACK_RALLY:
+			var e_global_pos: Vector2 = selected_entity.global_position
+			var mouse_global_pos: Vector2 = InputMgr.mouse_global_position
 			var barrack_c: BarrackComponent = selected_entity.get_node_or_null(
 				C.CN_BARRACK
 			)
-			var to_mouse_dist: float = selected_entity.global_position.distance_to(
-				InputMgr.mouse_global_position
-			)
-
-			if (
-					to_mouse_dist <= barrack_c.rally_max_range
-					and to_mouse_dist >= barrack_c.rally_min_range
-				):
-				barrack_c.set_rally_center_position(InputMgr.mouse_global_position, true)
+			var rally_max_range: float = barrack_c.rally_max_range
+			var rally_min_range: float = barrack_c.rally_min_range
+	
+			if U.is_in_ellipse_ring(
+				e_global_pos,
+				mouse_global_pos,
+				rally_max_range,
+				rally_min_range
+			):
+				barrack_c.set_rally_center_position(mouse_global_pos, true)
 			else:
-				var direction_to: Vector2 = selected_entity.global_position.direction_to(
-						InputMgr.mouse_global_position
-					) 
+				var angle: float = e_global_pos.angle_to_point(mouse_global_pos)
 				
-				var rally_center_position := Vector2.ZERO
-				if to_mouse_dist >= barrack_c.rally_max_range:
-					rally_center_position = (
-						direction_to
-						* barrack_c.rally_max_range 
-						+ selected_entity.global_position
-					)
+				var rally_center_position: Vector2 = e_global_pos
+				if U.is_in_ellipse(
+					e_global_pos,
+					mouse_global_pos,
+					rally_min_range
+				):
+					rally_center_position = U.get_point_on_ellipse(e_global_pos, rally_min_range, angle)
 				else:
-					rally_center_position = (
-						direction_to
-						* barrack_c.rally_min_range 
-						+ selected_entity.global_position
+					rally_center_position = U.get_point_on_ellipse(
+						e_global_pos,
+						rally_max_range,
+						angle
 					)
-					
 				barrack_c.set_rally_center_position(rally_center_position, true)

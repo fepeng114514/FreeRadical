@@ -53,7 +53,10 @@ func _on_update(e: Entity) -> bool:
 func _spawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent
 	) -> Entity:
+
 	var soldier: Entity = EntityMgr.create_entity(barrack_c.soldier)
+	soldier.source_id = barrack.id
+	soldier.source_type = Entity.SourceType.BARRACK_SOLDIER
 	soldier.entity_removed.connect(_on_soldier_removed.bind(barrack_c))
 
 	var barrack_global_pos: Vector2 = barrack.global_position

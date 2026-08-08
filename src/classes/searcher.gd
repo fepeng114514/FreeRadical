@@ -182,11 +182,11 @@ func search_targets_in_rectangle(
 ## 绘制搜索范围。
 func draw(drawer: CanvasItem, center: Vector2) -> void:
 	if center_offsets:
-		U.draw_range_circle(drawer, center + center_offsets.right, min_radius, max_radius)
+		U.draw_range_ellipse(drawer, center + center_offsets.right, min_radius, max_radius)
 
 		OffsetGroup.draw_offset_group(drawer, center_offsets)
 	else:
-		U.draw_range_circle(drawer, center, min_radius, max_radius)
+		U.draw_range_ellipse(drawer, center, min_radius, max_radius)
 
 
 ## 跳过已死亡目标过滤器。

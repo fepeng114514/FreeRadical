@@ -145,7 +145,7 @@ func cleanup_melee_relations(e: Entity) -> void:
 			if not U.is_valid_entity(blocked) :
 				continue 
 				
-			if not U.is_in_ring(
+			if not U.is_in_ellipse_ring(
 					center, blocked.global_position, searcher.min_radius, searcher.max_radius
 				):
 				continue

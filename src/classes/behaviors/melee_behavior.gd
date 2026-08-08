@@ -280,5 +280,5 @@ func _try_melee_attack(
 		if not skill.can_do(e, target):
 			continue
 
-		skill._do_skill(e, target)
+		skill._use_skill(e, target)
 		break

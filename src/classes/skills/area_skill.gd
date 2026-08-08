@@ -1,5 +1,5 @@
 @tool
-extends Skill
+extends SearchSkill
 class_name AreaSkill
 ## 范围技能节点。
 ##
@@ -8,7 +8,7 @@ class_name AreaSkill
 ## 相当于对 [Influence] 封装了一个搜索目标的机制，以搜索到的第一个目标为中心造成影响。
 
 
-## 搜索资源，用于搜索目标，如果设置了该资源，将会以搜索到的第一个目标为中心造成影响。
+## 搜索资源，用于搜索目标，如果不设置该资源，将会以释放者的位置为中心造成影响。
 @export var searcher: Searcher = null:
 	set(v): 
 		searcher = v
@@ -34,13 +34,12 @@ func _draw() -> void:
 			influence.draw(self, position)
 		
 		
-func _do_skill(e: Entity, target: Entity = null) -> void:
+func _use_skill(e: Entity, target: Entity = null) -> void:
 	if searcher:
-		target = searcher.search_target(e.global_position, e)
+		target = searcher.search_target(get_search_center(e), e)
 		if not target:
 			return
 	
-	if target:
 		e.look_point = target.global_position
 	start_cooldown(e)
 
@@ -50,16 +49,16 @@ func _do_skill(e: Entity, target: Entity = null) -> void:
 		compensate_cooldown(e)
 		return
 
-	if searcher and not target:
-		target = searcher.search_target(e.global_position, e)
+	if searcher:
 		if not target:
-			compensate_cooldown(e)
-			return
-
-	if not searcher:
+			target = searcher.search_target(get_search_center(e), e)
+			if not target:
+				compensate_cooldown(e)
+				return
+		
 		influence.take_influence(e, target, target.global_position)
 	else:
-		influence.take_influence(e, target, e.global_position)
+		influence.take_influence(e, e, e.global_position)
 
 	if await e.y_wait_animation(animation):
 		return

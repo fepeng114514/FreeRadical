@@ -14,8 +14,8 @@ func _on_update(e: Entity) -> bool:
 		var skill: Skill = skill_c.get_child(i)
 		if not skill.can_do(e):
 			continue
-			
-		skill._do_skill(e)
+		
+		skill._use_skill(e)
 
 		return true
 			

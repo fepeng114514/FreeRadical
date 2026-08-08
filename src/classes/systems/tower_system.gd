@@ -12,6 +12,7 @@ func _on_insert(e: Entity) -> bool:
 		
 	for child: Entity in tower_c.get_children():
 		child.source_id = e.id
+		child.source_type = Entity.SourceType.TOWER_SHOOTER
 		EntityMgr.setup_entity(child)
 		child.insert_entity()
 		

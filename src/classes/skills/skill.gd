@@ -54,7 +54,7 @@ func can_do(e: Entity, target: Entity = null) -> bool:
 
 
 ## 释放技能。
-func _do_skill(e: Entity, target: Entity = null) -> void: pass
+func _use_skill(e: Entity, target: Entity = null) -> void: pass
 @warning_ignore_restore("unused_parameter")
 
 

@@ -1,5 +1,5 @@
 @tool
-extends Skill
+extends SearchSkill
 class_name SpawnSkill
 ## 生成实体技能节点。
 ##
@@ -13,13 +13,11 @@ class_name SpawnSkill
 	set(v): 
 		spawn_offsets = v
 		U.resource_redraw_setter(self, spawn_offsets)
-## 搜索资源，用于搜索目标，如果设置了该资源，实体将会生成到搜索到的第一个目标的位置。
+## 搜索资源，用于搜索目标，如果不设置该资源，实体将会生成到释放者的位置。
 @export var searcher: Searcher = null:
 	set(v): 
 		searcher = v
 		U.resource_redraw_setter(self, searcher)
-## 是否搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
-@export var search_target_pos: bool = false
 
 
 func _ready() -> void:
@@ -36,13 +34,12 @@ func _draw() -> void:
 		OffsetGroup.draw_offset_group(self, spawn_offsets)
 
 
-func _do_skill(e: Entity, target: Entity = null) -> void:
-	if not target and searcher:
-		target = searcher.search_target(e.global_position, e)
+func _use_skill(e: Entity, target: Entity = null) -> void:
+	if searcher:
+		target = searcher.search_target(get_search_center(e), e)
 		if not target:
 			return
 			
-	if target:
 		e.look_point = target.global_position
 	start_cooldown(e)
 		
@@ -53,13 +50,13 @@ func _do_skill(e: Entity, target: Entity = null) -> void:
 		return
 
 	if searcher and not target:
-		target = searcher.search_target(e.global_position, e)
+		target = searcher.search_target(get_search_center(e), e)
 		if not target:
 			compensate_cooldown(e)
 			return
 
 	var e_global_pos: Vector2 = e.global_position
-	var spawn_pos: Vector2 = target.global_position if search_target_pos else e_global_pos
+	var spawn_pos: Vector2 = target.global_position if searcher else e_global_pos
 	if spawn_offsets:
 		var spawn_offset: Vector2 = spawn_offsets.get_offset_for_point(e_global_pos, e.look_point)
 		spawn_pos += spawn_offset

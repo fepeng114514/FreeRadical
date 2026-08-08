@@ -88,7 +88,7 @@ func find_targets_in_range(
 				if interact_p and U.is_mutual_banned(interact_p.flags, bans, flags, interact_p.bans):
 					continue
 				
-				if not U.is_in_ring(origin, e.global_position, min_range, max_range):
+				if not U.is_in_ellipse_ring(origin, e.global_position, min_range, max_range):
 					continue
 					
 				if filter.is_valid() and not filter.call(e):

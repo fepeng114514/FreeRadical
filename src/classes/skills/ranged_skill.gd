@@ -1,5 +1,5 @@
 @tool
-extends Skill
+extends SearchSkill
 class_name RangedSkill
 ## 单次远程技能节点。
 ##
@@ -60,11 +60,10 @@ func _draw() -> void:
 		OffsetGroup.draw_offset_group(self, bullet_offsets)
 
 
-func _do_skill(e: Entity, target: Entity = null) -> void:
+func _use_skill(e: Entity, target: Entity = null) -> void:
+	target = searcher.search_target(get_search_center(e), e)
 	if not target:
-		target = searcher.search_target(e.global_position, e)
-		if not target:
-			return
+		return
 		
 	e.look_point = target.global_position
 	start_cooldown(e)
@@ -76,18 +75,18 @@ func _do_skill(e: Entity, target: Entity = null) -> void:
 		return
 
 	if not target:
-		target = searcher.search_target(e.global_position, e)
+		target = searcher.search_target(get_search_center(e), e)
 		if not target:
 			compensate_cooldown(e)
 			return
 
-	spawn_bullets(e, target)
+	_spawn_bullets(e, target)
 
 	await e.y_wait_animation(animation)
 
 
 ## 生成子弹。
-func spawn_bullets(
+func _spawn_bullets(
 		e: Entity, 
 		target: Entity
 	) -> void:

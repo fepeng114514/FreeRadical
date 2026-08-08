@@ -3,7 +3,7 @@ extends Component
 class_name BarrackComponent
 ## 兵营组件。
 ##
-## BarrackComponent 可以使实体生成士兵并管理士兵列表。
+## BarrackComponent 可以使实体生成士兵，同时也可以管理士兵列表。
 
 
 ## 是否禁用。
@@ -44,7 +44,6 @@ class_name BarrackComponent
 ## 生成士兵播放的音效。
 @export var sfx: AudioGroup = null
 
-
 ## 时间戳（秒）
 var ts: float = 0.0
 ## 士兵列表。
@@ -53,7 +52,6 @@ var soldier_list: Array[Entity] = []
 var last_soldier_count: int = 0
 ## 上一次生成的士兵列表。
 var last_soldier_list: Array[Entity] = []
-
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
@@ -67,7 +65,7 @@ func _ready() -> void:
 func _draw() -> void:
 	if Engine.is_editor_hint():
 		OffsetGroup.draw_offset_group(self, spawn_offsets)
-		U.draw_range_circle(self, position, rally_min_range, rally_max_range, Color.BLUE)
+		U.draw_range_ellipse(self, position, rally_min_range, rally_max_range, Color(0.201, 0.431, 1.0, 0.2))
 		
 		draw_circle(
 			rally_center_position,
@@ -108,6 +106,4 @@ func to_formation_position(pos: Vector2, count: int, idx: int) -> Vector2:
 	var a: float = 2 * PI / count
 	var angle: float = (idx - 1) * a - C.HALF_PI
 	
-	return U.get_point_on_circle(
-		pos, rally_radius, angle
-	)
+	return U.get_point_on_ellipse(pos, rally_radius, angle)

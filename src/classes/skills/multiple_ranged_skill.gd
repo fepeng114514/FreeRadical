@@ -17,12 +17,11 @@ class_name MultipleRangedSkill
 @export var end_sfx: AudioGroup = null
 
 
-func _do_skill(e: Entity, target: Entity = null) -> void:
+func _use_skill(e: Entity, target: Entity = null) -> void:
+	target = searcher.search_target(get_search_center(e), e)
 	if not target:
-		target = searcher.search_target(e.global_position, e)
-		if not target:
-			return
-		
+		return
+	
 	e.look_point = target.global_position
 	start_cooldown(e)
 	
@@ -32,13 +31,13 @@ func _do_skill(e: Entity, target: Entity = null) -> void:
 		compensate_cooldown(e)
 		return
 
-	if not target:
-		target = searcher.search_target(e.global_position, e)
-		if not target:
-			compensate_cooldown(e)
-			return
-
 	for i: int in loop_count:
+		if not target:
+			target = searcher.search_target(get_search_center(e), e)
+			if not target:
+				compensate_cooldown(e)
+				return
+				
 		if not U.is_valid_entity(target):
 			break
 			
@@ -49,7 +48,7 @@ func _do_skill(e: Entity, target: Entity = null) -> void:
 		if await e.y_wait(delay):
 			return
 
-		spawn_bullets(e, target)
+		_spawn_bullets(e, target)
 		if await e.y_wait_animation(loop_animation):
 			return
 

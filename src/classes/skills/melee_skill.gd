@@ -39,7 +39,7 @@ func can_do(e: Entity, target: Entity = null) -> bool:
 	return true
 
 
-func _do_skill(e: Entity, target: Entity = null) -> void:
+func _use_skill(e: Entity, target: Entity = null) -> void:
 	start_cooldown(e)
 	e.play_animation(animation, &"melee")
 	AudioMgr.play_sfx(sfx)

@@ -40,6 +40,17 @@ enum State {
 }
 
 
+## 来源类型枚举。
+enum SourceType {
+	## 来源类型：无
+	NONE,
+	## 来源类型：防御塔射手
+	TOWER_SHOOTER,
+	## 来源类型：兵营
+	BARRACK_SOLDIER,
+}
+
+
 #region 属性
 ## 持续时间
 @export var duration: float = C.UNSET
@@ -69,6 +80,8 @@ var localization_key: String = ""
 var id: int = C.UNSET
 ## 所有者或来源 ID
 var source_id: int = C.UNSET
+## 来源类型
+var source_type: SourceType = SourceType.NONE
 ## 插入时间戳，单位为秒
 var insert_ts: float = 0.0
 ## 时间戳，单位为秒

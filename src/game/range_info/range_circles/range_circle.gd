@@ -2,6 +2,7 @@ extends Control
 class_name RangeCircle
 
 
+@export var y_scale: float = 0.7
 @export var scale_tween_duration: float = 0.15
 
 var scale_tween: Tween = null
@@ -35,6 +36,7 @@ func _create_scale_tween(target_radius: float) -> void:
 	last_radius = target_radius
 
 	var target_scale = target_radius / (size.x / 2) * Vector2.ONE
+	target_scale.y *= y_scale
 
 	if scale_tween:
 		scale_tween.kill()

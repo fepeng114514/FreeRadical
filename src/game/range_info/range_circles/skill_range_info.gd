@@ -8,7 +8,7 @@ func _update() -> void:
 	if not searcher:
 		return
 		
-	global_position = target_entity.global_position
+	global_position = first_skill.get_search_center(target_entity)
 
 	min_range_circle._show(searcher.min_radius)
 	max_range_circle._show(searcher.max_radius)
