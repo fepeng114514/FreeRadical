@@ -281,4 +281,5 @@ func _try_melee_attack(
 			continue
 
 		skill._use_skill(e, target)
+		melee_c.melee_used.emit(skill)
 		break

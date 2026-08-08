@@ -16,7 +16,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for e: Entity in EntityMgr.get_entities_group_by_component(C.CN_HEALTH):
+	for e: Entity in EntityMgr.get_component_group(C.CN_HEALTH):
 		var health_c: HealthComponent = e.get_node_or_null(C.CN_HEALTH)
 
 		if health_c.regen_hp != 0:

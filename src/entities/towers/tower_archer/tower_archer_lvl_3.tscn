@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bleej3esxi75b" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter.tscn" id="3_1rmxj"]
 [ext_resource type="Texture2D" uid="uid://dh2yebctfdoce" path="res://assets/atlas/atlas_textures/towers/tower_archer_0003.tres" id="3_hr80x"]
 
-[sub_resource type="Resource" id="Resource_hr80x"]
+[sub_resource type="Resource" id="Resource_46ja6"]
 resource_local_to_scene = true
 script = ExtResource("2_fk1op")
 flags = 16
@@ -14,14 +14,15 @@ blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerArcherLvl3" unique_id=1010851235 instance=ExtResource("1_n4rnl")]
-scene_name = "tower_archer_lvl_3"
-interact_policy = SubResource("Resource_hr80x")
+interact_policy = SubResource("Resource_46ja6")
 
 [node name="Sprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=708564869]
 texture = ExtResource("3_hr80x")
 
-[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788 node_paths=PackedStringArray("shooter_switch_list")]
 price = 120.0
+shooter_switch_enable = true
+shooter_switch_list = [NodePath("TowerArcherLvl3Shooter"), NodePath("TowerArcherLvl3Shooter2")]
 
 [node name="TowerArcherLvl3Shooter" parent="TowerComponent" index="0" unique_id=2011504655 instance=ExtResource("3_1rmxj")]
 position = Vector2(-15, -66)

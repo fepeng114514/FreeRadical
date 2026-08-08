@@ -137,7 +137,8 @@ func search_target(center: Vector2, search_entity: Entity = null, filter: Callab
 	return null
 
 
-## 根据搜索模式在扇形范围内搜索目标，filter 返回 false 表示被过滤。
+## 根据搜索模式在扇形范围内搜索目标。[br][br]
+## [param filter] 过滤函数。返回 [code]false[/code] 表示被过滤。
 func search_targets_in_sector(
 		search_entity: Entity,
 		origin: Vector2,

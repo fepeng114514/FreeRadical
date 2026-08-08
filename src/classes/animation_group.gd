@@ -41,7 +41,7 @@ func _validate_property(property: Dictionary):
 				property.usage = PROPERTY_USAGE_NONE
 
 
-## 根据实体与目标点的角度返回对应的动画名称。
+## 根据中心点和目标点的方向返回对应的动画名称。
 func get_animation_name_for_point(center: Vector2, point: Vector2) -> AnimationData:
 	var anim_data := AnimationData.new()
 	

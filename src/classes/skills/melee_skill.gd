@@ -39,6 +39,13 @@ func can_do(e: Entity, target: Entity = null) -> bool:
 	return true
 
 
+func start_cooldown(e: Entity) -> void:
+	super(e)
+
+	var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
+	melee_c.start_melee_cooldown.emit(self)
+
+
 func _use_skill(e: Entity, target: Entity = null) -> void:
 	start_cooldown(e)
 	e.play_animation(animation, &"melee")

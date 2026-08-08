@@ -18,7 +18,7 @@
 script = ExtResource("2_pqn5j")
 any = &"idle"
 
-[sub_resource type="Resource" id="Resource_ucfin"]
+[sub_resource type="Resource" id="Resource_847rf"]
 resource_local_to_scene = true
 script = ExtResource("3_amoxe")
 flags = 16
@@ -26,7 +26,8 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_enjvr"]
+[sub_resource type="Resource" id="Resource_7hqwg"]
+resource_local_to_scene = true
 script = ExtResource("3_amoxe")
 flags = 1048576
 bans = 128
@@ -34,11 +35,11 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_pm402"]
+[sub_resource type="Resource" id="Resource_pyj8p"]
 resource_local_to_scene = true
 script = ExtResource("10_tewo5")
 max_radius = 350.0
-interact_policy = SubResource("Resource_enjvr")
+interact_policy = SubResource("Resource_7hqwg")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_32uxe"]
@@ -46,12 +47,13 @@ script = ExtResource("13_mgs43")
 any = Vector2(0, -77.89)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
-[sub_resource type="Resource" id="Resource_w4mo5"]
+[sub_resource type="Resource" id="Resource_tkknp"]
+resource_local_to_scene = true
 script = ExtResource("10_tewo5")
 max_radius = 160.0
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
-[sub_resource type="Resource" id="Resource_3tuo0"]
+[sub_resource type="Resource" id="Resource_6e7pg"]
 resource_local_to_scene = true
 script = ExtResource("12_tewo5")
 damage_type = 4
@@ -62,12 +64,12 @@ mods = PackedStringArray()
 auras = PackedStringArray()
 payloads = PackedStringArray()
 area_enable = true
-searcher = SubResource("Resource_w4mo5")
+searcher = SubResource("Resource_tkknp")
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArtilleryLvl3" unique_id=1600363506 instance=ExtResource("1_mgs43")]
 idle_animation = SubResource("Resource_mgs43")
-interact_policy = SubResource("Resource_ucfin")
+interact_policy = SubResource("Resource_847rf")
 
 [node name="SpriteGroup" parent="SpriteComponent" parent_id_path=PackedInt32Array(1067981190) index="0" unique_id=557425361]
 position = Vector2(0, -53)
@@ -100,7 +102,7 @@ price = 360.0
 select_rect = Rect2(-96.495, -82.975, 179.84, 110.07)
 
 [node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
-searcher = SubResource("Resource_pm402")
+searcher = SubResource("Resource_pyj8p")
 bullet = "uid://dj23msxsdb22o"
 bullet_offsets = SubResource("Resource_32uxe")
-influence = SubResource("Resource_3tuo0")
+influence = SubResource("Resource_6e7pg")

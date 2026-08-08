@@ -52,7 +52,8 @@ enum SourceType {
 
 
 #region 属性
-## 持续时间
+
+## 存在时间（秒），实体存在超过 duration 时间后会被移除，默认值为 -1 表示永久存在。
 @export var duration: float = C.UNSET
 ## 空闲动画组
 @export var idle_animation: AnimationGroup = null

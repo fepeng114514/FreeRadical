@@ -25,6 +25,7 @@ func _ready() -> void:
 		pass
 	else:
 		WaveMgr.wave_group = wave_group
+		WaveMgr.wave_spawner = self
 
 
 func _get_configuration_warnings() -> PackedStringArray:

@@ -127,16 +127,16 @@ func create_auras(
 #endregion
 
 
-## 根据组名获取组内所有实体。
-func get_entities_group_by_type(group_name: String) -> Array:
+## 根据组名获取类型组。
+func get_type_group(group_name: String) -> Array:
 	if not type_group_list.has(group_name):
 		return []
 
 	return type_group_list[group_name]
 
 
-## 根据组名获取组内所有实体。
-func get_entities_group_by_component(group_name: String) -> Array:
+## 根据组名获取相应组件组。
+func get_component_group(group_name: String) -> Array:
 	if not component_group_list.has(group_name):
 		return []
 

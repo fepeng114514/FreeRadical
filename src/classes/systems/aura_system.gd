@@ -61,7 +61,7 @@ func _on_insert(e: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for e: Entity in EntityMgr.get_entities_group_by_component(C.CN_AURA):
+	for e: Entity in EntityMgr.get_component_group(C.CN_AURA):
 		var aura_c: AuraComponent = e.get_node_or_null(C.CN_AURA)
 		if aura_c.track_target:
 			var target: Entity = EntityMgr.get_entity_by_id(e.target_id)

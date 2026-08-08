@@ -9,6 +9,14 @@ class_name MeleeComponent
 ## 若 [member is_blocker] 为 [code]false[/code] 作为被拦截者：如果是第一个被拦截等待拦截者到达近战位置，如果拦截者的 [member is_passive] 为 [code]true[/code] 则主动前往拦截者的近战位置。
 
 
+@warning_ignore_start("unused_signal")
+## 近战技能释放后发出。
+signal melee_used(skill: MeleeSkill)
+## 近战技能冷却后发出。
+signal start_melee_cooldown(skill: MeleeSkill)
+@warning_ignore_restore("unused_signal")
+
+
 ## 近战状态枚举
 enum MeleeState {
 	## 近战状态：到达原点。

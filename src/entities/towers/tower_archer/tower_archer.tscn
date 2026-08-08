@@ -29,6 +29,7 @@ texture = ExtResource("7_vhhys")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788]
 tower_type = 1
+shooter_switch_enable = true
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-48.73, -84.33, 95.585, 101.565)

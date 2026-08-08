@@ -5,9 +5,9 @@ extends Node
 
 
 @warning_ignore_start("unused_signal")
-## 创建实体时发出。
+## 将实体添加到实体插入队列时发出。
 signal append_insert_queue(entity: Entity)
-## 移除实体时发出。
+## 将实体添加到实体移除队列时发出。
 signal append_remove_queue(entity: Entity)
 ## 系统更新时发出。
 signal update_system(delta: float)

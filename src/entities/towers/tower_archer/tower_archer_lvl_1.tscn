@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://entities/towers/tower_archer/tower_archer_lvl_1_shooter.tscn" id="2_4mkqg"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_ea5ax"]
 
-[sub_resource type="Resource" id="Resource_rjeod"]
+[sub_resource type="Resource" id="Resource_175bc"]
 resource_local_to_scene = true
 script = ExtResource("2_ea5ax")
 flags = 16
@@ -13,10 +13,11 @@ blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerArcherLvl1" unique_id=1010851235 instance=ExtResource("1_4joti")]
-interact_policy = SubResource("Resource_rjeod")
+interact_policy = SubResource("Resource_175bc")
 
-[node name="TowerComponent" parent="." index="1" unique_id=1150016788]
+[node name="TowerComponent" parent="." index="1" unique_id=1150016788 node_paths=PackedStringArray("shooter_switch_list")]
 price = 50.0
+shooter_switch_list = [NodePath("TowerArcherLvl1Shooter"), NodePath("TowerArcherLvl1Shooter2")]
 
 [node name="TowerArcherLvl1Shooter" parent="TowerComponent" index="0" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true

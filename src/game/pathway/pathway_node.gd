@@ -1,4 +1,4 @@
-extends Resource
+extends RefCounted
 class_name PathwayNode
 ## 路径节点资源。
 ##

@@ -62,7 +62,7 @@ func _validate_property(property: Dictionary):
 				property.usage = PROPERTY_USAGE_NONE
 				
 
-## 根据方向获取相应偏移。
+## 根据中心点和目标点的方向获取相应偏移。
 func get_offset_for_point(center: Vector2, point: Vector2) -> Vector2:
 	if any:
 		return any

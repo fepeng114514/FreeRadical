@@ -4,7 +4,7 @@ extends Component
 class_name TowerComponent
 ## 防御塔组件。
 ##
-## TowerComponent 可以使实体拥有防御塔的能力，可被出售与升级。
+## TowerComponent 可以使实体拥有防御塔的能力，可被出售与升级，同时也可以管理射手实体，射手以子节点的形式存在。
 
 
 ## 防御塔类型枚举。
@@ -42,6 +42,14 @@ enum TowerType {
 ## 出售音效组。
 @export var sell_sfx: AudioGroup = null
 
+@export_group("Shooter Switch")
+## 是否启用射手轮换释放技能。
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var shooter_switch_enable: bool = false
+## 轮换的射手实体列表。
+@export var shooter_switch_list: Array[Entity] = []
+## 轮换释放技能偏移时间（秒）。
+@export var shooter_switch_offset: float = 0.1
+
 ## 总价格。
 var total_price: float = price
 ## 升级目标场景路径。
@@ -52,9 +60,8 @@ var is_sell: bool = false
 var is_builded: bool = false
 ## 时间戳。
 var ts: float = 0.0
-
-## 持有此组件的实体。
-@onready var entity: Entity = get_parent()
+## 当前轮换到的射手实体索引。
+var current_shooter_switch_idx: int = -1
 
 
 func _draw() -> void:
@@ -68,7 +75,8 @@ func _draw() -> void:
 			)
 			draw_line(
 				default_rally_center_local_pos, 
-				to_local(entity.global_position), 
+				position, 
 				Color.BLUE, 
 				2
 			)
+		

@@ -22,20 +22,10 @@ class_name Skill
 @export var sfx: AudioGroup = null
 
 @export_group("Share Cooldown")
-## 是否启用共享冷却。
+## 是否启用共享冷却，可以使自身多个技能共享冷却。
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var share_cooldown_enable: bool = false
-## 共享冷却 id，相同 id 的技能会共享冷却。
-@export var share_cooldown_id: int = 0
-## 共享冷却偏移。
-@export var share_cooldown_offset: float = 0.0
-
-@export_group("Group Share Cooldown")
-## 是否启用组实体共享冷却。
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var group_share_cooldown_enable: bool = false
-## 实体组共享冷却 id，相同 id 的技能会共享冷却。
-@export var group_share_cooldown_id: int = 0
-## 实体组共享冷却偏移。
-@export var group_share_cooldown_offset: float = 0.1
+## 共享冷却的技能列表。
+@export var share_cooldown_skill_list: Array[Skill] = []
 
 ## 时间戳。
 var ts: float = 0.0
@@ -64,27 +54,11 @@ func start_cooldown(e: Entity) -> void:
 	ts = tick_ts
 
 	if share_cooldown_enable:
-		var skill_c: SkillComponent = e.get_node_or_null(C.CN_SKILL)
-		for skill: Skill in skill_c.get_children():
-			if skill.share_cooldown_id != share_cooldown_id:
-				continue
-			
-			skill.ts = tick_ts - share_cooldown_offset
+		for skill: Skill in share_cooldown_skill_list:
+			skill.ts = tick_ts
 	
-	if group_share_cooldown_enable:
-		for member: Entity in e.get_parent().get_children():
-			if member == e:
-				continue
-			
-			var skill_c: SkillComponent = member.get_node_or_null(C.CN_SKILL)
-			if not skill_c:
-				return
-				
-			for skill: Skill in skill_c.get_children():
-				if skill.group_share_cooldown_id != group_share_cooldown_id:
-					continue
-				
-				skill.ts = tick_ts - group_share_cooldown_offset
+	var skill_c: SkillComponent = e.get_node_or_null(C.CN_SKILL)
+	skill_c.start_skill_cooldown.emit(self)
 
 
 ## 补偿技能冷却时间。

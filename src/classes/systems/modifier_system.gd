@@ -96,7 +96,7 @@ func _on_remove(e: Entity) -> bool:
 
 ## 处理状态效果的更新。
 func _process_modifier_update() -> void:
-	for e: Entity in EntityMgr.get_entities_group_by_component(C.CN_MODIFIER):
+	for e: Entity in EntityMgr.get_component_group(C.CN_MODIFIER):
 		var modifier_c: ModifierComponent = e.get_node_or_null(C.CN_MODIFIER)
 
 		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)

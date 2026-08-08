@@ -16,6 +16,7 @@ func _on_update(e: Entity) -> bool:
 			continue
 		
 		skill._use_skill(e)
+		skill_c.skill_used.emit(skill)
 
 		return true
 			

@@ -9,12 +9,9 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		pass
 	else:
-		SystemMgr.append_insert_queue.connect(_on_create_entity)
+		SystemMgr.append_insert_queue.connect(_on_append_insert_queue)
 		
 		for e: Entity in get_children():
-			if e.name == &"WaveSpawner":
-				WaveMgr.wave_spawner = e
-			
 			EntityMgr.setup_entity(e)
 				
 			e.insert_entity()
@@ -29,7 +26,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 	
 
-func _on_create_entity(entity: Entity) -> void:
+func _on_append_insert_queue(entity: Entity) -> void:
 	if entity.get_parent() != null:
 		return
 		

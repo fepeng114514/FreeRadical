@@ -5,6 +5,14 @@ class_name SkillComponent
 ## 技能组件。
 ##
 ## SkillComponent 可以使实体拥有释放技能的能力，技能以 [Skill] 子节点的形式存在。
+
+
+@warning_ignore_start("unused_signal")
+## 技能释放后发出。
+signal skill_used(skill: Skill)
+## 技能冷却后发出。
+signal start_skill_cooldown(skill: Skill)
+@warning_ignore_restore("unused_signal")
 		
 		
 func _ready() -> void:

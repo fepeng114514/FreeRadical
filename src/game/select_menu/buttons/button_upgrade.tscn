@@ -8,7 +8,6 @@
 
 [node name="SelectMenuButtonUpgrade" unique_id=614263521 node_paths=PackedStringArray("price_tag") instance=ExtResource("1_tx736")]
 script = ExtResource("2_8n25n")
-upgrade_to = ""
 price_tag = NodePath("Button/PriceTag")
 metadata/_edit_use_anchors_ = true
 
@@ -33,9 +32,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -33.5
-offset_top = -32.0
-offset_right = 33.5
-offset_bottom = 9.0
+offset_left = -31.5
+offset_top = -31.0
+offset_right = 35.5
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 0
