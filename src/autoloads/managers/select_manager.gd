@@ -124,8 +124,8 @@ func _process_select_mode() -> void:
 			if U.is_in_ellipse_ring(
 				e_global_pos,
 				mouse_global_pos,
-				rally_max_range,
-				rally_min_range
+				rally_min_range,
+				rally_max_range
 			):
 				barrack_c.set_rally_center_position(mouse_global_pos, true)
 			else:
