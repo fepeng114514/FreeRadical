@@ -9,8 +9,10 @@ extends Node
 signal append_insert_queue(entity: Entity)
 ## 将实体添加到实体移除队列时发出。
 signal append_remove_queue(entity: Entity)
-## 系统更新时发出。
-signal update_system(delta: float)
+## 系统更新前发出。
+signal update_system_start
+## 系统更新完毕后发出。
+signal update_system_finished
 @warning_ignore_restore("unused_signal")
 
 
@@ -36,13 +38,15 @@ func _physics_process(delta: float) -> void:
 	if not system_container:
 		return
 
-	update_system.emit(delta)
+	update_system_start.emit()
+
 	for system: System in system_container.get_children():
 		system._on_update(delta)
 	
-	# 帧末尾处理插入与移除
-	call_deferred("_process_insert_queue")
-	call_deferred("_process_remove_queue")
+	update_system_finished.emit()
+	
+	_process_insert_queue()
+	_process_remove_queue()
 
 
 ## 处理实体插入队列。

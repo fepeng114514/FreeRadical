@@ -66,9 +66,10 @@ script = ExtResource("28_8e6uo")
 [node name="PathwayContainer" type="Node2D" parent="." unique_id=886912364]
 script = ExtResource("26_ba5b5")
 
-[node name="SelectMenu" parent="." unique_id=1082728830 instance=ExtResource("10_qogh7")]
+[node name="SelectMenu" parent="." unique_id=1082728830 node_paths=PackedStringArray("range_info_controller") instance=ExtResource("10_qogh7")]
 visible = false
 z_index = 1000
+range_info_controller = NodePath("../RangeInfoController")
 
 [node name="RangeInfoController" parent="." unique_id=1487020159 instance=ExtResource("11_8iyoh")]
 z_index = 1000

@@ -11,3 +11,6 @@ var mouse_global_position := Vector2.ZERO
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouse:
 		mouse_global_position = get_global_mouse_position()
+		
+	if event.is_action_pressed("click"):
+		Log.debug("点击 %s" % mouse_global_position)

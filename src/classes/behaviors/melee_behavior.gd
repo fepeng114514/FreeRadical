@@ -5,13 +5,26 @@ class_name MeleeBehavior
 ## MeleeBehavior 负责处理拥有 [MeleeComponent] 组件的实体的近战技能释放与拦截。
 
 
+func _on_insert(e: Entity) -> bool:
+	var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
+	if not melee_c:
+		return true
+	
+	for skill: MeleeSkill in melee_c.get_children():
+		skill.start_skill_cooldown.connect(_on_skill_cooldown_start.bind(melee_c, skill))
+	
+	return true
+
+
 func _on_remove(e: Entity) -> bool:
 	var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
 	if not melee_c:
 		return true
 	
-	melee_c.cleanup_melee_relations(e)
-	melee_c.unbind_melee_relations(e.id)
+	if melee_c.is_blocker:
+		melee_c.blocker_unbind_melee_relations(e)
+	else:
+		melee_c.blocked_unbind_melee_relations(e)
 	
 	return true
 
@@ -21,17 +34,10 @@ func _on_skip(e: Entity) -> void:
 	if not melee_c:
 		return
 	
-	melee_c.unbind_melee_relations(e.id)
-
 	if melee_c.is_blocker:
-		melee_c.blocked_id_list.clear()
-		melee_c.blocked_count = 0
-		melee_c.melee_state = MeleeComponent.MeleeState.ORIGIN_POS_ARRIVED
+		melee_c.blocker_unbind_melee_relations(e)
 	else:
-		melee_c.blocker_id_list.clear()
-		
-	if e.state & Entity.State.IDLE:
-		melee_c.origin_pos = e.global_position
+		melee_c.blocked_unbind_melee_relations(e)
 
 
 func _on_update(e: Entity) -> bool:
@@ -45,11 +51,14 @@ func _on_update(e: Entity) -> bool:
 		else:
 			melee_c.is_blocker = false
 			
-	melee_c.cleanup_melee_relations(e)
+	if e.state & Entity.State.IDLE:
+		melee_c.origin_pos = e.global_position
 	
 	if melee_c.is_blocker:
+		melee_c.blocker_cleanup_melee_relations(e)
 		return _update_blocker(e, melee_c)
 	else:
+		melee_c.blocked_cleanup_melee_relations(e)
 		return _update_blocked(e, melee_c)
 
 
@@ -106,7 +115,7 @@ func _blocker_search_and_bind_melee_relations(e: Entity, melee_c: MeleeComponent
 			center = rally_center_position
 	
 	# 1. 首先搜索没有被拦截的目标
-	var pending_blockeds: Array[Entity] = melee_c.searcher.search_targets(
+	var pending_blocked_list: Array[Entity] = melee_c.searcher.search_targets(
 		center,
 		e,
 		func(t: Entity) -> bool:
@@ -120,7 +129,7 @@ func _blocker_search_and_bind_melee_relations(e: Entity, melee_c: MeleeComponent
 			return not t_melee_c.blocker_id_list
 	)
 	
-	if pending_blockeds:
+	if pending_blocked_list:
 		# 先解除额外拦截者关系
 		if melee_c.is_extra_blocker:
 			if melee_c.blocked_id_list:
@@ -129,42 +138,53 @@ func _blocker_search_and_bind_melee_relations(e: Entity, melee_c: MeleeComponent
 				var blocked_melee_c: MeleeComponent = first_blocked_target.get_node_or_null(C.CN_MELEE)
 				if blocked_melee_c.blocker_id_list.size() > 1:
 					melee_c.blocked_count -= blocked_melee_c.block_cost
-					melee_c.unbind_melee_relations(e.id)
+					melee_c.blocker_unbind_melee_relations(e)
 
 			melee_c.is_extra_blocker = false
 		
 		var max_blocked_count: int = melee_c.max_blocked_count
-		for t: Entity in pending_blockeds:
+		for t: Entity in pending_blocked_list:
 			if melee_c.blocked_count >= max_blocked_count:
 				break
 
 			var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
 
+			# 如果正在拦截目标，跳过被动的目标
 			if t_melee_c.is_passive and melee_c.blocked_id_list:
 				continue
 			
-			melee_c.bind_melee_relations(e.id, t.id)
+			melee_c.blocker_bind_melee_relations(e.id, t.id)
 	else:
-		# 2. 处理额外拦截者，搜索第一个被拦截的目标
-		if not melee_c.blocked_id_list and not melee_c.is_passive:
-			var blocked_targets: Array[Entity] = melee_c.searcher.search_targets(
-				center,
-				e,
-				func(t: Entity) -> bool:
-					var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
-					if not t_melee_c:
-						return false
+		_extra_blocker_search_and_bind_melee_relations(e, melee_c, center)
 
-					if t_melee_c.is_passive and melee_c.is_passive:
-						return false
-						
-					return true
-			)
-			var first_blocked_target: Entity = blocked_targets[0] if blocked_targets else null
-			if first_blocked_target:
-				melee_c.bind_melee_relations(e.id, first_blocked_target.id)
-				melee_c.is_extra_blocker = true
-	
+
+func _extra_blocker_search_and_bind_melee_relations(e: Entity, melee_c: MeleeComponent, center: Vector2) -> void:
+	if melee_c.blocked_id_list:
+		return
+
+	if melee_c.is_passive:
+		return
+
+	var blocked_targets: Array[Entity] = melee_c.searcher.search_targets(
+		center,
+		e,
+		func(t: Entity) -> bool:
+			var t_melee_c: MeleeComponent = t.get_node_or_null(C.CN_MELEE)
+			if not t_melee_c:
+				return false
+
+			if t_melee_c.is_passive and melee_c.is_passive:
+				return false
+				
+			return true
+	)
+	var first_blocked_target: Entity = blocked_targets[0] if blocked_targets else null
+	if not first_blocked_target:
+		return
+
+	melee_c.blocker_bind_melee_relations(e.id, first_blocked_target.id)
+	melee_c.is_extra_blocker = true
+
 
 ## 更新被拦截者。
 func _update_blocked(e: Entity, melee_c: MeleeComponent) -> bool:
@@ -275,11 +295,14 @@ func _try_melee_attack(
 	if not target:
 		return
 
-	for i: int in melee_c.get_child_count():
-		var skill: MeleeSkill = melee_c.get_child(i)
-		if not skill.can_do(e, target):
+	for skill: MeleeSkill in melee_c.get_children():
+		if not skill.can_use(e, target):
 			continue
-
-		skill._use_skill(e, target)
-		melee_c.melee_used.emit(skill)
+			
+		skill.use_skill(e, target)
+		melee_c.melee_skill_used.emit(skill)
 		break
+
+
+func _on_skill_cooldown_start(melee_c: MeleeComponent, skill: MeleeSkill) -> void:
+	melee_c.start_melee_skill_cooldown.emit(skill)

@@ -131,10 +131,10 @@ func _spawn_all_soldiers(e: Entity, barrack_c: BarrackComponent) -> void:
 
 					if melee_c.is_blocker:
 						for blocked_id: int in last_melee_c.blocked_id_list:
-							melee_c.bind_melee_relations(soldier.id, blocked_id)
+							melee_c.blocker_bind_melee_relations(soldier.id, blocked_id)
 					else:
 						for blocker_id: int in last_melee_c.blocker_id_list:
-							melee_c.bind_melee_relations(blocker_id, soldier.id)
+							melee_c.blocked_bind_melee_relations(blocker_id, soldier.id)
 		
 		barrack_c.last_soldier_count = soldier_list.size()
 		barrack_c.set_rally_center_position(barrack_c.rally_center_position, false)

@@ -1,4 +1,6 @@
 extends Control
+class_name RangeInfoController
+## 负责显示和隐藏范围信息
 
 
 @export_group("Ref")

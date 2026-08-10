@@ -23,19 +23,19 @@ func _use_skill(e: Entity, target: Entity = null) -> void:
 		return
 	
 	e.look_point = target.global_position
-	start_cooldown(e)
+	start_cooldown()
 	
 	e.play_animation(animation, &"ranged")
 	AudioMgr.play_sfx(sfx)
 	if await e.y_wait_animation(animation):
-		compensate_cooldown(e)
+		compensate_cooldown()
 		return
 
 	for i: int in loop_count:
 		if not target:
 			target = searcher.search_target(get_search_center(e), e)
 			if not target:
-				compensate_cooldown(e)
+				compensate_cooldown()
 				return
 				
 		if not U.is_valid_entity(target):

@@ -91,7 +91,7 @@ func set_rally_center_position(
 		var s: Entity = soldier_list[i]
 		var s_rally_c: RallyComponent = s.get_node_or_null(C.CN_RALLY)
 		var formation_position: Vector2 = to_formation_position(rally_center_position, soldier_size, i)
-		s_rally_c.new_rally_position(formation_position, is_force, rally_center_position, false)
+		s_rally_c.new_rally_position(s, formation_position, is_force, rally_center_position, false)
 		
 		var melee_c: MeleeComponent = s.get_node_or_null(C.CN_MELEE)
 		if melee_c:

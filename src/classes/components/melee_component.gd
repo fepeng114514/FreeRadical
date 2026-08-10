@@ -11,9 +11,9 @@ class_name MeleeComponent
 
 @warning_ignore_start("unused_signal")
 ## 近战技能释放后发出。
-signal melee_used(skill: MeleeSkill)
+signal melee_skill_used(skill: MeleeSkill)
 ## 近战技能冷却后发出。
-signal start_melee_cooldown(skill: MeleeSkill)
+signal start_melee_skill_cooldown(skill: MeleeSkill)
 @warning_ignore_restore("unused_signal")
 
 
@@ -47,7 +47,7 @@ enum MeleeState {
 @export_group("Blocker")
 ## 搜索资源，用于搜索目标。
 @export var searcher: Searcher = null
-## 最大被拦截者数量。
+## 最大可以拦截数量。
 @export var max_blocked_count: int = 1
 
 @export_group("Blocked")
@@ -97,81 +97,86 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 	
-## 绑定拦截关系。
-func bind_melee_relations(blocker_id: int, blocked_id: int) -> void: 
-	if is_blocker:
+## 拦截者绑定拦截关系。
+func blocker_bind_melee_relations(blocker_id: int, blocked_id: int) -> void: 
+	var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id)
+	var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
+	
+	blocked_melee_c.blocker_id_list.append(blocker_id)
+	blocked_id_list.append(blocked_id)
+	blocked_count += blocked_melee_c.block_cost
+
+
+## 被拦截者绑定拦截关系。
+func blocked_bind_melee_relations(blocker_id: int, blocked_id: int) -> void: 
+	var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
+	var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
+	
+	blocker_id_list.append(blocker_id)
+	blocker_melee_c.blocked_id_list.append(blocked_id)
+	blocker_melee_c.blocked_count += block_cost
+
+
+## 拦截者解除拦截关系。
+func blocker_unbind_melee_relations(e: Entity) -> void:
+	for blocked_id: int in blocked_id_list:
 		var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id)
 		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
+		blocked_melee_c.blocker_id_list.erase(e.id)
 		
-		blocked_melee_c.blocker_id_list.append(blocker_id)
-		blocked_id_list.append(blocked_id)
-		blocked_count += blocked_melee_c.block_cost
-	else:
+	blocked_id_list.clear()
+	blocked_count = 0
+	melee_state = MeleeState.ORIGIN_POS_ARRIVED
+	is_extra_blocker = false
+
+
+## 被拦截者解除拦截关系。
+func blocked_unbind_melee_relations(e: Entity) -> void:
+	for blocker_id: int in blocker_id_list:
 		var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
 		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
+		blocker_melee_c.blocked_id_list.erase(e.id)
+	
+	blocker_id_list.clear()
+
+
+## 拦截者清理无效拦截关系。
+func blocker_cleanup_melee_relations(e: Entity) -> void:
+	var center: Vector2 = e.global_position
+	var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
+	if rally_c:
+		center = rally_c.rally_center_position
+
+	var new_blockeds_ids := PackedInt32Array()
+	blocked_count = 0
+	
+	for id: int in blocked_id_list:
+		var blocked: Entity = EntityMgr.get_entity_by_id(id)
+		if not U.is_valid_entity(blocked) :
+			continue 
+			
+		if not U.is_in_ellipse_ring(
+				center, blocked.global_position, searcher.min_radius, searcher.max_radius
+			):
+			continue
+			
+		var b_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
 		
-		blocker_id_list.append(blocker_id)
-		blocker_melee_c.blocked_id_list.append(blocked_id)
-		blocker_melee_c.blocked_count += block_cost
-
-
-## 解除拦截关系。
-func unbind_melee_relations(erase_id: int) -> void:
-	if is_blocker:
-		for blocked_id: int in blocked_id_list:
-			var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id)
-			var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
-			blocked_melee_c.blocker_id_list.erase(erase_id)
-			
-		blocked_id_list.clear()
-		is_extra_blocker = false
-	else:
-		for blocker_id: int in blocker_id_list:
-			var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
-			var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
-			blocker_melee_c.blocked_id_list.erase(erase_id)
+		new_blockeds_ids.append(id)
+		blocked_count += b_melee_c.block_cost
 		
-		blocker_id_list.clear()
+	blocked_id_list = new_blockeds_ids
 
 
-## 清理无效拦截关系。
-func cleanup_melee_relations(e: Entity) -> void:
-	if is_blocker:
-		var center: Vector2 = e.global_position
-		var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
-		if rally_c:
-			var rally_center_position: Vector2 = rally_c.rally_center_position
+## 被拦截者清理无效拦截关系。
+func blocked_cleanup_melee_relations(_e: Entity) -> void:
+	var new_blockers_ids := PackedInt32Array()
+	
+	for id: int in blocker_id_list:
+		var blocker: Entity = EntityMgr.get_entity_by_id(id)
+		if not U.is_valid_entity(blocker):
+			continue 
 			
-			if rally_center_position:
-				center = rally_center_position
-
-		var new_blockeds_ids := PackedInt32Array()
-		blocked_count = 0
+		new_blockers_ids.append(id)
 		
-		for id: int in blocked_id_list:
-			var blocked: Entity = EntityMgr.get_entity_by_id(id)
-			if not U.is_valid_entity(blocked) :
-				continue 
-				
-			if not U.is_in_ellipse_ring(
-					center, blocked.global_position, searcher.min_radius, searcher.max_radius
-				):
-				continue
-				
-			var b_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
-			
-			new_blockeds_ids.append(id)
-			blocked_count += b_melee_c.block_cost
-			
-		blocked_id_list = new_blockeds_ids
-	else:
-		var new_blockers_ids := PackedInt32Array()
-		
-		for id: int in blocker_id_list:
-			var blocker: Entity = EntityMgr.get_entity_by_id(id)
-			if not U.is_valid_entity(blocker):
-				continue 
-				
-			new_blockers_ids.append(id)
-			
-		blocker_id_list = new_blockers_ids
+	blocker_id_list = new_blockers_ids

@@ -54,7 +54,7 @@ func select_skill(e: Entity, d: Damage, source: Entity) -> bool:
 	for i: int in get_child_count():
 		var skill: Skill = get_child(i)
 
-		if not skill.can_do(e):
+		if not skill.can_use(e):
 			continue
 
 		if not can_dodge_area and d.is_area:

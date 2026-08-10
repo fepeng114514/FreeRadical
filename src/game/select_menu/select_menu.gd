@@ -5,15 +5,12 @@ class_name SelectMenuController
 ## 负责显示和隐藏选择菜单，并根据实体类型显示对应的按钮
 
 
-signal hide_select_menu
-
-
 @export var select_menu_config: SelectMenuConfig = null
 
 @export_group("Ref")
+@export var range_info_controller: RangeInfoController = null
 @export var animation_player: AnimationPlayer = null
 @export var place_holders: Control = null
-## 环控件引用
 @export var ring: TextureRect = null
 
 @export_subgroup("Scene")
@@ -34,7 +31,6 @@ func _ready() -> void:
 	
 	SelectMgr.entity_selected.connect(_show)
 	SelectMgr.entity_deselected.connect(_hide)
-	hide_select_menu.connect(_hide)
 	
 	
 func _process(_delta: float) -> void:

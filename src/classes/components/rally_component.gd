@@ -38,12 +38,17 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 ## 设置新的集结位置。
 func new_rally_position(
+		e: Entity,
 		pos: Vector2, 
 		is_force: bool = false,
 		center: Vector2 = pos,
 		play_sfx: bool = true
 	) -> void:
 	is_force_rally = is_force
+	if is_force:
+		if e.state & Entity.State.WAITING:
+			e.state |= Entity.State.INTERRUPT_WAIT
+	
 	arrived = false
 	navigation_agent.target_position = pos
 	rally_center_position = center

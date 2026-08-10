@@ -7,10 +7,10 @@
 
 [sub_resource type="Resource" id="Resource_ljiut"]
 script = ExtResource("4_178aa")
-entity = "uid://baq6wqur2i2wc"
+entity = "uid://b8mw5gsptj8n1"
 pathway_idx = 0
 spawn_interval = 0.5
-count = 50
+count = 2
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
 [sub_resource type="Resource" id="Resource_3xfhy"]

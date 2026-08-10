@@ -29,8 +29,8 @@ func _draw() -> void:
 			influence.draw(self, position)
 
 
-func can_do(e: Entity, target: Entity = null) -> bool:
-	if not super(e, target):
+func can_use(e: Entity, target: Entity = null) -> bool:
+	if not super(e):
 		return false
 		
 	if not InteractPolicy.is_allowed_target(e, target, interact_policy, target.interact_policy):
@@ -39,19 +39,12 @@ func can_do(e: Entity, target: Entity = null) -> bool:
 	return true
 
 
-func start_cooldown(e: Entity) -> void:
-	super(e)
-
-	var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
-	melee_c.start_melee_cooldown.emit(self)
-
-
 func _use_skill(e: Entity, target: Entity = null) -> void:
-	start_cooldown(e)
+	start_cooldown()
 	e.play_animation(animation, &"melee")
 	AudioMgr.play_sfx(sfx)
-	if await e.y_wait(delay) or not target:
-		compensate_cooldown(e)
+	if await e.y_wait(delay) or not target or not target.state & Entity.State.MELEE:
+		compensate_cooldown()
 		return
 	
 	if search_target_pos:

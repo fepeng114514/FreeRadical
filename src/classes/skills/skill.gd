@@ -6,6 +6,12 @@ class_name Skill
 ## Skill 是所有技能节点的基类，提供了技能的基本属性和功能。
 
 
+## 技能释放后发出。
+signal skill_used
+## 技能冷却后发出。
+signal start_skill_cooldown
+
+
 ## 是否禁用技能。
 @export var disabled: bool = false
 ## 技能冷却时间（秒）。
@@ -33,7 +39,7 @@ var ts: float = 0.0
 
 @warning_ignore_start("unused_parameter")
 ## 检查技能是否可以释放。
-func can_do(e: Entity, target: Entity = null) -> bool:
+func can_use(e: Entity) -> bool:
 	if not TimeMgr.has_elapsed(ts, cooldown):
 		return false
 
@@ -48,8 +54,15 @@ func _use_skill(e: Entity, target: Entity = null) -> void: pass
 @warning_ignore_restore("unused_parameter")
 
 
+## 释放技能。[br][br]
+## -> 是否成功释放技能。
+func use_skill(e: Entity, target: Entity = null) -> void:
+	_use_skill(e, target)
+	skill_used.emit()
+
+
 ## 开始技能冷却。
-func start_cooldown(e: Entity) -> void:
+func start_cooldown() -> void:
 	var tick_ts: float = TimeMgr.tick_ts
 	ts = tick_ts
 
@@ -57,10 +70,9 @@ func start_cooldown(e: Entity) -> void:
 		for skill: Skill in share_cooldown_skill_list:
 			skill.ts = tick_ts
 	
-	var skill_c: SkillComponent = e.get_node_or_null(C.CN_SKILL)
-	skill_c.start_skill_cooldown.emit(self)
+	start_skill_cooldown.emit()
 
 
 ## 补偿技能冷却时间。
-func compensate_cooldown(_e: Entity) -> void:
+func compensate_cooldown() -> void:
 	ts -= compensate_cooldown_percent * cooldown

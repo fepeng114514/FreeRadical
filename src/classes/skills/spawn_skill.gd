@@ -41,18 +41,18 @@ func _use_skill(e: Entity, target: Entity = null) -> void:
 			return
 			
 		e.look_point = target.global_position
-	start_cooldown(e)
+	start_cooldown()
 		
 	e.play_animation(animation)
 	AudioMgr.play_sfx(sfx)
 	if await e.y_wait(delay):
-		compensate_cooldown(e)
+		compensate_cooldown()
 		return
 
 	if searcher and not target:
 		target = searcher.search_target(get_search_center(e), e)
 		if not target:
-			compensate_cooldown(e)
+			compensate_cooldown()
 			return
 
 	var e_global_pos: Vector2 = e.global_position

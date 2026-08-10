@@ -244,7 +244,7 @@ func set_pos(pos: Vector2) -> void:
 	
 	var rally_c: RallyComponent = get_node_or_null(C.CN_RALLY)
 	if rally_c:
-		rally_c.new_rally_position(pos)
+		rally_c.new_rally_position(self, pos)
 	
 	if get_node_or_null(C.CN_NAV_PATH):
 		set_nav_path_at_pos(pos)

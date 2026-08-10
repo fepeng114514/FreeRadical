@@ -5,38 +5,27 @@ class_name BehaviorSystem
 ## BehaviorSystem 负责处理与管理行为树。
 
 
-## 行为的更新方法缓存
-var _update_caches: Array[Callable] = []
-## 行为的插入方法缓存
-var _insert_caches: Array[Callable] = []
-## 行为的移除方法缓存
-var _remove_caches: Array[Callable] = []
-## 行为的跳过方法缓存
-var _skip_caches: Array[Callable] = []
-
+var _behavior_list: Array[Behavior] = []
 ## 行为的数量。
 @onready var _behavior_count: int = get_child_count()
 
 
 func _ready() -> void:
 	for child: Behavior in get_children():
-		_update_caches.append(child._on_update)
-		_insert_caches.append(child._on_insert)
-		_remove_caches.append(child._on_remove)
-		_skip_caches.append(child._on_skip)
+		_behavior_list.append(child)
 
 
 func _on_insert(e: Entity) -> bool:
-	for insert_fn: Callable in _insert_caches:
-		if not insert_fn.call(e):
+	for b: Behavior in _behavior_list:
+		if not b._on_insert(e):
 			return false
 
 	return true
 
 
 func _on_remove(e: Entity) -> bool:
-	for remove_fn: Callable in _remove_caches:
-		if not remove_fn.call(e):
+	for b: Behavior in _behavior_list:
+		if not b._on_remove(e):
 			return false
 
 	return true
@@ -51,12 +40,12 @@ func _on_update(_delta: float) -> void:
 	for e: Entity in entities:
 		var is_break: bool = false
 		for i: int in _behavior_count:
-			var updata_fn: Callable = _update_caches[i]
+			var b: Behavior = _behavior_list[i]
 			
-			if updata_fn.call(e):
-				for skiped_i: int in range(i + 1, _behavior_count):
-					var skip_fn: Callable = _skip_caches[skiped_i]
-					skip_fn.call(e)
+			if b._on_update(e):
+				for skipped_i: int in range(i + 1, _behavior_count):
+					var skipped_b: Behavior = _behavior_list[skipped_i]
+					skipped_b._on_skip(e)
 				
 				is_break = true
 				break

@@ -32,14 +32,18 @@ var selected_entity: Entity = null
 ## 鼠标实体。
 var cursor: Entity = null
 var searcher: Searcher = null
+var is_selected: bool = false
 
 
 func _load() -> void:
 	_clear()
+
 	searcher = Searcher.new()
 	searcher.max_radius = 99999
 	searcher.sort_mode = Searcher.SortMode.ID
 	searcher.search_group = Searcher.SearchGroup.ENTITY
+
+	is_selected = false
 
 
 func _clear() -> void:
@@ -48,8 +52,16 @@ func _clear() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if is_selected:
+		return
+
 	if event.is_action_pressed("select_entity"):
-		call_deferred("try_select")
+		is_selected = true
+		
+		await SystemMgr.update_system_finished
+		try_select()
+
+		is_selected = false
 
 
 ## 尝试选择实体。
@@ -111,7 +123,7 @@ func _process_select_mode() -> void:
 			var rally_c: RallyComponent = selected_entity.get_node_or_null(
 				C.CN_RALLY
 			)
-			rally_c.new_rally_position(InputMgr.mouse_global_position, true)
+			rally_c.new_rally_position(selected_entity, InputMgr.mouse_global_position, true)
 		SelectMode.BARRACK_RALLY:
 			var e_global_pos: Vector2 = selected_entity.global_position
 			var mouse_global_pos: Vector2 = InputMgr.mouse_global_position

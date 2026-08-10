@@ -107,7 +107,7 @@ func _death(d: Damage, target: Entity, health_c: HealthComponent, source: Entity
 	if damage_flags & C.DamageFlag.KILL_REMOVE:
 		target.remove_entity()
 	
-	await SystemMgr.update_system
+	await SystemMgr.update_system_finished
 		
 	if target._on_death():
 		return

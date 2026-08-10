@@ -18,8 +18,7 @@ func _ready() -> void:
 	_update()
 
 
-func _update() -> void:
-	pass
+func _update() -> void: pass
 
 
 func _hide() -> void:
