@@ -120,4 +120,6 @@ func _death(d: Damage, target: Entity, health_c: HealthComponent, source: Entity
 		if await target.y_wait_animation(death_animation):
 			return
 
+	await target.y_wait(health_c.death_remove_delay)
+
 	target.remove_entity()

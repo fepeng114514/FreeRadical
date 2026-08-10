@@ -45,6 +45,8 @@ class_name HealthComponent
 @export var death_animation: AnimationGroup = null
 ## 死亡音效组。
 @export var death_sfx: AudioGroup = null
+## 死亡后实体移除延迟（秒）。
+@export var death_remove_delay: float = 2.0
 
 ## 当前血量。
 var hp: float = 0.0:
