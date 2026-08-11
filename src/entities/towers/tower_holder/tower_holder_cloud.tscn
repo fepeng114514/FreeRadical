@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_pctdl"]
 [ext_resource type="Texture2D" uid="uid://cxxqfvpja2uo7" path="res://assets/atlas/atlas_textures/towers/build_terrain_0001_2.tres" id="3_3oyr1"]
 
-[sub_resource type="Resource" id="Resource_qoeby"]
+[sub_resource type="Resource" id="Resource_7ciym"]
 resource_local_to_scene = true
 script = ExtResource("2_pctdl")
 flags = 16
@@ -13,7 +13,7 @@ blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerHolderCloud" unique_id=1898604313 instance=ExtResource("1_7ciym")]
-interact_policy = SubResource("Resource_qoeby")
+interact_policy = SubResource("Resource_7ciym")
 
 [node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
 position = Vector2(0, 0)
@@ -22,4 +22,4 @@ position = Vector2(0, 0)
 texture = ExtResource("3_3oyr1")
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
-select_rect = Rect2(-68.155, -45.7, 131.18, 85.995)
+select_rect = Rect2(-74.005, -47.95, 144.23, 95.535)

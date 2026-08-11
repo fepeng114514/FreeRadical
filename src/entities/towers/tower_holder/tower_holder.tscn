@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_fdaav"]
 script = ExtResource("2_pyfu2")
 
-[sub_resource type="Resource" id="Resource_2p8co"]
+[sub_resource type="Resource" id="Resource_mxgx1"]
 resource_local_to_scene = true
 script = ExtResource("4_cdqn2")
 flags = 16
@@ -20,10 +20,8 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 script = ExtResource("1_8t0vl")
 default_rally_center_local_pos = Vector2(0, 0)
 tower_c = NodePath("TowerComponent")
-scene_name = "tower_holder"
-localization_name = null
 idle_animation = SubResource("Resource_fdaav")
-interact_policy = SubResource("Resource_2p8co")
+interact_policy = SubResource("Resource_mxgx1")
 
 [node name="SpriteComponent" parent="." index="0" unique_id=1067981190]
 position = Vector2(0, -10)
@@ -31,6 +29,5 @@ position = Vector2(0, -10)
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=2043930113]
 
 [node name="UIComponent" parent="." index="2" unique_id=602361207]
-process_mode = 4
 select_rect = Rect2(-77.425, -59.56, 156.65, 85.995)
 select_menu_offset = Vector2(0, -19.71)

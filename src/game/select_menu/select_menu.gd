@@ -21,12 +21,9 @@ class_name SelectMenuController
 
 ## 当前选择的实体
 var selected_entity: Entity = null
-var scale_tween: Tween = null
-var is_scale_tweening: bool = false
 
 
 func _ready() -> void:
-	scale = Vector2.ZERO
 	visible = false
 	
 	SelectMgr.entity_selected.connect(_show)
@@ -56,7 +53,6 @@ func _show(e: Entity) -> void:
 		return
 		
 	var group: SelectMenuButtonGroup = null
-		
 	var tower_c: TowerComponent = e.get_node_or_null(C.CN_TOWER)
 	if tower_c and tower_c.tower_type == TowerComponent.TowerType.TOWER_HOLDER:
 		group = select_menu_config.group_dict["tower_holder"]

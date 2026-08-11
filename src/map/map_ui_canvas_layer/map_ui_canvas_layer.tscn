@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="1_l61cl"]
 [ext_resource type="Script" uid="uid://drujx836dqhq3" path="res://map/map_ui_canvas_layer/map_ui_canvas_layer.gd" id="1_p1qwd"]
+[ext_resource type="Texture2D" uid="uid://53ffcq83gxj7" path="res://map/map_ui_canvas_layer/border.tres" id="3_lvsak"]
 [ext_resource type="Texture2D" uid="uid://cto1koeceieb3" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0001.tres" id="10_mcavn"]
 [ext_resource type="Texture2D" uid="uid://bql8qexe34fb0" path="res://assets/atlas/atlas_textures/gui/map_configBtn_0001.tres" id="10_tsvym"]
 [ext_resource type="Texture2D" uid="uid://didjux0vtpo2f" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0003.tres" id="11_jpn0e"]
@@ -17,17 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://b242mfiwnpcoo" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0004.tres" id="19_fn1rl"]
 [ext_resource type="Texture2D" uid="uid://dk1tltomnkakv" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0006.tres" id="20_48gv4"]
 [ext_resource type="Texture2D" uid="uid://c1jcrkyfgqpfo" path="res://assets/atlas/atlas_textures/map/mapButtons-notxt_0005.tres" id="21_r4o05"]
-
-[sub_resource type="Gradient" id="Gradient_7lyie"]
-offsets = PackedFloat32Array(0.91430134, 1)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.527)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_5jdw0"]
-gradient = SubResource("Gradient_7lyie")
-fill = 2
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 1)
-metadata/_snap_enabled = true
 
 [node name="MapUICanvasLayer" type="CanvasLayer" unique_id=1640298559]
 script = ExtResource("1_p1qwd")
@@ -51,7 +41,7 @@ offset_right = 24.0
 offset_bottom = 24.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_5jdw0")
+texture = ExtResource("3_lvsak")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=197592216]
 layout_mode = 1

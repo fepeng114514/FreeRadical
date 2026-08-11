@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cl3cd8sdbjwhv"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_oue4o"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_cy1nh"]
+[ext_resource type="Texture2D" uid="uid://b8scwdfl1pqrn" path="res://assets/atlas/atlas_textures/level_0/statue_decal.tres" id="3_uklca"]
+
+[node name="StatueDecal" type="Node2D" unique_id=1550676829]
+script = ExtResource("1_oue4o")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=7937773]
+script = ExtResource("2_cy1nh")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1577114566]
+position = Vector2(0, -208)
+texture = ExtResource("3_uklca")

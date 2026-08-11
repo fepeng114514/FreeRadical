@@ -4,7 +4,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_py8j0"]
 atlas = ExtResource("1_alyvo")
-region = Rect2(2703, 762, 44, 41)
+region = Rect2(2702, 762, 44, 41)
 margin = Rect2(147, 103, 161, 137)
 filter_clip = true
 
