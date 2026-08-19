@@ -37,7 +37,7 @@ func _ready() -> void:
 		if not scene_name.begins_with("enemy_"):
 			continue
 		
-		var option_item: String = scene_name.replace("enemy_", "").capitalize()
+		var option_item: String = tr(scene_name.to_upper())
 		entity_option_button_label.option_button.add_item(option_item)
 		
 		enemy_idx_dict[scene_uid] = i
