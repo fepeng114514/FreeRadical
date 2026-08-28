@@ -76,12 +76,10 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedSkill" type="Node2D" parent="SkillComponent" unique_id=1939030855]
 script = ExtResource("6_vh14o")
 searcher = SubResource("Resource_uea8m")
-bullet = "uid://d25hnem6unbul"
+bullet = "uid://xybhrfxqmw21"
 bullet_offsets = SubResource("Resource_367kr")
 influence = SubResource("Resource_wxd0v")
 cooldown = 0.8
 delay = 0.167
 animation = SubResource("Resource_6rlp0")
-group_share_cooldown_enable = true
-group_share_cooldown_id = 1
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

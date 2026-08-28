@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bubogx21tfcoe"]
+
+[ext_resource type="PackedScene" uid="uid://c77v7yq60lpig" path="res://entities/towers/tower_mage/tower_mage_bullet.tscn" id="1_kjg0o"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="2_rcaok"]
+
+[sub_resource type="Resource" id="Resource_1g575"]
+resource_local_to_scene = true
+script = ExtResource("2_rcaok")
+damage_type = 2
+min_value = 15.0
+max_value = 21.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
+
+[node name="TowerMageLvl1Bullet" unique_id=511000022 instance=ExtResource("1_kjg0o")]
+
+[node name="BulletComponent" parent="." index="0" unique_id=490791954]
+influence = SubResource("Resource_1g575")

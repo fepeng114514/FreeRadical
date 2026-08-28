@@ -12,7 +12,6 @@ flight_total_time = 0.7
 [node name="TowerArcherBullet" unique_id=43521632 instance=ExtResource("1_y76x6")]
 
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
-process_mode = 4
 trajectory = SubResource("Resource_archer_traj")
 hit_payloads = PackedStringArray()
 miss_payloads = PackedStringArray()

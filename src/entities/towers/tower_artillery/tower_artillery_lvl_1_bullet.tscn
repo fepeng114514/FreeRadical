@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://2b477amx3god" path="res://entities/bullet.tscn" id="1_y76x6"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_0mq2b"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="3_fpsm6"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="4_c0dtg"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="6_jmmy1"]
 [ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://classes/bullet_trajectories/parabola_bullet_trajectory.gd" id="7_k2m4n"]
 [ext_resource type="Texture2D" uid="uid://d1gbwpn3epj2t" path="res://assets/atlas/atlas_textures/towers/bombs_0001.tres" id="8_lvynn"]
@@ -9,6 +11,26 @@
 [sub_resource type="Resource" id="Resource_arty_traj"]
 script = ExtResource("7_k2m4n")
 flight_total_time = 1.5
+
+[sub_resource type="Resource" id="Resource_w4mo5"]
+resource_local_to_scene = true
+script = ExtResource("4_c0dtg")
+max_radius = 120.0
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_67tlk"]
+resource_local_to_scene = true
+script = ExtResource("3_fpsm6")
+damage_type = 4
+min_value = 9.0
+max_value = 18.0
+get_value_mode = 1
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
+area_enable = true
+searcher = SubResource("Resource_w4mo5")
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_jmmy1"]
 script = ExtResource("6_jmmy1")
@@ -18,10 +40,10 @@ metadata/_custom_type_script = "uid://b2b214g352w4u"
 [node name="TowerArtilleryLvl1Bullet" unique_id=2094980939 instance=ExtResource("1_y76x6")]
 
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
-process_mode = 4
 trajectory = SubResource("Resource_arty_traj")
 rotation_speed = 6.0
 look_to = false
+influence = SubResource("Resource_67tlk")
 hit_sfx = SubResource("Resource_jmmy1")
 hit_payloads = PackedStringArray("uid://dmn3u58sdn7l1")
 miss_sfx = SubResource("Resource_jmmy1")

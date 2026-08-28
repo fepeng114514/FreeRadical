@@ -29,7 +29,6 @@ metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 idle_animation = SubResource("Resource_hf44a")
 
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
-process_mode = 4
 trajectory = SubResource("Resource_mage_traj")
 flight_animation = SubResource("Resource_halcm")
 hit_animation = SubResource("Resource_tx2v8")

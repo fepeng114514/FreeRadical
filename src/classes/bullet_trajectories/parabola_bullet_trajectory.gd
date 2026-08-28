@@ -9,8 +9,8 @@ class_name ParabolaBulletTrajectory
 @export var flight_total_time: float = 0.0
 ## 重力加速度。
 @export var flight_gravity: float = 980.0
-## 检查到达目标点的阈值。
-@export var arrival_threshold: float = 0.8
+## 检查到达目标点的时间阈值。
+@export var arrival_time_threshold_factor: float = 0.8
 
 
 func _get_predict_time() -> float:
@@ -59,6 +59,6 @@ func _can_miss(e: Entity, bullet_c: BulletComponent, flying_time: float) -> bool
 
 func _can_hit(e: Entity, bullet_c: BulletComponent, flying_time: float) -> bool:
 	return (
-		flying_time >= flight_total_time * arrival_threshold 
+		flying_time >= flight_total_time * arrival_time_threshold_factor
 		and super(e, bullet_c, flying_time)
 	)

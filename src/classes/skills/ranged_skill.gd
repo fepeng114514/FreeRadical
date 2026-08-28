@@ -37,25 +37,15 @@ enum BulletSpawnMode {
 @export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0.0
 ## 子弹发射模式。
 @export var bullet_spawn_mode: BulletSpawnMode = BulletSpawnMode.EQUAL_INTERVAL
-## 影响资源，用于对目标造成伤害或治愈目标。
-@export var influence: Influence = null:
-	set(v): 
-		influence = v
-		U.resource_redraw_setter(self, influence)
-
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		U.connect_resource_changed(bullet_offsets, queue_redraw)
-		U.connect_resource_changed(influence, queue_redraw)
 		U.connect_resource_changed(searcher, queue_redraw)
 
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		if influence:
-			influence.draw(self, position)
-
 		searcher.draw(self, position)
 		OffsetGroup.draw_offset_group(self, bullet_offsets)
 
@@ -118,8 +108,5 @@ func _spawn_bullets(
 			)
 			b_global_pos += offset
 		b.global_position = b_global_pos
-
-		var b_bullet_c: BulletComponent = b.get_node_or_null(C.CN_BULLET)
-		b_bullet_c.influence = influence.duplicate_deep()
 
 		b.insert_entity()

@@ -23,6 +23,11 @@ class_name BulletComponent
 @export var can_arrived: bool = true
 ## 击中目标的阈值。
 @export var hit_distance: float = 30.0
+## 影响资源，用于对目标造成伤害或治愈目标。
+@export var influence: Influence = null:
+	set(v): 
+		influence = v
+		U.resource_redraw_setter(self, influence)
 ## 击中目标后是否移除子弹实体。
 @export var hit_remove: bool = true
 ## 击中后造成伤害的延迟（秒）。
@@ -44,8 +49,8 @@ class_name BulletComponent
 ## 未击中目标时创建的实体场景路径列表。
 @export_file("*.tscn") var miss_payloads := PackedStringArray()
 
-## 影响资源，用于对目标造成伤害或治愈目标。
-var influence: Influence = null
+## 伤害倍率。
+var damage_factor: float = 1.0
 ## 起始位置。
 var from := Vector2.ZERO
 ## 目标位置。
@@ -61,4 +66,11 @@ var damaged_entity_ids := PackedInt32Array()
 
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED
+	if Engine.is_editor_hint():
+		U.connect_resource_changed(influence, queue_redraw)
+
+
+func _draw() -> void:
+	if Engine.is_editor_hint():
+		if influence:
+			influence.draw(self, position)
