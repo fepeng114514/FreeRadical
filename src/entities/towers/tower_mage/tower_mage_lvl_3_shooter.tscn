@@ -17,6 +17,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 resource_local_to_scene = true
 script = ExtResource("2_gseup")
 max_radius = 360.0
+sort_mode = 6
 interact_policy = SubResource("Resource_76wbl")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 

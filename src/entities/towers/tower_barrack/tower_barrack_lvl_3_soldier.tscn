@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="3_uposi"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="4_uposi"]
 
-[sub_resource type="Resource" id="Resource_t8qan"]
+[sub_resource type="Resource" id="Resource_n3uno"]
 resource_local_to_scene = true
 script = ExtResource("2_obj8f")
 flags = 4
@@ -14,7 +14,7 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_sve1a"]
+[sub_resource type="Resource" id="Resource_xeq8m"]
 resource_local_to_scene = true
 script = ExtResource("2_obj8f")
 flags = 2097152
@@ -22,22 +22,26 @@ whitelist = PackedStringArray()
 blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_h5oex"]
+[sub_resource type="Resource" id="Resource_gc3ns"]
 resource_local_to_scene = true
 script = ExtResource("3_uposi")
 max_radius = 100.0
-interact_policy = SubResource("Resource_sve1a")
+interact_policy = SubResource("Resource_xeq8m")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
-[sub_resource type="Resource" id="Resource_s2rej"]
+[sub_resource type="Resource" id="Resource_23xow"]
 resource_local_to_scene = true
 script = ExtResource("4_uposi")
 damage_flags = 2097152
 min_value = 10.0
 max_value = 14.0
+mods = PackedStringArray()
+auras = PackedStringArray()
+payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
-[sub_resource type="Resource" id="Resource_dngmn"]
+[sub_resource type="Resource" id="Resource_alvr4"]
+resource_local_to_scene = true
 script = ExtResource("2_obj8f")
 flags = 2097152
 whitelist = PackedStringArray()
@@ -45,7 +49,7 @@ blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerBarrackLvl3Soldier" unique_id=1677548747 instance=ExtResource("1_6fjjf")]
-interact_policy = SubResource("Resource_t8qan")
+interact_policy = SubResource("Resource_n3uno")
 
 [node name="AnimatedSprite2D" parent="SpriteComponent" parent_id_path=PackedInt32Array(389197924) index="0" unique_id=1889529730]
 sprite_frames = ExtResource("2_41ehm")
@@ -53,14 +57,14 @@ sprite_frames = ExtResource("2_41ehm")
 [node name="HealthComponent" parent="." index="1" unique_id=949799713]
 hp_max = 160.0
 physical_armor = 0.5
-idle_regen_hp = 10.0
+idle_regen_hp = 20.0
 
 [node name="MeleeComponent" parent="." index="2" unique_id=668314156]
-searcher = SubResource("Resource_h5oex")
+searcher = SubResource("Resource_gc3ns")
 
 [node name="MeleeSkill" parent="MeleeComponent" index="0" unique_id=1014449767]
-influence = SubResource("Resource_s2rej")
-interact_policy = SubResource("Resource_dngmn")
+influence = SubResource("Resource_23xow")
+interact_policy = SubResource("Resource_alvr4")
 
 [node name="UIComponent" parent="." index="3" unique_id=346591849]
 select_rect = Rect2(-15.555, -40.245, 32.735, 40.255)
