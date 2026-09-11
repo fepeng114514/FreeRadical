@@ -74,7 +74,7 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedSkill" type="Node2D" parent="SkillComponent" unique_id=1939030855]
 script = ExtResource("6_d4nto")
 searcher = SubResource("Resource_uea8m")
-bullet = "uid://3wgsu2jj2mdg"
+bullet_scene = "uid://3wgsu2jj2mdg"
 bullet_offsets = SubResource("Resource_367kr")
 influence = SubResource("Resource_wxd0v")
 cooldown = 0.8

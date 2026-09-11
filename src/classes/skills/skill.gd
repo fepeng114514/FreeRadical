@@ -29,7 +29,7 @@ signal start_skill_cooldown
 
 @export_group("Share Cooldown")
 ## 是否启用共享冷却，可以使自身多个技能共享冷却。
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var share_cooldown_enable: bool = false
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var share_cooldown_enabled: bool = false
 ## 共享冷却的技能列表。
 @export var share_cooldown_skill_list: Array[Skill] = []
 
@@ -39,8 +39,8 @@ var ts: float = 0.0
 
 @warning_ignore_start("unused_parameter")
 ## 检查技能是否可以释放。
-func can_use(e: Entity) -> bool:
-	if not TimeMgr.has_elapsed(ts, cooldown):
+func can_use(entity: Entity) -> bool:
+	if not TimeManager.has_elapsed(ts, cooldown):
 		return false
 
 	if randf() > chance:
@@ -50,23 +50,23 @@ func can_use(e: Entity) -> bool:
 
 
 ## 释放技能。
-func _use_skill(e: Entity, target: Entity = null) -> void: pass
+func _use_skill(entity: Entity, target: Entity = null) -> void: pass
 @warning_ignore_restore("unused_parameter")
 
 
 ## 释放技能。[br][br]
 ## -> 是否成功释放技能。
-func use_skill(e: Entity, target: Entity = null) -> void:
-	_use_skill(e, target)
+func use_skill(entity: Entity, target: Entity = null) -> void:
+	_use_skill(entity, target)
 	skill_used.emit()
 
 
 ## 开始技能冷却。
 func start_cooldown() -> void:
-	var tick_ts: float = TimeMgr.tick_ts
+	var tick_ts: float = TimeManager.tick_ts
 	ts = tick_ts
 
-	if share_cooldown_enable:
+	if share_cooldown_enabled:
 		for skill: Skill in share_cooldown_skill_list:
 			skill.ts = tick_ts
 	

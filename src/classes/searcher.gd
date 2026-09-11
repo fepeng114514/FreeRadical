@@ -28,19 +28,26 @@ enum SortMode {
 
 
 ## 搜索组枚举。
-enum SearchGroup {
-	## 搜索组: 无。
-	NONE,
+enum SearchedGroup {
 	## 搜索组：实体。
-	ENTITY,
+	ENTITIES,
 	## 搜索组: 敌人。
-	ENEMY,
+	ENEMIES,
 	## 搜索组: 友军。
-	FRIENDLY,
+	FRIENDLIES,
 	## 搜索组: 单位。
-	UNIT,
+	UNITS,
 	## 搜索组: 防御塔。
-	TOWER,
+	TOWERS,
+}
+
+
+## 搜索标识枚举。
+enum Flag {
+	## 搜索标识: 无。
+	NONE = 0,
+	## 搜索标识: 跳过即将死亡的目标。
+	SKIP_READY_DEAD = 1,
 }
 
 
@@ -49,7 +56,7 @@ enum SearchGroup {
 	set(v): 
 		center_offsets = v
 		if Engine.is_editor_hint():
-			U.connect_resource_changed(center_offsets, emit_changed)
+			Utils.connect_resource_changed(center_offsets, emit_changed)
 			emit_changed()
 ## 最小半径。
 @export var min_radius: float = 0.0:
@@ -64,15 +71,15 @@ enum SearchGroup {
 		if Engine.is_editor_hint():
 			emit_changed()
 ## 最大搜索数量。
-@export var max_search: int = C.UNSET
+@export var max_search: int = Constants.UNSET
 ## 排序模式。
 @export var sort_mode: SortMode = SortMode.PROGRESS
-## 是否反转排序，默认最大在前，为 [code]true[/code] 时最小在前。
-@export var sort_reversed: bool = false
+## 是否启用反转排序，默认最大在前，为 [code]true[/code] 时最小在前。
+@export var sort_reversed_enabled: bool = false
 ## 搜索组。
-@export var search_group: SearchGroup = SearchGroup.ENEMY
+@export var searched_group: SearchedGroup = SearchedGroup.ENEMIES
 ## 搜索标识。
-@export var search_flag: int = C.SearchFlag.NONE
+@export var search_flag: int = Flag.NONE
 ## 交互策略。
 @export var interact_policy: InteractPolicy = null
 
@@ -84,52 +91,56 @@ func _init() -> void:
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
 		"search_flag":
-			property.hint_string = "mask_enum:SearchFlag"
+			property.hint_string = "mask_check(%s)" % Flag
 
 
 ## 搜索目标。
-func search_targets(center: Vector2, search_entity: Entity = null, filter: Callable = Callable()) -> Array[Entity]:
+func search_targets(center: Vector2, search_entity: Entity = null, filter := Callable()) -> Array[Entity]:
 	if search_entity and center_offsets:
-		var center_offset: Vector2 = center_offsets.get_offset_for_point(search_entity.global_position, search_entity.look_point)
+		var center_offset: Vector2 = center_offsets.get_offset_toward_point(search_entity.global_position, search_entity.facing_global_position)
 		center += center_offset
 
-	var group: StringName = &""
-	var is_enemy: bool = search_entity and search_entity.interact_policy and search_entity.interact_policy.flags & C.Flag.ENEMY
+	var is_enemy: bool = search_entity and search_entity.interact_policy and search_entity.interact_policy.flags & InteractPolicy.Flag.ENEMY
+	var group_name: StringName = &""
+	match searched_group:
+		SearchedGroup.ENTITIES:
+			group_name = Constants.GROUP_ENTITIES
+		SearchedGroup.ENEMIES:
+			group_name = Constants.GROUP_FRIENDLIES if is_enemy else Constants.GROUP_ENEMIES	
+		SearchedGroup.FRIENDLIES:
+			group_name = Constants.GROUP_ENEMIES if is_enemy else Constants.GROUP_FRIENDLIES
+		SearchedGroup.UNITS:
+			group_name = Constants.GROUP_UNITS
+		SearchedGroup.TOWERS:
+			group_name = Constants.GROUP_TOWERS
 
-	match search_group:
-		SearchGroup.ENTITY:
-			group = C.GROUP_ENTITY
-		SearchGroup.ENEMY:
-			group = C.GROUP_FRIENDLY if is_enemy else C.GROUP_ENEMY
-		SearchGroup.FRIENDLY:
-			group = C.GROUP_ENEMY if is_enemy else C.GROUP_FRIENDLY
-		SearchGroup.UNIT:
-			group = C.GROUP_UNIT
-		SearchGroup.TOWER:
-			group = C.GROUP_TOWER
-
+	var extra_filter := Callable()
 	match search_flag:
-		C.SearchFlag.SKIP_READY_DEAD:
-			filter = _skip_ready_dead_filter.bind(filter)
+		Flag.SKIP_READY_DEAD:
+			extra_filter = _skip_ready_dead_filter.bind()
 			
-	var targets: Array = SearchMgr.find_targets_in_range(
+	if extra_filter.is_valid():
+		filter = func(entity: Entity) -> bool: 
+			return filter.call(entity) and extra_filter.call(entity)
+			
+	var targets: Array[ECSEntity] = ECSEntityManager.search_entities_in_ellipse(
 		center, 
-		max_radius, 
 		min_radius, 
-		interact_policy.flags if interact_policy else 0, 
-		interact_policy.bans if interact_policy else 0,
+		max_radius, 
 		filter,
-		group
+		group_name
 	)
 	_sort_entities_by_type(targets, center)
-	if U.is_valid_number(max_search) and targets.size() > max_search:
+	if Utils.is_valid_number(max_search) and targets.size() > max_search:
 		targets.resize(max_search)
 
-	return targets
+	var result: Array[Entity] = []
+	result.assign(targets)
+	return result
 
 
 ## 搜索单个目标。
-func search_target(center: Vector2, search_entity: Entity = null, filter: Callable = Callable()) -> Entity:
+func search_target(center: Vector2, search_entity: Entity = null, filter := Callable()) -> Entity:
 	var targets: Array[Entity] = search_targets(center, search_entity, filter)
 	if targets:
 		return targets[0]
@@ -137,97 +148,51 @@ func search_target(center: Vector2, search_entity: Entity = null, filter: Callab
 	return null
 
 
-## 根据搜索模式在扇形范围内搜索目标。[br][br]
-## [param filter] 过滤函数。返回 [code]false[/code] 表示被过滤。
-func search_targets_in_sector(
-		search_entity: Entity,
-		origin: Vector2,
-		look_at: Vector2,
-		radius: float,
-		angle_range: float,
-		filter: Callable = Callable()
-	) -> Array:
-	var sector_filter: Callable = func(e: Entity) -> bool:
-		return U.is_in_sector(
-			origin, 
-			e.global_position, 
-			radius, 
-			angle_range, 
-			origin.angle_to(look_at)
-		) and (not filter.is_valid() or filter.call(e))
-
-	return search_targets(origin, search_entity, sector_filter)
-
-
-## 根据搜索模式在矩形范围内搜索目标，filter 返回 false 表示被过滤。
-func search_targets_in_rectangle(
-		search_entity: Entity,
-		origin: Vector2,
-		look_at: Vector2,
-		width: float,
-		length: float,
-		filter: Callable = Callable()
-	) -> Array:
-	var rectangle_filter: Callable = func(e: Entity) -> bool:
-		return U.is_in_line(
-			origin, 
-			e.global_position, 
-			width,
-			length,
-			origin.angle_to(look_at)
-		) and (not filter.is_valid() or filter.call(e))
-
-	return search_targets(origin, search_entity, rectangle_filter)
-
-
 ## 绘制搜索范围。
 func draw(drawer: CanvasItem, center: Vector2) -> void:
 	if center_offsets:
-		U.draw_range_ellipse(drawer, center + center_offsets.right, min_radius, max_radius)
+		Utils.draw_range_ellipse(drawer, center + center_offsets.right, min_radius, max_radius)
 
 		OffsetGroup.draw_offset_group(drawer, center_offsets)
 	else:
-		U.draw_range_ellipse(drawer, center, min_radius, max_radius)
+		Utils.draw_range_ellipse(drawer, center, min_radius, max_radius)
 
 
 ## 跳过已死亡目标过滤器。
-func _skip_ready_dead_filter(e: Entity, filter := Callable()) -> bool:
-	var health_c: HealthComponent = e.get_node_or_null(C.CN_HEALTH)
+func _skip_ready_dead_filter(entity: Entity) -> bool:
+	var health_c: HealthComponent = entity.get_node_or_null(Constants.CN_HEALTH)
 	if health_c:
 		var total_damage: float = 0.0
 
-		for bullet_id: int in e.target_bullet_id_list:
-			var bullet: Entity = EntityMgr.get_entity_by_id(bullet_id)
-			var bullet_c: BulletComponent = bullet.get_node_or_null(C.CN_BULLET)
+		for bullet_id: int in entity.target_bullet_id_list:
+			var bullet: Entity = ECSEntityManager.get_entity_by_id(bullet_id)
+			var bullet_c: BulletComponent = bullet.get_node_or_null(Constants.CN_BULLET)
 			if not bullet_c:
 				continue
 
-			var damage_infl := bullet_c.influence as DamageInfluence
-			if not damage_infl:
+			var damage_influence := bullet_c.influence as DamageInfluence
+			if not damage_influence:
 				continue
 		
 			var damage: Damage = Damage.new()
-			match damage_infl.get_value_mode:
-				damage_infl.GetValueMode.RANDOM:
-					damage.value = damage_infl.override_value
-				damage_infl.GetValueMode.RADIAL_FALLOFF:
-					damage.value = damage_infl.max_value
-			damage.damage_type = damage_infl.damage_type
-			damage.damage_flags = damage_infl.damage_flags
+			match damage_influence.get_value_mode:
+				damage_influence.GetValueMode.RANDOM:
+					damage.value = damage_influence.override_value
+				damage_influence.GetValueMode.RADIAL_FALLOFF:
+					damage.value = damage_influence.max_value
+			damage.damage_type = damage_influence.damage_type
+			damage.damage_flags = damage_influence.damage_flags
 
-			var actual_damage: float = damage.predict_damage(e)
+			var actual_damage: float = damage.predict_damage(entity)
 			total_damage += actual_damage
 			if total_damage >= health_c.hp:
 				return false
 				
-	if filter.is_valid():
-		return filter.call(e)
-
 	return true
 
 
 ## 根据排序模式排序实体数组。
-func _sort_entities_by_type(entities_array: Array[Entity], origin: Vector2) -> void:
+func _sort_entities_by_type(entities_array: Array[ECSEntity], search_global_position: Vector2) -> void:
 	var sort_function: Callable = Callable()
 	
 	match sort_mode:
@@ -238,7 +203,7 @@ func _sort_entities_by_type(entities_array: Array[Entity], origin: Vector2) -> v
 		SortMode.GOLD:
 			sort_function = _sort_by_gold
 		SortMode.DISTANCE:
-			sort_function = _sort_by_distance.bind(origin)
+			sort_function = _sort_by_distance.bind(search_global_position)
 		SortMode.MELEE_DAMAGE:
 			sort_function = _sort_by_melee_damage
 		SortMode.RANGED_DAMAGE:
@@ -253,108 +218,108 @@ func _sort_entities_by_type(entities_array: Array[Entity], origin: Vector2) -> v
 
 
 ## 排序模式: 路程。
-func _sort_by_progress(e1: Entity, e2: Entity) -> bool:
-	var p1: float = INF if sort_reversed else -INF
-	var p2: float = INF if sort_reversed else -INF
+func _sort_by_progress(entity1: Entity, entity2: Entity) -> bool:
+	var progress1: float = INF if sort_reversed_enabled else -INF
+	var progress2: float = INF if sort_reversed_enabled else -INF
 
-	var e1_nav_c: NavPathComponent = e1.get_node_or_null(C.CN_NAV_PATH)
-	if e1_nav_c:
-		p1 = e1_nav_c.nav_progress
+	var entity1_nav_path_c: NavPathComponent = entity1.get_node_or_null(Constants.CN_NAV_PATH)
+	if entity1_nav_path_c:
+		progress1 = entity1_nav_path_c.progress
 
-	var e2_nav_c: NavPathComponent = e2.get_node_or_null(C.CN_NAV_PATH)
-	if e2_nav_c:
-		p2 = e2_nav_c.nav_progress
+	var entity2_nav_path_c: NavPathComponent = entity2.get_node_or_null(Constants.CN_NAV_PATH)
+	if entity2_nav_path_c:
+		progress2 = entity2_nav_path_c.progress
 
-	return p1 < p2 if sort_reversed else p1 > p2
+	return progress1 < progress2 if sort_reversed_enabled else progress1 > progress2
 
 
 ## 排序模式: 血量。
-func _sort_by_health(e1: Entity, e2: Entity) -> bool:
-	var h1: float = INF if sort_reversed else -INF
-	var h2: float = INF if sort_reversed else -INF
+func _sort_by_health(entity1: Entity, entity2: Entity) -> bool:
+	var hp1: float = INF if sort_reversed_enabled else -INF
+	var hp2: float = INF if sort_reversed_enabled else -INF
 
-	var e1_health_c: HealthComponent = e1.get_node_or_null(C.CN_HEALTH)
-	if e1_health_c:
-		h1 = e1_health_c.hp
-	var e2_health_c: HealthComponent = e2.get_node_or_null(C.CN_HEALTH)
-	if e2_health_c:
-		h2 = e2_health_c.hp
+	var entity1_health_c: HealthComponent = entity1.get_node_or_null(Constants.CN_HEALTH)
+	if entity1_health_c:
+		hp1 = entity1_health_c.hp
+	var entity2_health_c: HealthComponent = entity2.get_node_or_null(Constants.CN_HEALTH)
+	if entity2_health_c:
+		hp2 = entity2_health_c.hp
 
-	return h1 < h2 if sort_reversed else h1 > h2
+	return hp1 < hp2 if sort_reversed_enabled else hp1 > hp2
 
 
 ## 排序模式: 赏金。
-func _sort_by_gold(e1: Entity, e2: Entity) -> bool:
-	var g1: float = INF if sort_reversed else -INF
-	var g2: float = INF if sort_reversed else -INF
+func _sort_by_gold(entity1: Entity, entity2: Entity) -> bool:
+	var gold1: float = INF if sort_reversed_enabled else -INF
+	var gold2: float = INF if sort_reversed_enabled else -INF
 
-	var e1_health_c: HealthComponent = e1.get_node_or_null(C.CN_HEALTH)
-	if e1_health_c:
-		g1 = e1_health_c.death_gold
-	var e2_health_c: HealthComponent = e2.get_node_or_null(C.CN_HEALTH)
-	if e2_health_c:
-		g2 = e2_health_c.death_gold
+	var entity1_health_c: HealthComponent = entity1.get_node_or_null(Constants.CN_HEALTH)
+	if entity1_health_c:
+		gold1 = entity1_health_c.death_gold
+	var entity2_health_c: HealthComponent = entity2.get_node_or_null(Constants.CN_HEALTH)
+	if entity2_health_c:
+		gold2 = entity2_health_c.death_gold
 
-	return g1 < g2 if sort_reversed else g1 > g2
+	return gold1 < gold2 if sort_reversed_enabled else gold1 > gold2
 
 
 ## 排序模式: 距离。
-func _sort_by_distance(e1: Entity, e2: Entity, origin: Vector2) -> bool:
-	var d1: float = e1.global_position.distance_squared_to(origin)
-	var d2: float = e2.global_position.distance_squared_to(origin)
+func _sort_by_distance(entity1: Entity, entity2: Entity, search_global_position: Vector2) -> bool:
+	var distance1: float = entity1.global_position.distance_squared_to(search_global_position)
+	var distance2: float = entity2.global_position.distance_squared_to(search_global_position)
 
-	return d1 < d2 if sort_reversed else d1 > d2
+	return distance1 < distance2 if sort_reversed_enabled else distance1 > distance2
 
 
 ## 排序模式: 近战伤害。
-func _sort_by_melee_damage(e1: Entity, e2: Entity) -> bool:
-	var d1: float = INF if sort_reversed else -INF
-	var d2: float = INF if sort_reversed else -INF
+func _sort_by_melee_damage(entity1: Entity, entity2: Entity) -> bool:
+	var melee_damage1: float = INF if sort_reversed_enabled else -INF
+	var melee_damage2: float = INF if sort_reversed_enabled else -INF
 	
-	var e1_melee_c: MeleeComponent = e1.get_node_or_null(C.CN_MELEE)
-	if e1_melee_c:
-		var first_skill: MeleeSkill = e1_melee_c.get_child(0)
-		var damage_infl := first_skill.influence as DamageInfluence
+	var entity1_melee_c: MeleeComponent = entity1.get_node_or_null(Constants.CN_MELEE)
+	if entity1_melee_c:
+		var first_skill: MeleeSkill = entity1_melee_c.get_child(0)
+		var damage_influence := first_skill.influence as DamageInfluence
 
-		if damage_infl:
-			d1 = (damage_infl.min_value + damage_infl.damage_max) / 2.0
-	var e2_melee_c: MeleeComponent = e2.get_node_or_null(C.CN_MELEE)
-	if e2_melee_c:
-		var first_skill: MeleeSkill = e2_melee_c.get_child(0)
-		var damage_infl := first_skill.influence as DamageInfluence
+		if damage_influence:
+			melee_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
+	var entity2_melee_c: MeleeComponent = entity2.get_node_or_null(Constants.CN_MELEE)
+	if entity2_melee_c:
+		var first_skill: MeleeSkill = entity2_melee_c.get_child(0)
+		var damage_influence := first_skill.influence as DamageInfluence
 
-		if damage_infl:
-			d2 = (damage_infl.min_value + damage_infl.damage_max) / 2.0
+		if damage_influence:
+			melee_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 
-	return d1 < d2 if sort_reversed else d1 > d2
+	return melee_damage1 < melee_damage2 if sort_reversed_enabled else melee_damage1 > melee_damage2
 
 
 ## 排序模式: 远程伤害。
-func _sort_by_ranged_damage(e1: Entity, e2: Entity) -> bool:
-	var d1: float = INF if sort_reversed else -INF
-	var d2: float = INF if sort_reversed else -INF
+func _sort_by_ranged_damage(entity1: Entity, entity2: Entity) -> bool:
+	var ranged_damage1: float = INF if sort_reversed_enabled else -INF
+	var ranged_damage2: float = INF if sort_reversed_enabled else -INF
 
-	var e1_skill_c: SkillComponent = e1.get_node_or_null(C.CN_SKILL)
-	if e1_skill_c:
-		var first_skill: Skill = e1_skill_c.get_child(0)
-		var damage_infl := first_skill.influence as DamageInfluence
+	var entity1_skill_c: SkillComponent = entity1.get_node_or_null(Constants.CN_SKILL)
+	if entity1_skill_c:
+		var first_skill: Skill = entity1_skill_c.get_child(0)
+		var damage_influence := first_skill.influence as DamageInfluence
 
-		if damage_infl:
-			d1 = (damage_infl.min_value + damage_infl.damage_max) / 2.0
-	var e2_skill_c: SkillComponent = e2.get_node_or_null(C.CN_SKILL)
-	if e2_skill_c:
-		var first_skill: Skill = e2_skill_c.get_child(0)
-		var damage_infl := first_skill.influence as DamageInfluence
+		if damage_influence:
+			ranged_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
+	var entity2_skill_c: SkillComponent = entity2.get_node_or_null(Constants.CN_SKILL)
+	if entity2_skill_c:
+		var first_skill: Skill = entity2_skill_c.get_child(0)
+		var damage_influence := first_skill.influence as DamageInfluence
 
-		if damage_infl:
-			d2 = (damage_infl.min_value + damage_infl.damage_max) / 2.0
+		if damage_influence:
+			ranged_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 
-	return d1 < d2 if sort_reversed else d1 > d2
+	return ranged_damage1 < ranged_damage2 if sort_reversed_enabled else ranged_damage1 > ranged_damage2
 
 
 ## 排序模式: 实体 ID。
-func _sort_by_id(e1: Entity, e2: Entity) -> bool:
-	var i1: int = e1.id
-	var i2: int = e2.id
+func _sort_by_id(entity1: Entity, entity2: Entity) -> bool:
+	var id1: int = entity1.id
+	var id2: int = entity2.id
 	
-	return i1 < i2 if sort_reversed else i1 > i2
+	return id1 < id2 if sort_reversed_enabled else id1 > id2

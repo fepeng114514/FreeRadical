@@ -9,7 +9,7 @@
 
 [node name="SelectMenuButtonUpgradeSkill" unique_id=614263521 node_paths=PackedStringArray("price_tag") instance=ExtResource("1_syirs")]
 script = ExtResource("2_dlhbn")
-upgrade_skill_idx = -1
+upgrade_skill_index = -1
 price_tag = NodePath("Button/PriceTag")
 
 [node name="Button" parent="." index="0" unique_id=2068864467]

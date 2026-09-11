@@ -26,38 +26,38 @@ var selected_entity: Entity = null
 func _ready() -> void:
 	visible = false
 	
-	SelectMgr.entity_selected.connect(_show)
-	SelectMgr.entity_deselected.connect(_hide)
+	SelectManager.entity_selected.connect(_show)
+	SelectManager.entity_deselected.connect(_hide)
 	
 	
 func _process(_delta: float) -> void:
 	if not visible:
 		return
 		
-	if not U.is_valid_entity(selected_entity):
+	if not selected_entity:
 		_hide()
 		return
 		
-	var ui_c: UIComponent = selected_entity.get_node_or_null(C.CN_UI)
-	if not ui_c:
+	var select_c: SelectComponent = selected_entity.get_node_or_null(Constants.CN_SELECT)
+	if not select_c:
 		return
 		
-	global_position = selected_entity.global_position + ui_c.select_menu_offset
+	global_position = selected_entity.global_position + select_c.select_menu_offset
 
 	
-func _show(e: Entity) -> void:
+func _show(entity: Entity) -> void:
 	_clear()
 	
-	var ui_c: UIComponent = e.get_node_or_null(C.CN_UI)
-	if not ui_c:
+	var select_c: SelectComponent = entity.get_node_or_null(Constants.CN_SELECT)
+	if not select_c:
 		return
 		
 	var group: SelectMenuButtonGroup = null
-	var tower_c: TowerComponent = e.get_node_or_null(C.CN_TOWER)
+	var tower_c: TowerComponent = entity.get_node_or_null(Constants.CN_TOWER)
 	if tower_c and tower_c.tower_type == TowerComponent.TowerType.TOWER_HOLDER:
 		group = select_menu_config.group_dict["tower_holder"]
 	else:
-		group = select_menu_config.group_dict.get(e.scene_name)
+		group = select_menu_config.group_dict.get(entity.scene_name)
 	
 	if not group:
 		return
@@ -74,7 +74,7 @@ func _show(e: Entity) -> void:
 				button.button.icon = data.icon
 		elif data is SelectMenuButtonDataUpgradeSkill:
 			button = upgrade_skill_button_scene.instantiate()
-			button.upgrade_skill_idx = data.upgrade_skill_idx
+			button.upgrade_skill_index = data.upgrade_skill_index
 			
 			if data.icon:
 				button.button.icon = data.icon
@@ -85,12 +85,12 @@ func _show(e: Entity) -> void:
 		
 		button.select_menu = self
 		button.position = place_holders.list[data.place]
-		button.selected_entity = e
+		button.selected_entity = entity
 		ring.add_child(button)
 		
-	selected_entity = e
+	selected_entity = entity
 	visible = true
-	global_position = e.global_position + ui_c.select_menu_offset
+	global_position = entity.global_position + select_c.select_menu_offset
 		
 	animation_player.play("show")
 	

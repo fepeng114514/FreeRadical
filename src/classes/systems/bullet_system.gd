@@ -1,131 +1,133 @@
-extends System
+extends ECSSystem
 class_name BulletSystem
 ## 子弹系统。
 ##
 ## BulletSystem 负责处理拥有 [BulletComponent] 子弹组件的实体的飞行轨迹、命中检测和伤害计算等相关逻辑。
 
 
-func _on_insert(e: Entity) -> bool:
-	var bullet_c: BulletComponent = e.get_node_or_null(C.CN_BULLET)
+func _on_insert(entity: ECSEntity) -> bool:
+	entity = entity as Entity
+
+	var bullet_c: BulletComponent = entity.get_node_or_null(Constants.CN_BULLET)
 	if not bullet_c:
 		return true
 
-	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
+	var target: Entity = ECSEntityManager.get_entity_by_id(entity.target_id)
 	if not target:
 		return false
 		
-	target.target_bullet_id_list.append(e.id)
-	bullet_c.ts = TimeMgr.tick_ts
+	target.target_bullet_id_list.append(entity.id)
+	bullet_c.ts = TimeManager.tick_ts
 	var predict_time: float = bullet_c.trajectory._get_predict_time() if bullet_c.trajectory else 0.0
 	if predict_time:
-		bullet_c.predict_target_pos = PathwayMgr.predict_target_pos(
+		bullet_c.predicted_target_global_position = PathwayManager.predict_target_global_position(
 			target, predict_time
 		)
 	else:
-		bullet_c.predict_target_pos = target.global_position
+		bullet_c.predicted_target_global_position = target.global_position
 	
-	var to: Vector2 = bullet_c.predict_target_pos
+	var to: Vector2 = bullet_c.predicted_target_global_position
 	if target.hit_offsets:
-		var hit_offset: Vector2 = target.hit_offsets.get_offset_for_point(
-			target.global_position, target.look_point
+		var hit_offset: Vector2 = target.hit_offsets.get_offset_toward_point(
+			target.global_position, target.facing_global_position
 		)
 		to += hit_offset
 	bullet_c.to = to
-	bullet_c.from = e.global_position
-	if bullet_c.look_to:
-		e.look_at(to)
+	bullet_c.from = entity.global_position
+	if bullet_c.facing_enabled:
+		entity.look_at(to)
 
 	if bullet_c.trajectory:
-		bullet_c.trajectory._init_trajectory(bullet_c, e, target)
+		bullet_c.trajectory._init_trajectory(entity, bullet_c, target)
 
-	var damage_infl := bullet_c.influence as DamageInfluence
-	if damage_infl:
-		match damage_infl.get_value_mode:
-			damage_infl.GetValueMode.RANDOM:
-				damage_infl.override_value = damage_infl.get_damage_value()
+	var damage_influence := bullet_c.influence as DamageInfluence
+	if damage_influence:
+		match damage_influence.get_value_mode:
+			damage_influence.GetValueMode.RANDOM:
+				damage_influence.override_value = damage_influence.get_damage_value()
 
 	return true
 
 
-func _on_remove(e: Entity) -> bool:
-	var bullet_c: BulletComponent = e.get_node_or_null(C.CN_BULLET)
+func _on_remove(entity: ECSEntity) -> bool:
+	entity = entity as Entity
+
+	var bullet_c: BulletComponent = entity.get_node_or_null(Constants.CN_BULLET)
 	if not bullet_c:
 		return true
 		
-	var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
+	var target: Entity = ECSEntityManager.get_entity_by_id(entity.target_id)
 	if not target:
 		return true
 		
-	target.target_bullet_id_list.erase(e.id)
+	target.target_bullet_id_list.erase(entity.id)
 	return true
 
 
 func _on_update(delta: float) -> void:
-	var entity_list: Array = EntityMgr.get_component_group(C.CN_BULLET).filter(
-		func(e: Entity) -> bool:
-			return not e.is_waiting() and not e.state & Entity.State.REMOVED
-	)
+	for entity: Entity in ECSEntityManager.get_component_entity_group(Constants.CN_BULLET):
+		if entity.is_waiting() or entity.state & Entity.State.REMOVED:
+			continue
 
-	for e: Entity in entity_list:
-		var bullet_c: BulletComponent = e.get_node_or_null(C.CN_BULLET)
+		var bullet_c: BulletComponent = entity.get_node_or_null(Constants.CN_BULLET)
 		if not bullet_c or not bullet_c.trajectory:
 			continue
 			
-		var target: Entity = EntityMgr.get_entity_by_id(e.target_id)
-		var flying_time: float = TimeMgr.get_elapsed_time(bullet_c.ts)
+		var target: Entity = ECSEntityManager.get_entity_by_id(entity.target_id)
+		var flying_time: float = TimeManager.get_elapsed_time(bullet_c.ts)
 
-		bullet_c.trajectory._update_trajectory(e, bullet_c, target, flying_time, delta)
+		bullet_c.trajectory._update_trajectory(entity, bullet_c, target, flying_time, delta)
 		
 		if bullet_c.flight_animation:
-			e.play_animation(bullet_c.flight_animation)
-		e.rotation += bullet_c.rotation_speed * delta
+			entity.play_animation(bullet_c.flight_animation)
+		entity.rotation += bullet_c.rotation_speed * delta
 
 		if target:
-			if bullet_c.trajectory._can_hit(e, bullet_c, flying_time):
-				_hit(e, bullet_c, target)
+			if bullet_c.trajectory._can_hit(entity, bullet_c, flying_time):
+				_hit(entity, bullet_c, target)
 		else:
-			if bullet_c.trajectory._can_miss(e, bullet_c, flying_time):
-				_miss(e, bullet_c)
+			if bullet_c.trajectory._can_miss(entity, bullet_c, flying_time):
+				_miss(entity, bullet_c)
 
 
 ## 未击中处理。
-func _miss(e: Entity, bullet_c: BulletComponent) -> void:
-	e._on_bullet_miss(bullet_c)
+func _miss(entity: Entity, bullet_c: BulletComponent) -> void:
+	entity._on_bullet_miss(bullet_c)
 	
-	AudioMgr.play_sfx(bullet_c.miss_sfx)
+	AudioManager.play_sfx(bullet_c.miss_sfx)
 	if bullet_c.miss_animation:
-		e.play_animation(bullet_c.miss_animation)
-		if await e.y_wait_animation(bullet_c.miss_animation):
+		entity.play_animation(bullet_c.miss_animation)
+		if await entity.y_wait_animation(bullet_c.miss_animation):
 			return
 
 	var influence: Influence = bullet_c.influence
-	if influence and influence.area_enable:
-		influence.take_influence(e, null, bullet_c.to)
-	EntityMgr.create_entities_at_pos(bullet_c.miss_payloads, bullet_c.to)
+	if influence and influence.area_enabled:
+		influence.take_influence(entity, null, bullet_c.to)
+	EntityUtils.create_entities_at_global_position(bullet_c.miss_payloads, bullet_c.to)
 
 	if bullet_c.miss_animation:
-		if await e.y_wait_animation(bullet_c.miss_animation):
+		if await entity.y_wait_animation(bullet_c.miss_animation):
 			return
 
 	if bullet_c.miss_remove:
-		e.remove_entity()
+		ECSEntityManager.queue_remove_entity(entity)
 				
 				
 ## 命中处理。
-func _hit(e: Entity, bullet_c: BulletComponent, target: Entity) -> void:
-	AudioMgr.play_sfx(bullet_c.hit_sfx)
+func _hit(entity: Entity, bullet_c: BulletComponent, target: Entity) -> void:
+	AudioManager.play_sfx(bullet_c.hit_sfx)
 	if bullet_c.hit_animation:
-		e.play_animation(bullet_c.hit_animation)
-		if await e.y_wait(bullet_c.hit_delay):
+		entity.play_animation(bullet_c.hit_animation)
+		if await entity.y_wait(bullet_c.hit_delay):
 			return
 		
-	bullet_c.influence.take_influence(e, target, bullet_c.to)
-	EntityMgr.create_entities_at_pos(bullet_c.hit_payloads, bullet_c.to)
-	e._on_bullet_hit(target, bullet_c)
+	bullet_c.influence.take_influence(entity, target, bullet_c.to)
+	EntityUtils.create_entities_at_global_position(bullet_c.hit_payloads, bullet_c.to)
+	entity._on_bullet_hit(target, bullet_c)
 	
 	if bullet_c.hit_animation:
-		if await e.y_wait_animation(bullet_c.hit_animation):
+		if await entity.y_wait_animation(bullet_c.hit_animation):
 			return
 
 	if bullet_c.hit_remove:
-		e.remove_entity()
+		ECSEntityManager.queue_remove_entity(entity)

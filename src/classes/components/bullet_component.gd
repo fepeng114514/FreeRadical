@@ -15,8 +15,8 @@ class_name BulletComponent
 @export_group("Rotation")
 ## 子弹旋转速度。
 @export var rotation_speed: float = 0.0
-## 是否看向目标点，会覆盖 [member rotation_speed]。
-@export var look_to: bool = true
+## 是否启用看向目标点，会覆盖 [member rotation_speed]。
+@export var facing_enabled: bool = true
 
 @export_group("Hit")
 ## 是否可以到达目标位置。
@@ -27,7 +27,7 @@ class_name BulletComponent
 @export var influence: Influence = null:
 	set(v): 
 		influence = v
-		U.resource_redraw_setter(self, influence)
+		Utils.resource_redraw_setter(self, influence)
 ## 击中目标后是否移除子弹实体。
 @export var hit_remove: bool = true
 ## 击中后造成伤害的延迟（秒）。
@@ -59,15 +59,15 @@ var to := Vector2.ZERO
 var ts: float = 0.0
 ## 飞行速度（向量）。
 var velocity := Vector2.ZERO
-## 预判目标位置。
-var predict_target_pos := Vector2.ZERO
+## 预判目标全局位置。
+var predicted_target_global_position := Vector2.ZERO
 ## 伤害过的实体 ID 列表。
 var damaged_entity_ids := PackedInt32Array()
 
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		U.connect_resource_changed(influence, queue_redraw)
+		Utils.connect_resource_changed(influence, queue_redraw)
 
 
 func _draw() -> void:

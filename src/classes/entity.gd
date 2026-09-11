@@ -1,14 +1,10 @@
 @tool
-extends Node2D
+extends ECSEntity
 class_name Entity
 ## 实体节点。
 ##
 ## 游戏中所有具有行为和属性的对象都可以被表示为 Entity，例如: 敌人、友军、防御塔、子弹、状态效果等。 [br][br]
 ## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
-
-
-## 实体移除时发出。
-signal entity_removed(entity: Entity)
 
 
 ## 状态标志枚举
@@ -52,9 +48,8 @@ enum SourceType {
 
 
 #region 属性
-
 ## 存在时间（秒），实体存在超过 duration 时间后会被移除，默认值为 -1 表示永久存在。
-@export var duration: float = C.UNSET
+@export var duration: float = Constants.UNSET
 ## 空闲动画组
 @export var idle_animation: AnimationGroup = null
 ## 生成时播放的动画
@@ -65,22 +60,22 @@ enum SourceType {
 @export var hit_offsets: OffsetGroup = null:
 	set(v): 
 		hit_offsets = v
-		U.resource_redraw_setter(self, hit_offsets)
+		Utils.resource_redraw_setter(self, hit_offsets)
 ## 光环位置偏移组。
 @export var aura_offsets: OffsetGroup = null:
 	set(v): 
 		aura_offsets = v
-		U.resource_redraw_setter(self, aura_offsets)
-@export var interact_policy: InteractPolicy = null
+		Utils.resource_redraw_setter(self, aura_offsets)
+@export var interact_policy: InteractPolicy = null:
+	set(v):
+		interact_policy = v
+		if interact_policy:
+			var flag_changed: Signal = interact_policy.flag_changed
+			if not flag_changed.is_connected(_on_interact_policy_flag_changed):
+				flag_changed.connect(_on_interact_policy_flag_changed)
 
-## 实体场景名称
-var scene_name: String = ""
-## 实体本地化名称
-var localization_key: String = ""
-## 实体唯一 ID
-var id: int = C.UNSET
 ## 所有者或来源 ID
-var source_id: int = C.UNSET
+var source_id: int = Constants.UNSET
 ## 来源类型
 var source_type: SourceType = SourceType.NONE
 ## 插入时间戳，单位为秒
@@ -88,7 +83,7 @@ var insert_ts: float = 0.0
 ## 时间戳，单位为秒
 var ts: float = 0.0
 ## 目标实体 ID
-var target_id: int = C.UNSET
+var target_id: int = Constants.UNSET
 ## 拥有的状态效果 ID 列表
 var has_mods_id_list := PackedInt32Array()
 ## 上次拥有的状态效果 ID 列表长度，用于检测状态效果的新增和移除
@@ -99,38 +94,32 @@ var has_auras_id_list := PackedInt32Array()
 var target_bullet_id_list := PackedInt32Array()
 ## 是否被点击选择
 var selected: bool = false
-## 上一帧位置
-var last_position := Vector2.ZERO
+## 上一帧全局位置
+var last_global_position := Vector2.ZERO
 ## 状态
 var state: int = Entity.State.IDLE
-## 看向的点
-var look_point := Vector2.INF
+## 面朝的全局位置
+var facing_global_position := Vector2.INF
 ## 是否是首次更新
 var is_first_update: bool = true
-## 拥有的所有组件节点引用
-var components: Dictionary[StringName, Node] = {}
 #endregion
 
 
 #region 回调函数
 func _ready() -> void:
+	super()
+
+	if interact_policy:
+		set_entity_groups(interact_policy.get_entity_group_names(), false)
+
 	if Engine.is_editor_hint():
-		U.connect_resource_changed(hit_offsets, queue_redraw)
-		U.connect_resource_changed(aura_offsets, queue_redraw)
-	else:
-		scene_name = scene_file_path.get_file().get_basename()
-		localization_key = scene_name.to_upper()
-	
-		for child: Node in get_children():
-			var node_script: GDScript = child.get_script()
-			if not node_script:
-				continue
-			
-			var node_class: String = node_script.get_global_name()
-			if not node_class.find("Component"):
-				continue
-				
-			components[node_class] = child
+		Utils.connect_resource_changed(hit_offsets, queue_redraw)
+		Utils.connect_resource_changed(aura_offsets, queue_redraw)
+		
+		if interact_policy:
+			var flag_changed: Signal = interact_policy.flag_changed
+			if not flag_changed.is_connected(_on_interact_policy_flag_changed):
+				flag_changed.connect(_on_interact_policy_flag_changed)
 
 
 func _draw() -> void:
@@ -215,56 +204,23 @@ func _to_string():
 
 
 #region 实体相关方法
-## 将实体增加到插入队列
-func insert_entity() -> void:
-	visible = false
-	SystemMgr.append_insert_queue.emit(self)
-	SystemMgr.insert_queue.append(self)
-
-
-## 将实体增加到移除队列
-func remove_entity() -> void:
-	visible = false
-	state |= State.REMOVED
-	entity_removed.emit(self)
-	SystemMgr.append_remove_queue.emit(self)
-	Log.debug("移除实体: %s" % self)
-
-	SystemMgr.remove_queue.append(self)
-
 
 ## 获取本土化名称
 func get_localized_name() -> String:
 	return tr(scene_name.to_upper())
 
 
-## 设定实体位置，根据拥有的组件智能赋值
-func set_pos(pos: Vector2) -> void:
-	global_position = pos
+## 设置实体全局位置，根据拥有的组件智能赋值
+func set_global_position_with_components(new_global_position: Vector2) -> void:
+	global_position = new_global_position
 	
-	var rally_c: RallyComponent = get_node_or_null(C.CN_RALLY)
+	var rally_c: RallyComponent = get_node_or_null(Constants.CN_RALLY)
 	if rally_c:
-		rally_c.new_rally_position(self, pos)
+		rally_c.new_rally_global_position(self, new_global_position)
 	
-	if get_node_or_null(C.CN_NAV_PATH):
-		set_nav_path_at_pos(pos)
-
-
-## 设置导航路径到当前位置下最近的导航路径
-func set_nav_path_at_pos(pos: Vector2) -> void:
-	var nav_path_c: NavPathComponent = get_node_or_null(C.CN_NAV_PATH)
-	var pi_list: Array = []
-	var spi_list: Array = []
-
-	if nav_path_c.sync_source_path:
-		var source: Entity = EntityMgr.get_entity_by_id(source_id)
-		var s_nav_path_c: NavPathComponent = source.get_node_or_null(C.CN_NAV_PATH) if source else null
-		if s_nav_path_c:
-			pi_list = [s_nav_path_c.pi]
-			spi_list = [s_nav_path_c.spi]
-
-	var node: PathwayNode = PathwayMgr.get_nearst_node(pos, pi_list, spi_list)
-	nav_path_c.set_nav_path(node.pi, node.spi, node.ni)
+	var nav_path_c: NavPathComponent = get_node_or_null(Constants.CN_NAV_PATH)
+	if nav_path_c:
+		nav_path_c.set_nav_path_to_nearest_node(self, new_global_position)
 
 
 func is_waiting() -> bool:
@@ -281,9 +237,9 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 	if time <= 0:
 		return false
 
-	var timestamp: float = TimeMgr.tick_ts
+	var timestamp: float = TimeManager.tick_ts
 	var is_break: bool = false
-	while not TimeMgr.has_elapsed(timestamp, time):
+	while not TimeManager.has_elapsed(timestamp, time):
 		is_break = (
 			not is_inside_tree()
 			or state & Entity.State.INTERRUPT_WAIT 
@@ -302,23 +258,13 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 #endregion
 
 
-#region 组件相关方法
-## 增加组件
-func add_c(component: GDScript) -> Node:
-	var component_node: Node = component.new()
-	
-	add_child(component_node)
-	return component_node
-#endregion
-
-
 #region 状态效果相关方法
 ## 获取拥有的所有状态效果实体数组
 func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
 	for mod_id: int in has_mods_id_list:
-		var mod: Entity = EntityMgr.get_entity_by_id(mod_id)
+		var mod: Entity = ECSEntityManager.get_entity_by_id(mod_id)
 		
 		if not mod or filter.is_valid() and not filter.call(mod):
 			continue
@@ -331,7 +277,7 @@ func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 ## 清空拥有的状态效果
 func clear_has_mod_list() -> void:
 	for mod: Entity in get_has_mod_list():
-		mod.remove_entity()
+		ECSEntityManager.queue_remove_entity(mod)
 
 	has_mods_id_list.clear()
 #endregion
@@ -343,7 +289,7 @@ func get_has_aura_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_auras: Array[Entity] = []
 	
 	for aura_id in has_auras_id_list:
-		var aura: Entity = EntityMgr.get_entity_by_id(aura_id)
+		var aura: Entity = ECSEntityManager.get_entity_by_id(aura_id)
 		
 		if not aura or filter.is_valid() and not filter.call(aura):
 			continue
@@ -356,55 +302,13 @@ func get_has_aura_list(filter: Callable = Callable()) -> Array[Entity]:
 ## 清空拥有的光环
 func clear_has_aura_list() -> void:
 	for aura: Entity in get_has_aura_list():
-		aura.remove_entity()
+		ECSEntityManager.queue_remove_entity(aura)
 
 	has_auras_id_list.clear()
 #endregion
 
 
 #region 动画相关方法
-## 使一个精灵播放动画
-func _play_animation(
-		anim_name: StringName, 
-		sprite: AnimatedSprite2D, 
-		filp_h: bool = false,
-		speed_scale: float = 1.0,
-		force_play: bool = false
-	) -> void:
-	if (
-			not force_play 
-			and sprite.animation == anim_name 
-			and sprite.flip_h == filp_h
-		):
-		return
-
-	var sprite_frames: SpriteFrames = sprite.sprite_frames
-		
-	if not sprite_frames.has_animation(anim_name):
-		Log.error("%s 未找到动画: %s" % [self, anim_name])
-		return
-
-	#sprite_frames.set_animation_loop(anim_name, loop)
-	#sprite_frames.set_animation_speed(anim_name, speed)
-		
-	Log.verbose("%s 播放动画: %s, 水平镜像: %s" % [self, anim_name, filp_h])
-	sprite.flip_h = filp_h
-	sprite.speed_scale = speed_scale
-	sprite.play(anim_name)
-	
-	
-## 使一个精灵组中的所有精灵播放对应的动画
-func _play_animation_in_group(
-		anim_name: StringName, 
-		group: SpriteGroup, 
-		filp_h: bool = false,
-		speed_scale: float = 1.0,
-		force_play: bool = false
-	) -> void:
-	for sprite: AnimatedSprite2D in group.get_children():
-		_play_animation(anim_name, sprite, filp_h, speed_scale, force_play)	
-
-
 ## 播放动画
 func play_animation(
 		animation_group: AnimationGroup, 
@@ -414,15 +318,15 @@ func play_animation(
 	if not animation_group:
 		return null
 		
-	var play_idx: int = animation_group.play_idx
-	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
+	var play_index: int = animation_group.play_index
+	var sprite_c: SpriteComponent = get_node_or_null(Constants.CN_SPRITE)
 	
-	var play_target: Node2D = sprite_c.get_child(play_idx)
+	var play_target: Node2D = sprite_c.get_child(play_index)
 	if play_target is Sprite2D:
 		return null
 
-	var anim_data: AnimationData = animation_group.get_animation_name_for_point(
-		global_position, look_point
+	var anim_data: AnimationData = animation_group.get_animation_name_toward_point(
+		global_position, facing_global_position
 	)
 	
 	var anim_name: StringName = anim_data.anim_name
@@ -435,10 +339,10 @@ func play_animation(
 
 	## 处理同步动画
 	if sprite_c.sync_source:
-		var source: Entity = EntityMgr.get_entity_by_id(source_id)
+		var source: Entity = ECSEntityManager.get_entity_by_id(source_id)
 		if source and not is_waiting():
-			source.look_point = look_point
-			var s_sprite_c: SpriteComponent = source.get_node_or_null(C.CN_SPRITE)
+			source.facing_global_position = facing_global_position
+			var s_sprite_c: SpriteComponent = source.get_node_or_null(Constants.CN_SPRITE)
 			var s_animation: AnimationGroup = s_sprite_c.sync_animations.get(
 				source_animation_key
 			)
@@ -461,12 +365,12 @@ func get_frames_remaining(play_target: AnimatedSprite2D) -> int:
 
 ## 获取当前播放的动画
 func get_current_animation(animation_group: AnimationGroup) -> AnimatedSprite2D:
-	var sprite_c: SpriteComponent = get_node_or_null(C.CN_SPRITE)
-	var play_idx: int = animation_group.play_idx
+	var sprite_c: SpriteComponent = get_node_or_null(Constants.CN_SPRITE)
+	var play_index: int = animation_group.play_index
 
-	var play_target: Node2D = sprite_c.get_child(play_idx)
+	var play_target: Node2D = sprite_c.get_child(play_index)
 	if play_target is SpriteGroup:
-		play_target = play_target.get_child(play_idx)
+		play_target = play_target.get_child(play_index)
 	elif not play_target is AnimatedSprite2D:
 		return null
 		
@@ -546,3 +450,49 @@ func y_wait_animation(animation_group: AnimationGroup, break_fn: Callable = Call
 	state &= ~(Entity.State.WAITING | Entity.State.INTERRUPT_WAIT)
 	return is_break
 #endregion
+
+
+## 使一个精灵播放动画
+func _play_animation(
+		anim_name: StringName, 
+		sprite: AnimatedSprite2D, 
+		filp_h: bool = false,
+		speed_scale: float = 1.0,
+		force_play: bool = false
+	) -> void:
+	if (
+			not force_play 
+			and sprite.animation == anim_name 
+			and sprite.flip_h == filp_h
+		):
+		return
+
+	var sprite_frames: SpriteFrames = sprite.sprite_frames
+		
+	if not sprite_frames.has_animation(anim_name):
+		Log.error("%s 未找到动画: %s" % [self, anim_name])
+		return
+		
+	Log.verbose("%s 播放动画: %s, 水平镜像: %s" % [self, anim_name, filp_h])
+	sprite.flip_h = filp_h
+	sprite.speed_scale = speed_scale
+	sprite.play(anim_name)
+	
+	
+## 使一个精灵组中的所有精灵播放对应的动画
+func _play_animation_in_group(
+		anim_name: StringName, 
+		group: SpriteGroup, 
+		filp_h: bool = false,
+		speed_scale: float = 1.0,
+		force_play: bool = false
+	) -> void:
+	for sprite: AnimatedSprite2D in group.get_children():
+		_play_animation(anim_name, sprite, filp_h, speed_scale, force_play)	
+
+
+func _on_interact_policy_flag_changed(old_flags: int, new_flags: int) -> void:
+	if old_flags == new_flags:
+		return
+		
+	set_entity_groups(interact_policy.get_entity_group_names(), not Engine.is_editor_hint())

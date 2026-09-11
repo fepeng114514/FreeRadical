@@ -18,7 +18,7 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [node name="TowerHolder" unique_id=1898604313 node_paths=PackedStringArray("tower_c") instance=ExtResource("1_og8n7")]
 script = ExtResource("1_8t0vl")
-default_rally_center_local_pos = Vector2(0, 0)
+default_rally_center_position = Vector2(0, 0)
 tower_c = NodePath("TowerComponent")
 idle_animation = SubResource("Resource_fdaav")
 interact_policy = SubResource("Resource_mxgx1")
@@ -28,6 +28,6 @@ position = Vector2(0, -10)
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=2043930113]
 
-[node name="UIComponent" parent="." index="2" unique_id=602361207]
+[node name="SelectComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-77.425, -59.56, 156.65, 85.995)
 select_menu_offset = Vector2(0, -19.71)

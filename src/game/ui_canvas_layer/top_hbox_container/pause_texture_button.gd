@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	GameMgr.pause_game()
+	GameManager.pause_game()

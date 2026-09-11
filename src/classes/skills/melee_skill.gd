@@ -11,16 +11,16 @@ class_name MeleeSkill
 @export var influence: Influence = null:
 	set(v): 
 		influence = v
-		U.resource_redraw_setter(self, influence)
-## 是否搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
-@export var search_target_pos: bool = false
+		Utils.resource_redraw_setter(self, influence)
+## 是否启用搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
+@export var search_at_target_position_enabled: bool = false
 ## 交互策略。
 @export var interact_policy: InteractPolicy = null
 
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		U.connect_resource_changed(influence, queue_redraw)
+		Utils.connect_resource_changed(influence, queue_redraw)
 
 
 func _draw() -> void:
@@ -29,30 +29,30 @@ func _draw() -> void:
 			influence.draw(self, position)
 
 
-func can_use(e: Entity, target: Entity = null) -> bool:
-	if not super(e):
+func can_use(entity: Entity, target: Entity = null) -> bool:
+	if not super(entity):
 		return false
 		
-	if not InteractPolicy.is_allowed_target(e, target, interact_policy, target.interact_policy):
+	if not InteractPolicy.is_allowed_target(entity, target, interact_policy, target.interact_policy):
 		return false
 		
 	return true
 
 
-func _use_skill(e: Entity, target: Entity = null) -> void:
+func _use_skill(entity: Entity, target: Entity = null) -> void:
 	start_cooldown()
-	e.play_animation(animation, &"melee")
-	AudioMgr.play_sfx(sfx)
-	if await e.y_wait(delay) or not target or not target.state & Entity.State.MELEE:
+	entity.play_animation(animation, &"melee")
+	AudioManager.play_sfx(sfx)
+	if await entity.y_wait(delay) or not target or not target.state & Entity.State.MELEE:
 		compensate_cooldown()
 		return
 	
-	if search_target_pos:
-		influence.take_influence(e, target, target.global_position)
+	if search_at_target_position_enabled:
+		influence.take_influence(entity, target, target.global_position)
 	else:
-		influence.take_influence(e, target, e.global_position)
+		influence.take_influence(entity, target, entity.global_position)
 	
-	if await e.y_wait_animation(animation):
+	if await entity.y_wait_animation(animation):
 		return
 		
-	e.play_animation(e.idle_animation, &"idle")
+	entity.play_animation(entity.idle_animation, &"idle")

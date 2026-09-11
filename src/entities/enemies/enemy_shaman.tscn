@@ -77,19 +77,19 @@ script = ExtResource("8_6majh")
 max_radius = 126.0
 max_search = 3
 sort_mode = 2
-sort_reversed = true
-search_group = 3
+sort_reversed_enabled = true
+searched_group = 3
 interact_policy = SubResource("Resource_0kv7w")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [sub_resource type="Resource" id="Resource_t5fix"]
 resource_local_to_scene = true
 script = ExtResource("8_2lsbh")
-extra_enable = true
+extra_enabled = true
 mods = PackedStringArray("uid://gjv8x6puntrs")
 auras = PackedStringArray()
 payloads = PackedStringArray()
-area_enable = true
+area_enabled = true
 searcher = SubResource("Resource_8umbj")
 metadata/_custom_type_script = "uid://bu7q2xp2xd78b"
 
@@ -119,7 +119,7 @@ offset_bottom = -49.0
 [node name="NavPathComponent" parent="." index="2" unique_id=1202679749]
 speed = 50.0
 
-[node name="UIComponent" parent="." index="3" unique_id=673866706]
+[node name="SelectComponent" parent="." index="3" unique_id=673866706]
 select_rect = Rect2(-22.53, -46.875, 53.06, 49.37)
 
 [node name="MeleeComponent" type="Node2D" parent="." index="4" unique_id=1858120056]
@@ -127,7 +127,7 @@ process_mode = 4
 script = ExtResource("6_kwo0b")
 speed = 82.0
 motion_animation = SubResource("Resource_atygg")
-melee_pos_offsets = SubResource("Resource_pvsfh")
+melee_position_offsets = SubResource("Resource_pvsfh")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeSkill" type="Node2D" parent="MeleeComponent" index="0" unique_id=836830054]

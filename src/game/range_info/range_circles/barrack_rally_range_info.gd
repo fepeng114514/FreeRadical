@@ -2,7 +2,7 @@ extends RangeInfo
 
 
 func _update() -> void:
-	var barrack_c: BarrackComponent = target_entity.get_node_or_null(C.CN_BARRACK)
+	var barrack_c: BarrackComponent = target_entity.get_node_or_null(Constants.CN_BARRACK)
 
 	global_position = target_entity.global_position
 

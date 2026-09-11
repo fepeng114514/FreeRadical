@@ -12,18 +12,18 @@ class_name AreaSkill
 @export var searcher: Searcher = null:
 	set(v): 
 		searcher = v
-		U.resource_redraw_setter(self, searcher)
+		Utils.resource_redraw_setter(self, searcher)
 ## 影响资源，用于对目标造成伤害或治愈目标。
 @export var influence: Influence = null:
 	set(v): 
 		influence = v
-		U.resource_redraw_setter(self, influence)
+		Utils.resource_redraw_setter(self, influence)
 
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		U.connect_resource_changed(searcher, queue_redraw)
-		U.connect_resource_changed(influence, queue_redraw)
+		Utils.connect_resource_changed(searcher, queue_redraw)
+		Utils.connect_resource_changed(influence, queue_redraw)
 
 
 func _draw() -> void:
@@ -34,33 +34,33 @@ func _draw() -> void:
 			influence.draw(self, position)
 		
 		
-func _use_skill(e: Entity, target: Entity = null) -> void:
+func _use_skill(entity: Entity, target: Entity = null) -> void:
 	if searcher:
-		target = searcher.search_target(get_search_center(e), e)
+		target = searcher.search_target(get_search_global_position(entity), entity)
 		if not target:
 			return
 	
-		e.look_point = target.global_position
+		entity.facing_global_position = target.global_position
 	start_cooldown()
 
-	e.play_animation(animation)
-	AudioMgr.play_sfx(sfx)
-	if await e.y_wait(delay) or searcher and not target:
+	entity.play_animation(animation)
+	AudioManager.play_sfx(sfx)
+	if await entity.y_wait(delay) or searcher and not target:
 		compensate_cooldown()
 		return
 
 	if searcher:
 		if not target:
-			target = searcher.search_target(get_search_center(e), e)
+			target = searcher.search_target(get_search_global_position(entity), entity)
 			if not target:
 				compensate_cooldown()
 				return
 		
-		influence.take_influence(e, target, target.global_position)
+		influence.take_influence(entity, target, target.global_position)
 	else:
-		influence.take_influence(e, e, e.global_position)
+		influence.take_influence(entity, entity, entity.global_position)
 
-	if await e.y_wait_animation(animation):
+	if await entity.y_wait_animation(animation):
 		return
 		
-	e.play_animation(e.idle_animation, &"idle")
+	entity.play_animation(entity.idle_animation, &"idle")

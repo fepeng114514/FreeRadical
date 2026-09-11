@@ -5,30 +5,30 @@ class_name BarrackBehavior
 ## BarrackBehavior 负责处理拥有 [BarrackComponent] 兵营组件的实体生成士兵。
 
 
-func _on_insert(e: Entity) -> bool:
-	var barrack_c: BarrackComponent = e.get_node_or_null(C.CN_BARRACK)
+func _on_insert(barrack: Entity) -> bool:
+	var barrack_c: BarrackComponent = barrack.get_node_or_null(Constants.CN_BARRACK)
 	if not barrack_c:
 		return true
 	
-	_spawn_all_soldiers(e, barrack_c)
+	_spawn_all_soldiers(barrack, barrack_c)
 		
 	return true
 
 
-func _on_remove(e: Entity) -> bool:
-	var barrack_c: BarrackComponent = e.get_node_or_null(C.CN_BARRACK)
+func _on_remove(barrack: Entity) -> bool:
+	var barrack_c: BarrackComponent = barrack.get_node_or_null(Constants.CN_BARRACK)
 	if not barrack_c:
 		return true
 	
 	var soldier_list: Array[Entity] = barrack_c.soldier_list
-	for _i: int in soldier_list.size():
-		soldier_list[0].remove_entity()
+	for _soldier_idx: int in soldier_list.size():
+		ECSEntityManager.queue_remove_entity(soldier_list[0])
 
 	return true
 
 
-func _on_update(e: Entity) -> bool:
-	var barrack_c: BarrackComponent = e.get_node_or_null(C.CN_BARRACK)
+func _on_update(barrack: Entity) -> bool:
+	var barrack_c: BarrackComponent = barrack.get_node_or_null(Constants.CN_BARRACK)
 	if not barrack_c:
 		return false
 
@@ -36,15 +36,15 @@ func _on_update(e: Entity) -> bool:
 		return false
 	
 	# 根据重生时间生成士兵
-	if TimeMgr.has_elapsed(barrack_c.ts, barrack_c.spawn_interval):
-		_spawn_by_time(e, barrack_c)
+	if TimeManager.has_elapsed(barrack_c.ts, barrack_c.spawn_interval):
+		_spawn_by_time(barrack, barrack_c)
 		return true
 		
 	var soldier_list_size: int = barrack_c.soldier_list.size()
 
 	# 士兵数发生变化重新整队
 	if barrack_c.last_soldier_count != soldier_list_size:
-		barrack_c.set_rally_center_position(barrack_c.rally_center_position, false, false)
+		barrack_c.set_rally_center_global_position(barrack_c.rally_center_global_position, false, false)
 		barrack_c.last_soldier_count = soldier_list_size
 	return false
 
@@ -54,25 +54,25 @@ func _spawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent
 	) -> Entity:
 
-	var soldier: Entity = EntityMgr.create_entity(barrack_c.soldier)
+	var soldier: Entity = ECSEntityManager.create_entity(barrack_c.soldier_scene)
 	soldier.source_id = barrack.id
 	soldier.source_type = Entity.SourceType.BARRACK_SOLDIER
-	soldier.entity_removed.connect(_on_soldier_removed.bind(barrack_c))
+	soldier.tree_exiting.connect(_on_soldier_removed.bind(soldier, barrack_c))
 
-	var barrack_global_pos: Vector2 = barrack.global_position
-	var soldier_global_pos: Vector2 = barrack_global_pos
+	var barrack_global_position: Vector2 = barrack.global_position
+	var soldier_global_position: Vector2 = barrack_global_position
 	if barrack_c.spawn_offsets:
-		var offset: Vector2 = barrack_c.spawn_offsets.get_offset_for_point(
-			barrack_global_pos, barrack.look_point
+		var offset: Vector2 = barrack_c.spawn_offsets.get_offset_toward_point(
+			barrack_global_position, barrack.facing_global_position
 		)
-		soldier_global_pos += offset
-	soldier.global_position = soldier_global_pos
+		soldier_global_position += offset
+	soldier.global_position = soldier_global_position
 
 	if not barrack._on_barrack_respawn(soldier, barrack_c):
 		return soldier
 	
 	barrack_c.soldier_list.append(soldier)
-	soldier.insert_entity()
+	ECSEntityManager.queue_insert_entity(soldier)
 	
 	return soldier
 
@@ -82,26 +82,26 @@ func _on_soldier_removed(soldier: Entity, barrack_c: BarrackComponent) -> void:
 
 
 ## 根据重生时间生成士兵。
-func _spawn_by_time(e: Entity, barrack_c: BarrackComponent) -> void:
-	barrack_c.ts = TimeMgr.tick_ts
+func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent) -> void:
+	barrack_c.ts = TimeManager.tick_ts
 
 	if barrack_c.soldier_list.size() >= barrack_c.max_soldier_count:
 		return
 		
-	e.play_animation(barrack_c.animation)
-	AudioMgr.play_sfx(barrack_c.sfx)
-	if await e.y_wait(barrack_c.delay):
+	barrack.play_animation(barrack_c.animation)
+	AudioManager.play_sfx(barrack_c.sfx)
+	if await barrack.y_wait(barrack_c.delay):
 		return
 
-	_spawn_soldier(e, barrack_c)
+	_spawn_soldier(barrack, barrack_c)
 	
-	barrack_c.set_rally_center_position(barrack_c.rally_center_position, false, false)
+	barrack_c.set_rally_center_global_position(barrack_c.rally_center_global_position, false, false)
 	barrack_c.last_soldier_count = barrack_c.soldier_list.size()
-	e.y_wait_animation(barrack_c.animation)
+	barrack.y_wait_animation(barrack_c.animation)
 
 
 ## 生成所有士兵。
-func _spawn_all_soldiers(e: Entity, barrack_c: BarrackComponent) -> void:
+func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent) -> void:
 	var soldier_list: Array[Entity] = barrack_c.soldier_list
 	var last_soldier_list: Array[Entity] = barrack_c.last_soldier_list
 	var has_replace_all: bool = true
@@ -110,22 +110,22 @@ func _spawn_all_soldiers(e: Entity, barrack_c: BarrackComponent) -> void:
 	if last_soldier_list:
 		var last_soldier_list_size: int = last_soldier_list.size()
 		
-		for i: int in barrack_c.max_soldier_count:
-			if i >= last_soldier_list_size:
+		for soldier_index: int in barrack_c.max_soldier_count:
+			if soldier_index >= last_soldier_list_size:
 				has_replace_all = false
 				break
 				
-			var soldier: Entity = _spawn_soldier(e, barrack_c)
-			var last_soldier: Entity = last_soldier_list[i]
+			var soldier: Entity = _spawn_soldier(barrack, barrack_c)
+			var last_soldier: Entity = last_soldier_list[soldier_index]
 
 			soldier.global_position = last_soldier.global_position
 
 			if last_soldier.state & Entity.State.RALLY:
 				continue
 
-			var last_melee_c: MeleeComponent = last_soldier.get_node_or_null(C.CN_MELEE)
+			var last_melee_c: MeleeComponent = last_soldier.get_node_or_null(Constants.CN_MELEE)
 			if last_melee_c:
-				var melee_c: MeleeComponent = soldier.get_node_or_null(C.CN_MELEE)
+				var melee_c: MeleeComponent = soldier.get_node_or_null(Constants.CN_MELEE)
 				if melee_c:
 					soldier.state = Entity.State.MELEE
 
@@ -137,23 +137,23 @@ func _spawn_all_soldiers(e: Entity, barrack_c: BarrackComponent) -> void:
 							melee_c.blocked_bind_melee_relations(blocker_id, soldier.id)
 		
 		barrack_c.last_soldier_count = soldier_list.size()
-		barrack_c.set_rally_center_position(barrack_c.rally_center_position, false)
+		barrack_c.set_rally_center_global_position(barrack_c.rally_center_global_position, false)
 	else:
 		has_replace_all = false
 
 	if not has_replace_all:
-		e.play_animation(barrack_c.animation)
-		AudioMgr.play_sfx(barrack_c.sfx)
-		if await e.y_wait(barrack_c.delay):
+		barrack.play_animation(barrack_c.animation)
+		AudioManager.play_sfx(barrack_c.sfx)
+		if await barrack.y_wait(barrack_c.delay):
 			return
 
 		var max_soldier_count: int = barrack_c.max_soldier_count
 
 		# 生成新的士兵
-		for i: int in range(soldier_list.size(), max_soldier_count):
-			_spawn_soldier(e, barrack_c)
+		for soldier_index: int in range(soldier_list.size(), max_soldier_count):
+			_spawn_soldier(barrack, barrack_c)
 
-		barrack_c.set_rally_center_position(barrack_c.rally_center_position, false)
+		barrack_c.set_rally_center_global_position(barrack_c.rally_center_global_position, false)
 		barrack_c.last_soldier_count = soldier_list.size()
 		
-		e.y_wait_animation(barrack_c.animation)
+		barrack.y_wait_animation(barrack_c.animation)

@@ -39,5 +39,5 @@ death_gold = 12.0
 offset_top = -116.13
 offset_bottom = -111.13
 
-[node name="UIComponent" parent="." index="3" unique_id=673866706]
+[node name="SelectComponent" parent="." index="3" unique_id=673866706]
 select_rect = Rect2(-32.34, -110.505, 59.63, 51.26)

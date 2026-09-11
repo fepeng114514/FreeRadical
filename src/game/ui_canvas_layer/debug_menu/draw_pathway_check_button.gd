@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	PathwayMgr.is_draw_pathway = button_pressed
+	PathwayManager.is_draw_pathway = button_pressed

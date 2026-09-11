@@ -8,7 +8,7 @@ var value_tween: Tween = null
 
 
 func _ready() -> void:
-	ChangeSceneMgr.loading_progress.connect(_on_loading_progress)
+	ChangeSceneManager.loading_progress.connect(_on_loading_progress)
 
 	value = 0.0
 

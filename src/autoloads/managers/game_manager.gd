@@ -13,10 +13,6 @@ signal life_changed(new_life: int)
 signal paused
 ## 取消暂停游戏时发出。
 signal resumed
-## 重新开始游戏前发出。
-signal replay_started
-## 重新开始游戏后发出。
-signal replay_finished
 @warning_ignore_restore("unused_signal")
 
 
@@ -50,8 +46,4 @@ func resume_game() -> void:
 func replay_game() -> void:
 	is_paused = false
 	
-	replay_started.emit()
-	
 	get_tree().reload_current_scene()
-	
-	replay_finished.emit()

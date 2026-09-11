@@ -4,20 +4,58 @@
 
 ---
 
-## 1. 编写风格
+## 1. 编写风格指南
 
-本项目遵循官方的 GDScript 编写风格指南：
+### 1.1 代码编写风格
+
+本项目遵循官方的 GDScript 代码编写风格：
 > [GDScript 编写风格指南](https://docs.godotengine.org/zh-cn/4.x/tutorials/scripting/gdscript/gdscript_styleguide.html)
 
-### 1.1 文档注释编写风格
+#### 1.1.1 布尔值变量命名规范
+
+布尔值变量命名禁止直接将动词改成过去分词，应使用以下命名规范：
+
+| 前缀/后缀 | 语义 | 适用场景 | 示例 |
+| :--- | :--- | :--- | :--- |
+| **`is_`** | "是否是..." | 状态/属性判断 | `is_enabled`, `is_visible`, `is_dead` |
+| **`has_`** | "是否有..." | 拥有/包含关系 | `has_target`, `has_ammo` |
+| **`can_`** | "能否..." | 能力/权限 | `can_attack`, `can_jump` |
+| **`should_`** | "是否应该..." | 建议/决策 | `should_update`, `should_flee` |
+| **`_enabled`** | "启用状态" | 功能开关 | `attack_enabled` |
+
+#### 1.1.2 显式声明变量类型
+
+在定义变量时禁止使用默认变体类型，应显式声明变量类型。
+
+示例：
+```gdscript
+var entities: Array[Entity] = []
+for entity: Entity in entities:
+    entity.health -= 10
+```
+
+---
+
+### 1.2 文档注释编写规范
 
 Godot 文档注释使用 BBCode 语法编写，具体语法参考：
 > [GDScript 文档注释](https://docs.godotengine.org/zh-cn/4.x/tutorials/scripting/gdscript/gdscript_documentation_comments.html)
 
-1. **引用任何代码必须使用链接语法**
-    - 引用任何类、方法、属性、信号时都必须使用链接语法，不能直接写在文档注释中。
-2. **所有代码必须使用代码块包裹**
-    - 所有代码都必须使用 [code] 内联代码块或 [codeblock] 多行代码块包裹，不能直接写在文档注释中。
+#### 1.2.1 引用任何代码必须使用链接语法
+
+引用任何类、方法、属性、信号时都必须使用链接语法，不能直接写在文档注释中。
+
+示例：
+```gdscript
+## 绘制椭圆。[br][br]
+## [b]提示[/b]: 这是一个用于演示的方法，实际绘制椭圆请使用 [method CanvasItem.draw_ellipse]。
+func draw_ellipse(position: Vector2, width: float, filled: bool = true) -> void:
+    pass
+```
+
+#### 1.2.2 所有代码必须使用代码块包裹
+
+所有代码都必须使用 [code] 内联代码块或 [codeblock] 多行代码块包裹，不能直接写在文档注释中。
 
 示例：
 ```gdscript
@@ -31,19 +69,12 @@ Godot 文档注释使用 BBCode 语法编写，具体语法参考：
 ## [/codeblock]
 func vector_add(a: Vector2, b: Vector2) -> Vector2:
     return a + b
-
-## 伤害信号，用于通知实体被伤害。
-signal damage_taken(value: float)
-
-## 对一个 [Entity] 实体造成伤害，并发射伤害信号 [signal damage_taken]。
-func take_damage(entity: Entity, value: float) -> void:
-    entity.health -= value
-    damage_taken.emit(value)
 ```
 
 ---
 
-### 1.2 方法文档注释编写风格
+### 1.3 方法文档注释编写规范
+
 方法的文档注释编写风格如下（* 表示可选项）：
 
 ```gdscript

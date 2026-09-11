@@ -20,19 +20,19 @@ class_name HealthComponent
 ## 回血。
 @export var regen_hp: float = 0.0
 ## 回血冷却（秒）。
-@export var regen_cooldown: float = C.UNSET
+@export var regen_cooldown: float = Constants.UNSET
 ## 待机回血。
 @export var idle_regen_hp: float = 0.0
 ## 待机回血冷却（秒）。
-@export var idle_regen_cooldown: float = C.UNSET
+@export var idle_regen_cooldown: float = Constants.UNSET
 ## 伤害抗性，可以百分比减少受到的伤害。
 @export var damage_resistance: float = 0.0
 ## 伤害减免，可以直接减少受到的伤害值。
 @export var damage_reduction: float = 0.0
 ## 反伤，对伤害来源的反伤。
-@export var spiked: float = C.UNSET
+@export var spiked: float = Constants.UNSET
 ## 免疫的伤害类型。
-@export var immuned: int = C.DamageType.NONE
+@export var immuned: int = Damage.Type.NONE
 
 @export_group("Debuff")
 ## 易伤，可以百分比增加受到的伤害值。
@@ -77,7 +77,7 @@ func _on_child_order_changed() -> void:
 func _validate_property(property: Dictionary):
 	match property.name:
 		"immuned":
-			property.hint_string = "mask_enum:DamageType"
+			property.hint_string = "mask_check(%s)" % Damage.Type
 			
 
 func _get_configuration_warnings() -> PackedStringArray:

@@ -4,10 +4,6 @@ extends Node
 ## 负责管理全局状态与相关操作。
 
 
-## 是否为发布版本。
-var is_release: bool = OS.has_feature("release")
-## 是否为调试版本。
-var is_debug: bool = OS.has_feature("debug")
 ## 最大窗口大小。
 var max_window_size := Vector2(2560, 1440)
 ## 当前窗口大小。

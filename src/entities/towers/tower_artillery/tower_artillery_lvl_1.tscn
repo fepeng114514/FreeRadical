@@ -72,7 +72,7 @@ get_value_mode = 1
 mods = PackedStringArray()
 auras = PackedStringArray()
 payloads = PackedStringArray()
-area_enable = true
+area_enabled = true
 searcher = SubResource("Resource_w4mo5")
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
@@ -128,7 +128,7 @@ animation = &"idle"
 tower_type = 4
 price = 150.0
 
-[node name="UIComponent" parent="." index="2" unique_id=602361207]
+[node name="SelectComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-86.54, -74.465, 169.89, 98.105)
 
 [node name="SkillComponent" type="Node2D" parent="." index="3" unique_id=52126447]
@@ -139,7 +139,7 @@ metadata/_custom_type_script = "uid://7hja048qjkj0"
 [node name="RangedSkill" type="Node2D" parent="SkillComponent" index="0" unique_id=1342825155]
 script = ExtResource("14_n4ua5")
 searcher = SubResource("Resource_31xy0")
-bullet = "uid://cx35c0rfd1fwr"
+bullet_scene = "uid://cx35c0rfd1fwr"
 bullet_offsets = SubResource("Resource_5et4c")
 influence = SubResource("Resource_67tlk")
 cooldown = 3.0

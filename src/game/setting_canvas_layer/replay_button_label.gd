@@ -9,5 +9,5 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	GameMgr.replay_game()
+	GameManager.replay_game()
 	

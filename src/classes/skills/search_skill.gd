@@ -5,9 +5,9 @@ class_name SearchSkill
 
 
 ## 获取搜索中心。
-func get_search_center(e: Entity) -> Vector2:
-	var search_center: Vector2 = e.global_position
-	if e.source_type == Entity.SourceType.TOWER_SHOOTER:
-		search_center.y -= e.position.y
+func get_search_global_position(entity: Entity) -> Vector2:
+	var search_global_position: Vector2 = entity.global_position
+	if entity.source_type == Entity.SourceType.TOWER_SHOOTER:
+		search_global_position.y -= entity.position.y
 
-	return search_center
+	return search_global_position

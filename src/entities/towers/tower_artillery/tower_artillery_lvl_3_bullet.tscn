@@ -21,14 +21,14 @@ get_value_mode = 1
 mods = PackedStringArray()
 auras = PackedStringArray()
 payloads = PackedStringArray()
-area_enable = true
+area_enabled = true
 searcher = SubResource("Resource_ym0rp")
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [node name="TowerArtilleryLvl3Bullet" unique_id=2094980939 instance=ExtResource("1_tgx8g")]
 
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
-look_to = true
+facing_enabled = true
 influence = SubResource("Resource_ljtrs")
 
 [node name="SpriteComponent" parent="." index="1" unique_id=1297058768]

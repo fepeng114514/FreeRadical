@@ -25,14 +25,14 @@ func _run() -> void:
 
 ## 解析图集数据文件。
 func _parse_atlas_datas() -> void:
-	for atlas_data_file: String in U.open_directory(DIR_ATLAS).get_files():
+	for atlas_data_file: String in Utils.open_directory(DIR_ATLAS).get_files():
 		if atlas_data_file.get_extension() != "json":
 			continue
 			
 		atlas_data_file = DIR_ATLAS.path_join(atlas_data_file)
 
 		Log.debug("处理图集数据文件: %s" % atlas_data_file)
-		var atlas_data: Dictionary = U.load_json(atlas_data_file)
+		var atlas_data: Dictionary = Utils.load_json(atlas_data_file)
 
 		for atlas_name: String in atlas_data:
 			var atlas_file: String = atlas_data_file.get_base_dir().path_join(atlas_name)
@@ -103,9 +103,9 @@ func _generate_atlas_texture() -> void:
 
 ## 从精灵帧数据数据构建 [SpriteFrames] 资源。
 func _build_all_sprite_frames() -> void:
-	for dir_name: String in U.open_directory(DIR_SPRITE_FRAMES_DATAS).get_directories():
+	for dir_name: String in Utils.open_directory(DIR_SPRITE_FRAMES_DATAS).get_directories():
 		var dir_path: String = DIR_SPRITE_FRAMES_DATAS.path_join(dir_name)
-		for sprite_frames_file: String in U.open_directory(dir_path).get_files():
+		for sprite_frames_file: String in Utils.open_directory(dir_path).get_files():
 			if sprite_frames_file.get_extension() != "tres":
 				continue
 
@@ -117,8 +117,8 @@ func _build_all_sprite_frames() -> void:
 			
 			var layer_count: int = sprite_frames_data.layer_count
 			if layer_count > 0:
-				for layer_idx: int in range(1, layer_count + 1):
-					var layer_sprite_frames_name: String = "%s%d" % [sprite_frames_name, layer_idx]
+				for layer_index: int in range(1, layer_count + 1):
+					var layer_sprite_frames_name: String = "%s%d" % [sprite_frames_name, layer_index]
 					var sprite_frames: SpriteFrames = _create_sprite_frames(layer_sprite_frames_name, animation_dict)
 					sprite_frames_dict[layer_sprite_frames_name] = SpriteFramesItem.new(sprite_frames, dir_name)
 			else:
@@ -142,8 +142,8 @@ func _create_sprite_frames(sprite_frames_name: String, animation_dict: Dictionar
 		sprite_frames.set_animation_speed(anim_name, anim_data.fps)
 		sprite_frames.set_animation_loop_mode(anim_name, anim_data.loop_mode)
 
-		for idx: int in range(anim_data.from, anim_data.to + 1):
-			var atlas_texture_name: String = "%s_%04d" % [sprite_frames_name, idx]
+		for frame_index: int in range(anim_data.from, anim_data.to + 1):
+			var atlas_texture_name: String = "%s_%04d" % [sprite_frames_name, frame_index]
 			if not sprite_frames_texture_db.has(atlas_texture_name):
 				Log.error("未找到精灵帧纹理: %s" % atlas_texture_name)
 				continue
@@ -167,7 +167,7 @@ func _generate_sprite_frames() -> void:
 		Log.info("生成 SpriteFrames: %s" % save_path)
 
 
-class AtlasTextureItem:
+class AtlasTextureItem extends RefCounted:
 	var atlas_texture: AtlasTexture = null
 	var category: String = ""
 
@@ -176,7 +176,7 @@ class AtlasTextureItem:
 		self.category = p_category
 
 
-class SpriteFramesItem:
+class SpriteFramesItem extends RefCounted:
 	var sprite_frames: SpriteFrames = null
 	var category: String = ""
 

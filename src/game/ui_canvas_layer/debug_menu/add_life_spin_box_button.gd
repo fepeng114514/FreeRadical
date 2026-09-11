@@ -10,6 +10,6 @@ func _ready() -> void:
 func _on_pressed() -> void:
 	var v := int(spin_box.value)
 
-	GameMgr.life += v
+	GameManager.life += v
 		
 	

@@ -96,7 +96,7 @@ var selected_item: TrackEditorTrackItem = null
 ## 轨道项列表。
 var item_list: Array[TrackEditorTrackItem] = []
 ## 轨道刻度宽度。
-var tick_size_x: float = 0.0
+var tick_length: float = 0.0
 
 
 func _ready() -> void:
@@ -122,14 +122,14 @@ func _ready() -> void:
 		_show_ticks()
 		
 		var first_tick: TrackEditorTick = ruler.get_child(0)
-		tick_size_x = first_tick.size.x
+		tick_length = first_tick.size.x
 		
 		create_track()
 
 
 ## 选中轨道项。
 func select_item(item: TrackEditorTrackItem) -> void:
-	Log.verbose("选择轨道项: %s" % item.idx)
+	Log.verbose("选择轨道项: %s" % item.index)
 	selected_item = item
 	item.is_selected = true
 	item_selected.emit(item)
@@ -140,7 +140,7 @@ func deselect_item() -> void:
 	if not selected_item:
 		return
 
-	Log.verbose("取消选中轨道项: %s" % selected_item.idx)
+	Log.verbose("取消选中轨道项: %s" % selected_item.index)
 		
 	selected_item.is_selected = false
 	selected_item.is_draging = false
@@ -150,43 +150,43 @@ func deselect_item() -> void:
 
 
 ## 创建轨道项。
-func create_item(track_idx: int = 0) -> TrackEditorTrackItem:
-	Log.verbose("创建轨道项: %s" % track_idx)
+func create_item(track_index: int = 0) -> TrackEditorTrackItem:
+	Log.verbose("创建轨道项: %s" % track_index)
 		
 	var track_item: TrackEditorTrackItem = track_item_scene.instantiate()
 	track_item.position.y = 2
 	track_item.track_editor = self
-	track_item.track_idx = track_idx
+	track_item.track_index = track_index
 
 	return track_item
 
 
 ## 插入轨道项。
 func insert_item(item: TrackEditorTrackItem, signal_emit_disabled: bool = false) -> void:
-	var track: TrackEditorTrack = get_track(item.track_idx)
+	var track: TrackEditorTrack = get_track(item.track_index)
 	track.item_container.add_child(item)
 	update_item_list()
-	update_item_list_last_idx()
+	update_item_list_last_index()
 	if not signal_emit_disabled:
 		item_inserted.emit(item)
 
 
 ## 删除轨道项。
 func erase_item(item: TrackEditorTrackItem) -> void:
-	Log.verbose("删除轨道项: %s" % item.idx)
+	Log.verbose("删除轨道项: %s" % item.index)
 		
-	var track: TrackEditorTrack = get_track(item.track_idx)
+	var track: TrackEditorTrack = get_track(item.track_index)
 	track.item_container.remove_child(item)
 	item.queue_free()
 	update_item_list()
 	item_deleted.emit(item)
-	update_item_list_last_idx()
+	update_item_list_last_index()
 		
 	
 ## 获取轨道项。
-func get_item(idx: int, track_idx: int = 0) -> TrackEditorTrackItem:
-	var track: TrackEditorTrack = get_track(track_idx)
-	return track.item_container.get_child(idx)
+func get_item(index: int, track_index: int = 0) -> TrackEditorTrackItem:
+	var track: TrackEditorTrack = get_track(track_index)
+	return track.item_container.get_child(index)
 
 
 ## 更新轨道项列表。
@@ -199,36 +199,36 @@ func update_item_list() -> void:
 
 	new_item_list.sort_custom(
 		func(a: TrackEditorTrackItem, b: TrackEditorTrackItem) -> bool:
-			var a_track_pos_x: float = a.track_pos_x
-			var b_track_pos_x: float = b.track_pos_x
+			var a_track_position_x: float = a.track_position_x
+			var b_track_position_x: float = b.track_position_x
 
-			if a_track_pos_x == b_track_pos_x:
-				return a.track_idx < b.track_idx
+			if a_track_position_x == b_track_position_x:
+				return a.track_index < b.track_index
 			else:
-				return a_track_pos_x < b_track_pos_x
+				return a_track_position_x < b_track_position_x
 	)
 
 	item_list = new_item_list
 
-	for i: int in item_list.size():
-		var item: TrackEditorTrackItem = item_list[i]
-		item.idx = i
+	for item_index: int in item_list.size():
+		var item: TrackEditorTrackItem = item_list[item_index]
+		item.index = item_index
 
 
-func update_item_list_last_idx() -> void:
-	for i: int in item_list.size():
-		var item: TrackEditorTrackItem = item_list[i]
-		item.last_idx = i
+func update_item_list_last_index() -> void:
+	for item_index: int in item_list.size():
+		var item: TrackEditorTrackItem = item_list[item_index]
+		item.last_index = item_index
 
 
 ## 获取轨道刻度数量。
 func get_tick_count() -> int:
-	return ceili(track_length_spin_box.value / tick_spacing_spin_box.value)
+	return ceili(track_length / tick_spacing)
 
 
 ## 获取轨道。
-func get_track(track_idx: int = 0) -> TrackEditorTrack:
-	return track_vbox_container.get_child(track_idx)
+func get_track(track_index: int = 0) -> TrackEditorTrack:
+	return track_vbox_container.get_child(track_index)
 	
 
 ## 创建轨道。
@@ -250,18 +250,18 @@ func create_track() -> void:
 			
 
 ## 删除轨道。
-func remove_track(track_idx: int = 0) -> void:
-	Log.verbose("删除轨道: %s" % track_idx)
+func remove_track(track_index: int) -> void:
+	Log.verbose("删除轨道: %s" % track_index)
 		
-	var track: TrackEditorTrack = get_track(track_idx)
+	var track: TrackEditorTrack = get_track(track_index)
 	track_vbox_container.remove_child(track)
 	track.queue_free()
 
 	if multiple_track_enable:
-		var right_track_tool_bar_item: TrackEditorRightTrackToolBarItem = right_track_tool_bar.get_child(track_idx)
+		var right_track_tool_bar_item: TrackEditorRightTrackToolBarItem = right_track_tool_bar.get_child(track_index)
 		right_track_tool_bar.remove_child(right_track_tool_bar_item)
 		right_track_tool_bar_item.queue_free()		
-		var left_track_tool_bar_item: TrackEditorLeftTrackToolBarItem = left_track_tool_bar.get_child(track_idx)
+		var left_track_tool_bar_item: TrackEditorLeftTrackToolBarItem = left_track_tool_bar.get_child(track_index)
 		left_track_tool_bar.remove_child(left_track_tool_bar_item)
 		left_track_tool_bar_item.queue_free()
 
@@ -270,8 +270,8 @@ func remove_track(track_idx: int = 0) -> void:
 func clear_tracks() -> void:
 	Log.verbose("清除所有轨道")
 		
-	for i: int in track_vbox_container.get_child_count():
-		remove_track(0)
+	for track_index: int in track_vbox_container.get_child_count():
+		remove_track(track_index)
 		
 
 func _hide_mouse_tool_bar() -> void:
@@ -301,15 +301,15 @@ func _show_ticks(_value: float = 0.0) -> void:
 
 	# 创建刻度节点
 	if has_tick_count < target_tick_count:
-		for i: int in range(has_tick_count, target_tick_count):
+		for _tick_index: int in range(has_tick_count, target_tick_count):
 			var tick: TrackEditorTick = tick_scene.instantiate()
 			tick.track_editor = self
 			ruler.add_child(tick)
 	elif has_tick_count > target_tick_count:
-		for i: int in range(target_tick_count, has_tick_count):
-			var tick: TrackEditorTick = ruler.get_child(i)
+		for tick_index: int in range(target_tick_count, has_tick_count):
+			var tick: TrackEditorTick = ruler.get_child(tick_index)
 			tick.visible = false
 
-	for i: int in target_tick_count:
-		var tick: TrackEditorTick = ruler.get_child(i)
+	for tick_index: int in target_tick_count:
+		var tick: TrackEditorTick = ruler.get_child(tick_index)
 		tick.visible = true

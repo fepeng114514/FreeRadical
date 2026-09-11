@@ -5,6 +5,6 @@ class_name InstantBulletTrajectory
 ## 负责处理子弹瞬间移动到目标位置。
 
 
-func _init_trajectory(_bullet_c: BulletComponent, e: Entity, target: Entity) -> void:
-	e.global_position = target.global_position
-	e.rotation = deg_to_rad(90)
+func _init_trajectory(bullet: Entity, _bullet_c: BulletComponent, target: Entity) -> void:
+	bullet.global_position = target.global_position
+	bullet.rotation = deg_to_rad(90)

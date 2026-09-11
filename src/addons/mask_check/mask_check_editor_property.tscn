@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c1pei34wjexoe"]
+
+[ext_resource type="Script" uid="uid://cbrbw3etvkxjm" path="res://addons/mask_check/mask_check_editor_property.gd" id="1_i4viv"]
+
+[node name="MaskCheckEditorProperty" type="EditorProperty" unique_id=512063811 node_paths=PackedStringArray("checkbox_v_box_container")]
+script = ExtResource("1_i4viv")
+checkbox_v_box_container = NodePath("CheckboxFoldableContainer/CheckboxVBoxContainer")
+
+[node name="CheckboxFoldableContainer" type="FoldableContainer" parent="." unique_id=1096494650]
+layout_mode = 2
+folded = true
+
+[node name="CheckboxVBoxContainer" type="VBoxContainer" parent="CheckboxFoldableContainer" unique_id=1266371670]
+visible = false
+layout_mode = 2

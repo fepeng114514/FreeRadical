@@ -13,4 +13,4 @@ func _ready() -> void:
 
 func _on_pressed() -> void:
 	setting_canvas_layer.hide_setting()
-	GameMgr.resume_game()
+	GameManager.resume_game()

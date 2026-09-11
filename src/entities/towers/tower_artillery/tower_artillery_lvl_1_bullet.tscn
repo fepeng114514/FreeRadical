@@ -28,7 +28,7 @@ get_value_mode = 1
 mods = PackedStringArray()
 auras = PackedStringArray()
 payloads = PackedStringArray()
-area_enable = true
+area_enabled = true
 searcher = SubResource("Resource_w4mo5")
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
@@ -42,7 +42,7 @@ metadata/_custom_type_script = "uid://b2b214g352w4u"
 [node name="BulletComponent" parent="." index="0" unique_id=490791954]
 trajectory = SubResource("Resource_arty_traj")
 rotation_speed = 6.0
-look_to = false
+facing_enabled = false
 influence = SubResource("Resource_67tlk")
 hit_sfx = SubResource("Resource_jmmy1")
 hit_payloads = PackedStringArray("uid://dmn3u58sdn7l1")

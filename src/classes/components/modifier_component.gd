@@ -5,6 +5,23 @@ class_name ModifierComponent
 ## ModifierComponent 可以使实体持续对其所有者造成影响，例如增加属性值、减少属性值、增加移动速度等。
 
 
+## 状态效果类型枚举。
+enum Type {
+	## 状态效果类型: 无。
+	NONE = 0,
+	## 状态效果类型: 毒。
+	POISON = 1,
+	## 状态效果类型: 火。
+	LAVA = 1 << 1,
+	## 状态效果类型: 流血。
+	BLEED = 1 << 2,
+	## 状态效果类型: 冻结。
+	FREEZE = 1 << 3,
+	## 状态效果类型: 眩晕。
+	STUN = 1 << 4,
+}
+
+
 ## 是否跟随目标。
 @export var track_target: bool = true
 ## 属性修改器列表。
@@ -19,11 +36,11 @@ class_name ModifierComponent
 
 @export_group("Cycle")
 ## 是否启用周期影响。
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_enable: bool = false
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var cycle_enabled: bool = false
 ## 周期时间。
 @export var cycle_time: float = 1.0
 ## 最大周期。
-@export var max_cycle: int = C.UNSET
+@export var max_cycle: int = Constants.UNSET
 
 ## 时间戳。
 var ts: float = 0.0
@@ -38,4 +55,4 @@ func _ready() -> void:
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
 		"mod_type":
-			property.hint_string = "mask_enum:ModType"
+			property.hint_string = "mask_check(%s)" % Type

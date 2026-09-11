@@ -16,11 +16,11 @@ extends PanelContainer
 ## 当前选择的实体
 var selected_entity: Entity = null
 ## 显示类型
-var info_bar_type: C.InfoBarType = C.InfoBarType.UNIT
+var info_bar_type: SelectComponent.InfoBarType = SelectComponent.InfoBarType.UNIT
 
 ## 信息栏对应信息类型显示配置
-@onready var show_config: Dictionary[C.InfoBarType, Dictionary] = {
-	C.InfoBarType.UNIT: {
+@onready var show_config: Dictionary[SelectComponent.InfoBarType, Dictionary] = {
+	SelectComponent.InfoBarType.UNIT: {
 		"hp_label": true,
 		"hp_value": true,
 		"melee_type_icon": true,
@@ -32,7 +32,7 @@ var info_bar_type: C.InfoBarType = C.InfoBarType.UNIT
 		"magic_armor_icon": true,
 		"magic_armor_value": true,
 	},
-	C.InfoBarType.TOWER: {
+	SelectComponent.InfoBarType.TOWER: {
 		"hp_label": false,
 		"hp_value": false,
 		"melee_type_icon": false,
@@ -48,17 +48,17 @@ var info_bar_type: C.InfoBarType = C.InfoBarType.UNIT
 
 
 func _ready() -> void:
-	SelectMgr.entity_selected.connect(_show)
-	SelectMgr.entity_deselected.connect(_hide)
+	SelectManager.entity_selected.connect(_show)
+	SelectManager.entity_deselected.connect(_hide)
 	visible = false
 
 
 func _process(_delta: float) -> void:
-	if not U.is_valid_entity(selected_entity):
+	if not selected_entity:
 		_hide()
 		return
 	
-	if info_bar_type == C.InfoBarType.NONE:
+	if info_bar_type == SelectComponent.InfoBarType.NONE:
 		return
 		
 	entity_name.text = selected_entity.name
@@ -70,26 +70,26 @@ func _process(_delta: float) -> void:
 		control.visible = is_hidden
 
 	match info_bar_type:
-		C.InfoBarType.UNIT:
+		SelectComponent.InfoBarType.UNIT:
 			_update_unit_info()
-		C.InfoBarType.TOWER:
-			if selected_entity.get_node_or_null(C.CN_TOWER):
+		SelectComponent.InfoBarType.TOWER:
+			if selected_entity.get_node_or_null(Constants.CN_TOWER):
 				_update_tower_info()
 	
 	
 ## 显示信息栏
-func _show(e: Entity) -> void:
-	if e == selected_entity:
+func _show(entity: Entity) -> void:
+	if entity == selected_entity:
 		return
 		
 	_hide()
 	
-	var ui_c: UIComponent = e.get_node_or_null(C.CN_UI)
+	var select_c: SelectComponent = entity.get_node_or_null(Constants.CN_SELECT)
 		
-	selected_entity = e
-	info_bar_type = ui_c.info_bar_type
+	selected_entity = entity
+	info_bar_type = select_c.info_bar_type
 	
-	if info_bar_type == C.InfoBarType.NONE:
+	if info_bar_type == SelectComponent.InfoBarType.NONE:
 		return
 		
 	visible = true
@@ -103,19 +103,19 @@ func _hide() -> void:
 
 ## 更新单位信息
 func _update_unit_info() -> void:
-	var health_c: HealthComponent = selected_entity.get_node_or_null(C.CN_HEALTH)
+	var health_c: HealthComponent = selected_entity.get_node_or_null(Constants.CN_HEALTH)
 	hp_value.text = "%d/%d" % [health_c.hp_max, health_c.hp]
 	phys_armor_value.text = "%d" % (health_c.physical_armor * 100)
 	magic_armor_value.text = "%d" % (health_c.magical_armor * 100)
 	
-	var melee_c: MeleeComponent = selected_entity.get_node_or_null(C.CN_MELEE)
+	var melee_c: MeleeComponent = selected_entity.get_node_or_null(Constants.CN_MELEE)
 	if melee_c and melee_c.get_child(0):
 		_set_value_melee(melee_c)
 	else:
 		melee_value.visible = false
 		melee_type_icon.visible = false
 		
-	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
+	var skill_c: SkillComponent = selected_entity.get_node_or_null(Constants.CN_SKILL)
 	
 	if skill_c:
 		if skill_c.get_child(0) as RangedSkill:
@@ -127,10 +127,10 @@ func _update_unit_info() -> void:
 
 ## 更新防御塔信息
 func _update_tower_info() -> void:
-	var tower_c: TowerComponent = selected_entity.get_node_or_null(C.CN_TOWER)
+	var tower_c: TowerComponent = selected_entity.get_node_or_null(Constants.CN_TOWER)
 
 	if tower_c.get_child_count() == 0:
-		var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
+		var skill_c: SkillComponent = selected_entity.get_node_or_null(Constants.CN_SKILL)
 		if skill_c:
 			_set_value_ranged(skill_c)
 		else:
@@ -138,20 +138,20 @@ func _update_tower_info() -> void:
 			ranged_value.visible = false
 	else:
 		var first_entity: Entity = tower_c.get_child(0)
-		var skill_c: SkillComponent = first_entity.get_node_or_null(C.CN_SKILL)
+		var skill_c: SkillComponent = first_entity.get_node_or_null(Constants.CN_SKILL)
 		if skill_c:
 			_set_value_ranged(skill_c)
 
 
 func _set_value_ranged(skill_c: SkillComponent) -> void:
 	var first_ranged_skill: RangedSkill = skill_c.get_child(0)
-	var damage_infl := first_ranged_skill.influence as DamageInfluence
-	if damage_infl:
-		ranged_value.text = "%d-%d/%.1f" % [damage_infl.min_value, damage_infl.max_value, first_ranged_skill.cooldown]
+	var damage_influence := first_ranged_skill.influence as DamageInfluence
+	if damage_influence:
+		ranged_value.text = "%d-%d/%.1f" % [damage_influence.min_value, damage_influence.max_value, first_ranged_skill.cooldown]
 	
 	
 func _set_value_melee(melee_c: MeleeComponent) -> void:
 	var first_melee_skill: MeleeSkill = melee_c.get_child(0)
-	var damage_infl := first_melee_skill.influence as DamageInfluence
-	if damage_infl:
-		melee_value.text = "%d-%d/%.1f" % [damage_infl.min_value, damage_infl.max_value, first_melee_skill.cooldown]
+	var damage_influence := first_melee_skill.influence as DamageInfluence
+	if damage_influence:
+		melee_value.text = "%d-%d/%.1f" % [damage_influence.min_value, damage_influence.max_value, first_melee_skill.cooldown]

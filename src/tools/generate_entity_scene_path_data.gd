@@ -14,7 +14,7 @@ var entity_scene_path_data: EntityScenePathData = null
 func _run() -> void:
 	entity_scene_path_data = EntityScenePathData.new()
 	
-	for file: String in U.get_files_from_nested_directory(ENTITY_SCENES_DIR, "*.tscn"):
+	for file: String in Utils.get_files_from_nested_directory(ENTITY_SCENES_DIR, "*.tscn"):
 		var scene_basename: String = file.get_file().get_basename()
 		entity_scene_path_data.scene_path_dict[scene_basename] = file
 

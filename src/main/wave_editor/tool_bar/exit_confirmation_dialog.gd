@@ -9,4 +9,4 @@ func _ready() -> void:
 
 
 func _on_confirmed() -> void:
-	ChangeSceneMgr.enter_scene(main_scene_path)
+	ChangeSceneManager.enter_scene(main_scene_path)

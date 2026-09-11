@@ -20,8 +20,8 @@ class_name RallyComponent
 var arrived: bool = false
 ## 是否强制强制集结。
 var is_force_rally: bool = false
-## 集结中心位置。
-var rally_center_position := Vector2.ZERO
+## 集结中心全局位置。
+var rally_center_global_position := Vector2.ZERO
 
 ## 血条节点引用。
 @onready var navigation_agent: NavigationAgent2D = get_node_or_null("NavigationAgent2D")
@@ -36,22 +36,22 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
-## 设置新的集结位置。
-func new_rally_position(
-		e: Entity,
-		pos: Vector2, 
-		is_force: bool = false,
-		center: Vector2 = pos,
+## 设置新的集结全局位置。
+func new_rally_global_position(
+		entity: Entity,
+		new_global_position: Vector2, 
+		is_forced: bool = false,
+		center: Vector2 = new_global_position,
 		play_sfx: bool = true
 	) -> void:
-	is_force_rally = is_force
-	if is_force:
-		if e.state & Entity.State.WAITING:
-			e.state |= Entity.State.INTERRUPT_WAIT
+	is_force_rally = is_forced
+	if is_forced:
+		if entity.state & Entity.State.WAITING:
+			entity.state |= Entity.State.INTERRUPT_WAIT
 	
 	arrived = false
-	navigation_agent.target_position = pos
-	rally_center_position = center
+	navigation_agent.target_position = new_global_position
+	rally_center_global_position = center
 	
 	if play_sfx:
-		AudioMgr.play_sfx(motion_sfx)
+		AudioManager.play_sfx(motion_sfx)

@@ -24,5 +24,5 @@ price = 100.0
 [node name="TowerMageLvl1Shooter" parent="TowerComponent" index="0" unique_id=1442245649 instance=ExtResource("3_j8o77")]
 position = Vector2(1, -56)
 
-[node name="UIComponent" parent="." index="2" unique_id=602361207]
+[node name="SelectComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-54.73, -83.54, 112.585, 102.565)

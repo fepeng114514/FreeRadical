@@ -8,12 +8,12 @@ func _ready() -> void:
 	
 	
 func _on_pressed() -> void:
-	var target: Entity = SelectMgr.selected_entity
-	if not U.is_valid_entity(target):
+	var target: Entity = SelectManager.selected_entity
+	if not target:
 		return
 
-	var d := Damage.new()
-	d.target_id = target.id
-	d.damage_type = C.DamageType.HP_MAX_PERCENT
-	d.value = spin_box.value / 100
-	d.insert_damage()
+	var damage := Damage.new()
+	damage.target_id = target.id
+	damage.damage_type = Damage.Type.HP_MAX_PERCENT
+	damage.value = spin_box.value / 100
+	DamageManager.queue_insert_damage(damage)

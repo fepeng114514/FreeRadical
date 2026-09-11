@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="5_gt3hg"]
 [ext_resource type="SpriteFrames" uid="uid://caqtmm3mrtin5" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_goblin.tres" id="5_nrfwl"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_bar.tscn" id="5_yidua"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/ui_component.gd" id="6_ijmwd"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_ijmwd"]
 
 [sub_resource type="Resource" id="Resource_58mnm"]
 script = ExtResource("2_58mnm")
@@ -70,7 +70,7 @@ speed = 61.0
 motion_animation = SubResource("Resource_atygg")
 metadata/_custom_type_script = "uid://btct3ysbbulk0"
 
-[node name="UIComponent" type="Node2D" parent="." unique_id=673866706]
+[node name="SelectComponent" type="Node2D" parent="." unique_id=673866706]
 process_mode = 4
 script = ExtResource("6_ijmwd")
 select_rect = Rect2(-15.69, -32.025, 32, 32)

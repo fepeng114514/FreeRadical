@@ -21,7 +21,7 @@ get_value_mode = 1
 mods = PackedStringArray()
 auras = PackedStringArray()
 payloads = PackedStringArray()
-area_enable = true
+area_enabled = true
 searcher = SubResource("Resource_j8hmt")
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 

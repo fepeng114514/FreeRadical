@@ -8,7 +8,7 @@ extends Button
 	2,
 ]
 
-var curren_time_scale_idx: int = 2
+var curren_time_scale_index: int = 2
 
 
 func _ready() -> void:
@@ -16,10 +16,10 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	curren_time_scale_idx += 1
-	curren_time_scale_idx %= TIME_SCALES.size()
+	curren_time_scale_index += 1
+	curren_time_scale_index %= TIME_SCALES.size()
 	
-	var time_scale: float = TIME_SCALES[curren_time_scale_idx]
+	var time_scale: float = TIME_SCALES[curren_time_scale_index]
 	Engine.time_scale = time_scale
 	if time_scale == 0:
 		get_tree().paused = true

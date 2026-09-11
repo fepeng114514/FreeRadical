@@ -6,4 +6,4 @@ class_name Grid
 func _ready() -> void:
 	visible = false
 	
-	GridMgr.grid = self
+	GridManager.grid = self

@@ -21,5 +21,5 @@ position = Vector2(0, 0)
 [node name="Sprite2D" parent="SpriteComponent" index="0" unique_id=2043930113]
 texture = ExtResource("3_3oyr1")
 
-[node name="UIComponent" parent="." index="2" unique_id=602361207]
+[node name="SelectComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-74.005, -47.95, 144.23, 95.535)

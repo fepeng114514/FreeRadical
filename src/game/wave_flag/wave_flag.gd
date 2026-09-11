@@ -53,7 +53,7 @@ func _ready() -> void:
 		texture_button.pressed.connect(_on_pressed)
 		mouse_entered.connect(_on_mouse_entered)
 		mouse_exited.connect(_on_mouse_exited)
-		WaveMgr.release_wave.connect(_on_release_wave)
+		WaveManager.release_wave.connect(_on_release_wave)
 		
 		arrow.rotation = arrow_rotation
 		arrow_glow.rotation = arrow_rotation
@@ -67,11 +67,11 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if not bound_pathway_node:
 		warnings.append("请在 bound_pathway_node 中绑定一个 Pathway 路径节点。")
 	else:
-		var bound_pathway_idx: int = bound_pathway_node.get_index()
-		var wave_flag_idx: int = get_index()
+		var bound_pathway_index: int = bound_pathway_node.get_index()
+		var wave_flag_index: int = get_index()
 		
-		if bound_pathway_idx != wave_flag_idx:
-			warnings.append("bound_pathway_node 绑定的 Pathway 路径节点索引为 %d，但当前波次旗帜索引为 %d，为了规范性建议将它们对应起来。" % [bound_pathway_idx, wave_flag_idx])
+		if bound_pathway_index != wave_flag_index:
+			warnings.append("bound_pathway_node 绑定的 Pathway 路径节点索引为 %d，但当前波次旗帜索引为 %d，为了规范性建议将它们对应起来。" % [bound_pathway_index, wave_flag_index])
 
 	if not arrow_rotation:
 		warnings.append("arrow_rotation 箭头旋转角度为 0，是否忘记设置？。")
@@ -112,7 +112,7 @@ func _hide() -> void:
 	modulate = Color.WHITE
 
 
-func _on_release_wave(_wave_idx: int) -> void:
+func _on_release_wave(_wave_index: int) -> void:
 	if loop_tween:
 		loop_tween.kill()
 	if value_tween:
@@ -122,7 +122,7 @@ func _on_release_wave(_wave_idx: int) -> void:
 
 
 func _on_pressed() -> void:
-	WaveMgr.is_release_wave = true
-	if WaveMgr.is_wait_first_release_wave:
-		WaveMgr.first_release_wave.emit()
-		WaveMgr.is_first_release_wave = false
+	WaveManager.is_release_wave = true
+	if WaveManager.is_wait_first_release_wave:
+		WaveManager.first_release_wave.emit()
+		WaveManager.is_first_release_wave = false

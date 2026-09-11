@@ -9,6 +9,6 @@ func _ready() -> void:
 func _on_pressed() -> void:
 	var v: float = spin_box.value
 
-	GameMgr.cash += v
+	GameManager.cash += v
 		
 	

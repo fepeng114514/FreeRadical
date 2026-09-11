@@ -9,7 +9,7 @@
 script = ExtResource("4_ghaox")
 interval = 1.5
 entity = "uid://b8mw5gsptj8n1"
-pathway_idx = 0
+pathway_index = 0
 count = 5
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
@@ -27,7 +27,6 @@ metadata/_custom_type_script = "uid://b1twtcymtb7c1"
 script = ExtResource("4_ghaox")
 interval = 1.4
 entity = "uid://b8mw5gsptj8n1"
-pathway_idx = 0
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
 [sub_resource type="Resource" id="Resource_r1hf7"]
@@ -45,7 +44,7 @@ metadata/_custom_type_script = "uid://b1twtcymtb7c1"
 script = ExtResource("4_ghaox")
 interval = 3.0
 entity = "uid://drgcomkmcowby"
-pathway_idx = 2
+pathway_index = 2
 count = 2
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
@@ -62,7 +61,7 @@ sub_wave_list = Array[ExtResource("3_gdef2")]([SubResource("Resource_8qw7d")])
 [sub_resource type="Resource" id="Resource_lsn02"]
 script = ExtResource("4_ghaox")
 entity = "uid://b8mw5gsptj8n1"
-pathway_idx = 0
+pathway_index = 0
 count = 15
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
@@ -79,14 +78,14 @@ sub_wave_list = Array[ExtResource("3_gdef2")]([SubResource("Resource_6y1fi")])
 [sub_resource type="Resource" id="Resource_ga76y"]
 script = ExtResource("4_ghaox")
 entity = "uid://b8mw5gsptj8n1"
-pathway_idx = 0
+pathway_index = 0
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
 [sub_resource type="Resource" id="Resource_rhvpd"]
 script = ExtResource("4_ghaox")
 interval = 2.0
 entity = "uid://drgcomkmcowby"
-pathway_idx = 0
+pathway_index = 0
 count = 2
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
@@ -99,7 +98,7 @@ metadata/_custom_type_script = "uid://sexo7n8p0jrb"
 script = ExtResource("4_ghaox")
 interval = 2.2
 entity = "uid://drgcomkmcowby"
-pathway_idx = 1
+pathway_index = 1
 count = 5
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
@@ -117,7 +116,7 @@ sub_wave_list = Array[ExtResource("3_gdef2")]([SubResource("Resource_o0r45"), Su
 script = ExtResource("4_ghaox")
 interval = 3.0
 entity = "uid://drgcomkmcowby"
-pathway_idx = 0
+pathway_index = 0
 count = 6
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 

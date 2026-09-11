@@ -58,7 +58,7 @@ get_value_mode = 1
 mods = PackedStringArray()
 auras = PackedStringArray()
 payloads = PackedStringArray()
-area_enable = true
+area_enabled = true
 searcher = SubResource("Resource_le8td")
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
@@ -94,6 +94,6 @@ price = 240.0
 
 [node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(52126447) index="0" unique_id=1342825155]
 searcher = SubResource("Resource_232gf")
-bullet = "uid://byog4qgt2vdy5"
+bullet_scene = "uid://byog4qgt2vdy5"
 bullet_offsets = SubResource("Resource_thpnf")
 influence = SubResource("Resource_mdcss")

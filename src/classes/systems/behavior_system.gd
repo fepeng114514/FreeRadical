@@ -1,4 +1,4 @@
-extends System
+extends ECSSystem
 class_name BehaviorSystem
 ## 行为系统。
 ##
@@ -6,54 +6,57 @@ class_name BehaviorSystem
 
 
 var _behavior_list: Array[Behavior] = []
-## 行为的数量。
-@onready var _behavior_count: int = get_child_count()
+var _behavior_list_size: int = 0
 
 
 func _ready() -> void:
 	for child: Behavior in get_children():
 		_behavior_list.append(child)
 
+	_behavior_list_size = _behavior_list.size()
 
-func _on_insert(e: Entity) -> bool:
-	for b: Behavior in _behavior_list:
-		if not b._on_insert(e):
+
+func _on_insert(entity: ECSEntity) -> bool:
+	entity = entity as Entity
+
+	for behavior: Behavior in _behavior_list:
+		if not behavior._on_insert(entity):
 			return false
 
 	return true
 
 
-func _on_remove(e: Entity) -> bool:
-	for b: Behavior in _behavior_list:
-		if not b._on_remove(e):
+func _on_remove(entity: ECSEntity) -> bool:
+	entity = entity as Entity
+	
+	for behavior: Behavior in _behavior_list:
+		if not behavior._on_remove(entity):
 			return false
 
 	return true
 	
 	
 func _on_update(_delta: float) -> void:
-	var entities: Array[Entity] = EntityMgr.get_valid_entities().filter(
-		func(e: Entity) -> bool:
-			return not e.is_waiting() and not e.state & Entity.State.DEAD
-	)
-	
-	for e: Entity in entities:
+	for entity: Entity in ECSEntityManager.get_valid_entities():
+		if entity.is_waiting() or entity.state & Entity.State.DEAD:
+			continue
+
 		var is_break: bool = false
-		for i: int in _behavior_count:
-			var b: Behavior = _behavior_list[i]
+		for behavior_index: int in _behavior_list_size:
+			var behavior: Behavior = _behavior_list[behavior_index]
 			
-			if b._on_update(e):
-				for skipped_i: int in range(i + 1, _behavior_count):
-					var skipped_b: Behavior = _behavior_list[skipped_i]
-					skipped_b._on_skip(e)
+			if behavior._on_update(entity):
+				for skipped_index: int in range(behavior_index + 1, _behavior_list_size):
+					var skipped_behavior: Behavior = _behavior_list[skipped_index]
+					skipped_behavior._on_skip(entity)
 				
 				is_break = true
 				break
 			
 		if not is_break:
-			if not e.get_node_or_null(C.CN_SPRITE):
+			if not entity.get_node_or_null(Constants.CN_SPRITE):
 				continue
 				
-			e.play_animation(e.idle_animation)
+			entity.play_animation(entity.idle_animation)
 			
 			

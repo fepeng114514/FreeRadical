@@ -71,7 +71,7 @@
    - 为 `WaveSpawner` 波次生成器节点添加 `wave_group` 波次组资源，并保存在 `src/game/levels/波次组资源名.tscn` 中，用于波次编辑器加载。
    - 波次组资源名格式为 `level_关卡索引_wave`，例如：第一关的波次组资源名为 `level_1_wave`。
 7. 在 `World` 节点中添加塔位等实体。
-   - 塔位需要设置 `default_rally_center_local_pos`  默认集结点。
+   - 塔位需要设置 `default_rally_center_position`  默认集结点。
 
 ### 4.2 添加入口
 1. 在 `src/map/map.tscn` 的 `FlagController` 节点中添加 `Flag` 关卡旗帜节点。

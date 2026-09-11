@@ -24,8 +24,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		pass
 	else:
-		WaveMgr.wave_group = wave_group
-		WaveMgr.wave_spawner = self
+		WaveManager.wave_group = wave_group
+		WaveManager.wave_spawner = self
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -38,31 +38,31 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _spawner() -> void:
-	AudioMgr.play_sfx(wave_interval_start_sfx)
-	WaveMgr.is_wait_first_release_wave = true
-	await WaveMgr.first_release_wave
-	WaveMgr.release_wave.emit(-1)
-	WaveMgr.is_wait_first_release_wave = false
+	AudioManager.play_sfx(wave_interval_start_sfx)
+	WaveManager.is_wait_first_release_wave = true
+	await WaveManager.first_release_wave
+	WaveManager.release_wave.emit(-1)
+	WaveManager.is_wait_first_release_wave = false
 	
 	var wave_list: Array[Wave] = wave_group.wave_list
 	
-	for wave_idx: int in range(WaveMgr.current_wave_idx, wave_list.size()):
-		var wave: Wave = wave_list[wave_idx]
+	for wave_index: int in range(WaveManager.current_wave_index, wave_list.size()):
+		var wave: Wave = wave_list[wave_index]
 		var wave_interval: float = wave.interval
-		WaveMgr.current_wave_idx = wave_idx
+		WaveManager.current_wave_index = wave_index
 
-		WaveMgr.start_wave_timer.emit(wave_idx)
+		WaveManager.start_wave_timer.emit(wave_index)
 		
-		if not WaveMgr.is_first_release_wave:
-			AudioMgr.play_sfx(wave_interval_start_sfx)
+		if not WaveManager.is_first_release_wave:
+			AudioManager.play_sfx(wave_interval_start_sfx)
 		
-		Log.debug("开始第 %d 波计时：%.2f" % [wave_idx + 1, wave_interval])
-		await y_wait(wave_interval, func(): return WaveMgr.is_release_wave)
+		Log.debug("开始第 %d 波计时：%.2f" % [wave_index + 1, wave_interval])
+		await y_wait(wave_interval, func(): return WaveManager.is_release_wave)
 		
-		WaveMgr.release_wave.emit(wave_idx)
-		AudioMgr.play_sfx(wave_interval_finish_sfx)
-		WaveMgr.is_release_wave = false
-		Log.debug(">>> 开始第 %d 波出怪" % (wave_idx + 1))
+		WaveManager.release_wave.emit(wave_index)
+		AudioManager.play_sfx(wave_interval_finish_sfx)
+		WaveManager.is_release_wave = false
+		Log.debug(">>> 开始第 %d 波出怪" % (wave_index + 1))
 		
 		var sub_wave_list: Array[SubWave] = wave.sub_wave_list
 		var sub_wave_list_size: int = sub_wave_list.size()
@@ -70,20 +70,20 @@ func _spawner() -> void:
 		sub_wave_state_list.resize(sub_wave_list_size)
 		sub_wave_state_list.fill(SUB_WAVE_STATE_FLAGS.SPAWNING)
 		
-		for i: int in sub_wave_list_size:
-			var sub_wave: SubWave = sub_wave_list[i]
-			_spawn_sub_wave(i, sub_wave, sub_wave_state_list)
+		for sub_wave_index: int in sub_wave_list_size:
+			var sub_wave: SubWave = sub_wave_list[sub_wave_index]
+			_spawn_sub_wave(sub_wave_index, sub_wave, sub_wave_state_list)
 			
 		await all_sub_wave_done
-		WaveMgr.is_skip_wave = false
-		Log.debug("-------第 %d 波释放完毕-------" % (wave_idx + 1))
+		WaveManager.is_skip_wave = false
+		Log.debug("-------第 %d 波释放完毕-------" % (wave_index + 1))
 			
 	Log.debug("=======所有波次释放完毕=======")
-	WaveMgr.waves_finished = true
+	WaveManager.waves_finished = true
 
 
 func _spawn_sub_wave(
-		idx: int,
+		index: int,
 		sub_wave: SubWave, 
 		sub_wave_state_list: PackedInt32Array
 	) -> void:
@@ -96,21 +96,21 @@ func _spawn_sub_wave(
 			if await y_wait(spawn.interval, _skip_break_fn):
 				break
 
-			for i: int in spawn.count:
-				var e: Entity = EntityMgr.create_entity(spawn.entity)
-				var nav_path_c: NavPathComponent = e.get_node_or_null(C.CN_NAV_PATH)
+			for spawn_index: int in spawn.count:
+				var entity: Entity = ECSEntityManager.create_entity(spawn.entity)
+				var nav_path_c: NavPathComponent = entity.get_node_or_null(Constants.CN_NAV_PATH)
 				if nav_path_c:
-					var spi: int = spawn.sub_pathway_idx
+					var sub_pathway_index: int = spawn.sub_pathway_index
 					
-					nav_path_c.reversed = spawn.reversed
-					nav_path_c.loop = spawn.loop
+					nav_path_c.reversed_enabled = spawn.reversed_enabled
+					nav_path_c.loop_enabled = spawn.loop_enabled
 					
 					var node: PathwayNode = nav_path_c.get_pathway_node(
-						PathwayMgr.node_count - 1 if nav_path_c.reversed else 0
+						PathwayManager.node_count - 1 if nav_path_c.reversed_enabled else 0
 					)
-					nav_path_c.set_nav_path(spawn.pathway_idx, spi, node.ni)
+					nav_path_c.set_nav_path(spawn.pathway_index, sub_pathway_index, node.index)
 				
-				e.insert_entity()
+				ECSEntityManager.queue_insert_entity(entity)
 				
 				if await y_wait(spawn.spawn_interval, _skip_break_fn):
 					is_break = true
@@ -119,7 +119,7 @@ func _spawn_sub_wave(
 			if is_break:
 				break
 	
-	sub_wave_state_list[idx] = SUB_WAVE_STATE_FLAGS.DONE
+	sub_wave_state_list[index] = SUB_WAVE_STATE_FLAGS.DONE
 	for flag: int in sub_wave_state_list:
 		if not flag & SUB_WAVE_STATE_FLAGS.DONE:
 			break
@@ -128,4 +128,4 @@ func _spawn_sub_wave(
 
 
 func _skip_break_fn() -> bool:
-	return WaveMgr.is_skip_wave
+	return WaveManager.is_skip_wave

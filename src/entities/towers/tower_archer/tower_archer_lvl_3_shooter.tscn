@@ -39,6 +39,6 @@ sprite_frames = ExtResource("2_il870")
 
 [node name="RangedSkill" parent="SkillComponent" parent_id_path=PackedInt32Array(129640034) index="0" unique_id=1939030855]
 searcher = SubResource("Resource_8j6ue")
-bullet = "uid://df0twe44nlame"
+bullet_scene = "uid://df0twe44nlame"
 influence = SubResource("Resource_gttup")
 cooldown = 0.6

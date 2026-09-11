@@ -21,7 +21,7 @@ texture = ExtResource("3_hr80x")
 
 [node name="TowerComponent" parent="." index="1" unique_id=1150016788 node_paths=PackedStringArray("shooter_switch_list")]
 price = 120.0
-shooter_switch_enable = true
+shooter_switch_enabled = true
 shooter_switch_list = [NodePath("TowerArcherLvl3Shooter"), NodePath("TowerArcherLvl3Shooter2")]
 
 [node name="TowerArcherLvl3Shooter" parent="TowerComponent" index="0" unique_id=2011504655 instance=ExtResource("3_1rmxj")]
@@ -30,6 +30,6 @@ position = Vector2(-15, -66)
 [node name="TowerArcherLvl3Shooter2" parent="TowerComponent" index="1" unique_id=1538760009 instance=ExtResource("3_1rmxj")]
 position = Vector2(17, -65)
 
-[node name="UIComponent" parent="." index="2" unique_id=602361207]
+[node name="SelectComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-52.89, -98.09, 100.79, 114.01)
 select_menu_offset = Vector2(0, -38.815)

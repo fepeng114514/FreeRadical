@@ -15,20 +15,20 @@ var preview_entity: Entity = null
 
 
 func _update() -> void:
-	var upgrade_target: Entity = EntityMgr.get_entity_data(
+	var upgrade_target: Entity = ECSEntityManager.get_entity_data(
 		upgrade_to
 	)
-	var tower_c: TowerComponent = upgrade_target.get_node_or_null(C.CN_TOWER)
+	var tower_c: TowerComponent = upgrade_target.get_node_or_null(Constants.CN_TOWER)
 	
 	var price: float = 0.0
 	if tower_c.tower_type == TowerComponent.TowerType.TOWER_BUILD:
-		var build_target: Entity = EntityMgr.get_entity_data(upgrade_target.build_target)
-		var build_target_tower_c: TowerComponent = build_target.get_node_or_null(C.CN_TOWER)
+		var build_target: Entity = ECSEntityManager.get_entity_data(upgrade_target.build_target)
+		var build_target_tower_c: TowerComponent = build_target.get_node_or_null(Constants.CN_TOWER)
 		price = build_target_tower_c.price
 	else:
 		price = tower_c.price
 
-	if price > GameMgr.cash:
+	if price > GameManager.cash:
 		_disable()
 	else:
 		_enable()
@@ -37,10 +37,10 @@ func _update() -> void:
 
 
 func _on_pressed() -> void:
-	if not U.is_valid_entity(selected_entity):
+	if not selected_entity:
 		return
 
-	var tower_c: TowerComponent = selected_entity.get_node_or_null(C.CN_TOWER)
+	var tower_c: TowerComponent = selected_entity.get_node_or_null(Constants.CN_TOWER)
 	tower_c.upgrade_to = upgrade_to
 	
 	_hide_preview()
@@ -49,20 +49,20 @@ func _on_pressed() -> void:
 func _on_mouse_entered() -> void:
 	super()
 
-	if not U.is_valid_entity(selected_entity):
+	if not selected_entity:
 		return
 	
 	if preview:
-		preview_entity = EntityMgr.create_entity(preview)
+		preview_entity = ECSEntityManager.create_entity(preview)
 		preview_entity.global_position = selected_entity.global_position
 		
-		preview_entity.insert_entity()
+		ECSEntityManager.queue_insert_entity(preview_entity)
 	
 	
 func _on_mouse_exited() -> void:
 	super()
 	
-	if not U.is_valid_entity(selected_entity):
+	if not selected_entity:
 		return
 	
 	_hide_preview()
@@ -70,5 +70,5 @@ func _on_mouse_exited() -> void:
 		
 func _hide_preview() -> void:
 	if preview_entity:
-		preview_entity.remove_entity()
+		ECSEntityManager.queue_remove_entity(preview_entity)
 		preview_entity = null

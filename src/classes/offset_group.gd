@@ -62,58 +62,58 @@ func _validate_property(property: Dictionary):
 				property.usage = PROPERTY_USAGE_NONE
 				
 
-## 根据中心点和目标点的方向获取相应偏移。
-func get_offset_for_point(center: Vector2, point: Vector2) -> Vector2:
+## 根据中心点到目标点的方向返回对应的偏移。
+func get_offset_toward_point(center: Vector2, point: Vector2) -> Vector2:
 	if any:
 		return any
 
 	var has_horizontal: bool = left or right
 	var has_vertical: bool = up or down
-	var direction: C.Direction = C.Direction.NONE
+	var direction: Constants.Direction = Constants.Direction.NONE
 	var offset := Vector2.ZERO
 
 	if has_horizontal and has_vertical:
 		var angle: float = center.angle_to_point(
 			point
 		)
-		direction = U.get_cardinal_direction(angle)
+		direction = MathUtils.get_cardinal_direction(angle)
 		match direction:
-			C.Direction.UP:
+			Constants.Direction.UP:
 				if down_replace_up:
 					offset = down * Vector2(-1, 1)
 				else:
 					offset = up
-			C.Direction.DOWN:
+			Constants.Direction.DOWN:
 				offset = down
-			C.Direction.LEFT:
+			Constants.Direction.LEFT:
 				if right_replace_left:
 					offset = right * Vector2(-1, 1)
 				else:
 					offset = left
-			C.Direction.RIGHT:
+			Constants.Direction.RIGHT:
 				offset = right
 	elif has_horizontal or has_vertical:
-		direction = U.get_quadrant_direction(center, point)
+		direction = MathUtils.get_quadrant_direction(center, point)
 		if has_horizontal:
 			match direction:
-				C.Direction.LEFT_UP, C.Direction.LEFT_DOWN:
+				Constants.Direction.LEFT_UP, Constants.Direction.LEFT_DOWN:
 					if right_replace_left:
 						offset = right * Vector2(-1, 1)
 					else:
 						offset = left
-				C.Direction.RIGHT_UP, C.Direction.RIGHT_DOWN:
+				Constants.Direction.RIGHT_UP, Constants.Direction.RIGHT_DOWN:
 					offset = right
 		elif has_vertical:
 			match direction:
-				C.Direction.LEFT_UP, C.Direction.RIGHT_UP:
+				Constants.Direction.LEFT_UP, Constants.Direction.RIGHT_UP:
 					if down_replace_up:
 						offset = down * Vector2(-1, 1)
 					else:
 						offset = up
-				C.Direction.LEFT_DOWN, C.Direction.RIGHT_DOWN:
+				Constants.Direction.LEFT_DOWN, Constants.Direction.RIGHT_DOWN:
 					offset = down
 			
-			if vertical_mirror and direction & C.Direction.LEFT:
+			if vertical_mirror and direction & Constants.Direction.LEFT:
 				offset *= Vector2(-1, 1)
 	return offset
 

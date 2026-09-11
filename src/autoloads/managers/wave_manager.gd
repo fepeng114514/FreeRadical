@@ -8,9 +8,9 @@ extends Node
 ## 第一次释放波次时发出。
 signal first_release_wave
 ## 释放波次时发出。
-signal release_wave(wave_idx: int)
+signal release_wave(wave_index: int)
 ## 开始波次计时时发出。
-signal start_wave_timer(wave_idx: int)
+signal start_wave_timer(wave_index: int)
 @warning_ignore_restore("unused_signal")
 
 
@@ -23,7 +23,7 @@ var is_wait_first_release_wave: bool = false
 ## 是否跳过波次计时。
 var is_release_wave: bool = false
 ## 当前波次。
-var current_wave_idx: int = 0
+var current_wave_index: int = 0
 ## 波次是否释放完毕。
 var waves_finished: bool = false
 ## 是否是第一次释放波次。
@@ -32,12 +32,12 @@ var is_first_release_wave: bool = true
 var is_skip_wave: bool = false
 
 
-func _clear() -> void:
+func clear() -> void:
 	wave_group = null
 	wave_spawner = null
 	is_wait_first_release_wave = false
 	is_release_wave = false
-	current_wave_idx = 0
+	current_wave_index = 0
 	waves_finished = false
 	is_first_release_wave = true
 	is_skip_wave = false
@@ -45,12 +45,12 @@ func _clear() -> void:
 
 ## 获取当前波次。
 func get_current_wave() -> Wave:
-	return wave_group.wave_list[current_wave_idx]
+	return wave_group.wave_list[current_wave_index]
 
 
 ## 获取指定索引的波次。
-func get_wave(idx: int) -> Wave:
-	return wave_group.wave_list[idx]
+func get_wave(index: int) -> Wave:
+	return wave_group.wave_list[index]
 
 
 ## 获取波次组中的波次数量。

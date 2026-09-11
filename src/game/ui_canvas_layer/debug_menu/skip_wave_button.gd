@@ -6,9 +6,9 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	WaveMgr.is_release_wave = true
-	if WaveMgr.is_first_release_wave:
-		WaveMgr.is_first_release_wave = false
-		WaveMgr.first_release_wave.emit()
+	WaveManager.is_release_wave = true
+	if WaveManager.is_first_release_wave:
+		WaveManager.is_first_release_wave = false
+		WaveManager.first_release_wave.emit()
 	else:
-		WaveMgr.is_skip_wave = true
+		WaveManager.is_skip_wave = true

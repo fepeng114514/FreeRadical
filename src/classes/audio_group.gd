@@ -4,7 +4,7 @@ class_name AudioGroup
 
 
 ## 播放模式。
-@export var play_mode: AudioMgr.AudioPlayMode = AudioMgr.AudioPlayMode.SEQUENCE
+@export var play_mode: AudioManager.AudioPlayMode = AudioManager.AudioPlayMode.SEQUENCE
 ## 音频路径列表。
 @export_file("*.ogg") var list := PackedStringArray()
 ## 音量（分贝）。
@@ -15,4 +15,4 @@ class_name AudioGroup
 @export var delay: float = 0.0
 
 ## 当前播放的索引。
-var played_idx: int = -1
+var played_index: int = -1

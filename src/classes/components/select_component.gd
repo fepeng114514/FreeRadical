@@ -1,0 +1,84 @@
+@tool
+@icon("res://assets/dpi_textures/at-icons/node2d/click.svg")
+extends Component
+class_name SelectComponent
+## 选择组件。
+##
+## SelectComponent 可以使实体被鼠标选择。
+
+
+## 实体信息栏类型枚举。
+enum InfoBarType {
+	## 信息栏类型：无，不显示。
+	NONE,
+	## 信息栏类型：敌人或友军的信息栏。
+	UNIT,
+	## 信息栏类型：防御塔的信息栏。
+	TOWER,
+	## 信息栏类型：文本。
+	TEXT,
+}
+
+
+## 选择矩形大小。
+@export var select_rect := Rect2(-16, -16, 32, 32):
+	set(v): 
+		select_rect = v
+		Utils.redraw_setter(self)
+## 是否可以选择。
+@export var can_select: bool = true:
+	set(v): 
+		can_select = v
+		Utils.redraw_setter(self)
+
+## 信息栏类型。
+@export var info_bar_type: InfoBarType = InfoBarType.NONE
+## 选择菜单偏移。
+@export var select_menu_offset := Vector2.ZERO:
+	set(v): 
+		select_menu_offset = v
+		Utils.redraw_setter(self)
+
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+
+
+func _draw() -> void:
+	if Engine.is_editor_hint():
+		if not can_select:
+			return
+
+		draw_circle(
+			select_menu_offset, 
+			4,
+			Color.GREEN, 
+			false,
+			1
+		)
+			
+		# 绘制半透明填充和边框
+		draw_rect(
+			Rect2(select_rect.position, select_rect.size), 
+			Color(0.2, 0.6, 1.0, 0.25), 
+			true
+		)
+		draw_rect(
+			Rect2(select_rect.position, select_rect.size), 
+			Color(0.2, 0.6, 1.0, 0.9), 
+			false, 
+			1
+		)
+	
+
+## 获取全局位置的矩形。
+func get_global_select_rect() -> Rect2:
+	return Rect2(global_position + select_rect.position, select_rect.size)
+
+
+## 检测是否点击在矩形内。
+func is_click_at_global_select_rect(clicked_global_position: Vector2) -> bool:
+	return (
+		can_select 
+		and get_global_select_rect().has_point(clicked_global_position)
+	)

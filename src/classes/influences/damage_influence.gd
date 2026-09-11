@@ -7,7 +7,7 @@ class_name DamageInfluence
 
 
 ## 伤害类型。
-@export var damage_type: int = C.DamageType.PHYSICAL
+@export var damage_type: int = Damage.Type.PHYSICAL
 ## 伤害标识。
 @export var damage_flags: int = 0
 
@@ -15,21 +15,21 @@ class_name DamageInfluence
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
 		"damage_type":
-			property.hint_string = "mask_enum:DamageType"
+			property.hint_string = "mask_check(%s)" % Damage.Type
 		"damage_flags":
-			property.hint_string = "mask_enum:DamageFlag"
+			property.hint_string = "mask_check(%s)" % Damage.Flag
 
 
 func _take(source: Entity, target: Entity, is_area: bool) -> void:
-	var d := Damage.new()
-	d.target_id = target.id
-	d.source_id = source.id
-	d.source_name = source.name
-	d.is_area = is_area
-	d.value = get_value(source, target)
-	d.damage_type = damage_type
-	d.damage_flags = damage_flags
-	d.insert_damage()
+	var damage := Damage.new()
+	damage.target_id = target.id
+	damage.source_id = source.id
+	damage.source_name = source.name
+	damage.is_area = is_area
+	damage.value = get_value(source, target)
+	damage.damage_type = damage_type
+	damage.damage_flags = damage_flags
+	DamageManager.queue_insert_damage(damage)
 
 
 func get_damage_value() -> float:

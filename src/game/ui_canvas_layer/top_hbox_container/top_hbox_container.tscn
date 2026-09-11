@@ -16,11 +16,11 @@ size_flags_horizontal = 3
 mouse_filter = 2
 theme = ExtResource("2_rltjd")
 
-[node name="PlayerResourceBackground" type="TextureRect" parent="." unique_id=337611053]
+[node name="PlayerStatsBackground" type="TextureRect" parent="." unique_id=337611053]
 layout_mode = 2
 texture = ExtResource("2_ki64j")
 
-[node name="LifeValueLabel" type="Label" parent="PlayerResourceBackground" unique_id=287686407]
+[node name="LifeValueLabel" type="Label" parent="PlayerStatsBackground" unique_id=287686407]
 layout_mode = 0
 offset_left = 144.0
 offset_top = 22.0
@@ -29,7 +29,7 @@ offset_bottom = 64.0
 text = "20"
 script = ExtResource("3_42nug")
 
-[node name="CashValueLabel" type="Label" parent="PlayerResourceBackground" unique_id=461566231]
+[node name="CashValueLabel" type="Label" parent="PlayerStatsBackground" unique_id=461566231]
 layout_mode = 0
 offset_left = 247.0
 offset_top = 22.0
@@ -38,7 +38,7 @@ offset_bottom = 64.0
 text = "500"
 script = ExtResource("4_dp1o2")
 
-[node name="WaveValueLabel" type="Label" parent="PlayerResourceBackground" unique_id=29332469]
+[node name="WaveValueLabel" type="Label" parent="PlayerStatsBackground" unique_id=29332469]
 layout_mode = 0
 offset_left = 449.0
 offset_top = 22.0

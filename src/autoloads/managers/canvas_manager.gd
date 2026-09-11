@@ -5,12 +5,12 @@ extends Node
 
 
 ## 将世界坐标转换为屏幕坐标。
-func world_to_screen(world_pos: Vector2) -> Vector2:
+func world_to_screen(world_position: Vector2) -> Vector2:
 	var canvas_transform = get_viewport().canvas_transform
-	return canvas_transform * world_pos
+	return canvas_transform * world_position
 
 
 ## 将屏幕坐标转换为世界坐标。
-func screen_to_world(screen_pos: Vector2) -> Vector2:
+func screen_to_world(screen_position: Vector2) -> Vector2:
 	var canvas_transform = get_viewport().canvas_transform
-	return canvas_transform.affine_inverse() * screen_pos
+	return canvas_transform.affine_inverse() * screen_position

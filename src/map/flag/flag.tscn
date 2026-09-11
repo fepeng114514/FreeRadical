@@ -15,7 +15,7 @@ area = NodePath("Area2D")
 position = Vector2(1, -56)
 sprite_frames = ExtResource("1_poj8k")
 animation = &"unlocked_idle"
-frame_progress = 0.18118005
+frame_progress = 0.38486305
 
 [node name="Area2D" type="Area2D" parent="." unique_id=673732642]
 

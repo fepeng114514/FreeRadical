@@ -29,6 +29,6 @@ position = Vector2(-15, -60)
 [node name="TowerArcherLvl2Shooter2" parent="TowerComponent" index="1" unique_id=334249118 instance=ExtResource("4_s0mgi")]
 position = Vector2(16, -59)
 
-[node name="UIComponent" parent="." index="2" unique_id=602361207]
+[node name="SelectComponent" parent="." index="2" unique_id=602361207]
 select_rect = Rect2(-48.61, -89.745, 95.585, 103.79)
 select_menu_offset = Vector2(0, -35.675)

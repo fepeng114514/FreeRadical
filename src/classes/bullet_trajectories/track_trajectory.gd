@@ -9,23 +9,23 @@ class_name TrackBulletTrajectory
 @export var flight_speed: float = 0.0
 
 
-func _init_trajectory(bullet_c: BulletComponent, e: Entity, _target: Entity) -> void:
-	if bullet_c.look_to:
-		e.look_at(bullet_c.to)
+func _init_trajectory(bullet: Entity, bullet_c: BulletComponent, _target: Entity) -> void:
+	if bullet_c.facing_enabled:
+		bullet.look_at(bullet_c.to)
 
 
-func _update_trajectory(e: Entity, bullet_c: BulletComponent, target: Entity, _flying_time: float, _delta: float) -> void:
+func _update_trajectory(bullet: Entity, bullet_c: BulletComponent, target: Entity, _flying_time: float, _delta: float) -> void:
 	if is_instance_valid(target):
 		var to: Vector2 = target.global_position
 		if target.hit_offsets:
-			var hit_offset: Vector2 = target.hit_offsets.get_offset_for_point(
-				target.global_position, target.look_point
+			var hit_offset: Vector2 = target.hit_offsets.get_offset_toward_point(
+				target.global_position, target.facing_global_position
 			)
 			to += hit_offset
 		bullet_c.to = to
 
-	var direction: Vector2 = e.global_position.direction_to(bullet_c.to)
-	e.global_position += direction * flight_speed * TimeMgr.frame_length
+	var direction: Vector2 = bullet.global_position.direction_to(bullet_c.to)
+	bullet.global_position += direction * flight_speed * TimeManager.frame_length
 
-	if bullet_c.look_to:
-		e.look_at(bullet_c.to)
+	if bullet_c.facing_enabled:
+		bullet.look_at(bullet_c.to)

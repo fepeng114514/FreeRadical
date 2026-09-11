@@ -9,31 +9,31 @@
 ### 1.1 准备工作
 
 1. **Watt Toolkit**：安装 Watt Toolkit 用于加速 Github。
-    - [Watt Toolkit 下载链接](https://steampp.net/download)
+	- [Watt Toolkit 下载链接](https://steampp.net/download)
 2. **VSCode**：安装 VSCode 用于代码编辑与可视化提交。
-    - [VSCode 下载链接](https://code.visualstudio.com/)
+	- [VSCode 下载链接](https://code.visualstudio.com/)
 3. **Godot**：下载 Godot 引擎，项目使用 GDScript 语言，请下载**普通版本**而非 .NET 版本。
-    - [Godot 下载链接](https://godotengine.org/download)
+	- [Godot 下载链接](https://godotengine.org/download)
 4. **Git**：安装 Git 用于版本控制。
-    - [Git 下载链接](https://git-scm.com/downloads)
-    - 注：若看不懂安装程序，只需要点下一步即可。
+	- [Git 下载链接](https://git-scm.com/downloads)
+	- 注：若看不懂安装程序，只需要点下一步即可。
 5. **Github**：注册 Github 账号。
-    - [Github 链接](https://github.com)
-    - 如无法访问，请先打开 Watt Toolkit 加速 GitHub。
+	- [Github 链接](https://github.com)
+	- 如无法访问，请先打开 Watt Toolkit 加速 GitHub。
 
 ### 1.2 配置 Git 环境
 
 1. 在开始菜单中打开 **Git Bash**。
 2. 输入以下命令配置 Git 用户信息（每行输入后回车确认）：
-    ```bash
-    git config --global user.name "你的姓名"
-    git config --global user.email "你的邮箱"
-    ```
-    示例：
-    ```bash
-    git config --global user.name "张三"
-    git config --global user.email "1729000000@qq.com"
-    ```
+	```bash
+	git config --global user.name "你的姓名"
+	git config --global user.email "你的邮箱"
+	```
+	示例：
+	```bash
+	git config --global user.name "张三"
+	git config --global user.email "1729000000@qq.com"
+	```
 
 ### 1.3 克隆项目仓库
 
@@ -64,7 +64,7 @@
 
 1. 首先点击 “源代码管理” 选项。
 2. 输入提交信息。
-    - 提交规范见下方。
+	- 提交规范见下方。
 3. 点击 “提交” 按钮。
 4. 暂存所有修改。
 5. 最后点击 “同步更改” 按钮推送代码到仓库。

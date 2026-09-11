@@ -18,11 +18,11 @@ func _on_insert() -> bool:
 func _on_update(_delta: float) -> void:
 	var max_value: float = progress_bar.max_value
 	
-	var past_time: float = TimeMgr.tick_ts - insert_ts
+	var past_time: float = TimeManager.tick_ts - insert_ts
 	var value: float = past_time * max_value / show_time
 	
 	progress_bar.value = value
 	
-	if TimeMgr.has_elapsed(insert_ts, show_time):
-		var tower_c: TowerComponent = get_node_or_null(C.CN_TOWER)
+	if TimeManager.has_elapsed(insert_ts, show_time):
+		var tower_c: TowerComponent = get_node_or_null(Constants.CN_TOWER)
 		tower_c.upgrade_to = build_target

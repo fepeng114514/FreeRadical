@@ -1,53 +1,55 @@
-extends System
+extends ECSSystem
 class_name EntitySystem
 ## 实体系统。
 ##
 ## EntitySystem 负责处理实体的回调与更新。
 
 
-func _on_insert(e: Entity) -> bool:
-	e.insert_ts = TimeMgr.tick_ts
+func _on_insert(entity: ECSEntity) -> bool:
+	entity = entity as Entity
 
-	return e._on_insert()
+	entity.insert_ts = TimeManager.tick_ts
+
+	return entity._on_insert()
 	
 
-func _on_remove(e: Entity) -> bool:
-	if not e._on_remove():
+func _on_remove(entity: ECSEntity) -> bool:
+	entity = entity as Entity
+
+	if not entity._on_remove():
 		return false
 	
-	e.clear_has_mod_list()
-	e.clear_has_aura_list()
+	entity.clear_has_mod_list()
+	entity.clear_has_aura_list()
 
 	return true
 
 
 func _on_update(delta: float) -> void:
-	var entities: Array[Entity] = EntityMgr.get_valid_entities().filter(
-		func(e: Entity) -> bool:
-			return not e.state & Entity.State.DEAD and not e.is_waiting()
-	)
-	
-	for e: Entity in entities:
-		if U.is_valid_number(e.duration) and TimeMgr.has_elapsed(e.insert_ts, e.duration):
-			e.remove_entity()
+	for entity: Entity in ECSEntityManager.get_valid_entities():
+		if entity.state & Entity.State.DEAD or entity.is_waiting():
+			continue
+
+		if Utils.is_valid_number(entity.duration) and TimeManager.has_elapsed(entity.insert_ts, entity.duration):
+			ECSEntityManager.queue_remove_entity(entity)
 			continue
 			
-		_update_entity(e, delta)
+		_update_entity(entity, delta)
 		
-	for e: Entity in EntityMgr.get_valid_entities():
-		if e.is_first_update:
-			e.is_first_update = false
+	for entity: Entity in ECSEntityManager.get_valid_entities():
+		if entity.is_first_update:
+			entity.is_first_update = false
 		
 		
 ## 更新实体。
-func _update_entity(e: Entity, delta: float) -> void:
-	if e.is_first_update:
-		e.play_animation(e.spawn_animation)
-		AudioMgr.play_sfx(e.spawn_sfx)
-		if e.spawn_animation:
-			if await e.y_wait_animation(e.spawn_animation):
+func _update_entity(entity: Entity, delta: float) -> void:
+	if entity.is_first_update:
+		entity.play_animation(entity.spawn_animation)
+		AudioManager.play_sfx(entity.spawn_sfx)
+		if entity.spawn_animation:
+			if await entity.y_wait_animation(entity.spawn_animation):
 				return
 		
-	e._on_update(delta)
+	entity._on_update(delta)
 	
-	e.last_position = e.global_position
+	entity.last_global_position = entity.global_position

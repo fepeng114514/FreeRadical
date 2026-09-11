@@ -1,7 +1,7 @@
 @tool
 extends Entity
 
-@onready var bullet_c = get_node_or_null(C.CN_BULLET)
+@onready var bullet_c = get_node_or_null(Constants.CN_BULLET)
 var stay_height: int = 0
 var stay_time: float = 0.0
 var to_predict_time: float = 0.0
@@ -18,10 +18,10 @@ func _on_insert() -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	var target: Entity = EntityMgr.get_entity_by_id(target_id)
+	var target: Entity = ECSEntityManager.get_entity_by_id(target_id)
 
 	# 停留状态
-	if target and is_stay and not TimeMgr.has_elapsed(bullet_c.ts, stay_time):
+	if target and is_stay and not TimeManager.has_elapsed(bullet_c.ts, stay_time):
 		var t_pos: Vector2 = target.global_position
 		global_position = Vector2(t_pos.x, t_pos.y - stay_height)
 		bullet_c.to = global_position
@@ -39,26 +39,26 @@ func _on_update(_delta: float) -> void:
 				if bullet_c.trajectory and "flight_total_time" in bullet_c.trajectory
 				else 0.0
 			)
-			bullet_c.predict_target_pos = PathwayMgr.predict_target_pos(
+			bullet_c.predicted_target_global_position = PathwayManager.predict_target_global_position(
 				target, (predict_time + to_predict_time)
 			)
 		else:
-			bullet_c.predict_target_pos = Vector2(
+			bullet_c.predicted_target_global_position = Vector2(
 				bullet_c.to.x, bullet_c.to.y + stay_height
 			)
-		bullet_c.to = bullet_c.predict_target_pos
+		bullet_c.to = bullet_c.predicted_target_global_position
 		
-		bullet_c.velocity = U.initial_linear_velocity(
+		bullet_c.velocity = MathUtils.initial_linear_velocity(
 			global_position, 
 			Vector2(bullet_c.to.x, bullet_c.to.y - stay_height), 
 			to_predict_time
 		)
-		bullet_c.ts = TimeMgr.tick_ts
+		bullet_c.ts = TimeManager.tick_ts
 		
 	# 飞向预判位置
-	if is_to_predict and not TimeMgr.has_elapsed(bullet_c.ts, to_predict_time):
-		global_position = U.position_in_linear(
-			bullet_c.velocity, bullet_c.from, TimeMgr.get_elapsed_time(bullet_c.ts)
+	if is_to_predict and not TimeManager.has_elapsed(bullet_c.ts, to_predict_time):
+		global_position = MathUtils.position_in_linear(
+			bullet_c.velocity, bullet_c.from, TimeManager.get_elapsed_time(bullet_c.ts)
 		)
 		
 		return
@@ -74,13 +74,13 @@ func _on_update(_delta: float) -> void:
 			if bullet_c.trajectory and "flight_total_time" in bullet_c.trajectory
 			else 0.0
 		)
-		bullet_c.velocity = U.initial_linear_velocity(
+		bullet_c.velocity = MathUtils.initial_linear_velocity(
 			global_position, bullet_c.to, fall_time
 		)
 
-		bullet_c.ts = TimeMgr.tick_ts
+		bullet_c.ts = TimeManager.tick_ts
 
 	# 下落
-	global_position = U.position_in_linear(
-		bullet_c.velocity, bullet_c.from, TimeMgr.get_elapsed_time(bullet_c.ts)
+	global_position = MathUtils.position_in_linear(
+		bullet_c.velocity, bullet_c.from, TimeManager.get_elapsed_time(bullet_c.ts)
 	)

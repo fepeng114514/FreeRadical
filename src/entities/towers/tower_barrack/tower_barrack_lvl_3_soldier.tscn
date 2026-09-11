@@ -62,5 +62,5 @@ searcher = SubResource("Resource_h5oex")
 influence = SubResource("Resource_s2rej")
 interact_policy = SubResource("Resource_dngmn")
 
-[node name="UIComponent" parent="." index="3" unique_id=346591849]
+[node name="SelectComponent" parent="." index="3" unique_id=346591849]
 select_rect = Rect2(-15.555, -40.245, 32.735, 40.255)

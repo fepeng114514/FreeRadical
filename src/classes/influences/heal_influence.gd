@@ -24,7 +24,7 @@ enum HealType {
 
 
 func _take(source: Entity, target: Entity, _is_area: bool) -> void:
-	var health_c: HealthComponent = target.get_node_or_null(C.CN_HEALTH)
+	var health_c: HealthComponent = target.get_node_or_null(Constants.CN_HEALTH)
 	var heal_value: float = get_value(source, target)
 
 	match heal_type:

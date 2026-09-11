@@ -13,12 +13,12 @@ var size_tween_dict: Dictionary[RangeInfo, Tween] = {}
 
 
 func _ready() -> void:
-	SelectMgr.entity_selected.connect(_show)
-	SelectMgr.entity_deselected.connect(_hide)
+	SelectManager.entity_selected.connect(_show)
+	SelectManager.entity_deselected.connect(_hide)
 
 
 func _process(_delta: float) -> void:
-	if not U.is_valid_entity(selected_entity):
+	if not selected_entity:
 		_hide()
 		return
 
@@ -29,44 +29,44 @@ func _process(_delta: float) -> void:
 		info._update()
 
 	
-func _show(e: Entity) -> void:
+func _show(entity: Entity) -> void:
 	for info: RangeInfo in get_children():
 		info.queue_free()
 
-	selected_entity = e
+	selected_entity = entity
 
-	var skill_c: SkillComponent = selected_entity.get_node_or_null(C.CN_SKILL)
+	var skill_c: SkillComponent = selected_entity.get_node_or_null(Constants.CN_SKILL)
 	if skill_c:
 		var first_skill: Skill = skill_c.get_child(0)
 		if first_skill.searcher:
-			_create_range_info_circle(skill_range_info_scene, e)
+			_create_range_info_circle(skill_range_info_scene, entity)
 
-	var tower_c: TowerComponent = selected_entity.get_node_or_null(C.CN_TOWER)
+	var tower_c: TowerComponent = selected_entity.get_node_or_null(Constants.CN_TOWER)
 	if tower_c:
 		for sub_entity: Entity in tower_c.get_children():
-			var sub_entity_skill_c: SkillComponent = sub_entity.get_node_or_null(C.CN_SKILL)
+			var sub_entity_skill_c: SkillComponent = sub_entity.get_node_or_null(Constants.CN_SKILL)
 			if not sub_entity_skill_c:
 				continue
 
 			var first_skill: Skill = sub_entity_skill_c.get_child(0)
 			if first_skill.searcher:
-				_create_range_info_circle(skill_range_info_scene, sub_entity, e)
+				_create_range_info_circle(skill_range_info_scene, sub_entity, entity)
 
-	var melee_c: MeleeComponent = selected_entity.get_node_or_null(C.CN_MELEE)
+	var melee_c: MeleeComponent = selected_entity.get_node_or_null(Constants.CN_MELEE)
 	if melee_c:
 		if melee_c.is_blocker:
-			_create_range_info_circle(melee_range_info_scene, e)
+			_create_range_info_circle(melee_range_info_scene, entity)
 
-	var barrack_c: BarrackComponent = selected_entity.get_node_or_null(C.CN_BARRACK)
+	var barrack_c: BarrackComponent = selected_entity.get_node_or_null(Constants.CN_BARRACK)
 	if barrack_c:
-		_create_range_info_circle(barrack_rally_range_info_scene, e)
+		_create_range_info_circle(barrack_rally_range_info_scene, entity)
 
 		var soldier_list: Array[Entity] = barrack_c.soldier_list
 		if soldier_list:
 			var soldier: Entity = soldier_list[0]
-			var soldier_melee_c: MeleeComponent = soldier.get_node_or_null(C.CN_MELEE)
+			var soldier_melee_c: MeleeComponent = soldier.get_node_or_null(Constants.CN_MELEE)
 			if soldier_melee_c:
-				_create_range_info_circle(melee_range_info_scene, soldier, e)
+				_create_range_info_circle(melee_range_info_scene, soldier, entity)
 
 	
 func _hide() -> void:

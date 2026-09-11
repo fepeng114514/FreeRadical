@@ -27,5 +27,5 @@ position = Vector2(-15, -56)
 show_behind_parent = true
 position = Vector2(18, -55)
 
-[node name="UIComponent" parent="." index="2" unique_id=602361207]
+[node name="SelectComponent" parent="." index="2" unique_id=602361207]
 select_menu_offset = Vector2(0, -29.78)

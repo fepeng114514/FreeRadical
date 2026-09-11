@@ -29,22 +29,18 @@ func _ready() -> void:
 	
 
 func _unhandled_input(event: InputEvent) -> void:
-	# 滚动事件
 	if event.is_action("camera_zoom_in"):
 		_smooth_zoom(false)
 		
 	elif event.is_action("camera_zoom_out"):
 		_smooth_zoom(true)
 	
-	# 左键点击事件开始拖动
 	elif event.is_action_pressed("camera_drag"):
 		_dragging = true
 		_drag_start_position = event.position
-	# 左键点击事件松开结束拖动
 	elif event.is_action_released("camera_drag"):
 		_dragging = false
 	
-	# 拖动时鼠标移动移动相机
 	if not _dragging:
 		return
 		
@@ -71,18 +67,17 @@ func _smooth_zoom(reversed: bool = false) -> void:
 
 
 ## 移动相机。
-func _move(target_pos: Vector2) -> void:
-	# 计算鼠标移动距离
-	var drag_offset: Vector2 = _drag_start_position - target_pos
+func _move(target_position: Vector2) -> void:
+	var drag_offset: Vector2 = _drag_start_position - target_position
 	# 移动相机（注意：要除以缩放倍数，否则缩放后拖动速度不对）
 	position += drag_offset / zoom
-	_drag_start_position = target_pos
+	_drag_start_position = target_position
 
 
 ## 重置缩放。
 func _reset_zoom() -> void:
 	var window_size_factor: Vector2 = (
-		GlobalMgr.window_size / GlobalMgr.max_window_size
+		GlobalManager.window_size / GlobalManager.max_window_size
 	)
 	zoom_min = window_size_factor.x
 	zoom = Vector2(zoom_min, zoom_min)

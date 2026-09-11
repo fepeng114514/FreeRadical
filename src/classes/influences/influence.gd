@@ -22,7 +22,7 @@ enum GetValueMode {
 @export var get_value_mode: GetValueMode = GetValueMode.RANDOM
 
 @export_group("Extra")
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var extra_enable: bool = false
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var extra_enabled: bool = false
 ## 给予的状态效果路径列表。
 @export_file("*.tscn") var mods := PackedStringArray()
 ## 给予的持续状态效果路径列表。
@@ -32,26 +32,24 @@ enum GetValueMode {
 
 @export_group("Area")
 ## 是否启用范围影响。
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var area_enable: bool = false
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var area_enabled: bool = false
 ## 搜索资源，用于搜索目标。
 @export var searcher: Searcher = null:
 	set(v): 
 		searcher = v
 		if Engine.is_editor_hint():
-			U.connect_resource_changed(searcher, emit_changed)
+			Utils.connect_resource_changed(searcher, emit_changed)
 			emit_changed()
-## 是否可以多次影响目标。
-@export var can_influence_multiple: bool = false
 
 ## 覆盖的影响值，用于使用外部的影响值，会覆盖后续计算的影响值。
-var override_value: float = C.UNSET
+var override_value: float = Constants.UNSET
 
 
 func _init() -> void:
 	resource_local_to_scene = true
 
 	if Engine.is_editor_hint():
-		U.connect_resource_changed(searcher, emit_changed)
+		Utils.connect_resource_changed(searcher, emit_changed)
 
 
 @warning_ignore_start("unused_parameter")
@@ -61,10 +59,10 @@ func _take(source: Entity, target: Entity, is_area: bool) -> void: pass
 
 
 ## 对实体造成影响。
-func take_influence(source: Entity, base_target: Entity, search_center: Vector2, search_filter := Callable()) -> Array[Entity]:
+func take_influence(source: Entity, base_target: Entity, search_center: Vector2) -> Array[Entity]:
 	var targets: Array[Entity] = [null]
-	if area_enable:
-		targets = searcher.search_targets(search_center, source, search_filter)
+	if area_enabled:
+		targets = searcher.search_targets(search_center, source)
 	else:
 		targets[0] = base_target
 
@@ -73,12 +71,12 @@ func take_influence(source: Entity, base_target: Entity, search_center: Vector2,
 	for target: Entity in targets:
 		var target_id: int = target.id
 
-		_take(source, target, area_enable)
+		_take(source, target, area_enabled)
 
-		if extra_enable:
-			EntityMgr.create_mods(target_id, mods, source_id)
-			EntityMgr.create_auras(target_id, auras, source_id)
-			EntityMgr.create_entities_at_pos(payloads, target.global_position)
+		if extra_enabled:
+			EntityUtils.create_mods(target_id, mods, source_id)
+			EntityUtils.create_auras(target_id, auras, source_id)
+			EntityUtils.create_entities_at_global_position(payloads, target.global_position)
 
 	return targets
 
@@ -90,14 +88,14 @@ func draw(drawer: CanvasItem, center: Vector2) -> void:
 
 
 func get_value(source: Entity, target: Entity) -> float:
-	if U.is_valid_number(override_value):
+	if Utils.is_valid_number(override_value):
 		return override_value
 		
 	match get_value_mode:
 		GetValueMode.RANDOM:
 			return randf_range(min_value, max_value)
 		GetValueMode.RADIAL_FALLOFF:
-			return U.get_radial_falloff(
+			return MathUtils.get_ellipse_radial_falloff(
 				source.global_position, 
 				target.global_position, 
 				searcher.min_radius,

@@ -8,5 +8,5 @@ extends Node
 var grid: TileMapLayer = null
 	
 
-func _clear() -> void:
+func clear() -> void:
 	grid = null

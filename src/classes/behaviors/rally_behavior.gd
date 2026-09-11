@@ -5,39 +5,39 @@ class_name RallyBehavior
 ## RallyBehavior 负责处理拥有 [RallyComponent] 行为组件的实体的前往集结点移动。
 
 
-func _on_update(e: Entity) -> bool:
-	var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
+func _on_update(entity: Entity) -> bool:
+	var rally_c: RallyComponent = entity.get_node_or_null(Constants.CN_RALLY)
 	if not rally_c or rally_c.arrived:
 		return false
 		
-	if not rally_c.is_force_rally and not e.state & (Entity.State.IDLE | Entity.State.RALLY):
+	if not rally_c.is_force_rally and not entity.state & (Entity.State.IDLE | Entity.State.RALLY):
 		return false
 		
 	if rally_c.navigation_agent.is_navigation_finished():
 		rally_c.arrived = true
 		rally_c.is_force_rally = false
-		e.state = Entity.State.IDLE
+		entity.state = Entity.State.IDLE
 
-		e._on_arrived_rally(rally_c)
+		entity._on_arrived_rally(rally_c)
 		return false
 
-	var next_position: Vector2 = rally_c.navigation_agent.get_next_path_position()
-	e.look_point = next_position
-	e.play_animation(rally_c.motion_animation, &"walk")
+	var next_global_position: Vector2 = rally_c.navigation_agent.get_next_path_position()
+	entity.facing_global_position = next_global_position
+	entity.play_animation(rally_c.motion_animation, &"walk")
 	
-	var direction: Vector2 = e.global_position.direction_to(
-		next_position
+	var direction: Vector2 = entity.global_position.direction_to(
+		next_global_position
 	)
 	
 	var velocity: Vector2 = (
 		direction 
 		* rally_c.speed 
-		* TimeMgr.frame_length
+		* TimeManager.frame_length
 	)
 	rally_c.navigation_agent.velocity = velocity
-	e.global_position += velocity
-	e.state = Entity.State.RALLY
+	entity.global_position += velocity
+	entity.state = Entity.State.RALLY
 	
-	e._on_rally_walk(rally_c)
+	entity._on_rally_walk(rally_c)
 
 	return true

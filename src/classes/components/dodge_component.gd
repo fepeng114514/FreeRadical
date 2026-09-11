@@ -16,8 +16,9 @@ class_name DodgeComponent
 @export var can_dodge_area: bool = false
 
 ## 当前准备释放的反击技能索引。
-var skill_idx: int = C.UNSET
-var target_id: int = C.UNSET
+var ready_skill_index: int = Constants.UNSET
+## 反击目标 ID。
+var target_id: int = Constants.UNSET
 
 
 func _ready() -> void:
@@ -50,19 +51,19 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
-func select_skill(e: Entity, d: Damage, source: Entity) -> bool:
-	for i: int in get_child_count():
-		var skill: Skill = get_child(i)
+func select_skill(entity: Entity, d: Damage, source: Entity) -> bool:
+	for skill_index: int in get_child_count():
+		var skill: Skill = get_child(skill_index)
 
-		if not skill.can_use(e):
+		if not skill.can_use(entity):
 			continue
 
 		if not can_dodge_area and d.is_area:
 			continue
 		
 		var damage_flags: int = d.damage_flags
-		if damage_flags & C.DamageFlag.MELEE:
-			var melee_c: MeleeComponent = e.get_node_or_null(C.CN_MELEE)
+		if damage_flags & Damage.Flag.MELEE:
+			var melee_c: MeleeComponent = entity.get_node_or_null(Constants.CN_MELEE)
 			if not melee_c:
 				continue
 
@@ -72,14 +73,14 @@ func select_skill(e: Entity, d: Damage, source: Entity) -> bool:
 			else:
 				if not melee_c.blocker_id_list:
 					continue
-		elif damage_flags & C.DamageFlag.RANGED:
+		elif damage_flags & Damage.Flag.RANGED:
 			if not can_dodge_ranged:
 				continue
 
 			if skill is MeleeSkill:
 				continue
 
-		skill_idx = i
+		ready_skill_index = skill_index
 		target_id = source.id
 		return true
 

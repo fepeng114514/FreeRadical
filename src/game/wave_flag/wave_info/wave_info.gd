@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 func _on_mouse_entered() -> void:
-	var current_wave: Wave = WaveMgr.get_current_wave()
+	var current_wave: Wave = WaveManager.get_current_wave()
 	for sub_wave: SubWave in current_wave.sub_wave_list:
 		for spawn: WaveSpawn in sub_wave.spawn_list:
 			var item: SpawnListItem = spawn_list_item_scene.instantiate()
@@ -27,17 +27,17 @@ func _on_mouse_entered() -> void:
 			spawn_list.add_child(item)
 
 	var viewport_rect: Rect2 = get_viewport().get_visible_rect()
-	viewport_rect.size = CanvasMgr.screen_to_world(viewport_rect.size)
+	viewport_rect.size = CanvasManager.screen_to_world(viewport_rect.size)
 	
 	# 计算位置，确保在可见范围内
-	for i: int in 2:
+	for index: int in 2:
 		position = original_position
 		var control_rect: Rect2 = get_global_rect()
 		var intersection: Rect2 = control_rect.intersection(viewport_rect)
 		if intersection.is_equal_approx(control_rect):
 			break
 
-		match i:
+		match index:
 			0:
 				position.y -= wave_flag.size.y + size.y
 			1:

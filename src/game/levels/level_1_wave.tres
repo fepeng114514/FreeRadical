@@ -8,7 +8,7 @@
 [sub_resource type="Resource" id="Resource_ljiut"]
 script = ExtResource("4_178aa")
 entity = "uid://b8mw5gsptj8n1"
-pathway_idx = 0
+pathway_index = 0
 spawn_interval = 0.5
 count = 2
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"

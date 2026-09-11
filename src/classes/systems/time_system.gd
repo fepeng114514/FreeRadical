@@ -1,4 +1,4 @@
-extends System
+extends ECSSystem
 class_name TimeSystem
 ## 时间系统。
 ##
@@ -6,7 +6,7 @@ class_name TimeSystem
 
 
 func _on_update(delta: float) -> void:
-	TimeMgr.tick_ts += delta
-	TimeMgr.tick += 1
-	TimeMgr.frame_length = delta
-	TimeMgr.fps = Engine.get_frames_per_second()
+	TimeManager.tick_ts += delta
+	TimeManager.tick += 1
+	TimeManager.frame_length = delta
+	TimeManager.fps = Engine.get_frames_per_second()

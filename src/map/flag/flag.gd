@@ -27,7 +27,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
-func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int):
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_index: int):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			ChangeSceneMgr.enter_scene(level_scene_path)
+			ChangeSceneManager.enter_scene(level_scene_path)

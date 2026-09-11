@@ -7,8 +7,8 @@ class_name WaveEditorSpawnDataVBoxContainer
 @export var pathway: LabeledSpinBox = null
 @export var sub_pathway: LabeledSpinBox = null
 @export var count: LabeledSpinBox = null
-@export var reversed: CheckButton = null
-@export var loop: CheckButton = null
+@export var enable_reversed: CheckButton = null
+@export var enable_loop: CheckButton = null
 
 @export_group("Ref")
 @export var wave_editor: WaveEditor = null
@@ -22,8 +22,8 @@ func _ready() -> void:
 	pathway.spin_box.value_changed.connect(_on_pathway_changed)
 	sub_pathway.spin_box.value_changed.connect(_on_sub_pathway_changed)
 	count.spin_box.value_changed.connect(_on_count_changed)
-	reversed.toggled.connect(_on_reversed_toggled)
-	loop.toggled.connect(_on_loop_toggled)
+	enable_reversed.toggled.connect(_on_enable_reversed_toggled)
+	enable_loop.toggled.connect(_on_enable_loop_toggled)
 
 
 func set_spawn_data(new_spawn: WaveSpawn) -> void:
@@ -31,13 +31,13 @@ func set_spawn_data(new_spawn: WaveSpawn) -> void:
 
 	spawn_interval.value = spawn.spawn_interval
 
-	entity.option_button.select(wave_editor.enemy_idx_dict[spawn.entity])
-	pathway.value = spawn.pathway_idx
-	sub_pathway.value = spawn.sub_pathway_idx
+	entity.option_button.select(wave_editor.enemy_index_dict[spawn.entity])
+	pathway.value = spawn.pathway_index
+	sub_pathway.value = spawn.sub_pathway_index
 	count.value = spawn.count
 	spawn_interval.value = spawn.spawn_interval
-	reversed.button_pressed = spawn.reversed
-	loop.button_pressed = spawn.loop
+	enable_reversed.button_pressed = spawn.enable_reversed
+	enable_loop.button_pressed = spawn.enable_loop
 
 
 func _on_spawn_interval_changed(value: float) -> void:
@@ -49,20 +49,20 @@ func _on_entity_changed(index: int) -> void:
 
 
 func _on_pathway_changed(value: int) -> void:
-	spawn.pathway_idx = value
+	spawn.pathway_index = value
 
 
 func _on_sub_pathway_changed(value: int) -> void:
-	spawn.sub_pathway_idx = value
+	spawn.sub_pathway_index = value
 
 
 func _on_count_changed(value: int) -> void:
 	spawn.count = value 
 
 
-func _on_reversed_toggled(toggled_on: bool) -> void:
-	spawn.reversed = toggled_on
+func _on_enable_reversed_toggled(toggled_on: bool) -> void:
+	spawn.enable_reversed = toggled_on
 
 
-func _on_loop_toggled(toggled_on: bool) -> void:
-	spawn.loop = toggled_on
+func _on_enable_loop_toggled(toggled_on: bool) -> void:
+	spawn.enable_loop = toggled_on

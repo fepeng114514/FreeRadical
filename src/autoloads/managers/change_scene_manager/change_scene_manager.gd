@@ -37,8 +37,8 @@ func _process(_delta: float):
 
 
 func enter_scene(scene_path: String):
-	AudioMgr.stop_music()
-	AudioMgr.stop_sfx()
+	AudioManager.stop_music()
+	AudioManager.stop_sfx()
 			
 	_target_scene_path = scene_path
 	

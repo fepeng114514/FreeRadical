@@ -28,11 +28,11 @@ enum TowerType {
 @export var tower_type: TowerType = TowerType.TOWER_HOLDER
 ## 塔位场景路径。
 @export_file("*.tscn") var tower_holder: String = ""
-## 默认集结点。
-@export var default_rally_center_local_pos := Vector2.ZERO:
+## 默认集结点局部位置。
+@export var default_rally_center_position := Vector2.ZERO:
 	set(v): 
-		default_rally_center_local_pos = v
-		U.redraw_setter(self)
+		default_rally_center_position = v
+		Utils.redraw_setter(self)
 
 @export_group("Sell")
 ## 价格。
@@ -44,7 +44,7 @@ enum TowerType {
 
 @export_group("Shooter Switch")
 ## 是否启用射手轮换释放技能。
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var shooter_switch_enable: bool = false
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var shooter_switch_enabled: bool = false
 ## 轮换的射手实体列表。
 @export var shooter_switch_list: Array[Entity] = []
 ## 轮换释放技能偏移时间（秒）。
@@ -61,20 +61,20 @@ var is_builded: bool = false
 ## 时间戳。
 var ts: float = 0.0
 ## 当前轮换到的射手实体索引。
-var current_shooter_switch_idx: int = -1
+var current_shooter_switch_index: int = -1
 
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
-		if default_rally_center_local_pos:
+		if default_rally_center_position:
 			draw_circle(
-				default_rally_center_local_pos,
+				default_rally_center_position,
 				9,
 				Color.BLUE, 
 				true
 			)
 			draw_line(
-				default_rally_center_local_pos, 
+				default_rally_center_position, 
 				position, 
 				Color.BLUE, 
 				2

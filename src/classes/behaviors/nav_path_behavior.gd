@@ -5,129 +5,121 @@ class_name NavPathBehavior
 ## NavPathBehavior 负责处理拥有 [NavPathComponent] 行为组件的实体的移动与到达终点判断。
 
 
-func _on_insert(e: Entity) -> bool:
-	var nav_path_c: NavPathComponent = e.get_node_or_null(C.CN_NAV_PATH)
+func _on_insert(entity: Entity) -> bool:
+	var nav_path_c: NavPathComponent = entity.get_node_or_null(Constants.CN_NAV_PATH)
 	if not nav_path_c:
 		return true
 
-	var nav_pi: int = nav_path_c.nav_pi
-	if not U.is_valid_number(nav_path_c.nav_spi):
-		nav_path_c.nav_spi = PathwayMgr.get_random_sub_pathway(nav_pi).idx
+	var pathway_index: int = nav_path_c.pathway_index
+	if not Utils.is_valid_number(nav_path_c.sub_pathway_index):
+		nav_path_c.sub_pathway_index = PathwayManager.get_random_sub_pathway(pathway_index).index
 		
-	if nav_path_c.end_ni < 0:
-		nav_path_c.end_ni = PathwayMgr.node_count + nav_path_c.end_ni
+	if nav_path_c.end_pathway_node_index < 0:
+		nav_path_c.end_pathway_node_index = PathwayManager.node_count + nav_path_c.end_pathway_node_index
 
 	var node: PathwayNode = nav_path_c.get_pathway_node()
-	nav_path_c.set_pathway_node(node)
-	e.global_position = node.pos
+	nav_path_c.navigate_to_node(node)
+	entity.global_position = node.global_position
 
 	return true
 
 
-func _on_update(e: Entity) -> bool:
-	var nav_path_c: NavPathComponent = e.get_node_or_null(C.CN_NAV_PATH)
+func _on_update(entity: Entity) -> bool:
+	var nav_path_c: NavPathComponent = entity.get_node_or_null(Constants.CN_NAV_PATH)
 	if not nav_path_c:
 		return false
 	
-	if nav_path_c.reversed:
-		return _update_reversed(e, nav_path_c)
+	if nav_path_c.reversed_enabled:
+		return _update_reversed(entity, nav_path_c)
 	else:
-		return _update_forward(e, nav_path_c)
+		return _update_forward(entity, nav_path_c)
 
 
 ## 更新正向移动逻辑。
-func _update_forward(e: Entity, nav_path_c: NavPathComponent) -> bool:
-	# 检查终点
-	if nav_path_c.nav_ni == nav_path_c.end_ni:
-		_arrived_end(e, nav_path_c, false)
+func _update_forward(entity: Entity, nav_path_c: NavPathComponent) -> bool:
+	var node_index: int = nav_path_c.pathway_node_index
+	if node_index == nav_path_c.end_pathway_node_index:
+		_arrived_end(entity, nav_path_c, false)
 		return false
 		
-	e.state = Entity.State.NAV_PATH_WALK
+	entity.state = Entity.State.NAV_PATH_WALK
 	
-	# 正向移动逻辑
-	var walk_length: float = nav_path_c.speed * TimeMgr.frame_length
-	nav_path_c.nav_progress += walk_length
+	var walk_length: float = nav_path_c.speed * TimeManager.frame_length
+	nav_path_c.progress += walk_length
 	
-	# 节点切换
-	var nav_ni: int = nav_path_c.nav_ni
-	var next_ni: int = nav_ni
-	var next_node: PathwayNode = nav_path_c.get_pathway_node(next_ni)
+	var next_node_index: int = node_index
+	var next_node: PathwayNode = nav_path_c.get_pathway_node(next_node_index)
 	while (
-		next_ni + 1 < PathwayMgr.node_count
-		and nav_path_c.nav_progress >= next_node.progress
+		next_node_index + 1 < PathwayManager.node_count
+		and nav_path_c.progress >= next_node.progress
 	):
-		next_ni += 1
-		next_node = nav_path_c.get_pathway_node(next_ni)
+		next_node_index += 1
+		next_node = nav_path_c.get_pathway_node(next_node_index)
 		
-	if nav_ni != next_ni:
-		nav_path_c.nav_ni = next_ni
+	if node_index != next_node_index:
+		nav_path_c.pathway_node_index = next_node_index
 
-	# 更新位置和动画
-	var next_progress: float = nav_path_c.nav_progress + walk_length
-	_update_entity_position(e, nav_path_c, next_progress)
+	var next_progress: float = nav_path_c.progress + walk_length
+	_update_entity_position(entity, nav_path_c, next_progress)
 	return true
 
 
 ## 更新反向移动逻辑。
-func _update_reversed(e: Entity, nav_path_c: NavPathComponent) -> bool:
-	# 检查终点
-	if nav_path_c.nav_ni == PathwayMgr.node_count - 1 - nav_path_c.end_ni:
-		_arrived_end(e, nav_path_c, true)
+func _update_reversed(entity: Entity, nav_path_c: NavPathComponent) -> bool:
+	var node_index: int = nav_path_c.pathway_node_index
+	if node_index == PathwayManager.node_count - 1 - nav_path_c.end_pathway_node_index:
+		_arrived_end(entity, nav_path_c, true)
 		return false
 		
-	e.state = Entity.State.NAV_PATH_WALK
+	entity.state = Entity.State.NAV_PATH_WALK
 	
-	# 反向移动逻辑
-	var walk_length: float = nav_path_c.speed * TimeMgr.frame_length
-	nav_path_c.nav_progress -= walk_length
+	var walk_length: float = nav_path_c.speed * TimeManager.frame_length
+	nav_path_c.progress -= walk_length
 	
-	# 节点切换
-	var nav_ni: int = nav_path_c.nav_ni
-	var next_ni: int = nav_ni
-	var next_node: PathwayNode = nav_path_c.get_pathway_node(next_ni)
+	var next_node_index: int = node_index
+	var next_node: PathwayNode = nav_path_c.get_pathway_node(next_node_index)
 	while (
-			next_ni > 0 
-			and nav_path_c.nav_progress <= next_node.progress
+			next_node_index > 0 
+			and nav_path_c.progress <= next_node.progress
 		):
-		next_ni -= 1
-		next_node = nav_path_c.get_pathway_node(next_ni)
+		next_node_index -= 1
+		next_node = nav_path_c.get_pathway_node(next_node_index)
 		
-	if nav_ni != next_ni:
-		nav_path_c.nav_ni = next_ni
+	if node_index != next_node_index:
+		nav_path_c.pathway_node_index = next_node_index
 	
-	# 更新位置和动画
-	var next_progress: float = nav_path_c.nav_progress - walk_length
-	_update_entity_position(e, nav_path_c, next_progress)
+	var next_progress: float = nav_path_c.progress - walk_length
+	_update_entity_position(entity, nav_path_c, next_progress)
 	return true
 	
 
 ## 更新实体位置和动画。
-func _update_entity_position(e: Entity, nav_path_c: NavPathComponent, next_progress: float) -> void:
-	var next_position: Vector2 = nav_path_c.get_progress_pos()
-	e.look_point = next_position
-	e.play_animation(nav_path_c.motion_animation, "walk")
-	e.global_position = next_position
-	e._on_pathway_walk(nav_path_c)
+func _update_entity_position(entity: Entity, nav_path_c: NavPathComponent, next_progress: float) -> void:
+	var next_global_position: Vector2 = nav_path_c.get_progress_global_position(next_progress)
+	entity.facing_global_position = next_global_position
+	entity.global_position = next_global_position
+	entity.play_animation(nav_path_c.motion_animation, "walk")
+	entity._on_pathway_walk(nav_path_c)
 	
-	e.look_point = nav_path_c.get_progress_pos(next_progress)
+	entity.facing_global_position = nav_path_c.get_progress_global_position(next_progress)
 
 
 ## 到达终点处理。
-func _arrived_end(e: Entity, nav_path_c: NavPathComponent, reversed: bool) -> void:
-	nav_path_c.reversed = not reversed
+func _arrived_end(entity: Entity, nav_path_c: NavPathComponent, is_reversed: bool) -> void:
+	nav_path_c.reversed_enabled = not is_reversed
 	
 	var node: PathwayNode = nav_path_c.get_pathway_node()
-	nav_path_c.set_pathway_node(node)
+	nav_path_c.navigate_to_node(node)
 		
-	e._on_arrived_end(nav_path_c)
+	entity._on_arrived_end(nav_path_c)
 	
 	nav_path_c.loop_count += 1
-	Log.debug("到达终点: %s, 到达次数 %d" % [e, nav_path_c.loop_count])
+	Log.debug("到达终点: %s, 到达次数 %d" % [entity, nav_path_c.loop_count])
 	
 	if (
-			not nav_path_c.loop 
-			or U.is_valid_number(nav_path_c.loop_times) 
+			not nav_path_c.loop_enabled 
+			or Utils.is_valid_number(nav_path_c.loop_times) 
 			and nav_path_c.loop_count > nav_path_c.loop_times
 	):
-		GameMgr.life -= nav_path_c.life_cost
-		e.remove_entity()
+		GameManager.life -= nav_path_c.life_cost
+		ECSEntityManager.queue_remove_entity(entity)

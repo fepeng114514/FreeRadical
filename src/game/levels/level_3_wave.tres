@@ -9,7 +9,7 @@
 script = ExtResource("4_p33vm")
 interval = 0.5
 entity = "uid://drgcomkmcowby"
-pathway_idx = 0
+pathway_index = 0
 count = 20
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 

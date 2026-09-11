@@ -88,7 +88,7 @@ scale = Vector2(1.72, 1.12)
 speed = 35.0
 life_cost = 3
 
-[node name="UIComponent" parent="." index="3" unique_id=673866706]
+[node name="SelectComponent" parent="." index="3" unique_id=673866706]
 select_rect = Rect2(-40.08, -85.125, 80.06, 89.87)
 
 [node name="MeleeComponent" type="Node2D" parent="." index="4" unique_id=552956952]
@@ -96,7 +96,7 @@ process_mode = 4
 script = ExtResource("6_cktve")
 speed = 35.0
 motion_animation = SubResource("Resource_atygg")
-melee_pos_offsets = SubResource("Resource_cq7mr")
+melee_position_offsets = SubResource("Resource_cq7mr")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeSkill" type="Node2D" parent="MeleeComponent" index="0" unique_id=18873919]

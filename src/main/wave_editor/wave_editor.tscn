@@ -259,7 +259,7 @@ theme_override_styles/normal = ExtResource("2_sh4oc")
 text = "生成数据"
 horizontal_alignment = 1
 
-[node name="SpawnDataVBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=887176936 node_paths=PackedStringArray("spawn_interval", "entity", "pathway", "sub_pathway", "count", "reversed", "loop", "wave_editor")]
+[node name="SpawnDataVBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=887176936 node_paths=PackedStringArray("spawn_interval", "entity", "pathway", "sub_pathway", "count", "enable_reversed", "enable_loop", "wave_editor")]
 layout_mode = 2
 theme_override_constants/separation = 15
 script = ExtResource("11_js2tg")
@@ -268,8 +268,8 @@ entity = NodePath("EntityLabeledOptionButton")
 pathway = NodePath("PathwayLabeledSpinBox")
 sub_pathway = NodePath("SubPathwayLabeledSpinBox")
 count = NodePath("CountLabeledSpinBox")
-reversed = NodePath("ReversedCheckButton")
-loop = NodePath("LoopCheckButton")
+enable_reversed = NodePath("EnableReversedCheckButton")
+enable_loop = NodePath("EnableLoopCheckButton")
 wave_editor = NodePath("../../../../../../../../..")
 
 [node name="SpawnIntervalLabeledSpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=1668806278 instance=ExtResource("4_pj2lv")]
@@ -304,10 +304,10 @@ layout_mode = 2
 text = "生成数量"
 step = 1.0
 
-[node name="ReversedCheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=587634718]
+[node name="EnableReversedCheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=587634718]
 layout_mode = 2
-text = "沿相反路径移动"
+text = "启用沿相反路径移动"
 
-[node name="LoopCheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=1379887143]
+[node name="EnableLoopCheckButton" type="CheckButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=1379887143]
 layout_mode = 2
-text = "沿路径循环移动"
+text = "启用沿路径循环移动"

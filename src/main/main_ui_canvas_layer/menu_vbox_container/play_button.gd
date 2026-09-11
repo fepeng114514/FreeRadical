@@ -9,4 +9,4 @@ func _ready() -> void:
 
 
 func _on_pressed() -> void:
-	ChangeSceneMgr.enter_scene(map_scene_path)
+	ChangeSceneManager.enter_scene(map_scene_path)

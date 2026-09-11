@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 class_name Level
 ## 关卡节点。
 
@@ -20,35 +20,28 @@ class_name Level
 
 
 func _enter_tree() -> void:
-	EntityMgr._load()
-	SearchMgr._load()
-	SelectMgr._load()
-	
-	GlobalMgr.world_size = world_size
-	GameMgr.defaul_tower_holder = defaul_tower_holder
-	WaveMgr.first_release_wave.connect(_on_first_release_wave)
+	GlobalManager.world_size = world_size
+	GameManager.defaul_tower_holder = defaul_tower_holder
+	WaveManager.first_release_wave.connect(_on_first_release_wave)
 
 
 func _exit_tree() -> void:
-	EntityMgr._clear()
-	GridMgr._clear()
-	SearchMgr._clear()
-	SelectMgr._clear()
-	SystemMgr._clear()
-	PathwayMgr._clear()
-	WaveMgr._clear()
+	GridManager.clear()
+	SelectManager.clear()
+	PathwayManager.clear()
+	WaveManager.clear()
 
 	get_tree().paused = false
 	Engine.time_scale = 1.0
 
 
 func _ready() -> void:
-	GameMgr.cash = cash
-	GameMgr.life = life
+	GameManager.cash = cash
+	GameManager.life = life
 	
 	if ready_music:
-		AudioMgr.play_music(ready_music)
+		AudioManager.play_music(ready_music)
 	
 
 func _on_first_release_wave() -> void:
-	AudioMgr.play_music(battle_music)
+	AudioManager.play_music(battle_music)

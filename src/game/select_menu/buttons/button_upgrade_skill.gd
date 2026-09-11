@@ -3,7 +3,7 @@ class_name SelectMenuButtonUpgradeSkill
 
 
 ## 升级的技能索引
-@export var upgrade_skill_idx: int = C.UNSET
+@export var upgrade_skill_index: int = Constants.UNSET
 
 @export_group("Ref")
 @export var price_tag: TextureRect = null
@@ -12,7 +12,7 @@ class_name SelectMenuButtonUpgradeSkill
 
 
 #func _on_pressed() -> void:
-	# if not U.is_valid_entity(selected_entity):
+	# if not selected_entity:
 	# 	return
 
-	#var tower_c: TowerComponent = selected_entity.get_node_or_null(C.CN_TOWER)
+	#var tower_c: TowerComponent = selected_entity.get_node_or_null(Constants.CN_TOWER)

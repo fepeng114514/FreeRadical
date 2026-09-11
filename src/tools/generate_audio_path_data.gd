@@ -13,7 +13,7 @@ var audio_path_data: AudioPathData = null
 func _run() -> void:
 	audio_path_data = AudioPathData.new()
 
-	for file: String in U.get_files_from_nested_directory(AUDIO_ASSETS_DIR_PATH, "*.ogg"):	
+	for file: String in Utils.get_files_from_nested_directory(AUDIO_ASSETS_DIR_PATH, "*.ogg"):	
 		var audio_basename: String = file.get_file().get_basename()
 		audio_path_data.audio_path_dict[audio_basename] = file
 

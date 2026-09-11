@@ -23,41 +23,37 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 ## 处理路径相交。
 func _process_path_intersection() -> void:
-	var all_node_list: Array[PathwayNode] = PathwayMgr.all_node_list
-	var threshold: float = PathwayMgr.intersect_dist_threshold
+	var all_nodes: Array[PathwayNode] = PathwayManager.all_nodes
+	var threshold: float = PathwayManager.intersect_dist_threshold
 	var cell_size: float = threshold
 
 	var grid: Dictionary[Array, Array] = {}
 
-	for n: PathwayNode in all_node_list:
-		var cell_x := int(n.pos.x / cell_size)
-		var cell_y := int(n.pos.y / cell_size)
+	for node: PathwayNode in all_nodes:
+		var cell_x := int(node.global_position.x / cell_size)
+		var cell_y := int(node.global_position.y / cell_size)
 		var cell_key: Array[int] = [cell_x, cell_y]
+
+		var cell: Array = grid.get_or_add(cell_key, [])
+		cell.append(node)
 		
-		if not grid.has(cell_key):
-			grid[cell_key] = []
-		grid[cell_key].append(n)
+	for node: PathwayNode in all_nodes:
+		var cell_x := int(node.global_position.x / cell_size)
+		var cell_y := int(node.global_position.y / cell_size)
 		
-	# 只检查相邻网格内的节点
-	for n: PathwayNode in all_node_list:
-		var cell_x := int(n.pos.x / cell_size)
-		var cell_y := int(n.pos.y / cell_size)
-		
-		# 检查 3x3 邻域网格（当前格 + 周围8格）
+		# 检查 3x3 邻域网格
 		for dx: int in range(-1, 2):
 			for dy: int in range(-1, 2):
 				var neighbor_key: Array[int] = [cell_x + dx, cell_y + dy]
 				if not grid.has(neighbor_key):
 					continue
 				
-				for other_n: PathwayNode in grid[neighbor_key]:
-					# 同一路径的点不比较
-					if other_n.pi == n.pi:
+				for other_node: PathwayNode in grid[neighbor_key]:
+					if other_node.pathway_index== node.pathway_index:
 						continue
 					
-					# 距离检测
-					if n.pos.distance_to(other_n.pos) > threshold:
+					if node.global_position.distance_to(other_node.global_position) > threshold:
 						continue
 					
-					n.intersecting_node_idx_list.append(other_n.ni)
-					other_n.intersecting_node_idx_list.append(n.ni)
+					node.intersecting_node_index_list.append(other_node.index)
+					other_node.intersecting_node_index_list.append(node.index)

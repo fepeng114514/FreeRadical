@@ -17,44 +17,44 @@ class_name MultipleRangedSkill
 @export var end_sfx: AudioGroup = null
 
 
-func _use_skill(e: Entity, target: Entity = null) -> void:
-	target = searcher.search_target(get_search_center(e), e)
+func _use_skill(entity: Entity, target: Entity = null) -> void:
+	target = searcher.search_target(get_search_global_position(entity), entity)
 	if not target:
 		return
 	
-	e.look_point = target.global_position
+	entity.facing_global_position = target.global_position
 	start_cooldown()
 	
-	e.play_animation(animation, &"ranged")
-	AudioMgr.play_sfx(sfx)
-	if await e.y_wait_animation(animation):
+	entity.play_animation(animation, &"ranged")
+	AudioManager.play_sfx(sfx)
+	if await entity.y_wait_animation(animation):
 		compensate_cooldown()
 		return
 
-	for i: int in loop_count:
+	for loop_index: int in loop_count:
 		if not target:
-			target = searcher.search_target(get_search_center(e), e)
+			target = searcher.search_target(get_search_global_position(entity), entity)
 			if not target:
 				compensate_cooldown()
 				return
 				
-		if not U.is_valid_entity(target):
+		if not target:
 			break
 			
-		e.look_point = target.global_position
-		e.play_animation(loop_animation)
+		entity.facing_global_position = target.global_position
+		entity.play_animation(loop_animation)
 
-		AudioMgr.play_sfx(loop_sfx)
-		if await e.y_wait(delay):
+		AudioManager.play_sfx(loop_sfx)
+		if await entity.y_wait(delay):
 			return
 
-		_spawn_bullets(e, target)
-		if await e.y_wait_animation(loop_animation):
+		_spawn_bullets(entity, target)
+		if await entity.y_wait_animation(loop_animation):
 			return
 
-	if await e.y_wait_animation(loop_animation):
+	if await entity.y_wait_animation(loop_animation):
 		return
 
-	e.play_animation(end_animation)
-	AudioMgr.play_sfx(end_sfx)
-	await e.y_wait_animation(end_animation)
+	entity.play_animation(end_animation)
+	AudioManager.play_sfx(end_sfx)
+	await entity.y_wait_animation(end_animation)

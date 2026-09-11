@@ -19,14 +19,14 @@ signal start_melee_skill_cooldown(skill: MeleeSkill)
 
 ## 近战状态枚举
 enum MeleeState {
-	## 近战状态：到达原点。
-	ORIGIN_POS_ARRIVED,
+	## 近战状态：到达原位置。
+	ORIGINAL_POSITION_ARRIVED,
 	## 近战状态：返回位置中。
-	ORIGIN_POS_MOVING,      
+	ORIGINAL_POSITION_MOVING,      
 	## 近战状态：已到达位置。
-	MELEE_POS_ARRIVED,    
+	MELEE_POSITION_ARRIVED,    
 	## 近战状态：前往近战位置中。
-	MELEE_POS_MOVING,  
+	MELEE_POSITION_MOVING,  
 }
 
 
@@ -37,10 +37,10 @@ enum MeleeState {
 ## 移动动画组。
 @export var motion_animation: AnimationGroup = null
 ## 近战位置偏移组。
-@export var melee_pos_offsets: OffsetGroup = null:
+@export var melee_position_offsets: OffsetGroup = null:
 	set(v): 
-		melee_pos_offsets = v
-		U.resource_redraw_setter(self, melee_pos_offsets)
+		melee_position_offsets = v
+		Utils.resource_redraw_setter(self, melee_position_offsets)
 ## 到达位置的阈值。
 @export var arrived_distance: float = 10.0
 
@@ -64,28 +64,28 @@ var blocked_count: int = 0
 var blocked_id_list := PackedInt32Array()
 ## 是额外拦截者。
 var is_extra_blocker: bool = false
-## 原位置。
-var origin_pos := Vector2.ZERO
-## 近战位置。
-var melee_pos := Vector2.ZERO
+## 原始全局位置。
+var original_global_position := Vector2.ZERO
+## 近战全局位置。
+var melee_global_position := Vector2.ZERO
 ## 移动速度（向量）。
 var velocity := Vector2.ZERO
 ## 近战状态。
-var melee_state: MeleeState = MeleeState.ORIGIN_POS_ARRIVED
+var melee_state: MeleeState = MeleeState.ORIGINAL_POSITION_ARRIVED
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 		
 	if Engine.is_editor_hint():
-		U.connect_resource_changed(melee_pos_offsets, queue_redraw)
+		Utils.connect_resource_changed(melee_position_offsets, queue_redraw)
 
 
 func _draw() -> void:
 	if Engine.is_editor_hint():
 		if searcher:
 			searcher.draw(self, position)
-		OffsetGroup.draw_offset_group(self, melee_pos_offsets)
+		OffsetGroup.draw_offset_group(self, melee_position_offsets)
 	
 	
 func _get_configuration_warnings() -> PackedStringArray:
@@ -99,8 +99,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 	
 ## 拦截者绑定拦截关系。
 func blocker_bind_melee_relations(blocker_id: int, blocked_id: int) -> void: 
-	var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id)
-	var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
+	var blocked: Entity = ECSEntityManager.get_entity_by_id(blocked_id)
+	var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
 	
 	blocked_melee_c.blocker_id_list.append(blocker_id)
 	blocked_id_list.append(blocked_id)
@@ -109,8 +109,8 @@ func blocker_bind_melee_relations(blocker_id: int, blocked_id: int) -> void:
 
 ## 被拦截者绑定拦截关系。
 func blocked_bind_melee_relations(blocker_id: int, blocked_id: int) -> void: 
-	var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
-	var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
+	var blocker: Entity = ECSEntityManager.get_entity_by_id(blocker_id)
+	var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.CN_MELEE)
 	
 	blocker_id_list.append(blocker_id)
 	blocker_melee_c.blocked_id_list.append(blocked_id)
@@ -118,49 +118,49 @@ func blocked_bind_melee_relations(blocker_id: int, blocked_id: int) -> void:
 
 
 ## 拦截者解除拦截关系。
-func blocker_unbind_melee_relations(e: Entity) -> void:
+func blocker_unbind_melee_relations(entity: Entity) -> void:
 	for blocked_id: int in blocked_id_list:
-		var blocked: Entity = EntityMgr.get_entity_by_id(blocked_id)
-		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
-		blocked_melee_c.blocker_id_list.erase(e.id)
+		var blocked: Entity = ECSEntityManager.get_entity_by_id(blocked_id)
+		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
+		blocked_melee_c.blocker_id_list.erase(entity.id)
 		
 	blocked_id_list.clear()
 	blocked_count = 0
-	melee_state = MeleeState.ORIGIN_POS_ARRIVED
+	melee_state = MeleeState.ORIGINAL_POSITION_ARRIVED
 	is_extra_blocker = false
 
 
 ## 被拦截者解除拦截关系。
-func blocked_unbind_melee_relations(e: Entity) -> void:
+func blocked_unbind_melee_relations(entity: Entity) -> void:
 	for blocker_id: int in blocker_id_list:
-		var blocker: Entity = EntityMgr.get_entity_by_id(blocker_id)
-		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(C.CN_MELEE)
-		blocker_melee_c.blocked_id_list.erase(e.id)
+		var blocker: Entity = ECSEntityManager.get_entity_by_id(blocker_id)
+		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.CN_MELEE)
+		blocker_melee_c.blocked_id_list.erase(entity.id)
 	
 	blocker_id_list.clear()
 
 
 ## 拦截者清理无效拦截关系。
-func blocker_cleanup_melee_relations(e: Entity) -> void:
-	var center: Vector2 = e.global_position
-	var rally_c: RallyComponent = e.get_node_or_null(C.CN_RALLY)
+func blocker_cleanup_melee_relations(entity: Entity) -> void:
+	var center: Vector2 = entity.global_position
+	var rally_c: RallyComponent = entity.get_node_or_null(Constants.CN_RALLY)
 	if rally_c:
-		center = rally_c.rally_center_position
+		center = rally_c.rally_center_global_position
 
 	var new_blockeds_ids := PackedInt32Array()
 	blocked_count = 0
 	
 	for id: int in blocked_id_list:
-		var blocked: Entity = EntityMgr.get_entity_by_id(id)
-		if not U.is_valid_entity(blocked) :
+		var blocked: Entity = ECSEntityManager.get_entity_by_id(id)
+		if not blocked:
 			continue 
 			
-		if not U.is_in_ellipse_ring(
+		if not MathUtils.is_in_ellipse_ring(
 				center, blocked.global_position, searcher.min_radius, searcher.max_radius
 			):
 			continue
 			
-		var b_melee_c: MeleeComponent = blocked.get_node_or_null(C.CN_MELEE)
+		var b_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
 		
 		new_blockeds_ids.append(id)
 		blocked_count += b_melee_c.block_cost
@@ -173,8 +173,8 @@ func blocked_cleanup_melee_relations(_e: Entity) -> void:
 	var new_blockers_ids := PackedInt32Array()
 	
 	for id: int in blocker_id_list:
-		var blocker: Entity = EntityMgr.get_entity_by_id(id)
-		if not U.is_valid_entity(blocker):
+		var blocker: Entity = ECSEntityManager.get_entity_by_id(id)
+		if not blocker:
 			continue 
 			
 		new_blockers_ids.append(id)

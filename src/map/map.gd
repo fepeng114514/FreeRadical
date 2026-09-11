@@ -5,4 +5,4 @@ extends Node2D
 
 
 func _ready() -> void:
-	AudioMgr.play_music(music)
+	AudioManager.play_music(music)

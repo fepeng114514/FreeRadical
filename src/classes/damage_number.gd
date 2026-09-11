@@ -34,7 +34,7 @@ const value_range_data_dict: Dictionary[Array, Dictionary] = {
 
 
 ## 伤害类型。
-var damage_type: int = C.DamageType.NONE
+var damage_type: int = Damage.Type.NONE
 ## 伤害值。
 var value: float = 0.0
 ## 缩放持续时间。
@@ -63,15 +63,15 @@ func _ready() -> void:
 			move_speed = value_range_data_dict[value_range].speed
 			break
 
-	if damage_type & C.DamageType.PHYSICAL:
+	if damage_type & Damage.Type.PHYSICAL:
 		modulate = Color.WHITE
-	elif damage_type & C.DamageType.MAGICAL:
+	elif damage_type & Damage.Type.MAGICAL:
 		modulate = Color.SKY_BLUE
-	elif damage_type & C.DamageType.EXPLOSION:
+	elif damage_type & Damage.Type.EXPLOSION:
 		modulate = Color.RED
-	elif damage_type & C.DamageType.MAGICAL_EXPLOSION:
+	elif damage_type & Damage.Type.MAGICAL_EXPLOSION:
 		modulate = Color.BLUE
-	elif damage_type & C.DamageType.TRUE:
+	elif damage_type & Damage.Type.TRUE:
 		modulate = Color.GOLD
 	else:
 		modulate = Color(0.5, 1, 0.5, 1)

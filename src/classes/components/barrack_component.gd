@@ -12,29 +12,29 @@ class_name BarrackComponent
 @export var rally_min_range: float = 0.0:
 	set(v): 
 		rally_min_range = v
-		U.redraw_setter(self)
+		Utils.redraw_setter(self)
 ## 最大集结范围。
 @export var rally_max_range: float = 300:
 	set(v): 
 		rally_max_range = v
-		U.redraw_setter(self)
-## 默认集结点。
-@export var default_rally_center_local_pos := Vector2.ZERO
-## 集结点位置。
-@export var rally_center_position := Vector2.ZERO
+		Utils.redraw_setter(self)
+## 默认集结点局部位置。
+@export var default_rally_center_position := Vector2.ZERO
+## 集结点全局位置。
+@export var rally_center_global_position := Vector2.ZERO
 ## 集结点半径，影响士兵与集结点之间的距离。
 @export var rally_radius: float = 30.0
 ## 集结音效组。
 @export var rally_sfx: AudioGroup = null
 ## 士兵场景路径。
-@export_file("*.tscn") var soldier: String = ""
+@export_file("*.tscn") var soldier_scene: String = ""
 ## 生成士兵间隔（秒）。
 @export var spawn_interval: float = 10.0
 ## 士兵生成偏移组。
 @export var spawn_offsets: OffsetGroup = null:
 	set(v): 
 		spawn_offsets = v
-		U.resource_redraw_setter(self, spawn_offsets)
+		Utils.resource_redraw_setter(self, spawn_offsets)
 ## 最大士兵数量。
 @export var max_soldier_count: int = 3
 ## 生成士兵播放的动画。
@@ -53,11 +53,12 @@ var last_soldier_count: int = 0
 ## 上一次生成的士兵列表。
 var last_soldier_list: Array[Entity] = []
 
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_DISABLED
 	
 	if Engine.is_editor_hint():
-		U.connect_resource_changed(spawn_offsets, queue_redraw)
+		Utils.connect_resource_changed(spawn_offsets, queue_redraw)
 	else:
 		pass
 
@@ -65,45 +66,45 @@ func _ready() -> void:
 func _draw() -> void:
 	if Engine.is_editor_hint():
 		OffsetGroup.draw_offset_group(self, spawn_offsets)
-		U.draw_range_ellipse(self, position, rally_min_range, rally_max_range, Color(0.201, 0.431, 1.0, 0.2))
+		Utils.draw_range_ellipse(self, position, rally_min_range, rally_max_range, Color(0.201, 0.431, 1.0, 0.2))
 		
 		draw_circle(
-			rally_center_position,
+			rally_center_global_position,
 			9,
 			Color(0.486, 0.294, 1.0, 1.0), 
 			true
 		)
 
 
-## 设置新集结点位置。
-func set_rally_center_position(
-		center_position: Vector2, 
-		is_force: bool = false,
+## 设置新集结点全局位置。
+func set_rally_center_global_position(
+		center_global_position: Vector2, 
+		is_forced: bool = false,
 		play_sfx: bool = true
 	) -> void:
 	if play_sfx:
-		AudioMgr.play_sfx(rally_sfx)
+		AudioManager.play_sfx(rally_sfx)
 		
-	rally_center_position = center_position
+	rally_center_global_position = center_global_position
 	var soldier_size: int = soldier_list.size()
 	
-	for i: int in soldier_size:
-		var s: Entity = soldier_list[i]
-		var s_rally_c: RallyComponent = s.get_node_or_null(C.CN_RALLY)
-		var formation_position: Vector2 = to_formation_position(rally_center_position, soldier_size, i)
-		s_rally_c.new_rally_position(s, formation_position, is_force, rally_center_position, false)
+	for soldier_index: int in soldier_size:
+		var soldier: Entity = soldier_list[soldier_index]
+		var soldier_rally_c: RallyComponent = soldier.get_node_or_null(Constants.CN_RALLY)
+		var formation_position: Vector2 = to_formation_position(rally_center_global_position, soldier_size, soldier_index)
+		soldier_rally_c.new_rally_global_position(soldier, formation_position, is_forced, rally_center_global_position, false)
 		
-		var melee_c: MeleeComponent = s.get_node_or_null(C.CN_MELEE)
+		var melee_c: MeleeComponent = soldier.get_node_or_null(Constants.CN_MELEE)
 		if melee_c:
-			melee_c.origin_pos = formation_position
+			melee_c.original_global_position = formation_position
 	
 
 ## 将位置转换为阵型位置。
-func to_formation_position(pos: Vector2, count: int, idx: int) -> Vector2:
+func to_formation_position(center_position: Vector2, count: int, index: int) -> Vector2:
 	if count == 1:
-		return pos
+		return center_position
 		
-	var a: float = 2 * PI / count
-	var angle: float = (idx - 1) * a - C.HALF_PI
+	var angle_step: float = 2 * PI / count
+	var angle: float = (index - 1) * angle_step - Constants.HALF_PI
 	
-	return U.get_point_on_ellipse(pos, rally_radius, angle)
+	return MathUtils.get_point_on_ellipse(center_position, rally_radius, angle)

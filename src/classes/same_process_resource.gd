@@ -23,7 +23,7 @@ enum Mode {
 
 
 ## 处理相同实体。
-func process(e: Entity, samed_entity_list: Array[Entity]) -> bool:
+func process(entity: Entity, samed_entity_list: Array[Entity]) -> bool:
 	samed_entity_list.sort_custom(
 		func(a1: Entity, a2: Entity) -> bool: 
 			return a1.level > a2.level
@@ -35,13 +35,13 @@ func process(e: Entity, samed_entity_list: Array[Entity]) -> bool:
 		Mode.MULTIPLE:
 			return true
 		Mode.REPLACE:
-			min_level_e.remove_entity()
+			ECSEntityManager.queue_remove_entity(min_level_e)
 			return true
 		Mode.RESET:
-			max_level_e.insert_ts -= TimeMgr.tick_ts
+			max_level_e.insert_ts -= TimeManager.tick_ts
 			return false
 		Mode.STACK:
-			max_level_e.insert_ts -= e.duration
+			max_level_e.insert_ts -= entity.duration
 			return false
 
 	return false

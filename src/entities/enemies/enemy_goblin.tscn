@@ -78,7 +78,7 @@ process_mode = 4
 script = ExtResource("7_idosn")
 speed = 61.0
 motion_animation = SubResource("Resource_atygg")
-melee_pos_offsets = SubResource("Resource_3cvl5")
+melee_position_offsets = SubResource("Resource_3cvl5")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeSkill" type="Node2D" parent="MeleeComponent" index="0" unique_id=1177542709]

@@ -38,9 +38,9 @@ func _ready() -> void:
 	add_child(_music_player)
 	
 	# 初始化音效
-	for i: int in _sfx_player_count:
+	for player_index: int in _sfx_player_count:
 		var sfx_player := AudioStreamPlayer.new()
-		sfx_player.name = "SFX%d" % (i + 1)
+		sfx_player.name = "SFX%d" % (player_index + 1)
 		add_child(sfx_player)
 		_sfx_player_list.append(sfx_player)
 	
@@ -70,22 +70,22 @@ func play_audio(
 	if not audio_data:
 		return
 		
-	await TimeMgr.y_wait(audio_data.delay)
+	await TimeManager.y_wait(audio_data.delay)
 	
 	var play_list := PackedStringArray()
 	var data_list: PackedStringArray = audio_data.list
 	
 	match audio_data.play_mode:
 		AudioPlayMode.RANDOM:
-			var stream_path: String = U.pick_random(data_list)
+			var stream_path: String = ArrayUtils.pick_random(data_list)
 			play_list = [stream_path]
 			
 		AudioPlayMode.SEQUENCE:
-			var play_idx: int = audio_data.played_idx + 1
-			play_idx %= data_list.size()
+			var play_index: int = audio_data.played_index + 1
+			play_index %= data_list.size()
 			
-			var stream_path: String = data_list[play_idx]
-			audio_data.played_idx = play_idx
+			var stream_path: String = data_list[play_index]
+			audio_data.played_index = play_index
 			
 			play_list = [stream_path]
 		AudioPlayMode.CONCURRENCY:

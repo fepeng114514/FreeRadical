@@ -10,7 +10,7 @@ class_name AnimationGroup
 
 
 ## 要播放的精灵/精灵组索引。
-@export var play_idx: int = 0
+@export var play_index: int = 0
 ## 播放次数。
 @export var times: int = 1
 ## 播放倍速。
@@ -41,8 +41,8 @@ func _validate_property(property: Dictionary):
 				property.usage = PROPERTY_USAGE_NONE
 
 
-## 根据中心点和目标点的方向返回对应的动画名称。
-func get_animation_name_for_point(center: Vector2, point: Vector2) -> AnimationData:
+## 根据中心点到目标点的方向返回对应的动画名称。
+func get_animation_name_toward_point(center: Vector2, point: Vector2) -> AnimationData:
 	var anim_data := AnimationData.new()
 	
 	if any:
@@ -51,7 +51,7 @@ func get_animation_name_for_point(center: Vector2, point: Vector2) -> AnimationD
 
 	var has_horizontal: bool = left or right
 	var has_vertical: bool = up or down
-	var direction: C.Direction = C.Direction.NONE
+	var direction: Constants.Direction = Constants.Direction.NONE
 	var anim_name: StringName = ""
 	var flip_h: bool = false
 
@@ -59,40 +59,40 @@ func get_animation_name_for_point(center: Vector2, point: Vector2) -> AnimationD
 		var angle: float = center.angle_to_point(
 			point
 		)
-		direction = U.get_cardinal_direction(angle)
+		direction = MathUtils.get_cardinal_direction(angle)
 		match direction:
-			C.Direction.UP:
+			Constants.Direction.UP:
 				anim_name = up
-			C.Direction.DOWN:
+			Constants.Direction.DOWN:
 				anim_name = down
-			C.Direction.LEFT:
+			Constants.Direction.LEFT:
 				if right_replace_left:
 					anim_name = right
 					flip_h = true
 				else:
 					anim_name = left
-			C.Direction.RIGHT:
+			Constants.Direction.RIGHT:
 				anim_name = right
 	elif has_horizontal or has_vertical:
-		direction = U.get_quadrant_direction(center, point)
+		direction = MathUtils.get_quadrant_direction(center, point)
 		if has_horizontal:
 			match direction:
-				C.Direction.LEFT_UP, C.Direction.LEFT_DOWN:
+				Constants.Direction.LEFT_UP, Constants.Direction.LEFT_DOWN:
 					if right_replace_left:
 						anim_name = right
 						flip_h = true
 					else:
 						anim_name = left
-				C.Direction.RIGHT_UP, C.Direction.RIGHT_DOWN:
+				Constants.Direction.RIGHT_UP, Constants.Direction.RIGHT_DOWN:
 					anim_name = right
 		elif has_vertical:
-			if vertical_mirror and direction & C.Direction.LEFT:
+			if vertical_mirror and direction & Constants.Direction.LEFT:
 				flip_h = true
 
 			match direction:
-				C.Direction.LEFT_UP, C.Direction.RIGHT_UP:
+				Constants.Direction.LEFT_UP, Constants.Direction.RIGHT_UP:
 					anim_name = up
-				C.Direction.LEFT_DOWN, C.Direction.RIGHT_DOWN:
+				Constants.Direction.LEFT_DOWN, Constants.Direction.RIGHT_DOWN:
 					anim_name = down
 		
 	anim_data.anim_name = anim_name

@@ -6,8 +6,45 @@ class_name InteractPolicy
 ## 交互策略用于定义实体之间的交互规则，包括禁止交互的实体标识、状态效果类型、光环类型等。
 
 
+signal flag_changed(old_flags: int, new_flags: int)
+
+
+## 标识枚举。
+enum Flag {
+	## 标识: 无。
+	NONE = 0,
+	## 标识: 敌人。
+	ENEMY = 1,
+	## 标识: BOSS。
+	BOSS = 1 << 1,
+	## 标识: 友军。
+	FRIENDLY = 1 << 2,
+	## 标识: 单位。
+	UNIT = ENEMY | FRIENDLY,
+	## 标识: 英雄。
+	HERO = 1 << 3,
+	## 标识: 防御塔。
+	TOWER = 1 << 4,
+	## 标识: 状态效果。
+	MODIFIER = 1 << 5,
+	## 标识: 光环。
+	AURA = 1 << 6,
+	## 标识: 飞行。
+	FLYING = 1 << 7,
+	
+	## 标识: 远程。
+	RANGED = 1 << 20,
+	## 标识: 近战。
+	MELEE = 1 << 21,
+}
+
+
 ## 实体自身的标识。
-@export var flags: int = 0
+@export var flags: int = 0: 
+	set(v):
+		var old_flags: int = flags
+		flags = v
+		flag_changed.emit(old_flags, v)
 ## 禁止交互的实体标识。
 @export var bans: int = 0
 ## 状态效果类型。
@@ -31,17 +68,34 @@ func _init() -> void:
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
 		"flags":
-			property.hint_string = "mask_enum:Flag"
+			property.hint_string = "mask_check(%s)" % Flag
 		"bans":
-			property.hint_string = "mask_enum:Flag"
+			property.hint_string = "mask_check(%s)" % Flag
 		"mod_type_flags":
-			property.hint_string = "mask_enum:ModType"
+			property.hint_string = "mask_check(%s)" % ModifierComponent.Type
 		"aura_type_flags":
-			property.hint_string = "mask_enum:AuraType"
+			property.hint_string = "mask_check(%s)" % AuraComponent.Type
 		"mod_type_bans":
-			property.hint_string = "mask_enum:ModType"
+			property.hint_string = "mask_check(%s)" % ModifierComponent.Type
 		"aura_type_bans":
-			property.hint_string = "mask_enum:AuraType"
+			property.hint_string = "mask_check(%s)" % AuraComponent.Type
+
+
+## 根据标识获取实体组名数组
+func get_entity_group_names() -> Array[StringName]:
+	var entity_group_names: Array[StringName] = []
+
+	if flags & Flag.ENEMY:
+		entity_group_names.append(Constants.GROUP_ENEMIES)
+	if flags & Flag.FRIENDLY:
+		entity_group_names.append(Constants.GROUP_FRIENDLIES)
+	if flags & Flag.UNIT:
+		entity_group_names.append(Constants.GROUP_UNITS)
+	if flags & Flag.TOWER:
+		entity_group_names.append(Constants.GROUP_TOWERS)
+
+	return entity_group_names
+
 
 
 ## 检查是否与另一个策略禁止交互。
@@ -107,13 +161,13 @@ func is_scene_allowed(other_scene_name: StringName) -> bool:
 
 
 ## 检查是否允许一个实体与目标实体交互。
-static func is_allowed_target(e: Entity, target: Entity, interact_p: InteractPolicy, t_interact_p: InteractPolicy) -> bool:
+static func is_allowed_target(entity: Entity, target: Entity, interact_p: InteractPolicy, t_interact_p: InteractPolicy) -> bool:
 	if not interact_p or not t_interact_p:
 		return true
 
 	if (
 			interact_p.is_mutual_banned(t_interact_p) 
-			or not interact_p.is_mutual_scene_allowed(t_interact_p, e.scene_name, target.scene_name)
+			or not interact_p.is_mutual_scene_allowed(t_interact_p, entity.scene_name, target.scene_name)
 		):
 			return false
 
