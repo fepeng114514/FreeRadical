@@ -15,7 +15,7 @@ static func open_directory(path: String) -> DirAccess:
 	var dir: DirAccess = DirAccess.open(path)
 	if not dir:
 		Log.error(
-			"list_directory_simple: 无法打开目录: %s\n错误信息: %s" % [
+			"无法打开目录: %s\n错误信息: %s" % [
 				path, DirAccess.get_open_error()
 			]
 		)
@@ -49,12 +49,12 @@ static func get_files_from_nested_directory(dir_path: String, match_pattern: Str
 ## 加载 JSON 文件。
 static func load_json(path: String) -> Variant:
 	if not FileAccess.file_exists(path):
-		Log.error("load_json: JSON 文件不存在: %s" % path)
+		Log.error("JSON 文件不存在: %s" % path)
 		return null
 	
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if not file:
-		Log.error("load_json: 无法打开文件: %s" % path)
+		Log.error("无法打开文件: %s" % path)
 		return null
 	
 	var content: String = file.get_as_text()
@@ -65,7 +65,7 @@ static func load_json(path: String) -> Variant:
 	
 	if parse_result != OK:
 		Log.error(
-			"load_json: JSON 解析错误: %s\n错误行: %d" % [
+			"JSON 解析错误: %s\n错误行: %d" % [
 				json.get_error_message(), json.get_error_line()
 			]
 		)
@@ -78,7 +78,7 @@ static func load_json(path: String) -> Variant:
 static func save_json(data: Variant, file_path: String) -> void:
 	var file: FileAccess = FileAccess.open(file_path, FileAccess.WRITE)
 	if not file:
-		Log.error("save_json: 无法打开文件: %s\n错误信息: %s" % [
+		Log.error("无法打开文件: %s\n错误信息: %s" % [
 				file_path, FileAccess.get_open_error()
 			]
 		)
@@ -87,7 +87,7 @@ static func save_json(data: Variant, file_path: String) -> void:
 	var json_string: String = JSON.stringify(data, "\t")
 	file.store_string(json_string)
 	file.close()
-	Log.info("save_json: 保存成功: %s" % file_path)
+	Log.info("保存成功: %s" % file_path)
 #endregion
 
 
