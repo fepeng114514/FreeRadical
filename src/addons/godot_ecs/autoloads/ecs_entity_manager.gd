@@ -19,6 +19,8 @@ var _auto_expand_spatial_hash_grid_enable: bool = false
 ## 空间哈希网格的总单元格数。
 var _spatial_hash_cell_count: int
 
+## 实体世界。
+var _entity_world: ECSEntityWorld = null
 ## 实体移除队列。
 var _remove_queue: Array[ECSEntity] = []
 ## 实体插入队列。
@@ -37,7 +39,15 @@ var _next_id: int = 0
 var _spatial_hash_grid: Array[SpaceIndexCell] = []
 
 
-func _ready() -> void:
+func _physics_process(delta: float) -> void:
+	_process_insert_queue()
+	_process_remove_queue()
+	_grouping_entities()
+	ECSSystemManager.process_update(delta)
+
+
+## 初始化实体管理器。
+func init() -> void:
 	var setting: ECSSetting = ECSSettingManager.get_setting()
 	_spatial_hash_cell_size = setting.spatial_hash_cell_size
 	_spatial_hash_row_count = setting.spatial_hash_row_count
@@ -51,11 +61,21 @@ func _ready() -> void:
 			_spatial_hash_grid[i] = SpaceIndexCell.new()
 
 
-func _physics_process(delta: float) -> void:
-	_process_insert_queue()
-	_process_remove_queue()
-	_grouping_entities()
-	ECSSystemManager.process_update(delta)
+## 清理实体管理器，这通常用于清除实体管理器中的所有引用。
+func clear() -> void:
+	_entity_world = null
+	_remove_queue.clear()
+	_insert_queue.clear()
+	_entities.clear()
+	_valid_entities.clear()
+	_entity_groups.clear()
+	_component_entity_groups.clear()
+	_spatial_hash_grid.clear()
+
+
+## 注册实体世界。
+func register_entity_world(entity_world: ECSEntityWorld) -> void:
+	_entity_world = entity_world
 
 
 ## 将实体增加到插入队列
@@ -87,7 +107,7 @@ func setup_entity(entity: ECSEntity) -> ECSEntity:
 	_next_id += 1
 	
 	if not entity.get_parent():
-		add_child(entity)
+		_entity_world.add_child(entity)
 
 	return entity
 

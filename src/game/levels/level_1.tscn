@@ -19,12 +19,12 @@ point_count = 8
 
 [node name="Level1" unique_id=1565788906 instance=ExtResource("1_oyy57")]
 
-[node name="WaveSpawner" parent="PreCreatedEntities" parent_id_path=PackedInt32Array(2005601312) index="0" unique_id=708476456 instance=ExtResource("2_4ykn6")]
+[node name="WaveSpawner" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="0" unique_id=708476456 instance=ExtResource("2_4ykn6")]
 position = Vector2(-1, 0)
 idle_animation = SubResource("Resource_excbq")
 wave_group = ExtResource("3_rifvl")
 
-[node name="TowerHolderGrass" parent="PreCreatedEntities" parent_id_path=PackedInt32Array(2005601312) index="1" unique_id=1898604313 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="1" unique_id=1898604313 instance=ExtResource("8_oewxi")]
 position = Vector2(1036, 748)
 default_rally_center_position = Vector2(-191.43, 37.53)
 duration = null
@@ -35,7 +35,7 @@ aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass2" parent="PreCreatedEntities" parent_id_path=PackedInt32Array(2005601312) index="2" unique_id=1937510618 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass2" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="2" unique_id=1937510618 instance=ExtResource("8_oewxi")]
 position = Vector2(1032, 894)
 default_rally_center_position = Vector2(-131.4, 61.74)
 duration = null
@@ -46,7 +46,7 @@ aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass3" parent="PreCreatedEntities" parent_id_path=PackedInt32Array(2005601312) index="3" unique_id=1027679760 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass3" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="3" unique_id=1027679760 instance=ExtResource("8_oewxi")]
 position = Vector2(1218, 889)
 default_rally_center_position = Vector2(-88.38, 120.33)
 duration = null
@@ -57,7 +57,7 @@ aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass4" parent="PreCreatedEntities" parent_id_path=PackedInt32Array(2005601312) index="4" unique_id=2117389582 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass4" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="4" unique_id=2117389582 instance=ExtResource("8_oewxi")]
 position = Vector2(1365, 1112)
 default_rally_center_position = Vector2(-55.71, -114.48)
 duration = null
@@ -68,7 +68,7 @@ aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass5" parent="PreCreatedEntities" parent_id_path=PackedInt32Array(2005601312) index="5" unique_id=1676628909 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass5" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="5" unique_id=1676628909 instance=ExtResource("8_oewxi")]
 position = Vector2(1549, 914)
 default_rally_center_position = Vector2(-71.64, 100.71)
 duration = null
@@ -79,7 +79,7 @@ aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass6" parent="PreCreatedEntities" parent_id_path=PackedInt32Array(2005601312) index="6" unique_id=1251918247 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass6" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="6" unique_id=1251918247 instance=ExtResource("8_oewxi")]
 position = Vector2(1841, 1060)
 default_rally_center_position = Vector2(-115.2, -99.72)
 duration = null
@@ -90,7 +90,7 @@ aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass7" parent="PreCreatedEntities" parent_id_path=PackedInt32Array(2005601312) index="7" unique_id=1492193814 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass7" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="7" unique_id=1492193814 instance=ExtResource("8_oewxi")]
 position = Vector2(1015, 454)
 default_rally_center_position = Vector2(101.61, 120.6)
 duration = null
@@ -101,7 +101,7 @@ aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass8" parent="PreCreatedEntities" parent_id_path=PackedInt32Array(2005601312) index="8" unique_id=1847028733 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass8" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="8" unique_id=1847028733 instance=ExtResource("8_oewxi")]
 position = Vector2(850, 515)
 default_rally_center_position = Vector2(73.634, 140.709)
 duration = null

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://yur7o864jejr" path="res://game/levels/level.gd" id="1_7ttr4"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_xp3ar"]
-[ext_resource type="Script" uid="uid://ndbkq4sl12s0" path="res://game/pre_created_entities.gd" id="7_sap3l"]
+[ext_resource type="Script" uid="uid://bnq3dj2n1fgqi" path="res://addons/godot_ecs/classes/ecs_entity_world.gd" id="7_jfjl5"]
 [ext_resource type="PackedScene" uid="uid://co5ehekpd71r8" path="res://game/select_menu/select_menu.tscn" id="10_qogh7"]
 [ext_resource type="PackedScene" uid="uid://ca75dg47m1q1a" path="res://game/range_info/range_info_controller.tscn" id="11_8iyoh"]
 [ext_resource type="Script" uid="uid://b0hmg8xtycc53" path="res://classes/systems/time_system.gd" id="15_p37ca"]
@@ -73,9 +73,10 @@ tile_set = ExtResource("24_iowrn")
 script = ExtResource("25_b2jp2")
 metadata/_custom_type_script = "uid://c2hgryphol5kq"
 
-[node name="PreCreatedEntities" type="Node2D" parent="." unique_id=2005601312]
+[node name="ECSEntityWorld" type="Node2D" parent="." unique_id=1218391746]
 y_sort_enabled = true
-script = ExtResource("7_sap3l")
+script = ExtResource("7_jfjl5")
+metadata/_custom_type_script = "uid://bnq3dj2n1fgqi"
 
 [node name="Systems" type="Node" parent="." unique_id=29639550]
 
