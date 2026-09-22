@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EntitySceneData" format=3 uid="uid://qg2vv4cgb4dt"]
 
-[ext_resource type="Script" uid="uid://6lureyi01lie" path="res://entities/entity_scene_path_data.gd" id="1_26qk6"]
+[ext_resource type="Script" uid="uid://6lureyi01lie" path="res://data/entity_scene_data.gd" id="1_26qk6"]
 
 [resource]
 script = ExtResource("1_26qk6")

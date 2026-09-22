@@ -19,8 +19,9 @@ var node_count: int = 256
 ## 路径节点相交距离阈值。
 var intersect_dist_threshold: float = 10.0
 	
-
-func clear() -> void:
+	
+## 清理路径管理器。
+func cleanup() -> void:
 	_pathways.clear()
 	all_nodes.clear()
 	next_pathway_index = 0

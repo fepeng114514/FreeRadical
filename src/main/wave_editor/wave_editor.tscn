@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://k8jjifduvh0w" path="res://controls/track_editor/track_editor.tscn" id="2_pj2lv"]
 [ext_resource type="StyleBox" uid="uid://q23htsaarsrx" path="res://main/wave_editor/title_style_box_flat.tres" id="2_sh4oc"]
 [ext_resource type="Script" uid="uid://bdgg5qnil22xj" path="res://main/wave_editor/tool_bar/load_button.gd" id="3_jfbxu"]
-[ext_resource type="Resource" uid="uid://qg2vv4cgb4dt" path="res://entities/entity_scene_path_data.tres" id="3_t5qyo"]
+[ext_resource type="Resource" uid="uid://qg2vv4cgb4dt" path="res://data/entity_scene_data.tres" id="3_t5qyo"]
 [ext_resource type="Script" uid="uid://d1xwmmyxhqflq" path="res://main/wave_editor/tool_bar/load_file_dialog.gd" id="4_hhe80"]
 [ext_resource type="Script" uid="uid://caxpk5tid7ngt" path="res://main/wave_editor/tool_bar/save_button.gd" id="4_mx20l"]
 [ext_resource type="Script" uid="uid://bumn6jt6uu5gw" path="res://main/wave_editor/tool_bar/mouse_tool_bar.gd" id="4_p6mtv"]

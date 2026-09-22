@@ -5,7 +5,8 @@ extends Node
 var damage_queue: Array[Damage] = []
 
 
-func clear() -> void:
+## 清理伤害管理器。
+func cleanup() -> void:
 	damage_queue.clear()
 
 

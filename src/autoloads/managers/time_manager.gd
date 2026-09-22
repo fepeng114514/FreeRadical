@@ -14,7 +14,8 @@ var frame_length: float = 0.0
 var fps: float = 0.0
 
 
-func clear() -> void:
+## 清理时间管理器。
+func cleanup() -> void:
 	tick_ts = 0
 	tick = 0
 	frame_length = 0

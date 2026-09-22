@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AudioPathData" format=3 uid="uid://ts5ultf616dh"]
 
-[ext_resource type="Script" uid="uid://c7xh0td33y4ea" path="res://assets/audio_path_data.gd" id="1_x4uop"]
+[ext_resource type="Script" uid="uid://c7xh0td33y4ea" path="res://data/audio_data.gd" id="1_x4uop"]
 
 [resource]
 script = ExtResource("1_x4uop")

@@ -23,26 +23,37 @@ const MusicBus: StringName = &"Music"
 const SFXBus: StringName = &"SFX"
 
 
-## 音效 [AudioStreamPlayer] 总数。
+## 音效播放器总数。
 var _sfx_player_count: int = 10
-
-## 音效的 [AudioStreamPlayer] 数组。
+## 音效播放器数组。
 var _sfx_player_list: Array[AudioStreamPlayer] = []
-## 音乐的 [AudioStreamPlayer]。
+## 音乐播放器。
 var _music_player := AudioStreamPlayer.new()
+## 下一个音效播放器索引。
+var _next_sfx_index: int = 0
+## 音频资源缓存。
+var _audio_resources_caches: Dictionary[String, AudioStream] = {}
 
 
 func _ready() -> void:
-	# 初始化音乐
 	_music_player.name = "Music"
 	add_child(_music_player)
 	
-	# 初始化音效
 	for player_index: int in _sfx_player_count:
 		var sfx_player := AudioStreamPlayer.new()
 		sfx_player.name = "SFX%d" % (player_index + 1)
 		add_child(sfx_player)
 		_sfx_player_list.append(sfx_player)
+
+
+## 清理音频管理器。
+func cleanup() -> void:
+	_next_sfx_index = 0
+	
+	stop_music()
+	stop_sfx()
+	
+	_audio_resources_caches.clear()
 	
 	
 ## 播放音频数据内的音乐。
@@ -55,12 +66,10 @@ func play_sfx(audio_data: AudioGroup) -> void:
 	if not audio_data:
 		return
 	
-	for sfx_player: AudioStreamPlayer in _sfx_player_list:
-		if sfx_player.playing:
-			continue
-
-		play_audio(audio_data, sfx_player, SFXBus)
-		return
+	var player := _sfx_player_list[_next_sfx_index]
+	_next_sfx_index = (_next_sfx_index + 1) % _sfx_player_count
+	
+	play_audio(audio_data, player, SFXBus)
 		
 		
 ## 播放音频数据内的音频。
@@ -92,7 +101,9 @@ func play_audio(
 			play_list = data_list
 			
 	for stream_path: String in play_list:
-		player.stream = load(stream_path)
+		var stream: AudioStream = load(stream_path)
+		_audio_resources_caches[stream_path] = stream
+		player.stream = stream
 		player.volume_db = audio_data.volume_db
 		player.volume_linear = audio_data.volume_linear
 		player.bus = bus

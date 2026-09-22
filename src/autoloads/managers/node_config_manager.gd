@@ -3,7 +3,7 @@ extends Node
 ## 节点配置管理器。
 
 
-const NODE_CONFIG_TEMPLATE_DATA_PATH: String = "res://entities/node_config_template_data.tres"
+const NODE_CONFIG_TEMPLATE_DATA_PATH: String = "res://data/node_config_template_data.tres"
 
 
 var node_config_template_data: NodeConfigTemplateData = null
@@ -13,11 +13,13 @@ func _ready() -> void:
 	init()
 
 
+## 初始化节点配置管理器。
 func init() -> void:
 	node_config_template_data = load(NODE_CONFIG_TEMPLATE_DATA_PATH)
 
 
-func clear() -> void:
+## 清理节点配置管理器。
+func cleanup() -> void:
 	node_config_template_data = null
 
 

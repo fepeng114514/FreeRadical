@@ -5,6 +5,7 @@ extends EditorScript
 
 ## 实体场景目录路径。
 const ENTITY_SCENES_DIR: String = "res://entities/"
+const DATA_DIR: String = "res://data/"
 
 
 func _run() -> void:
@@ -30,12 +31,12 @@ func _generate_entity_data(entity_scene_states: Array[SceneState]) -> void:
 		var scene_basename: String = scene_file_path.get_file().get_basename()
 		var scene_uid: String = ResourceUID.path_to_uid(scene_file_path)
 
-		entity_scene_data.scene_name_to_path_map[scene_basename] = scene_file_path
-		entity_scene_data.scene_name_to_uid_map[scene_basename] = scene_uid
+		entity_scene_data.name_to_path_map[scene_basename] = scene_file_path
+		entity_scene_data.name_to_uid_map[scene_basename] = scene_uid
 
 		Log.verbose("添加实体场景数据: %s, UID: %s" % [scene_basename, scene_uid])
 			
-	var save_path = ENTITY_SCENES_DIR.path_join("entity_scene_data.tres")
+	var save_path = DATA_DIR.path_join("entity_scene_data.tres")
 	ResourceSaver.save(entity_scene_data, save_path)
 	Log.info("已生成实体场景数据: %s" % save_path)
 
@@ -57,6 +58,6 @@ func _generate_node_config_template_data(entity_scene_states: Array[SceneState])
 			node_config_template_data.entity_name_to_template_map[entity_name] = config_template
 			break
 
-	var save_path = ENTITY_SCENES_DIR.path_join("node_config_template_data.tres")
+	var save_path = DATA_DIR.path_join("node_config_template_data.tres")
 	ResourceSaver.save(node_config_template_data, save_path)
 	Log.info("已生成节点配置模板数据: %s" % save_path)

@@ -8,5 +8,6 @@ extends Node
 var grid: TileMapLayer = null
 	
 
-func clear() -> void:
+## 清理网格管理器。
+func cleanup() -> void:
 	grid = null

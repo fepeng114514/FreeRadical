@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="NodeConfigTemplateData" format=3 uid="uid://bhalmocxmqydl"]
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_jc722"]
-[ext_resource type="Script" uid="uid://r06j3p3s0sdt" path="res://entities/node_config_template_data.gd" id="2_bft3v"]
+[ext_resource type="Script" uid="uid://r06j3p3s0sdt" path="res://data/node_config_template_data.gd" id="2_bft3v"]
 
 [resource]
 script = ExtResource("2_bft3v")

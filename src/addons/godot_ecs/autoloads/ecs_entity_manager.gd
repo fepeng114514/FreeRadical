@@ -19,6 +19,8 @@ var _auto_expand_spatial_hash_grid_enable: bool = false
 ## 空间哈希网格的总单元格数。
 var _spatial_hash_cell_count: int
 
+## 实体场景缓存。
+var _entity_scene_caches: Dictionary[String, PackedScene] = {}
 ## 实体世界。
 var _entity_world: ECSEntityWorld = null
 ## 实体移除队列。
@@ -62,7 +64,8 @@ func init() -> void:
 
 
 ## 清理实体管理器，这通常用于清除实体管理器中的所有引用。
-func clear() -> void:
+func cleanup() -> void:
+	_entity_scene_caches.clear()
 	_entity_world = null
 	_remove_queue.clear()
 	_insert_queue.clear()
@@ -93,7 +96,9 @@ func queue_remove_entity(entity: ECSEntity) -> void:
 
 ## 通过场景路径创建实体。
 func create_entity(entity_scene_path: String) -> ECSEntity:
-	var entity: ECSEntity = load(entity_scene_path).instantiate()
+	var scene: PackedScene = load(entity_scene_path)
+	var entity: ECSEntity = scene.instantiate()
+	_entity_scene_caches[entity_scene_path] = scene
 		
 	return setup_entity(entity)
 	
@@ -114,11 +119,10 @@ func setup_entity(entity: ECSEntity) -> ECSEntity:
 
 ## 批量创建实体。
 func create_entities(
-		entity_scenes: PackedStringArray,	
+		entity_scenes: PackedStringArray,
 		config_func: Callable = Callable(),
 		auto_insert: bool = true
 	) -> Array[ECSEntity]:
-		
 	var created_entities: Array[ECSEntity] = []
 	
 	for entity_scene: String in entity_scenes:
@@ -333,7 +337,7 @@ func _process_insert_queue() -> void:
 
 
 ## 处理实体移除队列。
-func _process_remove_queue() -> void:	
+func _process_remove_queue() -> void:
 	while _remove_queue:
 		var entity: ECSEntity = _remove_queue.pop_front()
 
@@ -359,21 +363,21 @@ func _grouping_entities() -> void:
 
 			if entity.is_entity_groups_changed:
 				_remove_and_append_groups_entity_with_diff(
-					entity, 
-					entity.last_entity_groups, 
-					entity.entity_groups, 
-					entity.last_space_hash_cell_entity_groups_indexes, 
-					entity.space_hash_cell_entity_groups_indexes, 
+					entity,
+					entity.last_entity_groups,
+					entity.entity_groups,
+					entity.last_space_hash_cell_entity_groups_indexes,
+					entity.space_hash_cell_entity_groups_indexes,
 					last_cell.entity_groups if last_cell else {},
 					cell.entity_groups if cell else {}
 				)
 			if entity.is_component_changed:
 				_remove_and_append_groups_entity_with_diff(
-					entity, 
-					entity.last_component_names, 
-					entity.component_names, 
-					entity.last_space_hash_cell_component_entity_groups_indexes, 
-					entity.space_hash_cell_component_entity_groups_indexes, 
+					entity,
+					entity.last_component_names,
+					entity.component_names,
+					entity.last_space_hash_cell_component_entity_groups_indexes,
+					entity.space_hash_cell_component_entity_groups_indexes,
 					last_cell.component_entity_groups if last_cell else {},
 					cell.component_entity_groups if cell else {}
 				)
@@ -382,11 +386,11 @@ func _grouping_entities() -> void:
 		if entity.is_entity_groups_changed:
 			entity.is_entity_groups_changed = false
 			_remove_and_append_groups_entity_with_diff(
-				entity, 
-				entity.last_entity_groups, 
-				entity.entity_groups, 
-				entity.last_entity_groups_indexes, 
-				entity.entity_groups_indexes, 
+				entity,
+				entity.last_entity_groups,
+				entity.entity_groups,
+				entity.last_entity_groups_indexes,
+				entity.entity_groups_indexes,
 				_entity_groups,
 				_entity_groups
 			)
@@ -394,19 +398,19 @@ func _grouping_entities() -> void:
 		if entity.is_component_changed:
 			entity.is_component_changed = false
 			_remove_and_append_groups_entity_with_diff(
-				entity, 
-				entity.last_component_names, 
-				entity.component_names, 
-				entity.last_component_entity_groups_indexes, 
-				entity.component_entity_groups_indexes, 
+				entity,
+				entity.last_component_names,
+				entity.component_names,
+				entity.last_component_entity_groups_indexes,
+				entity.component_entity_groups_indexes,
 				_component_entity_groups,
 				_entity_groups
 			)
 
 
 func _remove_and_append_groups_entity_with_diff(
-		entity: ECSEntity, 
-		last_group_names: Array[StringName], 
+		entity: ECSEntity,
+		last_group_names: Array[StringName],
 		group_names: Array[StringName],
 		last_entity_groups_indexes: Dictionary[StringName, int],
 		entity_groups_indexes: Dictionary[StringName, int],
@@ -458,7 +462,7 @@ func _on_entity_tree_exiting(entity: ECSEntity) -> void:
 	for group_name: StringName in entity.entity_groups:
 		var group: ECSEntityGroup = _entity_groups[group_name]
 		ArrayUtils.array_swap_delete(
-			group.entities, 
+			group.entities,
 			entity.entity_groups_indexes[group_name]
 		)
 		
@@ -467,14 +471,14 @@ func _on_entity_tree_exiting(entity: ECSEntity) -> void:
 				
 		var cell_group: ECSEntityGroup = cell.entity_groups[group_name]
 		ArrayUtils.array_swap_delete(
-			cell_group.entities, 
+			cell_group.entities,
 			entity.space_hash_cell_entity_groups_indexes[group_name]
 		)
 
 	for component_name: StringName in entity.components:
 		var component_group: ECSEntityGroup = _component_entity_groups[component_name]
 		ArrayUtils.array_swap_delete(
-			component_group.entities, 
+			component_group.entities,
 			entity.component_entity_groups_indexes[component_name]
 		)
 		
@@ -483,7 +487,7 @@ func _on_entity_tree_exiting(entity: ECSEntity) -> void:
 				
 		var cell_component_group: ECSEntityGroup = cell.component_entity_groups[component_name]
 		ArrayUtils.array_swap_delete(
-			cell_component_group.entities, 
+			cell_component_group.entities,
 			entity.space_hash_cell_component_entity_groups_indexes[component_name]
 		)
 		

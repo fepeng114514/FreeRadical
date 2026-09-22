@@ -32,7 +32,8 @@ var is_first_release_wave: bool = true
 var is_skip_wave: bool = false
 
 
-func clear() -> void:
+## 清理波次管理器。
+func cleanup() -> void:
 	wave_group = null
 	wave_spawner = null
 	is_wait_first_release_wave = false

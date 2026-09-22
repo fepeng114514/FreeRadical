@@ -29,12 +29,13 @@ func _enter_tree() -> void:
 
 
 func _exit_tree() -> void:
-	ECSEntityManager.clear()
-	GridManager.clear()
-	SelectManager.clear()
-	PathwayManager.clear()
-	WaveManager.clear()
-	NodeConfigManager.clear()
+	ECSEntityManager.cleanup()
+	GridManager.cleanup()
+	SelectManager.cleanup()
+	PathwayManager.cleanup()
+	WaveManager.cleanup()
+	NodeConfigManager.cleanup()
+	DamageManager.cleanup()
 
 	get_tree().paused = false
 	Engine.time_scale = 1.0
