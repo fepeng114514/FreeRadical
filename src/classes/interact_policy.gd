@@ -57,6 +57,10 @@ enum Flag {
 @export_file("*.tscn") var blacklist: PackedStringArray
 
 
+func _init() -> void:
+	resource_local_to_scene = true
+
+
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
 		"flags":

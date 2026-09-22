@@ -86,6 +86,7 @@ var _init_connect_property_signals: Dictionary[String, Callable] = {
 
 
 func _init() -> void:
+	resource_local_to_scene = true
 	Utils.connect_property_signals(self, _init_connect_property_signals)
 
 
