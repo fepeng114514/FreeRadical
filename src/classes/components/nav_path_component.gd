@@ -90,7 +90,7 @@ func set_nav_path(
 
 ## 根据某个路径节点进行导航。
 func navigate_to_node(node: PathwayNode) -> void:
-	pathway_node_index = node.node_index
+	pathway_node_index = node.index
 	progress = node.progress
 	ratio = node.ratio
 

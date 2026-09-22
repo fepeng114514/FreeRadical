@@ -60,11 +60,7 @@ var hp: float = 0.0:
 		hp = clampf(v, 0, hp_max)
 		hp_percent = hp / hp_max * 100
 		health_bar.value = hp_percent
-var hp_percent: float = 0.0:
-	set(v):
-		hp_percent = clampf(v, 0.0, 100.0)
-		hp = hp_percent / 100 * hp_max
-		health_bar.value = hp_percent
+var hp_percent: float = 0.0
 ## 回血时间戳。
 var regen_ts: float = 0.0
 ## 待机回血时间戳。

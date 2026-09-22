@@ -97,8 +97,8 @@ func _update_reversed(entity: Entity, nav_path_c: NavPathComponent) -> bool:
 func _update_entity_position(entity: Entity, nav_path_c: NavPathComponent, next_progress: float) -> void:
 	var next_global_position: Vector2 = nav_path_c.get_progress_global_position(next_progress)
 	entity.facing_global_position = next_global_position
-	entity.global_position = next_global_position
 	entity.play_animation(nav_path_c.motion_animation, "walk")
+	entity.global_position = next_global_position
 	entity._on_pathway_walk(nav_path_c)
 	
 	entity.facing_global_position = nav_path_c.get_progress_global_position(next_progress)

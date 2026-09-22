@@ -13,102 +13,62 @@ script = ExtResource("7_6ioow")
 
 [sub_resource type="Curve2D" id="Curve2D_iav0o"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1126, -259, 65.54276, -118.83328, -65.54276, 118.83328, 1096, 293, 137.66904, -125.59731, -137.66904, 125.59731, 814, 448, -68.62308, -47.060608, 68.62308, 47.060608, 830, 771, -125.412094, -0.19413638, 125.412094, 0.19413638, 1098, 811, -218.06403, -73.02057, 218.06403, 73.02057, 1406, 825, -226.36304, 17.472271, 226.36304, -17.472271, 1861, 646, 0, 0, 0, 0, 2525, 635)
+"points": PackedVector2Array(0, 0, 0, 0, 1126, -259, 65.54276, -118.83328, -65.54276, 118.83328, 1105, 293, 137.66904, -125.59731, -137.66904, 125.59731, 802, 462, -68.62308, -47.060608, 68.62308, 47.060608, 840, 778, -125.412094, -0.19413638, 125.412094, 0.19413638, 1105, 806, -200.98003, -77.29157, 200.98003, 77.29157, 1428, 820, -247.71803, 4.6592693, 247.71803, -4.6592693, 1876, 635, 0, 0, 0, 0, 2525, 620)
 }
 point_count = 8
 
 [node name="Level1" unique_id=1565788906 instance=ExtResource("1_oyy57")]
 
-[node name="WaveSpawner" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="0" unique_id=708476456 instance=ExtResource("2_4ykn6")]
+[node name="WaveSpawner" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(1218391746) index="0" unique_id=708476456 instance=ExtResource("2_4ykn6")]
 position = Vector2(-1, 0)
-idle_animation = SubResource("Resource_excbq")
 wave_group = ExtResource("3_rifvl")
+idle_animation = SubResource("Resource_excbq")
 
-[node name="TowerHolderGrass" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="1" unique_id=1898604313 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(1218391746) index="1" unique_id=1898604313 instance=ExtResource("8_oewxi")]
 position = Vector2(1036, 748)
 default_rally_center_position = Vector2(-191.43, 37.53)
-duration = null
-spawn_animation = null
-spawn_sfx = null
-hit_offsets = null
-aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass2" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="2" unique_id=1937510618 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass2" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(1218391746) index="2" unique_id=1937510618 instance=ExtResource("8_oewxi")]
 position = Vector2(1032, 894)
 default_rally_center_position = Vector2(-131.4, 61.74)
-duration = null
-spawn_animation = null
-spawn_sfx = null
-hit_offsets = null
-aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass3" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="3" unique_id=1027679760 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass3" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(1218391746) index="3" unique_id=1027679760 instance=ExtResource("8_oewxi")]
 position = Vector2(1218, 889)
 default_rally_center_position = Vector2(-88.38, 120.33)
-duration = null
-spawn_animation = null
-spawn_sfx = null
-hit_offsets = null
-aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass4" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="4" unique_id=2117389582 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass4" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(1218391746) index="4" unique_id=2117389582 instance=ExtResource("8_oewxi")]
 position = Vector2(1365, 1112)
 default_rally_center_position = Vector2(-55.71, -114.48)
-duration = null
-spawn_animation = null
-spawn_sfx = null
-hit_offsets = null
-aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass5" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="5" unique_id=1676628909 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass5" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(1218391746) index="5" unique_id=1676628909 instance=ExtResource("8_oewxi")]
 position = Vector2(1549, 914)
 default_rally_center_position = Vector2(-71.64, 100.71)
-duration = null
-spawn_animation = null
-spawn_sfx = null
-hit_offsets = null
-aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass6" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="6" unique_id=1251918247 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass6" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(1218391746) index="6" unique_id=1251918247 instance=ExtResource("8_oewxi")]
 position = Vector2(1841, 1060)
 default_rally_center_position = Vector2(-115.2, -99.72)
-duration = null
-spawn_animation = null
-spawn_sfx = null
-hit_offsets = null
-aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass7" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="7" unique_id=1492193814 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass7" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(1218391746) index="7" unique_id=1492193814 instance=ExtResource("8_oewxi")]
 position = Vector2(1015, 454)
 default_rally_center_position = Vector2(101.61, 120.6)
-duration = null
-spawn_animation = null
-spawn_sfx = null
-hit_offsets = null
-aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass8" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(2005601312) index="8" unique_id=1847028733 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass8" parent="ECSEntityWorld" parent_id_path=PackedInt32Array(1218391746) index="8" unique_id=1847028733 instance=ExtResource("8_oewxi")]
 position = Vector2(850, 515)
 default_rally_center_position = Vector2(73.634, 140.709)
-duration = null
-spawn_animation = null
-spawn_sfx = null
-hit_offsets = null
-aura_offsets = null
 interact_policy = null
 entity_groups = Array[StringName]([&"towers"])
 
