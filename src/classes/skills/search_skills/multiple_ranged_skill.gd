@@ -1,9 +1,16 @@
 @tool
-extends RangedSkill
+extends BaseRangedSkill
 class_name MultipleRangedSkill
 ## 多次远程技能节点。
 ##
 ## MultipleRangedSkill 与 [RangedSkill] 相似，但是可以连续攻击多次。
+
+
+@export var config: MultipleRangedSkillNodeConfig = null:
+	set(v):
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
 
 ## 循环次数。
 @export var loop_count: int = 1
@@ -58,3 +65,5 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 	entity.play_animation(end_animation)
 	AudioManager.play_sfx(end_sfx)
 	await entity.y_wait_animation(end_animation)
+
+

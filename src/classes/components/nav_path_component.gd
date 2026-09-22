@@ -1,3 +1,4 @@
+@tool
 @icon("res://assets/dpi_textures/at-icons/node2d/itinerary.svg")
 extends Component
 class_name NavPathComponent
@@ -6,6 +7,12 @@ class_name NavPathComponent
 ## NavPathComponent 可以使实体沿着路径移动。
 
 
+@export var config: NavPathComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+		
 ## 是否沿相反路线移动。
 @export var reversed_enabled: bool = false
 ## 移动速度。
@@ -40,10 +47,6 @@ var loop_count: int = 0
 ## 时间戳。
 var ts: float = 0.0
 
-
-func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED
-	
 
 ## [method PathwayManager.get_subpath] 的简写，已传递 [param pathway_index], [param sub_pathway_index]
 func get_subpath() -> Path2D:
@@ -107,4 +110,3 @@ func set_nav_path_to_nearest_node(entity: Entity, search_global_position: Vector
 
 	var node: PathwayNode = PathwayManager.find_nearest_node_to_global_position(search_global_position, pi_list, spi_list)
 	nav_path_c.set_nav_path(node.pathway_index, node.sub_pathway_index, node.index)
-

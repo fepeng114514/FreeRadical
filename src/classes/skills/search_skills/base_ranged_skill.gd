@@ -1,9 +1,10 @@
+@abstract
 @tool
 extends SearchSkill
-class_name RangedSkill
-## 单次远程技能节点。
+class_name BaseRangedSkill
+## 远程技能节点基类。
 ##
-## RangedSkill 会生成一个子弹，以子弹作为中介，对目标造成影响。子弹会以特定轨迹飞行，到达目标后造成影响。
+## BaseRangedSkill 是一个抽象类，用于定义远程技能节点的基类。它会生成一个子弹，以子弹作为中介，对目标造成影响。子弹会以特定轨迹飞行，到达目标后造成影响。
 
 
 ## 子弹生成模式枚举。
@@ -17,11 +18,6 @@ enum BulletSpawnMode {
 
 ## 拦截目标时是否可以释放远程技能。
 @export var with_melee: bool = false
-## 搜索资源，用于搜索目标。
-@export var searcher: Searcher = null:
-	set(v): 
-		searcher = v
-		Utils.resource_redraw_setter(self, searcher)
 
 @export_group("Bullet")
 ## 子弹场景路径。
@@ -29,51 +25,19 @@ enum BulletSpawnMode {
 ## 子弹发射数量。
 @export var bullet_count: int = 1
 ## 子弹初始位置偏移组。
-@export var bullet_offsets: OffsetGroup = null:
-	set(v): 
-		bullet_offsets = v
-		Utils.resource_redraw_setter(self, bullet_offsets)
+@export var bullet_offsets: OffsetGroup = null
 ## 子弹发射的角度范围。
 @export_range(0, 360, 0.1, "radians_as_degrees") var bullet_angle_range: float = 0.0
 ## 子弹发射模式。
 @export var bullet_spawn_mode: BulletSpawnMode = BulletSpawnMode.EQUAL_INTERVAL
 
 
-func _ready() -> void:
-	if Engine.is_editor_hint():
-		Utils.connect_resource_changed(bullet_offsets, queue_redraw)
-		Utils.connect_resource_changed(searcher, queue_redraw)
-
-
 func _draw() -> void:
-	if Engine.is_editor_hint():
-		searcher.draw(self, position)
-		OffsetGroup.draw_offset_group(self, bullet_offsets)
-
-
-func _use_skill(entity: Entity, target: Entity = null) -> void:
-	target = searcher.search_target(get_search_global_position(entity), entity)
-	if not target:
-		return
-		
-	entity.facing_global_position = target.global_position
-	start_cooldown()
-
-	entity.play_animation(animation, &"ranged")
-	AudioManager.play_sfx(sfx)
-	if await entity.y_wait(delay):
-		compensate_cooldown()
-		return
-
-	if not target:
-		target = searcher.search_target(get_search_global_position(entity), entity)
-		if not target:
-			compensate_cooldown()
-			return
-
-	_spawn_bullets(entity, target)
-
-	await entity.y_wait_animation(animation)
+	super()
+	
+	if DebugManager.draw_offset_enabled:
+		if bullet_offsets:
+			bullet_offsets.draw_offset_group(self)
 
 
 ## 生成子弹。

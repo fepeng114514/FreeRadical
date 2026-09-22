@@ -6,32 +6,24 @@ class_name SpawnSkill
 ## SpawnSkill 会生成一个实体。
 
 
+@export var config: SpawnSkillNodeConfig = null:
+	set(v):
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 生成的实体场景名称数组。
-@export_file("*.tscn") var spawns := PackedStringArray()
+@export_file("*.tscn") var spawns: PackedStringArray
 ## 生成的实体初始位置偏移组。
-@export var spawn_offsets: OffsetGroup = null:
-	set(v): 
-		spawn_offsets = v
-		Utils.resource_redraw_setter(self, spawn_offsets)
-## 搜索资源，用于搜索目标，如果不设置该资源，实体将会生成到释放者的位置。
-@export var searcher: Searcher = null:
-	set(v): 
-		searcher = v
-		Utils.resource_redraw_setter(self, searcher)
-
-
-func _ready() -> void:
-	if Engine.is_editor_hint():
-		Utils.connect_resource_changed(spawn_offsets, queue_redraw)
-		Utils.connect_resource_changed(searcher, queue_redraw)
+@export var spawn_offsets: OffsetGroup = null
 
 
 func _draw() -> void:
-	if Engine.is_editor_hint():
-		if searcher:
-			searcher.draw(self, position)
-
-		OffsetGroup.draw_offset_group(self, spawn_offsets)
+	super()
+	
+	if DebugManager.draw_offset_enabled:
+		if spawn_offsets:
+			spawn_offsets.draw_offset_group(self)
 
 
 func _use_skill(entity: Entity, target: Entity = null) -> void:

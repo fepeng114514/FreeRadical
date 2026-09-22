@@ -9,6 +9,12 @@ static func is_valid_number(n: float) -> bool:
 	return n != Constants.UNSET
 
 
+## 保存并加载资源。
+static func save_and_load_resource(resource: Resource, save_path: String, type_hint: String = "", cache_mode: int = ResourceLoader.CACHE_MODE_REPLACE) -> Resource:
+	ResourceSaver.save(resource, save_path)
+	return ResourceLoader.load(save_path, type_hint, cache_mode)
+			
+
 #region 路径工具函数
 ## 打开目录。
 static func open_directory(path: String) -> DirAccess:
@@ -106,26 +112,30 @@ static func draw_range_circle(
 		min_range: float,
 		max_range: float,
 		color := Color(0, 1, 0, 0.2),
-		width: float = 3
+		width: float = 3,
+		aspect: float = 0.7
 	) -> void:
-	var range_list := PackedFloat32Array([
+	var ranges := PackedFloat32Array([
 		min_range,
 		max_range
 	])
 
-	for radius: float in range_list:
-		# 绘制轮廓
-		drawer.draw_circle(
+	for radius: float in ranges:
+		var minor: float = radius * aspect
+		var major: float = radius
+
+		drawer.draw_ellipse(
 			position,
-			radius,
+			major,
+			minor,
 			color,
 			false,
 			width
 		)
-		# 绘制填充圆
-		drawer.draw_circle(
+		drawer.draw_ellipse(
 			position,
-			radius,
+			major,
+			minor,
 			color,
 		)
 
@@ -170,27 +180,33 @@ static func draw_range_ellipse(
 
 
 #region 编辑器相关方法
-## 连接资源变化信号。
-static func connect_resource_changed(resource: Resource, callable: Callable) -> void:
-	if not resource:
-		return
+## 尝试连接或断开资源的变化信号。
+static func rebind_changed(
+		last_value: Resource, new_value: Resource, callable: Callable
+	) -> void:
+	if last_value:
+		var last_changed_signal: Signal = last_value.changed
+		if last_changed_signal.is_connected(callable):
+			last_changed_signal.disconnect(callable)
 
-	var changed: Signal = resource.changed
-	if changed.is_connected(callable):
-		return
-
-	changed.connect(callable)
-
-
-## 连接资源变化信号并触发重绘。
-static func resource_redraw_setter(drawer: CanvasItem, resource: Resource) -> void:
-	if Engine.is_editor_hint():
-		Utils.connect_resource_changed(resource, drawer.queue_redraw)
-		drawer.queue_redraw()
+	if new_value:
+		var new_changed_signal: Signal = new_value.changed
+		if not new_changed_signal.is_connected(callable):
+			new_changed_signal.connect(callable)
 
 
-## 触发重绘。
-static func redraw_setter(drawer: CanvasItem) -> void:
-	if Engine.is_editor_hint():
-		drawer.queue_redraw()
+## 连接资源的变化信号。
+static func connect_property_signals(object: Object, properties: Dictionary[String, Callable]) -> void:
+	for prop_name: String in properties:
+		var callable: Callable = properties[prop_name]
+
+		var prop_value := object.get(prop_name) as Resource
+		if not prop_value:
+			continue
+
+		var prop_changed_signal: Signal = prop_value.changed
+		if prop_changed_signal.is_connected(callable):
+			continue
+
+		prop_changed_signal.connect(callable)
 #endregion

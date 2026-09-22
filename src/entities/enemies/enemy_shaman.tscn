@@ -7,7 +7,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bb7jpmptcas3q" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_shaman.tres" id="4_8umbj"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="6_kwo0b"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="6_t5fix"]
-[ext_resource type="Script" uid="uid://d3i11n4j7bnvl" path="res://classes/skills/area_skill.gd" id="7_8umbj"]
+[ext_resource type="Script" uid="uid://d3i11n4j7bnvl" path="res://classes/skills/search_skills/area_skill.gd" id="7_8umbj"]
 [ext_resource type="Script" uid="uid://bu7q2xp2xd78b" path="res://classes/influences/influence.gd" id="8_2lsbh"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="8_6majh"]
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="8_xr4ln"]
@@ -22,8 +22,6 @@ metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 resource_local_to_scene = true
 script = ExtResource("2_jyvth")
 flags = 1
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_atygg"]
@@ -45,17 +43,12 @@ resource_local_to_scene = true
 script = ExtResource("3_6r1go")
 min_value = 3.0
 max_value = 5.0
-mods = PackedStringArray()
-auras = PackedStringArray()
-payloads = PackedStringArray()
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
 [sub_resource type="Resource" id="Resource_cq7mr"]
 resource_local_to_scene = true
 script = ExtResource("2_jyvth")
 flags = 2097152
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_m3i2n"]
@@ -67,8 +60,6 @@ right_replace_left = true
 resource_local_to_scene = true
 script = ExtResource("2_jyvth")
 flags = 32
-whitelist = PackedStringArray()
-blacklist = PackedStringArray()
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_8umbj"]
@@ -87,8 +78,6 @@ resource_local_to_scene = true
 script = ExtResource("8_2lsbh")
 extra_enabled = true
 mods = PackedStringArray("uid://gjv8x6puntrs")
-auras = PackedStringArray()
-payloads = PackedStringArray()
 area_enabled = true
 searcher = SubResource("Resource_8umbj")
 metadata/_custom_type_script = "uid://bu7q2xp2xd78b"
@@ -117,6 +106,7 @@ offset_top = -54.0
 offset_bottom = -49.0
 
 [node name="NavPathComponent" parent="." index="2" unique_id=1202679749]
+process_mode = 4
 speed = 50.0
 
 [node name="SelectComponent" parent="." index="3" unique_id=673866706]
@@ -131,6 +121,7 @@ melee_position_offsets = SubResource("Resource_pvsfh")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
 [node name="MeleeSkill" type="Node2D" parent="MeleeComponent" index="0" unique_id=836830054]
+process_mode = 4
 script = ExtResource("8_xr4ln")
 influence = SubResource("Resource_7cuwb")
 interact_policy = SubResource("Resource_cq7mr")
@@ -145,6 +136,7 @@ script = ExtResource("6_t5fix")
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
 [node name="AreaSkill" type="Node2D" parent="SkillComponent" index="0" unique_id=816441794]
+process_mode = 4
 script = ExtResource("7_8umbj")
 influence = SubResource("Resource_t5fix")
 cooldown = 8.0

@@ -20,35 +20,25 @@ enum InfoBarType {
 }
 
 
+@export var config: SelectComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 选择矩形大小。
-@export var select_rect := Rect2(-16, -16, 32, 32):
-	set(v): 
-		select_rect = v
-		Utils.redraw_setter(self)
+@export var select_rect := Rect2(-16, -16, 32, 32)
 ## 是否可以选择。
-@export var can_select: bool = true:
-	set(v): 
-		can_select = v
-		Utils.redraw_setter(self)
+@export var can_select: bool = true
 
 ## 信息栏类型。
 @export var info_bar_type: InfoBarType = InfoBarType.NONE
 ## 选择菜单偏移。
-@export var select_menu_offset := Vector2.ZERO:
-	set(v): 
-		select_menu_offset = v
-		Utils.redraw_setter(self)
-
-
-func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED
+@export var select_menu_offset := Vector2.ZERO
 
 
 func _draw() -> void:
-	if Engine.is_editor_hint():
-		if not can_select:
-			return
-
+	if DebugManager.draw_offset_enabled:
 		draw_circle(
 			select_menu_offset, 
 			4,
@@ -56,19 +46,21 @@ func _draw() -> void:
 			false,
 			1
 		)
-			
-		# 绘制半透明填充和边框
-		draw_rect(
-			Rect2(select_rect.position, select_rect.size), 
-			Color(0.2, 0.6, 1.0, 0.25), 
-			true
-		)
-		draw_rect(
-			Rect2(select_rect.position, select_rect.size), 
-			Color(0.2, 0.6, 1.0, 0.9), 
-			false, 
-			1
-		)
+
+	if DebugManager.draw_range_enabled:
+		if can_select:
+			var rect := Rect2(select_rect.position, select_rect.size)
+			draw_rect(
+				rect, 
+				Color(0.2, 0.6, 1.0, 0.25), 
+				true
+			)
+			draw_rect(
+				rect, 
+				Color(0.2, 0.6, 1.0, 0.9), 
+				false, 
+				1
+			)
 	
 
 ## 获取全局位置的矩形。
@@ -79,6 +71,6 @@ func get_global_select_rect() -> Rect2:
 ## 检测是否点击在矩形内。
 func is_click_at_global_select_rect(clicked_global_position: Vector2) -> bool:
 	return (
-		can_select 
+		can_select
 		and get_global_select_rect().has_point(clicked_global_position)
 	)

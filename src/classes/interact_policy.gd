@@ -6,9 +6,6 @@ class_name InteractPolicy
 ## 交互策略用于定义实体之间的交互规则，包括禁止交互的实体标识、状态效果类型、光环类型等。
 
 
-signal flag_changed(old_flags: int, new_flags: int)
-
-
 ## 标识枚举。
 enum Flag {
 	## 标识: 无。
@@ -42,9 +39,8 @@ enum Flag {
 ## 实体自身的标识。
 @export var flags: int = 0: 
 	set(v):
-		var old_flags: int = flags
 		flags = v
-		flag_changed.emit(old_flags, v)
+		emit_changed()
 ## 禁止交互的实体标识。
 @export var bans: int = 0
 ## 状态效果类型。
@@ -56,13 +52,9 @@ enum Flag {
 ## 禁止的光环类型。
 @export var aura_type_bans: int = 0
 ## 白名单场景名称。
-@export var whitelist := PackedStringArray()
+@export_file("*.tscn") var whitelist: PackedStringArray
 ## 黑名单场景名称。
-@export var blacklist := PackedStringArray()
-
-
-func _init() -> void:
-	resource_local_to_scene = true
+@export_file("*.tscn") var blacklist: PackedStringArray
 
 
 func _validate_property(property: Dictionary) -> void:

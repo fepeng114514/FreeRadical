@@ -1,3 +1,4 @@
+@tool
 extends Component
 class_name ModifierComponent
 ## 状态效果组件。
@@ -21,6 +22,12 @@ enum Type {
 	STUN = 1 << 4,
 }
 
+
+@export var config: ModifierComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
 
 ## 是否跟随目标。
 @export var track_target: bool = true
@@ -47,10 +54,6 @@ var ts: float = 0.0
 ## 当前周期数。
 var curren_cycle: int = 0
 
-
-func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED
-	
 
 func _validate_property(property: Dictionary) -> void:
 	match property.name:

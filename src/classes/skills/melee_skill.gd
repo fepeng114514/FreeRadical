@@ -7,26 +7,24 @@ class_name MeleeSkill
 ## 主要用于 [MeleeComponent] 与 [DodgeComponent] 进行近战技能。
 
 
+@export var config: MeleeSkillNodeConfig = null:
+	set(v):
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 影响资源，用于对目标造成伤害或治愈目标。
-@export var influence: Influence = null:
-	set(v): 
-		influence = v
-		Utils.resource_redraw_setter(self, influence)
+@export var influence: Influence = null
 ## 是否启用搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
 @export var search_at_target_position_enabled: bool = false
 ## 交互策略。
 @export var interact_policy: InteractPolicy = null
 
 
-func _ready() -> void:
-	if Engine.is_editor_hint():
-		Utils.connect_resource_changed(influence, queue_redraw)
-
-
 func _draw() -> void:
-	if Engine.is_editor_hint():
+	if DebugManager.draw_range_enabled:
 		if influence:
-			influence.draw(self, position)
+			influence.draw_influence_range(self, position)
 
 
 func can_use(entity: Entity, target: Entity = null) -> bool:

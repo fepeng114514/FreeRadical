@@ -20,6 +20,8 @@ class_name Level
 
 
 func _enter_tree() -> void:
+	NodeConfigManager.init()
+		
 	GlobalManager.world_size = world_size
 	GameManager.defaul_tower_holder = defaul_tower_holder
 	WaveManager.first_release_wave.connect(_on_first_release_wave)
@@ -30,6 +32,7 @@ func _exit_tree() -> void:
 	SelectManager.clear()
 	PathwayManager.clear()
 	WaveManager.clear()
+	NodeConfigManager.clear()
 
 	get_tree().paused = false
 	Engine.time_scale = 1.0

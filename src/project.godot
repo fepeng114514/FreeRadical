@@ -39,6 +39,7 @@ buses/default_bus_layout="res://autoloads/managers/audio_manager/audio_bus_layou
 [autoload]
 
 EntityUtils="*uid://bvr5hlc6so6aa"
+DebugManager="*uid://dswgweyvy78e4"
 GlobalManager="*uid://ct01c5jk3ruit"
 TranslationManager="*uid://duh6g6j1nnv23"
 InputManager="*uid://co6qf5rf1ox2n"
@@ -53,6 +54,7 @@ DamageManager="*uid://oorn7hxbr0ya"
 TimeManager="*res://autoloads/managers/time_manager.gd"
 GridManager="*uid://bsty3nv6hyvtv"
 PathwayManager="*res://autoloads/managers/pathway_manager.gd"
+NodeConfigManager="*uid://cjutve3qggyot"
 ECSSettingManager="*uid://0xyrcdosy5ag"
 ECSEntityManager="*uid://2v61hpwjm2g1"
 ECSSystemManager="*uid://bmu2424omrcbk"
@@ -171,6 +173,11 @@ track_editor_snap_key_tool={
 
 locale/translation_remaps={}
 locale/translations=PackedStringArray("res://assets/translations/translation.en.translation", "res://assets/translations/translation.zh.translation")
+
+[layer_names]
+
+2d_navigation/layer_1="不可移动"
+2d_navigation/layer_2="可以移动"
 
 [rendering]
 

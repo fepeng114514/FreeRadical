@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="EntityScenePathData" format=3 uid="uid://qg2vv4cgb4dt"]
+[gd_resource type="Resource" script_class="EntitySceneData" format=3 uid="uid://qg2vv4cgb4dt"]
 
 [ext_resource type="Script" uid="uid://6lureyi01lie" path="res://entities/entity_scene_path_data.gd" id="1_26qk6"]
 
 [resource]
 script = ExtResource("1_26qk6")
-scene_path_dict = Dictionary[String, String]({
+scene_name_to_path_map = Dictionary[String, String]({
 "bullet": "res://entities/bullet.tscn",
 "bullet_sword": "res://entities/towers/bullet_sword.tscn",
 "cursor": "res://entities/cursor.tscn",
@@ -64,7 +64,7 @@ scene_path_dict = Dictionary[String, String]({
 "tower_preview_mage": "res://entities/towers/tower_preview/tower_preview_mage.tscn",
 "wave_spawner": "res://entities/wave_spawner.tscn"
 })
-scene_uid_dict = Dictionary[String, String]({
+scene_name_to_uid_map = Dictionary[String, String]({
 "bullet": "uid://2b477amx3god",
 "bullet_sword": "uid://c6gkf0vm8qw33",
 "cursor": "uid://di2ssvmke2yks",

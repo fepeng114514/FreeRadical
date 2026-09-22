@@ -3,7 +3,7 @@ class_name WaveEditor
 
 
 @export_group("Ref")
-@export var entity_scene_path_data: EntityScenePathData = null
+@export var entity_scene_path_data: EntitySceneData = null
 @export var wave_track_editor: TrackEditor = null
 @export var sub_wave_track_editor: TrackEditor = null
 @export var spawn_track_editor: TrackEditor = null
@@ -31,7 +31,7 @@ var selected_spawn: WaveSpawn = null
 
 func _ready() -> void:
 	var enemy_index: int = 0
-	for scene_uid: String in entity_scene_path_data.scene_uid_dict.values():
+	for scene_uid: String in entity_scene_path_data.scene_name_to_uid_map.values():
 		var scene_path: String = ResourceUID.uid_to_path(scene_uid)
 		var scene_name: String = scene_path.get_file().get_basename()
 		if not scene_name.begins_with("enemy_"):

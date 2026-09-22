@@ -7,6 +7,12 @@ class_name BulletComponent
 ## BulletComponent 可以使实体按照飞行轨迹飞行，命中目标后造成影响。
 
 
+@export var config: BulletComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 飞行轨迹资源。
 @export var trajectory: BulletTrajectory = null
 ## 飞行动画组。
@@ -24,10 +30,7 @@ class_name BulletComponent
 ## 击中目标的阈值。
 @export var hit_distance: float = 30.0
 ## 影响资源，用于对目标造成伤害或治愈目标。
-@export var influence: Influence = null:
-	set(v): 
-		influence = v
-		Utils.resource_redraw_setter(self, influence)
+@export var influence: Influence = null
 ## 击中目标后是否移除子弹实体。
 @export var hit_remove: bool = true
 ## 击中后造成伤害的延迟（秒）。
@@ -37,7 +40,7 @@ class_name BulletComponent
 ## 击中音效组。
 @export var hit_sfx: AudioGroup = null
 ## 击中目标时创建的实体场景路径列表。
-@export_file("*.tscn") var hit_payloads := PackedStringArray()
+@export_file("*.tscn") var hit_payloads: PackedStringArray
 
 @export_group("Miss")
 ## 未击中目标时是否移除子弹实体。
@@ -47,7 +50,7 @@ class_name BulletComponent
 ## 未击中音效组。
 @export var miss_sfx: AudioGroup = null
 ## 未击中目标时创建的实体场景路径列表。
-@export_file("*.tscn") var miss_payloads := PackedStringArray()
+@export_file("*.tscn") var miss_payloads: PackedStringArray
 
 ## 伤害倍率。
 var damage_factor: float = 1.0
@@ -65,12 +68,7 @@ var predicted_target_global_position := Vector2.ZERO
 var damaged_entity_ids := PackedInt32Array()
 
 
-func _ready() -> void:
-	if Engine.is_editor_hint():
-		Utils.connect_resource_changed(influence, queue_redraw)
-
-
 func _draw() -> void:
-	if Engine.is_editor_hint():
+	if DebugManager.draw_range_enabled:
 		if influence:
-			influence.draw(self, position)
+			influence.draw_influence_range(self, position)

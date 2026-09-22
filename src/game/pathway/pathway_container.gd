@@ -12,15 +12,6 @@ func _ready() -> void:
 	_process_path_intersection()
 
 
-func _get_configuration_warnings() -> PackedStringArray:
-	var warnings := PackedStringArray()
-		
-	if not get_children():
-		warnings.append("请至少增加一个 Pathway 子节点，否则所有路径相关的操作会出错。")
-		
-	return warnings
-
-
 ## 处理路径相交。
 func _process_path_intersection() -> void:
 	var all_nodes: Array[PathwayNode] = PathwayManager.all_nodes

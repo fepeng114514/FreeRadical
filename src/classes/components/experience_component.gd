@@ -1,3 +1,4 @@
+@tool
 extends Component
 class_name ExperienceComponent
 ## 经验组件。
@@ -7,9 +8,11 @@ class_name ExperienceComponent
 ## @deprecated: 未实现。
 
 
+@export var config: ExperienceComponentNodeConfig = null:
+	set(v):
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 实体等级。
 @export var level: int = 1
-
-
-func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED

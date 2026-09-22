@@ -30,6 +30,12 @@ enum MeleeState {
 }
 
 
+@export var config: MeleeComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 是否不主动前往近战位置。
 @export var is_passive: bool = false
 ## 移动速度。
@@ -37,16 +43,14 @@ enum MeleeState {
 ## 移动动画组。
 @export var motion_animation: AnimationGroup = null
 ## 近战位置偏移组。
-@export var melee_position_offsets: OffsetGroup = null:
-	set(v): 
-		melee_position_offsets = v
-		Utils.resource_redraw_setter(self, melee_position_offsets)
+@export var melee_position_offsets: OffsetGroup = null
 ## 到达位置的阈值。
 @export var arrived_distance: float = 10.0
 
 @export_group("Blocker")
 ## 搜索资源，用于搜索目标。
 @export var searcher: Searcher = null
+
 ## 最大可以拦截数量。
 @export var max_blocked_count: int = 1
 
@@ -74,22 +78,18 @@ var velocity := Vector2.ZERO
 var melee_state: MeleeState = MeleeState.ORIGINAL_POSITION_ARRIVED
 
 
-func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED
-		
-	if Engine.is_editor_hint():
-		Utils.connect_resource_changed(melee_position_offsets, queue_redraw)
-
-
 func _draw() -> void:
-	if Engine.is_editor_hint():
+	if DebugManager.draw_range_enabled:
 		if searcher:
-			searcher.draw(self, position)
-		OffsetGroup.draw_offset_group(self, melee_position_offsets)
-	
-	
+			searcher.draw_search_range(self, position)
+
+	if DebugManager.draw_offset_enabled:
+		if melee_position_offsets:
+			melee_position_offsets.draw_offset_group(self)
+
+
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings := PackedStringArray()
+	var warnings: PackedStringArray = super()
 	
 	if not get_children():
 		warnings.append("请至少增加一个 MeleeSkill 或其类型的子节点，否则实体无法释放近战技能。")

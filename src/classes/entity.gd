@@ -48,31 +48,31 @@ enum SourceType {
 
 
 #region 属性
+## 更新节点配置模板按钮。
+@export_tool_button("更新节点配置模板") var update_config_template: Callable = _update_config_template
+## 节点配置模板。
+@export var node_config_template: NodeConfigTemplateNode = null
+## 节点配置。
+@export var config: EntityNodeConfig = null:
+	set(v):
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 存在时间（秒），实体存在超过 duration 时间后会被移除，默认值为 -1 表示永久存在。
 @export var duration: float = Constants.UNSET
-## 空闲动画组
+## 空闲动画组。
 @export var idle_animation: AnimationGroup = null
-## 生成时播放的动画
+## 生成时播放的动画。
 @export var spawn_animation: AnimationGroup = null
 ## 生成时播放的音效组。
 @export var spawn_sfx: AudioGroup = null
 ## 击中位置偏移组。
-@export var hit_offsets: OffsetGroup = null:
-	set(v): 
-		hit_offsets = v
-		Utils.resource_redraw_setter(self, hit_offsets)
+@export var hit_offsets: OffsetGroup = null
 ## 光环位置偏移组。
-@export var aura_offsets: OffsetGroup = null:
-	set(v): 
-		aura_offsets = v
-		Utils.resource_redraw_setter(self, aura_offsets)
-@export var interact_policy: InteractPolicy = null:
-	set(v):
-		interact_policy = v
-		if interact_policy:
-			var flag_changed: Signal = interact_policy.flag_changed
-			if not flag_changed.is_connected(_on_interact_policy_flag_changed):
-				flag_changed.connect(_on_interact_policy_flag_changed)
+@export var aura_offsets: OffsetGroup = null
+## 交互策略。
+@export var interact_policy: InteractPolicy = null
 
 ## 所有者或来源 ID
 var source_id: int = Constants.UNSET
@@ -105,29 +105,34 @@ var is_first_update: bool = true
 #endregion
 
 
-#region 回调函数
 func _ready() -> void:
 	super()
 
-	if interact_policy:
-		set_entity_groups(interact_policy.get_entity_group_names(), false)
-
-	if Engine.is_editor_hint():
-		Utils.connect_resource_changed(hit_offsets, queue_redraw)
-		Utils.connect_resource_changed(aura_offsets, queue_redraw)
-		
-		if interact_policy:
-			var flag_changed: Signal = interact_policy.flag_changed
-			if not flag_changed.is_connected(_on_interact_policy_flag_changed):
-				flag_changed.connect(_on_interact_policy_flag_changed)
+	DebugManager.draw_state_changed.connect(_on_draw_state_changed)
 
 
 func _draw() -> void:
-	if Engine.is_editor_hint():
-		OffsetGroup.draw_offset_group(self, hit_offsets)
-		OffsetGroup.draw_offset_group(self, aura_offsets)
+	if DebugManager.draw_offset_enabled:
+		if hit_offsets:
+			hit_offsets.draw_offset_group(self)
+		if aura_offsets:
+			aura_offsets.draw_offset_group(self)
 
 
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings: PackedStringArray = NodeConfigManager.get_common_configuration_warnings(self)
+		
+	if not node_config_template:
+		warnings.append("请设置一个 node_config_template 节点配置模板，或点击实体的 “更新节点配置模板” 按钮一键生成。")
+
+	if node_config_template:
+		if not FileAccess.file_exists(node_config_template.resource_path):
+			warnings.append("请将 node_config_template 节点配置模板保存为文件，否则后续无法在节点配置管理器中索引该实体的节点配置模板。")
+
+	return warnings
+
+		
+#region 回调函数
 @warning_ignore_start("unused_parameter")
 ## 插入实体时调用。[br][br]
 ## -> 是否不移除实体。返回 [code]false[/code] 的实体将会被移除
@@ -489,10 +494,74 @@ func _play_animation_in_group(
 	) -> void:
 	for sprite: AnimatedSprite2D in group.get_children():
 		_play_animation(anim_name, sprite, filp_h, speed_scale, force_play)	
-
-
-func _on_interact_policy_flag_changed(old_flags: int, new_flags: int) -> void:
-	if old_flags == new_flags:
-		return
 		
+		
+func _update_config_template() -> void:
+	var scene_file_dir: String = scene_file_path.get_base_dir()
+	var template_dir: String = scene_file_dir.path_join("template")
+	DirAccess.make_dir_absolute(template_dir)
+	Log.verbose("创建配置模板目录: %s" % template_dir)
+
+	var new_config_template := NodeConfigTemplateNode.new()
+
+	if not config:
+		var new_config: NodeConfig = EntityNodeConfig.new()
+		var save_path: String = template_dir.path_join("%s.tres" % name.to_snake_case())
+		new_config = Utils.save_and_load_resource(new_config, save_path)
+		config = new_config
+
+	new_config_template.config = config
+		
+	_build_config_template_node_recursive(self, new_config_template, template_dir)
+
+	var root_save_path: String = template_dir.path_join("node_config_template.tres")
+	node_config_template = Utils.save_and_load_resource(new_config_template, root_save_path)
+	Log.info("生成配置模板: %s" % root_save_path)
+
+
+func _build_config_template_node_recursive(node: Node, current_config_template_parent: NodeConfigTemplateNode, template_dir: String) -> void:
+	for child: Node in node.get_children():
+		var config_prop: Dictionary = {}
+		for prop: Dictionary in child.get_property_list():
+			if prop.name != "config":
+				continue
+
+			config_prop = prop
+			break
+
+		if config_prop.is_empty():
+			continue
+		
+		var node_name: String = child.name
+		var node_path: NodePath = get_path_to(child)
+		var save_dir: String = template_dir.path_join(String(node_path).to_snake_case()).simplify_path()
+		DirAccess.make_dir_absolute(save_dir)
+
+		var config_template_node := NodeConfigTemplateNode.new()
+		config_template_node.name = node_name
+		
+		if child.config:
+			config_template_node.config = child.config
+		else:
+			var cls_name: StringName = config_prop.class_name
+			var cls: Dictionary = GlobalManager.global_classes[cls_name]
+			var new_config: NodeConfig = load(cls.path).new()
+			
+			var save_path: String = save_dir.path_join("%s.tres" % node_name.to_snake_case())
+			new_config = Utils.save_and_load_resource(new_config, save_path)
+			child.config = new_config
+			config_template_node.config = new_config
+			Log.verbose("创建配置: %s" % save_path)
+
+		current_config_template_parent.add_child(config_template_node)
+		_build_config_template_node_recursive(child, config_template_node, template_dir)
+
+
+func _on_draw_state_changed(_draw_type: DebugManager.DrawType) -> void:
+	queue_redraw()
+
+
+func _on_config_changed() -> void:
 	set_entity_groups(interact_policy.get_entity_group_names(), not Engine.is_editor_hint())
+	
+	queue_redraw()

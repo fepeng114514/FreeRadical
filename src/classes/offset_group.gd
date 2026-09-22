@@ -130,23 +130,18 @@ func to_dict() -> Dictionary[String, Vector2]:
 
 
 ## 绘制偏移组。
-static func draw_offset_group(
-		drawer: CanvasItem, offset_group: OffsetGroup ,radius: float = 3, color := Color.GREEN
+func draw_offset_group(
+		drawer: CanvasItem, radius: float = 3, color := Color.GREEN
 	) -> void:
-	if not offset_group:
-		return
-
 	var cross_len: float = radius * 1.5
-	for offset_value: Vector2 in offset_group.to_dict().values():
+	for offset_value: Vector2 in to_dict().values():
 		if not offset_value:
 			continue
 
-		# 中间的圆
 		var fill_color: Color = Color(color.r, color.g, color.b, 0.4)
 		drawer.draw_circle(offset_value, radius * 0.8, fill_color, true)
 		drawer.draw_circle(offset_value, radius, color, false, 1.2)
 
-		# 十字线
 		var p1: Vector2 = offset_value + Vector2(-cross_len, 0)
 		var p2: Vector2 = offset_value + Vector2(cross_len, 0)
 		var p3: Vector2 = offset_value + Vector2(0, -cross_len)

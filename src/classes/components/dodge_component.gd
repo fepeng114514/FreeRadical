@@ -8,6 +8,12 @@ class_name DodgeComponent
 ## @deprecated: 未实现。
 
 
+@export var config: DodgeComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 是否可以闪避远程攻击。
 @export var can_dodge_ranged: bool = true
 ## 是否可以闪避近战技能。
@@ -21,12 +27,8 @@ var ready_skill_index: int = Constants.UNSET
 var target_id: int = Constants.UNSET
 
 
-func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED
-
-
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings := PackedStringArray()
+	var warnings: PackedStringArray = super()
 
 	if not get_children():
 		warnings.append("请至少增加一个 Skill 节点或其类型的节点，否则实体无法反击。")

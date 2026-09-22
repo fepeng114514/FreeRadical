@@ -37,6 +37,18 @@ signal start_skill_cooldown
 var ts: float = 0.0
 
 
+func _ready() -> void:
+	DebugManager.draw_state_changed.connect(_on_draw_state_changed)
+
+	process_mode = Node.PROCESS_MODE_DISABLED
+	
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings: PackedStringArray = NodeConfigManager.get_common_configuration_warnings(self)
+	
+	return warnings
+
+
 @warning_ignore_start("unused_parameter")
 ## 检查技能是否可以释放。
 func can_use(entity: Entity) -> bool:
@@ -76,3 +88,11 @@ func start_cooldown() -> void:
 ## 补偿技能冷却时间。
 func compensate_cooldown() -> void:
 	ts -= compensate_cooldown_percent * cooldown
+
+
+func _on_config_changed() -> void:
+	queue_redraw()
+
+
+func _on_draw_state_changed(_draw_type: DebugManager.DrawType) -> void:
+	queue_redraw()

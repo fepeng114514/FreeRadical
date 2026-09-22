@@ -7,6 +7,12 @@ class_name HealthComponent
 ## HealthComponent 可以使实体拥有血量，血量为 0 时移除实体。
 
 
+@export var config: HealthComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 最大血量。
 @export var hp_max: float = 100.0
 
@@ -51,9 +57,14 @@ class_name HealthComponent
 ## 当前血量。
 var hp: float = 0.0:
 	set(v): 
-		v = clampf(v, 0, hp_max)
-		hp = v
-		health_bar.value = get_hp_percent()
+		hp = clampf(v, 0, hp_max)
+		hp_percent = hp / hp_max * 100
+		health_bar.value = hp_percent
+var hp_percent: float = 0.0:
+	set(v):
+		hp_percent = clampf(v, 0.0, 100.0)
+		hp = hp_percent / 100 * hp_max
+		health_bar.value = hp_percent
 ## 回血时间戳。
 var regen_ts: float = 0.0
 ## 待机回血时间戳。
@@ -64,14 +75,9 @@ var idle_regen_ts: float = 0.0
 
 
 func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED
-	
+	super()
+
 	child_order_changed.connect(_on_child_order_changed)
-
-
-func _on_child_order_changed() -> void:
-	health_bar = get_node_or_null("HealthBar") 
-	update_configuration_warnings()
 
 
 func _validate_property(property: Dictionary):
@@ -81,7 +87,7 @@ func _validate_property(property: Dictionary):
 			
 
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings := PackedStringArray()
+	var warnings: PackedStringArray = super()
 		
 	if not health_bar:
 		warnings.append("请增加一个 HealthBar 子节点，否则实体无法显示血条。")
@@ -89,6 +95,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
-## 获取当前血量百分比。
-func get_hp_percent() -> float:
-	return float(hp) / float(hp_max) * 100
+func _on_child_order_changed() -> void:
+	health_bar = get_node_or_null("HealthBar") 
+	update_configuration_warnings()

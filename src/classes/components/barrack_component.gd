@@ -6,18 +6,18 @@ class_name BarrackComponent
 ## BarrackComponent 可以使实体生成士兵，同时也可以管理士兵列表。
 
 
+@export var config: BarrackComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 是否禁用。
 @export var disabled: bool = false
 ## 最小集结范围。
-@export var rally_min_range: float = 0.0:
-	set(v): 
-		rally_min_range = v
-		Utils.redraw_setter(self)
+@export var rally_min_range: float = 0.0
 ## 最大集结范围。
-@export var rally_max_range: float = 300:
-	set(v): 
-		rally_max_range = v
-		Utils.redraw_setter(self)
+@export var rally_max_range: float = 300
 ## 默认集结点局部位置。
 @export var default_rally_center_position := Vector2.ZERO
 ## 集结点全局位置。
@@ -31,10 +31,7 @@ class_name BarrackComponent
 ## 生成士兵间隔（秒）。
 @export var spawn_interval: float = 10.0
 ## 士兵生成偏移组。
-@export var spawn_offsets: OffsetGroup = null:
-	set(v): 
-		spawn_offsets = v
-		Utils.resource_redraw_setter(self, spawn_offsets)
+@export var spawn_offsets: OffsetGroup = null
 ## 最大士兵数量。
 @export var max_soldier_count: int = 3
 ## 生成士兵播放的动画。
@@ -54,26 +51,50 @@ var last_soldier_count: int = 0
 var last_soldier_list: Array[Entity] = []
 
 
-func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED
-	
-	if Engine.is_editor_hint():
-		Utils.connect_resource_changed(spawn_offsets, queue_redraw)
-	else:
-		pass
-
-
 func _draw() -> void:
-	if Engine.is_editor_hint():
-		OffsetGroup.draw_offset_group(self, spawn_offsets)
-		Utils.draw_range_ellipse(self, position, rally_min_range, rally_max_range, Color(0.201, 0.431, 1.0, 0.2))
+	if DebugManager.draw_offset_enabled:
+		if spawn_offsets:
+			spawn_offsets.draw_offset_group(self)
 		
+	if DebugManager.draw_range_enabled:
+		Utils.draw_range_ellipse(self, position, rally_min_range, rally_max_range, Color(0.201, 0.431, 1.0, 0.2))
+
+	if DebugManager.draw_point_enabled:
+		var rally_center_position: Vector2 = to_local(rally_center_global_position)
 		draw_circle(
-			rally_center_global_position,
+			rally_center_position,
 			9,
-			Color(0.486, 0.294, 1.0, 1.0), 
+			Color.BLUE, 
 			true
 		)
+		draw_line(
+			rally_center_position, 
+			position, 
+			Color.BLUE, 
+			2
+		)
+
+		draw_circle(
+			default_rally_center_position,
+			9,
+			Color.BLUE, 
+			true
+		)
+		draw_dashed_line(
+			default_rally_center_position, 
+			position, 
+			Color.BLUE, 
+			2
+		)
+
+		for i: int in max_soldier_count:
+			var formation_position: Vector2 = to_formation_position(default_rally_center_position, max_soldier_count, i)
+			draw_circle(
+				formation_position,
+				3,
+				Color.BLUE, 
+				true
+			)
 
 
 ## 设置新集结点全局位置。

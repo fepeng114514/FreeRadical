@@ -24,11 +24,11 @@ enum GetValueMode {
 @export_group("Extra")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var extra_enabled: bool = false
 ## 给予的状态效果路径列表。
-@export_file("*.tscn") var mods := PackedStringArray()
+@export_file("*.tscn") var mods: PackedStringArray
 ## 给予的持续状态效果路径列表。
-@export_file("*.tscn") var auras := PackedStringArray()
+@export_file("*.tscn") var auras: PackedStringArray
 ## 创建的实体场景路径列表。
-@export_file("*.tscn") var payloads := PackedStringArray()
+@export_file("*.tscn") var payloads: PackedStringArray
 
 @export_group("Area")
 ## 是否启用范围影响。
@@ -36,20 +36,21 @@ enum GetValueMode {
 ## 搜索资源，用于搜索目标。
 @export var searcher: Searcher = null:
 	set(v): 
+		Utils.rebind_changed(searcher, v, emit_changed)
 		searcher = v
-		if Engine.is_editor_hint():
-			Utils.connect_resource_changed(searcher, emit_changed)
-			emit_changed()
+		emit_changed()
 
 ## 覆盖的影响值，用于使用外部的影响值，会覆盖后续计算的影响值。
 var override_value: float = Constants.UNSET
 
 
-func _init() -> void:
-	resource_local_to_scene = true
+var _init_connect_property_signals: Dictionary[String, Callable] = {
+	"searcher": emit_changed,
+}
 
-	if Engine.is_editor_hint():
-		Utils.connect_resource_changed(searcher, emit_changed)
+
+func _init() -> void:
+	Utils.connect_property_signals(self, _init_connect_property_signals)
 
 
 @warning_ignore_start("unused_parameter")
@@ -82,9 +83,9 @@ func take_influence(source: Entity, base_target: Entity, search_center: Vector2)
 
 
 ## 绘制影响范围。
-func draw(drawer: CanvasItem, center: Vector2) -> void:
+func draw_influence_range(drawer: CanvasItem, center: Vector2) -> void:
 	if searcher:
-		searcher.draw(drawer, center)
+		searcher.draw_search_range(drawer, center)
 
 
 func get_value(source: Entity, target: Entity) -> float:

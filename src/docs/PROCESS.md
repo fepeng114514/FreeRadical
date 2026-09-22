@@ -10,11 +10,12 @@
 2. 为场景挂载各种组件：
    - 如：`SkillComponent` 远程攻击组件，可以使实体向其他实体发射子弹。
    - 一些组件可能有子组件：如 `SkillComponent` 有 `RangedSkill` 单次远程攻击子组件。
-3. 修改组件的属性为想要的属性：
+3. 在实体的检查器中点击 `更新节点配置模板` 按钮，生成节点配置模板。
+4. 修改组件中的配置属性：
    - 如：`RangedSkill` 的攻击范围、攻击速度等。
-4. 可以扩展 `Entity` 的脚本来在一些回调中进行一些操作：
+5. 可以扩展 `Entity` 的脚本来在一些回调中进行一些操作：
    - 如：`_on_update` 回调，每帧会被调用。
-5. 运行 `tools/generate_entity_scene_path_data` 更新场景路径数据 `scenes/entities/entity_scene_path_data.tres`。
+6. 运行 `tools/generate_entity_scene_data` 更新场景数据 `scenes/entities/entity_scene_data.tres` 与节点配置模板数据 `scenes/entities/node_config_template_data.tres`。
 
 > **注意**：为了可复用性不应该依赖扩展脚本来为实体增加逻辑，而是将逻辑抽象为组件的属性，除非该逻辑不会被复用或过于特例化。
 

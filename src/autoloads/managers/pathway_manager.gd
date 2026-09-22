@@ -4,12 +4,6 @@ extends Node
 ## 负责管理路径与相关操作。
 
 
-@warning_ignore_start("unused_signal")
-## 路径绘制状态发生更改时发出。
-signal draw_pathway_changed
-@warning_ignore_restore("unused_signal")
-
-
 ## 路径列表。
 var _pathways: Array[Pathway] = []
 ## 所有路径上的节点列表。
@@ -24,11 +18,6 @@ var sub_pathway_spacing: float = 20.0
 var node_count: int = 256
 ## 路径节点相交距离阈值。
 var intersect_dist_threshold: float = 10.0
-## 是否绘制路径。
-var is_draw_pathway: bool = false:
-	set(v):
-		is_draw_pathway = v
-		draw_pathway_changed.emit()
 	
 
 func clear() -> void:

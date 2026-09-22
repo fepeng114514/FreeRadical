@@ -7,6 +7,12 @@ class_name RallyComponent
 ## RallyComponent 可以使实体移动到指定位置，并支持阵型排列
 
 
+@export var config: RallyComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 移动速度。
 @export var speed: float = 100.0
 ## 是否可点击集结。
@@ -18,7 +24,7 @@ class_name RallyComponent
 
 ## 是否已到达集结位置。
 var arrived: bool = false
-## 是否强制强制集结。
+## 是否强制集结。
 var is_force_rally: bool = false
 ## 集结中心全局位置。
 var rally_center_global_position := Vector2.ZERO
@@ -28,11 +34,11 @@ var rally_center_global_position := Vector2.ZERO
 
 
 func _get_configuration_warnings() -> PackedStringArray:
-	var warnings := PackedStringArray()
-		
+	var warnings: PackedStringArray = super()
+
 	if not navigation_agent:
-		warnings.append("请增加一个 NavigationAgent2D 子节点用作导航。")
-		
+		warnings.append("请增加一个 NavigationAgent2D 子节点用作导航，否则实体无法移动到指定位置。")
+
 	return warnings
 
 

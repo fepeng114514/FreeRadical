@@ -24,15 +24,18 @@ enum TowerType {
 }
 
 
+@export var config: TowerComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 防御塔类型。
 @export var tower_type: TowerType = TowerType.TOWER_HOLDER
 ## 塔位场景路径。
 @export_file("*.tscn") var tower_holder: String = ""
 ## 默认集结点局部位置。
-@export var default_rally_center_position := Vector2.ZERO:
-	set(v): 
-		default_rally_center_position = v
-		Utils.redraw_setter(self)
+@export var default_rally_center_position := Vector2.ZERO
 
 @export_group("Sell")
 ## 价格。
@@ -44,11 +47,11 @@ enum TowerType {
 
 @export_group("Shooter Switch")
 ## 是否启用射手轮换释放技能。
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var shooter_switch_enabled: bool = false
-## 轮换的射手实体列表。
-@export var shooter_switch_list: Array[Entity] = []
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var shooter_alternation_enabled: bool = false
+## 轮换的射手实体索引列表。
+@export var shooter_alternation_indexes: Array[int] = []
 ## 轮换释放技能偏移时间（秒）。
-@export var shooter_switch_offset: float = 0.1
+@export var shooter_alternation_offset: float = 0.1
 
 ## 总价格。
 var total_price: float = price
@@ -61,22 +64,27 @@ var is_builded: bool = false
 ## 时间戳。
 var ts: float = 0.0
 ## 当前轮换到的射手实体索引。
-var current_shooter_switch_index: int = -1
+var shooter_alternation_index: int = -1
+
+
+func _ready() -> void:
+	super()
+	
+	process_mode = Node.PROCESS_MODE_INHERIT
 
 
 func _draw() -> void:
-	if Engine.is_editor_hint():
+	if DebugManager.draw_point_enabled:
 		if default_rally_center_position:
 			draw_circle(
 				default_rally_center_position,
 				9,
-				Color.BLUE, 
+				Color.BLUE,
 				true
 			)
-			draw_line(
-				default_rally_center_position, 
-				position, 
-				Color.BLUE, 
+			draw_dashed_line(
+				default_rally_center_position,
+				position,
+				Color.BLUE,
 				2
 			)
-		

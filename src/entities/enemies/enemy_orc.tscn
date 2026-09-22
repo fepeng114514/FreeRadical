@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://drgcomkmcowby"]
 
-[ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://entities/enemies/enemy.tscn" id="1_wlnjt"]
+[ext_resource type="PackedScene" uid="uid://d1kxh6e7m4mc1" path="res://entities/enemies/new folder/enemy.tscn" id="1_wlnjt"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_w5ikr"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_572ol"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_bomnd"]

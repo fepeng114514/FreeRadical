@@ -89,29 +89,26 @@ func _on_update(_delta: float) -> void:
 
 
 func _on_start_skill_cooldown(used_skill: Skill, tower_c: TowerComponent, used_shooter: Entity) -> void:
-	if not tower_c.shooter_switch_enabled:
+	if not tower_c.shooter_alternation_enabled:
+		return
+		
+	var shooter_alternation_indexes: Array[int] = tower_c.shooter_alternation_indexes
+	var shooter_alternation_indexes_size: int = shooter_alternation_indexes.size()
+	if shooter_alternation_indexes_size <= 1:
 		return
 
-	var shooter_switch_list: Array[Entity] = tower_c.shooter_switch_list
-	var shooter_switch_list_size: int = shooter_switch_list.size()
-	if shooter_switch_list_size <= 1:
-		return
-
-	var current_shooter_switch_index: int = tower_c.current_shooter_switch_index
-	if not Utils.is_valid_number(current_shooter_switch_index):
-		current_shooter_switch_index = shooter_switch_list.find(used_shooter)
+	var shooter_alternation_index: int = tower_c.shooter_alternation_index
+	if not Utils.is_valid_number(shooter_alternation_index):
+		shooter_alternation_index = shooter_alternation_indexes.find(used_shooter.get_index())
 	
-	tower_c.current_shooter_switch_index = (current_shooter_switch_index + 1) % shooter_switch_list_size
+	shooter_alternation_index = (shooter_alternation_index + 1) % shooter_alternation_indexes_size
+	tower_c.shooter_alternation_index = shooter_alternation_index
 
-	for shooter_index: int in shooter_switch_list_size:
-		var shooter: Entity = shooter_switch_list[shooter_index]
+	for shooter_index: int in shooter_alternation_indexes:
+		var shooter: Entity = tower_c.get_child(shooter_index)
 		if shooter == used_shooter:
 			continue
 
 		var skill_c: SkillComponent = shooter.get_node_or_null(Constants.CN_SKILL)
 		for skill: Skill in skill_c.get_children():
-			skill.ts = used_skill.ts
-
-			if tower_c.current_shooter_switch_index == shooter_index:
-				skill.ts -= tower_c.shooter_switch_offset
-				continue
+			skill.ts = used_skill.ts - tower_c.shooter_alternation_offset

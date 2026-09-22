@@ -54,22 +54,19 @@ enum Flag {
 ## 中心偏移量。
 @export var center_offsets: OffsetGroup = null:
 	set(v): 
+		Utils.rebind_changed(center_offsets, v, emit_changed)
 		center_offsets = v
-		if Engine.is_editor_hint():
-			Utils.connect_resource_changed(center_offsets, emit_changed)
-			emit_changed()
+		emit_changed()
 ## 最小半径。
 @export var min_radius: float = 0.0:
 	set(v): 
 		min_radius = v
-		if Engine.is_editor_hint():
-			emit_changed()
+		emit_changed()
 ## 最大半径。
 @export var max_radius: float = 0.0:
 	set(v): 
 		max_radius = v
-		if Engine.is_editor_hint():
-			emit_changed()
+		emit_changed()
 ## 最大搜索数量。
 @export var max_search: int = Constants.UNSET
 ## 排序模式。
@@ -83,9 +80,13 @@ enum Flag {
 ## 交互策略。
 @export var interact_policy: InteractPolicy = null
 
+var _init_connect_property_signals: Dictionary[String, Callable] = {
+	"center_offsets": emit_changed,
+}
+
 
 func _init() -> void:
-	resource_local_to_scene = true
+	Utils.connect_property_signals(self, _init_connect_property_signals)
 
 
 func _validate_property(property: Dictionary) -> void:
@@ -149,11 +150,11 @@ func search_target(center: Vector2, search_entity: Entity = null, filter := Call
 
 
 ## 绘制搜索范围。
-func draw(drawer: CanvasItem, center: Vector2) -> void:
+func draw_search_range(drawer: CanvasItem, center: Vector2) -> void:
 	if center_offsets:
 		Utils.draw_range_ellipse(drawer, center + center_offsets.right, min_radius, max_radius)
 
-		OffsetGroup.draw_offset_group(drawer, center_offsets)
+		center_offsets.draw_offset_group(drawer)
 	else:
 		Utils.draw_range_ellipse(drawer, center, min_radius, max_radius)
 

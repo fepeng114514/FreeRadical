@@ -63,21 +63,18 @@ var component_entity_groups_indexes: Dictionary[StringName, int] = {}
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		pass
-	else:
-		scene_name = scene_file_path.get_file().get_basename()
-		localization_key = scene_name.to_upper()
+	scene_name = scene_file_path.get_file().get_basename()
+	localization_key = scene_name.to_upper()
 
-		for child: Node in get_children():
-			if not child is Component:
-				continue
+	for child: Node in get_children():
+		if not child is Component:
+			continue
 
-			var node_script: GDScript = child.get_script()
-			var node_class_name: StringName = node_script.get_global_name()
-				
-			components[node_class_name] = child
-			component_names.append(node_class_name)
+		var node_script: GDScript = child.get_script()
+		var node_class_name: StringName = node_script.get_global_name()
+			
+		components[node_class_name] = child
+		component_names.append(node_class_name)
 
 
 func _validate_property(property: Dictionary) -> void:

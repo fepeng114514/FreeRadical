@@ -1,7 +1,8 @@
+@tool
 extends Component
 class_name AuraComponent
 ## 光环组件。
-## 
+##
 ## AuraComponent 可以使实体可周期性对范围内其他实体造成影响。
 
 
@@ -16,6 +17,12 @@ enum Type {
 }
 
 
+@export var config: AuraComponentNodeConfig = null:
+	set(v): 
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 是否跟随目标。
 @export var track_target: bool = true
 ## 相同处理资源。
@@ -23,15 +30,9 @@ enum Type {
 ## 是否移除被禁止的光环。
 @export var remove_banned: bool = true
 ## 影响资源，用于对目标造成伤害或治愈目标。
-@export var influence: Influence = null:
-	set(v): 
-		influence = v
-		Utils.resource_redraw_setter(self, influence)
+@export var influence: Influence = null
 ## 搜索资源，用于搜索目标。
-@export var searcher: Searcher = null:
-	set(v): 
-		searcher = v
-		Utils.resource_redraw_setter(self, searcher)
+@export var searcher: Searcher = null
 
 @export_group("Cycle")
 ## 周期时间。
@@ -45,14 +46,6 @@ var current_cycle: int = 0
 var ts: float = 0.0
 
 
-func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_DISABLED
-
-	if Engine.is_editor_hint():
-		Utils.connect_resource_changed(searcher, queue_redraw)
-		Utils.connect_resource_changed(influence, queue_redraw)
-
-
 func _validate_property(property: Dictionary):
 	match property.name:
 		"aura_type":
@@ -60,9 +53,8 @@ func _validate_property(property: Dictionary):
 
 
 func _draw() -> void:
-	if Engine.is_editor_hint():
+	if DebugManager.draw_range_enabled:
 		if searcher:
-			searcher.draw(self, position)
-		
+			searcher.draw_search_range(self, position)
 		if influence:
-			influence.draw(self, position)
+			influence.draw_influence_range(self, position)

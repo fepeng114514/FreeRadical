@@ -6,6 +6,12 @@ class_name SpriteComponent
 ## SpriteComponent 可以使实体拥有显示精灵的能力，精灵以 [Sprite] 或 [AnimatedSprite2D] 子节点的形式存在。
 
 
+@export var config: SpriteComponentNodeConfig = null:
+	set(v):
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
+		update_configuration_warnings()
+
 ## 精灵名称。
 @export var sprite_name: String = ""
 
@@ -16,10 +22,7 @@ class_name SpriteComponent
 @export var sync_animations: SyncAnimationsData = null
 
 
-func _get_configuration_warnings() -> PackedStringArray:
-	var warnings := PackedStringArray()
-		
-	if not get_children():
-		warnings.append("请至少增加一个 AnimatedSprite2D、Sprite2D、SpriteGroup 节点")
-		
-	return warnings
+func _ready() -> void:
+	super()
+	
+	process_mode = Node.PROCESS_MODE_INHERIT
