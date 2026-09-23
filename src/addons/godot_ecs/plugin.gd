@@ -2,7 +2,6 @@
 extends EditorPlugin
 
 
-const ECS_DATA_DIR: String = "res://.godot_ecs/"
 const ECS_DIR: String = "res://addons/godot_ecs/"
 const ECS_AUTOLOADS_DIR: String = "res://addons/godot_ecs/autoloads/"
 
@@ -26,9 +25,6 @@ func _exit_tree() -> void:
 
 
 func _enable_plugin() -> void:
-	if not DirAccess.dir_exists_absolute(ECS_DATA_DIR):
-		DirAccess.make_dir_absolute(ECS_DATA_DIR)
-		
 	for manager_name: String in MANAGER_PATH_DICT:
 		add_autoload_singleton(manager_name, MANAGER_PATH_DICT[manager_name])
 	
