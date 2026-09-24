@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://bubogx21tfcoe"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_61j8u"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="2_rcaok"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_y8gcj"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="3_8x5mn"]
+[ext_resource type="Script" uid="uid://dik34npwy07xl" path="res://classes/bullet_trajectories/track_trajectory.gd" id="4_jlxxn"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="6_42e8m"]
+[ext_resource type="SpriteFrames" uid="uid://c67baw6nrd87f" path="res://assets/atlas/sprite_frames/towers/tower_mage_bolt.tres" id="7_mls5n"]
+
+[sub_resource type="Resource" id="Resource_tsw1o"]
+resource_local_to_scene = true
+script = ExtResource("2_y8gcj")
+right = &"idle_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_mage_traj"]
+script = ExtResource("4_jlxxn")
+flight_speed = 500.0
+
+[sub_resource type="Resource" id="Resource_grujq"]
+resource_local_to_scene = true
+script = ExtResource("2_y8gcj")
+right = &"flying_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_4apn3"]
+resource_local_to_scene = true
+script = ExtResource("2_rcaok")
+damage_type = 2
+min_value = 15.0
+max_value = 21.0
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
+
+[sub_resource type="Resource" id="Resource_w0po8"]
+resource_local_to_scene = true
+script = ExtResource("2_y8gcj")
+right = &"hit_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[node name="TowerMageLvl1Bullet" type="Node2D" unique_id=511000022]
+z_index = 10
+script = ExtResource("1_61j8u")
+idle_animation = SubResource("Resource_tsw1o")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="BulletComponent" type="Node2D" parent="." unique_id=490791954]
+process_mode = 4
+script = ExtResource("3_8x5mn")
+trajectory = SubResource("Resource_mage_traj")
+flight_animation = SubResource("Resource_grujq")
+influence = SubResource("Resource_4apn3")
+hit_animation = SubResource("Resource_w0po8")
+metadata/_custom_type_script = "uid://haoljvofy74e"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1302005454]
+script = ExtResource("6_42e8m")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=435859138]
+position = Vector2(12, 0)
+sprite_frames = ExtResource("7_mls5n")
+animation = &"flying_left_right"

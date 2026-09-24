@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://cdu8pyq7bit5w"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_3d0mc"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="2_gseup"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_kobwo"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_rxdv1"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_x0vww"]
+[ext_resource type="SpriteFrames" uid="uid://dlb447m72ai8p" path="res://assets/atlas/sprite_frames/towers/tower_mage_shooter.tres" id="4_4cu3x"]
+[ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="5_bnf7u"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/search_skills/ranged_skill.gd" id="6_lnw8x"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="7_6aw00"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="10_wdlhs"]
+
+[sub_resource type="Resource" id="Resource_j5iil"]
+resource_local_to_scene = true
+script = ExtResource("2_rxdv1")
+up = &"idle_up"
+down = &"idle_down"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_c4v6e"]
+script = ExtResource("7_6aw00")
+up = Vector2(13.05, -34.11)
+down = Vector2(-12.69, -34.47)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_3alau"]
+resource_local_to_scene = true
+script = ExtResource("2_kobwo")
+flags = 1048640
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_4pd6d"]
+resource_local_to_scene = true
+script = ExtResource("2_gseup")
+max_radius = 360.0
+interact_policy = SubResource("Resource_3alau")
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_84ovf"]
+resource_local_to_scene = true
+script = ExtResource("2_rxdv1")
+up = &"ranged_up"
+down = &"ranged_down"
+
+[sub_resource type="Resource" id="Resource_vtoys"]
+script = ExtResource("10_wdlhs")
+list = PackedStringArray("uid://b4j870vtyljlk")
+delay = 0.3
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[node name="TowerMageLvl3Shooter" type="Node2D" unique_id=1442245649]
+script = ExtResource("1_3d0mc")
+idle_animation = SubResource("Resource_j5iil")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1069558628]
+script = ExtResource("3_x0vww")
+sync_source = true
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=274561601]
+position = Vector2(0, -24)
+sprite_frames = ExtResource("4_4cu3x")
+animation = &"idle_down"
+
+[node name="SkillComponent" type="Node2D" parent="." unique_id=1268978688]
+process_mode = 4
+script = ExtResource("5_bnf7u")
+metadata/_custom_type_script = "uid://7hja048qjkj0"
+
+[node name="RangedSkill" type="Node2D" parent="SkillComponent" unique_id=14077948]
+process_mode = 4
+script = ExtResource("6_lnw8x")
+bullet_scene = "uid://c77v7yq60lpig"
+bullet_offsets = SubResource("Resource_c4v6e")
+searcher = SubResource("Resource_4pd6d")
+cooldown = 1.5
+delay = 0.33
+animation = SubResource("Resource_84ovf")
+sfx = SubResource("Resource_vtoys")
+metadata/_custom_type_script = "uid://covaxdshxnvkn"

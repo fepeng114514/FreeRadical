@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://chfqusguy3cig"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_3gbpp"]
+[ext_resource type="Texture2D" uid="uid://w2e0h43x7o31" path="res://assets/atlas/atlas_textures/towers/tower_preview_artillery.tres" id="2_cly38"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_m67ls"]
+
+[node name="TowerPreviewArtillery" type="Node2D" unique_id=869103732]
+script = ExtResource("1_3gbpp")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1231309932]
+script = ExtResource("2_m67ls")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1097269827]
+modulate = Color(1, 1, 1, 0.69803923)
+position = Vector2(-3, -51)
+texture = ExtResource("2_cly38")

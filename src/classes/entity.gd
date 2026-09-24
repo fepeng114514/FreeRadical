@@ -209,12 +209,6 @@ func _to_string():
 
 
 #region 实体相关方法
-
-## 获取本土化名称
-func get_localized_name() -> String:
-	return tr(scene_name.to_upper())
-
-
 ## 设置实体全局位置，根据拥有的组件智能赋值
 func set_global_position_with_components(new_global_position: Vector2) -> void:
 	global_position = new_global_position

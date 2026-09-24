@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="AreaSkillNodeConfig" format=3 uid="uid://bw4p4h8ni3prh"]
+
+[ext_resource type="Script" uid="uid://dstvwpfqottjr" path="res://classes/node_configs/skills/search_skills/area_skill_node_config.gd" id="1_62eex"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_b0fxv"]
+[ext_resource type="Script" uid="uid://bu7q2xp2xd78b" path="res://classes/influences/influence.gd" id="2_id68l"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_nau3v"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="4_xvo0b"]
+
+[sub_resource type="Resource" id="Resource_lc2l3"]
+resource_local_to_scene = true
+script = ExtResource("1_b0fxv")
+right = &"heal_left_right"
+right_replace_left = true
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_0kv7w"]
+resource_local_to_scene = true
+script = ExtResource("3_nau3v")
+flags = 32
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_8umbj"]
+resource_local_to_scene = true
+script = ExtResource("4_xvo0b")
+max_radius = 126.0
+max_search = 3
+sort_mode = 2
+sort_reversed_enabled = true
+searched_group = 3
+interact_policy = SubResource("Resource_0kv7w")
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_t5fix"]
+resource_local_to_scene = true
+script = ExtResource("2_id68l")
+extra_enabled = true
+mods = PackedStringArray("uid://gjv8x6puntrs")
+area_enabled = true
+searcher = SubResource("Resource_8umbj")
+metadata/_custom_type_script = "uid://bu7q2xp2xd78b"
+
+[resource]
+script = ExtResource("1_62eex")
+influence = SubResource("Resource_t5fix")
+cooldown = 8.0
+chance = 0.267
+animation = SubResource("Resource_lc2l3")

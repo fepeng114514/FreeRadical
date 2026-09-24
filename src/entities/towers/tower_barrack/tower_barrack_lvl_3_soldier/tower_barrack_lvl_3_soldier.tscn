@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://bg7aeaobp45q8"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_53bn1"]
+[ext_resource type="SpriteFrames" uid="uid://cgn27n5ybf23x" path="res://assets/atlas/sprite_frames/towers/tower_barracks_soldier_lvl3.tres" id="2_41ehm"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_46uut"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_obj8f"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="3_uposi"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_6rvo5"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="4_uposi"]
+[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component.gd" id="6_j8h26"]
+[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_bar.tscn" id="7_cqfoe"]
+[ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="8_n2hpy"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="9_2slps"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="11_sh6i2"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="13_hbg25"]
+[ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://classes/components/rally_component.gd" id="14_chpwj"]
+
+[sub_resource type="Resource" id="Resource_cb875"]
+resource_local_to_scene = true
+script = ExtResource("2_46uut")
+right = &"idle_left_right"
+right_replace_left = true
+
+[sub_resource type="Resource" id="Resource_c7pnu"]
+resource_local_to_scene = true
+script = ExtResource("2_obj8f")
+flags = 4
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_v26qd"]
+resource_local_to_scene = true
+script = ExtResource("2_46uut")
+right = &"death_left_right"
+right_replace_left = true
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_twyrh"]
+resource_local_to_scene = true
+script = ExtResource("2_46uut")
+right = &"walk_left_right"
+right_replace_left = true
+
+[sub_resource type="Resource" id="Resource_prid8"]
+script = ExtResource("9_2slps")
+right_replace_left = true
+right = Vector2(34.92, 0)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_vu2ih"]
+resource_local_to_scene = true
+script = ExtResource("2_obj8f")
+flags = 2097152
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_0tyx3"]
+resource_local_to_scene = true
+script = ExtResource("3_uposi")
+max_radius = 100.0
+interact_policy = SubResource("Resource_vu2ih")
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_2lnej"]
+resource_local_to_scene = true
+script = ExtResource("4_uposi")
+damage_flags = 2097152
+min_value = 10.0
+max_value = 14.0
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
+
+[sub_resource type="Resource" id="Resource_1qosv"]
+resource_local_to_scene = true
+script = ExtResource("2_obj8f")
+flags = 2097152
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_1wcxj"]
+resource_local_to_scene = true
+script = ExtResource("2_46uut")
+right = &"melee_left_right"
+right_replace_left = true
+
+[node name="TowerBarrackLvl3Soldier" type="Node2D" unique_id=1677548747]
+script = ExtResource("1_53bn1")
+idle_animation = SubResource("Resource_cb875")
+interact_policy = SubResource("Resource_c7pnu")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=389197924]
+show_behind_parent = true
+script = ExtResource("4_6rvo5")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1889529730]
+position = Vector2(0, -34)
+sprite_frames = ExtResource("2_41ehm")
+animation = &"idle_left_right"
+
+[node name="HealthComponent" type="Node2D" parent="." unique_id=949799713]
+process_mode = 4
+script = ExtResource("6_j8h26")
+hp_max = 160.0
+physical_armor = 0.5
+idle_regen_hp = 10.0
+idle_regen_cooldown = 1.0
+death_animation = SubResource("Resource_v26qd")
+metadata/_custom_type_script = "uid://ly8ldtphpxmy"
+
+[node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("7_cqfoe")]
+offset_top = -46.0
+offset_right = 21.0
+offset_bottom = -40.0
+
+[node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156]
+process_mode = 4
+script = ExtResource("8_n2hpy")
+speed = 175.0
+motion_animation = SubResource("Resource_twyrh")
+melee_position_offsets = SubResource("Resource_prid8")
+searcher = SubResource("Resource_0tyx3")
+metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
+
+[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
+process_mode = 4
+script = ExtResource("11_sh6i2")
+influence = SubResource("Resource_2lnej")
+interact_policy = SubResource("Resource_1qosv")
+delay = 0.2
+animation = SubResource("Resource_1wcxj")
+metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
+
+[node name="SelectComponent" type="Node2D" parent="." unique_id=346591849]
+process_mode = 4
+script = ExtResource("13_hbg25")
+select_rect = Rect2(-15.555, -40.245, 32.735, 40.255)
+info_bar_type = 1
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="RallyComponent" type="Node2D" parent="." unique_id=1216108052]
+process_mode = 4
+script = ExtResource("14_chpwj")
+speed = 175.0
+can_select_rally = false
+motion_animation = SubResource("Resource_twyrh")
+metadata/_custom_type_script = "uid://2keyy5hsydyv"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="RallyComponent" unique_id=375943738]
+navigation_layers = 2

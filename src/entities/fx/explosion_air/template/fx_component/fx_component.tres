@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="FXComponentNodeConfig" format=3 uid="uid://dhhe7lqbeqxqp"]
+
+[ext_resource type="Script" uid="uid://y0nn337l8si2" path="res://classes/node_configs/components/fx_component_node_config.gd" id="1_mabgw"]
+
+[resource]
+script = ExtResource("1_mabgw")

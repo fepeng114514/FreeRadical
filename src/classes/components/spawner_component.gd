@@ -4,8 +4,6 @@ class_name SpawnerComponent
 ## 生成器组件。
 ##
 ## SpawnerComponent 可以使实体拥有生成其他实体的能力。
-## @deprecated
-## @deprecated: 未实现。
 
 
 @export var config: SpawnerComponentNodeConfig = null:

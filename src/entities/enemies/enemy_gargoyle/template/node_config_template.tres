@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://bwbtdvm1v1x76"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_45fpv"]
+[ext_resource type="Resource" uid="uid://dm0vkhl7jciwy" path="res://entities/enemies/enemy_gargoyle/template/sprite_component/sprite_component.tres" id="2_5oc5y"]
+[ext_resource type="Resource" uid="uid://hay8343a7h7e" path="res://entities/enemies/enemy_gargoyle/template/health_component/health_component.tres" id="3_nfvtf"]
+[ext_resource type="Resource" uid="uid://dmauw547d03np" path="res://entities/enemies/enemy_gargoyle/template/nav_path_component/nav_path_component.tres" id="4_yotbv"]
+[ext_resource type="Resource" uid="uid://t2ngm0pt8wbe" path="res://entities/enemies/enemy_gargoyle/template/select_component/select_component.tres" id="5_14crd"]
+[ext_resource type="Resource" uid="uid://soqe3myyoyxi" path="res://entities/enemies/enemy_gargoyle/template/enemy_gargoyle.tres" id="6_axiq0"]
+
+[sub_resource type="Resource" id="Resource_45fpv"]
+script = ExtResource("1_45fpv")
+name = "SpriteComponent"
+config = ExtResource("2_5oc5y")
+
+[sub_resource type="Resource" id="Resource_5oc5y"]
+script = ExtResource("1_45fpv")
+name = "HealthComponent"
+config = ExtResource("3_nfvtf")
+
+[sub_resource type="Resource" id="Resource_nfvtf"]
+script = ExtResource("1_45fpv")
+name = "NavPathComponent"
+config = ExtResource("4_yotbv")
+
+[sub_resource type="Resource" id="Resource_yotbv"]
+script = ExtResource("1_45fpv")
+name = "SelectComponent"
+config = ExtResource("5_14crd")
+
+[resource]
+script = ExtResource("1_45fpv")
+config = ExtResource("6_axiq0")
+children = Array[ExtResource("1_45fpv")]([SubResource("Resource_45fpv"), SubResource("Resource_5oc5y"), SubResource("Resource_nfvtf"), SubResource("Resource_yotbv")])
+children_dict = Dictionary[String, ExtResource("1_45fpv")]({
+"HealthComponent": SubResource("Resource_5oc5y"),
+"NavPathComponent": SubResource("Resource_nfvtf"),
+"SelectComponent": SubResource("Resource_yotbv"),
+"SpriteComponent": SubResource("Resource_45fpv")
+})

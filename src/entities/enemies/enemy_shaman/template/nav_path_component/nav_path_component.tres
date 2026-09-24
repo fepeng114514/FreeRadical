@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="NavPathComponentNodeConfig" format=3 uid="uid://ckgupyrcoxulu"]
+
+[ext_resource type="Script" uid="uid://c6rbumergprcn" path="res://classes/node_configs/components/nav_path_component_node_config.gd" id="1_cp3a1"]
+[ext_resource type="Resource" uid="uid://dlpsu2cujogxf" path="res://entities/resources/4way_motion_animation_group.tres" id="1_knkn0"]
+
+[resource]
+script = ExtResource("1_cp3a1")
+speed = 50.0
+motion_animation = ExtResource("1_knkn0")

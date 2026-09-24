@@ -12,9 +12,6 @@ class_name SpriteComponent
 		config = v
 		update_configuration_warnings()
 
-## 精灵名称。
-@export var sprite_name: String = ""
-
 @export_group("Sync Animation")
 ## 是否所有者同步播放动画。
 @export var sync_source: bool = false

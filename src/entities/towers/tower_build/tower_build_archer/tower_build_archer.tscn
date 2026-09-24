@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://boyec531alt4"]
+
+[ext_resource type="Script" uid="uid://wwnvcleqo7tf" path="res://entities/towers/tower_build/tower_build.gd" id="1_hheey"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="2_083xy"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_cl517"]
+[ext_resource type="Texture2D" uid="uid://7ic7ga1sd2k8" path="res://assets/atlas/atlas_textures/towers/tower_constructing_0004.tres" id="3_jldj6"]
+[ext_resource type="Texture2D" uid="uid://chyxjndu181vq" path="res://assets/atlas/atlas_textures/towers/buildbar_bg.tres" id="5_ity5f"]
+[ext_resource type="Texture2D" uid="uid://bgjhnd4txiyw1" path="res://assets/atlas/atlas_textures/towers/buildbar.tres" id="6_27fjl"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="7_613bd"]
+
+[sub_resource type="Resource" id="Resource_1cokw"]
+script = ExtResource("2_083xy")
+list = PackedStringArray("uid://d0m4poic6q3ge")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[node name="TowerBuildArcher" type="Node2D" unique_id=1530244974 node_paths=PackedStringArray("progress_bar")]
+script = ExtResource("1_hheey")
+show_time = 1.25
+build_target = "uid://biuewnv7ms46d"
+progress_bar = NodePath("TextureProgressBar")
+spawn_sfx = SubResource("Resource_1cokw")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1200020081]
+script = ExtResource("3_cl517")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1433762339]
+position = Vector2(3, -51)
+texture = ExtResource("3_jldj6")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=1035382269]
+offset_left = -43.0
+offset_top = -61.0
+offset_right = 47.0
+offset_bottom = -45.0
+value = 100.0
+texture_under = ExtResource("5_ity5f")
+texture_progress = ExtResource("6_27fjl")
+texture_progress_offset = Vector2(4, 4)
+
+[node name="TowerComponent" type="Node2D" parent="." unique_id=2020079873]
+script = ExtResource("7_613bd")
+tower_type = 5
+metadata/_custom_type_script = "uid://d104itkl6l02e"

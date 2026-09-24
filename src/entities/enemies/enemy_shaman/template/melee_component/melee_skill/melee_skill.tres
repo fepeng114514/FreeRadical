@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="MeleeSkillNodeConfig" format=3 uid="uid://dgfvhlfviklv2"]
+
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_02l78"]
+[ext_resource type="Script" uid="uid://cldoc6ek143w4" path="res://classes/node_configs/skills/melee_skill_node_config.gd" id="1_i4o8j"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="2_cjfca"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_2a45a"]
+
+[sub_resource type="Resource" id="Resource_m3i2n"]
+resource_local_to_scene = true
+script = ExtResource("1_02l78")
+right = &"melee_left_right"
+right_replace_left = true
+
+[sub_resource type="Resource" id="Resource_7cuwb"]
+resource_local_to_scene = true
+script = ExtResource("2_cjfca")
+min_value = 3.0
+max_value = 5.0
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
+
+[sub_resource type="Resource" id="Resource_cq7mr"]
+resource_local_to_scene = true
+script = ExtResource("3_2a45a")
+flags = 2097152
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[resource]
+script = ExtResource("1_i4o8j")
+influence = SubResource("Resource_7cuwb")
+interact_policy = SubResource("Resource_cq7mr")
+delay = 0.3
+animation = SubResource("Resource_m3i2n")

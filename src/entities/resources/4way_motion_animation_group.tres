@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AnimationGroup" format=3 uid="uid://dlpsu2cujogxf"]
+
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_xxweu"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_xxweu")
+right = &"walk_left_right"
+right_replace_left = true
+up = &"walk_up"
+down = &"walk_down"

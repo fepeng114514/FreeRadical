@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EntityNodeConfig" format=3 uid="uid://bhsci0orpiexb"]
+
+[ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="1_bbtqd"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="1_gn56m"]
+[ext_resource type="Resource" uid="uid://ba03oi0nlq748" path="res://entities/resources/horizontal_idle_animation_group.tres" id="2_gn56m"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_63nww"]
+
+[sub_resource type="Resource" id="Resource_06yx3"]
+script = ExtResource("1_gn56m")
+any = Vector2(0, -14.67)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_fnv8a"]
+resource_local_to_scene = true
+script = ExtResource("3_63nww")
+flags = 1
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[resource]
+script = ExtResource("1_bbtqd")
+idle_animation = ExtResource("2_gn56m")
+hit_offsets = SubResource("Resource_06yx3")
+interact_policy = SubResource("Resource_fnv8a")

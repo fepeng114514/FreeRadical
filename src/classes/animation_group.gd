@@ -34,6 +34,10 @@ class_name AnimationGroup
 @export var any: StringName = &""
 
 
+func _init():
+	resource_local_to_scene = true
+
+
 func _validate_property(property: Dictionary):
 	match property.name:
 		"left":

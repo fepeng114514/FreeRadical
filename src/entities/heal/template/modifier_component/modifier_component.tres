@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ModifierComponentNodeConfig" format=3 uid="uid://2rev4xwcmmrq"]
+
+[ext_resource type="Script" uid="uid://ckhydj2qpt5tb" path="res://classes/influences/heal_influence.gd" id="1_co5jg"]
+[ext_resource type="Script" uid="uid://duorb4sib6dq6" path="res://classes/property_modifier.gd" id="1_teq83"]
+[ext_resource type="Script" uid="uid://b1ikhe7vi1sfj" path="res://classes/node_configs/components/modifier_component_node_config.gd" id="2_co5jg"]
+
+[sub_resource type="Resource" id="Resource_6hc10"]
+resource_local_to_scene = true
+script = ExtResource("1_co5jg")
+metadata/_custom_type_script = "uid://ckhydj2qpt5tb"
+
+[resource]
+script = ExtResource("2_co5jg")
+influence = SubResource("Resource_6hc10")

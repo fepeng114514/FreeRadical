@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://wxrkke7541g"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_y1lgp"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_k8rij"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_lg6ln"]
+[ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://entities/towers/tower_mage/tower_mage_lvl_1_shooter/tower_mage_lvl_1_shooter.tscn" id="3_j8o77"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_til4g"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="5_psqef"]
+[ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/sync_animations_data.gd" id="6_35olp"]
+[ext_resource type="SpriteFrames" uid="uid://uujnab0042kx" path="res://assets/atlas/sprite_frames/towers/tower_mage_lvl1.tres" id="7_cc3kd"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="8_oyrv1"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="10_dpb4m"]
+
+[sub_resource type="Resource" id="Resource_dobkv"]
+resource_local_to_scene = true
+script = ExtResource("2_k8rij")
+any = &"idle"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_dxk8f"]
+script = ExtResource("3_til4g")
+list = PackedStringArray("uid://d0f7melsijrru", "uid://ultbty078qj", "uid://c5tbkrb0rbuv5")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[sub_resource type="Resource" id="Resource_e01we"]
+resource_local_to_scene = true
+script = ExtResource("2_lg6ln")
+flags = 16
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_fel6d"]
+resource_local_to_scene = true
+script = ExtResource("2_k8rij")
+any = &"idle"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_13cep"]
+resource_local_to_scene = true
+script = ExtResource("2_k8rij")
+any = &"ranged"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_lvkar"]
+script = ExtResource("6_35olp")
+idle = SubResource("Resource_fel6d")
+ranged = SubResource("Resource_13cep")
+metadata/_custom_type_script = "uid://qu0synx4c136"
+
+[sub_resource type="Resource" id="Resource_wcexa"]
+script = ExtResource("3_til4g")
+list = PackedStringArray("uid://cvqa1g2cy5ol1")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[sub_resource type="Resource" id="Resource_ylcr1"]
+resource_local_to_scene = true
+script = ExtResource("2_k8rij")
+up = &"idle_up"
+down = &"idle_down"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[node name="TowerMageLvl1" type="Node2D" unique_id=794445410]
+script = ExtResource("1_y1lgp")
+idle_animation = SubResource("Resource_dobkv")
+spawn_sfx = SubResource("Resource_dxk8f")
+interact_policy = SubResource("Resource_e01we")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1067981190]
+show_behind_parent = true
+position = Vector2(-1, -32)
+script = ExtResource("5_psqef")
+sync_animations = SubResource("Resource_lvkar")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=793888686]
+sprite_frames = ExtResource("7_cc3kd")
+animation = &"idle"
+
+[node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788]
+script = ExtResource("8_oyrv1")
+tower_type = 3
+price = 100.0
+sell_sfx = SubResource("Resource_wcexa")
+metadata/_custom_type_script = "uid://d104itkl6l02e"
+
+[node name="TowerMageLvl1Shooter" parent="TowerComponent" unique_id=1442245649 instance=ExtResource("3_j8o77")]
+position = Vector2(1, -56)
+idle_animation = SubResource("Resource_ylcr1")
+
+[node name="SelectComponent" type="Node2D" parent="." unique_id=602361207]
+process_mode = 4
+script = ExtResource("10_dpb4m")
+select_rect = Rect2(-54.73, -83.54, 112.585, 102.565)
+info_bar_type = 2
+select_menu_offset = Vector2(0, -38.32)
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

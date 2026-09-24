@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dxjst2smnggks"]
+
+[ext_resource type="Script" uid="uid://cnfjkkw1yu7av" path="res://entities/spawners/wave_spawner/wave_spawner.gd" id="1_q47rp"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="2_0ur1v"]
+[ext_resource type="Script" uid="uid://db67y0qigop4w" path="res://classes/components/spawner_component.gd" id="4_1tb3i"]
+
+[sub_resource type="Resource" id="Resource_jhhff"]
+script = ExtResource("2_0ur1v")
+play_mode = null
+list = PackedStringArray("uid://dqj23hrkj1kdw")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[sub_resource type="Resource" id="Resource_p3jos"]
+script = ExtResource("2_0ur1v")
+play_mode = null
+list = PackedStringArray("uid://crchyl1rpdc0r")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[node name="WaveSpawner" type="Node2D" unique_id=708476456]
+script = ExtResource("1_q47rp")
+wave_interval_start_sfx = SubResource("Resource_jhhff")
+wave_interval_finish_sfx = SubResource("Resource_p3jos")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpawnerComponent" type="Node2D" parent="." unique_id=319630515]
+process_mode = 4
+script = ExtResource("4_1tb3i")
+metadata/_custom_type_script = "uid://db67y0qigop4w"

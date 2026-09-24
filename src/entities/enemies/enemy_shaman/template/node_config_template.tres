@@ -1,0 +1,73 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://3u4getg4ii6g"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_3u3yy"]
+[ext_resource type="Resource" uid="uid://c1osw7strbs8w" path="res://entities/enemies/enemy_shaman/template/sprite_component/sprite_component.tres" id="2_a24cs"]
+[ext_resource type="Resource" uid="uid://bq2c37psk0kpq" path="res://entities/enemies/enemy_shaman/template/health_component/health_component.tres" id="3_v3x41"]
+[ext_resource type="Resource" uid="uid://ckgupyrcoxulu" path="res://entities/enemies/enemy_shaman/template/nav_path_component/nav_path_component.tres" id="4_csgkv"]
+[ext_resource type="Resource" uid="uid://47itaq3k5pfw" path="res://entities/enemies/enemy_shaman/template/select_component/select_component.tres" id="5_x30we"]
+[ext_resource type="Resource" uid="uid://dgfvhlfviklv2" path="res://entities/enemies/enemy_shaman/template/melee_component/melee_skill/melee_skill.tres" id="6_ea1bl"]
+[ext_resource type="Resource" uid="uid://dh0xbsq7deu10" path="res://entities/enemies/enemy_shaman/template/melee_component/melee_component.tres" id="7_eerc0"]
+[ext_resource type="Resource" uid="uid://bw4p4h8ni3prh" path="res://entities/enemies/enemy_shaman/template/skill_component/area_skill/area_skill.tres" id="8_4ch37"]
+[ext_resource type="Resource" uid="uid://1vjvjdib7eq8" path="res://entities/enemies/enemy_shaman/template/skill_component/skill_component.tres" id="9_e17mi"]
+[ext_resource type="Resource" uid="uid://dbhj6te3ir0an" path="res://entities/enemies/enemy_shaman/template/enemy_shaman.tres" id="10_xrhif"]
+
+[sub_resource type="Resource" id="Resource_ehhhd"]
+script = ExtResource("1_3u3yy")
+name = "SpriteComponent"
+config = ExtResource("2_a24cs")
+
+[sub_resource type="Resource" id="Resource_qiw7r"]
+script = ExtResource("1_3u3yy")
+name = "HealthComponent"
+config = ExtResource("3_v3x41")
+
+[sub_resource type="Resource" id="Resource_8848p"]
+script = ExtResource("1_3u3yy")
+name = "NavPathComponent"
+config = ExtResource("4_csgkv")
+
+[sub_resource type="Resource" id="Resource_b5djt"]
+script = ExtResource("1_3u3yy")
+name = "SelectComponent"
+config = ExtResource("5_x30we")
+
+[sub_resource type="Resource" id="Resource_va04a"]
+script = ExtResource("1_3u3yy")
+name = "MeleeSkill"
+config = ExtResource("6_ea1bl")
+
+[sub_resource type="Resource" id="Resource_5v1vo"]
+script = ExtResource("1_3u3yy")
+name = "MeleeComponent"
+config = ExtResource("7_eerc0")
+children = Array[ExtResource("1_3u3yy")]([SubResource("Resource_va04a")])
+children_dict = Dictionary[String, ExtResource("1_3u3yy")]({
+"MeleeSkill": SubResource("Resource_va04a")
+})
+
+[sub_resource type="Resource" id="Resource_pemu2"]
+script = ExtResource("1_3u3yy")
+name = "AreaSkill"
+config = ExtResource("8_4ch37")
+
+[sub_resource type="Resource" id="Resource_vhgct"]
+script = ExtResource("1_3u3yy")
+name = "SkillComponent"
+config = ExtResource("9_e17mi")
+children = Array[ExtResource("1_3u3yy")]([SubResource("Resource_pemu2")])
+children_dict = Dictionary[String, ExtResource("1_3u3yy")]({
+"AreaSkill": SubResource("Resource_pemu2")
+})
+
+[resource]
+script = ExtResource("1_3u3yy")
+config = ExtResource("10_xrhif")
+children = Array[ExtResource("1_3u3yy")]([SubResource("Resource_ehhhd"), SubResource("Resource_qiw7r"), SubResource("Resource_8848p"), SubResource("Resource_b5djt"), SubResource("Resource_5v1vo"), SubResource("Resource_vhgct")])
+children_dict = Dictionary[String, ExtResource("1_3u3yy")]({
+"HealthComponent": SubResource("Resource_qiw7r"),
+"MeleeComponent": SubResource("Resource_5v1vo"),
+"NavPathComponent": SubResource("Resource_8848p"),
+"SelectComponent": SubResource("Resource_b5djt"),
+"SkillComponent": SubResource("Resource_vhgct"),
+"SpriteComponent": SubResource("Resource_ehhhd")
+})

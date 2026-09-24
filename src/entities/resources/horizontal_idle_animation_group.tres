@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AnimationGroup" format=3 uid="uid://ba03oi0nlq748"]
+
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_ggc82"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_ggc82")
+right = &"idle_left_right"
+right_replace_left = true

@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://dtmeklt75aaau"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_pw5c0"]
+[ext_resource type="Resource" uid="uid://di7fl1mj8if43" path="res://entities/enemies/enemy_orc/template/sprite_component/sprite_component.tres" id="2_ukq7x"]
+[ext_resource type="Resource" uid="uid://dp77s24onsne7" path="res://entities/enemies/enemy_orc/template/health_component/health_component.tres" id="3_qa6oc"]
+[ext_resource type="Resource" uid="uid://dvd2ujdwpvjse" path="res://entities/enemies/enemy_orc/template/nav_path_component/nav_path_component.tres" id="4_02qf5"]
+[ext_resource type="Resource" uid="uid://bamk53p0opx1i" path="res://entities/enemies/enemy_orc/template/select_component/select_component.tres" id="5_p6fg3"]
+[ext_resource type="Resource" uid="uid://nb7vqgworad2" path="res://entities/enemies/enemy_orc/template/melee_component/melee_skill/melee_skill.tres" id="6_i558w"]
+[ext_resource type="Resource" uid="uid://ciaucyxhm6gi5" path="res://entities/enemies/enemy_orc/template/melee_component/melee_component.tres" id="7_p2eow"]
+[ext_resource type="Resource" uid="uid://bhsci0orpiexb" path="res://entities/enemies/enemy_orc/template/enemy_orc.tres" id="8_npb74"]
+
+[sub_resource type="Resource" id="Resource_mtejl"]
+script = ExtResource("1_pw5c0")
+name = "SpriteComponent"
+config = ExtResource("2_ukq7x")
+
+[sub_resource type="Resource" id="Resource_i0dm2"]
+script = ExtResource("1_pw5c0")
+name = "HealthComponent"
+config = ExtResource("3_qa6oc")
+
+[sub_resource type="Resource" id="Resource_i2xci"]
+script = ExtResource("1_pw5c0")
+name = "NavPathComponent"
+config = ExtResource("4_02qf5")
+
+[sub_resource type="Resource" id="Resource_0efla"]
+script = ExtResource("1_pw5c0")
+name = "SelectComponent"
+config = ExtResource("5_p6fg3")
+
+[sub_resource type="Resource" id="Resource_w3ifj"]
+script = ExtResource("1_pw5c0")
+name = "MeleeSkill"
+config = ExtResource("6_i558w")
+
+[sub_resource type="Resource" id="Resource_d2ula"]
+script = ExtResource("1_pw5c0")
+name = "MeleeComponent"
+config = ExtResource("7_p2eow")
+children = Array[ExtResource("1_pw5c0")]([SubResource("Resource_w3ifj")])
+children_dict = Dictionary[String, ExtResource("1_pw5c0")]({
+"MeleeSkill": SubResource("Resource_w3ifj")
+})
+
+[resource]
+script = ExtResource("1_pw5c0")
+config = ExtResource("8_npb74")
+children = Array[ExtResource("1_pw5c0")]([SubResource("Resource_mtejl"), SubResource("Resource_i0dm2"), SubResource("Resource_i2xci"), SubResource("Resource_0efla"), SubResource("Resource_d2ula")])
+children_dict = Dictionary[String, ExtResource("1_pw5c0")]({
+"HealthComponent": SubResource("Resource_i0dm2"),
+"MeleeComponent": SubResource("Resource_d2ula"),
+"NavPathComponent": SubResource("Resource_i2xci"),
+"SelectComponent": SubResource("Resource_0efla"),
+"SpriteComponent": SubResource("Resource_mtejl")
+})

@@ -84,6 +84,11 @@ func _validate_property(property: Dictionary) -> void:
 		property.hint_string = "%d/%d:%s" % [TYPE_STRING, PROPERTY_HINT_ENUM, options]
 
 
+## 获取本土化名称
+func get_localized_name() -> String:
+	return tr(scene_name.to_upper())
+	
+	
 ## 设置实体组。
 func set_entity_groups(groups: Array[StringName], set_changed_state_enabled: bool = true) -> void:
 	last_entity_groups = entity_groups

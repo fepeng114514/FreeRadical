@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="HealthComponentNodeConfig" format=3 uid="uid://buel7ygo8boyq"]
+
+[ext_resource type="Resource" uid="uid://cxhlbmb2pn7gv" path="res://entities/resources/horizontal_death_animation_group.tres" id="1_g3ree"]
+[ext_resource type="Script" uid="uid://c6i4a1pkbdl48" path="res://classes/node_configs/components/health_component_node_config.gd" id="1_tvdit"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="2_d78xh"]
+
+[sub_resource type="Resource" id="Resource_nf0rk"]
+script = ExtResource("2_d78xh")
+list = PackedStringArray("uid://7glcb2t5yqxk")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_tvdit")
+hp_max = 20.0
+death_gold = 3.0
+death_animation = ExtResource("1_g3ree")
+death_sfx = SubResource("Resource_nf0rk")

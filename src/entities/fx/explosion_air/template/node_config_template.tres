@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://bm81ngdyrfyo6"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_wxpvy"]
+[ext_resource type="Resource" uid="uid://wixt7bubdc6c" path="res://entities/fx/explosion_air/template/sprite_component/sprite_component.tres" id="2_m3303"]
+[ext_resource type="Resource" uid="uid://dhhe7lqbeqxqp" path="res://entities/fx/explosion_air/template/fx_component/fx_component.tres" id="3_gc77i"]
+[ext_resource type="Resource" uid="uid://broi7voq3ktgs" path="res://entities/fx/explosion_air/template/explosion_air.tres" id="4_br2pi"]
+
+[sub_resource type="Resource" id="Resource_lujne"]
+script = ExtResource("1_wxpvy")
+name = "SpriteComponent"
+config = ExtResource("2_m3303")
+
+[sub_resource type="Resource" id="Resource_uof08"]
+script = ExtResource("1_wxpvy")
+name = "FXComponent"
+config = ExtResource("3_gc77i")
+
+[resource]
+script = ExtResource("1_wxpvy")
+config = ExtResource("4_br2pi")
+children = Array[ExtResource("1_wxpvy")]([SubResource("Resource_lujne"), SubResource("Resource_uof08")])
+children_dict = Dictionary[String, ExtResource("1_wxpvy")]({
+"FXComponent": SubResource("Resource_uof08"),
+"SpriteComponent": SubResource("Resource_lujne")
+})
