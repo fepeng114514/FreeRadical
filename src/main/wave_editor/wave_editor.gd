@@ -15,12 +15,7 @@ var enemy_index_dict: Dictionary[String, int] = {}
 ## 索引到敌人场景路径的映射。
 var enemy_scene_dict: Dictionary[int, String] = {}
 ## 关卡波次组。
-var wave_group: WaveGroup = null:
-	get: 
-		if not wave_group:
-			wave_group = WaveGroup.new()
-			
-		return wave_group
+var wave_group: WaveGroup = null
 ## 选中的波次。
 var selected_wave: Wave = null
 ## 选中的子波次。
@@ -50,7 +45,7 @@ func _ready() -> void:
 ## 加载关卡波次组。
 func load_wave_group(path: String) -> void:
 	Log.info("加载关卡波次：%s" % path)
-	wave_group = load(path).duplicate(true)
+	wave_group = load(path)
 	wave_track_editor.clear_tracks()
 	wave_track_editor.create_track()
 

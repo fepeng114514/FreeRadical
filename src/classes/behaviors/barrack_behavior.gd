@@ -36,7 +36,7 @@ func _on_update(barrack: Entity) -> bool:
 		return false
 	
 	# 根据重生时间生成士兵
-	if TimeManager.has_elapsed(barrack_c.ts, barrack_c.spawn_interval):
+	if TimeManager.has_elapsed(barrack_c.time_stamp, barrack_c.spawn_interval):
 		_spawn_by_time(barrack, barrack_c)
 		return true
 		
@@ -68,9 +68,6 @@ func _spawn_soldier(
 		soldier_global_position += offset
 	soldier.global_position = soldier_global_position
 
-	if not barrack._on_barrack_respawn(soldier, barrack_c):
-		return soldier
-	
 	barrack_c.soldier_list.append(soldier)
 	ECSEntityManager.queue_insert_entity(soldier)
 	
@@ -83,7 +80,7 @@ func _on_soldier_removed(soldier: Entity, barrack_c: BarrackComponent) -> void:
 
 ## 根据重生时间生成士兵。
 func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent) -> void:
-	barrack_c.ts = TimeManager.tick_ts
+	barrack_c.time_stamp = TimeManager.tick_time_stamp
 
 	if barrack_c.soldier_list.size() >= barrack_c.max_soldier_count:
 		return

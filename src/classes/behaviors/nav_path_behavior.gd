@@ -99,7 +99,6 @@ func _update_entity_position(entity: Entity, nav_path_c: NavPathComponent, next_
 	entity.facing_global_position = next_global_position
 	entity.play_animation(nav_path_c.motion_animation, "walk")
 	entity.global_position = next_global_position
-	entity._on_pathway_walk(nav_path_c)
 	
 	entity.facing_global_position = nav_path_c.get_progress_global_position(next_progress)
 
@@ -110,8 +109,6 @@ func _arrived_end(entity: Entity, nav_path_c: NavPathComponent, is_reversed: boo
 	
 	var node: PathwayNode = nav_path_c.get_pathway_node()
 	nav_path_c.navigate_to_node(node)
-		
-	entity._on_arrived_end(nav_path_c)
 	
 	nav_path_c.loop_count += 1
 	Log.debug("到达终点: %s, 到达次数 %d" % [entity, nav_path_c.loop_count])

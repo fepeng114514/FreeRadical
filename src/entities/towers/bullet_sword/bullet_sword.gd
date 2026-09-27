@@ -21,7 +21,7 @@ func _on_update(_delta: float) -> void:
 	var target: Entity = ECSEntityManager.get_entity_by_id(target_id)
 
 	# 停留状态
-	if target and is_stay and not TimeManager.has_elapsed(bullet_c.ts, stay_time):
+	if target and is_stay and not TimeManager.has_elapsed(bullet_c.time_stamp, stay_time):
 		var t_pos: Vector2 = target.global_position
 		global_position = Vector2(t_pos.x, t_pos.y - stay_height)
 		bullet_c.to = global_position
@@ -53,12 +53,12 @@ func _on_update(_delta: float) -> void:
 			Vector2(bullet_c.to.x, bullet_c.to.y - stay_height), 
 			to_predict_time
 		)
-		bullet_c.ts = TimeManager.tick_ts
+		bullet_c.time_stamp = TimeManager.tick_time_stamp
 		
 	# 飞向预判位置
-	if is_to_predict and not TimeManager.has_elapsed(bullet_c.ts, to_predict_time):
+	if is_to_predict and not TimeManager.has_elapsed(bullet_c.time_stamp, to_predict_time):
 		global_position = MathUtils.position_in_linear(
-			bullet_c.velocity, bullet_c.from, TimeManager.get_elapsed_time(bullet_c.ts)
+			bullet_c.velocity, bullet_c.from, TimeManager.get_elapsed_time(bullet_c.time_stamp)
 		)
 		
 		return
@@ -78,9 +78,9 @@ func _on_update(_delta: float) -> void:
 			global_position, bullet_c.to, fall_time
 		)
 
-		bullet_c.ts = TimeManager.tick_ts
+		bullet_c.time_stamp = TimeManager.tick_time_stamp
 
 	# 下落
 	global_position = MathUtils.position_in_linear(
-		bullet_c.velocity, bullet_c.from, TimeManager.get_elapsed_time(bullet_c.ts)
+		bullet_c.velocity, bullet_c.from, TimeManager.get_elapsed_time(bullet_c.time_stamp)
 	)

@@ -5,6 +5,10 @@ extends Node
 
 
 @warning_ignore_start("unused_signal")
+## 实体创建信号。
+signal entity_created(entity: ECSEntity)
+## 实体设置信号。
+signal entity_setup(entity: ECSEntity)
 @warning_ignore_restore("unused_signal")
 
 
@@ -23,12 +27,20 @@ var _spatial_hash_cell_count: int
 var _entity_scene_caches: Dictionary[String, PackedScene] = {}
 ## 实体世界。
 var _entity_world: ECSEntityWorld = null
-## 实体移除队列。
-var _remove_queue: Array[ECSEntity] = []
+## 所有实体数组，无效的实体为 [null]。
+var _entities: Array[ECSEntity] = []
 ## 实体插入队列。
 var _insert_queue: Array[ECSEntity] = []
-## 所有实体数组，无效的实体为 null。
-var _entities: Array[ECSEntity] = []
+## 插入队列头索引。
+var _insert_queue_head_index: int = 0
+## 插入队列压缩阈值。
+var _insert_queue_compress_threshold: int = 64
+## 实体移除队列。
+var _remove_queue: Array[ECSEntity] = []
+## 移除队列头索引。
+var _remove_queue_head_index: int = 0
+## 移除队列压缩阈值。
+var _remove_queue_compress_threshold: int = 64
 ## 所有有效实体数组。
 var _valid_entities: Array[ECSEntity] = []
 ## 实体组字典。
@@ -99,6 +111,8 @@ func create_entity(entity_scene_path: String) -> ECSEntity:
 	var scene: PackedScene = load(entity_scene_path)
 	var entity: ECSEntity = scene.instantiate()
 	_entity_scene_caches[entity_scene_path] = scene
+
+	entity_created.emit(entity)
 		
 	return setup_entity(entity)
 	
@@ -113,6 +127,8 @@ func setup_entity(entity: ECSEntity) -> ECSEntity:
 	
 	if not entity.get_parent():
 		_entity_world.add_child(entity)
+
+	entity_setup.emit(entity)
 
 	return entity
 
@@ -270,7 +286,13 @@ func get_spatial_hash_cell(index: int) -> SpaceIndexCell:
 ## 处理实体插入队列。
 func _process_insert_queue() -> void:
 	while _insert_queue:
-		var entity: ECSEntity = _insert_queue.pop_front()
+		var entity: ECSEntity = _insert_queue[_insert_queue_head_index]
+		_insert_queue[_insert_queue_head_index] = null
+		_insert_queue_head_index += 1
+		
+		if _insert_queue_head_index > _insert_queue_compress_threshold and _insert_queue_head_index * 2 >= _insert_queue.size():
+			_insert_queue = _insert_queue.slice(_insert_queue_head_index)
+			_insert_queue_head_index = 0
 	
 		# if _entities:
 		# 	var entities_len: int = _entities.size()
@@ -339,8 +361,14 @@ func _process_insert_queue() -> void:
 ## 处理实体移除队列。
 func _process_remove_queue() -> void:
 	while _remove_queue:
-		var entity: ECSEntity = _remove_queue.pop_front()
-
+		var entity: ECSEntity = _remove_queue[_remove_queue_head_index]
+		_remove_queue[_remove_queue_head_index] = null
+		_remove_queue_head_index += 1
+		
+		if _remove_queue_head_index > _remove_queue_compress_threshold and _remove_queue_head_index * 2 >= _remove_queue.size():
+			_remove_queue = _remove_queue.slice(_remove_queue_head_index)
+			_remove_queue_head_index = 0
+		
 		if not ECSSystemManager.process_entity_remove(entity):
 			entity.visible = true
 			continue

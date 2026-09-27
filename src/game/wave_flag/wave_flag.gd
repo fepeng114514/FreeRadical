@@ -123,6 +123,6 @@ func _on_release_wave(_wave_index: int) -> void:
 
 func _on_pressed() -> void:
 	WaveManager.is_release_wave = true
-	if WaveManager.is_wait_first_release_wave:
+	if WaveManager.need_wait_first_release_wave:
 		WaveManager.first_release_wave.emit()
 		WaveManager.is_first_release_wave = false

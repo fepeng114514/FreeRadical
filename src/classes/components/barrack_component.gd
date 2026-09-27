@@ -18,8 +18,6 @@ class_name BarrackComponent
 @export var rally_min_range: float = 0.0
 ## 最大集结范围。
 @export var rally_max_range: float = 300
-## 默认集结点局部位置。
-@export var default_rally_center_position := Vector2.ZERO
 ## 集结点全局位置。
 @export var rally_center_global_position := Vector2.ZERO
 ## 集结点半径，影响士兵与集结点之间的距离。
@@ -42,7 +40,7 @@ class_name BarrackComponent
 @export var sfx: AudioGroup = null
 
 ## 时间戳（秒）
-var ts: float = 0.0
+var time_stamp: float = 0.0
 ## 士兵列表。
 var soldier_list: Array[Entity] = []
 ## 上一次生成的士兵数量。
@@ -74,27 +72,23 @@ func _draw() -> void:
 			2
 		)
 
-		draw_circle(
-			default_rally_center_position,
-			9,
-			Color.BLUE, 
-			true
-		)
-		draw_dashed_line(
-			default_rally_center_position, 
-			position, 
-			Color.BLUE, 
-			2
-		)
-
 		for i: int in max_soldier_count:
-			var formation_position: Vector2 = to_formation_position(default_rally_center_position, max_soldier_count, i)
+			var formation_position: Vector2 = to_formation_position(rally_center_position, max_soldier_count, i)
 			draw_circle(
 				formation_position,
 				3,
 				Color.BLUE, 
 				true
 			)
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings: PackedStringArray = super()
+
+	for warning in TowerRecord.get_not_found_configuration_warnings(parent):
+		warnings.append(warning)
+
+	return warnings
 
 
 ## 设置新集结点全局位置。

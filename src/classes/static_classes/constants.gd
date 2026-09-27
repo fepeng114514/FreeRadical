@@ -42,36 +42,48 @@ enum Direction {
 
 
 #region 组件路径
+## 组件路径: 光环。
+const CN_AURA: NodePath = ^"AuraComponent"
+## 组件路径: 兵营。
+const CN_BARRACK: NodePath = ^"BarrackComponent"
+## 组件路径: 建造。
+const CN_BUILD: NodePath = ^"BuildComponent"
+## 组件路径: 子弹。
+const CN_BULLET: NodePath = ^"BulletComponent"
+## 组件路径: 闪避。
+const CN_DODGE: NodePath = ^"DodgeComponent"
+## 组件路径: FX。
+const CN_FX: NodePath = ^"FXComponent"
 ## 组件路径: 血量。
 const CN_HEALTH: NodePath = ^"HealthComponent"
+## 组件路径: 近战技能。
+const CN_MELEE: NodePath = ^"MeleeComponent"
+## 组件路径: 状态效果。
+const CN_MODIFIER: NodePath = ^"ModifierComponent"
 ## 组件路径: 导航路径。
 const CN_NAV_PATH: NodePath = ^"NavPathComponent"
 ## 组件路径: 集结点。
 const CN_RALLY: NodePath = ^"RallyComponent"
-## 组件路径: 防御塔。
-const CN_TOWER: NodePath = ^"TowerComponent"
-## 组件路径: 状态效果。
-const CN_MODIFIER: NodePath = ^"ModifierComponent"
-## 组件路径: 光环。
-const CN_AURA: NodePath = ^"AuraComponent"
-## 组件路径: 近战技能。
-const CN_MELEE: NodePath = ^"MeleeComponent"
-## 组件路径: 远程攻击。
-const CN_SKILL: NodePath = ^"SkillComponent"
-## 组件路径: 子弹。
-const CN_BULLET: NodePath = ^"BulletComponent"
-## 组件路径: 精灵。
-const CN_SPRITE: NodePath = ^"SpriteComponent"
-## 组件路径: 兵营。
-const CN_BARRACK: NodePath = ^"BarrackComponent"
-## 组件路径: 生成器。
-const CN_SPAWNER: NodePath = ^"SpawnerComponent"
 ## 组件路径: 选择组件。
 const CN_SELECT: NodePath = ^"SelectComponent"
-## 组件路径: FX。
-const CN_FX: NodePath = ^"FXComponent"
-## 组件路径: 闪避。
-const CN_DODGE: NodePath = ^"DodgeComponent"
+## 组件路径: 远程攻击。
+const CN_SKILL: NodePath = ^"SkillComponent"
+## 组件路径: 出售。
+const CN_SELL: NodePath = ^"SellComponent"
+## 组件路径: 生成器。
+const CN_SPAWNER: NodePath = ^"SpawnerComponent"
+## 组件路径: 精灵。
+const CN_SPRITE: NodePath = ^"SpriteComponent"
+## 组件路径: 防御塔。
+const CN_TOWER: NodePath = ^"TowerComponent"
+## 组件路径: 波次生成器。
+const CN_WAVE_SPAWNER: NodePath = ^"WaveSpawnerComponent"
+## 组件路径: 升级。
+const CN_UPGRADE: NodePath = ^"UpgradeComponent"
+## 组件路径: 价格记录。
+const CN_PRICE_RECORD: NodePath = ^"PriceRecord"
+## 组件路径: 防御塔记录。
+const CN_TOWER_RECORD: NodePath = ^"TowerRecord"
 #endregion
 
 

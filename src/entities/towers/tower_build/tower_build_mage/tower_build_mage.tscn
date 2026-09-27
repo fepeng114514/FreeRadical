@@ -1,23 +1,14 @@
 [gd_scene format=3 uid="uid://cxy7osvoibnms"]
 
-[ext_resource type="Script" uid="uid://wwnvcleqo7tf" path="res://entities/towers/tower_build/tower_build.gd" id="1_61trx"]
-[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="2_j3pke"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_dq62w"]
 [ext_resource type="Texture2D" uid="uid://dkxdvn28ie6qw" path="res://assets/atlas/atlas_textures/towers/tower_constructing_0003.tres" id="3_7n7wk"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_t0620"]
 [ext_resource type="Texture2D" uid="uid://chyxjndu181vq" path="res://assets/atlas/atlas_textures/towers/buildbar_bg.tres" id="5_g1wkf"]
 [ext_resource type="Texture2D" uid="uid://bgjhnd4txiyw1" path="res://assets/atlas/atlas_textures/towers/buildbar.tres" id="6_l3pt6"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="7_vh3em"]
 
-[sub_resource type="Resource" id="Resource_1cokw"]
-script = ExtResource("2_j3pke")
-list = PackedStringArray("uid://d0m4poic6q3ge")
-metadata/_custom_type_script = "uid://b2b214g352w4u"
-
-[node name="TowerBuildMage" type="Node2D" unique_id=1530244974 node_paths=PackedStringArray("progress_bar")]
-script = ExtResource("1_61trx")
-build_target = "uid://wxrkke7541g"
-progress_bar = NodePath("TextureProgressBar")
-spawn_sfx = SubResource("Resource_1cokw")
+[node name="TowerBuildMage" type="Node2D" unique_id=1530244974]
+script = ExtResource("1_dq62w")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1200020081]

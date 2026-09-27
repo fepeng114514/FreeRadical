@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="WaveGroup" format=3 uid="uid://d3f8k37sije6n"]
 
-[ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://game/wave/wave_group.gd" id="1_s78po"]
-[ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://game/wave/wave.gd" id="2_exeyw"]
-[ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://game/wave/sub_wave.gd" id="3_gdef2"]
-[ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://game/wave/wave_spawn.gd" id="4_ghaox"]
+[ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://classes/wave/wave_group.gd" id="1_s78po"]
+[ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/wave/wave.gd" id="2_exeyw"]
+[ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://classes/wave/sub_wave.gd" id="3_gdef2"]
+[ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/wave/wave_spawn.gd" id="4_ghaox"]
 
 [sub_resource type="Resource" id="Resource_guugm"]
 script = ExtResource("4_ghaox")

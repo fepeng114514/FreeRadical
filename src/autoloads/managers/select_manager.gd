@@ -61,7 +61,6 @@ func _select(entity: Entity) -> void:
 	Log.debug("选择实体: %s%s" % [entity, entity.global_position])
 	entity.selected = true
 	selected_entity = entity
-	entity._on_select()
 	select_mode = SelectMode.NONE
 	
 	var rally_c: RallyComponent = entity.get_node_or_null(Constants.CN_RALLY)

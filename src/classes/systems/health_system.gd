@@ -25,12 +25,12 @@ func _on_update(_delta: float) -> void:
 		var health_c: HealthComponent = entity.get_node_or_null(Constants.CN_HEALTH)
 
 		if health_c.regen_hp != 0:
-			if TimeManager.has_elapsed(health_c.regen_ts, health_c.regen_cooldown):
+			if TimeManager.has_elapsed(health_c.regen_time_stamp, health_c.regen_cooldown):
 				health_c.hp += health_c.regen_hp
-				health_c.regen_ts = TimeManager.tick_ts
+				health_c.regen_time_stamp = TimeManager.tick_time_stamp
 		
 		if health_c.idle_regen_hp != 0:
 			if entity.state & Entity.State.IDLE:
-				if TimeManager.has_elapsed(health_c.idle_regen_ts, health_c.idle_regen_cooldown):
+				if TimeManager.has_elapsed(health_c.idle_regen_time_stamp, health_c.idle_regen_cooldown):
 					health_c.hp += health_c.idle_regen_hp
-					health_c.idle_regen_ts = TimeManager.tick_ts
+					health_c.idle_regen_time_stamp = TimeManager.tick_time_stamp

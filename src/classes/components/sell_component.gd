@@ -1,0 +1,28 @@
+extends Component
+class_name SellComponent
+## 出售组件。
+##
+## SellComponent 可以使实体被出售。
+
+
+@export var config: SellComponentNodeConfig = null
+
+
+## 出售比例（%）
+@export var sell_ratio: float = 0.5
+## 出售音效组。
+@export var sell_sfx: AudioGroup = null
+## 是否启用出售。
+@export var sell_enabled: bool = true
+
+## 出售状态。
+var is_sold: bool = false
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+    var warnings: PackedStringArray = super()
+
+    for warning in PriceRecord.get_not_found_configuration_warnings(parent):
+        warnings.append(warning)
+
+    return warnings

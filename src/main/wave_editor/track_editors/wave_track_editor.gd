@@ -66,32 +66,36 @@ func _on_item_deselected(_item: TrackEditorTrackItem) -> void:
 
 func _on_item_inserted(item: TrackEditorTrackItem) -> void:
 	var wave := Wave.new()
+	var index: int = item.index
+	wave.index = index
 	wave.interval = item.get_relative_track_position_x()
-	wave_editor.wave_group.wave_list.insert(item.index, wave)
+	wave_editor.wave_group.wave_list.insert(index, wave)
 	_update_interval()
 
 
 func _on_item_deleted(item: TrackEditorTrackItem) -> void:
-	if wave_editor.get_wave(item.index) == wave_editor.selected_wave:
+	var item_index: int = item.index
+	wave_editor.wave_group.wave_list.remove_at(item_index)
+	for wave_index: int in item_list.size():
+		var wave: Wave = wave_editor.get_wave(wave_index)
+		wave.index = wave_index
+
+	if wave_editor.get_wave(item_index) == wave_editor.selected_wave:
 		hide_sub_wave_track_editor()
 		
-	wave_editor.wave_group.wave_list.remove_at(item.index)
 	_update_interval()
 
 
 func _on_item_moved(_item: TrackEditorTrackItem) -> void:
-	_update_wave_list()
-
-
-func _update_wave_list() -> void:
 	var item_list_size: int = item_list.size()
 	var new_wave_list: Array[Wave] = []
 	new_wave_list.resize(item_list_size)
 
 	for item_index: int in item_list_size:
 		var item: TrackEditorTrackItem = item_list[item_index]
-		var last_wave: Wave = wave_editor.get_wave(item.last_index)
-		new_wave_list[item_index] = last_wave
+		var wave: Wave = wave_editor.get_wave(item.last_index)
+		wave.index = item_index
+		new_wave_list[item_index] = wave
 
 	wave_editor.wave_group.wave_list = new_wave_list
 	_update_interval()

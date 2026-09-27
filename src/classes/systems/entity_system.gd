@@ -8,16 +8,13 @@ class_name EntitySystem
 func _on_insert(entity: ECSEntity) -> bool:
 	entity = entity as Entity
 
-	entity.insert_ts = TimeManager.tick_ts
+	entity.inserted_time_stamp = TimeManager.tick_time_stamp
 
-	return entity._on_insert()
+	return true
 	
 
 func _on_remove(entity: ECSEntity) -> bool:
 	entity = entity as Entity
-
-	if not entity._on_remove():
-		return false
 	
 	entity.clear_has_mod_list()
 	entity.clear_has_aura_list()
@@ -25,16 +22,16 @@ func _on_remove(entity: ECSEntity) -> bool:
 	return true
 
 
-func _on_update(delta: float) -> void:
+func _on_update(_delta: float) -> void:
 	for entity: Entity in ECSEntityManager.get_valid_entities():
 		if entity.state & Entity.State.DEAD or entity.is_waiting():
 			continue
 
-		if Utils.is_valid_number(entity.duration) and TimeManager.has_elapsed(entity.insert_ts, entity.duration):
+		if Utils.is_valid_number(entity.duration) and TimeManager.has_elapsed(entity.inserted_time_stamp, entity.duration):
 			ECSEntityManager.queue_remove_entity(entity)
 			continue
 			
-		_update_entity(entity, delta)
+		_update_entity(entity)
 		
 	for entity: Entity in ECSEntityManager.get_valid_entities():
 		if entity.is_first_update:
@@ -42,14 +39,12 @@ func _on_update(delta: float) -> void:
 		
 		
 ## 更新实体。
-func _update_entity(entity: Entity, delta: float) -> void:
+func _update_entity(entity: Entity) -> void:
 	if entity.is_first_update:
 		entity.play_animation(entity.spawn_animation)
 		AudioManager.play_sfx(entity.spawn_sfx)
 		if entity.spawn_animation:
 			if await entity.y_wait_animation(entity.spawn_animation):
 				return
-		
-	entity._on_update(delta)
 	
 	entity.last_global_position = entity.global_position

@@ -212,7 +212,7 @@ theme_override_constants/separation = 10
 
 [node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/MarginContainer/TrackEditorVBoxContainer/SpawnVBoxContainer" unique_id=607294703]
 layout_mode = 2
-tooltip_text = "出怪组：按照顺序计时，通过生成数据决定如何生成实体。"
+tooltip_text = "生成组：按照顺序计时，通过生成数据决定如何生成实体。"
 mouse_filter = 1
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = ExtResource("2_sh4oc")

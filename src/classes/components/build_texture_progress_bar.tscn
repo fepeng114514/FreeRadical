@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dxujx8f27haia"]
+
+[ext_resource type="Texture2D" uid="uid://chyxjndu181vq" path="res://assets/atlas/atlas_textures/towers/buildbar_bg.tres" id="1_v80od"]
+[ext_resource type="Texture2D" uid="uid://bgjhnd4txiyw1" path="res://assets/atlas/atlas_textures/towers/buildbar.tres" id="2_dcgsj"]
+
+[node name="BuildTextureProgressBar" type="TextureProgressBar" unique_id=917597271]
+offset_left = -43.0
+offset_top = -61.0
+offset_right = 47.0
+offset_bottom = -45.0
+value = 100.0
+texture_under = ExtResource("1_v80od")
+texture_progress = ExtResource("2_dcgsj")
+texture_progress_offset = Vector2(4, 4)

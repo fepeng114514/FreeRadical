@@ -1,34 +1,19 @@
 [gd_scene format=3 uid="uid://ckf2o2h3wv2xo"]
 
-[ext_resource type="Script" uid="uid://ph3p063jst6j" path="res://entities/towers/tower_holder/tower_holder.gd" id="1_mm0ok"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_1fcst"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_nprk4"]
 [ext_resource type="Texture2D" uid="uid://0566nc2tgjxo" path="res://assets/atlas/atlas_textures/towers/build_terrain_0001.tres" id="2_jmfsc"]
-[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_qu0l2"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_c4cwx"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="6_ip0qk"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="7_6weam"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="8_3txsr"]
-
-[sub_resource type="Resource" id="Resource_0aeh3"]
-resource_local_to_scene = true
-script = ExtResource("2_1fcst")
-
-[sub_resource type="Resource" id="Resource_dyvsk"]
-resource_local_to_scene = true
-script = ExtResource("2_qu0l2")
-flags = 16
-metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_wcexa"]
 script = ExtResource("7_6weam")
 list = PackedStringArray("uid://cvqa1g2cy5ol1")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
-[node name="TowerHolderGrass" type="Node2D" unique_id=1898604313 node_paths=PackedStringArray("tower_c")]
-script = ExtResource("1_mm0ok")
-tower_c = NodePath("TowerComponent")
-idle_animation = SubResource("Resource_0aeh3")
-interact_policy = SubResource("Resource_dyvsk")
+[node name="TowerHolderGrass" type="Node2D" unique_id=1898604313]
+script = ExtResource("1_nprk4")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1067981190]

@@ -45,30 +45,34 @@ func _on_item_deselected(_item: TrackEditorTrackItem) -> void:
 
 func _on_item_inserted(item: TrackEditorTrackItem) -> void:
 	var sub_wave := SubWave.new()
+	var index: int = item.index
+	sub_wave.index = index
 	sub_wave.delay = item.track_position_x
-	wave_editor.selected_wave.sub_wave_list.insert(item.index, sub_wave)
+	wave_editor.selected_wave.sub_wave_list.insert(index, sub_wave)
 
 
 func _on_item_deleted(item: TrackEditorTrackItem) -> void:
-	if wave_editor.get_sub_wave(item.index) == wave_editor.selected_sub_wave:
+	var item_index: int = item.index
+	wave_editor.selected_wave.sub_wave_list.remove_at(item_index)
+	for sub_wave_index: int in item_list.size():
+		var sub_wave: SubWave = wave_editor.get_sub_wave(sub_wave_index)
+		sub_wave.index = sub_wave_index
+
+	if wave_editor.get_sub_wave(item_index) == wave_editor.selected_sub_wave:
 		_hide_sub_track_editor()
 		
-	wave_editor.selected_wave.sub_wave_list.remove_at(item.index)
-
 
 func _on_item_moved(item: TrackEditorTrackItem) -> void:
 	wave_editor.get_sub_wave(item.index).delay = item.track_position_x
-	_update_sub_wave_list()
-
-
-func _update_sub_wave_list() -> void:
+	
 	var item_list_size: int = item_list.size()
 	var new_sub_wave_list: Array[SubWave] = []
 	new_sub_wave_list.resize(item_list_size)
 
 	for item_index: int in item_list_size:
-		var item: TrackEditorTrackItem = item_list[item_index]
-		var last_sub_wave: SubWave = wave_editor.get_sub_wave(item.last_index)
-		new_sub_wave_list[item_index] = last_sub_wave
+		var sub_wave_item: TrackEditorTrackItem = item_list[item_index]
+		var sub_wave: SubWave = wave_editor.get_sub_wave(sub_wave_item.last_index)
+		sub_wave.index = item_index
+		new_sub_wave_list[item_index] = sub_wave
 
 	wave_editor.selected_wave.sub_wave_list = new_sub_wave_list

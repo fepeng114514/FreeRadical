@@ -1,6 +1,6 @@
 extends Control
-class_name SelectMenuController
-## 选择菜单控制器
+class_name TowerUpgradeSelectMenu
+## 防御塔升级选择菜单
 ##
 ## 负责显示和隐藏选择菜单，并根据实体类型显示对应的按钮
 
@@ -51,20 +51,17 @@ func _show(entity: Entity) -> void:
 	var select_c: SelectComponent = entity.get_node_or_null(Constants.CN_SELECT)
 	if not select_c:
 		return
-		
-	var group: SelectMenuButtonGroup = null
-	var tower_c: TowerComponent = entity.get_node_or_null(Constants.CN_TOWER)
-	if tower_c and tower_c.tower_type == TowerComponent.TowerType.TOWER_HOLDER:
-		group = select_menu_config.group_dict["tower_holder"]
-	else:
-		group = select_menu_config.group_dict.get(entity.scene_name)
-	
+
+	if select_c.select_menu_type != SelectComponent.SelectMenuType.TOWER_UPGRADE:
+		return
+
+	var group: SelectMenuButtonGroup = select_menu_config.group_dict.get(entity.scene_name)
 	if not group:
+		Log.error("未找到选择菜单组: %s" % entity.scene_name)
 		return
 
 	for data: SelectMenuButtonData in group.button_list:		
 		var button: SelectMenuButton = null
-		
 		if data is SelectMenuButtonDataUpgrade:
 			button = upgrade_button_scene.instantiate()
 			button.upgrade_to = data.upgrade_to

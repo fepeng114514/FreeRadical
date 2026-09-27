@@ -50,7 +50,7 @@ enum Type {
 @export var max_cycle: int = Constants.UNSET
 
 ## 时间戳。
-var ts: float = 0.0
+var time_stamp: float = 0.0
 ## 当前周期数。
 var curren_cycle: int = 0
 

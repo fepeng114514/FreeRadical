@@ -54,27 +54,45 @@ func _gui_input(event: InputEvent) -> void:
 		if not is_draging:
 			if event.is_action_pressed("track_editor_select_key"):
 				select()
-			elif event.is_action_pressed("track_editor_erase_key"):
+				return
+
+			if event.is_action_pressed("track_editor_erase_key"):
 				erase()
-		else:
-			if event.is_action_released("track_editor_select_key"):
-				is_draging = false
-			else:
-				if event is InputEventMouseMotion:
-					move(event.global_position)
-	elif track_editor.mouse_tool_bar.opened_tools & TrackEditorMouseToolButton.ToolFlag.ERASE:
-		if event.is_action_pressed("track_editor_click"):
-			erase()
-	elif track_editor.mouse_tool_bar.opened_tools & TrackEditorMouseToolButton.ToolFlag.MOVE:
+				return
+
+			return
+
+		if event.is_action_released("track_editor_select_key"):
+			is_draging = false
+			return
+
+		if event is InputEventMouseMotion:
+			move(event.global_position)
+			return
+		
+		return
+	
+	if track_editor.mouse_tool_bar.opened_tools & TrackEditorMouseToolButton.ToolFlag.ERASE:
+		if not event.is_action_pressed("track_editor_click"):
+			return
+		
+		erase()
+		return
+	
+	if track_editor.mouse_tool_bar.opened_tools & TrackEditorMouseToolButton.ToolFlag.MOVE:
 		if not is_draging:
 			if event.is_action_pressed("track_editor_select_key"):
 				is_draging = true
-		else:
-			if event.is_action_released("track_editor_select_key"):
-				is_draging = false
-			else:
-				if event is InputEventMouseMotion:
-					move(event.global_position)
+
+			return
+
+		if event.is_action_released("track_editor_select_key"):
+			is_draging = false
+			return
+
+		if event is InputEventMouseMotion:
+			move(event.global_position)
+			return
 
 
 func _process(_delta: float) -> void:
@@ -108,7 +126,7 @@ func move(new_global_position: Vector2) -> void:
 	
 	track_editor.pointer.offset_transform_position.x = position.x
 	last_global_x = new_global_position.x
-	track_editor.update_item_list()
+	track_editor.sort_item_list()
 	track_editor.item_moved.emit(self)
 	track_editor.update_item_list_last_index()
 

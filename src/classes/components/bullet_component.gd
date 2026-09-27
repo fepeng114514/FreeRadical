@@ -59,7 +59,7 @@ var from := Vector2.ZERO
 ## 目标位置。
 var to := Vector2.ZERO
 ## 时间戳（秒）。
-var ts: float = 0.0
+var time_stamp: float = 0.0
 ## 飞行速度（向量）。
 var velocity := Vector2.ZERO
 ## 预判目标全局位置。

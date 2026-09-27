@@ -42,7 +42,6 @@ func _on_update(_delta: float) -> void:
 			
 		var actual_damage: float = damage.predict_damage(target)
 		health_c.hp -= actual_damage
-		target._on_damage(damage)
 		
 		if not damage.damage_flags & Damage.Flag.NO_SPIKED:
 			if Utils.is_valid_number(health_c.spiked) and source and source.get_node_or_null(Constants.CN_HEALTH):
@@ -91,12 +90,6 @@ func _death(damage: Damage, target: Entity, health_c: HealthComponent, source: E
 	if damage_flags & Damage.Flag.NOT_KILL:
 		health_c.hp = 1
 		return
-	
-	var killer: Entity = source
-	while killer:
-		killer._on_kill(target)
-		
-		killer = ECSEntityManager.get_entity_by_id(killer.source_id)
 
 	health_c.health_bar.visible = false
 	target.state |= Entity.State.DEAD
@@ -108,9 +101,6 @@ func _death(damage: Damage, target: Entity, health_c: HealthComponent, source: E
 		ECSEntityManager.queue_remove_entity(target)
 	
 	await get_tree().physics_frame
-
-	if target._on_death():
-		return
 
 	AudioManager.play_sfx(health_c.death_sfx)
 	target.state &= ~Entity.State.INTERRUPT_WAIT

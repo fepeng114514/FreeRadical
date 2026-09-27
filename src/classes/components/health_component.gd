@@ -7,6 +7,9 @@ class_name HealthComponent
 ## HealthComponent 可以使实体拥有血量，血量为 0 时移除实体。
 
 
+const health_bar_path: NodePath = ^"HealthBar"
+
+
 @export var config: HealthComponentNodeConfig = null:
 	set(v): 
 		Utils.rebind_changed(config, v, _on_config_changed)
@@ -62,12 +65,12 @@ var hp: float = 0.0:
 		health_bar.value = hp_percent
 var hp_percent: float = 0.0
 ## 回血时间戳。
-var regen_ts: float = 0.0
+var regen_time_stamp: float = 0.0
 ## 待机回血时间戳。
-var idle_regen_ts: float = 0.0
+var idle_regen_time_stamp: float = 0.0
 
 ## 血条节点引用。
-@onready var health_bar: TextureProgressBar = get_node_or_null("HealthBar")
+@onready var health_bar: TextureProgressBar = get_node_or_null(health_bar_path)
 
 
 func _ready() -> void:
@@ -92,5 +95,5 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _on_child_order_changed() -> void:
-	health_bar = get_node_or_null("HealthBar") 
+	health_bar = get_node_or_null(health_bar_path) 
 	update_configuration_warnings()

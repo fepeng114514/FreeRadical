@@ -20,7 +20,7 @@ func _on_insert(modifier: ECSEntity) -> bool:
 	if not InteractPolicy.is_allowed_target(modifier, target, interact_policy, target.interact_policy):
 		return false
 
-	modifier_c.ts = TimeManager.tick_ts
+	modifier_c.time_stamp = TimeManager.tick_time_stamp
 	modifier.global_position = target.global_position
 
 	var same_modifier_list: Array[Entity] = []
@@ -124,12 +124,11 @@ func _process_modifier_update() -> void:
 					ECSEntityManager.queue_remove_entity(modifier)
 					continue
 			
-			if TimeManager.has_elapsed(modifier_c.ts, modifier_c.cycle_time):
+			if TimeManager.has_elapsed(modifier_c.time_stamp, modifier_c.cycle_time):
 				continue
 
 			modifier_c.curren_cycle += 1
-			modifier_c.ts = TimeManager.tick_ts
-			modifier._on_modifier_cycle(target, modifier_c)
+			modifier_c.time_stamp = TimeManager.tick_time_stamp
 		
 			modifier_c.influence.take_influence(modifier, target, target.global_position)
 		else:

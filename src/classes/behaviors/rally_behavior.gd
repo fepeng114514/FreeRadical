@@ -17,8 +17,6 @@ func _on_update(entity: Entity) -> bool:
 		rally_c.arrived = true
 		rally_c.is_force_rally = false
 		entity.state = Entity.State.IDLE
-
-		entity._on_arrived_rally(rally_c)
 		return false
 
 	var next_global_position: Vector2 = rally_c.navigation_agent.get_next_path_position()
@@ -38,6 +36,4 @@ func _on_update(entity: Entity) -> bool:
 	entity.global_position += velocity
 	entity.state = Entity.State.RALLY
 	
-	entity._on_rally_walk(rally_c)
-
 	return true

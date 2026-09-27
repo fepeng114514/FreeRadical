@@ -6,7 +6,7 @@ class_name TimeSystem
 
 
 func _on_update(delta: float) -> void:
-	TimeManager.tick_ts += delta
+	TimeManager.tick_time_stamp += delta
 	TimeManager.tick += 1
 	TimeManager.frame_length = delta
 	TimeManager.fps = Engine.get_frames_per_second()

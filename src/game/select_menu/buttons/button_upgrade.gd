@@ -20,14 +20,7 @@ func _update() -> void:
 	)
 	var tower_c: TowerComponent = upgrade_target.get_node_or_null(Constants.CN_TOWER)
 	
-	var price: float = 0.0
-	if tower_c.tower_type == TowerComponent.TowerType.TOWER_BUILD:
-		var build_target: Entity = ECSEntityManager.get_entity_data(upgrade_target.build_target)
-		var build_target_tower_c: TowerComponent = build_target.get_node_or_null(Constants.CN_TOWER)
-		price = build_target_tower_c.price
-	else:
-		price = tower_c.price
-
+	var price: float = tower_c.price
 	if price > GameManager.cash:
 		_disable()
 	else:

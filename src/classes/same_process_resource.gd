@@ -38,10 +38,10 @@ func process(entity: Entity, samed_entity_list: Array[Entity]) -> bool:
 			ECSEntityManager.queue_remove_entity(min_level_e)
 			return true
 		Mode.RESET:
-			max_level_e.insert_ts -= TimeManager.tick_ts
+			max_level_e.inserted_time_stamp -= TimeManager.tick_time_stamp
 			return false
 		Mode.STACK:
-			max_level_e.insert_ts -= entity.duration
+			max_level_e.inserted_time_stamp -= entity.duration
 			return false
 
 	return false

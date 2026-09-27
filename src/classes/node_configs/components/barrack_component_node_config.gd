@@ -16,11 +16,6 @@ class_name BarrackComponentNodeConfig
 	set(v):
 		rally_max_range = v
 		emit_changed()
-## 默认集结点局部位置。
-@export var default_rally_center_position := Vector2.ZERO:
-	set(v):
-		default_rally_center_position = v
-		emit_changed()
 ## 集结点全局位置。
 @export var rally_center_global_position := Vector2.ZERO:
 	set(v):

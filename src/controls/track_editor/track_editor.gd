@@ -165,7 +165,7 @@ func create_item(track_index: int = 0) -> TrackEditorTrackItem:
 func insert_item(item: TrackEditorTrackItem, signal_emit_disabled: bool = false) -> void:
 	var track: TrackEditorTrack = get_track(item.track_index)
 	track.item_container.add_child(item)
-	update_item_list()
+	sort_item_list()
 	update_item_list_last_index()
 	if not signal_emit_disabled:
 		item_inserted.emit(item)
@@ -178,7 +178,7 @@ func erase_item(item: TrackEditorTrackItem) -> void:
 	var track: TrackEditorTrack = get_track(item.track_index)
 	track.item_container.remove_child(item)
 	item.queue_free()
-	update_item_list()
+	sort_item_list()
 	item_deleted.emit(item)
 	update_item_list_last_index()
 		
@@ -190,14 +190,8 @@ func get_item(index: int, track_index: int = 0) -> TrackEditorTrackItem:
 
 
 ## 更新轨道项列表。
-func update_item_list() -> void:
-	var new_item_list: Array[TrackEditorTrackItem] = []
-
-	for track: TrackEditorTrack in track_vbox_container.get_children():
-		for child: TrackEditorTrackItem in track.item_container.get_children():
-			new_item_list.append(child)
-
-	new_item_list.sort_custom(
+func sort_item_list() -> void:
+	item_list.sort_custom(
 		func(a: TrackEditorTrackItem, b: TrackEditorTrackItem) -> bool:
 			var a_track_position_x: float = a.track_position_x
 			var b_track_position_x: float = b.track_position_x
@@ -207,8 +201,6 @@ func update_item_list() -> void:
 			else:
 				return a_track_position_x < b_track_position_x
 	)
-
-	item_list = new_item_list
 
 	for item_index: int in item_list.size():
 		var item: TrackEditorTrackItem = item_list[item_index]

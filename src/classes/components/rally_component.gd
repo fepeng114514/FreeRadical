@@ -7,6 +7,9 @@ class_name RallyComponent
 ## RallyComponent 可以使实体移动到指定位置，并支持阵型排列
 
 
+const navigation_agent_path: NodePath = ^"NavigationAgent2D"
+
+
 @export var config: RallyComponentNodeConfig = null:
 	set(v): 
 		Utils.rebind_changed(config, v, _on_config_changed)
@@ -30,7 +33,13 @@ var is_force_rally: bool = false
 var rally_center_global_position := Vector2.ZERO
 
 ## 血条节点引用。
-@onready var navigation_agent: NavigationAgent2D = get_node_or_null("NavigationAgent2D")
+@onready var navigation_agent: NavigationAgent2D = get_node_or_null(navigation_agent_path)
+
+
+func _ready() -> void:
+	super()
+
+	child_order_changed.connect(_on_child_order_changed)
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -44,7 +53,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 ## 设置新的集结全局位置。
 func new_rally_global_position(
-		entity: Entity,
+		p_entity: Entity,
 		new_global_position: Vector2, 
 		is_forced: bool = false,
 		center: Vector2 = new_global_position,
@@ -52,8 +61,8 @@ func new_rally_global_position(
 	) -> void:
 	is_force_rally = is_forced
 	if is_forced:
-		if entity.state & Entity.State.WAITING:
-			entity.state |= Entity.State.INTERRUPT_WAIT
+		if p_entity.state & Entity.State.WAITING:
+			p_entity.state |= Entity.State.INTERRUPT_WAIT
 	
 	arrived = false
 	navigation_agent.target_position = new_global_position
@@ -61,3 +70,8 @@ func new_rally_global_position(
 	
 	if play_sfx:
 		AudioManager.play_sfx(motion_sfx)
+
+
+func _on_child_order_changed() -> void:
+	navigation_agent = get_node_or_null(navigation_agent_path) 
+	update_configuration_warnings()

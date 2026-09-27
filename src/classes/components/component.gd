@@ -6,10 +6,15 @@ class_name Component
 ## 组件用于存储实体的属性和基础工具方法。
 
 
+@onready var parent := get_parent()
+
+
 func _ready() -> void:
 	DebugManager.draw_state_changed.connect(_on_draw_state_changed)
 	
 	process_mode = Node.PROCESS_MODE_DISABLED
+
+	child_order_changed.connect(_on_child_order_changed)
 	
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -24,3 +29,8 @@ func _on_draw_state_changed(_draw_type: DebugManager.DrawType) -> void:
 
 func _on_config_changed() -> void:
 	queue_redraw()
+
+
+func _on_child_order_changed() -> void:
+	parent = get_parent()
+	update_configuration_warnings()

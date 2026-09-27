@@ -17,7 +17,7 @@ func _on_insert(entity: ECSEntity) -> bool:
 		return false
 		
 	target.target_bullet_id_list.append(entity.id)
-	bullet_c.ts = TimeManager.tick_ts
+	bullet_c.time_stamp = TimeManager.tick_time_stamp
 	var predict_time: float = bullet_c.trajectory._get_predict_time() if bullet_c.trajectory else 0.0
 	if predict_time:
 		bullet_c.predicted_target_global_position = PathwayManager.predict_target_global_position(
@@ -74,7 +74,7 @@ func _on_update(delta: float) -> void:
 			continue
 			
 		var target: Entity = ECSEntityManager.get_entity_by_id(entity.target_id)
-		var flying_time: float = TimeManager.get_elapsed_time(bullet_c.ts)
+		var flying_time: float = TimeManager.get_elapsed_time(bullet_c.time_stamp)
 
 		bullet_c.trajectory._update_trajectory(entity, bullet_c, target, flying_time, delta)
 		
@@ -92,8 +92,6 @@ func _on_update(delta: float) -> void:
 
 ## 未击中处理。
 func _miss(entity: Entity, bullet_c: BulletComponent) -> void:
-	entity._on_bullet_miss(bullet_c)
-	
 	AudioManager.play_sfx(bullet_c.miss_sfx)
 	if bullet_c.miss_animation:
 		entity.play_animation(bullet_c.miss_animation)
@@ -123,7 +121,6 @@ func _hit(entity: Entity, bullet_c: BulletComponent, target: Entity) -> void:
 		
 	bullet_c.influence.take_influence(entity, target, bullet_c.to)
 	EntityUtils.create_entities_at_global_position(bullet_c.hit_payloads, bullet_c.to)
-	entity._on_bullet_hit(target, bullet_c)
 	
 	if bullet_c.hit_animation:
 		if await entity.y_wait_animation(bullet_c.hit_animation):

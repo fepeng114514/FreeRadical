@@ -43,7 +43,7 @@ enum Type {
 ## 当前周期数。
 var current_cycle: int = 0
 ## 时间戳。
-var ts: float = 0.0
+var time_stamp: float = 0.0
 
 
 func _validate_property(property: Dictionary):

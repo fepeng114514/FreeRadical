@@ -79,9 +79,9 @@ var source_id: int = Constants.UNSET
 ## 来源类型
 var source_type: SourceType = SourceType.NONE
 ## 插入时间戳，单位为秒
-var insert_ts: float = 0.0
+var inserted_time_stamp: float = 0.0
 ## 时间戳，单位为秒
-var ts: float = 0.0
+var time_stamp: float = 0.0
 ## 目标实体 ID
 var target_id: int = Constants.UNSET
 ## 拥有的状态效果 ID 列表
@@ -131,81 +131,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 	return warnings
 
-		
-#region 回调函数
-@warning_ignore_start("unused_parameter")
-## 插入实体时调用。[br][br]
-## -> 是否不移除实体。返回 [code]false[/code] 的实体将会被移除
-func _on_insert() -> bool: return true
-
-
-## 移除实体时调用。[br][br]
-## -> 是否移除实体。
-func _on_remove() -> bool: return true
-
-
-## 实体更新时调用
-func _on_update(delta: float) -> void: pass
-	
-
-## 实体在路径行走时调用
-func _on_pathway_walk(nav_path_c: NavPathComponent) -> void: pass
-
-
-## 实体往集结点行走时调用
-func _on_rally_walk(rally_c: RallyComponent) -> void: pass
-
-
-## 实体到达路径终点时调用
-func _on_arrived_end(nav_path_c: NavPathComponent) -> void: pass
-
-
-## 实体到达集结点时调用
-func _on_arrived_rally(rally_c: RallyComponent) -> void: pass
-	
-
-## 实体受到伤害时调用
-func _on_damage(damage: Damage) -> void: pass
-	
-
-## 实体死亡时调用。[br][br]
-## -> 是否跳过后续自动移除实体等死亡逻辑。
-func _on_death() -> bool: return false
-		
-
-## 杀死其他实体时调用
-func _on_kill(target: Entity) -> void: pass
-	
-
-## 兵营生成士兵时调用。[br][br]
-## -> 是否生成士兵。
-func _on_barrack_respawn(soldier: Entity, barrack_c: BarrackComponent) -> bool: return true
-
-
-## 状态效果实体周期调用
-func _on_modifier_cycle(target: Entity, modifier_c: ModifierComponent) -> void: pass
-
-
-## 光环实体周期调用
-func _on_aura_cycle(targets: Array, aura_c: AuraComponent) -> void: pass
-
-
-## 子弹命中目标时调用
-func _on_bullet_hit(target: Entity, bullet_c: BulletComponent) -> void: pass
-
-
-## 子弹未命中目标时调用
-func _on_bullet_miss(bullet_c: BulletComponent) -> void: pass
-
-
-## 实体被选择时调用
-func _on_select() -> void: pass
-
 
 func _to_string():
 	return String(name)
-@warning_ignore_restore("unused_parameter")
-#endregion
 
 
 #region 实体相关方法
@@ -236,7 +164,7 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 	if time <= 0:
 		return false
 
-	var timestamp: float = TimeManager.tick_ts
+	var timestamp: float = TimeManager.tick_time_stamp
 	var is_break: bool = false
 	while not TimeManager.has_elapsed(timestamp, time):
 		is_break = (

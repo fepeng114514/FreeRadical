@@ -33,32 +33,35 @@ func _on_item_deselected(_item: TrackEditorTrackItem) -> void:
 
 func _on_item_inserted(item: TrackEditorTrackItem) -> void:
 	var new_spawn := WaveSpawn.new()
+	var index: int = item.index
+	new_spawn.index = index
 	new_spawn.entity = wave_editor.enemy_scene_dict[0]
 	new_spawn.interval = item.get_relative_track_position_x()
-	wave_editor.selected_sub_wave.spawn_list.insert(item.index, new_spawn)
+	wave_editor.selected_sub_wave.spawn_list.insert(index, new_spawn)
 	_update_interval()
 
 
 func _on_item_deleted(item: TrackEditorTrackItem) -> void:
 	wave_editor.selected_sub_wave.spawn_list.remove_at(item.index)
+	for item_index: int in item_list.size():
+		var spawn: WaveSpawn = wave_editor.get_spawn(item_index)
+		spawn.index = item_index
+
 	_update_interval()
 
 	_hide_sub_track_editor()
 
 
 func _on_item_moved(_item: TrackEditorTrackItem) -> void:
-	_update_spawn_list()
-
-		
-func _update_spawn_list() -> void:
 	var item_list_size: int = item_list.size()
 	var new_spawn_list: Array[WaveSpawn] = []
 	new_spawn_list.resize(item_list_size)
 
 	for item_index: int in item_list_size:
 		var item: TrackEditorTrackItem = item_list[item_index]
-		var last_spawn: WaveSpawn = wave_editor.get_spawn(item.last_index)
-		new_spawn_list[item_index] = last_spawn
+		var spawn: WaveSpawn = wave_editor.get_spawn(item.last_index)
+		spawn.index = item_index
+		new_spawn_list[item_index] = spawn
 
 	wave_editor.selected_sub_wave.spawn_list = new_spawn_list
 	_update_interval()

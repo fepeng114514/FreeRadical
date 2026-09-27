@@ -1,3 +1,4 @@
+extends RefCounted
 class_name Damage
 ## 伤害类。
 
@@ -25,7 +26,7 @@ enum Type {
 	## 伤害类型: 秒杀。
 	INSTAKILL = 1 << 40,
 	## 伤害类型：所有伤害类型。
-	ALL = 1 << 40 - 1,
+	ALL = (1 << 40) - 1,
 }
 
 

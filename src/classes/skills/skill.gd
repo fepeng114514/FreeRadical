@@ -34,7 +34,7 @@ signal start_skill_cooldown
 @export var share_cooldown_skill_list: Array[Skill] = []
 
 ## 时间戳。
-var ts: float = 0.0
+var time_stamp: float = 0.0
 
 
 func _ready() -> void:
@@ -52,7 +52,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 @warning_ignore_start("unused_parameter")
 ## 检查技能是否可以释放。
 func can_use(entity: Entity) -> bool:
-	if not TimeManager.has_elapsed(ts, cooldown):
+	if not TimeManager.has_elapsed(time_stamp, cooldown):
 		return false
 
 	if randf() > chance:
@@ -75,19 +75,19 @@ func use_skill(entity: Entity, target: Entity = null) -> void:
 
 ## 开始技能冷却。
 func start_cooldown() -> void:
-	var tick_ts: float = TimeManager.tick_ts
-	ts = tick_ts
+	var tick_time_stamp: float = TimeManager.tick_time_stamp
+	time_stamp = tick_time_stamp
 
 	if share_cooldown_enabled:
 		for skill: Skill in share_cooldown_skill_list:
-			skill.ts = tick_ts
+			skill.time_stamp = tick_time_stamp
 	
 	start_skill_cooldown.emit()
 
 
 ## 补偿技能冷却时间。
 func compensate_cooldown() -> void:
-	ts -= compensate_cooldown_percent * cooldown
+	time_stamp -= compensate_cooldown_percent * cooldown
 
 
 func _on_config_changed() -> void:

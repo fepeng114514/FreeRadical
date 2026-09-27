@@ -20,7 +20,7 @@ func _on_insert(aura: ECSEntity) -> bool:
 	if not InteractPolicy.is_allowed_target(aura, target, interact_policy, target.interact_policy):
 		return false
 		
-	aura_c.ts = TimeManager.tick_ts
+	aura_c.time_stamp = TimeManager.tick_time_stamp
 	aura.global_position = target.global_position
 
 	var same_aura_list: Array[Entity] = []
@@ -76,7 +76,7 @@ func _on_update(_delta: float) -> void:
 					new_global_position += offset
 				aura.global_position = new_global_position
 
-		if not TimeManager.has_elapsed(aura_c.ts, aura_c.cycle_time):
+		if not TimeManager.has_elapsed(aura_c.time_stamp, aura_c.cycle_time):
 			continue
 
 		if Utils.is_valid_number(aura_c.max_cycle):
@@ -88,9 +88,8 @@ func _on_update(_delta: float) -> void:
 		for target: Entity in targets:
 			aura_c.influence.take_influence(aura, target, target.global_position)
 			
-		aura_c.ts = TimeManager.tick_ts
+		aura_c.time_stamp = TimeManager.tick_time_stamp
 		aura_c.curren_cycle += 1
-		aura._on_aura_cycle(targets, aura_c)
 
 
 func _on_remove(aura: ECSEntity) -> bool:
