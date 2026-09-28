@@ -1,12 +1,11 @@
-extends ECSSystem
+extends System
 class_name WaveSpawnerSystem
 ## 波次生成器系统。
 ##
 ## WaveSpawnerSystem 负责处理拥有 [WaveSpawnerComponent] 波次生成器组件的实体，包括生成波次等。
 
 
-func _on_insert(entity: ECSEntity) -> bool:
-	entity = entity as Entity
+func _on_insert(entity: Entity) -> bool:
 	var wave_spawner_c: WaveSpawnerComponent = entity.get_node_or_null(Constants.CN_WAVE_SPAWNER)
 	if not wave_spawner_c:
 		return false
@@ -27,7 +26,7 @@ func _on_insert(entity: ECSEntity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for spawner: Entity in ECSEntityManager.get_component_entity_group(Constants.CN_WAVE_SPAWNER):
+	for spawner: Entity in EntityManager.get_component_entity_group(Constants.CN_WAVE_SPAWNER):
 		if spawner.is_waiting() or spawner.state & Entity.State.REMOVED:
 			continue
 
@@ -72,7 +71,7 @@ func _on_update(_delta: float) -> void:
 			if spawn_state.spawned_total_count != 0 and not spawn_state.is_elapsed_time(spawn.spawn_interval):
 				continue
 
-			var entity: Entity = ECSEntityManager.create_entity(spawn.entity)
+			var entity: Entity = EntityManager.create_entity(spawn.entity)
 			var nav_path_c: NavPathComponent = entity.get_node_or_null(Constants.CN_NAV_PATH)
 			if nav_path_c:
 				var sub_pathway_index: int = spawn.sub_pathway_index
@@ -85,7 +84,7 @@ func _on_update(_delta: float) -> void:
 				)
 				nav_path_c.set_nav_path(spawn.pathway_index, sub_pathway_index, node.index)
 			
-			ECSEntityManager.queue_insert_entity(entity)
+			EntityManager.queue_insert_entity(entity)
 			
 			spawn_state.spawned_total_count += 1
 			spawn_state.time_stamp = TimeManager.tick_time_stamp

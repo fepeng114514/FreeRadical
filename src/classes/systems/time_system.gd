@@ -1,4 +1,4 @@
-extends ECSSystem
+extends System
 class_name TimeSystem
 ## 时间系统。
 ##

@@ -19,7 +19,7 @@ func _on_update(entity: Entity) -> bool:
 	if not skill:
 		return false
 
-	var target: Entity = ECSEntityManager.get_entity_by_id(dodge_c.target_id)
+	var target: Entity = EntityManager.get_entity_by_id(dodge_c.target_id)
 	if not target:
 		return false
 

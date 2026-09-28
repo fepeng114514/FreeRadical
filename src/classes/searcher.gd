@@ -125,7 +125,7 @@ func search_targets(center: Vector2, search_entity: Entity = null, filter := Cal
 		filter = func(entity: Entity) -> bool: 
 			return filter.call(entity) and extra_filter.call(entity)
 			
-	var targets: Array[ECSEntity] = ECSEntityManager.search_entities_in_ellipse(
+	var targets: Array[Entity] = EntityManager.search_entities_in_ellipse(
 		center, 
 		min_radius, 
 		max_radius, 
@@ -167,7 +167,7 @@ func _skip_ready_dead_filter(entity: Entity) -> bool:
 		var total_damage: float = 0.0
 
 		for bullet_id: int in entity.target_bullet_id_list:
-			var bullet: Entity = ECSEntityManager.get_entity_by_id(bullet_id)
+			var bullet: Entity = EntityManager.get_entity_by_id(bullet_id)
 			var bullet_c: BulletComponent = bullet.get_node_or_null(Constants.CN_BULLET)
 			if not bullet_c:
 				continue
@@ -194,7 +194,7 @@ func _skip_ready_dead_filter(entity: Entity) -> bool:
 
 
 ## 根据排序模式排序实体数组。
-func _sort_entities_by_type(entities_array: Array[ECSEntity], search_global_position: Vector2) -> void:
+func _sort_entities_by_type(entities_array: Array[Entity], search_global_position: Vector2) -> void:
 	var sort_function: Callable = Callable()
 	
 	match sort_mode:

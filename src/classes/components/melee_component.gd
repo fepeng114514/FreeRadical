@@ -99,7 +99,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	
 ## 拦截者绑定拦截关系。
 func blocker_bind_melee_relations(blocker_id: int, blocked_id: int) -> void: 
-	var blocked: Entity = ECSEntityManager.get_entity_by_id(blocked_id)
+	var blocked: Entity = EntityManager.get_entity_by_id(blocked_id)
 	var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
 	
 	blocked_melee_c.blocker_id_list.append(blocker_id)
@@ -109,7 +109,7 @@ func blocker_bind_melee_relations(blocker_id: int, blocked_id: int) -> void:
 
 ## 被拦截者绑定拦截关系。
 func blocked_bind_melee_relations(blocker_id: int, blocked_id: int) -> void: 
-	var blocker: Entity = ECSEntityManager.get_entity_by_id(blocker_id)
+	var blocker: Entity = EntityManager.get_entity_by_id(blocker_id)
 	var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.CN_MELEE)
 	
 	blocker_id_list.append(blocker_id)
@@ -120,7 +120,7 @@ func blocked_bind_melee_relations(blocker_id: int, blocked_id: int) -> void:
 ## 拦截者解除拦截关系。
 func blocker_unbind_melee_relations(entity: Entity) -> void:
 	for blocked_id: int in blocked_id_list:
-		var blocked: Entity = ECSEntityManager.get_entity_by_id(blocked_id)
+		var blocked: Entity = EntityManager.get_entity_by_id(blocked_id)
 		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
 		blocked_melee_c.blocker_id_list.erase(entity.id)
 		
@@ -133,7 +133,7 @@ func blocker_unbind_melee_relations(entity: Entity) -> void:
 ## 被拦截者解除拦截关系。
 func blocked_unbind_melee_relations(entity: Entity) -> void:
 	for blocker_id: int in blocker_id_list:
-		var blocker: Entity = ECSEntityManager.get_entity_by_id(blocker_id)
+		var blocker: Entity = EntityManager.get_entity_by_id(blocker_id)
 		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.CN_MELEE)
 		blocker_melee_c.blocked_id_list.erase(entity.id)
 	
@@ -151,7 +151,7 @@ func blocker_cleanup_melee_relations(entity: Entity) -> void:
 	blocked_count = 0
 	
 	for id: int in blocked_id_list:
-		var blocked: Entity = ECSEntityManager.get_entity_by_id(id)
+		var blocked: Entity = EntityManager.get_entity_by_id(id)
 		if not blocked:
 			continue 
 			
@@ -173,7 +173,7 @@ func blocked_cleanup_melee_relations(_e: Entity) -> void:
 	var new_blockers_ids := PackedInt32Array()
 	
 	for id: int in blocker_id_list:
-		var blocker: Entity = ECSEntityManager.get_entity_by_id(id)
+		var blocker: Entity = EntityManager.get_entity_by_id(id)
 		if not blocker:
 			continue 
 			

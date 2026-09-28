@@ -79,7 +79,7 @@ func _update_blocker(entity: Entity, melee_c: MeleeComponent) -> bool:
 		return false
 	else:
 		entity.state = Entity.State.MELEE
-		var blocked: Entity = ECSEntityManager.get_entity_by_id(blocked_id_list[0])
+		var blocked: Entity = EntityManager.get_entity_by_id(blocked_id_list[0])
 		var blocked_global_position: Vector2 = blocked.global_position
 		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
 		
@@ -134,7 +134,7 @@ func _blocker_search_and_bind_melee_relations(entity: Entity, melee_c: MeleeComp
 		if melee_c.is_extra_blocker:
 			if melee_c.blocked_id_list:
 				var first_blocked_id: int = melee_c.blocked_id_list[0]
-				var first_blocked_target: Entity = ECSEntityManager.get_entity_by_id(first_blocked_id)
+				var first_blocked_target: Entity = EntityManager.get_entity_by_id(first_blocked_id)
 				var blocked_melee_c: MeleeComponent = first_blocked_target.get_node_or_null(Constants.CN_MELEE)
 				if blocked_melee_c.blocker_id_list.size() > 1:
 					melee_c.blocked_count -= blocked_melee_c.block_cost
@@ -201,7 +201,7 @@ func _update_blocked(entity: Entity, melee_c: MeleeComponent) -> bool:
 		return false
 	else:
 		entity.state = Entity.State.MELEE
-		var blocker: Entity = ECSEntityManager.get_entity_by_id(blocker_id_list[0])
+		var blocker: Entity = EntityManager.get_entity_by_id(blocker_id_list[0])
 		var blocker_global_position: Vector2 = blocker.global_position
 		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.CN_MELEE)
 		var is_first_blocked: bool = entity.id == blocker_melee_c.blocked_id_list[0]

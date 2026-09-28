@@ -1,13 +1,11 @@
-extends ECSSystem
+extends System
 class_name HealthSystem
 ## 血量系统。
 ##
 ## HealthSystem 负责处理拥有 [HealthComponent] 血量组件的实体，包括回血等。
 
 
-func _on_insert(entity: ECSEntity) -> bool:
-	entity = entity as Entity
-	
+func _on_insert(entity: Entity) -> bool:
 	var health_c: HealthComponent = entity.get_node_or_null(Constants.CN_HEALTH)
 	if not health_c:
 		return true
@@ -18,7 +16,7 @@ func _on_insert(entity: ECSEntity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for entity: Entity in ECSEntityManager.get_component_entity_group(Constants.CN_HEALTH):
+	for entity: Entity in EntityManager.get_component_entity_group(Constants.CN_HEALTH):
 		if entity.state & Entity.State.DEAD:
 			continue
 

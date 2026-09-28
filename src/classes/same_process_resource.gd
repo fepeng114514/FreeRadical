@@ -35,7 +35,7 @@ func process(entity: Entity, samed_entity_list: Array[Entity]) -> bool:
 		Mode.MULTIPLE:
 			return true
 		Mode.REPLACE:
-			ECSEntityManager.queue_remove_entity(min_level_e)
+			EntityManager.queue_remove_entity(min_level_e)
 			return true
 		Mode.RESET:
 			max_level_e.inserted_time_stamp -= TimeManager.tick_time_stamp

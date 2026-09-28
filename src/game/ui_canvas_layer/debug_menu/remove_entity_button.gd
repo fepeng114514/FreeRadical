@@ -10,4 +10,4 @@ func _on_pressed() -> void:
 	if not target:
 		return
 
-	ECSEntityManager.queue_remove_entity(target)
+	EntityManager.queue_remove_entity(target)

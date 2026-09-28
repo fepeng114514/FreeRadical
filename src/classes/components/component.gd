@@ -1,5 +1,6 @@
 @abstract
-extends ECSComponent
+@icon("res://addons/godot_ecs/icons/jigsaw_piece.svg")
+extends Node2D
 class_name Component
 ## 组件基类。
 ##

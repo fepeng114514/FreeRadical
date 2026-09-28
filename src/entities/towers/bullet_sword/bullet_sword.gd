@@ -18,7 +18,7 @@ func _on_insert() -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	var target: Entity = ECSEntityManager.get_entity_by_id(target_id)
+	var target: Entity = EntityManager.get_entity_by_id(target_id)
 
 	# 停留状态
 	if target and is_stay and not TimeManager.has_elapsed(bullet_c.time_stamp, stay_time):

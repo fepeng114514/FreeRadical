@@ -45,7 +45,7 @@ func try_select() -> void:
 		_deselect()
 	else:
 		var mouse_global_position: Vector2 = InputManager.mouse_global_position
-		for entity: ECSEntity in ECSEntityManager.get_valid_entities():
+		for entity: Entity in EntityManager.get_valid_entities():
 			var select_c: SelectComponent = entity.get_node_or_null(Constants.CN_SELECT)
 			if not select_c:
 				continue

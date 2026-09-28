@@ -1,4 +1,4 @@
-extends ECSSystem
+extends System
 class_name DamageSystem
 ## 伤害系统。
 ##
@@ -12,7 +12,7 @@ func _on_update(_delta: float) -> void:
 	while damage_queue:
 		var damage: Damage = damage_queue.pop_front()
 		
-		var target: Entity = ECSEntityManager.get_entity_by_id(damage.target_id)
+		var target: Entity = EntityManager.get_entity_by_id(damage.target_id)
 		if not target:
 			continue
 
@@ -23,7 +23,7 @@ func _on_update(_delta: float) -> void:
 		if not health_c:
 			continue
 			
-		var source: Entity = ECSEntityManager.get_entity_by_id(damage.source_id)
+		var source: Entity = EntityManager.get_entity_by_id(damage.source_id)
 		var source_name: StringName = damage.source_name
 
 		var dodge_c: DodgeComponent = target.get_node_or_null(Constants.CN_DODGE)
@@ -98,7 +98,7 @@ func _death(damage: Damage, target: Entity, health_c: HealthComponent, source: E
 	GameManager.cash += health_c.death_gold
 
 	if damage_flags & Damage.Flag.KILL_REMOVE:
-		ECSEntityManager.queue_remove_entity(target)
+		EntityManager.queue_remove_entity(target)
 	
 	await get_tree().physics_frame
 
@@ -112,4 +112,4 @@ func _death(damage: Damage, target: Entity, health_c: HealthComponent, source: E
 
 	await target.y_wait(health_c.death_remove_delay)
 
-	ECSEntityManager.queue_remove_entity(target)
+	EntityManager.queue_remove_entity(target)

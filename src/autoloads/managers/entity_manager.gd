@@ -6,47 +6,45 @@ extends Node
 
 @warning_ignore_start("unused_signal")
 ## 实体创建信号。
-signal entity_created(entity: ECSEntity)
+signal entity_created(entity: Entity)
 ## 实体设置信号。
-signal entity_setup(entity: ECSEntity)
+signal entity_setup(entity: Entity)
 @warning_ignore_restore("unused_signal")
 
 
 ## 空间哈希的网格大小。
-var _spatial_hash_cell_size: int
+var _spatial_hash_cell_size: int = 100
 ## 空间哈希的网格行数。
-var _spatial_hash_row_count: int
+var _spatial_hash_row_count: int = 26
 ## 空间哈希的网格列数。
-var _spatial_hash_column_count: int
-## 是否启用自扩容空间哈希网格，当网格不存在时自动扩容，这会禁用手动设置网格行列数。
-var _auto_expand_spatial_hash_grid_enable: bool = false
+var _spatial_hash_column_count: int = 15
 ## 空间哈希网格的总单元格数。
 var _spatial_hash_cell_count: int
 
 ## 实体场景缓存。
 var _entity_scene_caches: Dictionary[String, PackedScene] = {}
 ## 实体世界。
-var _entity_world: ECSEntityWorld = null
+var _entity_world: EntityWorld = null
 ## 所有实体数组，无效的实体为 [null]。
-var _entities: Array[ECSEntity] = []
+var _entities: Array[Entity] = []
 ## 实体插入队列。
-var _insert_queue: Array[ECSEntity] = []
+var _insert_queue: Array[Entity] = []
 ## 插入队列头索引。
 var _insert_queue_head_index: int = 0
 ## 插入队列压缩阈值。
 var _insert_queue_compress_threshold: int = 64
 ## 实体移除队列。
-var _remove_queue: Array[ECSEntity] = []
+var _remove_queue: Array[Entity] = []
 ## 移除队列头索引。
 var _remove_queue_head_index: int = 0
 ## 移除队列压缩阈值。
 var _remove_queue_compress_threshold: int = 64
 ## 所有有效实体数组。
-var _valid_entities: Array[ECSEntity] = []
+var _valid_entities: Array[Entity] = []
 ## 实体组字典。
-var _entity_groups: Dictionary[StringName, ECSEntityGroup] = {}
+var _entity_groups: Dictionary[StringName, EntityGroup] = {}
 ## 按组件类型索引的实体组字典。
-var _component_entity_groups: Dictionary[StringName, ECSEntityGroup] = {}
+var _component_entity_groups: Dictionary[StringName, EntityGroup] = {}
 ## 下一个创建实体的 id。
 var _next_id: int = 0
 ## 空间哈希网格数组。
@@ -57,22 +55,15 @@ func _physics_process(delta: float) -> void:
 	_process_insert_queue()
 	_process_remove_queue()
 	_grouping_entities()
-	ECSSystemManager.process_update(delta)
+	SystemManager.process_update(delta)
 
 
 ## 初始化实体管理器。
 func init() -> void:
-	var setting: ECSSetting = ECSSettingManager.get_setting()
-	_spatial_hash_cell_size = setting.spatial_hash_cell_size
-	_spatial_hash_row_count = setting.spatial_hash_row_count
-	_spatial_hash_column_count = setting.spatial_hash_column_count
-	_auto_expand_spatial_hash_grid_enable = setting.auto_expand_spatial_hash_grid_enable
 	_spatial_hash_cell_count = _spatial_hash_row_count * _spatial_hash_column_count
-	
-	if not _auto_expand_spatial_hash_grid_enable:
-		_spatial_hash_grid.resize(_spatial_hash_cell_count)
-		for i: int in _spatial_hash_cell_count:
-			_spatial_hash_grid[i] = SpaceIndexCell.new()
+	_spatial_hash_grid.resize(_spatial_hash_cell_count)
+	for i: int in _spatial_hash_cell_count:
+		_spatial_hash_grid[i] = SpaceIndexCell.new()
 
 
 ## 清理实体管理器，这通常用于清除实体管理器中的所有引用。
@@ -89,27 +80,27 @@ func cleanup() -> void:
 
 
 ## 注册实体世界。
-func register_entity_world(entity_world: ECSEntityWorld) -> void:
+func register_entity_world(entity_world: EntityWorld) -> void:
 	_entity_world = entity_world
 
 
 ## 将实体增加到插入队列
-func queue_insert_entity(entity: ECSEntity) -> void:
+func queue_insert_entity(entity: Entity) -> void:
 	entity.visible = false
 	_insert_queue.append(entity)
 	Log.verbose("增加实体到插入队列: %s" % entity)
 
 
 ## 将实体增加到移除队列
-func queue_remove_entity(entity: ECSEntity) -> void:
+func queue_remove_entity(entity: Entity) -> void:
 	_remove_queue.append(entity)
 	Log.verbose("增加实体到移除队列: %s" % entity)
 
 
 ## 通过场景路径创建实体。
-func create_entity(entity_scene_path: String) -> ECSEntity:
+func create_entity(entity_scene_path: String) -> Entity:
 	var scene: PackedScene = load(entity_scene_path)
-	var entity: ECSEntity = scene.instantiate()
+	var entity: Entity = scene.instantiate()
 	_entity_scene_caches[entity_scene_path] = scene
 
 	entity_created.emit(entity)
@@ -118,7 +109,7 @@ func create_entity(entity_scene_path: String) -> ECSEntity:
 	
 	
 ## 设置实体，处理实体创建后续操作。
-func setup_entity(entity: ECSEntity) -> ECSEntity:
+func setup_entity(entity: Entity) -> Entity:
 	entity.id = _next_id
 	entity.name = "%sI%d" % [entity.name, _next_id]
 
@@ -138,11 +129,11 @@ func create_entities(
 		entity_scenes: PackedStringArray,
 		config_func: Callable = Callable(),
 		auto_insert: bool = true
-	) -> Array[ECSEntity]:
-	var created_entities: Array[ECSEntity] = []
+	) -> Array[Entity]:
+	var created_entities: Array[Entity] = []
 	
 	for entity_scene: String in entity_scenes:
-		var entity: ECSEntity = create_entity(entity_scene)
+		var entity: Entity = create_entity(entity_scene)
 		
 		if config_func.is_valid():
 			config_func.call(entity)
@@ -155,14 +146,58 @@ func create_entities(
 	return created_entities
 
 
-## 获取所有有效实体数组，不包含已被移除的实体。[br][br]
-## [b]注意[/b]: 其中的实体顺序是不确定的。
-func get_valid_entities() -> Array[ECSEntity]:
+## 在全局位置处创建实体。
+func create_entities_at_global_position(
+		entity_scenes: PackedStringArray, 
+		create_position: Vector2, 
+		auto_insert: bool = true 
+	) -> Array[Entity]:
+	return create_entities(
+		entity_scenes, func(entity): entity.set_global_position_with_components(create_position), auto_insert
+	)
+
+
+## 批量创建状态效果实体。
+func create_mods(
+		target_id: int,
+		entity_scenes: PackedStringArray, 
+		source_id: int = Constants.UNSET,
+		auto_insert: bool = true
+	) -> Array[Entity]:
+	return create_entities(
+		entity_scenes, 
+		func(entity):
+		entity.target_id = target_id
+		entity.source_id = source_id
+		, 
+		auto_insert
+	)
+
+
+## 批量创建光环实体。
+func create_auras(
+		target_id: int,
+		entity_scenes: PackedStringArray, 
+		source_id: int = Constants.UNSET,
+		auto_insert: bool = true
+	) -> Array[Entity]:
+	return create_entities(
+		entity_scenes, 
+		func(entity):
+		entity.target_id = target_id
+		entity.source_id = source_id
+		, 
+		auto_insert
+	)
+
+
+## 获取所有有效实体数组，不包含已被移除的实体。
+func get_valid_entities() -> Array[Entity]:
 	return _valid_entities
 
 
 ## 根据组名获取实体组。
-func get_entity_group(group_name: String) -> Array[ECSEntity]:
+func get_entity_group(group_name: String) -> Array[Entity]:
 	if not _entity_groups.has(group_name):
 		return []
 
@@ -170,7 +205,7 @@ func get_entity_group(group_name: String) -> Array[ECSEntity]:
 
 
 ## 获取按组件类型索引的实体组。
-func get_component_entity_group(group_name: String) -> Array[ECSEntity]:
+func get_component_entity_group(group_name: String) -> Array[Entity]:
 	if not _component_entity_groups.has(group_name):
 		return []
 
@@ -178,11 +213,11 @@ func get_component_entity_group(group_name: String) -> Array[ECSEntity]:
 
 
 ## 根据 id 获取实体。
-func get_entity_by_id(entity_id: int) -> ECSEntity:
+func get_entity_by_id(entity_id: int) -> Entity:
 	if entity_id == -1:
 		return null
 
-	var entity: ECSEntity = _entities.get(entity_id)
+	var entity: Entity = _entities.get(entity_id)
 	if not entity:
 		return null
 
@@ -196,10 +231,10 @@ func search_entities_in_ellipse(
 		min_range: float,
 		max_range: float,
 		filter := Callable(),
-		searched_group: String = "",
+		searched_group: StringName = &"",
 		aspect: float = 0.7
-	) -> Array[ECSEntity]:
-	var entities: Array[ECSEntity] = []
+	) -> Array[Entity]:
+	var entities: Array[Entity] = []
 
 	var grid_min_x: int = max(0, floori((search_global_position.x - max_range) / _spatial_hash_cell_size))
 	var grid_max_x: int = ceili((search_global_position.x + max_range) / _spatial_hash_cell_size)
@@ -213,9 +248,9 @@ func search_entities_in_ellipse(
 			if not cell:
 				continue
 
-			var iterative_entities: Array[ECSEntity] = cell.entity_groups[searched_group] if searched_group else cell.entities
-			for entity: ECSEntity in iterative_entities:
-				if not MathUtils.is_in_ellipse_ring(search_global_position, entity.global_position, min_range, max_range):
+			var iterative_entities: Array[Entity] = cell.entity_groups[searched_group].entities if searched_group else cell.entities
+			for entity: Entity in iterative_entities:
+				if not MathUtils.is_in_ellipse_ring(search_global_position, entity.global_position, min_range, max_range, aspect):
 					continue
 					
 				if filter.is_valid() and not filter.call(entity):
@@ -233,9 +268,9 @@ func search_entities_in_circle(
 		min_range: float,
 		max_range: float,
 		filter := Callable(),
-		searched_group: String = ""
-	) -> Array[ECSEntity]:
-	var entities: Array[ECSEntity] = []
+		searched_group: StringName = &""
+	) -> Array[Entity]:
+	var entities: Array[Entity] = []
 
 	var grid_min_x: int = max(0, floori((search_global_position.x - max_range) / _spatial_hash_cell_size))
 	var grid_max_x: int = ceili((search_global_position.x + max_range) / _spatial_hash_cell_size)
@@ -249,8 +284,8 @@ func search_entities_in_circle(
 			if not cell:
 				continue
 
-			var iterative_entities: Array[ECSEntity] = cell.entity_groups[searched_group] if searched_group else cell.entities
-			for entity: ECSEntity in iterative_entities:
+			var iterative_entities: Array[Entity] = cell.entity_groups[searched_group].entities if searched_group else cell.entities
+			for entity: Entity in iterative_entities:
 				if not MathUtils.is_in_ring(search_global_position, entity.global_position, min_range, max_range):
 					continue
 					
@@ -271,7 +306,7 @@ func global_position_to_spatial_hash_cell_index(position: Vector2) -> int:
 
 
 ## 网格坐标转换空间哈希单元格索引。
-func grid_position_to_spatial_hash_cell_index(x: float, y: float) -> int:
+func grid_position_to_spatial_hash_cell_index(x: int, y: int) -> int:
 	return x * _spatial_hash_column_count + y
 
 
@@ -286,7 +321,7 @@ func get_spatial_hash_cell(index: int) -> SpaceIndexCell:
 ## 处理实体插入队列。
 func _process_insert_queue() -> void:
 	while _insert_queue:
-		var entity: ECSEntity = _insert_queue[_insert_queue_head_index]
+		var entity: Entity = _insert_queue[_insert_queue_head_index]
 		_insert_queue[_insert_queue_head_index] = null
 		_insert_queue_head_index += 1
 		
@@ -302,7 +337,7 @@ func _process_insert_queue() -> void:
 		# 			% [entity.id, entities_len]
 		# 		)
 		
-		if not ECSSystemManager.process_entity_insert(entity):
+		if not SystemManager.process_entity_insert(entity):
 			continue
 
 		entity.tree_exiting.connect(_on_entity_tree_exiting.bind(entity))
@@ -314,43 +349,43 @@ func _process_insert_queue() -> void:
 		var cell_index: int = global_position_to_spatial_hash_cell_index(entity.global_position)
 		var cell: SpaceIndexCell = get_spatial_hash_cell(cell_index)
 		if cell:
-			var cell_entities: Array[ECSEntity] = cell.entities
+			var cell_entities: Array[Entity] = cell.entities
 			entity.space_hash_cell_entities_index = cell_entities.size()
 			cell_entities.append(entity)
 		
 		for group_name: StringName in entity.entity_groups:
-			var group: ECSEntityGroup = _entity_groups.get_or_add(
-				group_name, ECSEntityGroup.new(group_name)
+			var group: EntityGroup = _entity_groups.get_or_add(
+				group_name, EntityGroup.new()
 			)
-			var group_entities: Array[ECSEntity] = group.entities
+			var group_entities: Array[Entity] = group.entities
 			entity.entity_groups_indexes[group_name] = group_entities.size()
 			group_entities.append(entity)
 
 			if not cell:
 				continue
 				
-			var cell_group: ECSEntityGroup = cell.entity_groups.get_or_add(
-				group_name, ECSEntityGroup.new(group_name)
+			var cell_group: EntityGroup = cell.entity_groups.get_or_add(
+				group_name, EntityGroup.new()
 			)
-			var cell_group_entities: Array[ECSEntity] = cell_group.entities
+			var cell_group_entities: Array[Entity] = cell_group.entities
 			entity.space_hash_cell_entity_groups_indexes[group_name] = cell_group_entities.size()
 			cell_group_entities.append(entity)
 
 		for component_name: StringName in entity.components:
-			var component_group: ECSEntityGroup = _component_entity_groups.get_or_add(
-				component_name, ECSEntityGroup.new(component_name)
+			var component_group: EntityGroup = _component_entity_groups.get_or_add(
+				component_name, EntityGroup.new()
 			)
-			var component_group_entities: Array[ECSEntity] = component_group.entities
+			var component_group_entities: Array[Entity] = component_group.entities
 			entity.component_entity_groups_indexes[component_name] = component_group_entities.size()
 			component_group_entities.append(entity)
 
 			if not cell:
 				continue
 				
-			var cell_component_group: ECSEntityGroup = cell.component_entity_groups.get_or_add(
-				component_name, ECSEntityGroup.new(component_name)
+			var cell_component_group: EntityGroup = cell.component_entity_groups.get_or_add(
+				component_name, EntityGroup.new()
 			)
-			var cell_component_group_entities: Array[ECSEntity] = cell_component_group.entities
+			var cell_component_group_entities: Array[Entity] = cell_component_group.entities
 			entity.space_hash_cell_component_entity_groups_indexes[component_name] = cell_component_group_entities.size()
 			cell_component_group_entities.append(entity)
 		
@@ -361,7 +396,7 @@ func _process_insert_queue() -> void:
 ## 处理实体移除队列。
 func _process_remove_queue() -> void:
 	while _remove_queue:
-		var entity: ECSEntity = _remove_queue[_remove_queue_head_index]
+		var entity: Entity = _remove_queue[_remove_queue_head_index]
 		_remove_queue[_remove_queue_head_index] = null
 		_remove_queue_head_index += 1
 		
@@ -369,7 +404,7 @@ func _process_remove_queue() -> void:
 			_remove_queue = _remove_queue.slice(_remove_queue_head_index)
 			_remove_queue_head_index = 0
 		
-		if not ECSSystemManager.process_entity_remove(entity):
+		if not SystemManager.process_entity_remove(entity):
 			entity.visible = true
 			continue
 
@@ -379,7 +414,7 @@ func _process_remove_queue() -> void:
 
 ## 分组实体。
 func _grouping_entities() -> void:
-	for entity: ECSEntity in _entities:
+	for entity: Entity in _entities:
 		if not entity:
 			continue
 
@@ -437,13 +472,13 @@ func _grouping_entities() -> void:
 
 
 func _remove_and_append_groups_entity_with_diff(
-		entity: ECSEntity,
+		entity: Entity,
 		last_group_names: Array[StringName],
 		group_names: Array[StringName],
 		last_entity_groups_indexes: Dictionary[StringName, int],
 		entity_groups_indexes: Dictionary[StringName, int],
-		removed_groups: Dictionary[StringName, ECSEntityGroup],
-		appended_groups: Dictionary[StringName, ECSEntityGroup]
+		removed_groups: Dictionary[StringName, EntityGroup],
+		appended_groups: Dictionary[StringName, EntityGroup]
 	) -> void:
 	var counts: Dictionary[StringName, int] = {}
 	var last_has_group_names: Dictionary[StringName, bool] = {}
@@ -464,18 +499,18 @@ func _remove_and_append_groups_entity_with_diff(
 			continue
 
 		if last_has_group_names.has(group_name):
-			var group: ECSEntityGroup = removed_groups[group_name]
+			var group: EntityGroup = removed_groups[group_name]
 			ArrayUtils.array_swap_delete(group.entities, last_entity_groups_indexes[group_name])
 		else:
-			var group: ECSEntityGroup = appended_groups.get_or_add(group_name, ECSEntityGroup.new(group_name))
-			var group_entities: Array[ECSEntity] = group.entities
+			var group: EntityGroup = appended_groups.get_or_add(group_name, EntityGroup.new())
+			var group_entities: Array[Entity] = group.entities
 
 			last_entity_groups_indexes[group_name] = entity_groups_indexes[group_name]
 			entity_groups_indexes[group_name] = group_entities.size()
 			group_entities.append(entity)
 
 
-func _on_entity_tree_exiting(entity: ECSEntity) -> void:
+func _on_entity_tree_exiting(entity: Entity) -> void:
 	_entities[entity.id] = null
 		
 	ArrayUtils.array_swap_delete(_valid_entities, entity.valid_entities_index)
@@ -488,7 +523,7 @@ func _on_entity_tree_exiting(entity: ECSEntity) -> void:
 		)
 		
 	for group_name: StringName in entity.entity_groups:
-		var group: ECSEntityGroup = _entity_groups[group_name]
+		var group: EntityGroup = _entity_groups[group_name]
 		ArrayUtils.array_swap_delete(
 			group.entities,
 			entity.entity_groups_indexes[group_name]
@@ -497,14 +532,14 @@ func _on_entity_tree_exiting(entity: ECSEntity) -> void:
 		if not cell:
 			continue
 				
-		var cell_group: ECSEntityGroup = cell.entity_groups[group_name]
+		var cell_group: EntityGroup = cell.entity_groups[group_name]
 		ArrayUtils.array_swap_delete(
 			cell_group.entities,
 			entity.space_hash_cell_entity_groups_indexes[group_name]
 		)
 
 	for component_name: StringName in entity.components:
-		var component_group: ECSEntityGroup = _component_entity_groups[component_name]
+		var component_group: EntityGroup = _component_entity_groups[component_name]
 		ArrayUtils.array_swap_delete(
 			component_group.entities,
 			entity.component_entity_groups_indexes[component_name]
@@ -513,32 +548,27 @@ func _on_entity_tree_exiting(entity: ECSEntity) -> void:
 		if not cell:
 			continue
 				
-		var cell_component_group: ECSEntityGroup = cell.component_entity_groups[component_name]
+		var cell_component_group: EntityGroup = cell.component_entity_groups[component_name]
 		ArrayUtils.array_swap_delete(
 			cell_component_group.entities,
 			entity.space_hash_cell_component_entity_groups_indexes[component_name]
 		)
 		
 
-class ECSEntityGroup extends RefCounted:
-	## 实体组名。
-	var group_name: StringName = &""
+class EntityGroup extends RefCounted:
 	## 实体组内的实体。
-	var entities: Array[ECSEntity] = []
-
-	func _init(p_group_name: StringName) -> void:
-		group_name = p_group_name
+	var entities: Array[Entity] = []
 
 
 ## 空间哈希网格单元。
 class SpaceIndexCell extends RefCounted:
 	## 网格内的实体。
-	var entities: Array[ECSEntity] = []
+	var entities: Array[Entity] = []
 	## 网格内的实体组。
-	var entity_groups: Dictionary[StringName, ECSEntityGroup] = {}
+	var entity_groups: Dictionary[StringName, EntityGroup] = {}
 	## 网格内的组件实体组。
-	var component_entity_groups: Dictionary[StringName, ECSEntityGroup] = {}
+	var component_entity_groups: Dictionary[StringName, EntityGroup] = {}
 
-	func remove_entity(entity: ECSEntity) -> void:
+	func remove_entity(entity: Entity) -> void:
 		ArrayUtils.array_swap_delete(entities, entity.entities_index)
 		entity.entities_index = -1

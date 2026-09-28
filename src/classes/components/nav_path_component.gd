@@ -102,7 +102,7 @@ func set_nav_path_to_nearest_node(entity: Entity, search_global_position: Vector
 	var spi_list: Array = []
 
 	if nav_path_c.sync_source_path:
-		var source: Entity = ECSEntityManager.get_entity_by_id(entity.source_id)
+		var source: Entity = EntityManager.get_entity_by_id(entity.source_id)
 		var s_nav_path_c: NavPathComponent = source.get_node_or_null(Constants.CN_NAV_PATH) if source else null
 		if s_nav_path_c:
 			pi_list = [s_nav_path_c.pi]

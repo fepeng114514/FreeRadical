@@ -1,4 +1,4 @@
-extends ECSSystem
+extends System
 class_name UpgradeSystem
 ## 升级系统。
 ##
@@ -6,19 +6,19 @@ class_name UpgradeSystem
 
 
 func _on_update(_delta: float) -> void:
-	for entity: Entity in ECSEntityManager.get_component_entity_group(Constants.CN_UPGRADE):
+	for entity: Entity in EntityManager.get_component_entity_group(Constants.CN_UPGRADE):
 		var upgrade_c: UpgradeComponent = entity.get_node_or_null(Constants.CN_UPGRADE)
 		if not upgrade_c.upgrade_to:
 			continue
 
-		var new_entity: Entity = ECSEntityManager.create_entity(upgrade_c.upgrade_to)
+		var new_entity: Entity = EntityManager.create_entity(upgrade_c.upgrade_to)
 		new_entity.global_position = entity.global_position
 		
 		_process_price_component(entity, upgrade_c, new_entity)
 		_process_tower_component(entity, new_entity)
 		
-		ECSEntityManager.queue_insert_entity(new_entity)
-		ECSEntityManager.queue_remove_entity(entity)
+		EntityManager.queue_insert_entity(new_entity)
+		EntityManager.queue_remove_entity(entity)
 		GameManager.cash -= upgrade_c.price
 
 

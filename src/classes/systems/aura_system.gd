@@ -1,18 +1,16 @@
-extends ECSSystem
+extends System
 class_name AuraSystem
 ## 光环系统。
 ##
 ## AuraSystem 负责处理拥有 [AuraComponent] 光环组件的实体。
 
 
-func _on_insert(aura: ECSEntity) -> bool:
-	aura = aura as Entity
-
+func _on_insert(aura: Entity) -> bool:
 	var aura_c: AuraComponent = aura.get_node_or_null(Constants.CN_AURA)
 	if not aura_c:
 		return true
 		
-	var target: Entity = ECSEntityManager.get_entity_by_id(aura.target_id)
+	var target: Entity = EntityManager.get_entity_by_id(aura.target_id)
 	if not target:
 		return false
 
@@ -46,7 +44,7 @@ func _on_insert(aura: ECSEntity) -> bool:
 			or not interact_policy.is_scene_allowed(target.scene_name)
 		):
 			if aura_c.remove_banned:
-				ECSEntityManager.queue_remove_entity(other_aura)
+				EntityManager.queue_remove_entity(other_aura)
 				continue
 			
 			return false
@@ -63,10 +61,10 @@ func _on_insert(aura: ECSEntity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for aura: Entity in ECSEntityManager.get_component_entity_group(Constants.CN_AURA):
+	for aura: Entity in EntityManager.get_component_entity_group(Constants.CN_AURA):
 		var aura_c: AuraComponent = aura.get_node_or_null(Constants.CN_AURA)
 		if aura_c.track_target:
-			var target: Entity = ECSEntityManager.get_entity_by_id(aura.target_id)
+			var target: Entity = EntityManager.get_entity_by_id(aura.target_id)
 			if target:
 				var new_global_position: Vector2 = target.global_position
 				if target.aura_offsets:
@@ -81,7 +79,7 @@ func _on_update(_delta: float) -> void:
 
 		if Utils.is_valid_number(aura_c.max_cycle):
 			if aura_c.curren_cycle > aura_c.max_cycle:
-				ECSEntityManager.queue_remove_entity(aura)
+				EntityManager.queue_remove_entity(aura)
 				continue
 
 		var targets: Array[Entity] = aura_c.searcher.search_targets(aura.global_position, aura)
@@ -92,13 +90,11 @@ func _on_update(_delta: float) -> void:
 		aura_c.curren_cycle += 1
 
 
-func _on_remove(aura: ECSEntity) -> bool:
-	aura = aura as Entity
-
+func _on_remove(aura: Entity) -> bool:
 	if not aura.get_node_or_null(Constants.CN_AURA):
 		return true
 	
-	var source: Entity = ECSEntityManager.get_entity_by_id(aura.source_id)
+	var source: Entity = EntityManager.get_entity_by_id(aura.source_id)
 
 	if not source:
 		return true

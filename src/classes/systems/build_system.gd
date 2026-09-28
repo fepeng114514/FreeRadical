@@ -1,4 +1,4 @@
-extends ECSSystem
+extends System
 class_name BuildSystem
 ## 建筑系统。
 ##
@@ -6,7 +6,7 @@ class_name BuildSystem
 
 
 func _on_update(_delta: float) -> void:
-	for build: Entity in ECSEntityManager.get_component_entity_group(Constants.CN_BUILD):
+	for build: Entity in EntityManager.get_component_entity_group(Constants.CN_BUILD):
 		if build.is_waiting() or build.state & Entity.State.REMOVED:
 			continue
 
@@ -22,8 +22,8 @@ func _on_update(_delta: float) -> void:
 			continue
 
 		var price: float = build_c.price
-		var target: Entity = ECSEntityManager.create_entity(build_c.build_target)
+		var target: Entity = EntityManager.create_entity(build_c.build_target)
 		target.set_global_position_with_components(build.global_position)
-		ECSEntityManager.queue_insert_entity(target)
-		ECSEntityManager.queue_remove_entity(build)
+		EntityManager.queue_insert_entity(target)
+		EntityManager.queue_remove_entity(build)
 		GameManager.cash -= price

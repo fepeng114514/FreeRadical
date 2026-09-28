@@ -1,18 +1,16 @@
-extends ECSSystem
+extends System
 class_name ModifierSystem
 ## 状态效果系统。
 ##
 ## ModifierSystem 负责处理拥有 [ModifierComponent] 状态效果组件的实体。
 
 
-func _on_insert(modifier: ECSEntity) -> bool:
-	modifier = modifier as Entity
-
+func _on_insert(modifier: Entity) -> bool:
 	var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.CN_MODIFIER)
 	if not modifier_c:
 		return true
 
-	var target: Entity = ECSEntityManager.get_entity_by_id(modifier.target_id)
+	var target: Entity = EntityManager.get_entity_by_id(modifier.target_id)
 	if not target:
 		return false
 		
@@ -44,7 +42,7 @@ func _on_insert(modifier: ECSEntity) -> bool:
 			or not interact_policy.is_scene_allowed(target.scene_name)
 		):
 			if modifier_c.remove_banned:
-				ECSEntityManager.queue_remove_entity(other_modifier)
+				EntityManager.queue_remove_entity(other_modifier)
 				continue
 			
 			return false
@@ -65,14 +63,12 @@ func _on_update(_delta: float) -> void:
 	_process_property_modifiers()
 
 
-func _on_remove(modifier: ECSEntity) -> bool:
-	modifier = modifier as Entity
-	
+func _on_remove(modifier: Entity) -> bool:
 	var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.CN_MODIFIER)
 	if not modifier_c:
 		return true
 	
-	var target: Entity = ECSEntityManager.get_entity_by_id(modifier.target_id)
+	var target: Entity = EntityManager.get_entity_by_id(modifier.target_id)
 	if not target:
 		return true
 
@@ -100,10 +96,10 @@ func _on_remove(modifier: ECSEntity) -> bool:
 
 ## 处理状态效果的更新。
 func _process_modifier_update() -> void:
-	for modifier: Entity in ECSEntityManager.get_component_entity_group(Constants.CN_MODIFIER):
+	for modifier: Entity in EntityManager.get_component_entity_group(Constants.CN_MODIFIER):
 		var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.CN_MODIFIER)
 
-		var target: Entity = ECSEntityManager.get_entity_by_id(modifier.target_id)
+		var target: Entity = EntityManager.get_entity_by_id(modifier.target_id)
 		if modifier_c.track_target:
 			if target:
 				var new_global_position: Vector2 = target.global_position
@@ -121,7 +117,7 @@ func _process_modifier_update() -> void:
 		if modifier_c.cycle_enabled:
 			if Utils.is_valid_number(modifier_c.max_cycle):
 				if modifier_c.curren_cycle > modifier_c.max_cycle:
-					ECSEntityManager.queue_remove_entity(modifier)
+					EntityManager.queue_remove_entity(modifier)
 					continue
 			
 			if TimeManager.has_elapsed(modifier_c.time_stamp, modifier_c.cycle_time):
@@ -142,12 +138,12 @@ func _take_influfluence(modifier: Entity, modifier_c: ModifierComponent, target:
 	modifier_c.influence.take_influence(modifier, target, target.global_position)
 	await modifier.y_wait_animation(modifier.idle_animation)
 
-	ECSEntityManager.queue_remove_entity(modifier)
+	EntityManager.queue_remove_entity(modifier)
 
 
 ## 处理状态效果的属性修改。
 func _process_property_modifiers() -> void:
-	for entity: Entity in ECSEntityManager.get_valid_entities():
+	for entity: Entity in EntityManager.get_valid_entities():
 		var has_mods_id_list_size: int = entity.has_mods_id_list.size()
 		if entity.last_has_mods_id_list_size != has_mods_id_list_size:
 			entity.last_has_mods_id_list_size = has_mods_id_list_size
@@ -169,7 +165,7 @@ func _process_property_modifiers() -> void:
 
 ## 重置实体的属性值。
 func _reset_property(target: Entity, property_modifier: PropertyModifier) -> void:
-	var entity_data: Entity = ECSEntityManager.get_entity_data(target.scene_file_path)
+	var entity_data: Entity = EntityManager.get_entity_data(target.scene_file_path)
 	var data_node: Node = entity_data.get_node_or_null(property_modifier.node_path)
 	if not data_node:
 		return

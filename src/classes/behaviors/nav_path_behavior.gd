@@ -119,4 +119,4 @@ func _arrived_end(entity: Entity, nav_path_c: NavPathComponent, is_reversed: boo
 			and nav_path_c.loop_count > nav_path_c.loop_times
 	):
 		GameManager.life -= nav_path_c.life_cost
-		ECSEntityManager.queue_remove_entity(entity)
+		EntityManager.queue_remove_entity(entity)

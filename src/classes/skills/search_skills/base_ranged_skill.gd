@@ -50,7 +50,7 @@ func _spawn_bullets(
 	var da: float = (bullet_angle_range) / bullet_count + 1
 	
 	for bullet_index: int in bullet_count:
-		var bullet = ECSEntityManager.create_entity(bullet_scene)
+		var bullet = EntityManager.create_entity(bullet_scene)
 		bullet.target_id = target.id
 		bullet.source_id = entity.id
 
@@ -73,4 +73,4 @@ func _spawn_bullets(
 			bullet_global_position += offset
 		bullet.global_position = bullet_global_position
 
-		ECSEntityManager.queue_insert_entity(bullet)
+		EntityManager.queue_insert_entity(bullet)

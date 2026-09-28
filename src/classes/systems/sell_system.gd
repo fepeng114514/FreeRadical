@@ -1,4 +1,4 @@
-extends ECSSystem
+extends System
 class_name SellSystem
 ## 卖售系统。
 ##
@@ -6,19 +6,19 @@ class_name SellSystem
 
 
 func _on_update(_delta: float) -> void:
-	for entity: Entity in ECSEntityManager.get_component_entity_group(Constants.CN_SELL):
+	for entity: Entity in EntityManager.get_component_entity_group(Constants.CN_SELL):
 		var sell_c: SellComponent = entity.get_node_or_null(Constants.CN_SELL)
 		if not sell_c.is_sold or not sell_c.sell_enabled:
 			continue
 
 		AudioManager.play_sfx(sell_c.sell_sfx)
 		_process_tower_component(sell_c.tower_component)
-		ECSEntityManager.queue_remove_entity(entity)
+		EntityManager.queue_remove_entity(entity)
 		
 		var price_record: PriceRecord = entity.get_node_or_null(Constants.CN_PRICE_RECORD)
 		if not price_record:
 			continue
-			
+
 		GameManager.cash += sell_c.sell_ratio * price_record.price
 	
 
@@ -27,7 +27,7 @@ func _process_tower_component(entity: Entity) -> void:
 	if not tower_c:
 		return
 
-	var tower_holder: Entity = ECSEntityManager.create_entity(tower_c.tower_holder)
+	var tower_holder: Entity = EntityManager.create_entity(tower_c.tower_holder)
 	tower_holder.set_global_position_with_components(entity.global_position)
 	
-	ECSEntityManager.queue_insert_entity(tower_holder)
+	EntityManager.queue_insert_entity(tower_holder)

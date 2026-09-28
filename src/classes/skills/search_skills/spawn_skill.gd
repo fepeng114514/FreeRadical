@@ -53,7 +53,7 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 		var spawn_offset: Vector2 = spawn_offsets.get_offset_toward_point(entity_global_position, entity.facing_global_position)
 		spawn_global_position += spawn_offset
 
-	ECSEntityManager.create_entities(spawns, 
+	EntityManager.create_entities(spawns, 
 		func(new_entity: Entity) -> void:
 			new_entity.set_global_position_with_components(spawn_global_position)
 			new_entity.source_id = entity.id

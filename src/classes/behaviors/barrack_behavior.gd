@@ -22,7 +22,7 @@ func _on_remove(barrack: Entity) -> bool:
 	
 	var soldier_list: Array[Entity] = barrack_c.soldier_list
 	for _soldier_idx: int in soldier_list.size():
-		ECSEntityManager.queue_remove_entity(soldier_list[0])
+		EntityManager.queue_remove_entity(soldier_list[0])
 
 	return true
 
@@ -54,7 +54,7 @@ func _spawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent
 	) -> Entity:
 
-	var soldier: Entity = ECSEntityManager.create_entity(barrack_c.soldier_scene)
+	var soldier: Entity = EntityManager.create_entity(barrack_c.soldier_scene)
 	soldier.source_id = barrack.id
 	soldier.source_type = Entity.SourceType.BARRACK_SOLDIER
 	soldier.tree_exiting.connect(_on_soldier_removed.bind(soldier, barrack_c))
@@ -69,7 +69,7 @@ func _spawn_soldier(
 	soldier.global_position = soldier_global_position
 
 	barrack_c.soldier_list.append(soldier)
-	ECSEntityManager.queue_insert_entity(soldier)
+	EntityManager.queue_insert_entity(soldier)
 	
 	return soldier
 

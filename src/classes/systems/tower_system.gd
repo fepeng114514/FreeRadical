@@ -1,12 +1,11 @@
-extends ECSSystem
+extends System
 class_name TowerSystem
 ## 防御塔系统。
 ##
 ## TowerSystem 负责处理拥有 [TowerComponent] 防御塔组件的实体，包括升级、建造等。
 
 
-func _on_insert(tower: ECSEntity) -> bool:
-	tower = tower as Entity
+func _on_insert(tower: Entity) -> bool:
 	var tower_c: TowerComponent = tower.get_node_or_null(Constants.CN_TOWER)
 	if not tower_c:
 		return true
@@ -20,8 +19,8 @@ func _on_insert(tower: ECSEntity) -> bool:
 			if skill_c:
 				skill_c.start_skill_cooldown.connect(_on_start_skill_cooldown.bind(tower_c, child))
 
-		ECSEntityManager.setup_entity(child)
-		ECSEntityManager.queue_insert_entity(child)
+		EntityManager.setup_entity(child)
+		EntityManager.queue_insert_entity(child)
 		
 	if not tower_c.tower_holder:
 		var tower_record: PriceRecord = tower_c.get_node_or_null(Constants.CN_PRICE_RECORD)

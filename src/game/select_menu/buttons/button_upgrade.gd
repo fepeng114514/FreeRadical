@@ -15,7 +15,7 @@ var preview_entity: Entity = null
 
 
 func _update() -> void:
-	var upgrade_target: Entity = ECSEntityManager.get_entity_data(
+	var upgrade_target: Entity = EntityManager.get_entity_data(
 		upgrade_to
 	)
 	var tower_c: TowerComponent = upgrade_target.get_node_or_null(Constants.CN_TOWER)
@@ -46,10 +46,10 @@ func _on_mouse_entered() -> void:
 		return
 	
 	if preview:
-		preview_entity = ECSEntityManager.create_entity(preview)
+		preview_entity = EntityManager.create_entity(preview)
 		preview_entity.global_position = selected_entity.global_position
 		
-		ECSEntityManager.queue_insert_entity(preview_entity)
+		EntityManager.queue_insert_entity(preview_entity)
 	
 	
 func _on_mouse_exited() -> void:
@@ -63,5 +63,5 @@ func _on_mouse_exited() -> void:
 		
 func _hide_preview() -> void:
 	if preview_entity:
-		ECSEntityManager.queue_remove_entity(preview_entity)
+		EntityManager.queue_remove_entity(preview_entity)
 		preview_entity = null

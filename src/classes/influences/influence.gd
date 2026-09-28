@@ -77,9 +77,9 @@ func take_influence(source: Entity, base_target: Entity, search_center: Vector2)
 		_take(source, target, area_enabled)
 
 		if extra_enabled:
-			EntityUtils.create_mods(target_id, mods, source_id)
-			EntityUtils.create_auras(target_id, auras, source_id)
-			EntityUtils.create_entities_at_global_position(payloads, target.global_position)
+			EntityManager.create_mods(target_id, mods, source_id)
+			EntityManager.create_auras(target_id, auras, source_id)
+			EntityManager.create_entities_at_global_position(payloads, target.global_position)
 
 	return targets
 

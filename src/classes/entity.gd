@@ -1,5 +1,5 @@
 @tool
-extends ECSEntity
+extends Node2D
 class_name Entity
 ## 实体节点。
 ##
@@ -74,6 +74,12 @@ enum SourceType {
 ## 交互策略。
 @export var interact_policy: InteractPolicy = null
 
+## 实体场景名称
+var scene_name: String = ""
+## 实体本地化名称
+var localization_key: String = ""
+## 实体唯一 ID
+var id: int = Constants.UNSET
 ## 所有者或来源 ID
 var source_id: int = Constants.UNSET
 ## 来源类型
@@ -102,11 +108,67 @@ var state: int = Entity.State.IDLE
 var facing_global_position := Vector2.INF
 ## 是否是首次更新
 var is_first_update: bool = true
+## 实体属于的实体组。
+var entity_groups: Array[StringName] = []
+
+## 实体位于有效实体数组的索引。
+var valid_entities_index: int = Constants.UNSET
+
+## 上次位于空间哈希的单元格索引。
+var last_space_hash_cell_index: int = Constants.UNSET
+
+## 上次位于空间哈希单元格的实体索引。
+var last_space_hash_cell_entities_index: int = Constants.UNSET
+## 当前位于空间哈希单元格的实体索引。
+var space_hash_cell_entities_index: int = Constants.UNSET
+
+## 上次位于空间哈希单元格的实体组的索引。
+var last_space_hash_cell_entity_groups_indexes: Dictionary[StringName, int] = {}
+## 当前位于空间哈希单元格的实体组的索引。
+var space_hash_cell_entity_groups_indexes: Dictionary[StringName, int] = {}
+
+## 上次位于空间哈希单元格的组件实体组的索引。
+var last_space_hash_cell_component_entity_groups_indexes: Dictionary[StringName, int] = {}
+## 当前位于空间哈希单元格的组件实体组的索引。
+var space_hash_cell_component_entity_groups_indexes: Dictionary[StringName, int] = {}
+
+## 实体属于的实体组是否发生变化。
+var is_entity_groups_changed: bool = false
+## 上次实体属于的实体组。
+var last_entity_groups: Array[StringName] = []
+## 上次位于实体组的索引。
+var last_entity_groups_indexes: Dictionary[StringName, int] = {}
+## 当前位于实体组的索引。
+var entity_groups_indexes: Dictionary[StringName, int] = {}
+
+## 拥有的所有组件节点引用
+var components: Dictionary[StringName, Component] = {}
+## 组件是否发生变化。
+var is_component_changed: bool = false
+## 拥有的所有组件名称。
+var component_names: Array[StringName] = []
+## 上次实体拥有的所有组件名称。
+var last_component_names: Array[StringName] = []
+## 上次位于组件实体组的索引。
+var last_component_entity_groups_indexes: Dictionary[StringName, int] = {}
+## 当前位于组件实体组的索引。
+var component_entity_groups_indexes: Dictionary[StringName, int] = {}
 #endregion
 
 
 func _ready() -> void:
-	super()
+	scene_name = scene_file_path.get_file().get_basename()
+	localization_key = scene_name.to_upper()
+
+	for child: Node in get_children():
+		if not child is Component:
+			continue
+
+		var node_script: GDScript = child.get_script()
+		var node_class_name: StringName = node_script.get_global_name()
+			
+		components[node_class_name] = child
+		component_names.append(node_class_name)
 
 	DebugManager.draw_state_changed.connect(_on_draw_state_changed)
 
@@ -134,6 +196,44 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 func _to_string():
 	return String(name)
+
+
+## 获取本土化名称
+func get_localized_name() -> String:
+	return tr(scene_name.to_upper())
+
+	
+## 设置实体组。
+func set_entity_groups(groups: Array[StringName], set_changed_state_enabled: bool = true) -> void:
+	last_entity_groups = entity_groups
+	entity_groups = groups
+	if set_changed_state_enabled:
+		is_entity_groups_changed = true
+
+
+
+
+
+## 增加实体组件。
+func add_component(component: Component) -> void:
+	last_component_names = component_names
+
+	var component_class_name: StringName = component.get_class()
+	components[component_class_name] = component
+
+	component_names = components.keys()
+	is_component_changed = true
+
+
+## 移除实体组件。
+func remove_component(component: Component) -> void:
+	last_component_names = component_names
+
+	var component_class_name: StringName = component.get_class()
+	components.erase(component_class_name)
+
+	component_names = components.keys()
+	is_component_changed = true
 
 
 #region 实体相关方法
@@ -191,7 +291,7 @@ func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
 	for mod_id: int in has_mods_id_list:
-		var mod: Entity = ECSEntityManager.get_entity_by_id(mod_id)
+		var mod: Entity = EntityManager.get_entity_by_id(mod_id)
 		
 		if not mod or filter.is_valid() and not filter.call(mod):
 			continue
@@ -204,7 +304,7 @@ func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 ## 清空拥有的状态效果
 func clear_has_mod_list() -> void:
 	for mod: Entity in get_has_mod_list():
-		ECSEntityManager.queue_remove_entity(mod)
+		EntityManager.queue_remove_entity(mod)
 
 	has_mods_id_list.clear()
 #endregion
@@ -216,7 +316,7 @@ func get_has_aura_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_auras: Array[Entity] = []
 	
 	for aura_id in has_auras_id_list:
-		var aura: Entity = ECSEntityManager.get_entity_by_id(aura_id)
+		var aura: Entity = EntityManager.get_entity_by_id(aura_id)
 		
 		if not aura or filter.is_valid() and not filter.call(aura):
 			continue
@@ -229,7 +329,7 @@ func get_has_aura_list(filter: Callable = Callable()) -> Array[Entity]:
 ## 清空拥有的光环
 func clear_has_aura_list() -> void:
 	for aura: Entity in get_has_aura_list():
-		ECSEntityManager.queue_remove_entity(aura)
+		EntityManager.queue_remove_entity(aura)
 
 	has_auras_id_list.clear()
 #endregion
@@ -266,7 +366,7 @@ func play_animation(
 
 	## 处理同步动画
 	if sprite_c.sync_source:
-		var source: Entity = ECSEntityManager.get_entity_by_id(source_id)
+		var source: Entity = EntityManager.get_entity_by_id(source_id)
 		if source and not is_waiting():
 			source.facing_global_position = facing_global_position
 			var s_sprite_c: SpriteComponent = source.get_node_or_null(Constants.CN_SPRITE)
@@ -484,6 +584,6 @@ func _on_draw_state_changed(_draw_type: DebugManager.DrawType) -> void:
 
 
 func _on_config_changed() -> void:
-	set_entity_groups(interact_policy.get_entity_group_names(), not Engine.is_editor_hint())
-	
+	set_entity_groups(interact_policy.get_has_entity_groups(), not Engine.is_editor_hint())
+		
 	queue_redraw()

@@ -1,4 +1,4 @@
-extends ECSSystem
+extends System
 class_name BehaviorSystem
 ## 行为系统。
 ##
@@ -16,9 +16,7 @@ func _ready() -> void:
 	_behavior_list_size = _behavior_list.size()
 
 
-func _on_insert(entity: ECSEntity) -> bool:
-	entity = entity as Entity
-
+func _on_insert(entity: Entity) -> bool:
 	for behavior: Behavior in _behavior_list:
 		if not behavior._on_insert(entity):
 			return false
@@ -26,9 +24,7 @@ func _on_insert(entity: ECSEntity) -> bool:
 	return true
 
 
-func _on_remove(entity: ECSEntity) -> bool:
-	entity = entity as Entity
-	
+func _on_remove(entity: Entity) -> bool:
 	for behavior: Behavior in _behavior_list:
 		if not behavior._on_remove(entity):
 			return false
@@ -37,7 +33,7 @@ func _on_remove(entity: ECSEntity) -> bool:
 	
 	
 func _on_update(_delta: float) -> void:
-	for entity: Entity in ECSEntityManager.get_valid_entities():
+	for entity: Entity in EntityManager.get_valid_entities():
 		if entity.is_waiting() or entity.state & Entity.State.DEAD:
 			continue
 

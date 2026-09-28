@@ -77,7 +77,7 @@ tile_set = ExtResource("24_iowrn")
 script = ExtResource("25_b2jp2")
 metadata/_custom_type_script = "uid://c2hgryphol5kq"
 
-[node name="ECSEntityWorld" type="Node2D" parent="." unique_id=1218391746]
+[node name="EntityWorld" type="Node2D" parent="." unique_id=1218391746]
 y_sort_enabled = true
 script = ExtResource("7_jfjl5")
 metadata/_custom_type_script = "uid://bnq3dj2n1fgqi"

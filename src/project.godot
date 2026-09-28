@@ -38,7 +38,8 @@ buses/default_bus_layout="res://autoloads/managers/audio_manager/audio_bus_layou
 
 [autoload]
 
-EntityUtils="*uid://bvr5hlc6so6aa"
+SystemManager="*uid://bsm7ajayilotu"
+EntityManager="*uid://babmyw7m1iga5"
 DebugManager="*uid://dswgweyvy78e4"
 GlobalManager="*uid://ct01c5jk3ruit"
 TranslationManager="*uid://duh6g6j1nnv23"
@@ -55,9 +56,6 @@ TimeManager="*res://autoloads/managers/time_manager.gd"
 GridManager="*uid://bsty3nv6hyvtv"
 PathwayManager="*res://autoloads/managers/pathway_manager.gd"
 NodeConfigManager="*uid://cjutve3qggyot"
-ECSSettingManager="*uid://0xyrcdosy5ag"
-ECSEntityManager="*uid://2v61hpwjm2g1"
-ECSSystemManager="*uid://bmu2424omrcbk"
 
 [display]
 
@@ -68,7 +66,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/bbcode_edit.editor/plugin.cfg", "res://addons/godot_ecs/plugin.cfg", "res://addons/log/plugin.cfg", "res://addons/mask_check/plugin.cfg", "res://addons/utils/plugin.cfg")
+enabled=PackedStringArray("res://addons/bbcode_edit.editor/plugin.cfg", "res://addons/log/plugin.cfg", "res://addons/mask_check/plugin.cfg", "res://addons/utils/plugin.cfg")
 
 [file_customization]
 

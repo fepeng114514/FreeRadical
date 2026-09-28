@@ -1,4 +1,4 @@
-extends ECSSystem
+extends System
 class_name SelectSystem
 ## 选择实体系统。
 ##
