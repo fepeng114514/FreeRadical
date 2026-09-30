@@ -12,7 +12,7 @@ enum SUB_WAVE_STATE_FLAGS {
 }
 
 
-@export var node_config: WaveSpawnerComponentNodeConfig = null
+@export var config: WaveSpawnerComponentNodeConfig = null
 
 
 ## 波次组。
@@ -27,12 +27,3 @@ enum SUB_WAVE_STATE_FLAGS {
 
 ## 是否所有波次都释放完毕。
 var waves_finished: bool = false
-
-
-func _get_configuration_warnings() -> PackedStringArray:
-	var warnings := PackedStringArray()
-		
-	if not wave_group:
-		warnings.append("请在 wave_group 中增加一个 WaveGroup 资源，否则无法生成波次。")
-		
-	return warnings

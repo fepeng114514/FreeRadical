@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="TowerComponentNodeConfig" format=3 uid="uid://by5sx6mykjdgq"]
+
+[ext_resource type="Script" uid="uid://cfero2p55gthb" path="res://classes/node_configs/components/tower_component_node_config.gd" id="1_id4o5"]
+
+[resource]
+script = ExtResource("1_id4o5")
+tower_type = 4

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SpriteComponentNodeConfig" format=3 uid="uid://cwwq3qwj5qnou"]
+
+[ext_resource type="Script" uid="uid://fqgy2c1ajjbj" path="res://classes/node_configs/components/sprite_component_node_config.gd" id="1_ivpex"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_gnkmr"]
+[ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/sync_animations_data.gd" id="3_tsawf"]
+
+[sub_resource type="Resource" id="Resource_fel6d"]
+resource_local_to_scene = true
+script = ExtResource("2_gnkmr")
+any = &"idle"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_13cep"]
+resource_local_to_scene = true
+script = ExtResource("2_gnkmr")
+any = &"ranged"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_lvkar"]
+script = ExtResource("3_tsawf")
+idle = SubResource("Resource_fel6d")
+ranged = SubResource("Resource_13cep")
+metadata/_custom_type_script = "uid://qu0synx4c136"
+
+[resource]
+script = ExtResource("1_ivpex")
+sync_animations = SubResource("Resource_lvkar")

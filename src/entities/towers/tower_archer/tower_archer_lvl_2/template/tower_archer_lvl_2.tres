@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntityNodeConfig" format=3 uid="uid://y8atwt1dc3wm"]
+
+[ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="1_14m4o"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="1_giy7i"]
+[ext_resource type="Resource" uid="uid://c26ibmfyh56kw" path="res://entities/towers/tower_archer/tower_archer_spawn_sfx.tres" id="3_giy7i"]
+
+[sub_resource type="Resource" id="Resource_6s5nc"]
+resource_local_to_scene = true
+script = ExtResource("1_giy7i")
+flags = 16
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[resource]
+script = ExtResource("1_14m4o")
+spawn_sfx = ExtResource("3_giy7i")
+interact_policy = SubResource("Resource_6s5nc")

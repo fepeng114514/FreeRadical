@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="RangedSkillNodeConfig" format=3 uid="uid://dxri68jvusm2q"]
+
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_bbl0m"]
+[ext_resource type="Script" uid="uid://cn6ap4nlr0bnk" path="res://classes/node_configs/skills/search_skills/ranged_skill_node_config.gd" id="1_xtcna"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_4ku7y"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_q665l"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_s6qod"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="6_42eo6"]
+
+[sub_resource type="Resource" id="Resource_2wj8q"]
+resource_local_to_scene = true
+script = ExtResource("1_bbl0m")
+any = &"ranged"
+
+[sub_resource type="Resource" id="Resource_thpnf"]
+script = ExtResource("2_4ku7y")
+any = Vector2(0, -71.905)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_a0f2s"]
+resource_local_to_scene = true
+script = ExtResource("4_q665l")
+flags = 1048576
+bans = 128
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_bdi6e"]
+resource_local_to_scene = true
+script = ExtResource("5_s6qod")
+max_radius = 340.0
+interact_policy = SubResource("Resource_a0f2s")
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_ipws0"]
+script = ExtResource("6_42eo6")
+list = PackedStringArray("uid://nc72uwjv2uxa")
+delay = 0.466
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[resource]
+script = ExtResource("1_xtcna")
+bullet_scene = "uid://byog4qgt2vdy5"
+bullet_offsets = SubResource("Resource_thpnf")
+searcher = SubResource("Resource_bdi6e")
+cooldown = 3.0
+delay = 0.466
+animation = SubResource("Resource_2wj8q")
+sfx = SubResource("Resource_ipws0")

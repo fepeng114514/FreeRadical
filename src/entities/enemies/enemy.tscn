@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bhrppjcmn66t5"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_owq46"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_wqcwe"]
+[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component.gd" id="3_twyc1"]
+[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_bar.tscn" id="4_w4yt1"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="5_ipr6v"]
+
+[node name="Enemy" type="Node2D" unique_id=1899644401]
+script = ExtResource("1_owq46")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1501262804]
+script = ExtResource("2_wqcwe")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="HealthComponent" type="Node2D" parent="." unique_id=93345552]
+process_mode = 4
+script = ExtResource("3_twyc1")
+metadata/_custom_type_script = "uid://ly8ldtphpxmy"
+
+[node name="HealthBar" parent="HealthComponent" unique_id=179515968 instance=ExtResource("4_w4yt1")]
+
+[node name="SelectComponent" type="Node2D" parent="." unique_id=274281428]
+process_mode = 4
+script = ExtResource("5_ipr6v")
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

@@ -11,3 +11,4 @@ class_name RangedSkill
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()

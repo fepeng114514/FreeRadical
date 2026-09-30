@@ -1,7 +1,19 @@
 [gd_scene format=3 uid="uid://dxjst2smnggks"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_vtfrp"]
+[ext_resource type="Script" uid="uid://dr57xq1o4iqp1" path="res://entities/spawners/wave_spawner/wave_spawner.gd" id="1_0ur1v"]
+[ext_resource type="Resource" uid="uid://i5o5hys3ir5c" path="res://entities/spawners/wave_spawner/template/node_config_template.tres" id="2_q47rp"]
+[ext_resource type="Script" uid="uid://cr27g4lih7vp2" path="res://classes/components/wave_spawner_component.gd" id="2_xrc3c"]
+[ext_resource type="Resource" uid="uid://gu7fqe381hdc" path="res://entities/spawners/wave_spawner/template/wave_spawner.tres" id="3_0ur1v"]
+[ext_resource type="Resource" uid="uid://bhjihe6s614ul" path="res://entities/spawners/wave_spawner/template/wave_spawner_component/wave_spawner_component.tres" id="5_0ur1v"]
 
 [node name="WaveSpawner" type="Node2D" unique_id=708476456]
-script = ExtResource("1_vtfrp")
+script = ExtResource("1_0ur1v")
+node_config_template = ExtResource("2_q47rp")
+config = ExtResource("3_0ur1v")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="WaveSpawnerComponent" type="Node2D" parent="." unique_id=377971348]
+process_mode = 4
+script = ExtResource("2_xrc3c")
+config = ExtResource("5_0ur1v")
+metadata/_custom_type_script = "uid://cr27g4lih7vp2"

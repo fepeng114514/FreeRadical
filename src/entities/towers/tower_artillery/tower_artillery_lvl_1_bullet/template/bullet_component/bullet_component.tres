@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="BulletComponentNodeConfig" format=3 uid="uid://cwjnw3lmtgnfx"]
+
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="1_c0n12"]
+[ext_resource type="Script" uid="uid://np7l4ow7mm72" path="res://classes/node_configs/components/bullet_component_node_config.gd" id="1_d3cii"]
+[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="1_s5dma"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="2_rod67"]
+[ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://classes/bullet_trajectories/parabola_bullet_trajectory.gd" id="3_0guka"]
+
+[sub_resource type="Resource" id="Resource_yly0g"]
+resource_local_to_scene = true
+script = ExtResource("2_rod67")
+max_radius = 120.0
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_wk5lm"]
+resource_local_to_scene = true
+script = ExtResource("1_s5dma")
+damage_type = 4
+min_value = 9.0
+max_value = 18.0
+get_value_mode = 1
+area_enabled = true
+searcher = SubResource("Resource_yly0g")
+metadata/_custom_type_script = "uid://be7bvqrqjmin5"
+
+[sub_resource type="Resource" id="Resource_jmmy1"]
+script = ExtResource("1_c0n12")
+list = PackedStringArray("uid://c34pctng5uplj")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[sub_resource type="Resource" id="Resource_arty_traj"]
+script = ExtResource("3_0guka")
+flight_total_time = 1.5
+
+[resource]
+script = ExtResource("1_d3cii")
+trajectory = SubResource("Resource_arty_traj")
+rotation_speed = 6.0
+facing_enabled = false
+hit_influence = SubResource("Resource_wk5lm")
+hit_sfx = SubResource("Resource_jmmy1")
+hit_payloads = PackedStringArray("uid://dmn3u58sdn7l1")
+miss_sfx = SubResource("Resource_jmmy1")
+miss_payloads = PackedStringArray("uid://dmn3u58sdn7l1")

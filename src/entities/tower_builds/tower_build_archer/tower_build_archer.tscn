@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://boyec531alt4"]
+
+[ext_resource type="PackedScene" uid="uid://c2mpg68t4qrdj" path="res://entities/tower_builds/tower_build.tscn" id="1_1uvha"]
+[ext_resource type="Resource" uid="uid://b78kckjug60kh" path="res://entities/tower_builds/tower_build_archer/template/node_config_template.tres" id="2_pggbm"]
+[ext_resource type="Resource" uid="uid://k46at2xd2xa3" path="res://entities/tower_builds/tower_build_archer/template/tower_build_archer.tres" id="3_dt5lt"]
+[ext_resource type="Texture2D" uid="uid://7ic7ga1sd2k8" path="res://assets/atlas/atlas_textures/towers/tower_constructing_0004.tres" id="3_jldj6"]
+[ext_resource type="Resource" uid="uid://djkvyrawsi5mv" path="res://entities/tower_builds/tower_build_archer/template/sprite_component/sprite_component.tres" id="4_nyh2p"]
+[ext_resource type="Resource" uid="uid://dlrviakyrj5kl" path="res://entities/tower_builds/tower_build_archer/template/build_component/build_component.tres" id="6_nd28u"]
+
+[node name="TowerBuildArcher" unique_id=1530244974 instance=ExtResource("1_1uvha")]
+node_config_template = ExtResource("2_pggbm")
+config = ExtResource("3_dt5lt")
+
+[node name="SpriteComponent" parent="." index="2" unique_id=1656747318]
+config = ExtResource("4_nyh2p")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1433762339]
+position = Vector2(3, -51)
+texture = ExtResource("3_jldj6")
+
+[node name="BuildComponent" parent="." index="3" unique_id=838809041]
+config = ExtResource("6_nd28u")

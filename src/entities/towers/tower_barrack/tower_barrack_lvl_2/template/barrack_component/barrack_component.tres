@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="BarrackComponentNodeConfig" format=3 uid="uid://r67bnek1uj4w"]
+
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_0s0p4"]
+[ext_resource type="Script" uid="uid://t3k6wl7of3fr" path="res://classes/node_configs/components/barrack_component_node_config.gd" id="1_q4xy3"]
+[ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack/tower_barrack_spawn_sfx.tres" id="2_a1hfl"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="4_glgke"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="5_w46wc"]
+
+[sub_resource type="Resource" id="Resource_p4ubw"]
+resource_local_to_scene = true
+script = ExtResource("1_0s0p4")
+play_index = 1
+any = &"spawn"
+
+[sub_resource type="Resource" id="Resource_3ddwr"]
+script = ExtResource("4_glgke")
+list = PackedStringArray("uid://dcnpba3drwfdg")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[sub_resource type="Resource" id="Resource_2u03i"]
+script = ExtResource("5_w46wc")
+any = Vector2(0, 17.55)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[resource]
+script = ExtResource("1_q4xy3")
+rally_max_range = 320.0
+rally_radius = 45.0
+rally_sfx = ExtResource("2_a1hfl")
+soldier_scene = "uid://nosygoauf7h"
+spawn_offsets = SubResource("Resource_2u03i")
+animation = SubResource("Resource_p4ubw")
+delay = 0.167
+sfx = SubResource("Resource_3ddwr")

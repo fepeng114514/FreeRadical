@@ -11,6 +11,7 @@ class_name MultipleRangedSkill
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 循环次数。
 @export var loop_count: int = 1

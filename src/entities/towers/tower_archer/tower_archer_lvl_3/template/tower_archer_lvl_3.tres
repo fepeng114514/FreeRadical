@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EntityNodeConfig" format=3 uid="uid://4qrqw014py1"]
+
+[ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="1_0t5wx"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="1_8e36x"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_buxy6"]
+
+[sub_resource type="Resource" id="Resource_rfgo4"]
+resource_local_to_scene = true
+script = ExtResource("1_8e36x")
+flags = 16
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_wq07w"]
+script = ExtResource("3_buxy6")
+play_mode = null
+list = PackedStringArray("uid://clan5d73j5qax", "uid://b5f5tfbarrnm6", "uid://c80a54hn8ph6l")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[resource]
+script = ExtResource("1_0t5wx")
+spawn_sfx = SubResource("Resource_wq07w")
+interact_policy = SubResource("Resource_rfgo4")

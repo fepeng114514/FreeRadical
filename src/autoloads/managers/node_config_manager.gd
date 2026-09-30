@@ -26,13 +26,20 @@ func cleanup() -> void:
 func get_common_configuration_warnings(node: Node) -> PackedStringArray:
 	var warnings := PackedStringArray()
 
-	var config := node.config as NodeConfig
+	var config_prop: Dictionary = {}
+	for prop: Dictionary in node.get_property_list():
+		if prop.name != "config":
+			continue
 
-	if not config:
-		warnings.append("请设置一个 config 节点配置，或点击实体的 “更新节点配置模板” 按钮一键生成。")
+		config_prop = prop
+		break
 
-	if config:
-		if not FileAccess.file_exists(config.resource_path):
-			warnings.append("请将 config 节点配置保存为文件，否则后续无法在节点配置管理器中索引该实体的节点配置。")
+	if config_prop:
+		var config: NodeConfig = node.config
+		if config:
+			if not FileAccess.file_exists(config.resource_path):
+				warnings.append("请将 config 节点配置保存为文件，否则后续无法在节点配置管理器中索引该实体的节点配置。")
+		else:
+			warnings.append("请设置一个 config 节点配置，或点击实体的 “更新节点配置模板” 按钮一键生成。")
 
 	return warnings

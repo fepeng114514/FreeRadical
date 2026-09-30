@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="RangedSkillNodeConfig" format=3 uid="uid://ytyuj6qmlhic"]
+
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_66jju"]
+[ext_resource type="Script" uid="uid://cn6ap4nlr0bnk" path="res://classes/node_configs/skills/search_skills/ranged_skill_node_config.gd" id="1_dqvm8"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_o7uyl"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_1wibw"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_6yei3"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="6_b5nql"]
+
+[sub_resource type="Resource" id="Resource_ifwg8"]
+resource_local_to_scene = true
+script = ExtResource("1_66jju")
+up = &"ranged_up"
+down = &"ranged_down"
+
+[sub_resource type="Resource" id="Resource_c4v6e"]
+script = ExtResource("2_o7uyl")
+up = Vector2(13.05, -34.11)
+down = Vector2(-12.69, -34.47)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_2mog3"]
+resource_local_to_scene = true
+script = ExtResource("4_1wibw")
+flags = 1048576
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_8ums6"]
+resource_local_to_scene = true
+script = ExtResource("5_6yei3")
+max_radius = 330.0
+interact_policy = SubResource("Resource_2mog3")
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_vtoys"]
+script = ExtResource("6_b5nql")
+list = PackedStringArray("uid://b4j870vtyljlk")
+delay = 0.3
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[resource]
+script = ExtResource("1_dqvm8")
+bullet_scene = "uid://cydrfd7gi0py8"
+bullet_offsets = SubResource("Resource_c4v6e")
+searcher = SubResource("Resource_8ums6")
+cooldown = 1.5
+delay = 0.33
+animation = SubResource("Resource_ifwg8")
+sfx = SubResource("Resource_vtoys")

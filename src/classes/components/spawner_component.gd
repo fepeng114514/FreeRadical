@@ -11,6 +11,7 @@ class_name SpawnerComponent
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 生成器名称。
 @export var spawner_name: String = ""

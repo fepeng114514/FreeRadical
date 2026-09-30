@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dnkbru60qpk3q"]
+
+[ext_resource type="PackedScene" uid="uid://c2mpg68t4qrdj" path="res://entities/tower_builds/tower_build.tscn" id="1_1uvha"]
+[ext_resource type="Resource" uid="uid://vh7rr4dp8p2o" path="res://entities/tower_builds/tower_build_barrack/template/node_config_template.tres" id="2_yll3a"]
+[ext_resource type="Resource" uid="uid://mk55l3o40ke7" path="res://entities/tower_builds/tower_build_barrack/template/tower_build_barrack.tres" id="3_3unj4"]
+[ext_resource type="Texture2D" uid="uid://d08yo6hr067" path="res://assets/atlas/atlas_textures/towers/tower_constructing_0002.tres" id="3_ditd3"]
+[ext_resource type="Resource" uid="uid://1rxd4pd7dmcq" path="res://entities/tower_builds/tower_build_barrack/template/sprite_component/sprite_component.tres" id="4_ojpkc"]
+[ext_resource type="Resource" uid="uid://ch3jhlf452wqg" path="res://entities/tower_builds/tower_build_barrack/template/build_component/build_component.tres" id="6_nfrwa"]
+
+[node name="TowerBuildBarrack" unique_id=1530244974 instance=ExtResource("1_1uvha")]
+node_config_template = ExtResource("2_yll3a")
+config = ExtResource("3_3unj4")
+
+[node name="SpriteComponent" parent="." index="2" unique_id=1656747318]
+config = ExtResource("4_ojpkc")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1433762339]
+position = Vector2(0, -45)
+texture = ExtResource("3_ditd3")
+
+[node name="BuildComponent" parent="." index="3" unique_id=838809041]
+config = ExtResource("6_nfrwa")
+
+[node name="BuildTextureProgressBar" parent="BuildComponent" index="0" unique_id=917597271]
+offset_left = -42.0
+offset_top = -56.0
+offset_right = 48.0
+offset_bottom = -40.0

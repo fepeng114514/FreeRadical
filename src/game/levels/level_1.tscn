@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/spawners/wave_spawner/wave_spawner.tscn" id="2_4ykn6"]
 [ext_resource type="Resource" uid="uid://duckkkjf0svrb" path="res://game/levels/level_1_wave.tres" id="3_rifvl"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="7_6ioow"]
-[ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder/tower_holder_grass/tower_holder_grass.tscn" id="8_oewxi"]
+[ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/tower_holders/tower_holder_grass/tower_holder_grass.tscn" id="8_oewxi"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://game/pathway/pathway.gd" id="9_ups30"]
 [ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://game/wave_flag/wave_flag.tscn" id="10_dhsvx"]
 

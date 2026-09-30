@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://ckuxjfhe0ud41"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_ec4u0"]
+[ext_resource type="Resource" uid="uid://8ke0dm41xh8i" path="res://entities/tower_builds/tower_build_mage/template/sprite_component/sprite_component.tres" id="2_bydpt"]
+[ext_resource type="Resource" uid="uid://o5c7oyj0v85n" path="res://entities/tower_builds/tower_build_mage/template/build_component/build_component.tres" id="3_xswlv"]
+[ext_resource type="Resource" uid="uid://bayn8eqp7fmi5" path="res://entities/tower_builds/tower_build_mage/template/tower_build_mage.tres" id="4_p0mgt"]
+
+[sub_resource type="Resource" id="Resource_h6iq1"]
+script = ExtResource("1_ec4u0")
+name = "SpriteComponent"
+config = ExtResource("2_bydpt")
+
+[sub_resource type="Resource" id="Resource_bsajg"]
+script = ExtResource("1_ec4u0")
+name = "BuildComponent"
+config = ExtResource("3_xswlv")
+
+[resource]
+script = ExtResource("1_ec4u0")
+config = ExtResource("4_p0mgt")
+children = Array[ExtResource("1_ec4u0")]([SubResource("Resource_h6iq1"), SubResource("Resource_bsajg")])
+children_dict = Dictionary[String, ExtResource("1_ec4u0")]({
+"BuildComponent": SubResource("Resource_bsajg"),
+"SpriteComponent": SubResource("Resource_h6iq1")
+})

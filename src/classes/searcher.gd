@@ -180,7 +180,7 @@ func _skip_ready_dead_filter(entity: Entity) -> bool:
 			match damage_influence.get_value_mode:
 				damage_influence.GetValueMode.RANDOM:
 					damage.value = damage_influence.override_value
-				damage_influence.GetValueMode.RADIAL_FALLOFF:
+				damage_influence.GetValueMode.ELLIPTICAL_FALLOFF:
 					damage.value = damage_influence.max_value
 			damage.damage_type = damage_influence.damage_type
 			damage.damage_flags = damage_influence.damage_flags

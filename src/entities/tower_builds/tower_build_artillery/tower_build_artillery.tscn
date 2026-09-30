@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://glrib64s8fvl"]
+
+[ext_resource type="PackedScene" uid="uid://c2mpg68t4qrdj" path="res://entities/tower_builds/tower_build.tscn" id="1_1uvha"]
+[ext_resource type="Resource" uid="uid://b20plg1pfxkue" path="res://entities/tower_builds/tower_build_artillery/template/node_config_template.tres" id="2_rvqrk"]
+[ext_resource type="Resource" uid="uid://dc1eqb6nq45n3" path="res://entities/tower_builds/tower_build_artillery/template/tower_build_artillery.tres" id="3_8r7tq"]
+[ext_resource type="Texture2D" uid="uid://2apwhjjbk36n" path="res://assets/atlas/atlas_textures/towers/tower_constructing_0001.tres" id="3_h0uha"]
+[ext_resource type="Resource" uid="uid://b18v6oku601hl" path="res://entities/tower_builds/tower_build_artillery/template/sprite_component/sprite_component.tres" id="4_avtf4"]
+[ext_resource type="Resource" uid="uid://xxnde7xfumoe" path="res://entities/tower_builds/tower_build_artillery/template/build_component/build_component.tres" id="6_gtoq1"]
+
+[node name="TowerBuildArtillery" unique_id=1530244974 instance=ExtResource("1_1uvha")]
+node_config_template = ExtResource("2_rvqrk")
+config = ExtResource("3_8r7tq")
+
+[node name="SpriteComponent" parent="." index="2" unique_id=1656747318]
+config = ExtResource("4_avtf4")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1433762339]
+position = Vector2(-3, -51)
+texture = ExtResource("3_h0uha")
+
+[node name="BuildComponent" parent="." index="3" unique_id=838809041]
+config = ExtResource("6_gtoq1")
+
+[node name="BuildTextureProgressBar" parent="BuildComponent" index="0" unique_id=917597271]
+offset_left = -44.0
+offset_top = -58.0
+offset_right = 46.0
+offset_bottom = -42.0

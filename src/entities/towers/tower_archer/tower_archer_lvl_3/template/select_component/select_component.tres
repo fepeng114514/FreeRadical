@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="SelectComponentNodeConfig" format=3 uid="uid://bt32kbfw7p4a5"]
+
+[ext_resource type="Script" uid="uid://c2qgj80y7td10" path="res://classes/node_configs/components/select_component_node_config.gd" id="1_g0hw1"]
+
+[resource]
+script = ExtResource("1_g0hw1")

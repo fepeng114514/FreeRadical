@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityNodeConfig" format=3 uid="uid://dwlin0ay7joma"]
+
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_b4c7c"]
+[ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="1_chqsw"]
+
+[sub_resource type="Resource" id="Resource_kr724"]
+resource_local_to_scene = true
+script = ExtResource("1_b4c7c")
+right = &"idle_left_right"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[resource]
+script = ExtResource("1_chqsw")
+idle_animation = SubResource("Resource_kr724")

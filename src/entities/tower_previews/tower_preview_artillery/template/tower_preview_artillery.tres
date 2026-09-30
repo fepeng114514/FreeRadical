@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="EntityNodeConfig" format=3 uid="uid://b4rwxhfgdc4gi"]
+
+[ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="1_wi8es"]
+
+[resource]
+script = ExtResource("1_wi8es")

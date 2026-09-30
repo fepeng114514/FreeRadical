@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EntityNodeConfig" format=3 uid="uid://b6uj5hbxrd1bb"]
+
+[ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="1_a4u2v"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_t1ysm"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_1cayf"]
+[ext_resource type="Resource" uid="uid://kn7h15l730lr" path="res://entities/towers/tower_artillery/tower_artillery_spawn_sfx.tres" id="4_t1ysm"]
+
+[sub_resource type="Resource" id="Resource_g6lqa"]
+resource_local_to_scene = true
+script = ExtResource("1_t1ysm")
+any = &"idle"
+
+[sub_resource type="Resource" id="Resource_ve2hn"]
+resource_local_to_scene = true
+script = ExtResource("2_1cayf")
+flags = 16
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[resource]
+script = ExtResource("1_a4u2v")
+idle_animation = SubResource("Resource_g6lqa")
+spawn_sfx = ExtResource("4_t1ysm")
+interact_policy = SubResource("Resource_ve2hn")

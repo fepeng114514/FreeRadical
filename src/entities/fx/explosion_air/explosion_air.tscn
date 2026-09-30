@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://dmn3u58sdn7l1"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_tmxxw"]
+[ext_resource type="PackedScene" uid="uid://pqbuv36g2vax" path="res://entities/fx/fx.tscn" id="1_5f3cx"]
 [ext_resource type="Resource" uid="uid://bm81ngdyrfyo6" path="res://entities/fx/explosion_air/template/node_config_template.tres" id="2_4blvt"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_xp12o"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_5qgwn"]
 [ext_resource type="Resource" uid="uid://broi7voq3ktgs" path="res://entities/fx/explosion_air/template/explosion_air.tres" id="3_nvoyq"]
 [ext_resource type="SpriteFrames" uid="uid://eq3bgpd67tq2" path="res://assets/atlas/sprite_frames/commons/explosion_air.tres" id="4_fjwbf"]
-[ext_resource type="Script" uid="uid://bvipq6dw3lalv" path="res://classes/components/fx_component.gd" id="5_j262p"]
 [ext_resource type="Resource" uid="uid://wixt7bubdc6c" path="res://entities/fx/explosion_air/template/sprite_component/sprite_component.tres" id="6_xrc8x"]
 [ext_resource type="Resource" uid="uid://dhhe7lqbeqxqp" path="res://entities/fx/explosion_air/template/fx_component/fx_component.tres" id="9_yhq1s"]
 
@@ -15,24 +14,20 @@ resource_local_to_scene = true
 script = ExtResource("2_xp12o")
 any = &"idle"
 
-[node name="ExplosionAir" type="Node2D" unique_id=1041664771]
-script = ExtResource("1_tmxxw")
+[node name="ExplosionAir" unique_id=1041664771 instance=ExtResource("1_5f3cx")]
 node_config_template = ExtResource("2_4blvt")
 config = ExtResource("3_nvoyq")
 idle_animation = SubResource("Resource_qvfn2")
-metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1249947656]
+[node name="FXComponent" parent="." index="0" unique_id=1925955380]
+config = ExtResource("9_yhq1s")
+
+[node name="SpriteComponent" type="Node2D" parent="." index="1" unique_id=1249947656]
+show_behind_parent = true
 script = ExtResource("3_5qgwn")
 config = ExtResource("6_xrc8x")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=172993599]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=172993599]
 sprite_frames = ExtResource("4_fjwbf")
 animation = &"idle"
-
-[node name="FXComponent" type="Node2D" parent="." unique_id=987371124]
-process_mode = 4
-script = ExtResource("5_j262p")
-config = ExtResource("9_yhq1s")
-metadata/_custom_type_script = "uid://bvipq6dw3lalv"

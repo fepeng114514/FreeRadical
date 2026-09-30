@@ -27,24 +27,23 @@ enum TowerType {
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 防御塔类型。
 @export var tower_type: TowerType = TowerType.NONE
 
-@export_group("Shooter Switch")
+@export_group("Shooter Alternation")
 ## 是否启用射手轮换释放技能。
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var shooter_alternation_enabled: bool = false
-## 轮换的射手实体索引列表。
-@export var shooter_alternation_indexes: Array[int] = []
+## 轮换的射手实体列表。
+@export var shooter_alternation_entities: Array[NodePath] = []
 ## 轮换释放技能偏移时间（秒）。
 @export var shooter_alternation_offset: float = 0.1
 
-## 塔位。
-var tower_holder: String = ""
 ## 时间戳。
 var time_stamp: float = 0.0
 ## 当前轮换到的射手实体索引。
-var shooter_alternation_index: int = -1
+var current_shooter_alternation_index: int = -1
 
 
 func _ready() -> void:

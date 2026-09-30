@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://d1b7ryxejrvda"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_ih52k"]
+[ext_resource type="Resource" uid="uid://cq7pkgm5fuiot" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/template/sprite_component/sprite_component.tres" id="2_3jbyh"]
+[ext_resource type="Resource" uid="uid://daqfiac3se0qj" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/template/skill_component/ranged_skill/ranged_skill.tres" id="3_8yh87"]
+[ext_resource type="Resource" uid="uid://cy8pornpaiabt" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/template/skill_component/skill_component.tres" id="4_cb5lx"]
+[ext_resource type="Resource" uid="uid://bgnicg1bsw6t0" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/template/tower_archer_lvl_1_shooter.tres" id="5_q4ai7"]
+
+[sub_resource type="Resource" id="Resource_jxfy0"]
+script = ExtResource("1_ih52k")
+name = "SpriteComponent"
+config = ExtResource("2_3jbyh")
+
+[sub_resource type="Resource" id="Resource_gkqoi"]
+script = ExtResource("1_ih52k")
+name = "RangedSkill"
+config = ExtResource("3_8yh87")
+
+[sub_resource type="Resource" id="Resource_o1ahq"]
+script = ExtResource("1_ih52k")
+name = "SkillComponent"
+config = ExtResource("4_cb5lx")
+children = Array[ExtResource("1_ih52k")]([SubResource("Resource_gkqoi")])
+children_dict = Dictionary[String, ExtResource("1_ih52k")]({
+"RangedSkill": SubResource("Resource_gkqoi")
+})
+
+[resource]
+script = ExtResource("1_ih52k")
+config = ExtResource("5_q4ai7")
+children = Array[ExtResource("1_ih52k")]([SubResource("Resource_jxfy0"), SubResource("Resource_o1ahq")])
+children_dict = Dictionary[String, ExtResource("1_ih52k")]({
+"SkillComponent": SubResource("Resource_o1ahq"),
+"SpriteComponent": SubResource("Resource_jxfy0")
+})

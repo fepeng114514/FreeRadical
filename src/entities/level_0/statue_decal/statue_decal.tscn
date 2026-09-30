@@ -1,23 +1,18 @@
 [gd_scene format=3 uid="uid://cl3cd8sdbjwhv"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_oue4o"]
+[ext_resource type="PackedScene" uid="uid://6i0ayt27spxj" path="res://entities/decals/decal.tscn" id="1_rnc8w"]
 [ext_resource type="Resource" uid="uid://bly1tgxv3xelr" path="res://entities/level_0/statue_decal/template/node_config_template.tres" id="2_1gan0"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_cy1nh"]
 [ext_resource type="Resource" uid="uid://bsggp21mh82g3" path="res://entities/level_0/statue_decal/template/statue_decal.tres" id="3_lgqwx"]
 [ext_resource type="Texture2D" uid="uid://b8scwdfl1pqrn" path="res://assets/atlas/atlas_textures/level_0/statue_decal.tres" id="3_uklca"]
 [ext_resource type="Resource" uid="uid://cie0dxureatp4" path="res://entities/level_0/statue_decal/template/sprite_component/sprite_component.tres" id="5_nx2ef"]
 
-[node name="StatueDecal" type="Node2D" unique_id=1550676829]
-script = ExtResource("1_oue4o")
+[node name="StatueDecal" unique_id=1550676829 instance=ExtResource("1_rnc8w")]
 node_config_template = ExtResource("2_1gan0")
 config = ExtResource("3_lgqwx")
-metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=7937773]
-script = ExtResource("2_cy1nh")
+[node name="SpriteComponent" parent="." index="0" unique_id=1436095405]
 config = ExtResource("5_nx2ef")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1577114566]
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1577114566]
 position = Vector2(0, -208)
 texture = ExtResource("3_uklca")

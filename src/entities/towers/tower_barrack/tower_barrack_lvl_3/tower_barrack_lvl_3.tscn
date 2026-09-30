@@ -1,95 +1,41 @@
 [gd_scene format=3 uid="uid://c3u01oty250k2"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_51ddh"]
-[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_5rts4"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_ldt57"]
+[ext_resource type="PackedScene" uid="uid://i8lw87tx2sls" path="res://entities/towers/tower.tscn" id="1_k1sas"]
+[ext_resource type="Resource" uid="uid://cmkruqd5tei5e" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/node_config_template.tres" id="2_quum3"]
 [ext_resource type="SpriteFrames" uid="uid://b1jvpyhnaoqsh" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl3_door.tres" id="3_5rts4"]
+[ext_resource type="Resource" uid="uid://bluhh3gu22lqm" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/tower_barrack_lvl_3.tres" id="3_8irfe"]
 [ext_resource type="Texture2D" uid="uid://dn5xcppy405ul" path="res://assets/atlas/atlas_textures/towers/tower_barrack_0003.tres" id="3_ihmbd"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_gdhpx"]
-[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="7_jgyeg"]
-[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="8_0ita3"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="9_4fr6n"]
+[ext_resource type="Resource" uid="uid://cinbairsvlk1n" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/sprite_component/sprite_component.tres" id="7_7bso3"]
 [ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="10_quum3"]
-[ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack/tower_barrack_spawn_sfx.tres" id="11_8irfe"]
-[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="12_7bso3"]
+[ext_resource type="Resource" uid="uid://ccxcqww57nq1p" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/tower_component/tower_component.tres" id="11_76f6u"]
+[ext_resource type="Resource" uid="uid://bnyckmbynf66f" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/select_component/select_component.tres" id="13_m0dgy"]
+[ext_resource type="Resource" uid="uid://cnvy06cv2qwop" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/barrack_component/barrack_component.tres" id="15_lq848"]
 
-[sub_resource type="Resource" id="Resource_76f6u"]
-resource_local_to_scene = true
-script = ExtResource("2_ldt57")
-play_index = 1
-any = &"idle"
-metadata/_custom_type_script = "uid://dbxxc7n831vb0"
-
-[sub_resource type="Resource" id="Resource_m0dgy"]
-resource_local_to_scene = true
-script = ExtResource("2_5rts4")
-flags = 16
-metadata/_custom_type_script = "uid://ur2o05wq6jk5"
-
-[sub_resource type="Resource" id="Resource_wcexa"]
-script = ExtResource("8_0ita3")
-list = PackedStringArray("uid://cvqa1g2cy5ol1")
-metadata/_custom_type_script = "uid://b2b214g352w4u"
-
-[sub_resource type="Resource" id="Resource_2u03i"]
-script = ExtResource("12_7bso3")
-any = Vector2(0, 17.55)
-metadata/_custom_type_script = "uid://b88iol2ey0jwp"
-
-[sub_resource type="Resource" id="Resource_lq848"]
-resource_local_to_scene = true
-script = ExtResource("2_ldt57")
-play_index = 1
-any = &"spawn"
-
-[sub_resource type="Resource" id="Resource_3ddwr"]
-script = ExtResource("8_0ita3")
-list = PackedStringArray("uid://dcnpba3drwfdg")
-metadata/_custom_type_script = "uid://b2b214g352w4u"
-
-[node name="TowerBarrackLvl3" type="Node2D" unique_id=187367710]
+[node name="TowerBarrackLvl3" unique_id=187367710 instance=ExtResource("1_k1sas")]
 script = ExtResource("1_51ddh")
-idle_animation = SubResource("Resource_76f6u")
-interact_policy = SubResource("Resource_m0dgy")
+node_config_template = ExtResource("2_quum3")
+config = ExtResource("3_8irfe")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1067981190]
-show_behind_parent = true
-position = Vector2(0, -46)
-script = ExtResource("4_gdhpx")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+[node name="SpriteComponent" parent="." index="2" unique_id=40235501]
+config = ExtResource("7_7bso3")
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=927508667]
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=927508667]
 texture = ExtResource("3_ihmbd")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1766989563]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="1" unique_id=1766989563]
 sprite_frames = ExtResource("3_5rts4")
 animation = &"idle"
 
-[node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788]
-script = ExtResource("7_jgyeg")
-tower_type = 2
-price = 180.0
-sell_sfx = SubResource("Resource_wcexa")
-metadata/_custom_type_script = "uid://d104itkl6l02e"
+[node name="TowerComponent" parent="." index="3" unique_id=1705871166]
+config = ExtResource("11_76f6u")
 
-[node name="SelectComponent" type="Node2D" parent="." unique_id=602361207]
-process_mode = 4
-script = ExtResource("9_4fr6n")
-select_rect = Rect2(-71.235, -108.86, 138.62, 123.94)
-info_bar_type = 2
-select_menu_offset = Vector2(0, -36.32)
-metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+[node name="SelectComponent" parent="." index="4" unique_id=1451324403]
+config = ExtResource("13_m0dgy")
 
-[node name="BarrackComponent" type="Node2D" parent="." unique_id=441339810]
+[node name="BarrackComponent" type="Node2D" parent="." index="5" unique_id=441339810]
 process_mode = 4
 script = ExtResource("10_quum3")
-rally_max_range = 340.0
-rally_radius = 45.0
-rally_sfx = ExtResource("11_8irfe")
-soldier_scene = "uid://bg7aeaobp45q8"
-spawn_offsets = SubResource("Resource_2u03i")
-animation = SubResource("Resource_lq848")
-delay = 0.167
-sfx = SubResource("Resource_3ddwr")
+config = ExtResource("15_lq848")
 metadata/_custom_type_script = "uid://b3vhika61oa7p"

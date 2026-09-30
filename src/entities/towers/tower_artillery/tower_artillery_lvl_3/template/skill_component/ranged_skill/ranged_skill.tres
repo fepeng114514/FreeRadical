@@ -1,0 +1,48 @@
+[gd_resource type="Resource" script_class="RangedSkillNodeConfig" format=3 uid="uid://yh0apf82smx1"]
+
+[ext_resource type="Script" uid="uid://cn6ap4nlr0bnk" path="res://classes/node_configs/skills/search_skills/ranged_skill_node_config.gd" id="1_7g736"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_8jese"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_so35u"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_6p5xh"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_vp0mg"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="6_ne3iq"]
+
+[sub_resource type="Resource" id="Resource_wmilh"]
+resource_local_to_scene = true
+script = ExtResource("1_8jese")
+any = &"ranged"
+
+[sub_resource type="Resource" id="Resource_32uxe"]
+script = ExtResource("2_so35u")
+any = Vector2(0, -77.89)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_bk5wp"]
+resource_local_to_scene = true
+script = ExtResource("4_6p5xh")
+flags = 1048576
+bans = 128
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_ddm5a"]
+resource_local_to_scene = true
+script = ExtResource("5_vp0mg")
+max_radius = 350.0
+interact_policy = SubResource("Resource_bk5wp")
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[sub_resource type="Resource" id="Resource_ipws0"]
+script = ExtResource("6_ne3iq")
+list = PackedStringArray("uid://nc72uwjv2uxa")
+delay = 0.466
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[resource]
+script = ExtResource("1_7g736")
+bullet_scene = "uid://dj23msxsdb22o"
+bullet_offsets = SubResource("Resource_32uxe")
+searcher = SubResource("Resource_ddm5a")
+cooldown = 3.0
+delay = 0.466
+animation = SubResource("Resource_wmilh")
+sfx = SubResource("Resource_ipws0")

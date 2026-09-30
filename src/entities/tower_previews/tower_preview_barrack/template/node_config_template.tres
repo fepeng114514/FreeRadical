@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://ckh57kgtcsouw"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_vdxwi"]
+[ext_resource type="Resource" uid="uid://cwplumvb6bjuj" path="res://entities/tower_previews/tower_preview_barrack/template/sprite_component/sprite_component.tres" id="2_jrpqk"]
+[ext_resource type="Resource" uid="uid://cb1157xmo23e4" path="res://entities/tower_previews/tower_preview_barrack/template/tower_preview_barrack.tres" id="3_q1kl7"]
+
+[sub_resource type="Resource" id="Resource_o7g5v"]
+script = ExtResource("1_vdxwi")
+name = "SpriteComponent"
+config = ExtResource("2_jrpqk")
+
+[resource]
+script = ExtResource("1_vdxwi")
+config = ExtResource("3_q1kl7")
+children = Array[ExtResource("1_vdxwi")]([SubResource("Resource_o7g5v")])
+children_dict = Dictionary[String, ExtResource("1_vdxwi")]({
+"SpriteComponent": SubResource("Resource_o7g5v")
+})

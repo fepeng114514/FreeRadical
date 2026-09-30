@@ -1,71 +1,55 @@
 [gd_scene format=3 uid="uid://b8mw5gsptj8n1"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0nemn"]
+[ext_resource type="PackedScene" uid="uid://bhrppjcmn66t5" path="res://entities/enemies/enemy.tscn" id="1_7k104"]
 [ext_resource type="Resource" uid="uid://ccswcwnkjwg41" path="res://entities/enemies/enemy_goblin/template/node_config_template.tres" id="2_qjarl"]
 [ext_resource type="Resource" uid="uid://cveyeocld5o8e" path="res://entities/enemies/enemy_goblin/template/enemy_goblin.tres" id="3_0nemn"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_pvliu"]
 [ext_resource type="Resource" uid="uid://dmuv630f1ymyw" path="res://entities/enemies/enemy_goblin/template/sprite_component/sprite_component.tres" id="6_pvliu"]
 [ext_resource type="SpriteFrames" uid="uid://caqtmm3mrtin5" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_goblin.tres" id="6_wqawv"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="7_idosn"]
-[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component.gd" id="7_ujhgg"]
 [ext_resource type="Resource" uid="uid://buel7ygo8boyq" path="res://entities/enemies/enemy_goblin/template/health_component/health_component.tres" id="7_wqawv"]
-[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_bar.tscn" id="9_g3d7t"]
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="9_ppcjn"]
 [ext_resource type="Resource" uid="uid://b4bdkja6fbthr" path="res://entities/enemies/enemy_goblin/template/nav_path_component/nav_path_component.tres" id="9_ujhgg"]
 [ext_resource type="Resource" uid="uid://cwgk7xj6ota5c" path="res://entities/enemies/enemy_goblin/template/select_component/select_component.tres" id="10_g3d7t"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="10_na4cw"]
 [ext_resource type="Resource" uid="uid://bmu56rhkgu4ce" path="res://entities/enemies/enemy_goblin/template/melee_component/melee_component.tres" id="12_na4cw"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="12_udffg"]
 [ext_resource type="Resource" uid="uid://b0hh4h5o82ymd" path="res://entities/enemies/enemy_goblin/template/melee_component/melee_skill/melee_skill.tres" id="17_qhcvx"]
 
-[node name="EnemyGoblin" type="Node2D" unique_id=71433118]
-script = ExtResource("1_0nemn")
+[node name="EnemyGoblin" unique_id=71433118 instance=ExtResource("1_7k104")]
 node_config_template = ExtResource("2_qjarl")
 config = ExtResource("3_0nemn")
-entity_groups = Array[StringName]([&"enemies", &"units"])
-metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1028021225]
+[node name="SpriteComponent" parent="." index="0" unique_id=1501262804]
 show_behind_parent = true
-script = ExtResource("4_pvliu")
 config = ExtResource("6_pvliu")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=814028893]
 position = Vector2(0, -19)
 sprite_frames = ExtResource("6_wqawv")
 animation = &"idle_left_right"
 
-[node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868]
-process_mode = 4
-script = ExtResource("7_ujhgg")
+[node name="HealthComponent" parent="." index="1" unique_id=93345552]
 config = ExtResource("7_wqawv")
-metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
-[node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("9_g3d7t")]
+[node name="HealthBar" parent="HealthComponent" index="0" unique_id=179515968]
 offset_top = -39.0
 offset_bottom = -34.0
-scale = Vector2(1, 1.1)
 
-[node name="NavPathComponent" type="Node2D" parent="." unique_id=1202679749]
+[node name="SelectComponent" parent="." index="2" unique_id=274281428]
+config = ExtResource("10_g3d7t")
+
+[node name="NavPathComponent" type="Node2D" parent="." index="3" unique_id=1202679749]
 process_mode = 4
 script = ExtResource("10_na4cw")
 config = ExtResource("9_ujhgg")
 metadata/_custom_type_script = "uid://btct3ysbbulk0"
 
-[node name="SelectComponent" type="Node2D" parent="." unique_id=673866706]
-process_mode = 4
-script = ExtResource("12_udffg")
-config = ExtResource("10_g3d7t")
-metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
-[node name="MeleeComponent" type="Node2D" parent="." unique_id=311186355]
+[node name="MeleeComponent" type="Node2D" parent="." index="4" unique_id=311186355]
 process_mode = 4
 script = ExtResource("7_idosn")
 config = ExtResource("12_na4cw")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
-[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" unique_id=1177542709]
+[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" index="0" unique_id=1177542709]
 process_mode = 4
 script = ExtResource("9_ppcjn")
 config = ExtResource("17_qhcvx")

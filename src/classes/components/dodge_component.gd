@@ -13,6 +13,7 @@ class_name DodgeComponent
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 是否可以闪避远程攻击。
 @export var can_dodge_ranged: bool = true

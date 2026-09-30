@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="EntityNodeConfig" format=3 uid="uid://bsix7mor2evje"]
+
+[ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="1_5tyuq"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_p72iv"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="2_odl5j"]
+[ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack/tower_barrack_spawn_sfx.tres" id="4_odl5j"]
+
+[sub_resource type="Resource" id="Resource_iies6"]
+resource_local_to_scene = true
+script = ExtResource("1_p72iv")
+play_index = 1
+any = &"idle"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_xjl70"]
+resource_local_to_scene = true
+script = ExtResource("2_odl5j")
+flags = 16
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[resource]
+script = ExtResource("1_5tyuq")
+idle_animation = SubResource("Resource_iies6")
+spawn_sfx = ExtResource("4_odl5j")
+interact_policy = SubResource("Resource_xjl70")

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cxy7osvoibnms"]
+
+[ext_resource type="PackedScene" uid="uid://c2mpg68t4qrdj" path="res://entities/tower_builds/tower_build.tscn" id="1_1uvha"]
+[ext_resource type="Resource" uid="uid://ckuxjfhe0ud41" path="res://entities/tower_builds/tower_build_mage/template/node_config_template.tres" id="2_1ow42"]
+[ext_resource type="Texture2D" uid="uid://dkxdvn28ie6qw" path="res://assets/atlas/atlas_textures/towers/tower_constructing_0003.tres" id="3_7n7wk"]
+[ext_resource type="Resource" uid="uid://bayn8eqp7fmi5" path="res://entities/tower_builds/tower_build_mage/template/tower_build_mage.tres" id="3_weuk3"]
+[ext_resource type="Resource" uid="uid://8ke0dm41xh8i" path="res://entities/tower_builds/tower_build_mage/template/sprite_component/sprite_component.tres" id="4_675jg"]
+[ext_resource type="Resource" uid="uid://o5c7oyj0v85n" path="res://entities/tower_builds/tower_build_mage/template/build_component/build_component.tres" id="6_mvf4p"]
+
+[node name="TowerBuildMage" unique_id=1530244974 instance=ExtResource("1_1uvha")]
+node_config_template = ExtResource("2_1ow42")
+config = ExtResource("3_weuk3")
+
+[node name="SpriteComponent" parent="." index="2" unique_id=1656747318]
+config = ExtResource("4_675jg")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1433762339]
+position = Vector2(0, -32)
+texture = ExtResource("3_7n7wk")
+
+[node name="BuildComponent" parent="." index="3" unique_id=838809041]
+config = ExtResource("6_mvf4p")
+
+[node name="BuildTextureProgressBar" parent="BuildComponent" index="0" unique_id=917597271]
+offset_left = -41.0
+offset_top = -56.0
+offset_right = 49.0
+offset_bottom = -40.0

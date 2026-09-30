@@ -1,3 +1,4 @@
+@tool
 extends Record
 class_name PriceRecord
 ## 价格记录组件。
@@ -13,6 +14,6 @@ static func get_not_found_configuration_warnings(p_parent: Node) -> PackedString
 	var warnings := PackedStringArray()
 
 	if p_parent and not p_parent.get_node_or_null("PriceRecord"):
-		warnings.append("请增加一个 PriceRecord 子节点，否则实体无法存储价格信息。")
+		warnings.append("请为实体增加一个 PriceRecord 子节点，否则实体无法存储价格信息。")
 
 	return warnings

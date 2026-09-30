@@ -10,7 +10,6 @@ list = PackedStringArray("uid://7glcb2t5yqxk")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_tvdit")
 hp_max = 20.0
 death_gold = 3.0

@@ -12,6 +12,7 @@ class_name BulletComponent
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 飞行轨迹资源。
 @export var trajectory: BulletTrajectory = null

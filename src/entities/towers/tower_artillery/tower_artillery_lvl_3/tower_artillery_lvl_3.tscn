@@ -1,149 +1,81 @@
 [gd_scene format=3 uid="uid://687at3ao4err"]
 
+[ext_resource type="PackedScene" uid="uid://i8lw87tx2sls" path="res://entities/towers/tower.tscn" id="1_k1sas"]
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_pc2nb"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_pqn5j"]
+[ext_resource type="Resource" uid="uid://cmn3flwgx4ssn" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/node_config_template.tres" id="2_fpml0"]
 [ext_resource type="SpriteFrames" uid="uid://djlxpbrwpkdea" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer1.tres" id="3_5myai"]
-[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_6ydbx"]
-[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_amoxe"]
+[ext_resource type="Resource" uid="uid://6m6cfe7uqe32" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/tower_artillery_lvl_3.tres" id="3_38quj"]
 [ext_resource type="SpriteFrames" uid="uid://d2qwys4yp5rxm" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer2.tres" id="4_gdik0"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="5_k8dbj"]
 [ext_resource type="SpriteFrames" uid="uid://chmmtn7ba1fcw" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer3.tres" id="5_tewo5"]
 [ext_resource type="SpriteFrames" uid="uid://r231uj3dbf7q" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer4.tres" id="6_amoxe"]
 [ext_resource type="Script" uid="uid://bcthb5ophrody" path="res://classes/sprite_group.gd" id="6_wgs4g"]
 [ext_resource type="SpriteFrames" uid="uid://bbtfnjymlnrko" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer5.tres" id="7_tb2hh"]
 [ext_resource type="SpriteFrames" uid="uid://ew2gcahc81es" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer6.tres" id="8_fqb7k"]
+[ext_resource type="Resource" uid="uid://dk1bus64h6v77" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/sprite_component/sprite_component.tres" id="8_ikgqp"]
 [ext_resource type="SpriteFrames" uid="uid://bpixiyh1q2afc" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer7.tres" id="9_j7n3x"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="10_tewo5"]
-[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="13_mgs43"]
-[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="14_a7asf"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="15_0u2pc"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="16_6w2jx"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/search_skills/ranged_skill.gd" id="17_fpml0"]
+[ext_resource type="Resource" uid="uid://ctgiyypk61rqs" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/tower_component/tower_component.tres" id="18_bk5wp"]
+[ext_resource type="Resource" uid="uid://b1xeaojgw0wd8" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/select_component/select_component.tres" id="20_ddm5a"]
+[ext_resource type="Resource" uid="uid://bvig7l8ihkypf" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/skill_component/skill_component.tres" id="22_wmilh"]
+[ext_resource type="Resource" uid="uid://yh0apf82smx1" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/skill_component/ranged_skill/ranged_skill.tres" id="24_4cqcr"]
 
-[sub_resource type="Resource" id="Resource_38quj"]
-resource_local_to_scene = true
-script = ExtResource("2_pqn5j")
-any = &"idle"
-
-[sub_resource type="Resource" id="Resource_ds7h4"]
-script = ExtResource("3_6ydbx")
-list = PackedStringArray("uid://6rnymn4xntae", "uid://da6ftdhir8qn3", "uid://defc8m78n4bwc")
-metadata/_custom_type_script = "uid://b2b214g352w4u"
-
-[sub_resource type="Resource" id="Resource_ikgqp"]
-resource_local_to_scene = true
-script = ExtResource("3_amoxe")
-flags = 16
-metadata/_custom_type_script = "uid://ur2o05wq6jk5"
-
-[sub_resource type="Resource" id="Resource_wcexa"]
-script = ExtResource("3_6ydbx")
-list = PackedStringArray("uid://cvqa1g2cy5ol1")
-metadata/_custom_type_script = "uid://b2b214g352w4u"
-
-[sub_resource type="Resource" id="Resource_32uxe"]
-script = ExtResource("13_mgs43")
-any = Vector2(0, -77.89)
-metadata/_custom_type_script = "uid://b88iol2ey0jwp"
-
-[sub_resource type="Resource" id="Resource_bk5wp"]
-resource_local_to_scene = true
-script = ExtResource("3_amoxe")
-flags = 1048576
-bans = 128
-metadata/_custom_type_script = "uid://ur2o05wq6jk5"
-
-[sub_resource type="Resource" id="Resource_ddm5a"]
-resource_local_to_scene = true
-script = ExtResource("10_tewo5")
-max_radius = 350.0
-interact_policy = SubResource("Resource_bk5wp")
-metadata/_custom_type_script = "uid://4dsevfnug1a1"
-
-[sub_resource type="Resource" id="Resource_wmilh"]
-resource_local_to_scene = true
-script = ExtResource("2_pqn5j")
-any = &"ranged"
-
-[sub_resource type="Resource" id="Resource_ipws0"]
-script = ExtResource("3_6ydbx")
-list = PackedStringArray("uid://nc72uwjv2uxa")
-delay = 0.466
-metadata/_custom_type_script = "uid://b2b214g352w4u"
-
-[node name="TowerArtilleryLvl3" type="Node2D" unique_id=1600363506]
+[node name="TowerArtilleryLvl3" unique_id=1600363506 instance=ExtResource("1_k1sas")]
 script = ExtResource("1_pc2nb")
-idle_animation = SubResource("Resource_38quj")
-spawn_sfx = SubResource("Resource_ds7h4")
-interact_policy = SubResource("Resource_ikgqp")
+node_config_template = ExtResource("2_fpml0")
+config = ExtResource("3_38quj")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1067981190]
-show_behind_parent = true
-script = ExtResource("5_k8dbj")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+[node name="SpriteComponent" parent="." index="2" unique_id=40235501]
+config = ExtResource("8_ikgqp")
 
-[node name="SpriteGroup" type="Node2D" parent="SpriteComponent" unique_id=557425361]
+[node name="SpriteGroup" type="Node2D" parent="SpriteComponent" index="0" unique_id=557425361]
 position = Vector2(0, -53)
 script = ExtResource("6_wgs4g")
 metadata/_custom_type_script = "uid://bcthb5ophrody"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=257270110]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="0" unique_id=257270110]
 sprite_frames = ExtResource("3_5myai")
 animation = &"idle"
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=2085102450]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="1" unique_id=2085102450]
 sprite_frames = ExtResource("4_gdik0")
 animation = &"idle"
 
-[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=532296352]
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="2" unique_id=532296352]
 sprite_frames = ExtResource("5_tewo5")
 animation = &"idle"
 
-[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=1525718789]
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="3" unique_id=1525718789]
 sprite_frames = ExtResource("6_amoxe")
 animation = &"idle"
 
-[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=859521095]
+[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="4" unique_id=859521095]
 sprite_frames = ExtResource("7_tb2hh")
 animation = &"idle"
 
-[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=1766719931]
+[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="5" unique_id=1766719931]
 sprite_frames = ExtResource("8_fqb7k")
 animation = &"idle"
 
-[node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=473479711]
+[node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" index="6" unique_id=473479711]
 sprite_frames = ExtResource("9_j7n3x")
 animation = &"idle"
 
-[node name="TowerComponent" type="Node2D" parent="." unique_id=1150016788]
-script = ExtResource("14_a7asf")
-tower_type = 4
-price = 360.0
-sell_sfx = SubResource("Resource_wcexa")
-metadata/_custom_type_script = "uid://d104itkl6l02e"
+[node name="TowerComponent" parent="." index="3" unique_id=1705871166]
+config = ExtResource("18_bk5wp")
 
-[node name="SelectComponent" type="Node2D" parent="." unique_id=602361207]
-process_mode = 4
-script = ExtResource("15_0u2pc")
-select_rect = Rect2(-96.495, -82.975, 179.84, 110.07)
-info_bar_type = 2
-select_menu_offset = Vector2(0, -36.32)
-metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+[node name="SelectComponent" parent="." index="4" unique_id=1451324403]
+config = ExtResource("20_ddm5a")
 
-[node name="SkillComponent" type="Node2D" parent="." unique_id=52126447]
+[node name="SkillComponent" type="Node2D" parent="." index="5" unique_id=52126447]
 process_mode = 4
 script = ExtResource("16_6w2jx")
+config = ExtResource("22_wmilh")
 metadata/_custom_type_script = "uid://7hja048qjkj0"
 
-[node name="RangedSkill" type="Node2D" parent="SkillComponent" unique_id=1342825155]
+[node name="RangedSkill" type="Node2D" parent="SkillComponent" index="0" unique_id=1342825155]
 process_mode = 4
 script = ExtResource("17_fpml0")
-bullet_scene = "uid://dj23msxsdb22o"
-bullet_offsets = SubResource("Resource_32uxe")
-searcher = SubResource("Resource_ddm5a")
-cooldown = 3.0
-delay = 0.466
-animation = SubResource("Resource_wmilh")
-sfx = SubResource("Resource_ipws0")
+config = ExtResource("24_4cqcr")
 metadata/_custom_type_script = "uid://covaxdshxnvkn"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SelectComponentNodeConfig" format=3 uid="uid://d0at4p5yporot"]
+
+[ext_resource type="Script" uid="uid://c2qgj80y7td10" path="res://classes/node_configs/components/select_component_node_config.gd" id="1_clnkg"]
+
+[resource]
+script = ExtResource("1_clnkg")
+select_rect = Rect2(-54.73, -83.54, 112.585, 102.565)
+info_bar_type = 2
+select_menu_type = 1
+select_menu_offset = Vector2(0, -38.32)

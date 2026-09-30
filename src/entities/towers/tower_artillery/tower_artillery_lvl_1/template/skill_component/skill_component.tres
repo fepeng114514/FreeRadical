@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="SkillComponentNodeConfig" format=3 uid="uid://cefhc1naedxha"]
+
+[ext_resource type="Script" uid="uid://8flg08ikwmvs" path="res://classes/node_configs/components/skill_component_node_config.gd" id="1_n6ymb"]
+
+[resource]
+script = ExtResource("1_n6ymb")

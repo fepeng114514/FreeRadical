@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BuildComponentNodeConfig" format=3 uid="uid://dlrviakyrj5kl"]
+
+[ext_resource type="Script" uid="uid://bbyb0nbs1pqon" path="res://classes/node_configs/components/build_component_node_config.gd" id="1_87idd"]
+
+[resource]
+script = ExtResource("1_87idd")
+build_target = "uid://biuewnv7ms46d"

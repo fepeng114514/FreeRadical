@@ -52,7 +52,7 @@ func _show(entity: Entity) -> void:
 	if not select_c:
 		return
 
-	if select_c.select_menu_type != SelectComponent.SelectMenuType.TOWER_UPGRADE:
+	if select_c.select_menu_type != SelectComponent.SelectMenuType.TOWER:
 		return
 
 	var group: SelectMenuButtonGroup = select_menu_config.group_dict.get(entity.scene_name)

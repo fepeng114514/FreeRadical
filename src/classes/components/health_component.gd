@@ -15,6 +15,7 @@ const health_bar_path: NodePath = ^"HealthBar"
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 最大血量。
 @export var hp_max: float = 100.0
@@ -73,12 +74,6 @@ var idle_regen_time_stamp: float = 0.0
 @onready var health_bar: TextureProgressBar = get_node_or_null(health_bar_path)
 
 
-func _ready() -> void:
-	super()
-
-	child_order_changed.connect(_on_child_order_changed)
-
-
 func _validate_property(property: Dictionary):
 	match property.name:
 		"immuned":
@@ -95,5 +90,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _on_child_order_changed() -> void:
-	health_bar = get_node_or_null(health_bar_path) 
-	update_configuration_warnings()
+	super()
+	
+	health_bar = get_node_or_null(health_bar_path)

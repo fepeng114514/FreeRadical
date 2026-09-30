@@ -12,6 +12,7 @@ class_name NavPathComponent
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 		
 ## 是否沿相反路线移动。
 @export var reversed_enabled: bool = false

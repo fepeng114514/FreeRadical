@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cdiuclmjr8gt2"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_j5hxj"]
+[ext_resource type="PackedScene" uid="uid://bhrppjcmn66t5" path="res://entities/enemies/enemy.tscn" id="1_7k104"]
 [ext_resource type="Resource" uid="uid://bwbtdvm1v1x76" path="res://entities/enemies/enemy_gargoyle/template/node_config_template.tres" id="2_t74y0"]
 [ext_resource type="Resource" uid="uid://soqe3myyoyxi" path="res://entities/enemies/enemy_gargoyle/template/enemy_gargoyle.tres" id="3_dmhfo"]
 [ext_resource type="SpriteFrames" uid="uid://ccyganex0o726" path="res://assets/atlas/sprite_frames/enemies_common/enemy_gargoyle.tres" id="3_jm5r2"]
@@ -9,52 +9,36 @@
 [ext_resource type="Texture2D" uid="uid://ddiixp2bcat8s" path="res://assets/atlas/atlas_textures/decals/decal_flying_shadow.tres" id="4_jm5r2"]
 [ext_resource type="Resource" uid="uid://dmauw547d03np" path="res://entities/enemies/enemy_gargoyle/template/nav_path_component/nav_path_component.tres" id="5_t74y0"]
 [ext_resource type="Resource" uid="uid://t2ngm0pt8wbe" path="res://entities/enemies/enemy_gargoyle/template/select_component/select_component.tres" id="6_dmhfo"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="7_vyslp"]
-[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component.gd" id="11_c4v5l"]
-[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_bar.tscn" id="13_vbnmy"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="14_7pggv"]
-[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="16_tlssj"]
 
-[node name="EnemyGargoyle" type="Node2D" unique_id=71433118]
-script = ExtResource("1_j5hxj")
+[node name="EnemyGargoyle" unique_id=71433118 instance=ExtResource("1_7k104")]
 node_config_template = ExtResource("2_t74y0")
 config = ExtResource("3_dmhfo")
-entity_groups = Array[StringName]([&"enemies", &"units"])
-metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1028021225]
+[node name="SpriteComponent" parent="." index="0" unique_id=1501262804]
 show_behind_parent = true
-script = ExtResource("7_vyslp")
 config = ExtResource("3_np4wq")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=814028893]
 position = Vector2(0, -68)
 sprite_frames = ExtResource("3_jm5r2")
 animation = &"idle_left_right"
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1265356523]
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="1" unique_id=1265356523]
 texture = ExtResource("4_jm5r2")
 
-[node name="HealthComponent" type="Node2D" parent="." unique_id=1435825868]
-process_mode = 4
-script = ExtResource("11_c4v5l")
+[node name="HealthComponent" parent="." index="1" unique_id=93345552]
 config = ExtResource("4_j5hxj")
-metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
-[node name="HealthBar" parent="HealthComponent" unique_id=1048256100 instance=ExtResource("13_vbnmy")]
+[node name="HealthBar" parent="HealthComponent" index="0" unique_id=179515968]
 offset_top = -116.13
 offset_bottom = -111.13
-scale = Vector2(1, 1.1)
 
-[node name="NavPathComponent" type="Node2D" parent="." unique_id=1202679749]
+[node name="SelectComponent" parent="." index="2" unique_id=274281428]
+config = ExtResource("6_dmhfo")
+
+[node name="NavPathComponent" type="Node2D" parent="." index="3" unique_id=1202679749]
 process_mode = 4
 script = ExtResource("14_7pggv")
 config = ExtResource("5_t74y0")
 metadata/_custom_type_script = "uid://btct3ysbbulk0"
-
-[node name="SelectComponent" type="Node2D" parent="." unique_id=673866706]
-process_mode = 4
-script = ExtResource("16_tlssj")
-config = ExtResource("6_dmhfo")
-metadata/_custom_type_script = "uid://bsefx8rn7ytcj"

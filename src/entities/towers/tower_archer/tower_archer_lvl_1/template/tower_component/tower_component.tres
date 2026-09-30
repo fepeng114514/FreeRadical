@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TowerComponentNodeConfig" format=3 uid="uid://cr6tcmd2dlcet"]
+
+[ext_resource type="Script" uid="uid://cfero2p55gthb" path="res://classes/node_configs/components/tower_component_node_config.gd" id="1_76pv5"]
+
+[resource]
+script = ExtResource("1_76pv5")
+tower_type = 1
+shooter_alternation_enabled = true
+shooter_alternation_entities = Array[NodePath]([NodePath("TowerArcherLvl1Shooter"), NodePath("TowerArcherLvl1Shooter2")])

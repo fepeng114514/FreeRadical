@@ -11,7 +11,7 @@ enum GetValueMode {
 	## 取值模式：随机值，根据范围随机取值。
 	RANDOM,
 	## 取值模式：根据距离衰减。
-	RADIAL_FALLOFF,
+	ELLIPTICAL_FALLOFF,
 }
 
 ## 最小影响值。
@@ -97,7 +97,7 @@ func get_value(source: Entity, target: Entity) -> float:
 	match get_value_mode:
 		GetValueMode.RANDOM:
 			return randf_range(min_value, max_value)
-		GetValueMode.RADIAL_FALLOFF:
+		GetValueMode.ELLIPTICAL_FALLOFF:
 			return MathUtils.get_ellipse_radial_falloff(
 				source.global_position, 
 				target.global_position, 

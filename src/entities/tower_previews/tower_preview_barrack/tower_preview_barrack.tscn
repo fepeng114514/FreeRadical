@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bwgt8qdihjrc7"]
+
+[ext_resource type="PackedScene" uid="uid://cu4vukhb0tpp0" path="res://entities/tower_previews/tower_preview.tscn" id="1_yaptl"]
+[ext_resource type="Texture2D" uid="uid://dtgkji1bfpsgv" path="res://assets/atlas/atlas_textures/towers/tower_preview_barrack.tres" id="2_1io1d"]
+[ext_resource type="Resource" uid="uid://ckh57kgtcsouw" path="res://entities/tower_previews/tower_preview_barrack/template/node_config_template.tres" id="2_12j2x"]
+[ext_resource type="Resource" uid="uid://cb1157xmo23e4" path="res://entities/tower_previews/tower_preview_barrack/template/tower_preview_barrack.tres" id="3_t53pl"]
+[ext_resource type="Resource" uid="uid://cwplumvb6bjuj" path="res://entities/tower_previews/tower_preview_barrack/template/sprite_component/sprite_component.tres" id="4_lq2bl"]
+
+[node name="TowerPreviewBarrack" unique_id=869103732 instance=ExtResource("1_yaptl")]
+node_config_template = ExtResource("2_12j2x")
+config = ExtResource("3_t53pl")
+
+[node name="SpriteComponent" parent="." index="0" unique_id=753402732]
+config = ExtResource("4_lq2bl")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1097269827]
+modulate = Color(1, 1, 1, 0.69803923)
+position = Vector2(0, -48)
+texture = ExtResource("2_1io1d")

@@ -1,62 +1,23 @@
 [gd_scene format=3 uid="uid://byog4qgt2vdy5"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_oso22"]
+[ext_resource type="PackedScene" uid="uid://ccwa8sdkpngu6" path="res://entities/bullets/bullet.tscn" id="1_v7oki"]
+[ext_resource type="Resource" uid="uid://bs2g05vlx4py3" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2_bullet/template/node_config_template.tres" id="2_2rdvt"]
 [ext_resource type="Texture2D" uid="uid://db00ag4ekb4be" path="res://assets/atlas/atlas_textures/towers/bombs_0002.tres" id="2_4xf6g"]
-[ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="2_38ri8"]
-[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="2_h68ci"]
-[ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://classes/bullet_trajectories/parabola_bullet_trajectory.gd" id="3_he71d"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="3_j34mj"]
-[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="6_ija6t"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="7_2rdvt"]
+[ext_resource type="Resource" uid="uid://d1jp6nlguy3rv" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2_bullet/template/tower_artillery_lvl_2_bullet.tres" id="3_5yyyv"]
+[ext_resource type="Resource" uid="uid://brlv7r0xslfen" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2_bullet/template/bullet_component/bullet_component.tres" id="5_phhk6"]
+[ext_resource type="Resource" uid="uid://djpv1g1e14uja" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2_bullet/template/sprite_component/sprite_component.tres" id="11_7b64c"]
 
-[sub_resource type="Resource" id="Resource_arty_traj"]
-script = ExtResource("3_he71d")
-flight_total_time = 1.5
-
-[sub_resource type="Resource" id="Resource_5yyyv"]
-resource_local_to_scene = true
-script = ExtResource("3_j34mj")
-max_radius = 140.0
-metadata/_custom_type_script = "uid://4dsevfnug1a1"
-
-[sub_resource type="Resource" id="Resource_phhk6"]
-resource_local_to_scene = true
-script = ExtResource("2_38ri8")
-damage_type = 4
-min_value = 22.0
-max_value = 44.0
-get_value_mode = 1
-area_enabled = true
-searcher = SubResource("Resource_5yyyv")
-metadata/_custom_type_script = "uid://be7bvqrqjmin5"
-
-[sub_resource type="Resource" id="Resource_jmmy1"]
-script = ExtResource("6_ija6t")
-list = PackedStringArray("uid://c34pctng5uplj")
-metadata/_custom_type_script = "uid://b2b214g352w4u"
-
-[node name="TowerArtilleryLvl2Bullet" type="Node2D" unique_id=2094980939]
+[node name="TowerArtilleryLvl2Bullet" unique_id=2094980939 instance=ExtResource("1_v7oki")]
 z_index = 10
-script = ExtResource("1_oso22")
-metadata/_custom_type_script = "uid://dnp44u8703gud"
+node_config_template = ExtResource("2_2rdvt")
+config = ExtResource("3_5yyyv")
 
-[node name="BulletComponent" type="Node2D" parent="." unique_id=490791954]
-process_mode = 4
-script = ExtResource("2_h68ci")
-trajectory = SubResource("Resource_arty_traj")
-rotation_speed = 6.0
-facing_enabled = false
-influence = SubResource("Resource_phhk6")
-hit_sfx = SubResource("Resource_jmmy1")
-hit_payloads = PackedStringArray("uid://dmn3u58sdn7l1")
-miss_sfx = SubResource("Resource_jmmy1")
-miss_payloads = PackedStringArray("uid://dmn3u58sdn7l1")
-metadata/_custom_type_script = "uid://haoljvofy74e"
+[node name="BulletComponent" parent="." index="0" unique_id=1871836864]
+config = ExtResource("5_phhk6")
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1297058768]
-script = ExtResource("7_2rdvt")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+[node name="SpriteComponent" parent="." index="1" unique_id=1496253429]
+config = ExtResource("11_7b64c")
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=2139566938]
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=2139566938]
 position = Vector2(0, -5)
 texture = ExtResource("2_4xf6g")

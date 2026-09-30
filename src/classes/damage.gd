@@ -25,8 +25,6 @@ enum Type {
 	HP_MAX_PERCENT = 1 << 39,
 	## 伤害类型: 秒杀。
 	INSTAKILL = 1 << 40,
-	## 伤害类型：所有伤害类型。
-	ALL = (1 << 40) - 1,
 }
 
 

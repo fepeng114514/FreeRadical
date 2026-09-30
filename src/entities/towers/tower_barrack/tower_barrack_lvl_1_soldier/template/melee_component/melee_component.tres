@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="MeleeComponentNodeConfig" format=3 uid="uid://c0s4wirl3sa2k"]
+
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="1_ln3nm"]
+[ext_resource type="Script" uid="uid://6lf8t6ie1tdv" path="res://classes/node_configs/components/melee_component_node_config.gd" id="1_q8svd"]
+[ext_resource type="Resource" uid="uid://cd5tm7dqxesnf" path="res://entities/resources/horizontal_walk_animation_group.tres" id="2_17mck"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_fcm1l"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_5gbml"]
+
+[sub_resource type="Resource" id="Resource_prid8"]
+script = ExtResource("1_ln3nm")
+right_replace_left = true
+right = Vector2(34.92, 0)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_a76o7"]
+resource_local_to_scene = true
+script = ExtResource("4_fcm1l")
+flags = 2097152
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_vrdxj"]
+resource_local_to_scene = true
+script = ExtResource("5_5gbml")
+max_radius = 100.0
+interact_policy = SubResource("Resource_a76o7")
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[resource]
+script = ExtResource("1_q8svd")
+speed = 175.0
+motion_animation = ExtResource("2_17mck")
+melee_position_offsets = SubResource("Resource_prid8")
+searcher = SubResource("Resource_vrdxj")

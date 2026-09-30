@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://d176iqdfoqeqo"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_bnqim"]
+[ext_resource type="Resource" uid="uid://bgyebxy50rnqs" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/sprite_component/sprite_component.tres" id="2_fr820"]
+[ext_resource type="Resource" uid="uid://dbf1eqmwgqent" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/tower_component/tower_component.tres" id="7_3krai"]
+[ext_resource type="Resource" uid="uid://d0at4p5yporot" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/select_component/select_component.tres" id="8_q2f6t"]
+[ext_resource type="Resource" uid="uid://hwwm24y3vb0c" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/tower_mage_lvl_1.tres" id="9_uwipn"]
+
+[sub_resource type="Resource" id="Resource_f3uqu"]
+script = ExtResource("1_bnqim")
+name = "SpriteComponent"
+config = ExtResource("2_fr820")
+
+[sub_resource type="Resource" id="Resource_yr67j"]
+script = ExtResource("1_bnqim")
+name = "TowerComponent"
+config = ExtResource("7_3krai")
+
+[sub_resource type="Resource" id="Resource_sx32j"]
+script = ExtResource("1_bnqim")
+name = "SelectComponent"
+config = ExtResource("8_q2f6t")
+
+[resource]
+script = ExtResource("1_bnqim")
+config = ExtResource("9_uwipn")
+children = Array[ExtResource("1_bnqim")]([SubResource("Resource_f3uqu"), SubResource("Resource_yr67j"), SubResource("Resource_sx32j")])
+children_dict = Dictionary[String, ExtResource("1_bnqim")]({
+"SelectComponent": SubResource("Resource_sx32j"),
+"SpriteComponent": SubResource("Resource_f3uqu"),
+"TowerComponent": SubResource("Resource_yr67j")
+})

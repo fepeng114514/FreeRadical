@@ -4,3 +4,5 @@
 
 [resource]
 script = ExtResource("1_mia70")
+select_rect = Rect2(-22.39, -44.44, 43.7, 44.42)
+info_bar_type = 1

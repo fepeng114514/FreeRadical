@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AnimationGroup" format=3 uid="uid://b1f5gfojkeksy"]
+
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_q2fmu"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_q2fmu")
+up = &"idle_up"
+down = &"idle_down"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"

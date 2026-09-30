@@ -22,6 +22,7 @@ enum Type {
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 是否跟随目标。
 @export var track_target: bool = true

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="HealthComponentNodeConfig" format=3 uid="uid://dn1lqep05s6jh"]
+
+[ext_resource type="Resource" uid="uid://cxhlbmb2pn7gv" path="res://entities/resources/horizontal_death_animation_group.tres" id="1_fymn2"]
+[ext_resource type="Script" uid="uid://c6i4a1pkbdl48" path="res://classes/node_configs/components/health_component_node_config.gd" id="1_lf2m8"]
+
+[resource]
+script = ExtResource("1_lf2m8")
+hp_max = 120.0
+physical_armor = 0.3
+idle_regen_hp = 7.0
+idle_regen_cooldown = 1.0
+death_animation = ExtResource("1_fymn2")

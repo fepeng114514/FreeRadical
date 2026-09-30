@@ -15,6 +15,7 @@ const navigation_agent_path: NodePath = ^"NavigationAgent2D"
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 移动速度。
 @export var speed: float = 100.0
@@ -34,12 +35,6 @@ var rally_center_global_position := Vector2.ZERO
 
 ## 血条节点引用。
 @onready var navigation_agent: NavigationAgent2D = get_node_or_null(navigation_agent_path)
-
-
-func _ready() -> void:
-	super()
-
-	child_order_changed.connect(_on_child_order_changed)
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -73,5 +68,6 @@ func new_rally_global_position(
 
 
 func _on_child_order_changed() -> void:
-	navigation_agent = get_node_or_null(navigation_agent_path) 
-	update_configuration_warnings()
+	super()
+	
+	navigation_agent = get_node_or_null(navigation_agent_path)

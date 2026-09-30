@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://lrdb8qqdtr1p"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_axmk7"]
+[ext_resource type="Resource" uid="uid://cwjnw3lmtgnfx" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1_bullet/template/bullet_component/bullet_component.tres" id="2_vadm7"]
+[ext_resource type="Resource" uid="uid://dpfi1we73ijty" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1_bullet/template/sprite_component/sprite_component.tres" id="3_w82tc"]
+[ext_resource type="Resource" uid="uid://bi1hf7sky8pb8" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1_bullet/template/tower_artillery_lvl_1_bullet.tres" id="4_l30pp"]
+
+[sub_resource type="Resource" id="Resource_nce7y"]
+script = ExtResource("1_axmk7")
+name = "BulletComponent"
+config = ExtResource("2_vadm7")
+
+[sub_resource type="Resource" id="Resource_bw70b"]
+script = ExtResource("1_axmk7")
+name = "SpriteComponent"
+config = ExtResource("3_w82tc")
+
+[resource]
+script = ExtResource("1_axmk7")
+config = ExtResource("4_l30pp")
+children = Array[ExtResource("1_axmk7")]([SubResource("Resource_nce7y"), SubResource("Resource_bw70b")])
+children_dict = Dictionary[String, ExtResource("1_axmk7")]({
+"BulletComponent": SubResource("Resource_nce7y"),
+"SpriteComponent": SubResource("Resource_bw70b")
+})

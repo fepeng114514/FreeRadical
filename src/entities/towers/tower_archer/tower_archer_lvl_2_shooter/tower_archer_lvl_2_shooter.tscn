@@ -1,74 +1,31 @@
 [gd_scene format=3 uid="uid://bt5cby21sk5sc"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_dchg2"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="2_ek1bb"]
+[ext_resource type="PackedScene" uid="uid://1mapqejexa4" path="res://entities/shooter/shooter.tscn" id="1_q4aig"]
+[ext_resource type="Resource" uid="uid://g2wl1pt34u4i" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/node_config_template.tres" id="2_lgyhh"]
 [ext_resource type="SpriteFrames" uid="uid://dbtbhq4ed8qvt" path="res://assets/atlas/sprite_frames/towers/tower_archer_lvl2_shooter.tres" id="2_suvr7"]
-[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="3_6omst"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="3_c56lb"]
-[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_fsp6p"]
-[ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="5_3yd4e"]
+[ext_resource type="Resource" uid="uid://bxe4iwqmm1by6" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/tower_archer_lvl_2_shooter.tres" id="3_hop43"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/search_skills/ranged_skill.gd" id="6_6fean"]
-[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="7_lgyhh"]
+[ext_resource type="Resource" uid="uid://d12d1bnpxvl6l" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/sprite_component/sprite_component.tres" id="6_cwbut"]
+[ext_resource type="Resource" uid="uid://f072rhvharj3" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/skill_component/skill_component.tres" id="9_lt6xr"]
+[ext_resource type="Resource" uid="uid://dnan01ta6xtdg" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/skill_component/ranged_skill/ranged_skill.tres" id="11_xo58i"]
 
-[sub_resource type="Resource" id="Resource_hop43"]
-resource_local_to_scene = true
-script = ExtResource("2_ek1bb")
-up = &"idle_up"
-down = &"idle_down"
-vertical_mirror = true
+[node name="TowerArcherLvl2Shooter" unique_id=2011504655 instance=ExtResource("1_q4aig")]
+node_config_template = ExtResource("2_lgyhh")
+config = ExtResource("3_hop43")
 
-[sub_resource type="Resource" id="Resource_367kr"]
-script = ExtResource("7_lgyhh")
-right_replace_left = true
-right = Vector2(5.725, -18.35)
-metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+[node name="SkillComponent" parent="." index="0" unique_id=1615484677]
+config = ExtResource("9_lt6xr")
 
-[sub_resource type="Resource" id="Resource_cwbut"]
-resource_local_to_scene = true
-script = ExtResource("3_fsp6p")
-flags = 1048576
-metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+[node name="RangedSkill" type="Node2D" parent="SkillComponent" index="0" unique_id=1939030855]
+process_mode = 4
+script = ExtResource("6_6fean")
+config = ExtResource("11_xo58i")
+metadata/_custom_type_script = "uid://covaxdshxnvkn"
 
-[sub_resource type="Resource" id="Resource_lt6xr"]
-resource_local_to_scene = true
-script = ExtResource("3_6omst")
-max_radius = 550.0
-search_flag = 1
-interact_policy = SubResource("Resource_cwbut")
-metadata/_custom_type_script = "uid://4dsevfnug1a1"
+[node name="SpriteComponent" parent="." index="1" unique_id=424643919]
+config = ExtResource("6_cwbut")
 
-[sub_resource type="Resource" id="Resource_xo58i"]
-resource_local_to_scene = true
-script = ExtResource("2_ek1bb")
-up = &"ranged_up"
-down = &"ranged_down"
-vertical_mirror = true
-
-[node name="TowerArcherLvl2Shooter" type="Node2D" unique_id=2011504655]
-script = ExtResource("1_dchg2")
-idle_animation = SubResource("Resource_hop43")
-metadata/_custom_type_script = "uid://dnp44u8703gud"
-
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=650442870]
-script = ExtResource("3_c56lb")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1785141033]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=1785141033]
 position = Vector2(3, -22)
 sprite_frames = ExtResource("2_suvr7")
 animation = &"idle_down"
-
-[node name="SkillComponent" type="Node2D" parent="." unique_id=129640034]
-process_mode = 4
-script = ExtResource("5_3yd4e")
-metadata/_custom_type_script = "uid://7hja048qjkj0"
-
-[node name="RangedSkill" type="Node2D" parent="SkillComponent" unique_id=1939030855]
-process_mode = 4
-script = ExtResource("6_6fean")
-bullet_scene = "uid://bos51m560ekvc"
-bullet_offsets = SubResource("Resource_367kr")
-searcher = SubResource("Resource_lt6xr")
-cooldown = 0.7
-delay = 0.167
-animation = SubResource("Resource_xo58i")
-metadata/_custom_type_script = "uid://covaxdshxnvkn"

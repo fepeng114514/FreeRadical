@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="RangedSkillNodeConfig" format=3 uid="uid://daqfiac3se0qj"]
+
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_0mp1i"]
+[ext_resource type="Script" uid="uid://cn6ap4nlr0bnk" path="res://classes/node_configs/skills/search_skills/ranged_skill_node_config.gd" id="1_xegag"]
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_0dgj0"]
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_k0rq1"]
+[ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_ge7kx"]
+
+[sub_resource type="Resource" id="Resource_6rlp0"]
+resource_local_to_scene = true
+script = ExtResource("1_0mp1i")
+right = &"ranged_left_right"
+right_replace_left = true
+
+[sub_resource type="Resource" id="Resource_367kr"]
+script = ExtResource("2_0dgj0")
+right_replace_left = true
+right = Vector2(13.285, -23.12)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_gm0c1"]
+resource_local_to_scene = true
+script = ExtResource("4_k0rq1")
+flags = 1048576
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"
+
+[sub_resource type="Resource" id="Resource_uea8m"]
+resource_local_to_scene = true
+script = ExtResource("5_ge7kx")
+max_radius = 300.0
+interact_policy = SubResource("Resource_gm0c1")
+metadata/_custom_type_script = "uid://4dsevfnug1a1"
+
+[resource]
+script = ExtResource("1_xegag")
+bullet_scene = "uid://3wgsu2jj2mdg"
+bullet_offsets = SubResource("Resource_367kr")
+searcher = SubResource("Resource_uea8m")
+cooldown = 0.8
+delay = 0.167
+animation = SubResource("Resource_6rlp0")

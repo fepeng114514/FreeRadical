@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/spawners/wave_spawner/wave_spawner.tscn" id="4_dga24"]
 [ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://game/wave_flag/wave_flag.tscn" id="10_qxy0u"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="14_np2pn"]
-[ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/towers/tower_holder/tower_holder_grass/tower_holder_grass.tscn" id="35_hvllt"]
+[ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/tower_holders/tower_holder_grass/tower_holder_grass.tscn" id="35_hvllt"]
 
 [sub_resource type="Resource" id="Resource_excbq"]
 script = ExtResource("14_np2pn")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="RallyComponentNodeConfig" format=3 uid="uid://du0r6eso58xnk"]
+
+[ext_resource type="Script" uid="uid://ichuksmkbcoh" path="res://classes/node_configs/components/rally_component_node_config.gd" id="1_35rgq"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_ppyew"]
+
+[sub_resource type="Resource" id="Resource_j2a22"]
+resource_local_to_scene = true
+script = ExtResource("1_ppyew")
+right = &"walk_left_right"
+right_replace_left = true
+
+[resource]
+script = ExtResource("1_35rgq")
+speed = 175.0
+can_select_rally = false
+motion_animation = SubResource("Resource_j2a22")

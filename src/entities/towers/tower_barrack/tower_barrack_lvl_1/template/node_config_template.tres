@@ -1,0 +1,39 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://b83waj1nrsxad"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_nkpw4"]
+[ext_resource type="Resource" uid="uid://bvrffb0rv02l6" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/sprite_component/sprite_component.tres" id="2_73ree"]
+[ext_resource type="Resource" uid="uid://cf4kwtf78s6h5" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/tower_component/tower_component.tres" id="3_x2v44"]
+[ext_resource type="Resource" uid="uid://b4uewjaccstf3" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/select_component/select_component.tres" id="4_0im8t"]
+[ext_resource type="Resource" uid="uid://bm4wperattgdb" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/barrack_component/barrack_component.tres" id="5_qk4lb"]
+[ext_resource type="Resource" uid="uid://cp6vso3rhikqe" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/tower_barrack_lvl_1.tres" id="6_86fq3"]
+
+[sub_resource type="Resource" id="Resource_vy3xc"]
+script = ExtResource("1_nkpw4")
+name = "SpriteComponent"
+config = ExtResource("2_73ree")
+
+[sub_resource type="Resource" id="Resource_34j8y"]
+script = ExtResource("1_nkpw4")
+name = "TowerComponent"
+config = ExtResource("3_x2v44")
+
+[sub_resource type="Resource" id="Resource_5otwv"]
+script = ExtResource("1_nkpw4")
+name = "SelectComponent"
+config = ExtResource("4_0im8t")
+
+[sub_resource type="Resource" id="Resource_oa2s6"]
+script = ExtResource("1_nkpw4")
+name = "BarrackComponent"
+config = ExtResource("5_qk4lb")
+
+[resource]
+script = ExtResource("1_nkpw4")
+config = ExtResource("6_86fq3")
+children = Array[ExtResource("1_nkpw4")]([SubResource("Resource_vy3xc"), SubResource("Resource_34j8y"), SubResource("Resource_5otwv"), SubResource("Resource_oa2s6")])
+children_dict = Dictionary[String, ExtResource("1_nkpw4")]({
+"BarrackComponent": SubResource("Resource_oa2s6"),
+"SelectComponent": SubResource("Resource_5otwv"),
+"SpriteComponent": SubResource("Resource_vy3xc"),
+"TowerComponent": SubResource("Resource_34j8y")
+})

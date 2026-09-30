@@ -14,6 +14,7 @@ const build_progress_bar_path: NodePath = ^"BuildTextureProgressBar"
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 建造时间，单位为秒。
 @export var build_time: float = 1.0
@@ -21,12 +22,6 @@ const build_progress_bar_path: NodePath = ^"BuildTextureProgressBar"
 @export_file("*.tscn") var build_target: String = ""
 
 @onready var build_progress_bar: TextureProgressBar = get_node_or_null(build_progress_bar_path)
-
-
-func _ready() -> void:
-	super()
-
-	child_order_changed.connect(_on_child_order_changed)
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -38,5 +33,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _on_child_order_changed() -> void:
-	build_progress_bar = get_node_or_null(build_progress_bar_path) 
-	update_configuration_warnings()
+	super()
+	
+	build_progress_bar = get_node_or_null(build_progress_bar_path)

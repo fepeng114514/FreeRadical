@@ -58,6 +58,7 @@ enum SourceType {
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 存在时间（秒），实体存在超过 duration 时间后会被移除，默认值为 -1 表示永久存在。
 @export var duration: float = Constants.UNSET
@@ -175,10 +176,11 @@ func _ready() -> void:
 
 func _draw() -> void:
 	if DebugManager.draw_offset_enabled:
-		if hit_offsets:
-			hit_offsets.draw_offset_group(self)
-		if aura_offsets:
-			aura_offsets.draw_offset_group(self)
+		if config:
+			if config.hit_offsets:
+				config.hit_offsets.draw_offset_group(self)
+			if config.aura_offsets:
+				config.aura_offsets.draw_offset_group(self)
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -209,9 +211,6 @@ func set_entity_groups(groups: Array[StringName], set_changed_state_enabled: boo
 	entity_groups = groups
 	if set_changed_state_enabled:
 		is_entity_groups_changed = true
-
-
-
 
 
 ## 增加实体组件。
@@ -522,7 +521,6 @@ func _update_config_template() -> void:
 	var scene_file_dir: String = scene_file_path.get_base_dir()
 	var template_dir: String = scene_file_dir.path_join("template")
 	DirAccess.make_dir_absolute(template_dir)
-	Log.verbose("创建配置模板目录: %s" % template_dir)
 
 	var new_config_template := NodeConfigTemplateNode.new()
 
@@ -543,6 +541,9 @@ func _update_config_template() -> void:
 
 func _build_config_template_node_recursive(node: Node, current_config_template_parent: NodeConfigTemplateNode, template_dir: String) -> void:
 	for child: Node in node.get_children():
+		if child is Entity:
+			continue
+
 		var config_prop: Dictionary = {}
 		for prop: Dictionary in child.get_property_list():
 			if prop.name != "config":
@@ -584,6 +585,8 @@ func _on_draw_state_changed(_draw_type: DebugManager.DrawType) -> void:
 
 
 func _on_config_changed() -> void:
-	set_entity_groups(interact_policy.get_has_entity_groups(), not Engine.is_editor_hint())
+	if config:
+		if config.interact_policy:
+			set_entity_groups(config.interact_policy.get_entity_group_names(), not Engine.is_editor_hint())
 		
 	queue_redraw()

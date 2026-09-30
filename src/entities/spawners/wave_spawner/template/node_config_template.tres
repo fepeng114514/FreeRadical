@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://i5o5hys3ir5c"]
+
+[ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_dxieq"]
+[ext_resource type="Resource" uid="uid://bhjihe6s614ul" path="res://entities/spawners/wave_spawner/template/wave_spawner_component/wave_spawner_component.tres" id="2_dxieq"]
+[ext_resource type="Resource" uid="uid://gu7fqe381hdc" path="res://entities/spawners/wave_spawner/template/wave_spawner.tres" id="3_vojnq"]
+
+[sub_resource type="Resource" id="Resource_dxieq"]
+script = ExtResource("1_dxieq")
+name = "WaveSpawnerComponent"
+config = ExtResource("2_dxieq")
+
+[resource]
+script = ExtResource("1_dxieq")
+config = ExtResource("3_vojnq")
+children = Array[ExtResource("1_dxieq")]([SubResource("Resource_dxieq")])
+children_dict = Dictionary[String, ExtResource("1_dxieq")]({
+"WaveSpawnerComponent": SubResource("Resource_dxieq")
+})

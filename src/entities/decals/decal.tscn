@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://6i0ayt27spxj"]
+
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_wlx0k"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_rh6r3"]
+
+[node name="Decal" type="Node2D" unique_id=96306253]
+script = ExtResource("1_wlx0k")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1436095405]
+show_behind_parent = true
+script = ExtResource("2_rh6r3")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"

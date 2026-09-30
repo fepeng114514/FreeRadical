@@ -13,6 +13,7 @@ class_name ExperienceComponent
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 实体等级。
 @export var level: int = 1

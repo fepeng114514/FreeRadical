@@ -6,6 +6,8 @@ class_name BarrackComponentNodeConfig
 
 ## 是否禁用。
 @export var disabled: bool = false
+
+@export_group("Rally")
 ## 最小集结范围。
 @export var rally_min_range: float = 0.0:
 	set(v):
@@ -28,6 +30,8 @@ class_name BarrackComponentNodeConfig
 		emit_changed()
 ## 集结音效组。
 @export var rally_sfx: AudioGroup = null
+
+@export_group("Spawn")
 ## 士兵场景路径。
 @export_file("*.tscn") var soldier_scene: String = ""
 ## 生成士兵间隔（秒）。

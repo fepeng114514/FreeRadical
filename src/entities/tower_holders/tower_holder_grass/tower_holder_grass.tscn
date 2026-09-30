@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ckf2o2h3wv2xo"]
+
+[ext_resource type="PackedScene" uid="uid://cffx7or66juw4" path="res://entities/tower_holders/tower_holder.tscn" id="1_qx4sj"]
+[ext_resource type="Texture2D" uid="uid://0566nc2tgjxo" path="res://assets/atlas/atlas_textures/towers/build_terrain_0001.tres" id="2_jmfsc"]
+[ext_resource type="Resource" uid="uid://cqfoiksymlyno" path="res://entities/tower_holders/tower_holder_grass/template/node_config_template.tres" id="3_uoo73"]
+[ext_resource type="Resource" uid="uid://dxkgjtbiqwggl" path="res://entities/tower_holders/tower_holder_grass/template/tower_holder_grass.tres" id="4_4lf20"]
+[ext_resource type="Resource" uid="uid://bf7ccwaborlrs" path="res://entities/tower_holders/tower_holder_grass/template/sprite_component/sprite_component.tres" id="5_gxhsy"]
+[ext_resource type="Resource" uid="uid://3nkxukhdp2w1" path="res://entities/tower_holders/tower_holder_grass/template/select_component/select_component.tres" id="7_on27t"]
+
+[node name="TowerHolderGrass" unique_id=1898604313 instance=ExtResource("1_qx4sj")]
+node_config_template = ExtResource("3_uoo73")
+config = ExtResource("4_4lf20")
+
+[node name="SpriteComponent" parent="." index="2" unique_id=974667319]
+position = Vector2(0, -10)
+config = ExtResource("5_gxhsy")
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=2043930113]
+texture = ExtResource("2_jmfsc")
+
+[node name="SelectComponent" parent="." index="3" unique_id=876175114]
+config = ExtResource("7_on27t")

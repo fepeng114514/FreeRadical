@@ -23,8 +23,8 @@ enum InfoBarType {
 enum SelectMenuType {
 	## 选择菜单类型：无，不显示。
 	NONE,
-	## 选择菜单类型：防御塔升级菜单。
-	TOWER_UPGRADE,
+	## 选择菜单类型：防御塔菜单。
+	TOWER,
 	## 选择菜单类型：建造防御塔菜单。
 	BUILD_TOWER,
 }
@@ -35,6 +35,7 @@ enum SelectMenuType {
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 ## 选择矩形大小。
 @export var select_rect := Rect2(-16, -16, 32, 32)
@@ -50,29 +51,30 @@ enum SelectMenuType {
 
 
 func _draw() -> void:
-	if DebugManager.draw_offset_enabled:
-		draw_circle(
-			select_menu_offset, 
-			4,
-			Color.GREEN, 
-			false,
-			1
-		)
-
-	if DebugManager.draw_range_enabled:
-		if can_select:
-			var rect := Rect2(select_rect.position, select_rect.size)
-			draw_rect(
-				rect, 
-				Color(0.2, 0.6, 1.0, 0.25), 
-				true
-			)
-			draw_rect(
-				rect, 
-				Color(0.2, 0.6, 1.0, 0.9), 
-				false, 
+	if config:
+		if DebugManager.draw_offset_enabled:
+			draw_circle(
+				config.select_menu_offset, 
+				4,
+				Color.GREEN, 
+				false,
 				1
 			)
+
+		if DebugManager.draw_range_enabled:
+			if config.can_select:
+				var rect := Rect2(config.select_rect.position, config.select_rect.size)
+				draw_rect(
+					rect, 
+					Color(0.2, 0.6, 1.0, 0.25), 
+					true
+				)
+				draw_rect(
+					rect, 
+					Color(0.2, 0.6, 1.0, 0.9), 
+					false, 
+					1
+				)
 	
 
 ## 获取全局位置的矩形。

@@ -11,6 +11,7 @@ class_name SpriteComponent
 		Utils.rebind_changed(config, v, _on_config_changed)
 		config = v
 		update_configuration_warnings()
+		queue_redraw()
 
 @export_group("Sync Animation")
 ## 是否所有者同步播放动画。
@@ -22,4 +23,5 @@ class_name SpriteComponent
 func _ready() -> void:
 	super()
 	
+	show_behind_parent = true
 	process_mode = Node.PROCESS_MODE_INHERIT
