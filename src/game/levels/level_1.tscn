@@ -3,13 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://be4ofxijaafml" path="res://game/levels/level.tscn" id="1_oyy57"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/spawners/wave_spawner/wave_spawner.tscn" id="2_4ykn6"]
 [ext_resource type="Resource" uid="uid://duckkkjf0svrb" path="res://game/levels/level_1_wave.tres" id="3_rifvl"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="7_6ioow"]
 [ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/tower_holders/tower_holder_grass/tower_holder_grass.tscn" id="8_oewxi"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://game/pathway/pathway.gd" id="9_ups30"]
 [ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://game/wave_flag/wave_flag.tscn" id="10_dhsvx"]
-
-[sub_resource type="Resource" id="Resource_excbq"]
-script = ExtResource("7_6ioow")
 
 [sub_resource type="Curve2D" id="Curve2D_iav0o"]
 _data = {
@@ -19,58 +15,41 @@ point_count = 8
 
 [node name="Level1" unique_id=1565788906 instance=ExtResource("1_oyy57")]
 
-[node name="WaveSpawner" parent="EntityWorld" parent_id_path=PackedInt32Array(1218391746) index="0" unique_id=708476456 instance=ExtResource("2_4ykn6")]
+[node name="WaveSpawner" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="0" unique_id=708476456 instance=ExtResource("2_4ykn6")]
 position = Vector2(-1, 0)
 wave_group = ExtResource("3_rifvl")
-idle_animation = SubResource("Resource_excbq")
 
-[node name="TowerHolderGrass" parent="EntityWorld" parent_id_path=PackedInt32Array(1218391746) index="1" unique_id=1898604313 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="1" unique_id=1898604313 instance=ExtResource("8_oewxi")]
 position = Vector2(1036, 748)
 default_rally_center_position = Vector2(-191.43, 37.53)
-interact_policy = null
-entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass2" parent="EntityWorld" parent_id_path=PackedInt32Array(1218391746) index="2" unique_id=1937510618 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass2" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="2" unique_id=1937510618 instance=ExtResource("8_oewxi")]
 position = Vector2(1032, 894)
 default_rally_center_position = Vector2(-131.4, 61.74)
-interact_policy = null
-entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass3" parent="EntityWorld" parent_id_path=PackedInt32Array(1218391746) index="3" unique_id=1027679760 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass3" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="3" unique_id=1027679760 instance=ExtResource("8_oewxi")]
 position = Vector2(1218, 889)
 default_rally_center_position = Vector2(-88.38, 120.33)
-interact_policy = null
-entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass4" parent="EntityWorld" parent_id_path=PackedInt32Array(1218391746) index="4" unique_id=2117389582 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass4" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="4" unique_id=2117389582 instance=ExtResource("8_oewxi")]
 position = Vector2(1365, 1112)
 default_rally_center_position = Vector2(-55.71, -114.48)
-interact_policy = null
-entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass5" parent="EntityWorld" parent_id_path=PackedInt32Array(1218391746) index="5" unique_id=1676628909 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass5" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="5" unique_id=1676628909 instance=ExtResource("8_oewxi")]
 position = Vector2(1549, 914)
 default_rally_center_position = Vector2(-71.64, 100.71)
-interact_policy = null
-entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass6" parent="EntityWorld" parent_id_path=PackedInt32Array(1218391746) index="6" unique_id=1251918247 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass6" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="6" unique_id=1251918247 instance=ExtResource("8_oewxi")]
 position = Vector2(1841, 1060)
 default_rally_center_position = Vector2(-115.2, -99.72)
-interact_policy = null
-entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass7" parent="EntityWorld" parent_id_path=PackedInt32Array(1218391746) index="7" unique_id=1492193814 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass7" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="7" unique_id=1492193814 instance=ExtResource("8_oewxi")]
 position = Vector2(1015, 454)
 default_rally_center_position = Vector2(101.61, 120.6)
-interact_policy = null
-entity_groups = Array[StringName]([&"towers"])
 
-[node name="TowerHolderGrass8" parent="EntityWorld" parent_id_path=PackedInt32Array(1218391746) index="8" unique_id=1847028733 instance=ExtResource("8_oewxi")]
+[node name="TowerHolderGrass8" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="8" unique_id=1847028733 instance=ExtResource("8_oewxi")]
 position = Vector2(850, 515)
 default_rally_center_position = Vector2(73.634, 140.709)
-interact_policy = null
-entity_groups = Array[StringName]([&"towers"])
 
 [node name="Pathway" type="Path2D" parent="PathwayContainer" parent_id_path=PackedInt32Array(886912364) index="0" unique_id=1468860882]
 position = Vector2(96, 208)

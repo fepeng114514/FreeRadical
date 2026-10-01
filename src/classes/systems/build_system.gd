@@ -21,9 +21,7 @@ func _on_update(_delta: float) -> void:
 		if not TimeManager.has_elapsed(build.inserted_time_stamp, build_c.config.build_time):
 			continue
 
-		var price: float = build_c.price
 		var target: Entity = EntityManager.create_entity(build_c.config.build_target)
 		target.set_global_position_with_components(build.global_position)
 		EntityManager.queue_insert_entity(target)
 		EntityManager.queue_remove_entity(build)
-		GameManager.cash -= price

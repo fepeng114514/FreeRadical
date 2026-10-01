@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="WaveSpawnerComponentNodeConfig" format=3 uid="uid://bhjihe6s614ul"]
 
 [ext_resource type="Script" uid="uid://dcvj0tx7265ts" path="res://classes/node_configs/components/wave_spawner_node_config.gd" id="1_ac3qy"]
+[ext_resource type="Resource" uid="uid://duckkkjf0svrb" path="res://game/levels/level_1_wave.tres" id="2_qiy3q"]
 
 [resource]
 script = ExtResource("1_ac3qy")
+wave_group = ExtResource("2_qiy3q")

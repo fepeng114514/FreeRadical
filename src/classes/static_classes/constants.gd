@@ -58,7 +58,7 @@ const CN_FX: NodePath = ^"FXComponent"
 const CN_HEALTH: NodePath = ^"HealthComponent"
 ## 组件路径: 近战技能。
 const CN_MELEE: NodePath = ^"MeleeComponent"
-## 组件路径: 状态效果。
+## 组件路径: 修改器。
 const CN_MODIFIER: NodePath = ^"ModifierComponent"
 ## 组件路径: 导航路径。
 const CN_NAV_PATH: NodePath = ^"NavPathComponent"

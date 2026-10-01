@@ -3,7 +3,7 @@ extends Resource
 class_name InteractPolicy 
 ## 交互策略类。
 ##
-## 交互策略用于定义实体之间的交互规则，包括禁止交互的实体标识、状态效果类型、光环类型等。
+## 交互策略用于定义实体之间的交互规则，包括禁止交互的实体标识、修改器类型、光环类型等。
 
 
 ## 标识枚举。
@@ -22,7 +22,7 @@ enum Flag {
 	HERO = 1 << 3,
 	## 标识: 防御塔。
 	TOWER = 1 << 4,
-	## 标识: 状态效果。
+	## 标识: 修改器。
 	MODIFIER = 1 << 5,
 	## 标识: 光环。
 	AURA = 1 << 6,
@@ -43,9 +43,9 @@ enum Flag {
 		emit_changed()
 ## 禁止交互的实体标识。
 @export var bans: int = 0
-## 状态效果类型。
+## 修改器类型。
 @export var mod_type_flags: int = 0
-## 禁止的状态效果类型。
+## 禁止的修改器类型。
 @export var mod_type_bans: int = 0
 ## 光环类型。
 @export var aura_type_flags: int = 0
@@ -104,12 +104,12 @@ func is_banned(other: InteractPolicy) -> bool:
 	return other.flags & bans
 
 
-## 检查是否与另一个策略禁止状态效果类型。
+## 检查是否与另一个策略禁止修改器类型。
 func is_mutual_mod_type_banned(other: InteractPolicy) -> bool:
 	return other.mod_type_flags & mod_type_bans or mod_type_flags & other.mod_type_bans
 
 
-## 检查是否与另一个策略单向禁止状态效果类型。
+## 检查是否与另一个策略单向禁止修改器类型。
 func is_mod_type_banned(other: InteractPolicy) -> bool:
 	return other.mod_type_flags & mod_type_bans
 

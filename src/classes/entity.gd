@@ -3,7 +3,7 @@ extends Node2D
 class_name Entity
 ## 实体节点。
 ##
-## 游戏中所有具有行为和属性的对象都可以被表示为 Entity，例如: 敌人、友军、防御塔、子弹、状态效果等。 [br][br]
+## 游戏中所有具有行为和属性的对象都可以被表示为 Entity，例如: 敌人、友军、防御塔、子弹、修改器等。 [br][br]
 ## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
 
 
@@ -76,9 +76,9 @@ var inserted_time_stamp: float = 0.0
 var time_stamp: float = 0.0
 ## 目标实体 ID
 var target_id: int = Constants.UNSET
-## 拥有的状态效果 ID 列表
+## 拥有的修改器 ID 列表
 var has_mods_id_list := PackedInt32Array()
-## 上次拥有的状态效果 ID 列表长度，用于检测状态效果的新增和移除
+## 上次拥有的修改器 ID 列表长度，用于检测修改器的新增和移除
 var last_has_mods_id_list_size: int = 0
 ## 拥有的光环 ID 列表
 var has_auras_id_list := PackedInt32Array()
@@ -269,8 +269,8 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 #endregion
 
 
-#region 状态效果相关方法
-## 获取拥有的所有状态效果实体数组
+#region 修改器相关方法
+## 获取拥有的所有修改器实体数组
 func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
@@ -285,7 +285,7 @@ func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 	return has_mods
 
 
-## 清空拥有的状态效果
+## 清空拥有的修改器
 func clear_has_mod_list() -> void:
 	for mod: Entity in get_has_mod_list():
 		EntityManager.queue_remove_entity(mod)

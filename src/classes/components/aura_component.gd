@@ -24,10 +24,12 @@ enum Type {
 		update_configuration_warnings()
 		queue_redraw()
 
-## 当前周期数。
-var current_cycle: int = 0
-## 时间戳。
-var time_stamp: float = 0.0
+## 插入时间戳。
+var insert_time_stamp: float = 0.0
+## 当前影响次数。
+var current_influence_count: int = 0
+## 影响间隔时间戳。
+var influence_time_stamp: float = 0.0
 
 
 func _validate_property(property: Dictionary):

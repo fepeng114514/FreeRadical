@@ -1,8 +1,8 @@
 extends System
 class_name ModifierSystem
-## 状态效果系统。
+## 修改器系统。
 ##
-## ModifierSystem 负责处理拥有 [ModifierComponent] 状态效果组件的实体。
+## ModifierSystem 负责处理拥有 [ModifierComponent] 修改器组件的实体。
 
 
 func _on_insert(modifier: Entity) -> bool:
@@ -18,7 +18,7 @@ func _on_insert(modifier: Entity) -> bool:
 	if not InteractPolicy.is_allowed_target(modifier, target, interact_policy, target.config.interact_policy):
 		return false
 
-	modifier_c.time_stamp = TimeManager.tick_time_stamp
+	modifier_c.insert_time_stamp = TimeManager.tick_time_stamp
 	modifier.global_position = target.global_position
 
 	var same_modifier_list: Array[Entity] = []
@@ -50,8 +50,8 @@ func _on_insert(modifier: Entity) -> bool:
 		if other_modifier.scene_name == modifier.scene_name:
 			same_modifier_list.append(other_modifier)
 			
-	if same_modifier_list and modifier_c.config.same_process:
-		if not modifier_c.config.same_process.process(modifier, same_modifier_list):
+	if same_modifier_list and modifier_c.config.same_stack_policy:
+		if not modifier_c.config.same_stack_policy.apply(modifier, same_modifier_list):
 			return false
 
 	target.has_mods_id_list.append(modifier.id)
@@ -94,7 +94,7 @@ func _on_remove(modifier: Entity) -> bool:
 	return true
 
 
-## 处理状态效果的更新。
+## 处理修改器的更新。
 func _process_modifier_update() -> void:
 	for modifier: Entity in EntityManager.get_component_entity_group(Constants.CN_MODIFIER):
 		var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.CN_MODIFIER)
@@ -113,35 +113,36 @@ func _process_modifier_update() -> void:
 
 		if modifier.is_waiting():
 			continue
-
-		if modifier_c.config.cycle_enabled:
-			if Utils.is_valid_number(modifier_c.config.max_cycle):
-				if modifier_c.curren_cycle > modifier_c.config.max_cycle:
-					EntityManager.queue_remove_entity(modifier)
-					continue
 			
-			if TimeManager.has_elapsed(modifier_c.time_stamp, modifier_c.config.cycle_time):
-				continue
-
-			modifier_c.curren_cycle += 1
-			modifier_c.time_stamp = TimeManager.tick_time_stamp
+		if not TimeManager.has_elapsed(modifier_c.influence_time_stamp, modifier_c.config.influence_interval):
+			continue
 		
-			modifier_c.config.influence.take_influence(modifier, target, target.global_position)
-		else:
-			if not modifier.is_first_update:
+		if Utils.is_valid_number(modifier_c.config.max_influence_count):
+			if modifier_c.influence_count > modifier_c.config.max_influence_count:
+				EntityManager.queue_remove_entity(modifier)
 				continue
-			
-			_take_influfluence(modifier, modifier_c, target)
+		
+		if TimeManager.has_elapsed(modifier_c.influence_time_stamp, modifier_c.config.influence_interval):
+			continue
+
+		modifier_c.influence_count += 1
+		modifier_c.influence_time_stamp = TimeManager.tick_time_stamp
+	
+		_take_influfluence(modifier, modifier_c, target)
 		
 
 func _take_influfluence(modifier: Entity, modifier_c: ModifierComponent, target: Entity) -> void:
+	modifier.play_animation(modifier_c.config.influence_animation)
+	await modifier.y_wait(modifier_c.config.influence_delay)
+		
 	modifier_c.config.influence.take_influence(modifier, target, target.global_position)
-	await modifier.y_wait_animation(modifier.config.idle_animation)
+	if modifier_c.config.influence_animation:
+		await modifier.y_wait_animation(modifier_c.config.influence_animation)
 
 	EntityManager.queue_remove_entity(modifier)
 
 
-## 处理状态效果的属性修改。
+## 处理修改器的属性修改。
 func _process_property_modifiers() -> void:
 	for entity: Entity in EntityManager.get_valid_entities():
 		var has_mods_id_list_size: int = entity.has_mods_id_list.size()
@@ -179,7 +180,7 @@ func _reset_property(target: Entity, property_modifier: PropertyModifier) -> voi
 	node[property] = base_value
 
 
-## 应用状态效果的属性修改。
+## 应用修改器的属性修改。
 func _apply_modifier(target: Entity, property_modifier: PropertyModifier) -> void:
 	var node: Node = target.get_node_or_null(property_modifier.node_path)
 	if not node:

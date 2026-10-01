@@ -3,7 +3,7 @@ extends Resource
 class_name Influence
 ## 影响资源，基类。
 ##
-## Influence 用于定义如何影响目标，例如治疗、造成伤害、给予状态效果等。
+## Influence 用于定义如何影响目标，例如治疗、造成伤害、给予修改器等。
 
 
 ## 取值模式枚举。
@@ -23,9 +23,9 @@ enum GetValueMode {
 
 @export_group("Extra")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var extra_enabled: bool = false
-## 给予的状态效果路径列表。
+## 给予的修改器路径列表。
 @export_file("*.tscn") var mods: PackedStringArray
-## 给予的持续状态效果路径列表。
+## 给予的持续修改器路径列表。
 @export_file("*.tscn") var auras: PackedStringArray
 ## 创建的实体场景路径列表。
 @export_file("*.tscn") var payloads: PackedStringArray

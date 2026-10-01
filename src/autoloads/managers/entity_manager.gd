@@ -157,7 +157,7 @@ func create_entities_at_global_position(
 	)
 
 
-## 批量创建状态效果实体。
+## 批量创建修改器实体。
 func create_mods(
 		target_id: int,
 		entity_scenes: PackedStringArray, 
