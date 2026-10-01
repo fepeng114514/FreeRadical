@@ -17,15 +17,6 @@ const navigation_agent_path: NodePath = ^"NavigationAgent2D"
 		update_configuration_warnings()
 		queue_redraw()
 
-## 移动速度。
-@export var speed: float = 100.0
-## 是否可点击集结。
-@export var can_select_rally: bool = true
-## 移动动画组。
-@export var motion_animation: AnimationGroup = null
-## 移动音效组。
-@export var motion_sfx: AudioGroup = null
-
 ## 是否已到达集结位置。
 var arrived: bool = false
 ## 是否强制集结。
@@ -64,7 +55,7 @@ func new_rally_global_position(
 	rally_center_global_position = center
 	
 	if play_sfx:
-		AudioManager.play_sfx(motion_sfx)
+		AudioManager.play_sfx(config.motion_sfx)
 
 
 func _on_child_order_changed() -> void:

@@ -22,7 +22,7 @@ func _update() -> void:
 		global_position = target_entity.global_position
 
 	var melee_c: MeleeComponent = target_entity.get_node_or_null(Constants.CN_MELEE)
-	var searcher: Searcher = melee_c.searcher
+	var searcher: Searcher = melee_c.config.searcher
 
 	min_range_circle._show(searcher.min_radius)
 	max_range_circle._show(searcher.max_radius)

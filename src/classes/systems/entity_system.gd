@@ -23,7 +23,7 @@ func _on_update(_delta: float) -> void:
 		if entity.state & Entity.State.DEAD or entity.is_waiting():
 			continue
 
-		if Utils.is_valid_number(entity.duration) and TimeManager.has_elapsed(entity.inserted_time_stamp, entity.duration):
+		if Utils.is_valid_number(entity.config.duration) and TimeManager.has_elapsed(entity.inserted_time_stamp, entity.config.duration):
 			EntityManager.queue_remove_entity(entity)
 			continue
 			
@@ -37,10 +37,10 @@ func _on_update(_delta: float) -> void:
 ## 更新实体。
 func _update_entity(entity: Entity) -> void:
 	if entity.is_first_update:
-		entity.play_animation(entity.spawn_animation)
-		AudioManager.play_sfx(entity.spawn_sfx)
-		if entity.spawn_animation:
-			if await entity.y_wait_animation(entity.spawn_animation):
+		entity.play_animation(entity.config.spawn_animation)
+		AudioManager.play_sfx(entity.config.spawn_sfx)
+		if entity.config.spawn_animation:
+			if await entity.y_wait_animation(entity.config.spawn_animation):
 				return
 	
 	entity.last_global_position = entity.global_position

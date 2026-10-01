@@ -16,11 +16,6 @@ const build_progress_bar_path: NodePath = ^"BuildTextureProgressBar"
 		update_configuration_warnings()
 		queue_redraw()
 
-## 建造时间，单位为秒。
-@export var build_time: float = 1.0
-## 建造目标实体。
-@export_file("*.tscn") var build_target: String = ""
-
 @onready var build_progress_bar: TextureProgressBar = get_node_or_null(build_progress_bar_path)
 
 

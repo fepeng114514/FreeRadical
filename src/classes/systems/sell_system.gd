@@ -8,10 +8,10 @@ class_name SellSystem
 func _on_update(_delta: float) -> void:
 	for entity: Entity in EntityManager.get_component_entity_group(Constants.CN_SELL):
 		var sell_c: SellComponent = entity.get_node_or_null(Constants.CN_SELL)
-		if not sell_c.is_sold or not sell_c.sell_enabled:
+		if not sell_c.is_sold or not sell_c.config.sell_enabled:
 			continue
 
-		AudioManager.play_sfx(sell_c.sell_sfx)
+		AudioManager.play_sfx(sell_c.config.sell_sfx)
 		_process_tower_component(sell_c.tower_component)
 		EntityManager.queue_remove_entity(entity)
 		
@@ -19,7 +19,7 @@ func _on_update(_delta: float) -> void:
 		if not price_record:
 			continue
 
-		GameManager.cash += sell_c.sell_ratio * price_record.price
+		GameManager.cash += sell_c.config.sell_ratio * price_record.price
 	
 
 func _process_tower_component(entity: Entity) -> void:

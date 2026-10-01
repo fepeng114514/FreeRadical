@@ -45,8 +45,8 @@ func _on_update(entity: Entity) -> bool:
 	if not melee_c:
 		return false
 		
-	if entity.interact_policy:
-		if entity.interact_policy.flags & InteractPolicy.Flag.FRIENDLY:
+	if entity.config.interact_policy:
+		if entity.config.interact_policy.flags & InteractPolicy.Flag.FRIENDLY:
 			melee_c.is_blocker = true
 		else:
 			melee_c.is_blocker = false
@@ -64,7 +64,7 @@ func _on_update(entity: Entity) -> bool:
 
 ## 更新拦截者。
 func _update_blocker(entity: Entity, melee_c: MeleeComponent) -> bool:
-	if melee_c.blocked_count < melee_c.max_blocked_count or melee_c.is_extra_blocker:
+	if melee_c.blocked_count < melee_c.config.max_blocked_count or melee_c.is_extra_blocker:
 		_blocker_search_and_bind_melee_relations(entity, melee_c)
 	
 	var blocked_id_list: PackedInt32Array = melee_c.blocked_id_list
@@ -83,15 +83,15 @@ func _update_blocker(entity: Entity, melee_c: MeleeComponent) -> bool:
 		var blocked_global_position: Vector2 = blocked.global_position
 		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
 		
-		if melee_c.is_passive:
+		if melee_c.config.is_passive:
 			if blocked_melee_c.melee_state != MeleeComponent.MeleeState.MELEE_POSITION_ARRIVED:
 				entity.facing_global_position = blocked_global_position
-				entity.play_animation(entity.idle_animation)
+				entity.play_animation(entity.config.idle_animation)
 				return true
 		else:
 			var melee_global_position: Vector2 = blocked_global_position
-			if blocked_melee_c.melee_position_offsets:
-				var melee_position_offset: Vector2 = blocked_melee_c.melee_position_offsets.get_offset_toward_point(
+			if blocked_melee_c.config.melee_position_offsets:
+				var melee_position_offset: Vector2 = blocked_melee_c.config.melee_position_offsets.get_offset_toward_point(
 					melee_global_position, entity.global_position
 				)
 				melee_global_position += melee_position_offset
@@ -115,7 +115,7 @@ func _blocker_search_and_bind_melee_relations(entity: Entity, melee_c: MeleeComp
 			center = rally_center_global_position
 	
 	# 1. 首先搜索没有被拦截的目标
-	var pending_blocked_list: Array[Entity] = melee_c.searcher.search_targets(
+	var pending_blocked_list: Array[Entity] = melee_c.config.searcher.search_targets(
 		center,
 		entity,
 		func(target: Entity) -> bool:
@@ -123,7 +123,7 @@ func _blocker_search_and_bind_melee_relations(entity: Entity, melee_c: MeleeComp
 			if not t_melee_c:
 				return false
 
-			if t_melee_c.is_passive and melee_c.is_passive:
+			if t_melee_c.config.is_passive and melee_c.config.is_passive:
 				return false
 
 			return not t_melee_c.blocker_id_list
@@ -137,12 +137,12 @@ func _blocker_search_and_bind_melee_relations(entity: Entity, melee_c: MeleeComp
 				var first_blocked_target: Entity = EntityManager.get_entity_by_id(first_blocked_id)
 				var blocked_melee_c: MeleeComponent = first_blocked_target.get_node_or_null(Constants.CN_MELEE)
 				if blocked_melee_c.blocker_id_list.size() > 1:
-					melee_c.blocked_count -= blocked_melee_c.block_cost
+					melee_c.blocked_count -= blocked_melee_c.config.block_cost
 					melee_c.blocker_unbind_melee_relations(entity)
 
 			melee_c.is_extra_blocker = false
 		
-		var max_blocked_count: int = melee_c.max_blocked_count
+		var max_blocked_count: int = melee_c.config.max_blocked_count
 		for target: Entity in pending_blocked_list:
 			if melee_c.blocked_count >= max_blocked_count:
 				break
@@ -150,7 +150,7 @@ func _blocker_search_and_bind_melee_relations(entity: Entity, melee_c: MeleeComp
 			var t_melee_c: MeleeComponent = target.get_node_or_null(Constants.CN_MELEE)
 
 			# 如果正在拦截目标，跳过被动的目标
-			if t_melee_c.is_passive and melee_c.blocked_id_list:
+			if t_melee_c.config.is_passive and melee_c.blocked_id_list:
 				continue
 			
 			melee_c.blocker_bind_melee_relations(entity.id, target.id)
@@ -162,10 +162,10 @@ func _extra_blocker_search_and_bind_melee_relations(entity: Entity, melee_c: Mel
 	if melee_c.blocked_id_list:
 		return
 
-	if melee_c.is_passive:
+	if melee_c.config.is_passive:
 		return
 
-	var blocked_targets: Array[Entity] = melee_c.searcher.search_targets(
+	var blocked_targets: Array[Entity] = melee_c.config.searcher.search_targets(
 		center,
 		entity,
 		func(target: Entity) -> bool:
@@ -173,7 +173,7 @@ func _extra_blocker_search_and_bind_melee_relations(entity: Entity, melee_c: Mel
 			if not t_melee_c:
 				return false
 
-			if t_melee_c.is_passive and melee_c.is_passive:
+			if t_melee_c.config.is_passive and melee_c.config.is_passive:
 				return false
 				
 			return true
@@ -206,16 +206,16 @@ func _update_blocked(entity: Entity, melee_c: MeleeComponent) -> bool:
 		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.CN_MELEE)
 		var is_first_blocked: bool = entity.id == blocker_melee_c.blocked_id_list[0]
 
-		if is_first_blocked and not blocker_melee_c.is_passive:
+		if is_first_blocked and not blocker_melee_c.config.is_passive:
 			if blocker_melee_c.melee_state != MeleeComponent.MeleeState.MELEE_POSITION_ARRIVED:
 				entity.facing_global_position = blocker_global_position
-				entity.play_animation(entity.idle_animation)
+				entity.play_animation(entity.config.idle_animation)
 				return true
 		else:
-			if not melee_c.is_passive:
+			if not melee_c.config.is_passive:
 				var melee_global_position: Vector2 = blocker_global_position
-				if blocker_melee_c.melee_position_offsets:
-					var melee_position_offset: Vector2 = blocker_melee_c.melee_position_offsets.get_offset_toward_point(
+				if blocker_melee_c.config.melee_position_offsets:
+					var melee_position_offset: Vector2 = blocker_melee_c.config.melee_position_offsets.get_offset_toward_point(
 						blocker_global_position, entity_global_position
 					)
 					melee_global_position += melee_position_offset
@@ -231,7 +231,7 @@ func _update_blocked(entity: Entity, melee_c: MeleeComponent) -> bool:
 ## 前往近战位置。
 func _go_melee_position(entity: Entity, melee_c: MeleeComponent, melee_global_position: Vector2) -> bool:
 	if MathUtils.is_at_destination(
-			entity.global_position, melee_global_position, melee_c.arrived_distance	 
+			entity.global_position, melee_global_position, melee_c.config.arrived_distance	 
 	):
 		#Log.verbose("到达近战位置，全局位置：%s, 目标点：%s, 距离：%s" % [entity.global_position, melee_c.melee_global_position, entity.global_position.distance_to(melee_c.melee_global_position)])
 		melee_c.melee_state = MeleeComponent.MeleeState.MELEE_POSITION_ARRIVED
@@ -242,14 +242,14 @@ func _go_melee_position(entity: Entity, melee_c: MeleeComponent, melee_global_po
 		var direction: Vector2 = entity.global_position.direction_to(melee_global_position)
 		var velocity: Vector2 = (
 			direction 
-			* melee_c.speed 
+			* melee_c.config.speed 
 			* TimeManager.frame_length
 		)
 		melee_c.velocity = velocity
 
 		var next_global_position: Vector2 = entity.global_position + velocity
 		entity.facing_global_position = next_global_position
-		entity.play_animation(melee_c.motion_animation, &"walk")
+		entity.play_animation(melee_c.config.motion_animation, &"walk")
 		entity.global_position = next_global_position
 		
 		return false
@@ -258,7 +258,7 @@ func _go_melee_position(entity: Entity, melee_c: MeleeComponent, melee_global_po
 ## 返回原始位置。
 func _back_original_position(entity: Entity, melee_c: MeleeComponent) -> bool:
 	if MathUtils.is_at_destination(
-		entity.global_position, melee_c.original_global_position, melee_c.arrived_distance
+		entity.global_position, melee_c.original_global_position, melee_c.config.arrived_distance
 	):
 		melee_c.melee_state = MeleeComponent.MeleeState.ORIGINAL_POSITION_ARRIVED
 		entity.state = Entity.State.IDLE
@@ -270,14 +270,14 @@ func _back_original_position(entity: Entity, melee_c: MeleeComponent) -> bool:
 		)
 		var velocity: Vector2 = (
 			direction 
-			* melee_c.speed 
+			* melee_c.config.speed 
 			* TimeManager.frame_length
 		)
 		melee_c.velocity = velocity
 
 		var next_global_position: Vector2 = entity.global_position + velocity
 		entity.facing_global_position = next_global_position
-		entity.play_animation(melee_c.motion_animation, &"walk")
+		entity.play_animation(melee_c.config.motion_animation, &"walk")
 
 		entity.global_position = next_global_position
 		
@@ -290,13 +290,13 @@ func _try_melee_attack(
 	) -> void:
 	if target:
 		entity.facing_global_position = target.global_position
-	entity.play_animation(entity.idle_animation)
+	entity.play_animation(entity.config.idle_animation)
 	
 	if not target:
 		return
 
 	for skill: MeleeSkill in melee_c.get_children():
-		if not skill.can_use(entity, target):
+		if not skill.can_use(entity, skill.config, target):
 			continue
 			
 		skill.use_skill(entity, target)

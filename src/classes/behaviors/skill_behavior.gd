@@ -22,7 +22,7 @@ func _on_update(entity: Entity) -> bool:
 		return false
 		
 	for skill: Skill in skill_c.get_children():
-		if not skill.can_use(entity):
+		if not skill.can_use(entity, skill.config):
 			continue
 
 		skill.use_skill(entity)

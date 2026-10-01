@@ -24,23 +24,6 @@ enum Type {
 		update_configuration_warnings()
 		queue_redraw()
 
-## 是否跟随目标。
-@export var track_target: bool = true
-## 相同处理资源。
-@export var same_process: SameProcessResource = null
-## 是否移除被禁止的光环。
-@export var remove_banned: bool = true
-## 影响资源，用于对目标造成伤害或治愈目标。
-@export var influence: Influence = null
-## 搜索资源，用于搜索目标。
-@export var searcher: Searcher = null
-
-@export_group("Cycle")
-## 周期时间。
-@export var cycle_time: float = 1.0
-## 最大周期数。
-@export var max_cycle: int = Constants.UNSET
-
 ## 当前周期数。
 var current_cycle: int = 0
 ## 时间戳。
@@ -54,8 +37,11 @@ func _validate_property(property: Dictionary):
 
 
 func _draw() -> void:
+	if not config:
+		return
+		
 	if DebugManager.draw_range_enabled:
-		if searcher:
-			searcher.draw_search_range(self, position)
-		if influence:
-			influence.draw_influence_range(self, position)
+		if config.searcher:
+			config.searcher.draw_search_range(self, position)
+		if config.influence:
+			config.influence.draw_influence_range(self, position)

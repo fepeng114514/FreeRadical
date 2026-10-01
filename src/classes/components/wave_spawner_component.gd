@@ -12,18 +12,13 @@ enum SUB_WAVE_STATE_FLAGS {
 }
 
 
-@export var config: WaveSpawnerComponentNodeConfig = null
-
-
-## 波次组。
-@export var wave_group: WaveGroup = null:
+@export var config: WaveSpawnerComponentNodeConfig = null:
 	set(v):
-		wave_group = v
+		Utils.rebind_changed(config, v, _on_config_changed)
+		config = v
 		update_configuration_warnings()
-## 波次间隔开始音效。
-@export var wave_timer_start_sfx: AudioGroup = null
-## 波次间隔结束音效。
-@export var wave_timer_finish_sfx: AudioGroup = null
+		queue_redraw()
+
 
 ## 是否所有波次都释放完毕。
 var waves_finished: bool = false

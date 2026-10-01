@@ -45,8 +45,8 @@ func _process_tower_component(entity: Entity, new_entity: Entity) -> void:
 	if new_barrack_c:
 		var barrack_c: BarrackComponent = entity.get_node_or_null(Constants.CN_BARRACK)
 		if barrack_c:
-			new_barrack_c.rally_center_global_position = barrack_c.rally_center_global_position
+			new_barrack_c.config.rally_center_global_position = barrack_c.config.rally_center_global_position
 			new_barrack_c.last_soldier_list = barrack_c.soldier_list
 		else:
-			new_barrack_c.rally_center_global_position = tower_c.to_global(default_rally_center_position)
+			new_barrack_c.config.rally_center_global_position = tower_c.to_global(default_rally_center_position)
 		

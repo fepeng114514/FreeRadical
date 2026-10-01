@@ -12,3 +12,16 @@ class_name RangedSkill
 		config = v
 		update_configuration_warnings()
 		queue_redraw()
+
+
+func _draw() -> void:
+	if not config:
+		return
+
+	if DebugManager.draw_range_enabled:
+		if config.searcher:
+			config.searcher.draw_search_range(self, position)
+			
+	if DebugManager.draw_offset_enabled:
+		if config.bullet_offsets:
+			config.bullet_offsets.draw_offset_group(self)

@@ -53,6 +53,6 @@ func _on_update(_delta: float) -> void:
 			if not entity.get_node_or_null(Constants.CN_SPRITE):
 				continue
 				
-			entity.play_animation(entity.idle_animation)
+			entity.play_animation(entity.config.idle_animation)
 			
 			

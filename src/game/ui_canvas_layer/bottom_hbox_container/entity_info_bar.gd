@@ -87,7 +87,7 @@ func _show(entity: Entity) -> void:
 	var select_c: SelectComponent = entity.get_node_or_null(Constants.CN_SELECT)
 		
 	selected_entity = entity
-	info_bar_type = select_c.info_bar_type
+	info_bar_type = select_c.config.info_bar_type
 	
 	if info_bar_type == SelectComponent.InfoBarType.NONE:
 		return
@@ -104,9 +104,9 @@ func _hide() -> void:
 ## 更新单位信息
 func _update_unit_info() -> void:
 	var health_c: HealthComponent = selected_entity.get_node_or_null(Constants.CN_HEALTH)
-	hp_value.text = "%d/%d" % [health_c.hp_max, health_c.hp]
-	phys_armor_value.text = "%d" % (health_c.physical_armor * 100)
-	magic_armor_value.text = "%d" % (health_c.magical_armor * 100)
+	hp_value.text = "%d/%d" % [health_c.config.hp_max, health_c.hp]
+	phys_armor_value.text = "%d" % (health_c.config.physical_armor * 100)
+	magic_armor_value.text = "%d" % (health_c.config.magical_armor * 100)
 	
 	var melee_c: MeleeComponent = selected_entity.get_node_or_null(Constants.CN_MELEE)
 	if melee_c and melee_c.get_child(0):
@@ -145,13 +145,13 @@ func _update_tower_info() -> void:
 
 func _set_value_ranged(skill_c: SkillComponent) -> void:
 	var first_ranged_skill: RangedSkill = skill_c.get_child(0)
-	var damage_influence := first_ranged_skill.influence as DamageInfluence
+	var damage_influence := first_ranged_skill.config.influence as DamageInfluence
 	if damage_influence:
-		ranged_value.text = "%d-%d/%.1f" % [damage_influence.min_value, damage_influence.max_value, first_ranged_skill.cooldown]
+		ranged_value.text = "%d-%d/%.1f" % [damage_influence.min_value, damage_influence.max_value, first_ranged_skill.config.cooldown]
 	
 	
 func _set_value_melee(melee_c: MeleeComponent) -> void:
 	var first_melee_skill: MeleeSkill = melee_c.get_child(0)
-	var damage_influence := first_melee_skill.influence as DamageInfluence
+	var damage_influence := first_melee_skill.config.influence as DamageInfluence
 	if damage_influence:
-		melee_value.text = "%d-%d/%.1f" % [damage_influence.min_value, damage_influence.max_value, first_melee_skill.cooldown]
+		melee_value.text = "%d-%d/%.1f" % [damage_influence.min_value, damage_influence.max_value, first_melee_skill.config.cooldown]

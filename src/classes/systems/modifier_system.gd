@@ -14,8 +14,8 @@ func _on_insert(modifier: Entity) -> bool:
 	if not target:
 		return false
 		
-	var interact_policy: InteractPolicy = modifier.interact_policy
-	if not InteractPolicy.is_allowed_target(modifier, target, interact_policy, target.interact_policy):
+	var interact_policy: InteractPolicy = modifier.config.interact_policy
+	if not InteractPolicy.is_allowed_target(modifier, target, interact_policy, target.config.interact_policy):
 		return false
 
 	modifier_c.time_stamp = TimeManager.tick_time_stamp
@@ -27,7 +27,7 @@ func _on_insert(modifier: Entity) -> bool:
 		if other_modifier == modifier:
 			continue
 			
-		var other_interact_policy: InteractPolicy = other_modifier.interact_policy
+		var other_interact_policy: InteractPolicy = other_modifier.config.interact_policy
 		
 		if (
 			other_interact_policy.is_banned(interact_policy) 
@@ -41,7 +41,7 @@ func _on_insert(modifier: Entity) -> bool:
 			or interact_policy.is_aura_type_banned(other_interact_policy)
 			or not interact_policy.is_scene_allowed(target.scene_name)
 		):
-			if modifier_c.remove_banned:
+			if modifier_c.config.remove_banned:
 				EntityManager.queue_remove_entity(other_modifier)
 				continue
 			
@@ -50,8 +50,8 @@ func _on_insert(modifier: Entity) -> bool:
 		if other_modifier.scene_name == modifier.scene_name:
 			same_modifier_list.append(other_modifier)
 			
-	if same_modifier_list and modifier_c.same_process:
-		if not modifier_c.same_process.process(modifier, same_modifier_list):
+	if same_modifier_list and modifier_c.config.same_process:
+		if not modifier_c.config.same_process.process(modifier, same_modifier_list):
 			return false
 
 	target.has_mods_id_list.append(modifier.id)
@@ -74,7 +74,7 @@ func _on_remove(modifier: Entity) -> bool:
 
 	var reseted_property_set: Dictionary = {}
 
-	for property_mod: PropertyModifier in modifier_c.property_modifier_list:
+	for property_mod: PropertyModifier in modifier_c.config.property_modifier_list:
 		var key: Array = [property_mod.node_path, property_mod.property]
 		if reseted_property_set.has(key):
 			continue
@@ -86,7 +86,7 @@ func _on_remove(modifier: Entity) -> bool:
 
 	for t_mod: Entity in target.get_has_mod_list():
 		var t_modifier_c: ModifierComponent = t_mod.get_node_or_null(Constants.CN_MODIFIER)
-		var t_property_modifier_list: Array = t_modifier_c.property_modifier_list
+		var t_property_modifier_list: Array = t_modifier_c.config.property_modifier_list
 		
 		for t_property_mod: PropertyModifier in t_property_modifier_list:
 			_apply_modifier(target, t_property_mod)
@@ -100,12 +100,12 @@ func _process_modifier_update() -> void:
 		var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.CN_MODIFIER)
 
 		var target: Entity = EntityManager.get_entity_by_id(modifier.target_id)
-		if modifier_c.track_target:
+		if modifier_c.config.track_target:
 			if target:
 				var new_global_position: Vector2 = target.global_position
 
-				if target.hit_offsets:
-					var offset: Vector2 = target.hit_offsets.get_offset_toward_point(
+				if target.config.hit_offsets:
+					var offset: Vector2 = target.config.hit_offsets.get_offset_toward_point(
 						target.global_position, target.facing_global_position
 					)
 					new_global_position += offset
@@ -114,19 +114,19 @@ func _process_modifier_update() -> void:
 		if modifier.is_waiting():
 			continue
 
-		if modifier_c.cycle_enabled:
-			if Utils.is_valid_number(modifier_c.max_cycle):
-				if modifier_c.curren_cycle > modifier_c.max_cycle:
+		if modifier_c.config.cycle_enabled:
+			if Utils.is_valid_number(modifier_c.config.max_cycle):
+				if modifier_c.curren_cycle > modifier_c.config.max_cycle:
 					EntityManager.queue_remove_entity(modifier)
 					continue
 			
-			if TimeManager.has_elapsed(modifier_c.time_stamp, modifier_c.cycle_time):
+			if TimeManager.has_elapsed(modifier_c.time_stamp, modifier_c.config.cycle_time):
 				continue
 
 			modifier_c.curren_cycle += 1
 			modifier_c.time_stamp = TimeManager.tick_time_stamp
 		
-			modifier_c.influence.take_influence(modifier, target, target.global_position)
+			modifier_c.config.influence.take_influence(modifier, target, target.global_position)
 		else:
 			if not modifier.is_first_update:
 				continue
@@ -135,8 +135,8 @@ func _process_modifier_update() -> void:
 		
 
 func _take_influfluence(modifier: Entity, modifier_c: ModifierComponent, target: Entity) -> void:
-	modifier_c.influence.take_influence(modifier, target, target.global_position)
-	await modifier.y_wait_animation(modifier.idle_animation)
+	modifier_c.config.influence.take_influence(modifier, target, target.global_position)
+	await modifier.y_wait_animation(modifier.config.idle_animation)
 
 	EntityManager.queue_remove_entity(modifier)
 
@@ -151,7 +151,7 @@ func _process_property_modifiers() -> void:
 
 			for modifier: Entity in entity.get_has_mod_list():
 				var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.CN_MODIFIER)
-				var property_modifier_list: Array = modifier_c.property_modifier_list
+				var property_modifier_list: Array = modifier_c.config.property_modifier_list
 
 				for property_modifier: PropertyModifier in property_modifier_list:
 					var key: Array = [property_modifier.node_path, property_modifier.property]

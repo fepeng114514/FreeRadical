@@ -13,37 +13,6 @@ class_name BarrackComponent
 		update_configuration_warnings()
 		queue_redraw()
 
-## 是否禁用。
-@export var disabled: bool = false
-
-@export_group("Rally")
-## 最小集结范围。
-@export var rally_min_range: float = 0.0
-## 最大集结范围。
-@export var rally_max_range: float = 300
-## 集结点全局位置。
-@export var rally_center_global_position := Vector2.ZERO
-## 集结点半径，影响士兵与集结点之间的距离。
-@export var rally_radius: float = 30.0
-## 集结音效组。
-@export var rally_sfx: AudioGroup = null
-
-@export_group("Spawn")
-## 士兵场景路径。
-@export_file("*.tscn") var soldier_scene: String = ""
-## 生成士兵间隔（秒）。
-@export var spawn_interval: float = 10.0
-## 士兵生成偏移组。
-@export var spawn_offsets: OffsetGroup = null
-## 最大士兵数量。
-@export var max_soldier_count: int = 3
-## 生成士兵播放的动画。
-@export var animation: AnimationGroup = null
-## 生成士兵延迟（秒），用于在动画播放到特定帧后生成士兵。
-@export var delay: float = 0.0
-## 生成士兵播放的音效。
-@export var sfx: AudioGroup = null
-
 ## 时间戳（秒）
 var time_stamp: float = 0.0
 ## 士兵列表。
@@ -55,15 +24,18 @@ var last_soldier_list: Array[Entity] = []
 
 
 func _draw() -> void:
+	if not config:
+		return
+		
 	if DebugManager.draw_offset_enabled:
-		if spawn_offsets:
-			spawn_offsets.draw_offset_group(self)
+		if config.spawn_offsets:
+			config.spawn_offsets.draw_offset_group(self)
 		
 	if DebugManager.draw_range_enabled:
-		Utils.draw_range_ellipse(self, position, rally_min_range, rally_max_range, Color(0.201, 0.431, 1.0, 0.2))
+		Utils.draw_range_ellipse(self, position, config.rally_min_range, config.rally_max_range, Color(0.201, 0.431, 1.0, 0.2))
 
 	if DebugManager.draw_point_enabled:
-		var rally_center_position: Vector2 = to_local(rally_center_global_position)
+		var rally_center_position: Vector2 = to_local(config.rally_center_global_position)
 		draw_circle(
 			rally_center_position,
 			9,
@@ -77,8 +49,8 @@ func _draw() -> void:
 			2
 		)
 
-		for i: int in max_soldier_count:
-			var formation_position: Vector2 = to_formation_position(rally_center_position, max_soldier_count, i)
+		for i: int in config.max_soldier_count:
+			var formation_position: Vector2 = to_formation_position(rally_center_position, config.max_soldier_count, i)
 			draw_circle(
 				formation_position,
 				3,
@@ -103,16 +75,16 @@ func set_rally_center_global_position(
 		play_sfx: bool = true
 	) -> void:
 	if play_sfx:
-		AudioManager.play_sfx(rally_sfx)
+		AudioManager.play_sfx(config.rally_sfx)
 		
-	rally_center_global_position = center_global_position
+	config.rally_center_global_position = center_global_position
 	var soldier_size: int = soldier_list.size()
 	
 	for soldier_index: int in soldier_size:
 		var soldier: Entity = soldier_list[soldier_index]
 		var soldier_rally_c: RallyComponent = soldier.get_node_or_null(Constants.CN_RALLY)
-		var formation_position: Vector2 = to_formation_position(rally_center_global_position, soldier_size, soldier_index)
-		soldier_rally_c.new_rally_global_position(soldier, formation_position, is_forced, rally_center_global_position, false)
+		var formation_position: Vector2 = to_formation_position(config.rally_center_global_position, soldier_size, soldier_index)
+		soldier_rally_c.new_rally_global_position(soldier, formation_position, is_forced, config.rally_center_global_position, false)
 		
 		var melee_c: MeleeComponent = soldier.get_node_or_null(Constants.CN_MELEE)
 		if melee_c:
@@ -127,4 +99,4 @@ func to_formation_position(center_position: Vector2, count: int, index: int) -> 
 	var angle_step: float = 2 * PI / count
 	var angle: float = (index - 1) * angle_step - Constants.HALF_PI
 	
-	return MathUtils.get_point_on_ellipse(center_position, rally_radius, angle)
+	return MathUtils.get_point_on_ellipse(center_position, config.rally_radius, angle)

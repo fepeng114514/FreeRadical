@@ -14,25 +14,6 @@ class_name NavPathComponent
 		update_configuration_warnings()
 		queue_redraw()
 		
-## 是否沿相反路线移动。
-@export var reversed_enabled: bool = false
-## 移动速度。
-@export var speed: float = 133.0
-## 移动动画组。
-@export var motion_animation: AnimationGroup = null
-## 是否强制与来源实体所在路径同步。
-@export var sync_source_path: bool = true
-
-@export_group("End")
-## 终点节点。
-@export var end_pathway_node_index: int = Constants.UNSET
-## 是否启用循环。
-@export var loop_enabled: bool = false
-## 循环次数，循环指定次数后再到达终点节点将会到达终点。
-@export var loop_times: int = Constants.UNSET
-## 到达终点消耗的生命。
-@export var life_cost: int = 1
-
 ## 所在路径索引。
 var pathway_index: int = 0
 ## 所在子路径索引。
@@ -102,7 +83,7 @@ func set_nav_path_to_nearest_node(entity: Entity, search_global_position: Vector
 	var pi_list: Array = []
 	var spi_list: Array = []
 
-	if nav_path_c.sync_source_path:
+	if nav_path_c.config.sync_source_path:
 		var source: Entity = EntityManager.get_entity_by_id(entity.source_id)
 		var s_nav_path_c: NavPathComponent = source.get_node_or_null(Constants.CN_NAV_PATH) if source else null
 		if s_nav_path_c:

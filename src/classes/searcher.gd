@@ -102,7 +102,7 @@ func search_targets(center: Vector2, search_entity: Entity = null, filter := Cal
 		var center_offset: Vector2 = center_offsets.get_offset_toward_point(search_entity.global_position, search_entity.facing_global_position)
 		center += center_offset
 
-	var is_enemy: bool = search_entity and search_entity.interact_policy and search_entity.interact_policy.flags & InteractPolicy.Flag.ENEMY
+	var is_enemy: bool = search_entity and search_entity.config.interact_policy and search_entity.config.interact_policy.flags & InteractPolicy.Flag.ENEMY
 	var group_name: StringName = &""
 	match searched_group:
 		SearchedGroup.ENTITIES:
@@ -172,7 +172,7 @@ func _skip_ready_dead_filter(entity: Entity) -> bool:
 			if not bullet_c:
 				continue
 
-			var damage_influence := bullet_c.influence as DamageInfluence
+			var damage_influence := bullet_c.config.hit_influence as DamageInfluence
 			if not damage_influence:
 				continue
 		
@@ -257,10 +257,10 @@ func _sort_by_gold(entity1: Entity, entity2: Entity) -> bool:
 
 	var entity1_health_c: HealthComponent = entity1.get_node_or_null(Constants.CN_HEALTH)
 	if entity1_health_c:
-		gold1 = entity1_health_c.death_gold
+		gold1 = entity1_health_c.config.death_gold
 	var entity2_health_c: HealthComponent = entity2.get_node_or_null(Constants.CN_HEALTH)
 	if entity2_health_c:
-		gold2 = entity2_health_c.death_gold
+		gold2 = entity2_health_c.config.death_gold
 
 	return gold1 < gold2 if sort_reversed_enabled else gold1 > gold2
 
@@ -281,15 +281,13 @@ func _sort_by_melee_damage(entity1: Entity, entity2: Entity) -> bool:
 	var entity1_melee_c: MeleeComponent = entity1.get_node_or_null(Constants.CN_MELEE)
 	if entity1_melee_c:
 		var first_skill: MeleeSkill = entity1_melee_c.get_child(0)
-		var damage_influence := first_skill.influence as DamageInfluence
-
+		var damage_influence := first_skill.config.influence as DamageInfluence
 		if damage_influence:
 			melee_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 	var entity2_melee_c: MeleeComponent = entity2.get_node_or_null(Constants.CN_MELEE)
 	if entity2_melee_c:
 		var first_skill: MeleeSkill = entity2_melee_c.get_child(0)
-		var damage_influence := first_skill.influence as DamageInfluence
-
+		var damage_influence := first_skill.config.influence as DamageInfluence
 		if damage_influence:
 			melee_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 
@@ -304,15 +302,13 @@ func _sort_by_ranged_damage(entity1: Entity, entity2: Entity) -> bool:
 	var entity1_skill_c: SkillComponent = entity1.get_node_or_null(Constants.CN_SKILL)
 	if entity1_skill_c:
 		var first_skill: Skill = entity1_skill_c.get_child(0)
-		var damage_influence := first_skill.influence as DamageInfluence
-
+		var damage_influence := first_skill.config.influence as DamageInfluence
 		if damage_influence:
 			ranged_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 	var entity2_skill_c: SkillComponent = entity2.get_node_or_null(Constants.CN_SKILL)
 	if entity2_skill_c:
 		var first_skill: Skill = entity2_skill_c.get_child(0)
-		var damage_influence := first_skill.influence as DamageInfluence
-
+		var damage_influence := first_skill.config.influence as DamageInfluence
 		if damage_influence:
 			ranged_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 

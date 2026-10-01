@@ -14,6 +14,3 @@ class_name ExperienceComponent
 		config = v
 		update_configuration_warnings()
 		queue_redraw()
-
-## 实体等级。
-@export var level: int = 1

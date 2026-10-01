@@ -6,5 +6,5 @@ func _update() -> void:
 
 	global_position = target_entity.global_position
 
-	min_range_circle._show(barrack_c.rally_min_range)
-	max_range_circle._show(barrack_c.rally_max_range)
+	min_range_circle._show(barrack_c.config.rally_min_range)
+	max_range_circle._show(barrack_c.config.rally_max_range)

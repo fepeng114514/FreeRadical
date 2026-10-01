@@ -14,44 +14,39 @@ class_name MeleeSkill
 		update_configuration_warnings()
 		queue_redraw()
 
-## 影响资源，用于对目标造成伤害或治愈目标。
-@export var influence: Influence = null
-## 是否启用搜索第一个目标位置，如果为 false 则以释放者的位置为中心造成影响，而非第一个目标的位置。
-@export var search_at_target_position_enabled: bool = false
-## 交互策略。
-@export var interact_policy: InteractPolicy = null
-
 
 func _draw() -> void:
+	if not config:
+		return
 	if DebugManager.draw_range_enabled:
-		if influence:
-			influence.draw_influence_range(self, position)
+		if config.influence:
+			config.influence.draw_influence_range(self, position)
 
 
-func can_use(entity: Entity, target: Entity = null) -> bool:
-	if not super(entity):
+func can_use(entity: Entity, _config: SkillNodeConfig, target: Entity = null) -> bool:
+	if not super(entity, config, target):
 		return false
 		
-	if not InteractPolicy.is_allowed_target(entity, target, interact_policy, target.interact_policy):
+	if not InteractPolicy.is_allowed_target(entity, target, config.interact_policy, target.config.interact_policy):
 		return false
 		
 	return true
 
 
 func _use_skill(entity: Entity, target: Entity = null) -> void:
-	start_cooldown()
-	entity.play_animation(animation, &"melee")
-	AudioManager.play_sfx(sfx)
-	if await entity.y_wait(delay) or not target or not target.state & Entity.State.MELEE:
-		compensate_cooldown()
+	start_cooldown(config)
+	entity.play_animation(config.animation, &"melee")
+	AudioManager.play_sfx(config.sfx)
+	if await entity.y_wait(config.delay) or not target or not target.state & Entity.State.MELEE:
+		compensate_cooldown(config)
 		return
 	
-	if search_at_target_position_enabled:
-		influence.take_influence(entity, target, target.global_position)
+	if config.search_at_target_position_enabled:
+		config.influence.take_influence(entity, target, target.global_position)
 	else:
-		influence.take_influence(entity, target, entity.global_position)
+		config.influence.take_influence(entity, target, entity.global_position)
 	
-	if await entity.y_wait_animation(animation):
+	if await entity.y_wait_animation(config.animation):
 		return
 		
-	entity.play_animation(entity.idle_animation, &"idle")
+	entity.play_animation(entity.config.idle_animation, &"idle")

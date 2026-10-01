@@ -41,7 +41,7 @@ func process(entity: Entity, samed_entity_list: Array[Entity]) -> bool:
 			max_level_e.inserted_time_stamp -= TimeManager.tick_time_stamp
 			return false
 		Mode.STACK:
-			max_level_e.inserted_time_stamp -= entity.duration
+			max_level_e.inserted_time_stamp -= entity.config.duration
 			return false
 
 	return false

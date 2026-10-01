@@ -15,14 +15,14 @@ func _on_update(_delta: float) -> void:
 		var max_value: float = build_progress_bar.max_value
 		
 		var past_time: float = TimeManager.tick_time_stamp - build.inserted_time_stamp
-		var value: float = past_time * max_value / build_c.build_time
+		var value: float = past_time * max_value / build_c.config.build_time
 		build_progress_bar.value = value
 		
-		if not TimeManager.has_elapsed(build.inserted_time_stamp, build_c.build_time):
+		if not TimeManager.has_elapsed(build.inserted_time_stamp, build_c.config.build_time):
 			continue
 
 		var price: float = build_c.price
-		var target: Entity = EntityManager.create_entity(build_c.build_target)
+		var target: Entity = EntityManager.create_entity(build_c.config.build_target)
 		target.set_global_position_with_components(build.global_position)
 		EntityManager.queue_insert_entity(target)
 		EntityManager.queue_remove_entity(build)

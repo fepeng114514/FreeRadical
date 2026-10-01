@@ -37,28 +37,6 @@ enum MeleeState {
 		update_configuration_warnings()
 		queue_redraw()
 
-## 是否不主动前往近战位置。
-@export var is_passive: bool = false
-## 移动速度。
-@export var speed: float = 100.0
-## 移动动画组。
-@export var motion_animation: AnimationGroup = null
-## 近战位置偏移组。
-@export var melee_position_offsets: OffsetGroup = null
-## 到达位置的阈值。
-@export var arrived_distance: float = 10.0
-
-@export_group("Blocker")
-## 搜索资源，用于搜索目标。
-@export var searcher: Searcher = null
-
-## 最大可以拦截数量。
-@export var max_blocked_count: int = 1
-
-@export_group("Blocked")
-## 拦截成本。
-@export var block_cost: int = 1
-
 ## 是否是拦截者。
 var is_blocker: bool = false
 ## 拦截者 ID 列表
@@ -80,13 +58,16 @@ var melee_state: MeleeState = MeleeState.ORIGINAL_POSITION_ARRIVED
 
 
 func _draw() -> void:
+	if not config:
+		return
+		
 	if DebugManager.draw_range_enabled:
-		if searcher:
-			searcher.draw_search_range(self, position)
+		if config.searcher:
+			config.searcher.draw_search_range(self, position)
 
 	if DebugManager.draw_offset_enabled:
-		if melee_position_offsets:
-			melee_position_offsets.draw_offset_group(self)
+		if config.melee_position_offsets:
+			config.melee_position_offsets.draw_offset_group(self)
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -105,7 +86,7 @@ func blocker_bind_melee_relations(blocker_id: int, blocked_id: int) -> void:
 	
 	blocked_melee_c.blocker_id_list.append(blocker_id)
 	blocked_id_list.append(blocked_id)
-	blocked_count += blocked_melee_c.block_cost
+	blocked_count += blocked_melee_c.config.block_cost
 
 
 ## 被拦截者绑定拦截关系。
@@ -115,7 +96,7 @@ func blocked_bind_melee_relations(blocker_id: int, blocked_id: int) -> void:
 	
 	blocker_id_list.append(blocker_id)
 	blocker_melee_c.blocked_id_list.append(blocked_id)
-	blocker_melee_c.blocked_count += block_cost
+	blocker_melee_c.blocked_count += config.block_cost
 
 
 ## 拦截者解除拦截关系。
@@ -157,14 +138,14 @@ func blocker_cleanup_melee_relations(entity: Entity) -> void:
 			continue 
 			
 		if not MathUtils.is_in_ellipse_ring(
-				center, blocked.global_position, searcher.min_radius, searcher.max_radius
+				center, blocked.global_position, config.searcher.min_radius, config.searcher.max_radius
 			):
 			continue
 			
 		var b_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
 		
 		new_blockeds_ids.append(id)
-		blocked_count += b_melee_c.block_cost
+		blocked_count += b_melee_c.config.block_cost
 		
 	blocked_id_list = new_blockeds_ids
 

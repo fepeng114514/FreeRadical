@@ -60,21 +60,6 @@ enum SourceType {
 		update_configuration_warnings()
 		queue_redraw()
 
-## 存在时间（秒），实体存在超过 duration 时间后会被移除，默认值为 -1 表示永久存在。
-@export var duration: float = Constants.UNSET
-## 空闲动画组。
-@export var idle_animation: AnimationGroup = null
-## 生成时播放的动画。
-@export var spawn_animation: AnimationGroup = null
-## 生成时播放的音效组。
-@export var spawn_sfx: AudioGroup = null
-## 击中位置偏移组。
-@export var hit_offsets: OffsetGroup = null
-## 光环位置偏移组。
-@export var aura_offsets: OffsetGroup = null
-## 交互策略。
-@export var interact_policy: InteractPolicy = null
-
 ## 实体场景名称
 var scene_name: String = ""
 ## 实体本地化名称
@@ -364,12 +349,12 @@ func play_animation(
 		_play_animation(anim_name, play_target, filp_h, animation_group.speed_scale, force_play)
 
 	## 处理同步动画
-	if sprite_c.sync_source:
+	if sprite_c.config.sync_source:
 		var source: Entity = EntityManager.get_entity_by_id(source_id)
 		if source and not is_waiting():
 			source.facing_global_position = facing_global_position
 			var s_sprite_c: SpriteComponent = source.get_node_or_null(Constants.CN_SPRITE)
-			var s_animation: AnimationGroup = s_sprite_c.sync_animations.get(
+			var s_animation: AnimationGroup = s_sprite_c.config.sync_animations.get(
 				source_animation_key
 			)
 			if s_animation:

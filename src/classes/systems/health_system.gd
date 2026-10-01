@@ -10,7 +10,7 @@ func _on_insert(entity: Entity) -> bool:
 	if not health_c:
 		return true
 		
-	health_c.hp = health_c.hp_max
+	health_c.hp = health_c.config.hp_max
 	
 	return true
 
@@ -22,13 +22,13 @@ func _on_update(_delta: float) -> void:
 
 		var health_c: HealthComponent = entity.get_node_or_null(Constants.CN_HEALTH)
 
-		if health_c.regen_hp != 0:
-			if TimeManager.has_elapsed(health_c.regen_time_stamp, health_c.regen_cooldown):
-				health_c.hp += health_c.regen_hp
+		if health_c.config.regen_hp != 0:
+			if TimeManager.has_elapsed(health_c.regen_time_stamp, health_c.config.regen_cooldown):
+				health_c.hp += health_c.config.regen_hp
 				health_c.regen_time_stamp = TimeManager.tick_time_stamp
 		
-		if health_c.idle_regen_hp != 0:
+		if health_c.config.idle_regen_hp != 0:
 			if entity.state & Entity.State.IDLE:
-				if TimeManager.has_elapsed(health_c.idle_regen_time_stamp, health_c.idle_regen_cooldown):
-					health_c.hp += health_c.idle_regen_hp
+				if TimeManager.has_elapsed(health_c.idle_regen_time_stamp, health_c.config.idle_regen_cooldown):
+					health_c.hp += health_c.config.idle_regen_hp
 					health_c.idle_regen_time_stamp = TimeManager.tick_time_stamp

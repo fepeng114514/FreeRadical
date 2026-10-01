@@ -14,8 +14,8 @@ func _on_insert(aura: Entity) -> bool:
 	if not target:
 		return false
 
-	var interact_policy: InteractPolicy = aura.interact_policy
-	if not InteractPolicy.is_allowed_target(aura, target, interact_policy, target.interact_policy):
+	var interact_policy: InteractPolicy = aura.config.interact_policy
+	if not InteractPolicy.is_allowed_target(aura, target, interact_policy, target.config.interact_policy):
 		return false
 		
 	aura_c.time_stamp = TimeManager.tick_time_stamp
@@ -27,7 +27,7 @@ func _on_insert(aura: Entity) -> bool:
 		if other_aura == aura:
 			continue
 
-		var other_interact_policy: InteractPolicy = other_aura.interact_policy
+		var other_interact_policy: InteractPolicy = other_aura.config.interact_policy
 		
 		# 检查是否被其他光环禁止
 		if (
@@ -43,7 +43,7 @@ func _on_insert(aura: Entity) -> bool:
 			or interact_policy.is_aura_type_banned(other_interact_policy)
 			or not interact_policy.is_scene_allowed(target.scene_name)
 		):
-			if aura_c.remove_banned:
+			if aura_c.config.remove_banned:
 				EntityManager.queue_remove_entity(other_aura)
 				continue
 			
@@ -52,8 +52,8 @@ func _on_insert(aura: Entity) -> bool:
 		if other_aura.scene_name == aura.scene_name:
 			same_aura_list.append(other_aura)	
 			
-	if same_aura_list and aura_c.same_process:
-		if not aura_c.same_process.process(aura, same_aura_list):
+	if same_aura_list and aura_c.config.same_process:
+		if not aura_c.config.same_process.process(aura, same_aura_list):
 			return false
 
 	target.has_auras_id_list.append(aura.id)
@@ -63,28 +63,28 @@ func _on_insert(aura: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	for aura: Entity in EntityManager.get_component_entity_group(Constants.CN_AURA):
 		var aura_c: AuraComponent = aura.get_node_or_null(Constants.CN_AURA)
-		if aura_c.track_target:
+		if aura_c.config.track_target:
 			var target: Entity = EntityManager.get_entity_by_id(aura.target_id)
 			if target:
 				var new_global_position: Vector2 = target.global_position
-				if target.aura_offsets:
-					var offset: Vector2 = target.aura_offsets.get_offset_toward_point(
+				if target.config.aura_offsets:
+					var offset: Vector2 = target.config.aura_offsets.get_offset_toward_point(
 						target.global_position, target.facing_global_position
 					)
 					new_global_position += offset
 				aura.global_position = new_global_position
 
-		if not TimeManager.has_elapsed(aura_c.time_stamp, aura_c.cycle_time):
+		if not TimeManager.has_elapsed(aura_c.time_stamp, aura_c.config.cycle_time):
 			continue
 
-		if Utils.is_valid_number(aura_c.max_cycle):
-			if aura_c.curren_cycle > aura_c.max_cycle:
+		if Utils.is_valid_number(aura_c.config.max_cycle):
+			if aura_c.curren_cycle > aura_c.config.max_cycle:
 				EntityManager.queue_remove_entity(aura)
 				continue
 
-		var targets: Array[Entity] = aura_c.searcher.search_targets(aura.global_position, aura)
+		var targets: Array[Entity] = aura_c.config.searcher.search_targets(aura.global_position, aura)
 		for target: Entity in targets:
-			aura_c.influence.take_influence(aura, target, target.global_position)
+			aura_c.config.influence.take_influence(aura, target, target.global_position)
 			
 		aura_c.time_stamp = TimeManager.tick_time_stamp
 		aura_c.curren_cycle += 1

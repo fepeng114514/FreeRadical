@@ -33,6 +33,6 @@ func _take(source: Entity, target: Entity, _is_area: bool) -> void:
 		HealType.HP_ADD_PERCENT:
 			health_c.hp += health_c.hp * heal_value
 		HealType.HP_MAX_ADD_PERCENT:
-			health_c.hp_max += health_c.hp_max * heal_value
+			health_c.hp += health_c.config.hp_max * heal_value
 		HealType.MULTIPLY:
 			health_c.hp *= heal_value

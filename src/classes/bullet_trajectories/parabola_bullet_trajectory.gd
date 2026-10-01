@@ -30,7 +30,7 @@ func _init_trajectory(bullet: Entity, bullet_c: BulletComponent, _target: Entity
 		velocity, from, 0.1, flight_gravity
 	)
 
-	if bullet_c.facing_enabled:
+	if bullet_c.config.facing_enabled:
 		bullet.look_at(next_global_position)
 
 
@@ -44,7 +44,7 @@ func _update_trajectory(bullet: Entity, bullet_c: BulletComponent, _target: Enti
 	next_global_position = MathUtils.get_position_in_parabola(
 		bullet_c.velocity, bullet_c.from, next_time, flight_gravity
 	)
-	if bullet_c.facing_enabled:
+	if bullet_c.config.facing_enabled:
 		bullet.look_at(next_global_position)
 
 

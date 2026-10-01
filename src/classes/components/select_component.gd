@@ -37,29 +37,19 @@ enum SelectMenuType {
 		update_configuration_warnings()
 		queue_redraw()
 
-## 选择矩形大小。
-@export var select_rect := Rect2(-16, -16, 32, 32)
-## 是否可以选择。
-@export var can_select: bool = true
-
-## 信息栏类型。
-@export var info_bar_type: InfoBarType = InfoBarType.NONE
-## 选择菜单类型。
-@export var select_menu_type: SelectMenuType = SelectMenuType.NONE
-## 选择菜单偏移。
-@export var select_menu_offset := Vector2.ZERO
-
 
 func _draw() -> void:
-	if config:
-		if DebugManager.draw_offset_enabled:
-			draw_circle(
-				config.select_menu_offset, 
-				4,
-				Color.GREEN, 
-				false,
-				1
-			)
+	if not config:
+		return
+		
+	if DebugManager.draw_offset_enabled:
+		draw_circle(
+			config.select_menu_offset, 
+			4,
+			Color.GREEN, 
+			false,
+			1
+		)
 
 		if DebugManager.draw_range_enabled:
 			if config.can_select:
@@ -79,12 +69,12 @@ func _draw() -> void:
 
 ## 获取全局位置的矩形。
 func get_global_select_rect() -> Rect2:
-	return Rect2(global_position + select_rect.position, select_rect.size)
+	return Rect2(global_position + config.select_rect.position, config.select_rect.size)
 
 
 ## 检测是否点击在矩形内。
 func is_click_at_global_select_rect(clicked_global_position: Vector2) -> bool:
 	return (
-		can_select
+		config.can_select
 		and get_global_select_rect().has_point(clicked_global_position)
 	)

@@ -35,8 +35,8 @@ func _on_update(_delta: float) -> void:
 		
 		if is_instance_valid(target):
 			var predict_time: float = (
-				bullet_c.trajectory.flight_total_time
-				if bullet_c.trajectory and "flight_total_time" in bullet_c.trajectory
+				bullet_c.config.trajectory.flight_total_time
+				if bullet_c.config.trajectory and "flight_total_time" in bullet_c.config.trajectory
 				else 0.0
 			)
 			bullet_c.predicted_target_global_position = PathwayManager.predict_target_global_position(

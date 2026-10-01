@@ -24,10 +24,10 @@ func _get_predict_time() -> float:
 
 ## 子弹是否可以未命中目标实体。
 func _can_miss(bullet: Entity, bullet_c: BulletComponent, flying_time: float) -> bool:
-	return MathUtils.is_at_destination(bullet.global_position, bullet_c.to, bullet_c.hit_distance)
+	return MathUtils.is_at_destination(bullet.global_position, bullet_c.to, bullet_c.config.hit_distance)
 
 
 ## 子弹是否可以命中目标实体。
 func _can_hit(bullet: Entity, bullet_c: BulletComponent, flying_time: float) -> bool:
-	return MathUtils.is_at_destination(bullet.global_position, bullet_c.to, bullet_c.hit_distance)
+	return MathUtils.is_at_destination(bullet.global_position, bullet_c.to, bullet_c.config.hit_distance)
 @warning_ignore_restore("unused_parameter")

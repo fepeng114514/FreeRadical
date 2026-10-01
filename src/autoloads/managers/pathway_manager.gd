@@ -135,9 +135,9 @@ func predict_target_global_position(target: Entity, predict_time: float) -> Vect
 	var nav_path_c: NavPathComponent = target.get_node_or_null(Constants.CN_NAV_PATH)
 	if nav_path_c and target.state & Entity.State.NAV_PATH_WALK:
 		var progress: float = nav_path_c.progress
-		var walk_lenth: float = nav_path_c.speed * predict_time
+		var walk_lenth: float = nav_path_c.config.speed * predict_time
 		
-		if nav_path_c.reversed_enabled:
+		if nav_path_c.config.reversed_enabled:
 			progress -= walk_lenth
 		else:
 			progress += walk_lenth

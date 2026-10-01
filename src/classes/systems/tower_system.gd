@@ -14,7 +14,7 @@ func _on_insert(tower: Entity) -> bool:
 		shooter.source_id = tower.id
 		shooter.source_type = Entity.SourceType.TOWER_SHOOTER
 
-		if tower_c.shooter_alternation_enabled:
+		if tower_c.config.shooter_alternation_enabled:
 			var skill_c: SkillComponent = shooter.get_node_or_null(Constants.CN_SKILL)
 			if skill_c:
 				skill_c.start_skill_cooldown.connect(_on_start_skill_cooldown.bind(tower_c, shooter))
@@ -30,10 +30,10 @@ func _on_insert(tower: Entity) -> bool:
 
 
 func _on_start_skill_cooldown(used_skill: Skill, tower_c: TowerComponent, used_shooter: Entity) -> void:
-	if not tower_c.shooter_alternation_enabled:
+	if not tower_c.config.shooter_alternation_enabled:
 		return
 		
-	var alternation_entities: Array[NodePath] = tower_c.shooter_alternation_entities
+	var alternation_entities: Array[NodePath] = tower_c.config.shooter_alternation_entities
 	var alternation_entities_size: int = alternation_entities.size()
 	if alternation_entities_size <= 1:
 		return
@@ -52,4 +52,4 @@ func _on_start_skill_cooldown(used_skill: Skill, tower_c: TowerComponent, used_s
 
 		var skill_c: SkillComponent = shooter.get_node_or_null(Constants.CN_SKILL)
 		for skill: Skill in skill_c.get_children():
-			skill.time_stamp = used_skill.time_stamp - tower_c.shooter_alternation_offset
+			skill.time_stamp = used_skill.time_stamp - tower_c.config.shooter_alternation_offset

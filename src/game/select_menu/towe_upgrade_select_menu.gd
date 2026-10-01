@@ -42,7 +42,7 @@ func _process(_delta: float) -> void:
 	if not select_c:
 		return
 		
-	global_position = selected_entity.global_position + select_c.select_menu_offset
+	global_position = selected_entity.global_position + select_c.config.select_menu_offset
 
 	
 func _show(entity: Entity) -> void:
@@ -52,7 +52,7 @@ func _show(entity: Entity) -> void:
 	if not select_c:
 		return
 
-	if select_c.select_menu_type != SelectComponent.SelectMenuType.TOWER:
+	if select_c.config.select_menu_type != SelectComponent.SelectMenuType.TOWER:
 		return
 
 	var group: SelectMenuButtonGroup = select_menu_config.group_dict.get(entity.scene_name)
@@ -87,7 +87,7 @@ func _show(entity: Entity) -> void:
 		
 	selected_entity = entity
 	visible = true
-	global_position = entity.global_position + select_c.select_menu_offset
+	global_position = entity.global_position + select_c.config.select_menu_offset
 		
 	animation_player.play("show")
 	

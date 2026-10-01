@@ -15,13 +15,6 @@ class_name DodgeComponent
 		update_configuration_warnings()
 		queue_redraw()
 
-## 是否可以闪避远程攻击。
-@export var can_dodge_ranged: bool = true
-## 是否可以闪避近战技能。
-@export var can_dodge_melee: bool = true
-## 是否可以闪避区域攻击。
-@export var can_dodge_area: bool = false
-
 ## 当前准备释放的反击技能索引。
 var ready_skill_index: int = Constants.UNSET
 ## 反击目标 ID。
@@ -34,7 +27,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if not get_children():
 		warnings.append("请至少增加一个 Skill 节点或其类型的节点，否则实体无法反击。")
 	else:
-		if not can_dodge_melee and not can_dodge_ranged:
+		if not config.can_dodge_melee and not config.can_dodge_ranged:
 			warnings.append("请至少启用一个闪避能力，否则实体无法闪避任何攻击。")
 		else:
 			var has_melee_skill: bool = false
@@ -46,25 +39,25 @@ func _get_configuration_warnings() -> PackedStringArray:
 					has_ranged_skill = true
 				break
 
-			if not can_dodge_melee and has_melee_skill:
+			if not config.can_dodge_melee and has_melee_skill:
 				warnings.append("无法闪避近战技能，但增加了近战技能。")
-			elif not can_dodge_ranged and has_ranged_skill:
+			elif not config.can_dodge_ranged and has_ranged_skill:
 				warnings.append("无法闪避远程攻击，但增加了远程技能。")
 		
 	return warnings
 
 
-func select_skill(entity: Entity, d: Damage, source: Entity) -> bool:
+func select_skill(entity: Entity, damage: Damage, source: Entity) -> bool:
 	for skill_index: int in get_child_count():
 		var skill: Skill = get_child(skill_index)
 
-		if not skill.can_use(entity):
+		if not skill.can_use(entity, skill.config):
 			continue
 
-		if not can_dodge_area and d.is_area:
+		if not config.can_dodge_area and damage.is_area:
 			continue
 		
-		var damage_flags: int = d.damage_flags
+		var damage_flags: int = damage.damage_flags
 		if damage_flags & Damage.Flag.MELEE:
 			var melee_c: MeleeComponent = entity.get_node_or_null(Constants.CN_MELEE)
 			if not melee_c:
@@ -77,7 +70,7 @@ func select_skill(entity: Entity, d: Damage, source: Entity) -> bool:
 				if not melee_c.blocker_id_list:
 					continue
 		elif damage_flags & Damage.Flag.RANGED:
-			if not can_dodge_ranged:
+			if not config.can_dodge_ranged:
 				continue
 
 			if skill is MeleeSkill:

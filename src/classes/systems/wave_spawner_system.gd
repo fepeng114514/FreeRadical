@@ -10,7 +10,7 @@ func _on_insert(entity: Entity) -> bool:
 	if not wave_spawner_c:
 		return false
 
-	for wave: Wave in wave_spawner_c.wave_group.wave_list:
+	for wave: Wave in wave_spawner_c.config.wave_group.wave_list:
 		var wave_state := WaveState.new(wave)
 		WaveManager.insert_wave(wave_state)
 
@@ -36,7 +36,7 @@ func _on_update(_delta: float) -> void:
 
 		if wave_state.is_first_getted:
 			Log.debug("> 开始波次计时: 波次索引: %d, 波次间隔: %.2f" % [wave_index + 1, wave_state.wave.interval])
-			AudioManager.play_sfx(wave_spawner_c.wave_timer_start_sfx)
+			AudioManager.play_sfx(wave_spawner_c.config.wave_timer_start_sfx)
 			WaveManager.start_wave_timer.emit(wave_index)
 
 		# 第一个波次需要等待玩家主动释放波次
@@ -50,7 +50,7 @@ func _on_update(_delta: float) -> void:
 
 		if wave_state.is_first_elapsed_time:
 			Log.debug(">>> 释放波次: %d" % (wave_index + 1))
-			AudioManager.play_sfx(wave_spawner_c.wave_timer_finish_sfx)
+			AudioManager.play_sfx(wave_spawner_c.config.wave_timer_finish_sfx)
 			WaveManager.release_wave.emit(wave_index)
 
 		var sub_wave_queue: Array[SubWaveState] = wave_state.sub_wave_queue
@@ -76,11 +76,11 @@ func _on_update(_delta: float) -> void:
 			if nav_path_c:
 				var sub_pathway_index: int = spawn.sub_pathway_index
 				
-				nav_path_c.reversed_enabled = spawn.reversed_enabled
-				nav_path_c.loop_enabled = spawn.loop_enabled
+				nav_path_c.config.reversed_enabled = spawn.reversed_enabled
+				nav_path_c.config.loop_enabled = spawn.loop_enabled
 				
 				var node: PathwayNode = nav_path_c.get_pathway_node(
-					PathwayManager.node_count - 1 if nav_path_c.reversed_enabled else 0
+					PathwayManager.node_count - 1 if nav_path_c.config.reversed_enabled else 0
 				)
 				nav_path_c.set_nav_path(spawn.pathway_index, sub_pathway_index, node.index)
 			

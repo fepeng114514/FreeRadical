@@ -21,7 +21,7 @@ func _on_update(entity: Entity) -> bool:
 
 	var next_global_position: Vector2 = rally_c.navigation_agent.get_next_path_position()
 	entity.facing_global_position = next_global_position
-	entity.play_animation(rally_c.motion_animation, &"walk")
+	entity.play_animation(rally_c.config.motion_animation, &"walk")
 	
 	var direction: Vector2 = entity.global_position.direction_to(
 		next_global_position
@@ -29,7 +29,7 @@ func _on_update(entity: Entity) -> bool:
 	
 	var velocity: Vector2 = (
 		direction 
-		* rally_c.speed 
+		* rally_c.config.speed 
 		* TimeManager.frame_length
 	)
 	rally_c.navigation_agent.velocity = velocity

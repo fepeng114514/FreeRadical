@@ -12,27 +12,6 @@ signal skill_used
 signal start_skill_cooldown
 
 
-## 是否禁用技能。
-@export var disabled: bool = false
-## 技能冷却时间（秒）。
-@export var cooldown: float = 1.0
-## 技能冷却时间补偿比例，用于意外情况下被中断释放技能时减少重新冷却的时间。
-@export var compensate_cooldown_percent: float = 0.0
-## 技能释放概率。
-@export var chance: float = 1.0
-## 技能释放延迟（秒），用于等待动画到达特定帧后再释放技能。
-@export var delay: float = 0.0
-## 动画组。
-@export var animation: AnimationGroup = null
-## 音效组。
-@export var sfx: AudioGroup = null
-
-@export_group("Share Cooldown")
-## 是否启用共享冷却，可以使自身多个技能共享冷却。
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var share_cooldown_enabled: bool = false
-## 共享冷却的技能列表。
-@export var share_cooldown_skill_list: Array[Skill] = []
-
 ## 时间戳。
 var time_stamp: float = 0.0
 
@@ -51,11 +30,14 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 @warning_ignore_start("unused_parameter")
 ## 检查技能是否可以释放。
-func can_use(entity: Entity) -> bool:
-	if not TimeManager.has_elapsed(time_stamp, cooldown):
+func can_use(entity: Entity, config: SkillNodeConfig, target: Entity = null) -> bool:
+	if not config:
+		return false
+		
+	if not TimeManager.has_elapsed(time_stamp, config.cooldown):
 		return false
 
-	if randf() > chance:
+	if randf() > config.chance:
 		return false
 
 	return true
@@ -74,20 +56,23 @@ func use_skill(entity: Entity, target: Entity = null) -> void:
 
 
 ## 开始技能冷却。
-func start_cooldown() -> void:
+func start_cooldown(config: SkillNodeConfig) -> void:
 	var tick_time_stamp: float = TimeManager.tick_time_stamp
 	time_stamp = tick_time_stamp
 
-	if share_cooldown_enabled:
-		for skill: Skill in share_cooldown_skill_list:
-			skill.time_stamp = tick_time_stamp
+	if config and config.share_cooldown_enabled:
+		var parent: Node = get_parent()
+		for skill_index: int in config.share_cooldown_skill_index_list:
+			var skill: Skill = parent.get_child(skill_index)
+			if skill:
+				skill.time_stamp = tick_time_stamp
 	
 	start_skill_cooldown.emit()
 
 
 ## 补偿技能冷却时间。
-func compensate_cooldown() -> void:
-	time_stamp -= compensate_cooldown_percent * cooldown
+func compensate_cooldown(config: SkillNodeConfig) -> void:
+	time_stamp -= config.compensate_cooldown_percent * config.cooldown
 
 
 func _on_config_changed() -> void:

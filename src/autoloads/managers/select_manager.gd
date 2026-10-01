@@ -64,7 +64,7 @@ func _select(entity: Entity) -> void:
 	select_mode = SelectMode.NONE
 	
 	var rally_c: RallyComponent = entity.get_node_or_null(Constants.CN_RALLY)
-	if rally_c and rally_c.can_select_rally:
+	if rally_c and rally_c.config.can_select_rally:
 		select_mode = SelectMode.RALLY
 		
 	entity_selected.emit(entity)
@@ -100,8 +100,8 @@ func _process_select_mode() -> void:
 			var barrack_c: BarrackComponent = selected_entity.get_node_or_null(
 				Constants.CN_BARRACK
 			)
-			var rally_max_range: float = barrack_c.rally_max_range
-			var rally_min_range: float = barrack_c.rally_min_range
+			var rally_max_range: float = barrack_c.config.rally_max_range
+			var rally_min_range: float = barrack_c.config.rally_min_range
 	
 			if MathUtils.is_in_ellipse_ring(
 				entity_global_position,

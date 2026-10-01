@@ -12,6 +12,3 @@ class_name SpawnerComponent
 		config = v
 		update_configuration_warnings()
 		queue_redraw()
-
-## 生成器名称。
-@export var spawner_name: String = ""

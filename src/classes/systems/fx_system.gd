@@ -16,7 +16,7 @@ func _on_insert(entity: Entity) -> bool:
 
 
 func _play_animation(entity: Entity) -> void:
-	if await entity.y_wait_animation(entity.idle_animation):
+	if await entity.y_wait_animation(entity.config.idle_animation):
 		return
 
 	EntityManager.queue_remove_entity(entity)
