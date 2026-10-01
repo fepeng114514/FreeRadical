@@ -1,3 +1,4 @@
+@icon("res://assets/dpi_textures/at-icons/node2d/arrow_up.svg")
 extends Component
 class_name UpgradeComponent
 ## 升级组件。
@@ -14,9 +15,9 @@ var is_upgraded: bool = false
 
 
 func _get_configuration_warnings() -> PackedStringArray:
-    var warnings: PackedStringArray = super()
+	var warnings: PackedStringArray = super()
 
-    for warning in PriceRecord.get_not_found_configuration_warnings(parent):
-        warnings.append(warning)
+	for warning in PriceRecord.get_not_found_configuration_warnings(parent):
+		warnings.append(warning)
 
-    return warnings
+	return warnings

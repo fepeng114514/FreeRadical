@@ -12,5 +12,11 @@ z_index = 10
 node_config_template = ExtResource("2_p4d0j")
 config = ExtResource("3_5jrol")
 
+[node name="BulletComponent" parent="." index="0" unique_id=1871836864]
+config = ExtResource("5_ehd0t")
+
+[node name="SpriteComponent" parent="." index="1" unique_id=1496253429]
+config = ExtResource("9_set15")
+
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1900013004]
 texture = ExtResource("6_p4d0j")

@@ -16,14 +16,17 @@ node_config_template = ExtResource("2_fqoy4")
 config = ExtResource("3_i03ab")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" parent="." index="2" unique_id=40235501]
+[node name="SelectComponent" parent="." index="2" unique_id=1451324403]
+config = ExtResource("16_xwafi")
+
+[node name="SpriteComponent" parent="." index="3" unique_id=40235501]
 config = ExtResource("7_ru6qe")
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=708564869]
 position = Vector2(0, -49)
 texture = ExtResource("3_1ijik")
 
-[node name="TowerComponent" parent="." index="3" unique_id=1705871166]
+[node name="TowerComponent" parent="." index="4" unique_id=1705871166]
 config = ExtResource("10_itwkp")
 
 [node name="TowerArcherLvl2Shooter" parent="TowerComponent" index="0" unique_id=2011504655 instance=ExtResource("4_s0mgi")]
@@ -31,6 +34,3 @@ position = Vector2(-15, -60)
 
 [node name="TowerArcherLvl2Shooter2" parent="TowerComponent" index="1" unique_id=334249118 instance=ExtResource("4_s0mgi")]
 position = Vector2(16, -59)
-
-[node name="SelectComponent" parent="." index="4" unique_id=1451324403]
-config = ExtResource("16_xwafi")

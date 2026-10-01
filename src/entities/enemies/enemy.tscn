@@ -10,10 +10,6 @@
 script = ExtResource("1_owq46")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1501262804]
-script = ExtResource("2_wqcwe")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
-
 [node name="HealthComponent" type="Node2D" parent="." unique_id=93345552]
 process_mode = 4
 script = ExtResource("3_twyc1")
@@ -25,3 +21,8 @@ metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 process_mode = 4
 script = ExtResource("5_ipr6v")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1501262804]
+show_behind_parent = true
+script = ExtResource("2_wqcwe")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"

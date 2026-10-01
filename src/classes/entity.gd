@@ -537,6 +537,7 @@ func _update_config_template() -> void:
 	var root_save_path: String = template_dir.path_join("node_config_template.tres")
 	node_config_template = Utils.save_and_load_resource(new_config_template, root_save_path)
 	Log.info("生成配置模板: %s" % root_save_path)
+	EditorInterface.mark_scene_as_unsaved()
 
 
 func _build_config_template_node_recursive(node: Node, current_config_template_parent: NodeConfigTemplateNode, template_dir: String) -> void:
