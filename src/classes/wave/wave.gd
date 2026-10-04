@@ -1,4 +1,4 @@
-extends Resource
+extends WaveBase
 class_name Wave
 ## 波次资源。
 
@@ -9,3 +9,6 @@ class_name Wave
 @export var interval: float = 30.0
 ## 子波次列表。
 @export var sub_wave_list: Array[SubWave] = []
+
+## 子波次队列。
+var sub_wave_queue: Array[SubWave] = []

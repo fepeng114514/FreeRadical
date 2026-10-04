@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://c1y85pxab8nma" path="res://entities/tower_holders/tower_holder_cloud/template/tower_holder_cloud.tres" id="4_7gwc3"]
 [ext_resource type="Resource" uid="uid://4dx0pltpae2l" path="res://entities/tower_holders/tower_holder_cloud/template/sprite_component/sprite_component.tres" id="5_nync6"]
 [ext_resource type="Resource" uid="uid://lrlmox8p0tg5" path="res://entities/tower_holders/tower_holder_cloud/template/select_component/select_component.tres" id="7_07bxi"]
+[ext_resource type="Resource" uid="uid://bm3awowngc6kv" path="res://entities/tower_holders/tower_holder_cloud/template/upgrade_component/upgrade_component.tres" id="7_bw2kf"]
 
 [node name="TowerHolderCloud" unique_id=1898604313 instance=ExtResource("1_qx4sj")]
 node_config_template = ExtResource("3_bw2kf")
@@ -19,3 +20,7 @@ texture = ExtResource("3_3oyr1")
 
 [node name="SelectComponent" parent="." index="3" unique_id=876175114]
 config = ExtResource("7_07bxi")
+
+[node name="UpgradeComponent" parent="." index="4" unique_id=1486870254]
+process_mode = 4
+config = ExtResource("7_bw2kf")

@@ -1,6 +1,8 @@
 [gd_resource type="Resource" script_class="EntityNodeConfig" format=3 uid="uid://mk55l3o40ke7"]
 
 [ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="1_qn67p"]
+[ext_resource type="Resource" uid="uid://cow08uvxqdt1b" path="res://entities/tower_builds/common_spawn_sfx.tres" id="2_s8rdi"]
 
 [resource]
 script = ExtResource("1_qn67p")
+spawn_sfx = ExtResource("2_s8rdi")

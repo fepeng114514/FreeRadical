@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="NavPathComponentNodeConfig" format=3 uid="uid://dmauw547d03np"]
 
-[ext_resource type="Resource" uid="uid://dlpsu2cujogxf" path="res://entities/resources/4way_motion_animation_group.tres" id="1_6kjet"]
+[ext_resource type="Resource" uid="uid://dlpsu2cujogxf" path="res://entities/resources/animation_groups/4way_motion_animation_group.tres" id="1_6kjet"]
 [ext_resource type="Script" uid="uid://c6rbumergprcn" path="res://classes/node_configs/components/nav_path_component_node_config.gd" id="1_113hl"]
 
 [resource]

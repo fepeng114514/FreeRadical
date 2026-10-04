@@ -26,7 +26,7 @@ var selected_spawn: WaveSpawn = null
 
 func _ready() -> void:
 	var enemy_index: int = 0
-	for scene_uid: String in entity_scene_path_data.name_to_uid_map.values():
+	for scene_uid: String in entity_scene_path_data.entity_name_to_uid_map.values():
 		var scene_path: String = ResourceUID.uid_to_path(scene_uid)
 		var scene_name: String = scene_path.get_file().get_basename()
 		if not scene_name.begins_with("enemy_"):

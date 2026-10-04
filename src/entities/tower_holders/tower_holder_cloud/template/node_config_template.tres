@@ -3,23 +3,30 @@
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_043ek"]
 [ext_resource type="Resource" uid="uid://4dx0pltpae2l" path="res://entities/tower_holders/tower_holder_cloud/template/sprite_component/sprite_component.tres" id="2_gcyrk"]
 [ext_resource type="Resource" uid="uid://lrlmox8p0tg5" path="res://entities/tower_holders/tower_holder_cloud/template/select_component/select_component.tres" id="3_oypj3"]
+[ext_resource type="Resource" uid="uid://bm3awowngc6kv" path="res://entities/tower_holders/tower_holder_cloud/template/upgrade_component/upgrade_component.tres" id="4_gcyrk"]
 [ext_resource type="Resource" uid="uid://c1y85pxab8nma" path="res://entities/tower_holders/tower_holder_cloud/template/tower_holder_cloud.tres" id="4_ka2ij"]
 
-[sub_resource type="Resource" id="Resource_q3h0k"]
+[sub_resource type="Resource" id="Resource_oypj3"]
 script = ExtResource("1_043ek")
 name = "SpriteComponent"
 config = ExtResource("2_gcyrk")
 
-[sub_resource type="Resource" id="Resource_nmta8"]
+[sub_resource type="Resource" id="Resource_ka2ij"]
 script = ExtResource("1_043ek")
 name = "SelectComponent"
 config = ExtResource("3_oypj3")
 
+[sub_resource type="Resource" id="Resource_q3h0k"]
+script = ExtResource("1_043ek")
+name = "UpgradeComponent"
+config = ExtResource("4_gcyrk")
+
 [resource]
 script = ExtResource("1_043ek")
 config = ExtResource("4_ka2ij")
-children = Array[ExtResource("1_043ek")]([SubResource("Resource_q3h0k"), SubResource("Resource_nmta8")])
+children = Array[ExtResource("1_043ek")]([SubResource("Resource_oypj3"), SubResource("Resource_ka2ij"), SubResource("Resource_q3h0k")])
 children_dict = Dictionary[String, ExtResource("1_043ek")]({
-"SelectComponent": SubResource("Resource_nmta8"),
-"SpriteComponent": SubResource("Resource_q3h0k")
+"SelectComponent": SubResource("Resource_ka2ij"),
+"SpriteComponent": SubResource("Resource_oypj3"),
+"UpgradeComponent": SubResource("Resource_q3h0k")
 })

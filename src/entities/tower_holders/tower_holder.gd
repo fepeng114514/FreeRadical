@@ -11,7 +11,7 @@ class_name TowerHolderEntity
 			tower_record.default_rally_center_position = v
 		update_configuration_warnings()
 		
-@onready var tower_record: TowerRecord = get_node_or_null(Constants.CN_TOWER_RECORD)
+@onready var tower_record: TowerRecord = get_node_or_null(Constants.TOWER_RECORD_NODE_PATH)
 
 
 func _get_configuration_warnings() -> PackedStringArray:

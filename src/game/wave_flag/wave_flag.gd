@@ -43,22 +43,25 @@ var value_tween: Tween = null
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		pass
-	else:
-		visible = false
+		return
 
-		for glow: TextureRect in glow_list:
-			glow.visible = false
-		
-		texture_button.pressed.connect(_on_pressed)
-		mouse_entered.connect(_on_mouse_entered)
-		mouse_exited.connect(_on_mouse_exited)
-		WaveManager.release_wave.connect(_on_release_wave)
-		
-		arrow.rotation = arrow_rotation
-		arrow_glow.rotation = arrow_rotation
-		
-		animation_player.play("loop")
+	WaveManager.wave_timer_progress.connect(_update)
+	WaveManager.wave_timer_finished.connect(_hide)
+
+	visible = false
+
+	for glow: TextureRect in glow_list:
+		glow.visible = false
+	
+	texture_button.pressed.connect(_on_pressed)
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+	WaveManager.wave_released.connect(_on_release_wave)
+	
+	arrow.rotation = arrow_rotation
+	arrow_glow.rotation = arrow_rotation
+	
+	animation_player.play("loop")
 
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -89,18 +92,17 @@ func _on_mouse_exited() -> void:
 		glow.visible = false
 
 
-func _show(time: float) -> void:
+func _show(wave_index: int) -> void:
+	progress_bar.value = progress_bar.max_value if wave_index == 0 else progress_bar.min_value
+
 	visible = true
-	progress_bar.value = progress_bar.min_value
 	
 	animation_player.play("loop")
-	
-	value_tween = create_tween()
-	value_tween.tween_property(progress_bar, "value", progress_bar.max_value, time)
 
-	await value_tween.finished
-	
-	_hide()
+
+func _update(progress: float) -> void:
+	if progress_bar:
+		progress_bar.value = progress
 	
 	
 func _hide() -> void:
@@ -113,16 +115,8 @@ func _hide() -> void:
 
 
 func _on_release_wave(_wave_index: int) -> void:
-	if loop_tween:
-		loop_tween.kill()
-	if value_tween:
-		value_tween.kill()
-		
 	_hide()
 
 
 func _on_pressed() -> void:
 	WaveManager.is_release_wave = true
-	if WaveManager.need_wait_first_release_wave:
-		WaveManager.first_release_wave.emit()
-		WaveManager.is_first_release_wave = false

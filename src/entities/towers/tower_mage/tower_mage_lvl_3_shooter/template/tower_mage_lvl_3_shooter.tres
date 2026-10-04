@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EntityNodeConfig" format=3 uid="uid://dl22ou80q0eog"]
 
-[ext_resource type="Resource" uid="uid://b1f5gfojkeksy" path="res://entities/resources/vertical_idle_animation_group.tres" id="1_2m51j"]
+[ext_resource type="Resource" uid="uid://b1f5gfojkeksy" path="res://entities/resources/animation_groups/vertical_idle_animation_group.tres" id="1_2m51j"]
 [ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="1_ho83p"]
 
 [resource]

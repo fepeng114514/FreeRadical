@@ -67,7 +67,7 @@ var is_area: bool = false
 
 ## 预测伤害。
 func predict_damage(target: Entity) -> float:
-	var health_c: HealthComponent = target.get_node_or_null(Constants.CN_HEALTH)
+	var health_c: HealthComponent = target.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 		
 	if damage_type & Type.INSTAKILL:
 		return health_c.hp

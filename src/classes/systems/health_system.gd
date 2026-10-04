@@ -6,7 +6,7 @@ class_name HealthSystem
 
 
 func _on_insert(entity: Entity) -> bool:
-	var health_c: HealthComponent = entity.get_node_or_null(Constants.CN_HEALTH)
+	var health_c: HealthComponent = entity.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 	if not health_c:
 		return true
 		
@@ -16,11 +16,11 @@ func _on_insert(entity: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for entity: Entity in EntityManager.get_component_entity_group(Constants.CN_HEALTH):
+	for entity: Entity in EntityManager.get_component_entity_group(Constants.HEALTH_COMPONENT_NAME):
 		if entity.state & Entity.State.DEAD:
 			continue
 
-		var health_c: HealthComponent = entity.get_node_or_null(Constants.CN_HEALTH)
+		var health_c: HealthComponent = entity.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 
 		if health_c.config.regen_hp != 0:
 			if TimeManager.has_elapsed(health_c.regen_time_stamp, health_c.config.regen_cooldown):

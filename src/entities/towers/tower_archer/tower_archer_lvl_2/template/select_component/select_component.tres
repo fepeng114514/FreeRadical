@@ -6,5 +6,5 @@
 script = ExtResource("1_p7gj7")
 select_rect = Rect2(-48.61, -89.745, 95.585, 103.79)
 info_bar_type = 2
-select_menu_type = 1
+select_menu_enabled = true
 select_menu_offset = Vector2(0, -35.675)

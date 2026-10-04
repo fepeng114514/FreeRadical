@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_mi6p3")
-select_rect = Rect2(-60.545, -85.265, 126.87, 110.86)
+select_rect = Rect2(-60.545, -85.265, 126.87, 106.81)
 info_bar_type = 2
-select_menu_type = 1
+select_menu_enabled = true
 select_menu_offset = Vector2(0, -38.32)

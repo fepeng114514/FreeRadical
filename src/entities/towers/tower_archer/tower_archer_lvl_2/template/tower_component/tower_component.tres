@@ -6,4 +6,4 @@
 script = ExtResource("1_bu1tn")
 tower_type = 1
 shooter_alternation_enabled = true
-shooter_alternation_entities = Array[NodePath]([NodePath("TowerArcherLvl2Shooter"), NodePath("TowerArcherLvl2Shooter2")])
+shooter_alternation_entity_indexes = Array[int]([0, 1])

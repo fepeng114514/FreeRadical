@@ -69,16 +69,18 @@ enum Flag {
 		emit_changed()
 ## 最大搜索数量。
 @export var max_search: int = Constants.UNSET
-## 排序模式。
-@export var sort_mode: SortMode = SortMode.PROGRESS
-## 是否启用反转排序，默认最大在前，为 [code]true[/code] 时最小在前。
-@export var sort_reversed_enabled: bool = false
 ## 搜索组。
 @export var searched_group: SearchedGroup = SearchedGroup.ENEMIES
 ## 搜索标识。
 @export var search_flag: int = Flag.NONE
 ## 交互策略。
 @export var interact_policy: InteractPolicy = null
+
+@export_group("Sort Policy")
+## 排序模式。
+@export var sort_mode: SortMode = SortMode.PROGRESS
+## 是否启用反转排序，默认最大在前，为 [code]true[/code] 时最小在前。
+@export var sort_reversed_enabled: bool = false
 
 var _init_connect_property_signals: Dictionary[String, Callable] = {
 	"center_offsets": emit_changed,
@@ -123,7 +125,7 @@ func search_targets(center: Vector2, search_entity: Entity = null, filter := Cal
 			
 	if extra_filter.is_valid():
 		filter = func(entity: Entity) -> bool: 
-			return filter.call(entity) and extra_filter.call(entity)
+			return (not filter.is_valid() or filter.call(entity)) and extra_filter.call(entity)
 			
 	var targets: Array[Entity] = EntityManager.search_entities_in_ellipse(
 		center, 
@@ -162,13 +164,13 @@ func draw_search_range(drawer: CanvasItem, center: Vector2) -> void:
 
 ## 跳过已死亡目标过滤器。
 func _skip_ready_dead_filter(entity: Entity) -> bool:
-	var health_c: HealthComponent = entity.get_node_or_null(Constants.CN_HEALTH)
+	var health_c: HealthComponent = entity.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 	if health_c:
 		var total_damage: float = 0.0
 
 		for bullet_id: int in entity.target_bullet_id_list:
 			var bullet: Entity = EntityManager.get_entity_by_id(bullet_id)
-			var bullet_c: BulletComponent = bullet.get_node_or_null(Constants.CN_BULLET)
+			var bullet_c: BulletComponent = bullet.get_node_or_null(Constants.BULLET_COMPONENT_NODE_PATH)
 			if not bullet_c:
 				continue
 
@@ -224,11 +226,11 @@ func _sort_by_progress(entity1: Entity, entity2: Entity) -> bool:
 	var progress1: float = INF if sort_reversed_enabled else -INF
 	var progress2: float = INF if sort_reversed_enabled else -INF
 
-	var entity1_nav_path_c: NavPathComponent = entity1.get_node_or_null(Constants.CN_NAV_PATH)
+	var entity1_nav_path_c: NavPathComponent = entity1.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
 	if entity1_nav_path_c:
 		progress1 = entity1_nav_path_c.progress
 
-	var entity2_nav_path_c: NavPathComponent = entity2.get_node_or_null(Constants.CN_NAV_PATH)
+	var entity2_nav_path_c: NavPathComponent = entity2.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
 	if entity2_nav_path_c:
 		progress2 = entity2_nav_path_c.progress
 
@@ -240,10 +242,10 @@ func _sort_by_health(entity1: Entity, entity2: Entity) -> bool:
 	var hp1: float = INF if sort_reversed_enabled else -INF
 	var hp2: float = INF if sort_reversed_enabled else -INF
 
-	var entity1_health_c: HealthComponent = entity1.get_node_or_null(Constants.CN_HEALTH)
+	var entity1_health_c: HealthComponent = entity1.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 	if entity1_health_c:
 		hp1 = entity1_health_c.hp
-	var entity2_health_c: HealthComponent = entity2.get_node_or_null(Constants.CN_HEALTH)
+	var entity2_health_c: HealthComponent = entity2.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 	if entity2_health_c:
 		hp2 = entity2_health_c.hp
 
@@ -255,10 +257,10 @@ func _sort_by_gold(entity1: Entity, entity2: Entity) -> bool:
 	var gold1: float = INF if sort_reversed_enabled else -INF
 	var gold2: float = INF if sort_reversed_enabled else -INF
 
-	var entity1_health_c: HealthComponent = entity1.get_node_or_null(Constants.CN_HEALTH)
+	var entity1_health_c: HealthComponent = entity1.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 	if entity1_health_c:
 		gold1 = entity1_health_c.config.death_gold
-	var entity2_health_c: HealthComponent = entity2.get_node_or_null(Constants.CN_HEALTH)
+	var entity2_health_c: HealthComponent = entity2.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 	if entity2_health_c:
 		gold2 = entity2_health_c.config.death_gold
 
@@ -278,18 +280,20 @@ func _sort_by_melee_damage(entity1: Entity, entity2: Entity) -> bool:
 	var melee_damage1: float = INF if sort_reversed_enabled else -INF
 	var melee_damage2: float = INF if sort_reversed_enabled else -INF
 	
-	var entity1_melee_c: MeleeComponent = entity1.get_node_or_null(Constants.CN_MELEE)
+	var entity1_melee_c: MeleeComponent = entity1.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 	if entity1_melee_c:
-		var first_skill: MeleeSkill = entity1_melee_c.get_child(0)
-		var damage_influence := first_skill.config.influence as DamageInfluence
-		if damage_influence:
-			melee_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
-	var entity2_melee_c: MeleeComponent = entity2.get_node_or_null(Constants.CN_MELEE)
+		var first_melee_skill := entity1_melee_c.get_child(0) as MeleeSkill
+		if first_melee_skill:
+			var damage_influence := first_melee_skill.config.influence as DamageInfluence
+			if damage_influence:
+				melee_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
+	var entity2_melee_c: MeleeComponent = entity2.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 	if entity2_melee_c:
-		var first_skill: MeleeSkill = entity2_melee_c.get_child(0)
-		var damage_influence := first_skill.config.influence as DamageInfluence
-		if damage_influence:
-			melee_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
+		var first_melee_skill := entity2_melee_c.get_child(0) as MeleeSkill
+		if first_melee_skill:
+			var damage_influence := first_melee_skill.config.influence as DamageInfluence
+			if damage_influence:
+				melee_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 
 	return melee_damage1 < melee_damage2 if sort_reversed_enabled else melee_damage1 > melee_damage2
 
@@ -299,18 +303,24 @@ func _sort_by_ranged_damage(entity1: Entity, entity2: Entity) -> bool:
 	var ranged_damage1: float = INF if sort_reversed_enabled else -INF
 	var ranged_damage2: float = INF if sort_reversed_enabled else -INF
 
-	var entity1_skill_c: SkillComponent = entity1.get_node_or_null(Constants.CN_SKILL)
+	var entity1_skill_c: SkillComponent = entity1.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
 	if entity1_skill_c:
-		var first_skill: Skill = entity1_skill_c.get_child(0)
-		var damage_influence := first_skill.config.influence as DamageInfluence
-		if damage_influence:
-			ranged_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
-	var entity2_skill_c: SkillComponent = entity2.get_node_or_null(Constants.CN_SKILL)
+		var first_ranged_skill := entity1_skill_c.get_child(0) as RangedSkill
+		if first_ranged_skill:
+			var bullet_template: NodeConfigTemplateNode = NodeConfigManager.get_node_config_template_by_entity_uid(first_ranged_skill.config.bullet_scene)
+			var bullet_c_config: BulletComponentNodeConfig = bullet_template.get_node_config(Constants.BULLET_COMPONENT_NODE_PATH)
+			var damage_influence := bullet_c_config.hit_influence as DamageInfluence
+			if damage_influence:
+				ranged_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
+	var entity2_skill_c: SkillComponent = entity2.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
 	if entity2_skill_c:
-		var first_skill: Skill = entity2_skill_c.get_child(0)
-		var damage_influence := first_skill.config.influence as DamageInfluence
-		if damage_influence:
-			ranged_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
+		var first_ranged_skill := entity2_skill_c.get_child(0) as RangedSkill
+		if first_ranged_skill:
+			var bullet_template: NodeConfigTemplateNode = NodeConfigManager.get_node_config_template_by_entity_uid(first_ranged_skill.config.bullet_scene)
+			var bullet_c_config: BulletComponentNodeConfig = bullet_template.get_node_config(Constants.BULLET_COMPONENT_NODE_PATH)
+			var damage_influence := bullet_c_config.hit_influence as DamageInfluence
+			if damage_influence:
+				ranged_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 
 	return ranged_damage1 < ranged_damage2 if sort_reversed_enabled else ranged_damage1 > ranged_damage2
 

@@ -132,7 +132,7 @@ func get_progress_global_position(pathway_index: int, sub_pathway_index: int, pr
 func predict_target_global_position(target: Entity, predict_time: float) -> Vector2:
 	var predicted_global_position: Vector2 = target.global_position
 
-	var nav_path_c: NavPathComponent = target.get_node_or_null(Constants.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = target.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
 	if nav_path_c and target.state & Entity.State.NAV_PATH_WALK:
 		var progress: float = nav_path_c.progress
 		var walk_lenth: float = nav_path_c.config.speed * predict_time

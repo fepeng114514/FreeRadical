@@ -6,47 +6,45 @@ class_name UpgradeSystem
 
 
 func _on_update(_delta: float) -> void:
-	for entity: Entity in EntityManager.get_component_entity_group(Constants.CN_UPGRADE):
-		var upgrade_c: UpgradeComponent = entity.get_node_or_null(Constants.CN_UPGRADE)
-		if not upgrade_c.upgrade_to:
+	for entity: Entity in EntityManager.get_component_entity_group(Constants.UPGRADE_COMPONENT_NAME):
+		var upgrade_c: UpgradeComponent = entity.get_node_or_null(Constants.UPGRADE_COMPONENT_NODE_PATH)
+		var current_upgrading_index: int = upgrade_c.current_upgrading_index
+		if not Utils.is_valid_number(current_upgrading_index):
 			continue
-
-		var new_entity: Entity = EntityManager.create_entity(upgrade_c.upgrade_to)
+			
+		var upgrade_item: UpgradeItem = upgrade_c.config.upgrade_items.upgrade_items[current_upgrading_index]
+		
+		var new_entity: Entity = EntityManager.create_entity(upgrade_item.upgrade_to)
 		new_entity.global_position = entity.global_position
 		
-		_process_price_component(entity, upgrade_c, new_entity)
+		_process_price_component(entity, upgrade_item, new_entity)
 		_process_tower_component(entity, new_entity)
 		
 		EntityManager.queue_insert_entity(new_entity)
 		EntityManager.queue_remove_entity(entity)
-		GameManager.cash -= upgrade_c.price
+		GameManager.cash -= upgrade_item.price
 
 
-func _process_price_component(entity: Entity, upgrade_c: UpgradeComponent, new_entity: Entity) -> void:
-	var price_record: PriceRecord = entity.get_node_or_null(Constants.CN_PRICE_RECORD)
+func _process_price_component(entity: Entity, upgrade_item: UpgradeItem, new_entity: Entity) -> void:
+	var price_record: PriceRecord = entity.get_node_or_null(Constants.PRICE_RECORD_NODE_PATH)
 	if not price_record:
 		return
 
-	var new_price_record: PriceRecord = new_entity.get_node_or_null(Constants.CN_PRICE_RECORD)
+	var new_price_record: PriceRecord = new_entity.get_node_or_null(Constants.PRICE_RECORD_NODE_PATH)
 	if not new_price_record:
 		return
 			
-	new_price_record.price = price_record.price + upgrade_c.price
+	new_price_record.total_price += upgrade_item.price
 
 
 func _process_tower_component(entity: Entity, new_entity: Entity) -> void:
-	var tower_c: TowerComponent = entity.get_node_or_null(Constants.CN_TOWER)
+	var tower_c: TowerComponent = entity.get_node_or_null(Constants.TOWER_COMPONENT_NODE_PATH)
 	if not tower_c:
 		return
 
-	var default_rally_center_position: Vector2 = tower_c.default_rally_center_position
-
-	var new_barrack_c: BarrackComponent = new_entity.get_node_or_null(Constants.CN_BARRACK)
+	var new_barrack_c: BarrackComponent = new_entity.get_node_or_null(Constants.BARRACK_COMPONENT_NODE_PATH)
 	if new_barrack_c:
-		var barrack_c: BarrackComponent = entity.get_node_or_null(Constants.CN_BARRACK)
+		var barrack_c: BarrackComponent = entity.get_node_or_null(Constants.BARRACK_COMPONENT_NODE_PATH)
 		if barrack_c:
 			new_barrack_c.config.rally_center_global_position = barrack_c.config.rally_center_global_position
 			new_barrack_c.last_soldier_list = barrack_c.soldier_list
-		else:
-			new_barrack_c.config.rally_center_global_position = tower_c.to_global(default_rally_center_position)
-		

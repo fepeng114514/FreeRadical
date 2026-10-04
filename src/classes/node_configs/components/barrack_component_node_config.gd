@@ -6,6 +6,8 @@ class_name BarrackComponentNodeConfig
 
 ## 是否禁用。
 @export var disabled: bool = false
+## 选择菜单集结按钮数据。
+@export var select_menu_rally_button_data: SelectMenuButtonData = null
 
 @export_group("Rally")
 ## 最小集结范围。

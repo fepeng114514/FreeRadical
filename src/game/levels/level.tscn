@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://yur7o864jejr" path="res://game/levels/level.gd" id="1_7ttr4"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_xp3ar"]
 [ext_resource type="Script" uid="uid://dxxsi5nkfx72d" path="res://classes/entity_world.gd" id="7_veae7"]
-[ext_resource type="PackedScene" uid="uid://co5ehekpd71r8" path="res://game/select_menu/towe_upgrade_select_menu.tscn" id="10_qogh7"]
+[ext_resource type="PackedScene" uid="uid://co5ehekpd71r8" path="res://game/select_menu/select_menu.tscn" id="10_qogh7"]
 [ext_resource type="PackedScene" uid="uid://ca75dg47m1q1a" path="res://game/range_info/range_info_controller.tscn" id="11_8iyoh"]
+[ext_resource type="Script" uid="uid://bn3pla4fp3ro8" path="res://classes/systems/build_system.gd" id="13_veae7"]
 [ext_resource type="Script" uid="uid://b0hmg8xtycc53" path="res://classes/systems/time_system.gd" id="15_p37ca"]
 [ext_resource type="Script" uid="uid://doj2bbl12wisd" path="res://classes/systems/health_system.gd" id="16_tvrav"]
 [ext_resource type="Script" uid="uid://deipl5q4eg7vg" path="res://classes/systems/damage_system.gd" id="17_veae7"]
@@ -17,19 +18,18 @@
 [ext_resource type="Script" uid="uid://cbwfqyuju4hpn" path="res://classes/systems/fx_system.gd" id="23_abru4"]
 [ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level_1_background.png" id="23_n8wpv"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://game/grid_tileset.tres" id="24_iowrn"]
-[ext_resource type="Script" uid="uid://7jx5jvy2sm5c" path="res://classes/systems/behavior_system.gd" id="24_q0lul"]
-[ext_resource type="Script" uid="uid://bn3pla4fp3ro8" path="res://classes/systems/build_system.gd" id="24_veae7"]
+[ext_resource type="Script" uid="uid://7jx5jvy2sm5c" path="res://classes/systems/behavior_system/behavior_system.gd" id="24_q0lul"]
 [ext_resource type="Script" uid="uid://c2hgryphol5kq" path="res://game/gird.gd" id="25_b2jp2"]
-[ext_resource type="Script" uid="uid://balgrru65agvq" path="res://classes/behaviors/rally_behavior.gd" id="25_ii0xn"]
+[ext_resource type="Script" uid="uid://balgrru65agvq" path="res://classes/systems/behavior_system/behaviors/rally_behavior.gd" id="25_ii0xn"]
 [ext_resource type="Script" uid="uid://cy01j4iuxx1qn" path="res://classes/systems/upgrade_system.gd" id="25_xwq3r"]
-[ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://classes/behaviors/barrack_behavior.gd" id="26_5ojgp"]
+[ext_resource type="Script" uid="uid://do5xlu5110cxi" path="res://classes/systems/behavior_system/behaviors/barrack_behavior.gd" id="26_5ojgp"]
 [ext_resource type="Script" uid="uid://btda38rehdmf" path="res://classes/systems/sell_system.gd" id="26_a63l3"]
 [ext_resource type="Script" uid="uid://ds1pxsst6ylus" path="res://game/pathway/pathway_container.gd" id="26_ba5b5"]
 [ext_resource type="Script" uid="uid://v8pepp7tby7c" path="res://classes/systems/wave_spawner_system.gd" id="27_2any3"]
-[ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://classes/behaviors/melee_behavior.gd" id="27_8mma1"]
-[ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://classes/behaviors/skill_behavior.gd" id="28_5wi13"]
-[ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://classes/behaviors/nav_path_behavior.gd" id="29_pehus"]
-[ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/behaviors/spawner_behavior.gd" id="30_auaj0"]
+[ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://classes/systems/behavior_system/behaviors/melee_behavior.gd" id="27_8mma1"]
+[ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://classes/systems/behavior_system/behaviors/skill_behavior.gd" id="28_5wi13"]
+[ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://classes/systems/behavior_system/behaviors/nav_path_behavior.gd" id="29_pehus"]
+[ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behavior_system/behaviors/spawner_behavior.gd" id="30_auaj0"]
 [ext_resource type="Script" uid="uid://cia8mo148t6pb" path="res://classes/systems/entity_system.gd" id="31_opmb0"]
 [ext_resource type="Script" uid="uid://dkcjwrd81mf1p" path="res://classes/camera.gd" id="36_l4bmn"]
 [ext_resource type="PackedScene" uid="uid://c3pw2s2ybgdou" path="res://game/ui_canvas_layer/ui_canvas_layer.tscn" id="37_g4khr"]
@@ -99,6 +99,10 @@ script = ExtResource("18_xwq3r")
 [node name="ModifierSystem" type="Node" parent="Systems" unique_id=1565567538]
 script = ExtResource("19_a63l3")
 
+[node name="BuildSystem" type="Node" parent="Systems" unique_id=192440941]
+script = ExtResource("13_veae7")
+metadata/_custom_type_script = "uid://bn3pla4fp3ro8"
+
 [node name="TowerSystem" type="Node" parent="Systems" unique_id=2090024064]
 script = ExtResource("20_2any3")
 
@@ -132,10 +136,6 @@ script = ExtResource("29_pehus")
 [node name="SpawnerBehavior" type="Node" parent="Systems/BehaviorSystem" unique_id=1201990643]
 script = ExtResource("30_auaj0")
 
-[node name="BuildSystem" type="Node" parent="Systems" unique_id=271614760]
-script = ExtResource("24_veae7")
-metadata/_custom_type_script = "uid://bn3pla4fp3ro8"
-
 [node name="UpgradeSystem" type="Node" parent="Systems" unique_id=1269634441]
 script = ExtResource("25_xwq3r")
 metadata/_custom_type_script = "uid://cy01j4iuxx1qn"
@@ -154,7 +154,7 @@ script = ExtResource("31_opmb0")
 [node name="PathwayContainer" type="Node2D" parent="." unique_id=886912364]
 script = ExtResource("26_ba5b5")
 
-[node name="TowerUpgradeSelectMenu" parent="." unique_id=1082728830 node_paths=PackedStringArray("range_info_controller") instance=ExtResource("10_qogh7")]
+[node name="SelectMenu" parent="." unique_id=1082728830 node_paths=PackedStringArray("range_info_controller") instance=ExtResource("10_qogh7")]
 visible = false
 z_index = 1000
 range_info_controller = NodePath("../RangeInfoController")

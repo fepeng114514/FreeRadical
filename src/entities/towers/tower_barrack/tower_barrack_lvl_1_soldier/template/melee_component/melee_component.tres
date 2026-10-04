@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="1_ln3nm"]
 [ext_resource type="Script" uid="uid://6lf8t6ie1tdv" path="res://classes/node_configs/components/melee_component_node_config.gd" id="1_q8svd"]
-[ext_resource type="Resource" uid="uid://cd5tm7dqxesnf" path="res://entities/resources/horizontal_walk_animation_group.tres" id="2_17mck"]
+[ext_resource type="Resource" uid="uid://cd5tm7dqxesnf" path="res://entities/resources/animation_groups/horizontal_walk_animation_group.tres" id="2_17mck"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_fcm1l"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_5gbml"]
 

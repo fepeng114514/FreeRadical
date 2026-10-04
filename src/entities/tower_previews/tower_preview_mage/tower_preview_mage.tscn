@@ -11,9 +11,10 @@ node_config_template = ExtResource("2_m60ld")
 config = ExtResource("3_k5hlu")
 
 [node name="SpriteComponent" parent="." index="0" unique_id=753402732]
+show_behind_parent = true
+position = Vector2(-1, -33)
 config = ExtResource("4_yi3c8")
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1097269827]
 modulate = Color(1, 1, 1, 0.69803923)
-position = Vector2(-1, -33)
 texture = ExtResource("2_oinjk")

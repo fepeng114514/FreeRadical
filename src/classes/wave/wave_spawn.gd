@@ -1,4 +1,4 @@
-extends Resource
+extends WaveBase
 class_name WaveSpawn
 ## 生成组资源。
 
@@ -21,3 +21,10 @@ class_name WaveSpawn
 @export var reversed_enabled: bool = false
 ## 实体到达终点是否启用循环移动。
 @export var loop_enabled: bool = false
+
+## 是否需要等待间隔时间。
+var need_wait_interval: bool = true
+## 已生成的实体总数量。
+var spawned_total_count: int = 0
+## 是否完成。
+var is_finished: bool = false

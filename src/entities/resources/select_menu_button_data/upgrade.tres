@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SelectMenuButtonData" format=3 uid="uid://dm8pcuq7hfier"]
+
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/select_menu_button_data/select_menu_button_data.gd" id="1_iuv42"]
+[ext_resource type="Texture2D" uid="uid://cb85n5q3ecm2o" path="res://assets/atlas/atlas_textures/icon/main_icons_0005.tres" id="1_y1xno"]
+
+[resource]
+script = ExtResource("1_iuv42")
+place = 1
+icon = ExtResource("1_y1xno")
+metadata/_custom_type_script = "uid://bu253boudy5i5"

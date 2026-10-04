@@ -15,10 +15,10 @@ func unregister_system(system: System) -> void:
 	systems.erase(system)
 
 
-## 更新所有系统。
-func process_update(delta: float) -> void:
+## 处理实体准备。
+func process_entity_ready(entity: Entity) -> void:	
 	for system: System in systems:
-		system._on_update(delta)
+		system._on_ready(entity)
 
 
 ## 处理实体插入。
@@ -37,3 +37,9 @@ func process_entity_remove(entity: Entity) -> bool:
 			return false
 
 	return true
+
+
+## 更新所有系统。
+func process_update(delta: float) -> void:
+	for system: System in systems:
+		system._on_update(delta)

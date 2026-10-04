@@ -6,34 +6,41 @@
 [ext_resource type="Resource" uid="uid://bnyckmbynf66f" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/select_component/select_component.tres" id="4_6oxcv"]
 [ext_resource type="Resource" uid="uid://cnvy06cv2qwop" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/barrack_component/barrack_component.tres" id="5_odx8a"]
 [ext_resource type="Resource" uid="uid://bluhh3gu22lqm" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/tower_barrack_lvl_3.tres" id="6_b4jxp"]
+[ext_resource type="Resource" uid="uid://drqkspqffvfls" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/sell_component/sell_component.tres" id="6_dbfp3"]
 
-[sub_resource type="Resource" id="Resource_cq7ty"]
-script = ExtResource("1_nadfo")
-name = "SpriteComponent"
-config = ExtResource("2_dbfp3")
-
-[sub_resource type="Resource" id="Resource_j8ckw"]
-script = ExtResource("1_nadfo")
-name = "TowerComponent"
-config = ExtResource("3_3v48e")
-
-[sub_resource type="Resource" id="Resource_isgxt"]
+[sub_resource type="Resource" id="Resource_3v48e"]
 script = ExtResource("1_nadfo")
 name = "SelectComponent"
 config = ExtResource("4_6oxcv")
 
-[sub_resource type="Resource" id="Resource_essd7"]
+[sub_resource type="Resource" id="Resource_6oxcv"]
+script = ExtResource("1_nadfo")
+name = "SpriteComponent"
+config = ExtResource("2_dbfp3")
+
+[sub_resource type="Resource" id="Resource_odx8a"]
+script = ExtResource("1_nadfo")
+name = "TowerComponent"
+config = ExtResource("3_3v48e")
+
+[sub_resource type="Resource" id="Resource_b4jxp"]
 script = ExtResource("1_nadfo")
 name = "BarrackComponent"
 config = ExtResource("5_odx8a")
 
+[sub_resource type="Resource" id="Resource_cq7ty"]
+script = ExtResource("1_nadfo")
+name = "SellComponent"
+config = ExtResource("6_dbfp3")
+
 [resource]
 script = ExtResource("1_nadfo")
 config = ExtResource("6_b4jxp")
-children = Array[ExtResource("1_nadfo")]([SubResource("Resource_cq7ty"), SubResource("Resource_j8ckw"), SubResource("Resource_isgxt"), SubResource("Resource_essd7")])
+children = Array[ExtResource("1_nadfo")]([SubResource("Resource_3v48e"), SubResource("Resource_6oxcv"), SubResource("Resource_odx8a"), SubResource("Resource_b4jxp"), SubResource("Resource_cq7ty")])
 children_dict = Dictionary[String, ExtResource("1_nadfo")]({
-"BarrackComponent": SubResource("Resource_essd7"),
-"SelectComponent": SubResource("Resource_isgxt"),
-"SpriteComponent": SubResource("Resource_cq7ty"),
-"TowerComponent": SubResource("Resource_j8ckw")
+"BarrackComponent": SubResource("Resource_b4jxp"),
+"SelectComponent": SubResource("Resource_3v48e"),
+"SellComponent": SubResource("Resource_cq7ty"),
+"SpriteComponent": SubResource("Resource_6oxcv"),
+"TowerComponent": SubResource("Resource_odx8a")
 })

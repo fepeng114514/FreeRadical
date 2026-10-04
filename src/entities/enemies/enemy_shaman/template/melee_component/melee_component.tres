@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="1_7xton"]
 [ext_resource type="Script" uid="uid://6lf8t6ie1tdv" path="res://classes/node_configs/components/melee_component_node_config.gd" id="1_qctlb"]
-[ext_resource type="Resource" uid="uid://dlpsu2cujogxf" path="res://entities/resources/4way_motion_animation_group.tres" id="2_7xton"]
+[ext_resource type="Resource" uid="uid://dlpsu2cujogxf" path="res://entities/resources/animation_groups/4way_motion_animation_group.tres" id="2_7xton"]
 
 [sub_resource type="Resource" id="Resource_pvsfh"]
 resource_local_to_scene = true

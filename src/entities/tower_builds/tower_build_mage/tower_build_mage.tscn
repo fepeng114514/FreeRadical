@@ -12,6 +12,7 @@ node_config_template = ExtResource("2_1ow42")
 config = ExtResource("3_weuk3")
 
 [node name="SpriteComponent" parent="." index="2" unique_id=1656747318]
+show_behind_parent = true
 config = ExtResource("4_675jg")
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1433762339]

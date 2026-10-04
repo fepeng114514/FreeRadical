@@ -82,11 +82,11 @@ func set_rally_center_global_position(
 	
 	for soldier_index: int in soldier_size:
 		var soldier: Entity = soldier_list[soldier_index]
-		var soldier_rally_c: RallyComponent = soldier.get_node_or_null(Constants.CN_RALLY)
+		var soldier_rally_c: RallyComponent = soldier.get_node_or_null(Constants.RALLY_COMPONENT_NODE_PATH)
 		var formation_position: Vector2 = to_formation_position(config.rally_center_global_position, soldier_size, soldier_index)
 		soldier_rally_c.new_rally_global_position(soldier, formation_position, is_forced, config.rally_center_global_position, false)
 		
-		var melee_c: MeleeComponent = soldier.get_node_or_null(Constants.CN_MELEE)
+		var melee_c: MeleeComponent = soldier.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 		if melee_c:
 			melee_c.original_global_position = formation_position
 	

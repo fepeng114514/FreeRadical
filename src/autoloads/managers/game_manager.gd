@@ -29,6 +29,15 @@ var life: int = 20:
 		life = v
 ## 默认塔位场景路径。
 var defaul_tower_holder: String = ""
+## 是否战斗中。
+var is_battling: bool = false
+
+
+func cleanup() -> void:
+	is_paused = false
+	cash = 0.0
+	life = 20
+	is_battling = false
 
 
 func pause_game() -> void:

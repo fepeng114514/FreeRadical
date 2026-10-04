@@ -9,7 +9,11 @@
 [ext_resource type="SpriteFrames" uid="uid://c3kr0u7ptrtbr" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl1_door.tres" id="5_3ddwr"]
 [ext_resource type="Resource" uid="uid://bvrffb0rv02l6" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/sprite_component/sprite_component.tres" id="7_f2pah"]
 [ext_resource type="Resource" uid="uid://cf4kwtf78s6h5" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/tower_component/tower_component.tres" id="11_qabbr"]
+[ext_resource type="Script" uid="uid://dvuc76kx7pdb4" path="res://classes/components/sell_component.gd" id="12_bilmd"]
 [ext_resource type="Resource" uid="uid://b4uewjaccstf3" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/select_component/select_component.tres" id="13_jeded"]
+[ext_resource type="Resource" uid="uid://d3ipmw4acjgpm" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/sell_component/sell_component.tres" id="13_u2yxl"]
+[ext_resource type="Script" uid="uid://btc4d4qsa05kv" path="res://classes/components/upgrade_component/upgrade_component.gd" id="14_47ik5"]
+[ext_resource type="Resource" uid="uid://b6se83j0rt55o" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/upgrade_component/upgrade_component.tres" id="15_6kjmh"]
 [ext_resource type="Resource" uid="uid://bm4wperattgdb" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/barrack_component/barrack_component.tres" id="15_jl2co"]
 
 [node name="TowerBarrackLvl1" unique_id=187367710 instance=ExtResource("1_k1sas")]
@@ -18,7 +22,11 @@ node_config_template = ExtResource("2_6kjmh")
 config = ExtResource("3_dsnyp")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" parent="." index="2" unique_id=40235501]
+[node name="SelectComponent" parent="." index="2" unique_id=1451324403]
+config = ExtResource("13_jeded")
+
+[node name="SpriteComponent" parent="." index="3" unique_id=40235501]
+position = Vector2(0, -48)
 config = ExtResource("7_f2pah")
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=927508667]
@@ -28,14 +36,23 @@ texture = ExtResource("4_2u03i")
 sprite_frames = ExtResource("5_3ddwr")
 animation = &"idle"
 
-[node name="TowerComponent" parent="." index="3" unique_id=1705871166]
+[node name="TowerComponent" parent="." index="4" unique_id=1705871166]
 config = ExtResource("11_qabbr")
-
-[node name="SelectComponent" parent="." index="4" unique_id=1451324403]
-config = ExtResource("13_jeded")
 
 [node name="BarrackComponent" type="Node2D" parent="." index="5" unique_id=441339810]
 process_mode = 4
 script = ExtResource("4_u6jgq")
 config = ExtResource("15_jl2co")
 metadata/_custom_type_script = "uid://b3vhika61oa7p"
+
+[node name="SellComponent" type="Node2D" parent="." index="6" unique_id=1111854886]
+process_mode = 4
+script = ExtResource("12_bilmd")
+config = ExtResource("13_u2yxl")
+metadata/_custom_type_script = "uid://dvuc76kx7pdb4"
+
+[node name="UpgradeComponent" type="Node2D" parent="." index="7" unique_id=1905757986]
+process_mode = 4
+script = ExtResource("14_47ik5")
+config = ExtResource("15_6kjmh")
+metadata/_custom_type_script = "uid://btc4d4qsa05kv"

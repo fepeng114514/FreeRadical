@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="NavPathComponentNodeConfig" format=3 uid="uid://b4bdkja6fbthr"]
 
 [ext_resource type="Script" uid="uid://c6rbumergprcn" path="res://classes/node_configs/components/nav_path_component_node_config.gd" id="1_1u2ts"]
-[ext_resource type="Resource" uid="uid://dlpsu2cujogxf" path="res://entities/resources/4way_motion_animation_group.tres" id="1_05e41"]
+[ext_resource type="Resource" uid="uid://dlpsu2cujogxf" path="res://entities/resources/animation_groups/4way_motion_animation_group.tres" id="1_05e41"]
 
 [resource]
 resource_local_to_scene = true

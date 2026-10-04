@@ -6,7 +6,7 @@ class_name AuraSystem
 
 
 func _on_insert(aura: Entity) -> bool:
-	var aura_c: AuraComponent = aura.get_node_or_null(Constants.CN_AURA)
+	var aura_c: AuraComponent = aura.get_node_or_null(Constants.AURA_COMPONENT_NODE_PATH)
 	if not aura_c:
 		return true
 		
@@ -61,8 +61,8 @@ func _on_insert(aura: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for aura: Entity in EntityManager.get_component_entity_group(Constants.CN_AURA):
-		var aura_c: AuraComponent = aura.get_node_or_null(Constants.CN_AURA)
+	for aura: Entity in EntityManager.get_component_entity_group(Constants.AURA_COMPONENT_NAME):
+		var aura_c: AuraComponent = aura.get_node_or_null(Constants.AURA_COMPONENT_NODE_PATH)
 		if aura_c.config.track_target:
 			var target: Entity = EntityManager.get_entity_by_id(aura.target_id)
 			if target:
@@ -92,7 +92,7 @@ func _on_update(_delta: float) -> void:
 
 
 func _on_remove(aura: Entity) -> bool:
-	if not aura.get_node_or_null(Constants.CN_AURA):
+	if not aura.get_node_or_null(Constants.AURA_COMPONENT_NODE_PATH):
 		return true
 	
 	var source: Entity = EntityManager.get_entity_by_id(aura.source_id)

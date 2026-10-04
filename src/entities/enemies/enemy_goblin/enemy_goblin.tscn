@@ -7,7 +7,7 @@
 [ext_resource type="SpriteFrames" uid="uid://caqtmm3mrtin5" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_goblin.tres" id="6_wqawv"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="7_idosn"]
 [ext_resource type="Resource" uid="uid://buel7ygo8boyq" path="res://entities/enemies/enemy_goblin/template/health_component/health_component.tres" id="7_wqawv"]
-[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="9_ppcjn"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/components/skills/melee_skill.gd" id="9_ppcjn"]
 [ext_resource type="Resource" uid="uid://b4bdkja6fbthr" path="res://entities/enemies/enemy_goblin/template/nav_path_component/nav_path_component.tres" id="9_ujhgg"]
 [ext_resource type="Resource" uid="uid://cwgk7xj6ota5c" path="res://entities/enemies/enemy_goblin/template/select_component/select_component.tres" id="10_g3d7t"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="10_na4cw"]
@@ -18,24 +18,23 @@
 node_config_template = ExtResource("2_qjarl")
 config = ExtResource("3_0nemn")
 
-[node name="SpriteComponent" parent="." index="0" unique_id=1501262804]
-show_behind_parent = true
-config = ExtResource("6_pvliu")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=814028893]
-position = Vector2(0, -19)
-sprite_frames = ExtResource("6_wqawv")
-animation = &"idle_left_right"
-
-[node name="HealthComponent" parent="." index="1" unique_id=93345552]
+[node name="HealthComponent" parent="." index="0" unique_id=93345552]
 config = ExtResource("7_wqawv")
 
 [node name="HealthBar" parent="HealthComponent" index="0" unique_id=179515968]
 offset_top = -39.0
 offset_bottom = -34.0
 
-[node name="SelectComponent" parent="." index="2" unique_id=274281428]
+[node name="SelectComponent" parent="." index="1" unique_id=274281428]
 config = ExtResource("10_g3d7t")
+
+[node name="SpriteComponent" parent="." index="2" unique_id=1501262804]
+config = ExtResource("6_pvliu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=814028893]
+position = Vector2(0, -19)
+sprite_frames = ExtResource("6_wqawv")
+animation = &"idle_left_right"
 
 [node name="NavPathComponent" type="Node2D" parent="." index="3" unique_id=1202679749]
 process_mode = 4

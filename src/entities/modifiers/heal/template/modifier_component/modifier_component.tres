@@ -12,3 +12,4 @@ metadata/_custom_type_script = "uid://ckhydj2qpt5tb"
 [resource]
 script = ExtResource("2_co5jg")
 influence = SubResource("Resource_6hc10")
+influence_interval = 1.0

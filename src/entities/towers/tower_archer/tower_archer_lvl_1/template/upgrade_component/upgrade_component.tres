@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="UpgradeComponentNodeConfig" format=3 uid="uid://c3kepuo5muurg"]
+
+[ext_resource type="Script" uid="uid://c7mwv7g7rnjds" path="res://classes/node_configs/components/upgrade_component_node_config.gd" id="1_dbc6p"]
+[ext_resource type="Script" uid="uid://ckofjxi84flpi" path="res://classes/components/upgrade_component/upgrade_items.gd" id="2_i7cen"]
+[ext_resource type="Script" uid="uid://c5njyo7viaubk" path="res://classes/components/upgrade_component/upgrade_item.gd" id="3_xalf4"]
+[ext_resource type="Resource" uid="uid://dm8pcuq7hfier" path="res://entities/resources/select_menu_button_data/upgrade.tres" id="4_6pvdy"]
+
+[sub_resource type="Resource" id="Resource_02r5h"]
+script = ExtResource("3_xalf4")
+upgrade_to = "uid://71s0bo3xbapv"
+price = 110.0
+select_menu_upgrade_item_button_data = ExtResource("4_6pvdy")
+metadata/_custom_type_script = "uid://c5njyo7viaubk"
+
+[sub_resource type="Resource" id="Resource_wa08q"]
+script = ExtResource("2_i7cen")
+upgrade_items = Array[ExtResource("3_xalf4")]([SubResource("Resource_02r5h")])
+metadata/_custom_type_script = "uid://ckofjxi84flpi"
+
+[resource]
+script = ExtResource("1_dbc6p")
+upgrade_items = SubResource("Resource_wa08q")

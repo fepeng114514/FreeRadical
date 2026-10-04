@@ -14,10 +14,14 @@
 [ext_resource type="SpriteFrames" uid="uid://p3p5tg4fumhm" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer6.tres" id="10_d7smu"]
 [ext_resource type="SpriteFrames" uid="uid://cceysejq2k8pm" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer7.tres" id="11_6652w"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="13_l5l73"]
-[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/search_skills/ranged_skill.gd" id="14_n4ua5"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/skills/search_skills/ranged_skill.gd" id="14_n4ua5"]
 [ext_resource type="Resource" uid="uid://by5sx6mykjdgq" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/tower_component/tower_component.tres" id="18_2ve1s"]
+[ext_resource type="Script" uid="uid://dvuc76kx7pdb4" path="res://classes/components/sell_component.gd" id="20_g6lqa"]
 [ext_resource type="Resource" uid="uid://dltp6k26x5gyk" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/select_component/select_component.tres" id="20_jn53b"]
+[ext_resource type="Resource" uid="uid://c4gsjkf8ria65" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/sell_component/sell_component.tres" id="21_ve2hn"]
+[ext_resource type="Script" uid="uid://btc4d4qsa05kv" path="res://classes/components/upgrade_component/upgrade_component.gd" id="22_0wr8l"]
 [ext_resource type="Resource" uid="uid://cefhc1naedxha" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/skill_component/skill_component.tres" id="22_12bqc"]
+[ext_resource type="Resource" uid="uid://coj6xo20alnfm" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/upgrade_component/upgrade_component.tres" id="23_ipifc"]
 [ext_resource type="Resource" uid="uid://cowi0m6vkn3el" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/skill_component/ranged_skill/ranged_skill.tres" id="24_2f27u"]
 
 [node name="TowerArtilleryLvl1" unique_id=1600363506 instance=ExtResource("1_k1sas")]
@@ -26,7 +30,10 @@ node_config_template = ExtResource("2_ipifc")
 config = ExtResource("3_mbu1c")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" parent="." index="2" unique_id=40235501]
+[node name="SelectComponent" parent="." index="2" unique_id=1451324403]
+config = ExtResource("20_jn53b")
+
+[node name="SpriteComponent" parent="." index="3" unique_id=40235501]
 config = ExtResource("8_mvuvi")
 
 [node name="SpriteGroup" type="Node2D" parent="SpriteComponent" index="0" unique_id=557425361]
@@ -62,11 +69,8 @@ animation = &"idle"
 sprite_frames = ExtResource("11_6652w")
 animation = &"idle"
 
-[node name="TowerComponent" parent="." index="3" unique_id=1705871166]
+[node name="TowerComponent" parent="." index="4" unique_id=1705871166]
 config = ExtResource("18_2ve1s")
-
-[node name="SelectComponent" parent="." index="4" unique_id=1451324403]
-config = ExtResource("20_jn53b")
 
 [node name="SkillComponent" type="Node2D" parent="." index="5" unique_id=52126447]
 process_mode = 4
@@ -79,3 +83,15 @@ process_mode = 4
 script = ExtResource("14_n4ua5")
 config = ExtResource("24_2f27u")
 metadata/_custom_type_script = "uid://covaxdshxnvkn"
+
+[node name="SellComponent" type="Node2D" parent="." index="6" unique_id=2092676929]
+process_mode = 4
+script = ExtResource("20_g6lqa")
+config = ExtResource("21_ve2hn")
+metadata/_custom_type_script = "uid://dvuc76kx7pdb4"
+
+[node name="UpgradeComponent" type="Node2D" parent="." index="7" unique_id=460148498]
+process_mode = 4
+script = ExtResource("22_0wr8l")
+config = ExtResource("23_ipifc")
+metadata/_custom_type_script = "uid://btc4d4qsa05kv"

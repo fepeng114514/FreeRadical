@@ -26,8 +26,8 @@ enum Mode {
 func apply(aura: Entity, samed_entity_list: Array[Entity]) -> bool:
 	samed_entity_list.sort_custom(
 		func(a1: Entity, a2: Entity) -> bool: 
-			var aura_c1: AuraComponent = a1.get_node_or_null(Constants.CN_AURA)
-			var aura_c2: AuraComponent = a2.get_node_or_null(Constants.CN_AURA)
+			var aura_c1: AuraComponent = a1.get_node_or_null(Constants.AURA_COMPONENT_NODE_PATH)
+			var aura_c2: AuraComponent = a2.get_node_or_null(Constants.AURA_COMPONENT_NODE_PATH)
 			return aura_c1.config.level > aura_c2.config.level
 	)
 	var min_level_e: Entity = samed_entity_list[-1]

@@ -6,12 +6,6 @@ class_name WaveSpawnerComponent
 ## WaveSpawnerComponent 可以使实体生成波次数据中的实体。
 
 
-enum SUB_WAVE_STATE_FLAGS {
-	DONE,
-	SPAWNING,
-}
-
-
 @export var config: WaveSpawnerComponentNodeConfig = null:
 	set(v):
 		Utils.rebind_changed(config, v, _on_config_changed)
@@ -19,6 +13,7 @@ enum SUB_WAVE_STATE_FLAGS {
 		update_configuration_warnings()
 		queue_redraw()
 
-
-## 是否所有波次都释放完毕。
-var waves_finished: bool = false
+## 待处理波次队列。
+var wave_queue: Array[Wave] = []
+## 是否完成生成所有波次。
+var is_waves_finished: bool = false

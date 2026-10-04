@@ -97,36 +97,6 @@ var is_first_update: bool = true
 ## 实体属于的实体组。
 var entity_groups: Array[StringName] = []
 
-## 实体位于有效实体数组的索引。
-var valid_entities_index: int = Constants.UNSET
-
-## 上次位于空间哈希的单元格索引。
-var last_space_hash_cell_index: int = Constants.UNSET
-
-## 上次位于空间哈希单元格的实体索引。
-var last_space_hash_cell_entities_index: int = Constants.UNSET
-## 当前位于空间哈希单元格的实体索引。
-var space_hash_cell_entities_index: int = Constants.UNSET
-
-## 上次位于空间哈希单元格的实体组的索引。
-var last_space_hash_cell_entity_groups_indexes: Dictionary[StringName, int] = {}
-## 当前位于空间哈希单元格的实体组的索引。
-var space_hash_cell_entity_groups_indexes: Dictionary[StringName, int] = {}
-
-## 上次位于空间哈希单元格的组件实体组的索引。
-var last_space_hash_cell_component_entity_groups_indexes: Dictionary[StringName, int] = {}
-## 当前位于空间哈希单元格的组件实体组的索引。
-var space_hash_cell_component_entity_groups_indexes: Dictionary[StringName, int] = {}
-
-## 实体属于的实体组是否发生变化。
-var is_entity_groups_changed: bool = false
-## 上次实体属于的实体组。
-var last_entity_groups: Array[StringName] = []
-## 上次位于实体组的索引。
-var last_entity_groups_indexes: Dictionary[StringName, int] = {}
-## 当前位于实体组的索引。
-var entity_groups_indexes: Dictionary[StringName, int] = {}
-
 ## 拥有的所有组件节点引用
 var components: Dictionary[StringName, Component] = {}
 ## 组件是否发生变化。
@@ -155,6 +125,10 @@ func _ready() -> void:
 			
 		components[node_class_name] = child
 		component_names.append(node_class_name)
+		
+	if config:
+		if config.interact_policy:
+			set_entity_groups(config.interact_policy.get_entity_group_names())
 
 	DebugManager.draw_state_changed.connect(_on_draw_state_changed)
 
@@ -191,11 +165,8 @@ func get_localized_name() -> String:
 
 	
 ## 设置实体组。
-func set_entity_groups(groups: Array[StringName], set_changed_state_enabled: bool = true) -> void:
-	last_entity_groups = entity_groups
+func set_entity_groups(groups: Array[StringName]) -> void:
 	entity_groups = groups
-	if set_changed_state_enabled:
-		is_entity_groups_changed = true
 
 
 ## 增加实体组件。
@@ -225,11 +196,11 @@ func remove_component(component: Component) -> void:
 func set_global_position_with_components(new_global_position: Vector2) -> void:
 	global_position = new_global_position
 	
-	var rally_c: RallyComponent = get_node_or_null(Constants.CN_RALLY)
+	var rally_c: RallyComponent = get_node_or_null(Constants.RALLY_COMPONENT_NODE_PATH)
 	if rally_c:
 		rally_c.new_rally_global_position(self, new_global_position)
 	
-	var nav_path_c: NavPathComponent = get_node_or_null(Constants.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
 	if nav_path_c:
 		nav_path_c.set_nav_path_to_nearest_node(self, new_global_position)
 
@@ -330,7 +301,7 @@ func play_animation(
 		return null
 		
 	var play_index: int = animation_group.play_index
-	var sprite_c: SpriteComponent = get_node_or_null(Constants.CN_SPRITE)
+	var sprite_c: SpriteComponent = get_node_or_null(Constants.SPRITE_COMPONENT_NODE_PATH)
 	
 	var play_target: Node2D = sprite_c.get_child(play_index)
 	if play_target is Sprite2D:
@@ -353,7 +324,7 @@ func play_animation(
 		var source: Entity = EntityManager.get_entity_by_id(source_id)
 		if source and not is_waiting():
 			source.facing_global_position = facing_global_position
-			var s_sprite_c: SpriteComponent = source.get_node_or_null(Constants.CN_SPRITE)
+			var s_sprite_c: SpriteComponent = source.get_node_or_null(Constants.SPRITE_COMPONENT_NODE_PATH)
 			var s_animation: AnimationGroup = s_sprite_c.config.sync_animations.get(
 				source_animation_key
 			)
@@ -376,7 +347,7 @@ func get_frames_remaining(play_target: AnimatedSprite2D) -> int:
 
 ## 获取当前播放的动画
 func get_current_animation(animation_group: AnimationGroup) -> AnimatedSprite2D:
-	var sprite_c: SpriteComponent = get_node_or_null(Constants.CN_SPRITE)
+	var sprite_c: SpriteComponent = get_node_or_null(Constants.SPRITE_COMPONENT_NODE_PATH)
 	var play_index: int = animation_group.play_index
 
 	var play_target: Node2D = sprite_c.get_child(play_index)
@@ -573,6 +544,6 @@ func _on_draw_state_changed(_draw_type: DebugManager.DrawType) -> void:
 func _on_config_changed() -> void:
 	if config:
 		if config.interact_policy:
-			set_entity_groups(config.interact_policy.get_entity_group_names(), not Engine.is_editor_hint())
+			set_entity_groups(config.interact_policy.get_entity_group_names())
 		
 	queue_redraw()

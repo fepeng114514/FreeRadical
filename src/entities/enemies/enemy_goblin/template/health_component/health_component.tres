@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HealthComponentNodeConfig" format=3 uid="uid://buel7ygo8boyq"]
 
-[ext_resource type="Resource" uid="uid://cxhlbmb2pn7gv" path="res://entities/resources/horizontal_death_animation_group.tres" id="1_g3ree"]
+[ext_resource type="Resource" uid="uid://cxhlbmb2pn7gv" path="res://entities/resources/animation_groups/horizontal_death_animation_group.tres" id="1_g3ree"]
 [ext_resource type="Script" uid="uid://c6i4a1pkbdl48" path="res://classes/node_configs/components/health_component_node_config.gd" id="1_tvdit"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="2_d78xh"]
 

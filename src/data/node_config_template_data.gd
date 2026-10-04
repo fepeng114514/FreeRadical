@@ -6,3 +6,7 @@ class_name NodeConfigTemplateData
 
 ## 实体名到节点配置模板节点映射。
 @export var entity_name_to_template_map: Dictionary[String, NodeConfigTemplateNode] = {}
+## 实体路径到节点配置模板节点映射。
+@export var entity_path_to_template_map: Dictionary[String, NodeConfigTemplateNode] = {}
+## 实体 UID 到节点配置模板节点映射。
+@export var entity_uid_to_template_map: Dictionary[String, NodeConfigTemplateNode] = {}

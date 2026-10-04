@@ -25,10 +25,10 @@ func _enter_tree() -> void:
 		
 	GlobalManager.world_size = world_size
 	GameManager.defaul_tower_holder = defaul_tower_holder
-	WaveManager.first_release_wave.connect(_on_first_release_wave)
 
 
 func _exit_tree() -> void:
+	GameManager.cleanup()
 	EntityManager.cleanup()
 	GridManager.cleanup()
 	SelectManager.cleanup()
@@ -42,12 +42,17 @@ func _exit_tree() -> void:
 
 
 func _ready() -> void:
+	WaveManager.first_wave_released.connect(_on_first_wave_released)
+
 	GameManager.cash = cash
 	GameManager.life = life
 	
-	if ready_music:
+	if GameManager.is_battling:
+		AudioManager.play_music(battle_music)
+	else:
 		AudioManager.play_music(ready_music)
-	
 
-func _on_first_release_wave() -> void:
+
+func _on_first_wave_released() -> void:
+	GameManager.is_battling = true
 	AudioManager.play_music(battle_music)

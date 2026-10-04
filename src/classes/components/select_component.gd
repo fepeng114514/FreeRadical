@@ -19,16 +19,6 @@ enum InfoBarType {
 	TEXT,
 }
 
-## 选择菜单类型枚举。
-enum SelectMenuType {
-	## 选择菜单类型：无，不显示。
-	NONE,
-	## 选择菜单类型：防御塔菜单。
-	TOWER,
-	## 选择菜单类型：建造防御塔菜单。
-	BUILD_TOWER,
-}
-
 
 @export var config: SelectComponentNodeConfig = null:
 	set(v): 

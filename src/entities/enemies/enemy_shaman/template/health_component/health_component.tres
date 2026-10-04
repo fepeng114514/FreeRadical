@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="HealthComponentNodeConfig" format=3 uid="uid://bq2c37psk0kpq"]
 
 [ext_resource type="Script" uid="uid://c6i4a1pkbdl48" path="res://classes/node_configs/components/health_component_node_config.gd" id="1_ft0op"]
-[ext_resource type="Resource" uid="uid://cxhlbmb2pn7gv" path="res://entities/resources/horizontal_death_animation_group.tres" id="1_ghu5o"]
+[ext_resource type="Resource" uid="uid://cxhlbmb2pn7gv" path="res://entities/resources/animation_groups/horizontal_death_animation_group.tres" id="1_ghu5o"]
 
 [resource]
 script = ExtResource("1_ft0op")

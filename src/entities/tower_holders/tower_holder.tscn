@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/records/tower_record.gd" id="3_wj7c7"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_v5udb"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="5_5cv17"]
+[ext_resource type="Script" uid="uid://btc4d4qsa05kv" path="res://classes/components/upgrade_component/upgrade_component.gd" id="6_5cv17"]
 
 [node name="TowerHolder" type="Node2D" unique_id=1571680506]
 script = ExtResource("1_nqa6j")
@@ -29,3 +30,7 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 process_mode = 4
 script = ExtResource("5_5cv17")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="UpgradeComponent" type="Node2D" parent="." unique_id=1486870254]
+script = ExtResource("6_5cv17")
+metadata/_custom_type_script = "uid://btc4d4qsa05kv"

@@ -46,7 +46,7 @@ func try_select() -> void:
 	else:
 		var mouse_global_position: Vector2 = InputManager.mouse_global_position
 		for entity: Entity in EntityManager.get_valid_entities():
-			var select_c: SelectComponent = entity.get_node_or_null(Constants.CN_SELECT)
+			var select_c: SelectComponent = entity.get_node_or_null(Constants.SELECT_COMPONENT_NODE_PATH)
 			if not select_c:
 				continue
 			
@@ -63,16 +63,16 @@ func _select(entity: Entity) -> void:
 	selected_entity = entity
 	select_mode = SelectMode.NONE
 	
-	var rally_c: RallyComponent = entity.get_node_or_null(Constants.CN_RALLY)
+	var rally_c: RallyComponent = entity.get_node_or_null(Constants.RALLY_COMPONENT_NODE_PATH)
 	if rally_c and rally_c.config.can_select_rally:
 		select_mode = SelectMode.RALLY
 		
 	entity_selected.emit(entity)
 
-	entity.tree_exiting.connect(_on_entity_tree_exiting.bind(entity))
+	entity.tree_exiting.connect(_on_entity_tree_exiting)
 
 
-func _on_entity_tree_exiting(_entity: Entity) -> void:
+func _on_entity_tree_exiting() -> void:
 	selected_entity = null
 	entity_deselected.emit()
 
@@ -83,6 +83,7 @@ func _deselect() -> void:
 		_process_select_mode()
 
 	select_mode = SelectMode.NONE
+	selected_entity.tree_exiting.disconnect(_on_entity_tree_exiting)
 	selected_entity = null
 	entity_deselected.emit()
 
@@ -91,14 +92,14 @@ func _process_select_mode() -> void:
 	match select_mode:
 		SelectMode.RALLY:
 			var rally_c: RallyComponent = selected_entity.get_node_or_null(
-				Constants.CN_RALLY
+				Constants.RALLY_COMPONENT_NODE_PATH
 			)
 			rally_c.new_rally_global_position(selected_entity, InputManager.mouse_global_position, true)
 		SelectMode.BARRACK_RALLY:
 			var entity_global_position: Vector2 = selected_entity.global_position
 			var mouse_global_position: Vector2 = InputManager.mouse_global_position
 			var barrack_c: BarrackComponent = selected_entity.get_node_or_null(
-				Constants.CN_BARRACK
+				Constants.BARRACK_COMPONENT_NODE_PATH
 			)
 			var rally_max_range: float = barrack_c.config.rally_max_range
 			var rally_min_range: float = barrack_c.config.rally_min_range

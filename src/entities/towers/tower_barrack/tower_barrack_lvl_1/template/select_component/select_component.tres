@@ -6,5 +6,5 @@
 script = ExtResource("1_pggpr")
 select_rect = Rect2(-57.155, -82, 112.085, 102.935)
 info_bar_type = 2
-select_menu_type = 1
+select_menu_enabled = true
 select_menu_offset = Vector2(0, -36.32)

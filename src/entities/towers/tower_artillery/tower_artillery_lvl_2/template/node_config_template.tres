@@ -7,43 +7,57 @@
 [ext_resource type="Resource" uid="uid://dxri68jvusm2q" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2/template/skill_component/ranged_skill/ranged_skill.tres" id="5_0wqfa"]
 [ext_resource type="Resource" uid="uid://coqycew40q67s" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2/template/skill_component/skill_component.tres" id="6_yli2x"]
 [ext_resource type="Resource" uid="uid://b4v0gmoskk1q4" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2/template/tower_artillery_lvl_2.tres" id="7_67haa"]
+[ext_resource type="Resource" uid="uid://pxcon7qphh7a" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2/template/sell_component/sell_component.tres" id="7_dsyo7"]
+[ext_resource type="Resource" uid="uid://dhx5tgrl3uvd8" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2/template/upgrade_component/upgrade_component.tres" id="8_5sth6"]
 
-[sub_resource type="Resource" id="Resource_pvvee"]
-script = ExtResource("1_15uwt")
-name = "SpriteComponent"
-config = ExtResource("2_a5bkw")
-
-[sub_resource type="Resource" id="Resource_2vyex"]
-script = ExtResource("1_15uwt")
-name = "TowerComponent"
-config = ExtResource("3_dsyo7")
-
-[sub_resource type="Resource" id="Resource_tialv"]
+[sub_resource type="Resource" id="Resource_0wqfa"]
 script = ExtResource("1_15uwt")
 name = "SelectComponent"
 config = ExtResource("4_5sth6")
 
-[sub_resource type="Resource" id="Resource_scjye"]
+[sub_resource type="Resource" id="Resource_yli2x"]
+script = ExtResource("1_15uwt")
+name = "SpriteComponent"
+config = ExtResource("2_a5bkw")
+
+[sub_resource type="Resource" id="Resource_67haa"]
+script = ExtResource("1_15uwt")
+name = "TowerComponent"
+config = ExtResource("3_dsyo7")
+
+[sub_resource type="Resource" id="Resource_pvvee"]
 script = ExtResource("1_15uwt")
 name = "RangedSkill"
 config = ExtResource("5_0wqfa")
 
-[sub_resource type="Resource" id="Resource_0y46o"]
+[sub_resource type="Resource" id="Resource_2vyex"]
 script = ExtResource("1_15uwt")
 name = "SkillComponent"
 config = ExtResource("6_yli2x")
-children = Array[ExtResource("1_15uwt")]([SubResource("Resource_scjye")])
+children = Array[ExtResource("1_15uwt")]([SubResource("Resource_pvvee")])
 children_dict = Dictionary[String, ExtResource("1_15uwt")]({
-"RangedSkill": SubResource("Resource_scjye")
+"RangedSkill": SubResource("Resource_pvvee")
 })
+
+[sub_resource type="Resource" id="Resource_tialv"]
+script = ExtResource("1_15uwt")
+name = "SellComponent"
+config = ExtResource("7_dsyo7")
+
+[sub_resource type="Resource" id="Resource_scjye"]
+script = ExtResource("1_15uwt")
+name = "UpgradeComponent"
+config = ExtResource("8_5sth6")
 
 [resource]
 script = ExtResource("1_15uwt")
 config = ExtResource("7_67haa")
-children = Array[ExtResource("1_15uwt")]([SubResource("Resource_pvvee"), SubResource("Resource_2vyex"), SubResource("Resource_tialv"), SubResource("Resource_0y46o")])
+children = Array[ExtResource("1_15uwt")]([SubResource("Resource_0wqfa"), SubResource("Resource_yli2x"), SubResource("Resource_67haa"), SubResource("Resource_2vyex"), SubResource("Resource_tialv"), SubResource("Resource_scjye")])
 children_dict = Dictionary[String, ExtResource("1_15uwt")]({
-"SelectComponent": SubResource("Resource_tialv"),
-"SkillComponent": SubResource("Resource_0y46o"),
-"SpriteComponent": SubResource("Resource_pvvee"),
-"TowerComponent": SubResource("Resource_2vyex")
+"SelectComponent": SubResource("Resource_0wqfa"),
+"SellComponent": SubResource("Resource_tialv"),
+"SkillComponent": SubResource("Resource_2vyex"),
+"SpriteComponent": SubResource("Resource_yli2x"),
+"TowerComponent": SubResource("Resource_67haa"),
+"UpgradeComponent": SubResource("Resource_scjye")
 })

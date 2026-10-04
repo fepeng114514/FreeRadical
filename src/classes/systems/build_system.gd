@@ -6,11 +6,11 @@ class_name BuildSystem
 
 
 func _on_update(_delta: float) -> void:
-	for build: Entity in EntityManager.get_component_entity_group(Constants.CN_BUILD):
+	for build: Entity in EntityManager.get_component_entity_group(Constants.BUILD_COMPONENT_NAME):
 		if build.is_waiting() or build.state & Entity.State.REMOVED:
 			continue
 
-		var build_c: BuildComponent = build.get_node_or_null(Constants.CN_BUILD)
+		var build_c: BuildComponent = build.get_node_or_null(Constants.BUILD_COMPONENT_NODE_PATH)
 		var build_progress_bar: TextureProgressBar = build_c.build_progress_bar
 		var max_value: float = build_progress_bar.max_value
 		

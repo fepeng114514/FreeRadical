@@ -82,7 +82,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 ## 拦截者绑定拦截关系。
 func blocker_bind_melee_relations(blocker_id: int, blocked_id: int) -> void: 
 	var blocked: Entity = EntityManager.get_entity_by_id(blocked_id)
-	var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
+	var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 	
 	blocked_melee_c.blocker_id_list.append(blocker_id)
 	blocked_id_list.append(blocked_id)
@@ -92,7 +92,7 @@ func blocker_bind_melee_relations(blocker_id: int, blocked_id: int) -> void:
 ## 被拦截者绑定拦截关系。
 func blocked_bind_melee_relations(blocker_id: int, blocked_id: int) -> void: 
 	var blocker: Entity = EntityManager.get_entity_by_id(blocker_id)
-	var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.CN_MELEE)
+	var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 	
 	blocker_id_list.append(blocker_id)
 	blocker_melee_c.blocked_id_list.append(blocked_id)
@@ -103,7 +103,7 @@ func blocked_bind_melee_relations(blocker_id: int, blocked_id: int) -> void:
 func blocker_unbind_melee_relations(entity: Entity) -> void:
 	for blocked_id: int in blocked_id_list:
 		var blocked: Entity = EntityManager.get_entity_by_id(blocked_id)
-		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
+		var blocked_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 		blocked_melee_c.blocker_id_list.erase(entity.id)
 		
 	blocked_id_list.clear()
@@ -116,7 +116,7 @@ func blocker_unbind_melee_relations(entity: Entity) -> void:
 func blocked_unbind_melee_relations(entity: Entity) -> void:
 	for blocker_id: int in blocker_id_list:
 		var blocker: Entity = EntityManager.get_entity_by_id(blocker_id)
-		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.CN_MELEE)
+		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 		blocker_melee_c.blocked_id_list.erase(entity.id)
 	
 	blocker_id_list.clear()
@@ -125,7 +125,7 @@ func blocked_unbind_melee_relations(entity: Entity) -> void:
 ## 拦截者清理无效拦截关系。
 func blocker_cleanup_melee_relations(entity: Entity) -> void:
 	var center: Vector2 = entity.global_position
-	var rally_c: RallyComponent = entity.get_node_or_null(Constants.CN_RALLY)
+	var rally_c: RallyComponent = entity.get_node_or_null(Constants.RALLY_COMPONENT_NODE_PATH)
 	if rally_c:
 		center = rally_c.rally_center_global_position
 
@@ -142,7 +142,7 @@ func blocker_cleanup_melee_relations(entity: Entity) -> void:
 			):
 			continue
 			
-		var b_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.CN_MELEE)
+		var b_melee_c: MeleeComponent = blocked.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 		
 		new_blockeds_ids.append(id)
 		blocked_count += b_melee_c.config.block_cost

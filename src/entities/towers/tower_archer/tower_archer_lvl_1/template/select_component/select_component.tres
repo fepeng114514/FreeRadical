@@ -6,5 +6,5 @@
 script = ExtResource("1_wagy2")
 select_rect = Rect2(-48.73, -84.33, 95.585, 101.565)
 info_bar_type = 2
-select_menu_type = 1
+select_menu_enabled = true
 select_menu_offset = Vector2(0, -29.78)

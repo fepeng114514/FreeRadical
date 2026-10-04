@@ -4,6 +4,6 @@ class_name EntitySceneData
 
 
 ## 实体场景名称到路径映射。
-@export var name_to_path_map: Dictionary[String, String] = {}
+@export var entity_name_to_path_map: Dictionary[String, String] = {}
 ## 实体场景名称到 UID 映射。
-@export var name_to_uid_map: Dictionary[String, String] = {}
+@export var entity_name_to_uid_map: Dictionary[String, String] = {}

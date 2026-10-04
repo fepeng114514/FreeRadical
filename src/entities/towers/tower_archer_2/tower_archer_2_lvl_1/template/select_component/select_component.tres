@@ -6,5 +6,5 @@
 script = ExtResource("1_fshmm")
 select_rect = Rect2(-61.69, -97.47, 122.495, 136.755)
 info_bar_type = 2
-select_menu_type = 1
+select_menu_enabled = true
 select_menu_offset = Vector2(0, -29.78)

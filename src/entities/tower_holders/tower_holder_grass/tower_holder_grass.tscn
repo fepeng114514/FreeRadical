@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dxkgjtbiqwggl" path="res://entities/tower_holders/tower_holder_grass/template/tower_holder_grass.tres" id="4_4lf20"]
 [ext_resource type="Resource" uid="uid://bf7ccwaborlrs" path="res://entities/tower_holders/tower_holder_grass/template/sprite_component/sprite_component.tres" id="5_gxhsy"]
 [ext_resource type="Resource" uid="uid://3nkxukhdp2w1" path="res://entities/tower_holders/tower_holder_grass/template/select_component/select_component.tres" id="7_on27t"]
+[ext_resource type="Resource" uid="uid://dne3mxh644hck" path="res://entities/tower_holders/tower_holder_grass/template/upgrade_component/upgrade_component.tres" id="7_uoo73"]
 
 [node name="TowerHolderGrass" unique_id=1898604313 instance=ExtResource("1_qx4sj")]
 node_config_template = ExtResource("3_uoo73")
@@ -20,3 +21,7 @@ texture = ExtResource("2_jmfsc")
 
 [node name="SelectComponent" parent="." index="3" unique_id=876175114]
 config = ExtResource("7_on27t")
+
+[node name="UpgradeComponent" parent="." index="4" unique_id=1486870254]
+process_mode = 4
+config = ExtResource("7_uoo73")

@@ -6,7 +6,7 @@ class_name ModifierSystem
 
 
 func _on_insert(modifier: Entity) -> bool:
-	var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.CN_MODIFIER)
+	var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
 	if not modifier_c:
 		return true
 
@@ -64,7 +64,7 @@ func _on_update(_delta: float) -> void:
 
 
 func _on_remove(modifier: Entity) -> bool:
-	var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.CN_MODIFIER)
+	var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
 	if not modifier_c:
 		return true
 	
@@ -85,7 +85,7 @@ func _on_remove(modifier: Entity) -> bool:
 	target.has_mods_id_list.erase(modifier.id)
 
 	for t_mod: Entity in target.get_has_mod_list():
-		var t_modifier_c: ModifierComponent = t_mod.get_node_or_null(Constants.CN_MODIFIER)
+		var t_modifier_c: ModifierComponent = t_mod.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
 		var t_property_modifier_list: Array = t_modifier_c.config.property_modifier_list
 		
 		for t_property_mod: PropertyModifier in t_property_modifier_list:
@@ -96,8 +96,8 @@ func _on_remove(modifier: Entity) -> bool:
 
 ## 处理修改器的更新。
 func _process_modifier_update() -> void:
-	for modifier: Entity in EntityManager.get_component_entity_group(Constants.CN_MODIFIER):
-		var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.CN_MODIFIER)
+	for modifier: Entity in EntityManager.get_component_entity_group(Constants.MODIFIER_COMPONENT_NAME):
+		var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
 
 		var target: Entity = EntityManager.get_entity_by_id(modifier.target_id)
 		if modifier_c.config.track_target:
@@ -151,7 +151,7 @@ func _process_property_modifiers() -> void:
 			var reseted_property_set: Dictionary = {}
 
 			for modifier: Entity in entity.get_has_mod_list():
-				var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.CN_MODIFIER)
+				var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
 				var property_modifier_list: Array = modifier_c.config.property_modifier_list
 
 				for property_modifier: PropertyModifier in property_modifier_list:

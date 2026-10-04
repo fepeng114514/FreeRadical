@@ -1,3 +1,4 @@
+@tool
 extends Component
 class_name Record
 ## 记录组件。

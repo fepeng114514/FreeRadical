@@ -2,7 +2,7 @@ extends Control
 class_name SelectMenuButton
 
 
-@export var disabled_color: Color = Color(0.725, 0.725, 0.725)
+@export var disabled_color := Color(0.725, 0.725, 0.725)
 
 @export_group("Ref")
 @export var button: Button = null
@@ -13,6 +13,8 @@ var disabled: bool = false
 var select_menu: TowerUpgradeSelectMenu = null
 ## 选择的实体
 var selected_entity: Entity = null
+var preview_entity_scene: String = ""
+var preview_entity: Entity = null
 
 
 func _ready() -> void:
@@ -26,6 +28,9 @@ func _ready() -> void:
 		
 		
 func _process(_delta: float) -> void:
+	if not selected_entity:
+		return
+	
 	_update()
 		
 		
@@ -56,9 +61,28 @@ func _on_mouse_entered() -> void:
 	
 	glow.visible = true
 	
+	if preview_entity_scene:
+		selected_entity.visible = false
+		preview_entity = EntityManager.create_entity(preview_entity_scene)
+		preview_entity.global_position = selected_entity.global_position
+		
+		EntityManager.queue_insert_entity(preview_entity)
+	
 	
 func _on_mouse_exited() -> void:
 	glow.visible = false
+
+	_hide_preview()
+		
+		
+func _on_pressed() -> void: 
+	_hide_preview()
+
+
+func _hide_preview() -> void:
+	if preview_entity:
+		EntityManager.queue_remove_entity(preview_entity)
+		preview_entity = null
+		selected_entity.visible = true
 	
 	
-func _on_pressed() -> void: pass

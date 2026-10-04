@@ -24,16 +24,16 @@ func add_child(child: NodeConfigTemplateNode):
 	children_dict[child.name] = child
 
 
-## 根据索引获取子节点。
-func get_child(node_index: int) -> NodeConfigTemplateNode:
+## 根据索引获取子节点的配置。
+func get_child_config(node_index: int) -> NodeConfig:
 	if node_index < 0 or node_index >= children.size():
 		return null
 
-	return children[node_index]
+	return children[node_index].config
 
 
-## 根据路径获取子节点。
-func get_node(node_path: NodePath) -> NodeConfigTemplateNode:
+## 根据路径获取子节点的配置。
+func get_node_config(node_path: NodePath) -> NodeConfig:
 	var node: NodeConfigTemplateNode = self
 
 	for i: int in node_path.get_name_count():
@@ -45,4 +45,4 @@ func get_node(node_path: NodePath) -> NodeConfigTemplateNode:
 		if node == null:
 			return null
 
-	return node
+	return node.config

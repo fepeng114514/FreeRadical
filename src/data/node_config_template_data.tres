@@ -2,7 +2,220 @@
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_jc722"]
 [ext_resource type="Script" uid="uid://r06j3p3s0sdt" path="res://data/node_config_template_data.gd" id="2_bft3v"]
+[ext_resource type="Resource" uid="uid://bwbtdvm1v1x76" path="res://entities/enemies/enemy_gargoyle/template/node_config_template.tres" id="2_i2iui"]
+[ext_resource type="Resource" uid="uid://ccswcwnkjwg41" path="res://entities/enemies/enemy_goblin/template/node_config_template.tres" id="3_sclj5"]
+[ext_resource type="Resource" uid="uid://ysy6bqbvt7n4" path="res://entities/enemies/enemy_ogre/template/node_config_template.tres" id="4_o33pj"]
+[ext_resource type="Resource" uid="uid://dtmeklt75aaau" path="res://entities/enemies/enemy_orc/template/node_config_template.tres" id="5_2rppp"]
+[ext_resource type="Resource" uid="uid://3u4getg4ii6g" path="res://entities/enemies/enemy_shaman/template/node_config_template.tres" id="6_6fcqv"]
+[ext_resource type="Resource" uid="uid://bm81ngdyrfyo6" path="res://entities/fx/explosion_air/template/node_config_template.tres" id="7_tyum2"]
+[ext_resource type="Resource" uid="uid://bly1tgxv3xelr" path="res://entities/level_0/statue_decal/template/node_config_template.tres" id="8_y0umy"]
+[ext_resource type="Resource" uid="uid://prgfd10rfl6e" path="res://entities/modifiers/heal/template/node_config_template.tres" id="9_fteur"]
+[ext_resource type="Resource" uid="uid://i5o5hys3ir5c" path="res://entities/spawners/wave_spawner/template/node_config_template.tres" id="10_wixi5"]
+[ext_resource type="Resource" uid="uid://ds3don28hocir" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/node_config_template.tres" id="11_v34nn"]
+[ext_resource type="Resource" uid="uid://bfbsx7gtvde5k" path="res://entities/towers/tower_archer/tower_archer_lvl_1_bullet/template/node_config_template.tres" id="12_i4ibd"]
+[ext_resource type="Resource" uid="uid://sjqesohhqr6n" path="res://entities/towers/tower_archer/tower_archer_lvl_1_shooter/template/node_config_template.tres" id="13_oastj"]
+[ext_resource type="Resource" uid="uid://basq75gitlnn4" path="res://entities/towers/tower_archer/tower_archer_lvl_2/template/node_config_template.tres" id="14_ai8hu"]
+[ext_resource type="Resource" uid="uid://cvoi5hxufpfnn" path="res://entities/towers/tower_archer/tower_archer_lvl_2_bullet/template/node_config_template.tres" id="15_f551d"]
+[ext_resource type="Resource" uid="uid://g2wl1pt34u4i" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/node_config_template.tres" id="16_muvhr"]
+[ext_resource type="Resource" uid="uid://dbdb41pn7pb0x" path="res://entities/towers/tower_archer/tower_archer_lvl_3/template/node_config_template.tres" id="17_wpite"]
+[ext_resource type="Resource" uid="uid://c0lhar10ttjd6" path="res://entities/towers/tower_archer/tower_archer_lvl_3_bullet/template/node_config_template.tres" id="18_hvevv"]
+[ext_resource type="Resource" uid="uid://c3btkuijqj6kp" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/node_config_template.tres" id="19_ps3ks"]
+[ext_resource type="Resource" uid="uid://chbexbhlkfv3x" path="res://entities/towers/tower_archer_2/tower_archer_2_bullet/template/node_config_template.tres" id="20_2boda"]
+[ext_resource type="Resource" uid="uid://hy70be0lgk68" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/node_config_template.tres" id="21_hbh0n"]
+[ext_resource type="Resource" uid="uid://d1b7ryxejrvda" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/template/node_config_template.tres" id="22_28yc6"]
+[ext_resource type="Resource" uid="uid://b6q0k62ueghom" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/node_config_template.tres" id="23_l0n61"]
+[ext_resource type="Resource" uid="uid://lrdb8qqdtr1p" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1_bullet/template/node_config_template.tres" id="24_xp0tv"]
+[ext_resource type="Resource" uid="uid://cl0k5gdkd4voh" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2/template/node_config_template.tres" id="25_rlki3"]
+[ext_resource type="Resource" uid="uid://bs2g05vlx4py3" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2_bullet/template/node_config_template.tres" id="26_ceds4"]
+[ext_resource type="Resource" uid="uid://cmn3flwgx4ssn" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/node_config_template.tres" id="27_0cdh5"]
+[ext_resource type="Resource" uid="uid://bs7r5qqqje5st" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3_bullet/template/node_config_template.tres" id="28_b1oi6"]
+[ext_resource type="Resource" uid="uid://b83waj1nrsxad" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/node_config_template.tres" id="29_qufp3"]
+[ext_resource type="Resource" uid="uid://d36lmujunb81s" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/template/node_config_template.tres" id="30_nfb8l"]
+[ext_resource type="Resource" uid="uid://dnkwcdm4so8ho" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2/template/node_config_template.tres" id="31_u3lfw"]
+[ext_resource type="Resource" uid="uid://beoyl7wku1ssu" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/node_config_template.tres" id="32_j7hi7"]
+[ext_resource type="Resource" uid="uid://cmkruqd5tei5e" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/node_config_template.tres" id="33_fu0fc"]
+[ext_resource type="Resource" uid="uid://ct3m3gbuo7t5q" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3_soldier/template/node_config_template.tres" id="34_88pwv"]
+[ext_resource type="Resource" uid="uid://d176iqdfoqeqo" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/node_config_template.tres" id="35_u1rsm"]
+[ext_resource type="Resource" uid="uid://b507h0o57cf72" path="res://entities/towers/tower_mage/tower_mage_lvl_1_bullet/template/node_config_template.tres" id="36_oa7kp"]
+[ext_resource type="Resource" uid="uid://cnfi3xl4o4yof" path="res://entities/towers/tower_mage/tower_mage_lvl_1_shooter/template/node_config_template.tres" id="37_poxib"]
+[ext_resource type="Resource" uid="uid://cia8wjgd4vi81" path="res://entities/towers/tower_mage/tower_mage_lvl_2/template/node_config_template.tres" id="38_c5lnq"]
+[ext_resource type="Resource" uid="uid://bg7kfrqxer42w" path="res://entities/towers/tower_mage/tower_mage_lvl_2_bullet/template/node_config_template.tres" id="39_lb17t"]
+[ext_resource type="Resource" uid="uid://1p5ysr43ffno" path="res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/template/node_config_template.tres" id="40_xod1q"]
+[ext_resource type="Resource" uid="uid://bat6sti2daivi" path="res://entities/towers/tower_mage/tower_mage_lvl_3/template/node_config_template.tres" id="41_6y66g"]
+[ext_resource type="Resource" uid="uid://bix4hxwa2yv4t" path="res://entities/towers/tower_mage/tower_mage_lvl_3_bullet/template/node_config_template.tres" id="42_duyo3"]
+[ext_resource type="Resource" uid="uid://cp5ptl6p7l178" path="res://entities/towers/tower_mage/tower_mage_lvl_3_shooter/template/node_config_template.tres" id="43_gt3y5"]
+[ext_resource type="Resource" uid="uid://b78kckjug60kh" path="res://entities/tower_builds/tower_build_archer/template/node_config_template.tres" id="44_5scyt"]
+[ext_resource type="Resource" uid="uid://b20plg1pfxkue" path="res://entities/tower_builds/tower_build_artillery/template/node_config_template.tres" id="45_pybaf"]
+[ext_resource type="Resource" uid="uid://vh7rr4dp8p2o" path="res://entities/tower_builds/tower_build_barrack/template/node_config_template.tres" id="46_cfpkg"]
+[ext_resource type="Resource" uid="uid://ckuxjfhe0ud41" path="res://entities/tower_builds/tower_build_mage/template/node_config_template.tres" id="47_g256o"]
+[ext_resource type="Resource" uid="uid://nucyfqj2ehw6" path="res://entities/tower_holders/tower_holder_cloud/template/node_config_template.tres" id="48_2njm8"]
+[ext_resource type="Resource" uid="uid://cqfoiksymlyno" path="res://entities/tower_holders/tower_holder_grass/template/node_config_template.tres" id="49_1m5wo"]
+[ext_resource type="Resource" uid="uid://bd74jpxu7te5b" path="res://entities/tower_previews/tower_preview_archer/template/node_config_template.tres" id="50_rfttq"]
+[ext_resource type="Resource" uid="uid://cqqdcvhlsh5t6" path="res://entities/tower_previews/tower_preview_artillery/template/node_config_template.tres" id="51_cv58u"]
+[ext_resource type="Resource" uid="uid://ckh57kgtcsouw" path="res://entities/tower_previews/tower_preview_barrack/template/node_config_template.tres" id="52_f8vft"]
+[ext_resource type="Resource" uid="uid://n70ciy7ajthq" path="res://entities/tower_previews/tower_preview_mage/template/node_config_template.tres" id="53_aohak"]
 
 [resource]
 script = ExtResource("2_bft3v")
-metadata/_custom_type_script = "uid://r06j3p3s0sdt"
+entity_name_to_template_map = Dictionary[String, ExtResource("1_jc722")]({
+"enemy_gargoyle": ExtResource("2_i2iui"),
+"enemy_goblin": ExtResource("3_sclj5"),
+"enemy_ogre": ExtResource("4_o33pj"),
+"enemy_orc": ExtResource("5_2rppp"),
+"enemy_shaman": ExtResource("6_6fcqv"),
+"explosion_air": ExtResource("7_tyum2"),
+"heal": ExtResource("9_fteur"),
+"statue_decal": ExtResource("8_y0umy"),
+"tower_archer_2_bullet": ExtResource("20_2boda"),
+"tower_archer_2_lvl_1": ExtResource("21_hbh0n"),
+"tower_archer_2_lvl_1_shooter": ExtResource("22_28yc6"),
+"tower_archer_lvl_1": ExtResource("11_v34nn"),
+"tower_archer_lvl_1_bullet": ExtResource("12_i4ibd"),
+"tower_archer_lvl_1_shooter": ExtResource("13_oastj"),
+"tower_archer_lvl_2": ExtResource("14_ai8hu"),
+"tower_archer_lvl_2_bullet": ExtResource("15_f551d"),
+"tower_archer_lvl_2_shooter": ExtResource("16_muvhr"),
+"tower_archer_lvl_3": ExtResource("17_wpite"),
+"tower_archer_lvl_3_bullet": ExtResource("18_hvevv"),
+"tower_archer_lvl_3_shooter": ExtResource("19_ps3ks"),
+"tower_artillery_lvl_1": ExtResource("23_l0n61"),
+"tower_artillery_lvl_1_bullet": ExtResource("24_xp0tv"),
+"tower_artillery_lvl_2": ExtResource("25_rlki3"),
+"tower_artillery_lvl_2_bullet": ExtResource("26_ceds4"),
+"tower_artillery_lvl_3": ExtResource("27_0cdh5"),
+"tower_artillery_lvl_3_bullet": ExtResource("28_b1oi6"),
+"tower_barrack_lvl_1": ExtResource("29_qufp3"),
+"tower_barrack_lvl_1_soldier": ExtResource("30_nfb8l"),
+"tower_barrack_lvl_2": ExtResource("31_u3lfw"),
+"tower_barrack_lvl_2_soldier": ExtResource("32_j7hi7"),
+"tower_barrack_lvl_3": ExtResource("33_fu0fc"),
+"tower_barrack_lvl_3_soldier": ExtResource("34_88pwv"),
+"tower_build_archer": ExtResource("44_5scyt"),
+"tower_build_artillery": ExtResource("45_pybaf"),
+"tower_build_barrack": ExtResource("46_cfpkg"),
+"tower_build_mage": ExtResource("47_g256o"),
+"tower_holder_cloud": ExtResource("48_2njm8"),
+"tower_holder_grass": ExtResource("49_1m5wo"),
+"tower_mage_lvl_1": ExtResource("35_u1rsm"),
+"tower_mage_lvl_1_bullet": ExtResource("36_oa7kp"),
+"tower_mage_lvl_1_shooter": ExtResource("37_poxib"),
+"tower_mage_lvl_2": ExtResource("38_c5lnq"),
+"tower_mage_lvl_2_bullet": ExtResource("39_lb17t"),
+"tower_mage_lvl_2_shooter": ExtResource("40_xod1q"),
+"tower_mage_lvl_3": ExtResource("41_6y66g"),
+"tower_mage_lvl_3_bullet": ExtResource("42_duyo3"),
+"tower_mage_lvl_3_shooter": ExtResource("43_gt3y5"),
+"tower_preview_archer": ExtResource("50_rfttq"),
+"tower_preview_artillery": ExtResource("51_cv58u"),
+"tower_preview_barrack": ExtResource("52_f8vft"),
+"tower_preview_mage": ExtResource("53_aohak"),
+"wave_spawner": ExtResource("10_wixi5")
+})
+entity_path_to_template_map = Dictionary[String, ExtResource("1_jc722")]({
+"res://entities/enemies/enemy_gargoyle/enemy_gargoyle.tscn": ExtResource("2_i2iui"),
+"res://entities/enemies/enemy_goblin/enemy_goblin.tscn": ExtResource("3_sclj5"),
+"res://entities/enemies/enemy_ogre/enemy_ogre.tscn": ExtResource("4_o33pj"),
+"res://entities/enemies/enemy_orc/enemy_orc.tscn": ExtResource("5_2rppp"),
+"res://entities/enemies/enemy_shaman/enemy_shaman.tscn": ExtResource("6_6fcqv"),
+"res://entities/fx/explosion_air/explosion_air.tscn": ExtResource("7_tyum2"),
+"res://entities/level_0/statue_decal/statue_decal.tscn": ExtResource("8_y0umy"),
+"res://entities/modifiers/heal/heal.tscn": ExtResource("9_fteur"),
+"res://entities/spawners/wave_spawner/wave_spawner.tscn": ExtResource("10_wixi5"),
+"res://entities/tower_builds/tower_build_archer/tower_build_archer.tscn": ExtResource("44_5scyt"),
+"res://entities/tower_builds/tower_build_artillery/tower_build_artillery.tscn": ExtResource("45_pybaf"),
+"res://entities/tower_builds/tower_build_barrack/tower_build_barrack.tscn": ExtResource("46_cfpkg"),
+"res://entities/tower_builds/tower_build_mage/tower_build_mage.tscn": ExtResource("47_g256o"),
+"res://entities/tower_holders/tower_holder_cloud/tower_holder_cloud.tscn": ExtResource("48_2njm8"),
+"res://entities/tower_holders/tower_holder_grass/tower_holder_grass.tscn": ExtResource("49_1m5wo"),
+"res://entities/tower_previews/tower_preview_archer/tower_preview_archer.tscn": ExtResource("50_rfttq"),
+"res://entities/tower_previews/tower_preview_artillery/tower_preview_artillery.tscn": ExtResource("51_cv58u"),
+"res://entities/tower_previews/tower_preview_barrack/tower_preview_barrack.tscn": ExtResource("52_f8vft"),
+"res://entities/tower_previews/tower_preview_mage/tower_preview_mage.tscn": ExtResource("53_aohak"),
+"res://entities/towers/tower_archer/tower_archer_lvl_1/tower_archer_lvl_1.tscn": ExtResource("11_v34nn"),
+"res://entities/towers/tower_archer/tower_archer_lvl_1_bullet/tower_archer_lvl_1_bullet.tscn": ExtResource("12_i4ibd"),
+"res://entities/towers/tower_archer/tower_archer_lvl_1_shooter/tower_archer_lvl_1_shooter.tscn": ExtResource("13_oastj"),
+"res://entities/towers/tower_archer/tower_archer_lvl_2/tower_archer_lvl_2.tscn": ExtResource("14_ai8hu"),
+"res://entities/towers/tower_archer/tower_archer_lvl_2_bullet/tower_archer_lvl_2_bullet.tscn": ExtResource("15_f551d"),
+"res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/tower_archer_lvl_2_shooter.tscn": ExtResource("16_muvhr"),
+"res://entities/towers/tower_archer/tower_archer_lvl_3/tower_archer_lvl_3.tscn": ExtResource("17_wpite"),
+"res://entities/towers/tower_archer/tower_archer_lvl_3_bullet/tower_archer_lvl_3_bullet.tscn": ExtResource("18_hvevv"),
+"res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/tower_archer_lvl_3_shooter.tscn": ExtResource("19_ps3ks"),
+"res://entities/towers/tower_archer_2/tower_archer_2_bullet/tower_archer_2_bullet.tscn": ExtResource("20_2boda"),
+"res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/tower_archer_2_lvl_1.tscn": ExtResource("21_hbh0n"),
+"res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/tower_archer_2_lvl_1_shooter.tscn": ExtResource("22_28yc6"),
+"res://entities/towers/tower_artillery/tower_artillery_lvl_1/tower_artillery_lvl_1.tscn": ExtResource("23_l0n61"),
+"res://entities/towers/tower_artillery/tower_artillery_lvl_1_bullet/tower_artillery_lvl_1_bullet.tscn": ExtResource("24_xp0tv"),
+"res://entities/towers/tower_artillery/tower_artillery_lvl_2/tower_artillery_lvl_2.tscn": ExtResource("25_rlki3"),
+"res://entities/towers/tower_artillery/tower_artillery_lvl_2_bullet/tower_artillery_lvl_2_bullet.tscn": ExtResource("26_ceds4"),
+"res://entities/towers/tower_artillery/tower_artillery_lvl_3/tower_artillery_lvl_3.tscn": ExtResource("27_0cdh5"),
+"res://entities/towers/tower_artillery/tower_artillery_lvl_3_bullet/tower_artillery_lvl_3_bullet.tscn": ExtResource("28_b1oi6"),
+"res://entities/towers/tower_barrack/tower_barrack_lvl_1/tower_barrack_lvl_1.tscn": ExtResource("29_qufp3"),
+"res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/tower_barrack_lvl_1_soldier.tscn": ExtResource("30_nfb8l"),
+"res://entities/towers/tower_barrack/tower_barrack_lvl_2/tower_barrack_lvl_2.tscn": ExtResource("31_u3lfw"),
+"res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/tower_barrack_lvl_2_soldier.tscn": ExtResource("32_j7hi7"),
+"res://entities/towers/tower_barrack/tower_barrack_lvl_3/tower_barrack_lvl_3.tscn": ExtResource("33_fu0fc"),
+"res://entities/towers/tower_barrack/tower_barrack_lvl_3_soldier/tower_barrack_lvl_3_soldier.tscn": ExtResource("34_88pwv"),
+"res://entities/towers/tower_mage/tower_mage_lvl_1/tower_mage_lvl_1.tscn": ExtResource("35_u1rsm"),
+"res://entities/towers/tower_mage/tower_mage_lvl_1_bullet/tower_mage_lvl_1_bullet.tscn": ExtResource("36_oa7kp"),
+"res://entities/towers/tower_mage/tower_mage_lvl_1_shooter/tower_mage_lvl_1_shooter.tscn": ExtResource("37_poxib"),
+"res://entities/towers/tower_mage/tower_mage_lvl_2/tower_mage_lvl_2.tscn": ExtResource("38_c5lnq"),
+"res://entities/towers/tower_mage/tower_mage_lvl_2_bullet/tower_mage_lvl_2_bullet.tscn": ExtResource("39_lb17t"),
+"res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/tower_mage_lvl_2_shooter.tscn": ExtResource("40_xod1q"),
+"res://entities/towers/tower_mage/tower_mage_lvl_3/tower_mage_lvl_3.tscn": ExtResource("41_6y66g"),
+"res://entities/towers/tower_mage/tower_mage_lvl_3_bullet/tower_mage_lvl_3_bullet.tscn": ExtResource("42_duyo3"),
+"res://entities/towers/tower_mage/tower_mage_lvl_3_shooter/tower_mage_lvl_3_shooter.tscn": ExtResource("43_gt3y5")
+})
+entity_uid_to_template_map = Dictionary[String, ExtResource("1_jc722")]({
+"uid://2oaukulw4ypd": ExtResource("31_u3lfw"),
+"uid://3wgsu2jj2mdg": ExtResource("20_2boda"),
+"uid://687at3ao4err": ExtResource("27_0cdh5"),
+"uid://71s0bo3xbapv": ExtResource("14_ai8hu"),
+"uid://b8mw5gsptj8n1": ExtResource("3_sclj5"),
+"uid://baq6wqur2i2wc": ExtResource("4_o33pj"),
+"uid://bg7aeaobp45q8": ExtResource("34_88pwv"),
+"uid://biuewnv7ms46d": ExtResource("11_v34nn"),
+"uid://bleej3esxi75b": ExtResource("19_ps3ks"),
+"uid://bos51m560ekvc": ExtResource("15_f551d"),
+"uid://boyec531alt4": ExtResource("44_5scyt"),
+"uid://bt5cby21sk5sc": ExtResource("16_muvhr"),
+"uid://bubogx21tfcoe": ExtResource("36_oa7kp"),
+"uid://bwgt8qdihjrc7": ExtResource("52_f8vft"),
+"uid://byog4qgt2vdy5": ExtResource("26_ceds4"),
+"uid://c3u01oty250k2": ExtResource("33_fu0fc"),
+"uid://cat2wpl113dcs": ExtResource("41_6y66g"),
+"uid://cb2m3hbh7yyxl": ExtResource("37_poxib"),
+"uid://cbim4b2xcnwsy": ExtResource("48_2njm8"),
+"uid://cc3v5b7ci4wxv": ExtResource("29_qufp3"),
+"uid://cdiuclmjr8gt2": ExtResource("2_i2iui"),
+"uid://cdu8pyq7bit5w": ExtResource("43_gt3y5"),
+"uid://chfqusguy3cig": ExtResource("51_cv58u"),
+"uid://ckf2o2h3wv2xo": ExtResource("49_1m5wo"),
+"uid://cl3cd8sdbjwhv": ExtResource("8_y0umy"),
+"uid://cx35c0rfd1fwr": ExtResource("24_xp0tv"),
+"uid://cxy7osvoibnms": ExtResource("47_g256o"),
+"uid://cydrfd7gi0py8": ExtResource("39_lb17t"),
+"uid://d0kns13pm62mu": ExtResource("17_wpite"),
+"uid://daxror7vuxh6c": ExtResource("53_aohak"),
+"uid://df0twe44nlame": ExtResource("18_hvevv"),
+"uid://dj23msxsdb22o": ExtResource("28_b1oi6"),
+"uid://dmn3u58sdn7l1": ExtResource("7_tyum2"),
+"uid://dnkbru60qpk3q": ExtResource("46_cfpkg"),
+"uid://drgcomkmcowby": ExtResource("5_2rppp"),
+"uid://dsppkbrkx71fr": ExtResource("50_rfttq"),
+"uid://dxjst2smnggks": ExtResource("10_wixi5"),
+"uid://dy522da6n6jb1": ExtResource("38_c5lnq"),
+"uid://dy5nu6xryehuk": ExtResource("40_xod1q"),
+"uid://dyplbb1mienjd": ExtResource("42_duyo3"),
+"uid://f30rl46i8akx": ExtResource("30_nfb8l"),
+"uid://fx352ubic8aw": ExtResource("23_l0n61"),
+"uid://gjv8x6puntrs": ExtResource("9_fteur"),
+"uid://glrib64s8fvl": ExtResource("45_pybaf"),
+"uid://gwdut1ms2ouh": ExtResource("25_rlki3"),
+"uid://kq8u1uyt8ldx": ExtResource("21_hbh0n"),
+"uid://nosygoauf7h": ExtResource("32_j7hi7"),
+"uid://urshccno8t4l": ExtResource("6_6fcqv"),
+"uid://wxrkke7541g": ExtResource("35_u1rsm"),
+"uid://x5hhb4222pkd": ExtResource("22_28yc6"),
+"uid://xybhrfxqmw21": ExtResource("12_i4ibd"),
+"uid://y5b5x3eff1nm": ExtResource("13_oastj")
+})

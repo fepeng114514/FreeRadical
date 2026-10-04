@@ -2,7 +2,20 @@
 
 [ext_resource type="Script" uid="uid://dcvj0tx7265ts" path="res://classes/node_configs/components/wave_spawner_node_config.gd" id="1_ac3qy"]
 [ext_resource type="Resource" uid="uid://duckkkjf0svrb" path="res://game/levels/level_1_wave.tres" id="2_qiy3q"]
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_3bwjc"]
+
+[sub_resource type="Resource" id="Resource_frbui"]
+script = ExtResource("3_3bwjc")
+list = PackedStringArray("uid://crchyl1rpdc0r")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
+[sub_resource type="Resource" id="Resource_ievru"]
+script = ExtResource("3_3bwjc")
+list = PackedStringArray("uid://dqj23hrkj1kdw")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [resource]
 script = ExtResource("1_ac3qy")
 wave_group = ExtResource("2_qiy3q")
+wave_timer_start_sfx = SubResource("Resource_ievru")
+wave_timer_finish_sfx = SubResource("Resource_frbui")

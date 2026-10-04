@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SellComponentNodeConfig" format=3 uid="uid://blw3bi8vqnons"]
+
+[ext_resource type="Script" uid="uid://bru6mgdiu467a" path="res://classes/node_configs/components/sell_component_node_config.gd" id="1_wlm6e"]
+[ext_resource type="Resource" uid="uid://cvsvj5r3j1uc1" path="res://entities/resources/select_menu_button_data/sell.tres" id="2_22i5d"]
+[ext_resource type="Resource" uid="uid://dnj05oqdj4274" path="res://entities/resources/audio_group/tower_sell_audio_group.tres" id="3_5h2xo"]
+
+[resource]
+script = ExtResource("1_wlm6e")
+sell_sfx = ExtResource("3_5h2xo")
+select_menu_sell_button_data = ExtResource("2_22i5d")

@@ -59,7 +59,7 @@ func select_skill(entity: Entity, damage: Damage, source: Entity) -> bool:
 		
 		var damage_flags: int = damage.damage_flags
 		if damage_flags & Damage.Flag.MELEE:
-			var melee_c: MeleeComponent = entity.get_node_or_null(Constants.CN_MELEE)
+			var melee_c: MeleeComponent = entity.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 			if not melee_c:
 				continue
 

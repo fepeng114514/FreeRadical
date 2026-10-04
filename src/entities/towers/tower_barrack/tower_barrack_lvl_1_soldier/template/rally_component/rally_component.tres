@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RallyComponentNodeConfig" format=3 uid="uid://bakn835q6xqoq"]
 
-[ext_resource type="Resource" uid="uid://cd5tm7dqxesnf" path="res://entities/resources/horizontal_walk_animation_group.tres" id="1_1h6u3"]
+[ext_resource type="Resource" uid="uid://cd5tm7dqxesnf" path="res://entities/resources/animation_groups/horizontal_walk_animation_group.tres" id="1_1h6u3"]
 [ext_resource type="Script" uid="uid://ichuksmkbcoh" path="res://classes/node_configs/components/rally_component_node_config.gd" id="1_uxeaa"]
 
 [resource]

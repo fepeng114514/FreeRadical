@@ -79,13 +79,13 @@ func navigate_to_node(node: PathwayNode) -> void:
 
 ## 设置导航路径到全局位置下最近的导航路径
 func set_nav_path_to_nearest_node(entity: Entity, search_global_position: Vector2) -> void:
-	var nav_path_c: NavPathComponent = get_node_or_null(Constants.CN_NAV_PATH)
+	var nav_path_c: NavPathComponent = get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
 	var pi_list: Array = []
 	var spi_list: Array = []
 
 	if nav_path_c.config.sync_source_path:
 		var source: Entity = EntityManager.get_entity_by_id(entity.source_id)
-		var s_nav_path_c: NavPathComponent = source.get_node_or_null(Constants.CN_NAV_PATH) if source else null
+		var s_nav_path_c: NavPathComponent = source.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH) if source else null
 		if s_nav_path_c:
 			pi_list = [s_nav_path_c.pi]
 			spi_list = [s_nav_path_c.spi]

@@ -2,31 +2,38 @@
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_7guh1"]
 [ext_resource type="Resource" uid="uid://5i6fmbqwqrh" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/sprite_component/sprite_component.tres" id="2_fs7ge"]
+[ext_resource type="Resource" uid="uid://70f6k2kegkl8" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/sell_component/sell_component.tres" id="5_12gsl"]
 [ext_resource type="Resource" uid="uid://cvjnr1guyqgq6" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/tower_component/tower_component.tres" id="11_feb4u"]
 [ext_resource type="Resource" uid="uid://cg0jo5bgkbxrd" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/select_component/select_component.tres" id="12_mbtvm"]
 [ext_resource type="Resource" uid="uid://ckuotwi8ixgk6" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/tower_archer_lvl_1.tres" id="13_kc4br"]
-
-[sub_resource type="Resource" id="Resource_822go"]
-script = ExtResource("1_7guh1")
-name = "SpriteComponent"
-config = ExtResource("2_fs7ge")
-
-[sub_resource type="Resource" id="Resource_12gsl"]
-script = ExtResource("1_7guh1")
-name = "TowerComponent"
-config = ExtResource("11_feb4u")
 
 [sub_resource type="Resource" id="Resource_d8l3y"]
 script = ExtResource("1_7guh1")
 name = "SelectComponent"
 config = ExtResource("12_mbtvm")
 
+[sub_resource type="Resource" id="Resource_qcva8"]
+script = ExtResource("1_7guh1")
+name = "SpriteComponent"
+config = ExtResource("2_fs7ge")
+
+[sub_resource type="Resource" id="Resource_5y7k0"]
+script = ExtResource("1_7guh1")
+name = "TowerComponent"
+config = ExtResource("11_feb4u")
+
+[sub_resource type="Resource" id="Resource_lpsmy"]
+script = ExtResource("1_7guh1")
+name = "SellComponent"
+config = ExtResource("5_12gsl")
+
 [resource]
 script = ExtResource("1_7guh1")
 config = ExtResource("13_kc4br")
-children = Array[ExtResource("1_7guh1")]([SubResource("Resource_822go"), SubResource("Resource_12gsl"), SubResource("Resource_d8l3y")])
+children = Array[ExtResource("1_7guh1")]([SubResource("Resource_d8l3y"), SubResource("Resource_qcva8"), SubResource("Resource_5y7k0"), SubResource("Resource_lpsmy")])
 children_dict = Dictionary[String, ExtResource("1_7guh1")]({
 "SelectComponent": SubResource("Resource_d8l3y"),
-"SpriteComponent": SubResource("Resource_822go"),
-"TowerComponent": SubResource("Resource_12gsl")
+"SellComponent": SubResource("Resource_lpsmy"),
+"SpriteComponent": SubResource("Resource_qcva8"),
+"TowerComponent": SubResource("Resource_5y7k0")
 })

@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="UpgradeItems" format=3 uid="uid://gnoev38g8chv"]
+
+[ext_resource type="Script" uid="uid://ckofjxi84flpi" path="res://classes/components/upgrade_component/upgrade_items.gd" id="1_dbdlo"]
+[ext_resource type="Script" uid="uid://c5njyo7viaubk" path="res://classes/components/upgrade_component/upgrade_item.gd" id="2_132n8"]
+[ext_resource type="Texture2D" uid="uid://e3hu2io0sbd4" path="res://assets/atlas/atlas_textures/icon/main_icons_0001.tres" id="3_qakhe"]
+[ext_resource type="Script" uid="uid://bu253boudy5i5" path="res://classes/select_menu_button_data/select_menu_button_data.gd" id="4_sushh"]
+[ext_resource type="Texture2D" uid="uid://ccunksjcshdfr" path="res://assets/atlas/atlas_textures/icon/main_icons_0002.tres" id="5_de6gf"]
+[ext_resource type="Texture2D" uid="uid://cluj6mu0qjowx" path="res://assets/atlas/atlas_textures/icon/main_icons_0004.tres" id="6_s16hy"]
+[ext_resource type="Texture2D" uid="uid://b8jvcfowvqj84" path="res://assets/atlas/atlas_textures/icon/main_icons_0003.tres" id="7_xn1wo"]
+
+[sub_resource type="Resource" id="Resource_iu6dc"]
+script = ExtResource("4_sushh")
+icon = ExtResource("3_qakhe")
+preview_entity_scene = "uid://dsppkbrkx71fr"
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_5t0fx"]
+script = ExtResource("2_132n8")
+upgrade_to = "uid://boyec531alt4"
+price = 70.0
+select_menu_upgrade_item_button_data = SubResource("Resource_iu6dc")
+metadata/_custom_type_script = "uid://c5njyo7viaubk"
+
+[sub_resource type="Resource" id="Resource_wdx87"]
+script = ExtResource("4_sushh")
+place = 2
+icon = ExtResource("5_de6gf")
+preview_entity_scene = "uid://bwgt8qdihjrc7"
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_sij3u"]
+script = ExtResource("2_132n8")
+upgrade_to = "uid://dnkbru60qpk3q"
+price = 70.0
+select_menu_upgrade_item_button_data = SubResource("Resource_wdx87")
+metadata/_custom_type_script = "uid://c5njyo7viaubk"
+
+[sub_resource type="Resource" id="Resource_q8ft5"]
+script = ExtResource("4_sushh")
+place = 4
+icon = ExtResource("6_s16hy")
+preview_entity_scene = "uid://chfqusguy3cig"
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_7ypmh"]
+script = ExtResource("2_132n8")
+upgrade_to = "uid://glrib64s8fvl"
+price = 125.0
+select_menu_upgrade_item_button_data = SubResource("Resource_q8ft5")
+metadata/_custom_type_script = "uid://c5njyo7viaubk"
+
+[sub_resource type="Resource" id="Resource_nyfhm"]
+script = ExtResource("4_sushh")
+place = 6
+icon = ExtResource("7_xn1wo")
+preview_entity_scene = "uid://daxror7vuxh6c"
+metadata/_custom_type_script = "uid://bu253boudy5i5"
+
+[sub_resource type="Resource" id="Resource_1bctq"]
+script = ExtResource("2_132n8")
+upgrade_to = "uid://cxy7osvoibnms"
+price = 100.0
+select_menu_upgrade_item_button_data = SubResource("Resource_nyfhm")
+metadata/_custom_type_script = "uid://c5njyo7viaubk"
+
+[resource]
+script = ExtResource("1_dbdlo")
+upgrade_items = Array[ExtResource("2_132n8")]([SubResource("Resource_5t0fx"), SubResource("Resource_sij3u"), SubResource("Resource_7ypmh"), SubResource("Resource_1bctq")])

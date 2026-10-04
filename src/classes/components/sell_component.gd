@@ -1,3 +1,4 @@
+@tool
 extends Component
 class_name SellComponent
 ## 出售组件。
@@ -13,7 +14,7 @@ class_name SellComponent
 		queue_redraw()
 
 ## 出售状态。
-var is_sold: bool = false
+var is_selling: bool = false
 
 
 func _get_configuration_warnings() -> PackedStringArray:

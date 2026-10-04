@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://x5hhb4222pkd" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/tower_archer_2_lvl_1_shooter.tscn" id="5_3td4n"]
 [ext_resource type="Resource" uid="uid://5i6fmbqwqrh" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/sprite_component/sprite_component.tres" id="7_aygws"]
 [ext_resource type="Resource" uid="uid://cvjnr1guyqgq6" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/tower_component/tower_component.tres" id="11_pfu5o"]
+[ext_resource type="Script" uid="uid://dvuc76kx7pdb4" path="res://classes/components/sell_component.gd" id="11_uru1k"]
+[ext_resource type="Resource" uid="uid://70f6k2kegkl8" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/sell_component/sell_component.tres" id="12_jwtpn"]
 [ext_resource type="Resource" uid="uid://cg0jo5bgkbxrd" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/select_component/select_component.tres" id="17_5sk8x"]
 
 [node name="TowerArcherLvl1" unique_id=1010851235 instance=ExtResource("1_k1sas")]
@@ -17,7 +19,10 @@ node_config_template = ExtResource("2_lemec")
 config = ExtResource("3_58rs6")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" parent="." index="2" unique_id=40235501]
+[node name="SelectComponent" parent="." index="2" unique_id=1451324403]
+config = ExtResource("17_5sk8x")
+
+[node name="SpriteComponent" parent="." index="3" unique_id=40235501]
 config = ExtResource("7_aygws")
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=708564869]
@@ -29,7 +34,7 @@ texture = ExtResource("3_sbvnr")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_2u2im")
 
-[node name="TowerComponent" parent="." index="3" unique_id=1705871166]
+[node name="TowerComponent" parent="." index="4" unique_id=1705871166]
 config = ExtResource("11_pfu5o")
 
 [node name="TowerArcherLvl1Shooter" parent="TowerComponent" index="0" unique_id=2011504655 instance=ExtResource("5_3td4n")]
@@ -38,5 +43,8 @@ position = Vector2(-20, -63)
 [node name="TowerArcherLvl1Shooter2" parent="TowerComponent" index="1" unique_id=204602590 instance=ExtResource("5_3td4n")]
 position = Vector2(25, -63)
 
-[node name="SelectComponent" parent="." index="4" unique_id=1451324403]
-config = ExtResource("17_5sk8x")
+[node name="SellComponent" type="Node2D" parent="." index="5" unique_id=1208164474]
+process_mode = 4
+script = ExtResource("11_uru1k")
+config = ExtResource("12_jwtpn")
+metadata/_custom_type_script = "uid://dvuc76kx7pdb4"

@@ -5,4 +5,5 @@
 [resource]
 script = ExtResource("1_mwax4")
 select_rect = Rect2(-72.61, -47.5, 141.44, 99.41)
+select_menu_enabled = true
 select_menu_offset = Vector2(0, -19.7)

@@ -19,14 +19,14 @@ func _on_update(_delta: float) -> void:
 		if target.state & Entity.State.DEAD:
 			continue
 
-		var health_c: HealthComponent = target.get_node_or_null(Constants.CN_HEALTH)
+		var health_c: HealthComponent = target.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 		if not health_c:
 			continue
 			
 		var source: Entity = EntityManager.get_entity_by_id(damage.source_id)
 		var source_name: StringName = damage.source_name
 
-		var dodge_c: DodgeComponent = target.get_node_or_null(Constants.CN_DODGE)
+		var dodge_c: DodgeComponent = target.get_node_or_null(Constants.DODGE_COMPONENT_NODE_PATH)
 		if dodge_c:
 			if dodge_c.select_skill(target, damage, source):
 				target.state |= Entity.State.DODGE
@@ -44,7 +44,7 @@ func _on_update(_delta: float) -> void:
 		health_c.hp -= actual_damage
 		
 		if not damage.damage_flags & Damage.Flag.NO_SPIKED:
-			if Utils.is_valid_number(health_c.config.spiked) and source and source.get_node_or_null(Constants.CN_HEALTH):
+			if Utils.is_valid_number(health_c.config.spiked) and source and source.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH):
 				var spiked_value: float = damage.value * health_c.config.spiked
 				
 				var bad_damage := Damage.new()

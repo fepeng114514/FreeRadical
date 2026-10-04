@@ -17,8 +17,10 @@ class_name SelectComponentNodeConfig
 
 ## 信息栏类型。
 @export var info_bar_type: SelectComponent.InfoBarType = SelectComponent.InfoBarType.NONE
-## 选择菜单类型。
-@export var select_menu_type: SelectComponent.SelectMenuType = SelectComponent.SelectMenuType.NONE
+
+@export_group("Select Menu")
+## 是否启用选择菜单。
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var select_menu_enabled: bool = false
 ## 选择菜单偏移。
 @export var select_menu_offset := Vector2.ZERO:
 	set(v):

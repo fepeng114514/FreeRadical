@@ -11,6 +11,6 @@ class_name TowerComponentNodeConfig
 ## 是否启用射手轮换释放技能。
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var shooter_alternation_enabled: bool = false
 ## 轮换的射手实体列表。
-@export var shooter_alternation_entities: Array[NodePath] = []
+@export var shooter_alternation_entity_indexes: Array[int] = []
 ## 轮换释放技能偏移时间（秒）。
 @export var shooter_alternation_offset: float = 0.1

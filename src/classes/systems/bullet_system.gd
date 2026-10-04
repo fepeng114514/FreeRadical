@@ -6,7 +6,7 @@ class_name BulletSystem
 
 
 func _on_insert(entity: Entity) -> bool:
-	var bullet_c: BulletComponent = entity.get_node_or_null(Constants.CN_BULLET)
+	var bullet_c: BulletComponent = entity.get_node_or_null(Constants.BULLET_COMPONENT_NODE_PATH)
 	if not bullet_c:
 		return true
 
@@ -48,7 +48,7 @@ func _on_insert(entity: Entity) -> bool:
 
 
 func _on_remove(entity: Entity) -> bool:
-	var bullet_c: BulletComponent = entity.get_node_or_null(Constants.CN_BULLET)
+	var bullet_c: BulletComponent = entity.get_node_or_null(Constants.BULLET_COMPONENT_NODE_PATH)
 	if not bullet_c:
 		return true
 		
@@ -61,11 +61,11 @@ func _on_remove(entity: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	for entity: Entity in EntityManager.get_component_entity_group(Constants.CN_BULLET):
+	for entity: Entity in EntityManager.get_component_entity_group(Constants.BULLET_COMPONENT_NAME):
 		if entity.is_waiting() or entity.state & Entity.State.REMOVED:
 			continue
 
-		var bullet_c: BulletComponent = entity.get_node_or_null(Constants.CN_BULLET)
+		var bullet_c: BulletComponent = entity.get_node_or_null(Constants.BULLET_COMPONENT_NODE_PATH)
 		if not bullet_c or not bullet_c.config.trajectory:
 			continue
 			

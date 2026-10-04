@@ -7,6 +7,8 @@ extends Node
 @warning_ignore_start("unused_signal")
 ## 实体创建信号。
 signal entity_created(entity: Entity)
+## 实体准备信号。
+signal entity_ready(entity: Entity)
 ## 实体设置信号。
 signal entity_setup(entity: Entity)
 @warning_ignore_restore("unused_signal")
@@ -60,6 +62,12 @@ func _physics_process(delta: float) -> void:
 
 ## 初始化实体管理器。
 func init() -> void:
+	for group_name: StringName in Constants.ALL_GROUPS:
+		_entity_groups[group_name] = EntityGroup.new()
+
+	for component_name: StringName in Constants.ALL_COMPONENT_NAMES:
+		_component_entity_groups[component_name] = EntityGroup.new()
+
 	_spatial_hash_cell_count = _spatial_hash_row_count * _spatial_hash_column_count
 	_spatial_hash_grid.resize(_spatial_hash_cell_count)
 	for i: int in _spatial_hash_cell_count:
@@ -115,6 +123,9 @@ func setup_entity(entity: Entity) -> Entity:
 
 	Log.debug("创建实体: %s" % entity)
 	_next_id += 1
+
+	entity_ready.emit(entity)
+	SystemManager.process_entity_ready(entity)
 	
 	if not entity.get_parent():
 		_entity_world.add_child(entity)
@@ -197,7 +208,7 @@ func get_valid_entities() -> Array[Entity]:
 
 
 ## 根据组名获取实体组。
-func get_entity_group(group_name: String) -> Array[Entity]:
+func get_entity_group(group_name: StringName) -> Array[Entity]:
 	if not _entity_groups.has(group_name):
 		return []
 
@@ -205,7 +216,7 @@ func get_entity_group(group_name: String) -> Array[Entity]:
 
 
 ## 获取按组件类型索引的实体组。
-func get_component_entity_group(group_name: String) -> Array[Entity]:
+func get_component_entity_group(group_name: StringName) -> Array[Entity]:
 	if not _component_entity_groups.has(group_name):
 		return []
 
@@ -320,7 +331,7 @@ func get_spatial_hash_cell(index: int) -> SpaceIndexCell:
 
 ## 处理实体插入队列。
 func _process_insert_queue() -> void:
-	while _insert_queue:
+	while _insert_queue_head_index < _insert_queue.size():
 		var entity: Entity = _insert_queue[_insert_queue_head_index]
 		_insert_queue[_insert_queue_head_index] = null
 		_insert_queue_head_index += 1
@@ -340,62 +351,15 @@ func _process_insert_queue() -> void:
 		if not SystemManager.process_entity_insert(entity):
 			continue
 
-		entity.tree_exiting.connect(_on_entity_tree_exiting.bind(entity))
-
 		_entities.append(entity)
-		entity.valid_entities_index = _valid_entities.size()
-		_valid_entities.append(entity)
 
-		var cell_index: int = global_position_to_spatial_hash_cell_index(entity.global_position)
-		var cell: SpaceIndexCell = get_spatial_hash_cell(cell_index)
-		if cell:
-			var cell_entities: Array[Entity] = cell.entities
-			entity.space_hash_cell_entities_index = cell_entities.size()
-			cell_entities.append(entity)
-		
-		for group_name: StringName in entity.entity_groups:
-			var group: EntityGroup = _entity_groups.get_or_add(
-				group_name, EntityGroup.new()
-			)
-			var group_entities: Array[Entity] = group.entities
-			entity.entity_groups_indexes[group_name] = group_entities.size()
-			group_entities.append(entity)
-
-			if not cell:
-				continue
-				
-			var cell_group: EntityGroup = cell.entity_groups.get_or_add(
-				group_name, EntityGroup.new()
-			)
-			var cell_group_entities: Array[Entity] = cell_group.entities
-			entity.space_hash_cell_entity_groups_indexes[group_name] = cell_group_entities.size()
-			cell_group_entities.append(entity)
-
-		for component_name: StringName in entity.components:
-			var component_group: EntityGroup = _component_entity_groups.get_or_add(
-				component_name, EntityGroup.new()
-			)
-			var component_group_entities: Array[Entity] = component_group.entities
-			entity.component_entity_groups_indexes[component_name] = component_group_entities.size()
-			component_group_entities.append(entity)
-
-			if not cell:
-				continue
-				
-			var cell_component_group: EntityGroup = cell.component_entity_groups.get_or_add(
-				component_name, EntityGroup.new()
-			)
-			var cell_component_group_entities: Array[Entity] = cell_component_group.entities
-			entity.space_hash_cell_component_entity_groups_indexes[component_name] = cell_component_group_entities.size()
-			cell_component_group_entities.append(entity)
-		
 		entity.visible = true
 		Log.verbose("插入实体: %s" % entity)
 
 
 ## 处理实体移除队列。
 func _process_remove_queue() -> void:
-	while _remove_queue:
+	while _remove_queue_head_index < _remove_queue.size():
 		var entity: Entity = _remove_queue[_remove_queue_head_index]
 		_remove_queue[_remove_queue_head_index] = null
 		_remove_queue_head_index += 1
@@ -408,156 +372,55 @@ func _process_remove_queue() -> void:
 			entity.visible = true
 			continue
 
-		entity.free()
+		_entities[entity.id] = null
+
 		Log.verbose("移除实体: %s" % entity)
+		entity.free()
 
 
 ## 分组实体。
 func _grouping_entities() -> void:
+	_valid_entities.clear()
+	for group_name: StringName in _component_entity_groups:
+		_component_entity_groups[group_name].clear()
+
+	for group_name: StringName in _entity_groups:
+		_entity_groups[group_name].clear()
+
+	for cell: SpaceIndexCell in _spatial_hash_grid:
+		cell.clear()
+
 	for entity: Entity in _entities:
 		if not entity:
 			continue
-
+		
+		_valid_entities.append(entity)
+		
 		var cell_index: int = global_position_to_spatial_hash_cell_index(entity.global_position)
-		var last_space_hash_cell_index: int = entity.last_space_hash_cell_index
-		if last_space_hash_cell_index != cell_index:
-			var last_cell: SpaceIndexCell = get_spatial_hash_cell(last_space_hash_cell_index)
-			var cell: SpaceIndexCell = get_spatial_hash_cell(cell_index)
+		var cell: SpaceIndexCell = get_spatial_hash_cell(cell_index)
 
-			if entity.is_entity_groups_changed:
-				_remove_and_append_groups_entity_with_diff(
-					entity,
-					entity.last_entity_groups,
-					entity.entity_groups,
-					entity.last_space_hash_cell_entity_groups_indexes,
-					entity.space_hash_cell_entity_groups_indexes,
-					last_cell.entity_groups if last_cell else {},
-					cell.entity_groups if cell else {}
-				)
-			if entity.is_component_changed:
-				_remove_and_append_groups_entity_with_diff(
-					entity,
-					entity.last_component_names,
-					entity.component_names,
-					entity.last_space_hash_cell_component_entity_groups_indexes,
-					entity.space_hash_cell_component_entity_groups_indexes,
-					last_cell.component_entity_groups if last_cell else {},
-					cell.component_entity_groups if cell else {}
-				)
-			entity.last_space_hash_cell_index = cell_index
+		for group_name: StringName in entity.entity_groups:
+			_entity_groups[group_name].append(entity)
 
-		if entity.is_entity_groups_changed:
-			entity.is_entity_groups_changed = false
-			_remove_and_append_groups_entity_with_diff(
-				entity,
-				entity.last_entity_groups,
-				entity.entity_groups,
-				entity.last_entity_groups_indexes,
-				entity.entity_groups_indexes,
-				_entity_groups,
-				_entity_groups
-			)
+			if cell:
+				cell.entity_groups[group_name].append(entity)
 
-		if entity.is_component_changed:
-			entity.is_component_changed = false
-			_remove_and_append_groups_entity_with_diff(
-				entity,
-				entity.last_component_names,
-				entity.component_names,
-				entity.last_component_entity_groups_indexes,
-				entity.component_entity_groups_indexes,
-				_component_entity_groups,
-				_entity_groups
-			)
+		for group_name: StringName in entity.components:
+			_component_entity_groups[group_name].append(entity)
 
+			if cell:
+				cell.component_entity_groups[group_name].append(entity)
 
-func _remove_and_append_groups_entity_with_diff(
-		entity: Entity,
-		last_group_names: Array[StringName],
-		group_names: Array[StringName],
-		last_entity_groups_indexes: Dictionary[StringName, int],
-		entity_groups_indexes: Dictionary[StringName, int],
-		removed_groups: Dictionary[StringName, EntityGroup],
-		appended_groups: Dictionary[StringName, EntityGroup]
-	) -> void:
-	var counts: Dictionary[StringName, int] = {}
-	var last_has_group_names: Dictionary[StringName, bool] = {}
-	var new_has_group_names: Dictionary[StringName, bool] = {}
-
-	for group_name: StringName in last_group_names:
-		counts[group_name] = counts.get(group_name, 0) + 1
-		last_has_group_names[group_name] = true
-
-	for group_name: StringName in group_names:
-		counts[group_name] = counts.get(group_name, 0) + 1
-		new_has_group_names[group_name] = true
-
-	last_entity_groups_indexes.clear()
-
-	for group_name: StringName in counts:
-		if counts[group_name] > 1:
-			continue
-
-		if last_has_group_names.has(group_name):
-			var group: EntityGroup = removed_groups[group_name]
-			ArrayUtils.array_swap_delete(group.entities, last_entity_groups_indexes[group_name])
-		else:
-			var group: EntityGroup = appended_groups.get_or_add(group_name, EntityGroup.new())
-			var group_entities: Array[Entity] = group.entities
-
-			last_entity_groups_indexes[group_name] = entity_groups_indexes[group_name]
-			entity_groups_indexes[group_name] = group_entities.size()
-			group_entities.append(entity)
-
-
-func _on_entity_tree_exiting(entity: Entity) -> void:
-	_entities[entity.id] = null
-		
-	ArrayUtils.array_swap_delete(_valid_entities, entity.valid_entities_index)
-
-	var cell_index: int = global_position_to_spatial_hash_cell_index(entity.global_position)
-	var cell: SpaceIndexCell = get_spatial_hash_cell(cell_index)
-	if cell:
-		ArrayUtils.array_swap_delete(
-			cell.entities, entity.space_hash_cell_entities_index
-		)
-		
-	for group_name: StringName in entity.entity_groups:
-		var group: EntityGroup = _entity_groups[group_name]
-		ArrayUtils.array_swap_delete(
-			group.entities,
-			entity.entity_groups_indexes[group_name]
-		)
-		
-		if not cell:
-			continue
-				
-		var cell_group: EntityGroup = cell.entity_groups[group_name]
-		ArrayUtils.array_swap_delete(
-			cell_group.entities,
-			entity.space_hash_cell_entity_groups_indexes[group_name]
-		)
-
-	for component_name: StringName in entity.components:
-		var component_group: EntityGroup = _component_entity_groups[component_name]
-		ArrayUtils.array_swap_delete(
-			component_group.entities,
-			entity.component_entity_groups_indexes[component_name]
-		)
-		
-		if not cell:
-			continue
-				
-		var cell_component_group: EntityGroup = cell.component_entity_groups[component_name]
-		ArrayUtils.array_swap_delete(
-			cell_component_group.entities,
-			entity.space_hash_cell_component_entity_groups_indexes[component_name]
-		)
-		
 
 class EntityGroup extends RefCounted:
 	## 实体组内的实体。
 	var entities: Array[Entity] = []
+
+	func append(entity: Entity) -> void:
+		entities.append(entity)
+
+	func clear() -> void:
+		entities.clear()
 
 
 ## 空间哈希网格单元。
@@ -569,6 +432,18 @@ class SpaceIndexCell extends RefCounted:
 	## 网格内的组件实体组。
 	var component_entity_groups: Dictionary[StringName, EntityGroup] = {}
 
-	func remove_entity(entity: Entity) -> void:
-		ArrayUtils.array_swap_delete(entities, entity.entities_index)
-		entity.entities_index = -1
+	func _init() -> void:
+		for group_name: StringName in Constants.ALL_GROUPS:
+			entity_groups[group_name] = EntityGroup.new()
+
+		for component_name: StringName in Constants.ALL_COMPONENT_NAMES:
+			component_entity_groups[component_name] = EntityGroup.new()
+
+	func clear() -> void:
+		entities.clear()
+
+		for group_name: StringName in entity_groups:
+			entity_groups[group_name].clear()
+			
+		for component_name: StringName in component_entity_groups:
+			component_entity_groups[component_name].clear()

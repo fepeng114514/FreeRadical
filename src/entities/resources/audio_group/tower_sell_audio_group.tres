@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="AudioGroup" format=3 uid="uid://dnj05oqdj4274"]
+
+[ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="1_j4qu8"]
+
+[resource]
+script = ExtResource("1_j4qu8")
+list = PackedStringArray("uid://cvqa1g2cy5ol1")
+metadata/_custom_type_script = "uid://b2b214g352w4u"

@@ -1,7 +1,7 @@
 @tool
 extends Entity
 
-@onready var bullet_c = get_node_or_null(Constants.CN_BULLET)
+@onready var bullet_c = get_node_or_null(Constants.BULLET_COMPONENT_NODE_PATH)
 var stay_height: int = 0
 var stay_time: float = 0.0
 var to_predict_time: float = 0.0

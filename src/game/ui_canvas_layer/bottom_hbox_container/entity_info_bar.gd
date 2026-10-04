@@ -1,6 +1,6 @@
 extends PanelContainer
 
-@export_group("NodeRef")
+@export_group("Node Ref")
 @export var entity_name: Label = null
 @export var hp_label: Label = null
 @export var hp_value: Label = null
@@ -18,32 +18,36 @@ var selected_entity: Entity = null
 ## 显示类型
 var info_bar_type: SelectComponent.InfoBarType = SelectComponent.InfoBarType.UNIT
 
+@onready var all_controls: Array[Control] = [
+	hp_label, 
+	hp_value, 
+	melee_type_icon, 
+	melee_value, 
+	ranged_type_icon, 
+	ranged_value, 
+	phys_armor_icon, 
+	phys_armor_value, 
+	magic_armor_icon, 
+	magic_armor_value,
+]
 ## 信息栏对应信息类型显示配置
-@onready var show_config: Dictionary[SelectComponent.InfoBarType, Dictionary] = {
-	SelectComponent.InfoBarType.UNIT: {
-		"hp_label": true,
-		"hp_value": true,
-		"melee_type_icon": true,
-		"melee_value": true,
-		"ranged_type_icon": true,
-		"ranged_value": true,
-		"phys_armor_icon": true,
-		"phys_armor_value": true,
-		"magic_armor_icon": true,
-		"magic_armor_value": true,
-	},
-	SelectComponent.InfoBarType.TOWER: {
-		"hp_label": false,
-		"hp_value": false,
-		"melee_type_icon": false,
-		"melee_value": false,
-		"ranged_type_icon": true,
-		"ranged_value": true,
-		"phys_armor_icon": false,
-		"phys_armor_value": false,
-		"magic_armor_icon": false,
-		"magic_armor_value": false,
-	}
+@onready var show_configs: Dictionary[SelectComponent.InfoBarType, Array] = {
+	SelectComponent.InfoBarType.UNIT: [
+		hp_label,
+		hp_value,
+		melee_type_icon,
+		melee_value,
+		ranged_type_icon,
+		ranged_value,
+		phys_armor_icon,
+		phys_armor_value,
+		magic_armor_icon,
+		magic_armor_value,
+	],
+	SelectComponent.InfoBarType.TOWER: [
+		ranged_type_icon,
+		ranged_value,
+	],
 }
 
 
@@ -62,18 +66,19 @@ func _process(_delta: float) -> void:
 		return
 		
 	entity_name.text = selected_entity.name
+
+	for control: Control in all_controls:
+		control.visible = false
 	
-	var current_configs: Dictionary = show_config[info_bar_type]
-	for control_name: String in current_configs:
-		var control: Control = get(control_name)
-		var is_hidden: bool = current_configs[control_name]
-		control.visible = is_hidden
+	var show_config: Array = show_configs[info_bar_type]
+	for control: Control in show_config:
+		control.visible = true
 
 	match info_bar_type:
 		SelectComponent.InfoBarType.UNIT:
 			_update_unit_info()
 		SelectComponent.InfoBarType.TOWER:
-			if selected_entity.get_node_or_null(Constants.CN_TOWER):
+			if selected_entity.get_node_or_null(Constants.TOWER_COMPONENT_NODE_PATH):
 				_update_tower_info()
 	
 	
@@ -84,7 +89,7 @@ func _show(entity: Entity) -> void:
 		
 	_hide()
 	
-	var select_c: SelectComponent = entity.get_node_or_null(Constants.CN_SELECT)
+	var select_c: SelectComponent = entity.get_node_or_null(Constants.SELECT_COMPONENT_NODE_PATH)
 		
 	selected_entity = entity
 	info_bar_type = select_c.config.info_bar_type
@@ -103,55 +108,76 @@ func _hide() -> void:
 
 ## 更新单位信息
 func _update_unit_info() -> void:
-	var health_c: HealthComponent = selected_entity.get_node_or_null(Constants.CN_HEALTH)
+	var health_c: HealthComponent = selected_entity.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 	hp_value.text = "%d/%d" % [health_c.config.hp_max, health_c.hp]
 	phys_armor_value.text = "%d" % (health_c.config.physical_armor * 100)
 	magic_armor_value.text = "%d" % (health_c.config.magical_armor * 100)
 	
-	var melee_c: MeleeComponent = selected_entity.get_node_or_null(Constants.CN_MELEE)
+	var melee_c: MeleeComponent = selected_entity.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 	if melee_c and melee_c.get_child(0):
-		_set_value_melee(melee_c)
+		_set_melee_value(melee_c)
 	else:
-		melee_value.visible = false
-		melee_type_icon.visible = false
+		_hide_melee_info()
 		
-	var skill_c: SkillComponent = selected_entity.get_node_or_null(Constants.CN_SKILL)
-	
+	var skill_c: SkillComponent = selected_entity.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
 	if skill_c:
-		if skill_c.get_child(0) as RangedSkill:
-			_set_value_ranged(skill_c)
+		_set_ranged_value(skill_c)
 	else:
-		ranged_value.visible = false
-		ranged_type_icon.visible = false
+		_hide_ranged_info()
 
 
 ## 更新防御塔信息
 func _update_tower_info() -> void:
-	var tower_c: TowerComponent = selected_entity.get_node_or_null(Constants.CN_TOWER)
+	var tower_c: TowerComponent = selected_entity.get_node_or_null(Constants.TOWER_COMPONENT_NODE_PATH)
 
 	if tower_c.get_child_count() == 0:
-		var skill_c: SkillComponent = selected_entity.get_node_or_null(Constants.CN_SKILL)
+		var skill_c: SkillComponent = selected_entity.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
 		if skill_c:
-			_set_value_ranged(skill_c)
+			_set_ranged_value(skill_c)
 		else:
-			ranged_type_icon.visible = false
-			ranged_value.visible = false
+			_hide_ranged_info()
 	else:
 		var first_entity: Entity = tower_c.get_child(0)
-		var skill_c: SkillComponent = first_entity.get_node_or_null(Constants.CN_SKILL)
+		var skill_c: SkillComponent = first_entity.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
 		if skill_c:
-			_set_value_ranged(skill_c)
+			_set_ranged_value(skill_c)
+		else:
+			_hide_ranged_info()
 
 
-func _set_value_ranged(skill_c: SkillComponent) -> void:
-	var first_ranged_skill: RangedSkill = skill_c.get_child(0)
-	var damage_influence := first_ranged_skill.config.influence as DamageInfluence
+func _hide_ranged_info() -> void:
+	ranged_type_icon.visible = false
+	ranged_value.visible = false
+
+
+func _set_ranged_value(skill_c: SkillComponent) -> void:
+	var first_ranged_skill := skill_c.get_child(0) as RangedSkill
+	if not first_ranged_skill:
+		_hide_ranged_info()
+		return
+
+	var bullet_template: NodeConfigTemplateNode = NodeConfigManager.get_node_config_template_by_entity_uid(first_ranged_skill.config.bullet_scene)
+	var bullet_c_config: BulletComponentNodeConfig = bullet_template.get_node_config(Constants.BULLET_COMPONENT_NODE_PATH)
+	var damage_influence := bullet_c_config.hit_influence as DamageInfluence
 	if damage_influence:
 		ranged_value.text = "%d-%d/%.1f" % [damage_influence.min_value, damage_influence.max_value, first_ranged_skill.config.cooldown]
+	else:
+		_hide_ranged_info()
 	
+
+func _hide_melee_info() -> void:
+	melee_type_icon.visible = false
+	melee_value.visible = false
+
 	
-func _set_value_melee(melee_c: MeleeComponent) -> void:
-	var first_melee_skill: MeleeSkill = melee_c.get_child(0)
+func _set_melee_value(melee_c: MeleeComponent) -> void:
+	var first_melee_skill := melee_c.get_child(0) as MeleeSkill
+	if not first_melee_skill:
+		_hide_melee_info()
+		return
+		
 	var damage_influence := first_melee_skill.config.influence as DamageInfluence
 	if damage_influence:
 		melee_value.text = "%d-%d/%.1f" % [damage_influence.min_value, damage_influence.max_value, first_melee_skill.config.cooldown]
+	else:
+		_hide_melee_info()

@@ -2,31 +2,45 @@
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_cpxfb"]
 [ext_resource type="Resource" uid="uid://gxo0ma17ryac" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/sprite_component/sprite_component.tres" id="2_yypyc"]
+[ext_resource type="Resource" uid="uid://c3kepuo5muurg" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/upgrade_component/upgrade_component.tres" id="5_x4jqa"]
+[ext_resource type="Resource" uid="uid://blw3bi8vqnons" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/sell_component/sell_component.tres" id="6_1dbf3"]
 [ext_resource type="Resource" uid="uid://cr6tcmd2dlcet" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/tower_component/tower_component.tres" id="11_f8xgj"]
 [ext_resource type="Resource" uid="uid://dvg8ocrfo0vns" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/select_component/select_component.tres" id="12_tlrlk"]
 [ext_resource type="Resource" uid="uid://qjt1qxerfvka" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/tower_archer_lvl_1.tres" id="13_dn06t"]
 
-[sub_resource type="Resource" id="Resource_5qlmi"]
-script = ExtResource("1_cpxfb")
-name = "SpriteComponent"
-config = ExtResource("2_yypyc")
-
-[sub_resource type="Resource" id="Resource_x4jqa"]
-script = ExtResource("1_cpxfb")
-name = "TowerComponent"
-config = ExtResource("11_f8xgj")
-
-[sub_resource type="Resource" id="Resource_1dbf3"]
+[sub_resource type="Resource" id="Resource_3154o"]
 script = ExtResource("1_cpxfb")
 name = "SelectComponent"
 config = ExtResource("12_tlrlk")
 
+[sub_resource type="Resource" id="Resource_8oe33"]
+script = ExtResource("1_cpxfb")
+name = "SpriteComponent"
+config = ExtResource("2_yypyc")
+
+[sub_resource type="Resource" id="Resource_1f5e0"]
+script = ExtResource("1_cpxfb")
+name = "TowerComponent"
+config = ExtResource("11_f8xgj")
+
+[sub_resource type="Resource" id="Resource_wa08q"]
+script = ExtResource("1_cpxfb")
+name = "UpgradeComponent"
+config = ExtResource("5_x4jqa")
+
+[sub_resource type="Resource" id="Resource_02r5h"]
+script = ExtResource("1_cpxfb")
+name = "SellComponent"
+config = ExtResource("6_1dbf3")
+
 [resource]
 script = ExtResource("1_cpxfb")
 config = ExtResource("13_dn06t")
-children = Array[ExtResource("1_cpxfb")]([SubResource("Resource_5qlmi"), SubResource("Resource_x4jqa"), SubResource("Resource_1dbf3")])
+children = Array[ExtResource("1_cpxfb")]([SubResource("Resource_3154o"), SubResource("Resource_8oe33"), SubResource("Resource_1f5e0"), SubResource("Resource_wa08q"), SubResource("Resource_02r5h")])
 children_dict = Dictionary[String, ExtResource("1_cpxfb")]({
-"SelectComponent": SubResource("Resource_1dbf3"),
-"SpriteComponent": SubResource("Resource_5qlmi"),
-"TowerComponent": SubResource("Resource_x4jqa")
+"SelectComponent": SubResource("Resource_3154o"),
+"SellComponent": SubResource("Resource_02r5h"),
+"SpriteComponent": SubResource("Resource_8oe33"),
+"TowerComponent": SubResource("Resource_1f5e0"),
+"UpgradeComponent": SubResource("Resource_wa08q")
 })
