@@ -8,5 +8,6 @@ class_name SearchSkillNodeConfig
 ## 搜索资源，用于搜索目标。
 @export var searcher: Searcher = null:
 	set(v):
+		Utils.rebind_changed(searcher, v, emit_changed)
 		searcher = v
 		emit_changed()

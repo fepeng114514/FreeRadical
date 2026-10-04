@@ -17,7 +17,11 @@ class_name ModifierComponentNodeConfig
 
 @export_group("Influence")
 ## 影响资源，用于对目标造成伤害或治愈目标。
-@export var influence: Influence = null
+@export var influence: Influence = null:
+	set(v):
+		Utils.rebind_changed(influence, v, emit_changed)
+		influence = v
+		emit_changed()
 ## 造成影响间隔时间。
 @export var influence_interval: float = 0.0
 ## 最大影响次数，-1 表示无限次数。

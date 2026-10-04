@@ -15,6 +15,7 @@ class_name AuraComponentNodeConfig
 ## 搜索资源，用于搜索目标。
 @export var searcher: Searcher = null:
 	set(v):
+		Utils.rebind_changed(searcher, v, emit_changed)
 		searcher = v
 		emit_changed()
 
@@ -22,6 +23,7 @@ class_name AuraComponentNodeConfig
 ## 影响资源，用于对目标造成伤害或治愈目标。
 @export var influence: Influence = null:
 	set(v):
+		Utils.rebind_changed(influence, v, emit_changed)
 		influence = v
 		emit_changed()
 ## 造成影响间隔时间。
@@ -32,3 +34,12 @@ class_name AuraComponentNodeConfig
 @export var influence_delay: float = 0.0
 ## 影响动画。
 @export var influence_animation: AnimationGroup = null
+
+var _init_connect_property_signals: Dictionary[String, Callable] = {
+	"searcher": emit_changed,
+	"influence": emit_changed,
+}
+
+
+func _init() -> void:
+	Utils.connect_property_signals(self, _init_connect_property_signals)

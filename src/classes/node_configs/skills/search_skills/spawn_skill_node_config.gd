@@ -9,5 +9,15 @@ class_name SpawnSkillNodeConfig
 ## 生成的实体初始位置偏移组。
 @export var spawn_offsets: OffsetGroup = null:
 	set(v):
+		Utils.rebind_changed(spawn_offsets, v, emit_changed)
 		spawn_offsets = v
 		emit_changed()
+
+var _init_connect_property_signals: Dictionary[String, Callable] = {
+	"searcher": emit_changed,
+	"spawn_offsets": emit_changed,
+}
+
+
+func _init() -> void:
+	Utils.connect_property_signals(self, _init_connect_property_signals)

@@ -42,3 +42,12 @@ func _validate_property(property: Dictionary) -> void:
 	match property.name:
 		"mod_type":
 			property.hint_string = "mask_check(%s)" % Type
+
+
+func _draw() -> void:
+	if not config:
+		return
+		
+	if DebugManager.draw_range_enabled:
+		if config.influence:
+			config.influence.draw_influence_range(self, position)

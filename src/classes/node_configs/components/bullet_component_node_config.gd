@@ -23,6 +23,7 @@ class_name BulletComponentNodeConfig
 ## 击中目标时的影响资源，用于对目标造成伤害或治愈目标。
 @export var hit_influence: Influence = null:
 	set(v):
+		Utils.rebind_changed(hit_influence, v, emit_changed)
 		hit_influence = v
 		emit_changed()
 ## 击中目标后是否移除子弹实体。
@@ -45,3 +46,11 @@ class_name BulletComponentNodeConfig
 @export var miss_sfx: AudioGroup = null
 ## 未击中目标时创建的实体场景路径列表。
 @export_file("*.tscn") var miss_payloads: PackedStringArray
+
+var _init_connect_property_signals: Dictionary[String, Callable] = {
+	"flight_animation": emit_changed,
+}
+
+
+func _init() -> void:
+	Utils.connect_property_signals(self, _init_connect_property_signals)

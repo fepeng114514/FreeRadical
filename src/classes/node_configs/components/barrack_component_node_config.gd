@@ -41,6 +41,7 @@ class_name BarrackComponentNodeConfig
 ## 士兵生成偏移组。
 @export var spawn_offsets: OffsetGroup = null:
 	set(v):
+		Utils.rebind_changed(spawn_offsets, v, emit_changed)
 		spawn_offsets = v
 		emit_changed()
 ## 最大士兵数量。
@@ -54,3 +55,11 @@ class_name BarrackComponentNodeConfig
 @export var delay: float = 0.0
 ## 生成士兵播放的音效。
 @export var sfx: AudioGroup = null
+
+var _init_connect_property_signals: Dictionary[String, Callable] = {
+	"spawn_offsets": emit_changed,
+}
+
+
+func _init() -> void:
+	Utils.connect_property_signals(self, _init_connect_property_signals)
