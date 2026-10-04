@@ -1,24 +1,34 @@
 [gd_scene format=3 uid="uid://bubogx21tfcoe"]
 
-[ext_resource type="PackedScene" uid="uid://ccwa8sdkpngu6" path="res://entities/bullets/bullet.tscn" id="1_v7oki"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_y8gcj"]
 [ext_resource type="Resource" uid="uid://b507h0o57cf72" path="res://entities/towers/tower_mage/tower_mage_lvl_1_bullet/template/node_config_template.tres" id="2_42e8m"]
 [ext_resource type="Resource" uid="uid://ccdnuxi61y58k" path="res://entities/towers/tower_mage/tower_mage_lvl_1_bullet/template/tower_mage_lvl_1_bullet.tres" id="3_mls5n"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="4_8x5mn"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="6_jlxxn"]
 [ext_resource type="Resource" uid="uid://ccnb2hsd02ngw" path="res://entities/towers/tower_mage/tower_mage_lvl_1_bullet/template/bullet_component/bullet_component.tres" id="6_tsw1o"]
 [ext_resource type="SpriteFrames" uid="uid://c67baw6nrd87f" path="res://assets/atlas/sprite_frames/towers/tower_mage_bolt.tres" id="7_mls5n"]
 [ext_resource type="Resource" uid="uid://ckewlnvfddmyj" path="res://entities/towers/tower_mage/tower_mage_lvl_1_bullet/template/sprite_component/sprite_component.tres" id="10_grujq"]
 
-[node name="TowerMageLvl1Bullet" unique_id=511000022 instance=ExtResource("1_v7oki")]
+[node name="TowerMageLvl1Bullet" type="Node2D" unique_id=511000022]
 z_index = 10
+script = ExtResource("1_y8gcj")
 node_config_template = ExtResource("2_42e8m")
 config = ExtResource("3_mls5n")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="BulletComponent" parent="." index="0" unique_id=1871836864]
+[node name="BulletComponent" type="Node2D" parent="." unique_id=1871836864]
+process_mode = 4
+script = ExtResource("4_8x5mn")
 config = ExtResource("6_tsw1o")
+metadata/_custom_type_script = "uid://haoljvofy74e"
 
-[node name="SpriteComponent" parent="." index="1" unique_id=1496253429]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1496253429]
+show_behind_parent = true
+script = ExtResource("6_jlxxn")
 config = ExtResource("10_grujq")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=435859138]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=435859138]
 position = Vector2(12, 0)
 sprite_frames = ExtResource("7_mls5n")
 animation = &"flying_left_right"

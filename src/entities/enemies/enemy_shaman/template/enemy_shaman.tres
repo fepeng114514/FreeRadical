@@ -17,6 +17,7 @@ flags = 1
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_4hpay")
 idle_animation = ExtResource("2_sgd3u")
 hit_offsets = SubResource("Resource_6majh")

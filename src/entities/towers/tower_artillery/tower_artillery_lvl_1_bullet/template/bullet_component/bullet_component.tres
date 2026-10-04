@@ -33,6 +33,7 @@ script = ExtResource("3_0guka")
 flight_total_time = 1.5
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_d3cii")
 trajectory = SubResource("Resource_arty_traj")
 rotation_speed = 6.0

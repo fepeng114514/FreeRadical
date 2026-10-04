@@ -1,53 +1,75 @@
 [gd_scene format=3 uid="uid://biuewnv7ms46d"]
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_2l8k1"]
-[ext_resource type="PackedScene" uid="uid://i8lw87tx2sls" path="res://entities/towers/tower.tscn" id="1_k1sas"]
 [ext_resource type="PackedScene" uid="uid://y5b5x3eff1nm" path="res://entities/towers/tower_archer/tower_archer_lvl_1_shooter/tower_archer_lvl_1_shooter.tscn" id="2_4mkqg"]
 [ext_resource type="Resource" uid="uid://ds3don28hocir" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/node_config_template.tres" id="2_gv4hx"]
 [ext_resource type="Resource" uid="uid://qjt1qxerfvka" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/tower_archer_lvl_1.tres" id="3_nnb8p"]
+[ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/records/price_record.gd" id="4_nnb8p"]
 [ext_resource type="Texture2D" uid="uid://dhue1hqyd1vbi" path="res://assets/atlas/atlas_textures/towers/tower_archer_0001.tres" id="5_bs58d"]
+[ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/records/tower_record.gd" id="5_e3jdy"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_p27ds"]
 [ext_resource type="Resource" uid="uid://gxo0ma17ryac" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/sprite_component/sprite_component.tres" id="7_e3jdy"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="8_2satw"]
 [ext_resource type="Script" uid="uid://btc4d4qsa05kv" path="res://classes/components/upgrade_component/upgrade_component.gd" id="10_l6wx7"]
 [ext_resource type="Resource" uid="uid://cr6tcmd2dlcet" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/tower_component/tower_component.tres" id="10_p27ds"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="11_gfm68"]
 [ext_resource type="Resource" uid="uid://c3kepuo5muurg" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/upgrade_component/upgrade_component.tres" id="11_s82ve"]
 [ext_resource type="Script" uid="uid://dvuc76kx7pdb4" path="res://classes/components/sell_component.gd" id="12_7y6ej"]
 [ext_resource type="Resource" uid="uid://blw3bi8vqnons" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/sell_component/sell_component.tres" id="13_gv4hx"]
 [ext_resource type="Resource" uid="uid://dvg8ocrfo0vns" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/select_component/select_component.tres" id="16_vuld6"]
 
-[node name="TowerArcherLvl1" unique_id=1010851235 instance=ExtResource("1_k1sas")]
+[node name="TowerArcherLvl1" type="Node2D" unique_id=1010851235]
 script = ExtResource("1_2l8k1")
 node_config_template = ExtResource("2_gv4hx")
 config = ExtResource("3_nnb8p")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SelectComponent" parent="." index="2" unique_id=1451324403]
+[node name="PriceRecord" type="Node2D" parent="." unique_id=979424814]
+process_mode = 4
+script = ExtResource("4_nnb8p")
+metadata/_custom_type_script = "uid://dnmvx5m0u5a8m"
+
+[node name="TowerRecord" type="Node2D" parent="." unique_id=772611295]
+process_mode = 4
+script = ExtResource("5_e3jdy")
+metadata/_custom_type_script = "uid://bsh34v046mn3y"
+
+[node name="SelectComponent" type="Node2D" parent="." unique_id=1451324403]
+process_mode = 4
+script = ExtResource("6_p27ds")
 config = ExtResource("16_vuld6")
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
-[node name="SpriteComponent" parent="." index="3" unique_id=40235501]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=40235501]
+show_behind_parent = true
+script = ExtResource("8_2satw")
 config = ExtResource("7_e3jdy")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=708564869]
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=708564869]
 position = Vector2(0, -49)
 texture = ExtResource("5_bs58d")
 
-[node name="TowerComponent" parent="." index="4" unique_id=1705871166]
+[node name="TowerComponent" type="Node2D" parent="." unique_id=1705871166]
+script = ExtResource("11_gfm68")
 config = ExtResource("10_p27ds")
+metadata/_custom_type_script = "uid://d104itkl6l02e"
 
-[node name="TowerArcherLvl1Shooter" parent="TowerComponent" index="0" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
+[node name="TowerArcherLvl1Shooter" parent="TowerComponent" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true
 position = Vector2(-15, -56)
 
-[node name="TowerArcherLvl1Shooter2" parent="TowerComponent" index="1" unique_id=656258836 instance=ExtResource("2_4mkqg")]
+[node name="TowerArcherLvl1Shooter2" parent="TowerComponent" unique_id=656258836 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true
 position = Vector2(18, -55)
 
-[node name="SellComponent" type="Node2D" parent="." index="5" unique_id=591733789]
+[node name="SellComponent" type="Node2D" parent="." unique_id=591733789]
 process_mode = 4
 script = ExtResource("12_7y6ej")
 config = ExtResource("13_gv4hx")
 metadata/_custom_type_script = "uid://dvuc76kx7pdb4"
 
-[node name="UpgradeComponent" type="Node2D" parent="." index="6" unique_id=428753637]
+[node name="UpgradeComponent" type="Node2D" parent="." unique_id=428753637]
 process_mode = 4
 script = ExtResource("10_l6wx7")
 config = ExtResource("11_s82ve")

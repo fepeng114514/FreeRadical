@@ -10,6 +10,7 @@ list = PackedStringArray("uid://dg2mw2u4f6y6x")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_eq4nd")
 hp_max = 800.0
 death_gold = 50.0

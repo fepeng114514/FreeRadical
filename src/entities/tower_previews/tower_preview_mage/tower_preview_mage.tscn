@@ -1,20 +1,25 @@
 [gd_scene format=3 uid="uid://daxror7vuxh6c"]
 
-[ext_resource type="PackedScene" uid="uid://cu4vukhb0tpp0" path="res://entities/tower_previews/tower_preview.tscn" id="1_yaptl"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_k5hlu"]
 [ext_resource type="Resource" uid="uid://n70ciy7ajthq" path="res://entities/tower_previews/tower_preview_mage/template/node_config_template.tres" id="2_m60ld"]
 [ext_resource type="Texture2D" uid="uid://s3hpiehtadcu" path="res://assets/atlas/atlas_textures/towers/tower_preview_mage.tres" id="2_oinjk"]
 [ext_resource type="Resource" uid="uid://b6be8tun84vqk" path="res://entities/tower_previews/tower_preview_mage/template/tower_preview_mage.tres" id="3_k5hlu"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_jt41o"]
 [ext_resource type="Resource" uid="uid://ui33e3fycjcm" path="res://entities/tower_previews/tower_preview_mage/template/sprite_component/sprite_component.tres" id="4_yi3c8"]
 
-[node name="TowerPreviewMage" unique_id=869103732 instance=ExtResource("1_yaptl")]
+[node name="TowerPreviewMage" type="Node2D" unique_id=869103732]
+script = ExtResource("1_k5hlu")
 node_config_template = ExtResource("2_m60ld")
 config = ExtResource("3_k5hlu")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" parent="." index="0" unique_id=753402732]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=753402732]
 show_behind_parent = true
 position = Vector2(-1, -33)
+script = ExtResource("4_jt41o")
 config = ExtResource("4_yi3c8")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1097269827]
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1097269827]
 modulate = Color(1, 1, 1, 0.69803923)
 texture = ExtResource("2_oinjk")

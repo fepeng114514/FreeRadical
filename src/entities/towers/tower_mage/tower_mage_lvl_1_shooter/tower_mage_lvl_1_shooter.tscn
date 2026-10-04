@@ -1,31 +1,41 @@
 [gd_scene format=3 uid="uid://cb2m3hbh7yyxl"]
 
-[ext_resource type="PackedScene" uid="uid://1mapqejexa4" path="res://entities/shooter/shooter.tscn" id="1_q4aig"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_3cw0q"]
 [ext_resource type="Resource" uid="uid://cnfi3xl4o4yof" path="res://entities/towers/tower_mage/tower_mage_lvl_1_shooter/template/node_config_template.tres" id="2_83haq"]
 [ext_resource type="Resource" uid="uid://bffdfrw0ai7h7" path="res://entities/towers/tower_mage/tower_mage_lvl_1_shooter/template/tower_mage_lvl_1_shooter.tres" id="3_vda3t"]
+[ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="4_catuc"]
 [ext_resource type="SpriteFrames" uid="uid://dlb447m72ai8p" path="res://assets/atlas/sprite_frames/towers/tower_mage_shooter.tres" id="4_vtoys"]
-[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/skills/search_skills/ranged_skill.gd" id="5_vssey"]
+[ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/skills/search_skills/ranged_skill.gd" id="5_vssey"]
 [ext_resource type="Resource" uid="uid://dfrlamryarn38" path="res://entities/towers/tower_mage/tower_mage_lvl_1_shooter/template/sprite_component/sprite_component.tres" id="6_rqpcm"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="8_rdit1"]
 [ext_resource type="Resource" uid="uid://c2c87cbhxq8jr" path="res://entities/towers/tower_mage/tower_mage_lvl_1_shooter/template/skill_component/skill_component.tres" id="9_udekb"]
 [ext_resource type="Resource" uid="uid://crk87t4lc47h" path="res://entities/towers/tower_mage/tower_mage_lvl_1_shooter/template/skill_component/ranged_skill/ranged_skill.tres" id="11_jajf2"]
 
-[node name="TowerMageLvl1Shooter" unique_id=1442245649 instance=ExtResource("1_q4aig")]
+[node name="TowerMageLvl1Shooter" type="Node2D" unique_id=1442245649]
+script = ExtResource("1_3cw0q")
 node_config_template = ExtResource("2_83haq")
 config = ExtResource("3_vda3t")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SkillComponent" parent="." index="0" unique_id=1615484677]
+[node name="SkillComponent" type="Node2D" parent="." unique_id=1615484677]
+process_mode = 4
+script = ExtResource("4_catuc")
 config = ExtResource("9_udekb")
+metadata/_custom_type_script = "uid://7hja048qjkj0"
 
-[node name="RangedSkill" type="Node2D" parent="SkillComponent" index="0" unique_id=14077948]
+[node name="RangedSkill" type="Node2D" parent="SkillComponent" unique_id=14077948]
 process_mode = 4
 script = ExtResource("5_vssey")
 config = ExtResource("11_jajf2")
 metadata/_custom_type_script = "uid://covaxdshxnvkn"
 
-[node name="SpriteComponent" parent="." index="1" unique_id=424643919]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=424643919]
+show_behind_parent = true
+script = ExtResource("8_rdit1")
 config = ExtResource("6_rqpcm")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=274561601]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=274561601]
 position = Vector2(0, -24)
 sprite_frames = ExtResource("4_vtoys")
 animation = &"idle_down"

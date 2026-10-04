@@ -23,6 +23,7 @@ any = Vector2(0, 17.55)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_vevkq")
 rally_max_range = 340.0
 rally_radius = 45.0

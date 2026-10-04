@@ -33,6 +33,7 @@ script = ExtResource("5_lwqsi")
 flight_total_time = 1.5
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_4pv6o")
 trajectory = SubResource("Resource_arty_traj")
 rotation_speed = 6.0

@@ -39,6 +39,7 @@ delay = 0.3
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_lbpxp")
 bullet_scene = "uid://bubogx21tfcoe"
 bullet_offsets = SubResource("Resource_c4v6e")

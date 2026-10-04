@@ -26,6 +26,7 @@ interact_policy = SubResource("Resource_a76o7")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_q8svd")
 speed = 175.0
 motion_animation = ExtResource("2_17mck")

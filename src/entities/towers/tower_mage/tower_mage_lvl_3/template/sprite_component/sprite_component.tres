@@ -23,5 +23,6 @@ ranged = SubResource("Resource_13cep")
 metadata/_custom_type_script = "uid://qu0synx4c136"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_ivpex")
 sync_animations = SubResource("Resource_lvkar")

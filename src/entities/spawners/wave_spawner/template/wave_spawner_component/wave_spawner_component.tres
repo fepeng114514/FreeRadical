@@ -15,6 +15,7 @@ list = PackedStringArray("uid://dqj23hrkj1kdw")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_ac3qy")
 wave_group = ExtResource("2_qiy3q")
 wave_timer_start_sfx = SubResource("Resource_ievru")

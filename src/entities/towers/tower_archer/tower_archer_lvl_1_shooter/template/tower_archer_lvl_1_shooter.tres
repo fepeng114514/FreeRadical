@@ -11,5 +11,6 @@ down = &"idle_down"
 vertical_mirror = true
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_j8cim")
 idle_animation = SubResource("Resource_e0w6f")

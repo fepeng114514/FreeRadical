@@ -18,5 +18,6 @@ upgrade_items = Array[ExtResource("3_twhev")]([SubResource("Resource_o2c2o")])
 metadata/_custom_type_script = "uid://ckofjxi84flpi"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_nmgxg")
 upgrade_items = SubResource("Resource_gm7fj")

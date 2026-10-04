@@ -1,28 +1,34 @@
 [gd_scene format=3 uid="uid://gjv8x6puntrs"]
 
-[ext_resource type="PackedScene" uid="uid://43k4b31afsho" path="res://entities/modifiers/modifier.tscn" id="1_0clsk"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_pehpu"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="2_0xtce"]
 [ext_resource type="Resource" uid="uid://prgfd10rfl6e" path="res://entities/modifiers/heal/template/node_config_template.tres" id="2_bik33"]
 [ext_resource type="Resource" uid="uid://c8qxqcojs6ppe" path="res://entities/modifiers/heal/template/heal.tres" id="3_1i07t"]
+[ext_resource type="Script" uid="uid://dj5pmhne1ihna" path="res://classes/components/modifier_component.gd" id="4_llis2"]
 [ext_resource type="SpriteFrames" uid="uid://bdkldfew1v4q7" path="res://assets/atlas/sprite_frames/commons/healing_small.tres" id="5_0xtce"]
 [ext_resource type="Resource" uid="uid://2rev4xwcmmrq" path="res://entities/modifiers/heal/template/modifier_component/modifier_component.tres" id="5_aypc8"]
 [ext_resource type="Resource" uid="uid://domcf7c6rkum2" path="res://entities/modifiers/heal/template/sprite_component/sprite_component.tres" id="7_tqqo0"]
 
-[node name="Heal" unique_id=797095383 instance=ExtResource("1_0clsk")]
+[node name="Heal" type="Node2D" unique_id=797095383]
 z_index = 500
+script = ExtResource("1_pehpu")
 node_config_template = ExtResource("2_bik33")
 config = ExtResource("3_1i07t")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="ModifierComponent" parent="." index="0" unique_id=1650612069]
+[node name="ModifierComponent" type="Node2D" parent="." unique_id=1650612069]
+process_mode = 4
+script = ExtResource("4_llis2")
 config = ExtResource("5_aypc8")
+metadata/_custom_type_script = "uid://dj5pmhne1ihna"
 
-[node name="SpriteComponent" type="Node2D" parent="." index="1" unique_id=1905704003]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1905704003]
 show_behind_parent = true
 script = ExtResource("2_0xtce")
 config = ExtResource("7_tqqo0")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=1375230973]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1375230973]
 position = Vector2(0, -19)
 sprite_frames = ExtResource("5_0xtce")
 animation = &"idle"

@@ -25,7 +25,7 @@ script = ExtResource("4_daqjt")
 flags = 1048576
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
-[sub_resource type="Resource" id="Resource_uea8m"]
+[sub_resource type="Resource" id="Resource_u6bqw"]
 resource_local_to_scene = true
 script = ExtResource("5_gjkmc")
 max_radius = 450.0
@@ -34,10 +34,11 @@ interact_policy = SubResource("Resource_k5dw5")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_7hrn5")
 bullet_scene = "uid://xybhrfxqmw21"
 bullet_offsets = SubResource("Resource_367kr")
-searcher = SubResource("Resource_uea8m")
+searcher = SubResource("Resource_u6bqw")
 cooldown = 0.8
 delay = 0.167
 animation = SubResource("Resource_6rlp0")

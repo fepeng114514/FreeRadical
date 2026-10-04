@@ -10,6 +10,7 @@ list = PackedStringArray("uid://v0wce41w75e7")
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_m68of")
 hp_max = 80.0
 physical_armor = 0.3

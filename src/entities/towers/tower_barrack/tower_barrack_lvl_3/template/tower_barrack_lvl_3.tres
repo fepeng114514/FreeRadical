@@ -19,6 +19,7 @@ flags = 16
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_igtao")
 idle_animation = SubResource("Resource_76f6u")
 spawn_sfx = ExtResource("4_1uudx")

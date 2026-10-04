@@ -10,5 +10,6 @@ right = &"idle_left_right"
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_dqp81")
 idle_animation = SubResource("Resource_6exs2")

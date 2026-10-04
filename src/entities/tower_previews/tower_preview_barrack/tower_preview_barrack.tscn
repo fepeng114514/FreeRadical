@@ -1,20 +1,25 @@
 [gd_scene format=3 uid="uid://bwgt8qdihjrc7"]
 
-[ext_resource type="PackedScene" uid="uid://cu4vukhb0tpp0" path="res://entities/tower_previews/tower_preview.tscn" id="1_yaptl"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_t53pl"]
 [ext_resource type="Texture2D" uid="uid://dtgkji1bfpsgv" path="res://assets/atlas/atlas_textures/towers/tower_preview_barrack.tres" id="2_1io1d"]
 [ext_resource type="Resource" uid="uid://ckh57kgtcsouw" path="res://entities/tower_previews/tower_preview_barrack/template/node_config_template.tres" id="2_12j2x"]
 [ext_resource type="Resource" uid="uid://cb1157xmo23e4" path="res://entities/tower_previews/tower_preview_barrack/template/tower_preview_barrack.tres" id="3_t53pl"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="4_igng0"]
 [ext_resource type="Resource" uid="uid://cwplumvb6bjuj" path="res://entities/tower_previews/tower_preview_barrack/template/sprite_component/sprite_component.tres" id="4_lq2bl"]
 
-[node name="TowerPreviewBarrack" unique_id=869103732 instance=ExtResource("1_yaptl")]
+[node name="TowerPreviewBarrack" type="Node2D" unique_id=869103732]
+script = ExtResource("1_t53pl")
 node_config_template = ExtResource("2_12j2x")
 config = ExtResource("3_t53pl")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SpriteComponent" parent="." index="0" unique_id=753402732]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=753402732]
 show_behind_parent = true
 position = Vector2(0, -48)
+script = ExtResource("4_igng0")
 config = ExtResource("4_lq2bl")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1097269827]
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1097269827]
 modulate = Color(1, 1, 1, 0.69803923)
 texture = ExtResource("2_1io1d")

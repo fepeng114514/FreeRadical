@@ -1,59 +1,74 @@
 [gd_scene format=3 uid="uid://nosygoauf7h"]
 
-[ext_resource type="PackedScene" uid="uid://bh5r8csv3l13d" path="res://entities/soldiers/soldier.tscn" id="1_siw8g"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_ebqo2"]
 [ext_resource type="Resource" uid="uid://beoyl7wku1ssu" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/node_config_template.tres" id="2_8nkkc"]
 [ext_resource type="SpriteFrames" uid="uid://egv7m8r40cso" path="res://assets/atlas/sprite_frames/towers/tower_barracks_soldier_lvl2.tres" id="2_lp58n"]
 [ext_resource type="Resource" uid="uid://gbwgag5howqw" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/tower_barrack_lvl_2_soldier.tres" id="3_tc3im"]
+[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component/health_component.gd" id="4_chwhn"]
+[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_component/health_bar.tscn" id="6_cduld"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="7_at354"]
 [ext_resource type="Resource" uid="uid://cacdgju35gmc6" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/sprite_component/sprite_component.tres" id="7_lfyqo"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="8_cduld"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="9_d4630"]
 [ext_resource type="Resource" uid="uid://dn1lqep05s6jh" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/health_component/health_component.tres" id="10_k2j22"]
-[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="11_d4630"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/components/skills/melee_skill.gd" id="11_d4630"]
 [ext_resource type="Resource" uid="uid://cqqdlli1sdmiw" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/melee_component/melee_component.tres" id="13_0ws4q"]
 [ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://classes/components/rally_component.gd" id="14_tc3im"]
 [ext_resource type="Resource" uid="uid://d03nqll0x4p1o" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/melee_component/melee_skill/melee_skill.tres" id="17_j2a22"]
 [ext_resource type="Resource" uid="uid://chv4b5h50a1xk" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/select_component/select_component.tres" id="20_eycpm"]
 [ext_resource type="Resource" uid="uid://du0r6eso58xnk" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/rally_component/rally_component.tres" id="22_02jeu"]
 
-[node name="TowerBarrackLvl2Soldier" unique_id=1677548747 instance=ExtResource("1_siw8g")]
+[node name="TowerBarrackLvl2Soldier" type="Node2D" unique_id=1677548747]
+script = ExtResource("1_ebqo2")
 node_config_template = ExtResource("2_8nkkc")
 config = ExtResource("3_tc3im")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="HealthComponent" parent="." index="0" unique_id=1744828212]
+[node name="HealthComponent" type="Node2D" parent="." unique_id=1744828212]
+process_mode = 4
+script = ExtResource("4_chwhn")
 config = ExtResource("10_k2j22")
+metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
-[node name="HealthBar" parent="HealthComponent" index="0" unique_id=179515968]
+[node name="HealthBar" parent="HealthComponent" unique_id=179515968 instance=ExtResource("6_cduld")]
 offset_top = -46.0
 offset_right = 21.0
 offset_bottom = -40.0
 
-[node name="SelectComponent" parent="." index="1" unique_id=507338087]
+[node name="SelectComponent" type="Node2D" parent="." unique_id=507338087]
+process_mode = 4
+script = ExtResource("7_at354")
 config = ExtResource("20_eycpm")
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
-[node name="SpriteComponent" parent="." index="2" unique_id=245624118]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=245624118]
+show_behind_parent = true
+script = ExtResource("9_d4630")
 config = ExtResource("7_lfyqo")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=1889529730]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1889529730]
 position = Vector2(0, -34)
 sprite_frames = ExtResource("2_lp58n")
 animation = &"idle_left_right"
 
-[node name="MeleeComponent" type="Node2D" parent="." index="3" unique_id=668314156]
+[node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156]
 process_mode = 4
 script = ExtResource("8_cduld")
 config = ExtResource("13_0ws4q")
 metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
 
-[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" index="0" unique_id=1014449767]
+[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
 process_mode = 4
 script = ExtResource("11_d4630")
 config = ExtResource("17_j2a22")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
-[node name="RallyComponent" type="Node2D" parent="." index="4" unique_id=1216108052]
+[node name="RallyComponent" type="Node2D" parent="." unique_id=1216108052]
 process_mode = 4
 script = ExtResource("14_tc3im")
 config = ExtResource("22_02jeu")
 metadata/_custom_type_script = "uid://2keyy5hsydyv"
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="RallyComponent" index="0" unique_id=375943738]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="RallyComponent" unique_id=375943738]
 navigation_layers = 2

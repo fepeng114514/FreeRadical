@@ -12,6 +12,7 @@ right = Vector2(42.84, 0)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_qctlb")
 speed = 82.0
 motion_animation = ExtResource("2_7xton")

@@ -10,6 +10,7 @@ right = &"walk_left_right"
 right_replace_left = true
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_35rgq")
 speed = 175.0
 can_select_rally = false

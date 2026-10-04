@@ -26,6 +26,7 @@ flags = 2097152
 metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_0dw16")
 influence = SubResource("Resource_2lnej")
 interact_policy = SubResource("Resource_1qosv")

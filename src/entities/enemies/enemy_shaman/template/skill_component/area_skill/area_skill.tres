@@ -40,6 +40,7 @@ searcher = SubResource("Resource_8umbj")
 metadata/_custom_type_script = "uid://bu7q2xp2xd78b"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_62eex")
 influence = SubResource("Resource_t5fix")
 cooldown = 8.0

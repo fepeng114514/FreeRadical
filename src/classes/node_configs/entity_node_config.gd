@@ -38,4 +38,6 @@ var _init_connect_property_signals: Dictionary[String, Callable] = {
 
 
 func _init() -> void:
+	super()
+		
 	Utils.connect_property_signals(self, _init_connect_property_signals)

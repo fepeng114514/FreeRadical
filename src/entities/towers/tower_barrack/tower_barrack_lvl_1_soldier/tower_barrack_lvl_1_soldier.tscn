@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://f30rl46i8akx"]
 
-[ext_resource type="PackedScene" uid="uid://bh5r8csv3l13d" path="res://entities/soldiers/soldier.tscn" id="1_siw8g"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_sxtuv"]
 [ext_resource type="Resource" uid="uid://d36lmujunb81s" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/template/node_config_template.tres" id="2_eu6nu"]
 [ext_resource type="Resource" uid="uid://bl02tu2yne7b" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/template/tower_barrack_lvl_1_soldier.tres" id="3_8bqty"]
+[ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component/health_component.gd" id="4_a0iny"]
 [ext_resource type="SpriteFrames" uid="uid://n3jkeepo0ehc" path="res://assets/atlas/sprite_frames/towers/tower_barracks_soldier_lvl1.tres" id="4_xkrn4"]
+[ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_component/health_bar.tscn" id="6_5ubj8"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="7_xu63r"]
 [ext_resource type="Resource" uid="uid://d00slppcxagf8" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/template/sprite_component/sprite_component.tres" id="7_ykhjj"]
-[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/skills/melee_skill.gd" id="8_qo1np"]
+[ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/components/skills/melee_skill.gd" id="8_qo1np"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="9_igu4e"]
 [ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://classes/components/rally_component.gd" id="9_uhicr"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="10_700db"]
 [ext_resource type="Resource" uid="uid://fq67twagduj4" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/template/health_component/health_component.tres" id="10_bsa6l"]
@@ -15,52 +18,63 @@
 [ext_resource type="Resource" uid="uid://cr6somh1pcfap" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/template/select_component/select_component.tres" id="20_u0qj6"]
 [ext_resource type="Resource" uid="uid://bakn835q6xqoq" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/template/rally_component/rally_component.tres" id="22_y171e"]
 
-[node name="TowerBarrackLvl1Soldier" unique_id=1677548747 instance=ExtResource("1_siw8g")]
+[node name="TowerBarrackLvl1Soldier" type="Node2D" unique_id=1677548747]
+script = ExtResource("1_sxtuv")
 node_config_template = ExtResource("2_eu6nu")
 config = ExtResource("3_8bqty")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="HealthComponent" parent="." index="0" unique_id=1744828212]
+[node name="HealthComponent" type="Node2D" parent="." unique_id=1744828212]
+process_mode = 4
+script = ExtResource("4_a0iny")
 config = ExtResource("10_bsa6l")
+metadata/_custom_type_script = "uid://ly8ldtphpxmy"
 
-[node name="HealthBar" parent="HealthComponent" index="0" unique_id=179515968]
+[node name="HealthBar" parent="HealthComponent" unique_id=179515968 instance=ExtResource("6_5ubj8")]
 offset_top = -46.0
 offset_right = 21.0
 offset_bottom = -40.0
 
-[node name="SelectComponent" parent="." index="1" unique_id=507338087]
-config = ExtResource("20_u0qj6")
-
-[node name="SpriteComponent" parent="." index="2" unique_id=245624118]
-config = ExtResource("7_ykhjj")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="0" unique_id=1889529730]
-position = Vector2(0, -34)
-sprite_frames = ExtResource("4_xkrn4")
-animation = &"idle_left_right"
-
-[node name="MeleeComponent" type="Node2D" parent="." index="3" unique_id=668314156]
-process_mode = 4
-script = ExtResource("7_xu63r")
-config = ExtResource("13_jit3k")
-metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
-
-[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" index="0" unique_id=1014449767]
-process_mode = 4
-script = ExtResource("8_qo1np")
-config = ExtResource("17_wogks")
-metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
-
-[node name="SelectComponent2" type="Node2D" parent="." index="4" unique_id=346591849]
+[node name="SelectComponent" type="Node2D" parent="." unique_id=507338087]
 process_mode = 4
 script = ExtResource("10_700db")
 config = ExtResource("20_u0qj6")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
-[node name="RallyComponent" type="Node2D" parent="." index="5" unique_id=1216108052]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=245624118]
+show_behind_parent = true
+script = ExtResource("9_igu4e")
+config = ExtResource("7_ykhjj")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1889529730]
+position = Vector2(0, -34)
+sprite_frames = ExtResource("4_xkrn4")
+animation = &"idle_left_right"
+
+[node name="MeleeComponent" type="Node2D" parent="." unique_id=668314156]
+process_mode = 4
+script = ExtResource("7_xu63r")
+config = ExtResource("13_jit3k")
+metadata/_custom_type_script = "uid://c1n4jgx6pmhfo"
+
+[node name="MeleeSkill" type="Node2D" parent="MeleeComponent" unique_id=1014449767]
+process_mode = 4
+script = ExtResource("8_qo1np")
+config = ExtResource("17_wogks")
+metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
+
+[node name="SelectComponent2" type="Node2D" parent="." unique_id=346591849]
+process_mode = 4
+script = ExtResource("10_700db")
+config = ExtResource("20_u0qj6")
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
+
+[node name="RallyComponent" type="Node2D" parent="." unique_id=1216108052]
 process_mode = 4
 script = ExtResource("9_uhicr")
 config = ExtResource("22_y171e")
 metadata/_custom_type_script = "uid://2keyy5hsydyv"
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="RallyComponent" index="0" unique_id=375943738]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="RallyComponent" unique_id=375943738]
 navigation_layers = 2

@@ -1,22 +1,32 @@
 [gd_scene format=3 uid="uid://df0twe44nlame"]
 
-[ext_resource type="PackedScene" uid="uid://ccwa8sdkpngu6" path="res://entities/bullets/bullet.tscn" id="1_v7oki"]
+[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_4s2n5"]
 [ext_resource type="Resource" uid="uid://c0lhar10ttjd6" path="res://entities/towers/tower_archer/tower_archer_lvl_3_bullet/template/node_config_template.tres" id="2_1lo8j"]
 [ext_resource type="Resource" uid="uid://dkiwdwm68mjhr" path="res://entities/towers/tower_archer/tower_archer_lvl_3_bullet/template/tower_archer_lvl_3_bullet.tres" id="3_26f1m"]
+[ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="4_uo2xr"]
 [ext_resource type="Resource" uid="uid://yyrnwbkn00r1" path="res://entities/towers/tower_archer/tower_archer_lvl_3_bullet/template/bullet_component/bullet_component.tres" id="5_t2dyi"]
 [ext_resource type="Texture2D" uid="uid://bu4o4hm8l8aq6" path="res://assets/atlas/atlas_textures/towers/arrow.tres" id="6_1lo8j"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="6_26f1m"]
 [ext_resource type="Resource" uid="uid://c7brnue6mehys" path="res://entities/towers/tower_archer/tower_archer_lvl_3_bullet/template/sprite_component/sprite_component.tres" id="9_tvc2k"]
 
-[node name="TowerArcherLvl3Bullet" unique_id=43521632 instance=ExtResource("1_v7oki")]
+[node name="TowerArcherLvl3Bullet" type="Node2D" unique_id=43521632]
 z_index = 10
+script = ExtResource("1_4s2n5")
 node_config_template = ExtResource("2_1lo8j")
 config = ExtResource("3_26f1m")
+metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="BulletComponent" parent="." index="0" unique_id=1871836864]
+[node name="BulletComponent" type="Node2D" parent="." unique_id=1871836864]
+process_mode = 4
+script = ExtResource("4_uo2xr")
 config = ExtResource("5_t2dyi")
+metadata/_custom_type_script = "uid://haoljvofy74e"
 
-[node name="SpriteComponent" parent="." index="1" unique_id=1496253429]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=1496253429]
+show_behind_parent = true
+script = ExtResource("6_26f1m")
 config = ExtResource("9_tvc2k")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=1900013004]
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1900013004]
 texture = ExtResource("6_1lo8j")

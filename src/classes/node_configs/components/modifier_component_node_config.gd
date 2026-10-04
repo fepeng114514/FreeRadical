@@ -30,3 +30,13 @@ class_name ModifierComponentNodeConfig
 @export var influence_delay: float = 0.0
 ## 影响动画。
 @export var influence_animation: AnimationGroup = null
+
+var _init_connect_property_signals: Dictionary[String, Callable] = {
+	"influence": emit_changed,
+}
+
+
+func _init() -> void:
+	super()
+		
+	Utils.connect_property_signals(self, _init_connect_property_signals)

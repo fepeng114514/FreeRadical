@@ -1,57 +1,79 @@
 [gd_scene format=3 uid="uid://cc3v5b7ci4wxv"]
 
-[ext_resource type="PackedScene" uid="uid://i8lw87tx2sls" path="res://entities/towers/tower.tscn" id="1_k1sas"]
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_wi258"]
 [ext_resource type="Resource" uid="uid://b83waj1nrsxad" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/node_config_template.tres" id="2_6kjmh"]
 [ext_resource type="Resource" uid="uid://cp6vso3rhikqe" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/tower_barrack_lvl_1.tres" id="3_dsnyp"]
 [ext_resource type="Texture2D" uid="uid://fcpj16d35cum" path="res://assets/atlas/atlas_textures/towers/tower_barrack_0001.tres" id="4_2u03i"]
+[ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/records/price_record.gd" id="4_dsnyp"]
 [ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="4_u6jgq"]
 [ext_resource type="SpriteFrames" uid="uid://c3kr0u7ptrtbr" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl1_door.tres" id="5_3ddwr"]
+[ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/records/tower_record.gd" id="5_f2pah"]
+[ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_qabbr"]
 [ext_resource type="Resource" uid="uid://bvrffb0rv02l6" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/sprite_component/sprite_component.tres" id="7_f2pah"]
+[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="8_jeded"]
 [ext_resource type="Resource" uid="uid://cf4kwtf78s6h5" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/tower_component/tower_component.tres" id="11_qabbr"]
 [ext_resource type="Script" uid="uid://dvuc76kx7pdb4" path="res://classes/components/sell_component.gd" id="12_bilmd"]
+[ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="12_jl2co"]
 [ext_resource type="Resource" uid="uid://b4uewjaccstf3" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/select_component/select_component.tres" id="13_jeded"]
 [ext_resource type="Resource" uid="uid://d3ipmw4acjgpm" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/sell_component/sell_component.tres" id="13_u2yxl"]
 [ext_resource type="Script" uid="uid://btc4d4qsa05kv" path="res://classes/components/upgrade_component/upgrade_component.gd" id="14_47ik5"]
 [ext_resource type="Resource" uid="uid://b6se83j0rt55o" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/upgrade_component/upgrade_component.tres" id="15_6kjmh"]
 [ext_resource type="Resource" uid="uid://bm4wperattgdb" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/barrack_component/barrack_component.tres" id="15_jl2co"]
 
-[node name="TowerBarrackLvl1" unique_id=187367710 instance=ExtResource("1_k1sas")]
+[node name="TowerBarrackLvl1" type="Node2D" unique_id=187367710]
 script = ExtResource("1_wi258")
 node_config_template = ExtResource("2_6kjmh")
 config = ExtResource("3_dsnyp")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="SelectComponent" parent="." index="2" unique_id=1451324403]
+[node name="PriceRecord" type="Node2D" parent="." unique_id=979424814]
+process_mode = 4
+script = ExtResource("4_dsnyp")
+metadata/_custom_type_script = "uid://dnmvx5m0u5a8m"
+
+[node name="TowerRecord" type="Node2D" parent="." unique_id=772611295]
+process_mode = 4
+script = ExtResource("5_f2pah")
+metadata/_custom_type_script = "uid://bsh34v046mn3y"
+
+[node name="SelectComponent" type="Node2D" parent="." unique_id=1451324403]
+process_mode = 4
+script = ExtResource("6_qabbr")
 config = ExtResource("13_jeded")
+metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
-[node name="SpriteComponent" parent="." index="3" unique_id=40235501]
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=40235501]
+show_behind_parent = true
 position = Vector2(0, -48)
+script = ExtResource("8_jeded")
 config = ExtResource("7_f2pah")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" index="0" unique_id=927508667]
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=927508667]
 texture = ExtResource("4_2u03i")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" index="1" unique_id=1766989563]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1766989563]
 sprite_frames = ExtResource("5_3ddwr")
 animation = &"idle"
 
-[node name="TowerComponent" parent="." index="4" unique_id=1705871166]
+[node name="TowerComponent" type="Node2D" parent="." unique_id=1705871166]
+script = ExtResource("12_jl2co")
 config = ExtResource("11_qabbr")
+metadata/_custom_type_script = "uid://d104itkl6l02e"
 
-[node name="BarrackComponent" type="Node2D" parent="." index="5" unique_id=441339810]
+[node name="BarrackComponent" type="Node2D" parent="." unique_id=441339810]
 process_mode = 4
 script = ExtResource("4_u6jgq")
 config = ExtResource("15_jl2co")
 metadata/_custom_type_script = "uid://b3vhika61oa7p"
 
-[node name="SellComponent" type="Node2D" parent="." index="6" unique_id=1111854886]
+[node name="SellComponent" type="Node2D" parent="." unique_id=1111854886]
 process_mode = 4
 script = ExtResource("12_bilmd")
 config = ExtResource("13_u2yxl")
 metadata/_custom_type_script = "uid://dvuc76kx7pdb4"
 
-[node name="UpgradeComponent" type="Node2D" parent="." index="7" unique_id=1905757986]
+[node name="UpgradeComponent" type="Node2D" parent="." unique_id=1905757986]
 process_mode = 4
 script = ExtResource("14_47ik5")
 config = ExtResource("15_6kjmh")

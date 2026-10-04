@@ -34,6 +34,7 @@ interact_policy = SubResource("Resource_ccwc3")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_yenvg")
 bullet_scene = "uid://df0twe44nlame"
 bullet_offsets = SubResource("Resource_367kr")

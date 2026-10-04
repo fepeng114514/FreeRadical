@@ -17,6 +17,7 @@ list = PackedStringArray("uid://clan5d73j5qax", "uid://b5f5tfbarrnm6", "uid://c8
 metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_1rgsy")
 spawn_sfx = SubResource("Resource_wq07w")
 interact_policy = SubResource("Resource_ojm1x")

@@ -30,6 +30,7 @@ script = ExtResource("4_juchb")
 flight_speed = 500.0
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_i4ruq")
 trajectory = SubResource("Resource_mage_traj")
 flight_animation = SubResource("Resource_cdowc")
