@@ -14,7 +14,7 @@ func _on_insert(entity: Entity) -> bool:
 	if not target:
 		return false
 		
-	target.target_bullet_id_list.append(entity.id)
+	target.aimed_bullet_ids.append(entity.id)
 	bullet_c.time_stamp = TimeManager.tick_time_stamp
 	var predict_time: float = bullet_c.config.trajectory._get_predict_time() if bullet_c.config.trajectory else 0.0
 	if predict_time:
@@ -42,7 +42,7 @@ func _on_insert(entity: Entity) -> bool:
 	if damage_influence:
 		match damage_influence.get_value_mode:
 			damage_influence.GetValueMode.RANDOM:
-				damage_influence.override_value = damage_influence.get_damage_value()
+				damage_influence.value = randf_range(damage_influence.min_value, damage_influence.max_value)
 
 	return true
 
@@ -56,7 +56,7 @@ func _on_remove(entity: Entity) -> bool:
 	if not target:
 		return true
 		
-	target.target_bullet_id_list.erase(entity.id)
+	target.aimed_bullet_ids.erase(entity.id)
 	return true
 
 

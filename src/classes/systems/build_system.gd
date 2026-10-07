@@ -22,6 +22,12 @@ func _on_update(_delta: float) -> void:
 			continue
 
 		var target: Entity = EntityManager.create_entity(build_c.config.build_target)
-		target.set_global_position_with_components(build.global_position)
+		target.global_position = build.global_position
+
+		var record_c: RecordComponent = build.get_node_or_null(Constants.RECORD_COMPONENT_NODE_PATH)
+		var new_record_c: RecordComponent = target.get_node_or_null(Constants.RECORD_COMPONENT_NODE_PATH)
+		if record_c and new_record_c:
+			record_c.transmit_record(new_record_c)
+			
 		EntityManager.queue_insert_entity(target)
 		EntityManager.queue_remove_entity(build)

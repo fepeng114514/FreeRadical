@@ -54,7 +54,7 @@ func _on_insert(modifier: Entity) -> bool:
 		if not modifier_c.config.same_stack_policy.apply(modifier, same_modifier_list):
 			return false
 
-	target.has_mods_id_list.append(modifier.id)
+	target.has_mods_ids.append(modifier.id)
 	return true
 
 
@@ -82,7 +82,7 @@ func _on_remove(modifier: Entity) -> bool:
 		reseted_property_set[key] = true
 		_reset_property(target, property_mod)
 
-	target.has_mods_id_list.erase(modifier.id)
+	target.has_mods_ids.erase(modifier.id)
 
 	for t_mod: Entity in target.get_has_mod_list():
 		var t_modifier_c: ModifierComponent = t_mod.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
@@ -145,9 +145,9 @@ func _take_influfluence(modifier: Entity, modifier_c: ModifierComponent, target:
 ## 处理修改器的属性修改。
 func _process_property_modifiers() -> void:
 	for entity: Entity in EntityManager.get_valid_entities():
-		var has_mods_id_list_size: int = entity.has_mods_id_list.size()
-		if entity.last_has_mods_id_list_size != has_mods_id_list_size:
-			entity.last_has_mods_id_list_size = has_mods_id_list_size
+		var has_mods_id_list_size: int = entity.has_mods_ids.size()
+		if entity.last_has_mods_ids_size != has_mods_id_list_size:
+			entity.last_has_mods_ids_size = has_mods_id_list_size
 			var reseted_property_set: Dictionary = {}
 
 			for modifier: Entity in entity.get_has_mod_list():

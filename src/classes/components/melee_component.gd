@@ -136,6 +136,13 @@ func blocker_cleanup_melee_relations(entity: Entity) -> void:
 		var blocked: Entity = EntityManager.get_entity_by_id(id)
 		if not blocked:
 			continue 
+		
+		var search_flag: int = config.searcher.search_flag
+		if search_flag & Searcher.SearchFlag.SKIP_DOOMED and blocked.state & Entity.State.DOOMED:
+			continue
+
+		if search_flag & Searcher.SearchFlag.SKIP_DEAD and blocked.state & Entity.State.DEAD:
+			continue
 			
 		if not MathUtils.is_in_ellipse_ring(
 				center, blocked.global_position, config.searcher.min_radius, config.searcher.max_radius

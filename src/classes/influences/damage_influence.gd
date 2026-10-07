@@ -30,9 +30,3 @@ func _take(source: Entity, target: Entity, is_area: bool) -> void:
 	damage.damage_type = damage_type
 	damage.damage_flags = damage_flags
 	DamageManager.queue_insert_damage(damage)
-
-
-func get_damage_value() -> float:
-	var value: float = randf_range(min_value, max_value)
-
-	return value

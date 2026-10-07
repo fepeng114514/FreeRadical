@@ -40,8 +40,8 @@ enum GetValueMode {
 		searcher = v
 		emit_changed()
 
-## 覆盖的影响值，用于使用外部的影响值，会覆盖后续计算的影响值。
-var override_value: float = Constants.UNSET
+## 当前值，根据取值模式计算，已有值将不会多次计算。
+var value: float = Constants.UNSET
 
 
 var _init_connect_property_signals: Dictionary[String, Callable] = {
@@ -91,8 +91,8 @@ func draw_influence_range(drawer: CanvasItem, center: Vector2) -> void:
 
 
 func get_value(source: Entity, target: Entity) -> float:
-	if Utils.is_valid_number(override_value):
-		return override_value
+	if Utils.is_valid_number(value):
+		return value
 		
 	match get_value_mode:
 		GetValueMode.RANDOM:

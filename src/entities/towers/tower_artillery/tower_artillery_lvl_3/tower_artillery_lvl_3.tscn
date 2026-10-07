@@ -4,9 +4,10 @@
 [ext_resource type="Resource" uid="uid://cmn3flwgx4ssn" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/node_config_template.tres" id="2_fpml0"]
 [ext_resource type="SpriteFrames" uid="uid://djlxpbrwpkdea" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer1.tres" id="3_5myai"]
 [ext_resource type="Resource" uid="uid://6m6cfe7uqe32" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/tower_artillery_lvl_3.tres" id="3_38quj"]
-[ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/records/price_record.gd" id="4_6w2jx"]
+[ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_6w2jx"]
+[ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_fpml0"]
 [ext_resource type="SpriteFrames" uid="uid://d2qwys4yp5rxm" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer2.tres" id="4_gdik0"]
-[ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/records/tower_record.gd" id="5_fpml0"]
+[ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_fpml0"]
 [ext_resource type="SpriteFrames" uid="uid://chmmtn7ba1fcw" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer3.tres" id="5_tewo5"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_38quj"]
 [ext_resource type="SpriteFrames" uid="uid://r231uj3dbf7q" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer4.tres" id="6_amoxe"]
@@ -32,12 +33,17 @@ node_config_template = ExtResource("2_fpml0")
 config = ExtResource("3_38quj")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="PriceRecord" type="Node2D" parent="." unique_id=979424814]
+[node name="RecordComponent" type="Node2D" parent="." unique_id=1489783340]
+process_mode = 4
+script = ExtResource("4_fpml0")
+metadata/_custom_type_script = "uid://cmsakrqf2ax88"
+
+[node name="PriceRecord" type="Node2D" parent="RecordComponent" unique_id=979424814]
 process_mode = 4
 script = ExtResource("4_6w2jx")
 metadata/_custom_type_script = "uid://dnmvx5m0u5a8m"
 
-[node name="TowerRecord" type="Node2D" parent="." unique_id=772611295]
+[node name="TowerRecord" type="Node2D" parent="RecordComponent" unique_id=772611295]
 process_mode = 4
 script = ExtResource("5_fpml0")
 metadata/_custom_type_script = "uid://bsh34v046mn3y"

@@ -12,10 +12,9 @@ class_name Component
 
 
 func _ready() -> void:
-	DebugManager.draw_state_changed.connect(_on_draw_state_changed)
-	
 	process_mode = Node.PROCESS_MODE_DISABLED
-
+	
+	DebugManager.draw_state_changed.connect(_on_draw_state_changed)
 	child_order_changed.connect(_on_child_order_changed)
 	
 

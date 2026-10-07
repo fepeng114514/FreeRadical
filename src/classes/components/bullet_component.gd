@@ -14,8 +14,6 @@ class_name BulletComponent
 		update_configuration_warnings()
 		queue_redraw()
 
-## 伤害倍率。
-var damage_factor: float = 1.0
 ## 起始位置。
 var from := Vector2.ZERO
 ## 目标位置。

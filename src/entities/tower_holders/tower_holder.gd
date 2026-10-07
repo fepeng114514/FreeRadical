@@ -14,6 +14,12 @@ class_name TowerHolderEntity
 @onready var tower_record: TowerRecord = get_node_or_null(Constants.TOWER_RECORD_NODE_PATH)
 
 
+func _ready() -> void:
+	super()
+	
+	tower_record.default_rally_center_position = default_rally_center_position
+
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = super()
 		

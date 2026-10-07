@@ -14,6 +14,12 @@ class_name WaveSpawnerEntity
 @onready var wave_spawner_component: WaveSpawnerComponent = get_node_or_null(Constants.WAVE_SPAWNER_COMPONENT_NODE_PATH)
 
 
+func _ready() -> void:
+	super()
+	
+	wave_spawner_component.config.wave_group = wave_group
+
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = super()
 		

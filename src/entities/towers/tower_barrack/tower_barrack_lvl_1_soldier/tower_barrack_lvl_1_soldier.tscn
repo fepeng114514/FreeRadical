@@ -64,12 +64,6 @@ script = ExtResource("8_qo1np")
 config = ExtResource("17_wogks")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
 
-[node name="SelectComponent2" type="Node2D" parent="." unique_id=346591849]
-process_mode = 4
-script = ExtResource("10_700db")
-config = ExtResource("20_u0qj6")
-metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
 [node name="RallyComponent" type="Node2D" parent="." unique_id=1216108052]
 process_mode = 4
 script = ExtResource("9_uhicr")

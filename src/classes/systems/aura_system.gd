@@ -56,7 +56,7 @@ func _on_insert(aura: Entity) -> bool:
 		if not aura_c.config.same_stack_policy.apply(aura, same_aura_list):
 			return false
 
-	target.has_auras_id_list.append(aura.id)
+	target.has_auras_ids.append(aura.id)
 	return true
 
 
@@ -100,7 +100,7 @@ func _on_remove(aura: Entity) -> bool:
 	if not source:
 		return true
 	
-	source.has_auras_id_list.erase(aura.id) 
+	source.has_auras_ids.erase(aura.id) 
 	return true
 
 

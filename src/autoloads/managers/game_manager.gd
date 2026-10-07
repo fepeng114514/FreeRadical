@@ -1,3 +1,4 @@
+@tool
 extends Node
 ## 游戏管理器。
 ##
@@ -28,7 +29,7 @@ var life: int = 20:
 		life_changed.emit(v)
 		life = v
 ## 默认塔位场景路径。
-var defaul_tower_holder: String = ""
+var default_tower_holder: String = ""
 ## 是否战斗中。
 var is_battling: bool = false
 
@@ -38,21 +39,27 @@ func cleanup() -> void:
 	cash = 0.0
 	life = 20
 	is_battling = false
+	
 
-
+## 暂停游戏。
 func pause_game() -> void:
+	Log.info("暂停游戏")
 	is_paused = true
 	get_tree().paused = true
 	paused.emit()
 
 	
+## 取消暂停游戏。
 func resume_game() -> void:
+	Log.info("取消暂停游戏")
 	is_paused = false
 	get_tree().paused = false
 	resumed.emit()
 	
 	
+## 重新开始游戏。
 func replay_game() -> void:
+	Log.info("重新开始游戏")
 	is_paused = false
 	
 	get_tree().reload_current_scene()

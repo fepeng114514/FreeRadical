@@ -18,35 +18,24 @@ var is_selected: bool = false
 var is_draging: bool = false
 ## 上一次拖动时的全局位置。
 var last_global_x: float = 0.0
-## 上一次刻度间距。
-var last_tick_spacing: float = -1
 ## 所属轨道索引。
 var track_index: int = -1
 ## 项索引。
-var item_index: int = -1:
+var index: int = -1:
 	set(v):
-		item_index = v
+		index = v
 		order_label.text = track_editor.order_label_format % (v + 1)
 ## 上一次的项索引。
-var last_item_index: int = -1
+var last_index: int = -1
 
 ## 所属轨道编辑器。
 var track_editor: TrackEditor = null
 
 
 func _ready() -> void:
-	track_editor.tick_spacing_spin_box.value_changed.connect(_on_tick_spacing_changed)
-	last_tick_spacing = track_editor.tick_spacing
-
+	track_editor.tick_length_spin_box.value_changed.connect(_on_tick_length_changed)
+	
 	_update_track_position_x()
-
-
-func _on_tick_spacing_changed(value: float) -> void:
-	if last_tick_spacing:
-		position.x = position.x * last_tick_spacing / value
-
-	_update_track_position_x()
-	last_tick_spacing = value
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -126,7 +115,7 @@ func move(new_global_position: Vector2) -> void:
 	
 	track_editor.pointer.offset_transform_position.x = position.x
 	last_global_x = new_global_position.x
-	track_editor.sort_item_list()
+	track_editor.update_item_list()
 	track_editor.item_moved.emit(self)
 	track_editor.update_item_list_last_index()
 
@@ -136,10 +125,10 @@ func apply_position_delta(delta_x: float = 0.0) -> void:
 	var result_position_x: float = position.x + delta_x
 
 	if track_editor.mouse_tool_bar.opened_tools & TrackEditorMouseToolButton.ToolFlag.SNAP:
-		var tick_spacing: float = track_editor.tick_length
-		var step: float = result_position_x / tick_spacing
-		var front_position_x: float = ceili(step) * tick_spacing
-		var back_position_x: float = floori(step) * tick_spacing
+		var tick_pixel_length: float = track_editor.get_pixel_tick_length()
+		var step: float = result_position_x / tick_pixel_length
+		var front_position_x: float = ceili(step) * tick_pixel_length
+		var back_position_x: float = floori(step) * tick_pixel_length
 		var snap_threshold: float = track_editor.snap_threshold
 
 		if abs(front_position_x - result_position_x) <= snap_threshold:
@@ -154,19 +143,22 @@ func apply_position_delta(delta_x: float = 0.0) -> void:
 
 ## 应用项位于轨道上的位置。
 func apply_track_position_x(new_track_position_x: float) -> void:
-	var pixel_per_tick: float = track_editor.tick_length / track_editor.tick_spacing
-	position.x = new_track_position_x * pixel_per_tick
+	position.x = new_track_position_x * track_editor.get_pixel_per_tick()
 	track_position_x = new_track_position_x
 
 
 ## 获取项位于轨道上的 X 位置相对于上一个项的 X 位置的相对值。
 func get_relative_track_position_x() -> float:
-	var last_item_track_position_x: float = track_editor.item_list[item_index - 1].track_position_x if item_index > 0 else 0.0
+	var last_item_track_position_x: float = track_editor.item_list[index - 1].track_position_x if index > 0 else 0.0
 	var relative_track_position_x: float = track_position_x - last_item_track_position_x
 	return relative_track_position_x
 
 
 ## 更新项位于轨道上的 X 位置。
 func _update_track_position_x() -> void:
-	var pixel_per_tick: float = track_editor.tick_length / track_editor.tick_spacing
-	track_position_x = position.x / pixel_per_tick
+	track_position_x = position.x / track_editor.get_pixel_per_tick()
+
+
+func _on_tick_length_changed(tick_length: float) -> void:
+	position.x *= track_editor.last_tick_length / tick_length
+	_update_track_position_x()

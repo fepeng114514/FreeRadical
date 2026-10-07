@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://bi2r75ykr1ufv" path="res://game/setting_canvas_layer/setting_canvas_layer.gd" id="1_bh7p8"]
 [ext_resource type="PackedScene" uid="uid://d0mqwnwcq1tcj" path="res://controls/setting_canvas_layer/setting_canvas_layer.tscn" id="1_s26vc"]
 [ext_resource type="PackedScene" uid="uid://dm25o6c1jxrdw" path="res://controls/setting_canvas_layer/labeled_texture_button.tscn" id="3_r1t62"]
-[ext_resource type="Script" uid="uid://b6fn2uciv5jd7" path="res://game/setting_canvas_layer/replay_button_label.gd" id="6_vbb1o"]
-[ext_resource type="Script" uid="uid://dtrgucauq4fsr" path="res://game/setting_canvas_layer/resume_texture_button_label.gd" id="7_lkyq5"]
+[ext_resource type="Script" uid="uid://b6fn2uciv5jd7" path="res://game/setting_canvas_layer/replay_labeled_texture_button.gd" id="6_vbb1o"]
+[ext_resource type="Script" uid="uid://dtrgucauq4fsr" path="res://game/setting_canvas_layer/resume_labeled_texture_button.gd" id="7_lkyq5"]
 
 [node name="SettingCanvasLayer" unique_id=1317014737 instance=ExtResource("1_s26vc")]
 script = ExtResource("1_bh7p8")

@@ -48,7 +48,7 @@ metadata/_custom_type_script = "uid://b2b214g352w4u"
 [node name="Level" type="Node" unique_id=1748941305]
 script = ExtResource("1_7ttr4")
 cash = 9999
-defaul_tower_holder = "uid://ckf2o2h3wv2xo"
+default_tower_holder = "uid://ckf2o2h3wv2xo"
 ready_music = SubResource("Resource_7h2jl")
 battle_music = SubResource("Resource_qogh7")
 metadata/_custom_type_script = "uid://yur7o864jejr"

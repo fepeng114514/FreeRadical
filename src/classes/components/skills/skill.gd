@@ -17,10 +17,10 @@ var time_stamp: float = 0.0
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+
 	DebugManager.draw_state_changed.connect(_on_draw_state_changed)
 
-	process_mode = Node.PROCESS_MODE_DISABLED
-	
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = NodeConfigManager.get_common_configuration_warnings(self)

@@ -20,11 +20,6 @@ class_name BarrackComponentNodeConfig
 	set(v):
 		rally_max_range = v
 		emit_changed()
-## 集结点全局位置。
-@export var rally_center_global_position := Vector2.ZERO:
-	set(v):
-		rally_center_global_position = v
-		emit_changed()
 ## 集结点半径，影响士兵与集结点之间的距离。
 @export var rally_radius: float = 30.0:
 	set(v):

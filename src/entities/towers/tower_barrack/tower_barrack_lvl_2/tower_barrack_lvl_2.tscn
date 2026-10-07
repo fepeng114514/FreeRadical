@@ -5,8 +5,9 @@
 [ext_resource type="Resource" uid="uid://bsix7mor2evje" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2/template/tower_barrack_lvl_2.tres" id="3_50eow"]
 [ext_resource type="Texture2D" uid="uid://d2cevetil660g" path="res://assets/atlas/atlas_textures/towers/tower_barrack_0002.tres" id="3_esuh8"]
 [ext_resource type="SpriteFrames" uid="uid://cnj6l6um86qt3" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl2_door.tres" id="3_kjn0h"]
-[ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/records/price_record.gd" id="4_50eow"]
-[ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/records/tower_record.gd" id="5_roylj"]
+[ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_50eow"]
+[ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_roylj"]
+[ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_roylj"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_iies6"]
 [ext_resource type="Resource" uid="uid://dd10w52cij5ej" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2/template/sprite_component/sprite_component.tres" id="7_roylj"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="8_xjl70"]
@@ -26,12 +27,17 @@ node_config_template = ExtResource("2_000u2")
 config = ExtResource("3_50eow")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="PriceRecord" type="Node2D" parent="." unique_id=979424814]
+[node name="RecordComponent" type="Node2D" parent="." unique_id=1001169980]
+process_mode = 4
+script = ExtResource("4_roylj")
+metadata/_custom_type_script = "uid://cmsakrqf2ax88"
+
+[node name="PriceRecord" type="Node2D" parent="RecordComponent" unique_id=979424814]
 process_mode = 4
 script = ExtResource("4_50eow")
 metadata/_custom_type_script = "uid://dnmvx5m0u5a8m"
 
-[node name="TowerRecord" type="Node2D" parent="." unique_id=772611295]
+[node name="TowerRecord" type="Node2D" parent="RecordComponent" unique_id=772611295]
 process_mode = 4
 script = ExtResource("5_roylj")
 metadata/_custom_type_script = "uid://bsh34v046mn3y"

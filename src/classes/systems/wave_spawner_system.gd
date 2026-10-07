@@ -116,15 +116,13 @@ func _process_sub_wave(wave: Wave) -> void:
 		var entity: Entity = EntityManager.create_entity(spawn.entity)
 		var nav_path_c: NavPathComponent = entity.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
 		if nav_path_c:
-			var sub_pathway_index: int = spawn.sub_pathway_index
-			
 			nav_path_c.config.reversed_enabled = spawn.reversed_enabled
 			nav_path_c.config.loop_enabled = spawn.loop_enabled
 			
 			var node: PathwayNode = nav_path_c.get_pathway_node(
 				PathwayManager.node_count - 1 if nav_path_c.config.reversed_enabled else 0
 			)
-			nav_path_c.set_nav_path(spawn.pathway_index, sub_pathway_index, node.index)
+			nav_path_c.set_nav_path(spawn.pathway_index, spawn.sub_pathway_index, node.index)
 		
 		EntityManager.queue_insert_entity(entity)
 		

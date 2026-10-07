@@ -33,11 +33,16 @@ var selected_entity: Entity = null
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("select_entity"):
-		try_select()
+		_try_select()
+		
+		
+func cleanup() -> void:
+	selected_entity = null
+	select_mode = SelectMode.NONE
 
 
 ## 尝试选择实体。
-func try_select() -> void:
+func _try_select() -> void:
 	if selected_entity:
 		if selected_entity:
 			selected_entity.selected = false

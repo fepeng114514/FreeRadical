@@ -30,13 +30,14 @@ events = [SubResource("InputEventKey_lgfxo")]
 bg_color = Color(0.4033567, 0.4033568, 0.40335652, 1)
 border_width_left = 3
 
-[node name="TrackEditor" type="PanelContainer" unique_id=1813960242 node_paths=PackedStringArray("track_length_spin_box", "tick_spacing_spin_box", "mouse_tool_bar", "add_track_button", "ruler", "pointer", "track_vbox_container", "left_track_tool_bar", "right_track_tool_bar")]
+[node name="TrackEditor" type="PanelContainer" unique_id=1813960242 node_paths=PackedStringArray("track_length_spin_box", "tick_length_spin_box", "mouse_tool_bar", "add_track_button", "ruler", "pointer", "track_vbox_container", "left_track_tool_bar", "right_track_tool_bar")]
 offset_right = 844.0
 offset_bottom = 110.0
 theme = ExtResource("7_ixove")
 script = ExtResource("1_472n8")
+tick_length = null
 track_length_spin_box = NodePath("MarginContainer/VBoxContainer/ToolBarHBoxContainer/EditorToolBarHBoxContainer/TrackLengthSpinBox")
-tick_spacing_spin_box = NodePath("MarginContainer/VBoxContainer/ToolBarHBoxContainer/EditorToolBarHBoxContainer/TickSpacingSpinBox")
+tick_length_spin_box = NodePath("MarginContainer/VBoxContainer/ToolBarHBoxContainer/EditorToolBarHBoxContainer/TickLengthSpinBox")
 mouse_tool_bar = NodePath("MarginContainer/VBoxContainer/ToolBarHBoxContainer/MouseToolBar")
 add_track_button = NodePath("MarginContainer/VBoxContainer/ToolBarHBoxContainer/AddTrackButton")
 ruler = NodePath("MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/MainVBoxContainer/HScrollContainer/VBoxContainer/RulerPanelContainer/Ruler")
@@ -77,11 +78,11 @@ min_value = 1.0
 max_value = 10000.0
 value = 1000.0
 
-[node name="TickSpacingLabel" type="Label" parent="MarginContainer/VBoxContainer/ToolBarHBoxContainer/EditorToolBarHBoxContainer" unique_id=530022718]
+[node name="TickLengthLabel" type="Label" parent="MarginContainer/VBoxContainer/ToolBarHBoxContainer/EditorToolBarHBoxContainer" unique_id=530022718]
 layout_mode = 2
-text = "刻度间距"
+text = "刻度长度"
 
-[node name="TickSpacingSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/ToolBarHBoxContainer/EditorToolBarHBoxContainer" unique_id=45777939]
+[node name="TickLengthSpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/ToolBarHBoxContainer/EditorToolBarHBoxContainer" unique_id=45777939]
 layout_mode = 2
 min_value = 1.0
 value = 10.0

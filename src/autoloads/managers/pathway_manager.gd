@@ -80,7 +80,7 @@ func get_random_pathway_index() -> int:
 	return randi_range(0, get_pathway_count() - 1)
 
 
-## 获取指定路径上的随机子路径。[br][br]
+## 获取指定路径上的随机子路径索引。[br][br]
 ## [param pathway_index]: 路径索引。路径索引为 -1 时获取随机路径。
 func get_random_sub_pathway(pathway_index: int = Constants.UNSET) -> SubPathway:
 	if not Utils.is_valid_number(pathway_index):

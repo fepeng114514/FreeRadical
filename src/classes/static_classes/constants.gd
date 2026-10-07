@@ -80,6 +80,8 @@ const TOWER_COMPONENT_NAME: StringName = &"TowerComponent"
 const WAVE_SPAWNER_COMPONENT_NAME: StringName = &"WaveSpawnerComponent"
 ## 组件名: 升级。
 const UPGRADE_COMPONENT_NAME: StringName = &"UpgradeComponent"
+## 组件名: 记录组件。
+const RECORD_COMPONENT_NAME: StringName = &"RecordComponent"
 ## 组件名: 价格记录。
 const PRICE_RECORD_NAME: StringName = &"PriceRecord"
 ## 组件名: 防御塔记录。
@@ -105,8 +107,7 @@ const ALL_COMPONENT_NAMES: Array[StringName] = [
 	TOWER_COMPONENT_NAME, 
 	WAVE_SPAWNER_COMPONENT_NAME, 
 	UPGRADE_COMPONENT_NAME, 
-	PRICE_RECORD_NAME, 
-	TOWER_RECORD_NAME
+	RECORD_COMPONENT_NAME,
 ]
 
 ## 节点路径: 光环。
@@ -147,16 +148,16 @@ const TOWER_COMPONENT_NODE_PATH: NodePath = ^"TowerComponent"
 const WAVE_SPAWNER_COMPONENT_NODE_PATH: NodePath = ^"WaveSpawnerComponent"
 ## 节点路径: 升级。
 const UPGRADE_COMPONENT_NODE_PATH: NodePath = ^"UpgradeComponent"
+## 节点路径: 记录组件。
+const RECORD_COMPONENT_NODE_PATH: NodePath = ^"RecordComponent"
 ## 节点路径: 价格记录。
-const PRICE_RECORD_NODE_PATH: NodePath = ^"PriceRecord"
+const PRICE_RECORD_NODE_PATH: NodePath = ^"RecordComponent/PriceRecord"
 ## 节点路径: 防御塔记录。
-const TOWER_RECORD_NODE_PATH: NodePath = ^"TowerRecord"
+const TOWER_RECORD_NODE_PATH: NodePath = ^"RecordComponent/TowerRecord"
 #endregion
 
 
 #region 组名称
-## 组名: 实体。
-const GROUP_ENTITIES: StringName = &"entities"
 ## 组名: 敌人。
 const GROUP_ENEMIES: StringName = &"enemies"
 ## 组名: 友军。
@@ -167,7 +168,6 @@ const GROUP_UNITS: StringName = &"units"
 const GROUP_TOWERS: StringName = &"towers"
 
 const ALL_GROUPS: Array[StringName] = [
-	GROUP_ENTITIES, 
 	GROUP_ENEMIES, 
 	GROUP_FRIENDLIES, 
 	GROUP_UNITS, 

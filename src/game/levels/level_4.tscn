@@ -16,7 +16,7 @@ _data = {
 point_count = 8
 
 [node name="Level4" unique_id=1565788906 instance=ExtResource("1_v1h2f")]
-defaul_tower_holder = "uid://cbim4b2xcnwsy"
+default_tower_holder = "uid://cbim4b2xcnwsy"
 
 [node name="Background" parent="." index="1" unique_id=74954041]
 position = Vector2(1280, 720)

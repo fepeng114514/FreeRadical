@@ -20,10 +20,14 @@ const health_bar_path: NodePath = ^"HealthBar"
 ## 当前血量。
 var hp: float = 0.0:
 	set(v): 
+		last_hp = hp
 		hp = clampf(v, 0, config.hp_max)
 		hp_percent = hp / config.hp_max * 100
 		health_bar.value = hp_percent
+		queue_redraw()
 var hp_percent: float = 0.0
+## 上一次的血量。
+var last_hp: float = 0.0
 ## 回血时间戳。
 var regen_time_stamp: float = 0.0
 ## 待机回血时间戳。
@@ -31,6 +35,23 @@ var idle_regen_time_stamp: float = 0.0
 
 ## 血条节点引用。
 @onready var health_bar: TextureProgressBar = get_node_or_null(health_bar_path)
+
+
+func _draw() -> void:
+	if not config:
+		return
+		
+	if DebugManager.draw_health_enabled:
+		draw_string(
+			ThemeDB.fallback_font,
+			health_bar.position,
+			"%d/%d" % [hp, config.hp_max],
+			HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER,
+			-1,
+			24,
+			Color.GREEN
+		)
+		
 
 
 func _validate_property(property: Dictionary):

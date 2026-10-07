@@ -62,11 +62,12 @@ func _on_mouse_entered() -> void:
 	glow.visible = true
 	
 	if preview_entity_scene:
-		selected_entity.visible = false
-		preview_entity = EntityManager.create_entity(preview_entity_scene)
-		preview_entity.global_position = selected_entity.global_position
-		
-		EntityManager.queue_insert_entity(preview_entity)
+		if selected_entity:
+			selected_entity.visible = false
+			preview_entity = EntityManager.create_entity(preview_entity_scene)
+			preview_entity.global_position = selected_entity.global_position
+			
+			EntityManager.queue_insert_entity(preview_entity)
 	
 	
 func _on_mouse_exited() -> void:
@@ -83,6 +84,8 @@ func _hide_preview() -> void:
 	if preview_entity:
 		EntityManager.queue_remove_entity(preview_entity)
 		preview_entity = null
-		selected_entity.visible = true
+		
+		if selected_entity:
+			selected_entity.visible = true
 	
 	

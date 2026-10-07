@@ -26,12 +26,12 @@ signal item_moved(item: TrackEditorTrackItem)
 		track_length = v
 		if track_length_spin_box:
 			track_length_spin_box.value = v
-## 轨道刻度间距。
-@export var tick_spacing: float = 10:
+## 轨道刻度长度。
+@export var tick_length: float = 10:
 	set(v): 
-		tick_spacing = v
-		if tick_spacing_spin_box:
-			tick_spacing_spin_box.value = v
+		tick_length = v
+		if tick_length_spin_box:
+			tick_length_spin_box.value = v
 ## 项拖动时的吸附阈值。
 @export var snap_threshold: float = 4.0
 ## 是否显示项顺序标签。
@@ -62,8 +62,8 @@ signal item_moved(item: TrackEditorTrackItem)
 @export_group("Ref")
 ## 轨道长度旋钮引用。
 @export var track_length_spin_box: SpinBox = null
-## 轨道刻度间距数值调节框引用。
-@export var tick_spacing_spin_box: SpinBox = null
+## 轨道刻度长度数值调节框引用。
+@export var tick_length_spin_box: SpinBox = null
 ## 鼠标工具栏引用。
 @export var mouse_tool_bar: TrackEditorMouseToolBar = null
 ## 添加轨道按钮引用。
@@ -95,13 +95,13 @@ signal item_moved(item: TrackEditorTrackItem)
 var selected_item: TrackEditorTrackItem = null
 ## 轨道项列表。
 var item_list: Array[TrackEditorTrackItem] = []
-## 轨道刻度宽度。
-var tick_length: float = 0.0
+## 上一次的刻度长度。
+var last_tick_length: float = -1.0
 
 
 func _ready() -> void:
 	track_length_spin_box.value = track_length
-	tick_spacing_spin_box.value = tick_spacing
+	tick_length_spin_box.value = tick_length
 	
 	if hide_mouse_tool_bar:
 		_hide_mouse_tool_bar()
@@ -116,15 +116,25 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		pass
 	else:
-		track_length_spin_box.value_changed.connect(_show_ticks)
-		tick_spacing_spin_box.value_changed.connect(_show_ticks)
+		track_length_spin_box.value_changed.connect(_on_track_length_changed)
+		tick_length_spin_box.value_changed.connect(_on_tick_length_changed)
 
-		_show_ticks()
-		
-		var first_tick: TrackEditorTick = ruler.get_child(0)
-		tick_length = first_tick.size.x
-		
+		for _tick_index: int in ceili(track_length / tick_length):
+			var tick: TrackEditorTick = tick_scene.instantiate()
+			tick.track_editor = self
+			ruler.add_child(tick)
 		create_track()
+
+
+## 获取轨道刻度像素长度。
+func get_pixel_tick_length() -> float:
+	var first_tick: TrackEditorTick = ruler.get_child(0)
+	return first_tick.size.x
+
+
+## 获取刻度单位的像素长度。
+func get_pixel_per_tick() -> float:
+	return get_pixel_tick_length() / tick_length
 
 
 ## 选中轨道项。
@@ -165,7 +175,7 @@ func create_item(track_index: int = 0) -> TrackEditorTrackItem:
 func insert_item(item: TrackEditorTrackItem, signal_emit_disabled: bool = false) -> void:
 	var track: TrackEditorTrack = get_track(item.track_index)
 	track.item_container.add_child(item)
-	sort_item_list()
+	update_item_list()
 	update_item_list_last_index()
 	if not signal_emit_disabled:
 		item_inserted.emit(item)
@@ -178,7 +188,7 @@ func erase_item(item: TrackEditorTrackItem) -> void:
 	var track: TrackEditorTrack = get_track(item.track_index)
 	track.item_container.remove_child(item)
 	item.queue_free()
-	sort_item_list()
+	update_item_list()
 	item_deleted.emit(item)
 	update_item_list_last_index()
 		
@@ -190,7 +200,12 @@ func get_item(index: int, track_index: int = 0) -> TrackEditorTrackItem:
 
 
 ## 更新轨道项列表。
-func sort_item_list() -> void:
+func update_item_list() -> void:
+	item_list.clear()
+	for track: TrackEditorTrack in track_vbox_container.get_children():
+		for child: TrackEditorTrackItem in track.item_container.get_children():
+			item_list.append(child)
+
 	item_list.sort_custom(
 		func(a: TrackEditorTrackItem, b: TrackEditorTrackItem) -> bool:
 			var a_track_position_x: float = a.track_position_x
@@ -215,7 +230,7 @@ func update_item_list_last_index() -> void:
 
 ## 获取轨道刻度数量。
 func get_tick_count() -> int:
-	return ceili(track_length / tick_spacing)
+	return ceili(track_length / tick_length)
 
 
 ## 获取轨道。
@@ -286,9 +301,8 @@ func _show_multiple_track_section() -> void:
 	right_track_tool_bar.visible = true
 
 
-## 显示轨道刻度。
-func _show_ticks(_value: float = 0.0) -> void:
-	var target_tick_count: int = get_tick_count()
+func _on_track_length_changed(new_track_length: float = 0.0) -> void:
+	var target_tick_count: int = ceili(new_track_length / tick_length)
 	var has_tick_count: int = ruler.get_child_count()
 
 	# 创建刻度节点
@@ -305,3 +319,8 @@ func _show_ticks(_value: float = 0.0) -> void:
 	for tick_index: int in target_tick_count:
 		var tick: TrackEditorTick = ruler.get_child(tick_index)
 		tick.visible = true
+
+
+func _on_tick_length_changed(new_value: float) -> void:
+	last_tick_length = tick_length
+	tick_length = new_value

@@ -8,7 +8,7 @@ class_name Level
 ## 初始生命。
 @export var life: int = 20
 ## 默认塔位样式。
-@export_file("*.tscn") var defaul_tower_holder: String = ""
+@export_file("*.tscn") var default_tower_holder: String = ""
 ## 地图大小。
 @export var world_size := Vector2(2560, 1440)
 
@@ -24,7 +24,7 @@ func _enter_tree() -> void:
 	EntityManager.init()
 		
 	GlobalManager.world_size = world_size
-	GameManager.defaul_tower_holder = defaul_tower_holder
+	GameManager.default_tower_holder = default_tower_holder
 
 
 func _exit_tree() -> void:

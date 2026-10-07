@@ -4,8 +4,9 @@
 [ext_resource type="Resource" uid="uid://d176iqdfoqeqo" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/node_config_template.tres" id="2_oyrv1"]
 [ext_resource type="Resource" uid="uid://hwwm24y3vb0c" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/tower_mage_lvl_1.tres" id="3_dpb4m"]
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://entities/towers/tower_mage/tower_mage_lvl_1_shooter/tower_mage_lvl_1_shooter.tscn" id="3_j8o77"]
-[ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/records/price_record.gd" id="4_dpb4m"]
-[ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/records/tower_record.gd" id="5_dobkv"]
+[ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_dpb4m"]
+[ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_ylcr1"]
+[ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_dobkv"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_e01we"]
 [ext_resource type="SpriteFrames" uid="uid://uujnab0042kx" path="res://assets/atlas/sprite_frames/towers/tower_mage_lvl1.tres" id="7_cc3kd"]
 [ext_resource type="Resource" uid="uid://bgyebxy50rnqs" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/sprite_component/sprite_component.tres" id="8_dobkv"]
@@ -16,7 +17,21 @@
 [ext_resource type="Script" uid="uid://btc4d4qsa05kv" path="res://classes/components/upgrade_component/upgrade_component.gd" id="12_35olp"]
 [ext_resource type="Resource" uid="uid://dbf1eqmwgqent" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/tower_component/tower_component.tres" id="12_e01we"]
 [ext_resource type="Resource" uid="uid://bjuqh3pvo62i4" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/upgrade_component/upgrade_component.tres" id="13_cc3kd"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="15_y4b2l"]
+[ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="16_4uwyj"]
 [ext_resource type="Resource" uid="uid://d0at4p5yporot" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/select_component/select_component.tres" id="16_y4b2l"]
+
+[sub_resource type="Resource" id="Resource_hoahu"]
+resource_local_to_scene = true
+script = ExtResource("15_y4b2l")
+up = &"idle_up"
+down = &"idle_down"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_1kjab"]
+resource_local_to_scene = true
+script = ExtResource("16_4uwyj")
+idle_animation = SubResource("Resource_hoahu")
 
 [node name="TowerMageLvl1" type="Node2D" unique_id=794445410]
 script = ExtResource("1_y1lgp")
@@ -24,12 +39,17 @@ node_config_template = ExtResource("2_oyrv1")
 config = ExtResource("3_dpb4m")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="PriceRecord" type="Node2D" parent="." unique_id=979424814]
+[node name="RecordComponent" type="Node2D" parent="." unique_id=1207407689]
+process_mode = 4
+script = ExtResource("4_ylcr1")
+metadata/_custom_type_script = "uid://cmsakrqf2ax88"
+
+[node name="PriceRecord" type="Node2D" parent="RecordComponent" unique_id=979424814]
 process_mode = 4
 script = ExtResource("4_dpb4m")
 metadata/_custom_type_script = "uid://dnmvx5m0u5a8m"
 
-[node name="TowerRecord" type="Node2D" parent="." unique_id=772611295]
+[node name="TowerRecord" type="Node2D" parent="RecordComponent" unique_id=772611295]
 process_mode = 4
 script = ExtResource("5_dobkv")
 metadata/_custom_type_script = "uid://bsh34v046mn3y"
@@ -58,6 +78,7 @@ metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="TowerMageLvl1Shooter" parent="TowerComponent" unique_id=1442245649 instance=ExtResource("3_j8o77")]
 position = Vector2(1, -56)
+config = SubResource("Resource_1kjab")
 
 [node name="SellComponent" type="Node2D" parent="." unique_id=1482123088]
 process_mode = 4

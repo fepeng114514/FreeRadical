@@ -21,7 +21,7 @@ enum Type {
 ## 修改的属性。
 @export var property: String = ""
 ## 节点路径。
-@export var node_path: NodePath = ^""
+@export_node_path() var node_path: NodePath = ^""
 ## 修改的数值。
 @export var value: Variant = 0
 

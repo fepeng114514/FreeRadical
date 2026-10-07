@@ -10,9 +10,11 @@ func _on_insert(entity: Entity) -> bool:
 	if not nav_path_c:
 		return true
 
-	var pathway_index: int = nav_path_c.pathway_index
+	if not Utils.is_valid_number(nav_path_c.pathway_index):
+		nav_path_c.pathway_index = PathwayManager.get_random_pathway_index()
+
 	if not Utils.is_valid_number(nav_path_c.sub_pathway_index):
-		nav_path_c.sub_pathway_index = PathwayManager.get_random_sub_pathway(pathway_index).index
+		nav_path_c.sub_pathway_index = PathwayManager.get_random_sub_pathway(nav_path_c.pathway_index).index
 		
 	if nav_path_c.config.end_pathway_node_index < 0:
 		nav_path_c.config.end_pathway_node_index = PathwayManager.node_count + nav_path_c.config.end_pathway_node_index
@@ -95,12 +97,14 @@ func _update_reversed(entity: Entity, nav_path_c: NavPathComponent) -> bool:
 
 ## 更新实体位置和动画。
 func _update_entity_position(entity: Entity, nav_path_c: NavPathComponent, next_progress: float) -> void:
-	var next_global_position: Vector2 = nav_path_c.get_progress_global_position(next_progress)
+	var next_global_position: Vector2 = nav_path_c.get_progress_global_position(nav_path_c.progress)
 	entity.facing_global_position = next_global_position
 	entity.play_animation(nav_path_c.config.motion_animation, "walk")
 	entity.global_position = next_global_position
 	
-	entity.facing_global_position = nav_path_c.get_progress_global_position(next_progress)
+	# 用于其他动画
+	next_global_position = nav_path_c.get_progress_global_position(next_progress)
+	entity.facing_global_position = next_global_position
 
 
 ## 到达终点处理。

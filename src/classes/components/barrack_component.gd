@@ -19,8 +19,6 @@ var time_stamp: float = 0.0
 var soldier_list: Array[Entity] = []
 ## 上一次生成的士兵数量。
 var last_soldier_count: int = 0
-## 上一次生成的士兵列表。
-var last_soldier_list: Array[Entity] = []
 
 
 func _draw() -> void:
@@ -35,7 +33,8 @@ func _draw() -> void:
 		Utils.draw_range_ellipse(self, position, config.rally_min_range, config.rally_max_range, Color(0.201, 0.431, 1.0, 0.2))
 
 	if DebugManager.draw_point_enabled:
-		var rally_center_position: Vector2 = to_local(config.rally_center_global_position)
+		var tower_record: TowerRecord = parent.get_node_or_null(Constants.TOWER_RECORD_NODE_PATH)
+		var rally_center_position: Vector2 = to_local(tower_record.rally_center_global_position)
 		draw_circle(
 			rally_center_position,
 			9,
@@ -77,14 +76,15 @@ func set_rally_center_global_position(
 	if play_sfx:
 		AudioManager.play_sfx(config.rally_sfx)
 		
-	config.rally_center_global_position = center_global_position
+	var tower_record: TowerRecord = parent.get_node_or_null(Constants.TOWER_RECORD_NODE_PATH)
+	tower_record.rally_center_global_position = center_global_position
 	var soldier_size: int = soldier_list.size()
 	
 	for soldier_index: int in soldier_size:
 		var soldier: Entity = soldier_list[soldier_index]
 		var soldier_rally_c: RallyComponent = soldier.get_node_or_null(Constants.RALLY_COMPONENT_NODE_PATH)
-		var formation_position: Vector2 = to_formation_position(config.rally_center_global_position, soldier_size, soldier_index)
-		soldier_rally_c.new_rally_global_position(soldier, formation_position, is_forced, config.rally_center_global_position, false)
+		var formation_position: Vector2 = to_formation_position(center_global_position, soldier_size, soldier_index)
+		soldier_rally_c.new_rally_global_position(soldier, formation_position, is_forced, center_global_position, false)
 		
 		var melee_c: MeleeComponent = soldier.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 		if melee_c:

@@ -3,36 +3,46 @@ extends Node2D
 class_name Entity
 ## 实体节点。
 ##
-## 游戏中所有具有行为和属性的对象都可以被表示为 Entity，例如: 敌人、友军、防御塔、子弹、修改器等。 [br][br]
-## 实体类存储实体的基本属性和组件，提供通用的接口和事件回调，供系统和组件调用。
+## 实体节点存储实体的基本属性和组件。[br][br]
+## 游戏中所有具有行为和属性的对象都可以被表示为 Entity，例如: 敌人、友军、防御塔、子弹、修改器等。
 
 
-## 状态标志枚举
+@warning_ignore_start("unused_signal")
+## 实体移除信号，当实体准备从场景中移除时触发。
+signal entity_removing
+@warning_ignore_restore("unused_signal")
+
+
+## 实体状态枚举
 enum State {
-	## 状态: 空闲
+	## 实体状态：空闲。
 	IDLE = 1,
-	## 状态: 拦截敌人中
+	## 实体状态：拦截敌人中。
 	MELEE = 1 << 1,
-	## 状态: 释放远程技能中
+	## 实体状态：释放远程技能中。
 	RANGED = 1 << 2,
-	## 状态: 被阻塞
-	BLOCK = 1 << 3,
-	## 状态: 前往集结点
-	RALLY = 1 << 4,
-	## 状态：在路径上移动
-	NAV_PATH_WALK = 1 << 5,
-	## 状态：等待
-	WAITING = 1 << 6,
-	## 状态：禁止
-	DISABLED = 1 << 7,
-	## 状态：移除
-	REMOVED = 1 << 8,
-	## 状态：死亡
-	DEAD = 1 << 9,
-	## 状态：中断等待
-	INTERRUPT_WAIT = 1 << 10,
-	## 状态：闪避
-	DODGE = 1 << 11,
+	## 实体状态：前往集结点。
+	RALLY = 1 << 3,
+	## 实体状态：在路径上移动。
+	NAV_PATH_WALK = 1 << 4,
+	## 实体状态：闪避。
+	DODGE = 1 << 6,
+
+	## 实体状态：注定死亡。
+	DOOMED = 1 << 9,
+	## 实体状态：死亡。
+	DEAD = 1 << 10,
+
+	## 实体状态：被禁止。
+	DISABLED = 1 << 20,
+	## 实体状态：被移除。
+	REMOVED = 1 << 21,
+	## 实体状态：阻塞中。
+	BLOCKING = 1 << 22,
+	## 实体状态：等待中。
+	WAITING = 1 << 23,
+	## 实体状态：中断等待。
+	INTERRUPT_WAIT = 1 << 24,
 }
 
 
@@ -51,7 +61,10 @@ enum SourceType {
 ## 更新节点配置模板按钮。
 @export_tool_button("更新节点配置模板") var update_config_template: Callable = _update_config_template
 ## 节点配置模板。
-@export var node_config_template: NodeConfigTemplateNode = null
+@export var node_config_template: NodeConfigTemplateNode = null:
+	set(v):
+		node_config_template = v
+		update_configuration_warnings()
 ## 节点配置。
 @export var config: EntityNodeConfig = null:
 	set(v):
@@ -77,13 +90,15 @@ var time_stamp: float = 0.0
 ## 目标实体 ID
 var target_id: int = Constants.UNSET
 ## 拥有的修改器 ID 列表
-var has_mods_id_list := PackedInt32Array()
-## 上次拥有的修改器 ID 列表长度，用于检测修改器的新增和移除
-var last_has_mods_id_list_size: int = 0
+var has_mods_ids := PackedInt32Array()
+## 上次拥有的修改器 ID 列表长度，用于检测列表的变化。
+var last_has_mods_ids_size: int = 0
 ## 拥有的光环 ID 列表
-var has_auras_id_list := PackedInt32Array()
+var has_auras_ids := PackedInt32Array()
 ## 以此实体为目标的子弹 ID 列表
-var target_bullet_id_list := PackedInt32Array()
+var aimed_bullet_ids := PackedInt32Array()
+## 上次以此实体为目标的子弹 ID 列表长度，用于检测列表的变化。
+var last_aimed_bullet_ids_size: int = 0
 ## 是否被点击选择
 var selected: bool = false
 ## 上一帧全局位置
@@ -99,16 +114,6 @@ var entity_groups: Array[StringName] = []
 
 ## 拥有的所有组件节点引用
 var components: Dictionary[StringName, Component] = {}
-## 组件是否发生变化。
-var is_component_changed: bool = false
-## 拥有的所有组件名称。
-var component_names: Array[StringName] = []
-## 上次实体拥有的所有组件名称。
-var last_component_names: Array[StringName] = []
-## 上次位于组件实体组的索引。
-var last_component_entity_groups_indexes: Dictionary[StringName, int] = {}
-## 当前位于组件实体组的索引。
-var component_entity_groups_indexes: Dictionary[StringName, int] = {}
 #endregion
 
 
@@ -124,7 +129,6 @@ func _ready() -> void:
 		var node_class_name: StringName = node_script.get_global_name()
 			
 		components[node_class_name] = child
-		component_names.append(node_class_name)
 		
 	if config:
 		if config.interact_policy:
@@ -145,12 +149,12 @@ func _draw() -> void:
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = NodeConfigManager.get_common_configuration_warnings(self)
 		
-	if not node_config_template:
-		warnings.append("请设置一个 node_config_template 节点配置模板，或点击实体的 “更新节点配置模板” 按钮一键生成。")
-
-	if node_config_template:
-		if not FileAccess.file_exists(node_config_template.resource_path):
-			warnings.append("请将 node_config_template 节点配置模板保存为文件，否则后续无法在节点配置管理器中索引该实体的节点配置模板。")
+	if EditorInterface.get_edited_scene_root() == self:
+		if node_config_template:
+			if not FileAccess.file_exists(node_config_template.resource_path):
+				warnings.append("请将 node_config_template 节点配置模板保存为文件，否则后续无法在节点配置管理器中索引该实体的节点配置模板。")
+		else:
+			warnings.append("请设置一个 node_config_template 节点配置模板，或点击实体的 “更新节点配置模板” 按钮一键生成。")
 
 	return warnings
 
@@ -171,24 +175,14 @@ func set_entity_groups(groups: Array[StringName]) -> void:
 
 ## 增加实体组件。
 func add_component(component: Component) -> void:
-	last_component_names = component_names
-
 	var component_class_name: StringName = component.get_class()
 	components[component_class_name] = component
-
-	component_names = components.keys()
-	is_component_changed = true
 
 
 ## 移除实体组件。
 func remove_component(component: Component) -> void:
-	last_component_names = component_names
-
 	var component_class_name: StringName = component.get_class()
 	components.erase(component_class_name)
-
-	component_names = components.keys()
-	is_component_changed = true
 
 
 #region 实体相关方法
@@ -206,7 +200,7 @@ func set_global_position_with_components(new_global_position: Vector2) -> void:
 
 
 func is_waiting() -> bool:
-	return state & (Entity.State.BLOCK | Entity.State.WAITING | Entity.State.DISABLED)
+	return state & (Entity.State.BLOCKING | Entity.State.WAITING | Entity.State.DISABLED)
 
 
 ## 协程等待指定时长。[br][br]
@@ -245,7 +239,7 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
-	for mod_id: int in has_mods_id_list:
+	for mod_id: int in has_mods_ids:
 		var mod: Entity = EntityManager.get_entity_by_id(mod_id)
 		
 		if not mod or filter.is_valid() and not filter.call(mod):
@@ -261,7 +255,7 @@ func clear_has_mod_list() -> void:
 	for mod: Entity in get_has_mod_list():
 		EntityManager.queue_remove_entity(mod)
 
-	has_mods_id_list.clear()
+	has_mods_ids.clear()
 #endregion
 
 
@@ -270,7 +264,7 @@ func clear_has_mod_list() -> void:
 func get_has_aura_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_auras: Array[Entity] = []
 	
-	for aura_id in has_auras_id_list:
+	for aura_id in has_auras_ids:
 		var aura: Entity = EntityManager.get_entity_by_id(aura_id)
 		
 		if not aura or filter.is_valid() and not filter.call(aura):
@@ -286,7 +280,7 @@ func clear_has_aura_list() -> void:
 	for aura: Entity in get_has_aura_list():
 		EntityManager.queue_remove_entity(aura)
 
-	has_auras_id_list.clear()
+	has_auras_ids.clear()
 #endregion
 
 

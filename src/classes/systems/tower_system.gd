@@ -22,10 +22,6 @@ func _on_insert(tower: Entity) -> bool:
 		EntityManager.setup_entity(shooter)
 		EntityManager.queue_insert_entity(shooter)
 		
-	var tower_record: TowerRecord = tower.get_node_or_null(Constants.TOWER_RECORD_NODE_PATH)
-	if not tower_record.tower_holder:
-		tower_record.tower_holder = GameManager.defaul_tower_holder
-		
 	return true
 
 

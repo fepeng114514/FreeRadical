@@ -6,6 +6,13 @@ class_name SellComponent
 ## SellComponent 可以使实体被出售。
 
 
+## 出售生成的实体类型枚举。
+enum CreatedEntityType {
+	## 出售生成的实体类型：塔位。
+	TOWER_HOLDER
+}
+
+
 @export var config: SellComponentNodeConfig = null:
 	set(v): 
 		Utils.rebind_changed(config, v, _on_config_changed)

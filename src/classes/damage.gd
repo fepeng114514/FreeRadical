@@ -55,8 +55,6 @@ var source_id: int = Constants.UNSET
 var value: float = 0.0
 ## 伤害类型。
 var damage_type: int = Type.PHYSICAL
-## 伤害因子。
-var damage_factor: float = 1.0
 ## 伤害标识。	
 var damage_flags: int = Flag.NONE
 ## 来源实体名称。
@@ -65,11 +63,11 @@ var source_name: StringName = &""
 var is_area: bool = false
 
 
-## 预测伤害。
-func predict_damage(target: Entity) -> float:
+## 预测伤害值。
+static func predict_damage(p_damage_type: int, p_value: float, target: Entity) -> float:
 	var health_c: HealthComponent = target.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 		
-	if damage_type & Type.INSTAKILL:
+	if p_damage_type & Type.INSTAKILL:
 		return health_c.hp
 	else:
 		var physical_armor: float = clampf(health_c.config.physical_armor, 0, 1)
@@ -78,27 +76,25 @@ func predict_damage(target: Entity) -> float:
 		
 		var resistance: float = 1 - health_c.config.damage_resistance
 
-		if damage_type & Type.TRUE:
-			pass
-		else:
-			if damage_type & Type.EXPLOSION:
+		if not p_damage_type & Type.TRUE:
+			if p_damage_type & Type.EXPLOSION:
 				resistance *= 1 - physical_armor / 2.0
-			elif damage_type & Type.PHYSICAL:
+			elif p_damage_type & Type.PHYSICAL:
 				resistance *= 1 - physical_armor
 				
-			if damage_type & Type.MAGICAL_EXPLOSION:
+			if p_damage_type & Type.MAGICAL_EXPLOSION:
 				resistance *= 1 - magical_armor / 2.0
-			elif damage_type & Type.MAGICAL:
+			elif p_damage_type & Type.MAGICAL:
 				resistance *= 1 - magical_armor
 				
-			if damage_type & Type.POISON:
+			if p_damage_type & Type.POISON:
 				resistance *= 1 - poison_armor
 			
-		var total_damage_factor: float = damage_factor * resistance * (1 + health_c.config.vulnerable)
-		var basic_value: float = value
-		if damage_type & Type.HP_MAX_PERCENT:
+		var total_damage_factor: float = resistance * (1 + health_c.config.vulnerable)
+		var basic_value: float = p_value
+		if p_damage_type & Type.HP_MAX_PERCENT:
 			basic_value *= health_c.config.hp_max
-		elif damage_type & Type.HP_PERCENT:
+		elif p_damage_type & Type.HP_PERCENT:
 			basic_value *= health_c.hp
 
 		basic_value -= health_c.config.damage_reduction

@@ -12,6 +12,10 @@ var is_first_elapsed_time: bool = true
 var time_stamp: float = 0.0
 
 
+func _init() -> void:
+	resource_local_to_scene = true
+
+
 func try_set_time_stamp() -> void:
 	if need_set_time_stamp:
 		time_stamp = TimeManager.tick_time_stamp

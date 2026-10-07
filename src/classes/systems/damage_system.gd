@@ -43,7 +43,7 @@ func _on_update(_delta: float) -> void:
 		if damage.damage_type & health_c.config.immuned:
 			continue
 			
-		var actual_damage: float = damage.predict_damage(target)
+		var actual_damage: float = Damage.predict_damage(damage.damage_type, damage.value, target)
 		health_c.hp -= actual_damage
 		
 		if not damage.damage_flags & Damage.Flag.NO_SPIKED:

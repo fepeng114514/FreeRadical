@@ -3,11 +3,17 @@ extends Node
 ## 调试管理器。
 
 
-## 绘制类型。
+## 绘制类型枚举。
 enum DrawType {
+	## 绘制类型：血量。
+	HEALTH,
+	## 绘制类型：路径。
 	PATHWAY,
+	## 绘制类型：偏移。
 	OFFSET,
+	## 绘制类型：范围。
 	RANGE,
+	## 绘制类型：点位。
 	POINT,
 }
 
@@ -18,6 +24,11 @@ signal draw_state_changed(draw_type: DrawType)
 @warning_ignore_restore("unused_signal")
 
 
+## 是否启用绘制血量。
+var draw_health_enabled: bool = false:
+	set(v):
+		draw_health_enabled = v
+		draw_state_changed.emit(DrawType.HEALTH)
 ## 是否启用绘制路径。
 var draw_pathway_enabled: bool = false:
 	set(v):
@@ -42,6 +53,7 @@ var draw_point_enabled: bool = false:
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
+		draw_health_enabled = true
 		draw_pathway_enabled = true
 		draw_offset_enabled = true
 		draw_range_enabled = true

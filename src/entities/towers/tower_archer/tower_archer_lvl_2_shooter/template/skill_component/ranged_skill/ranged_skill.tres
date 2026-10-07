@@ -29,7 +29,6 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 resource_local_to_scene = true
 script = ExtResource("5_2yk4k")
 max_radius = 550.0
-search_flag = 1
 interact_policy = SubResource("Resource_cwbut")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 

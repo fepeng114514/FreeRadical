@@ -36,8 +36,8 @@ func set_spawn_data(new_spawn: WaveSpawn) -> void:
 	sub_pathway.value = spawn.sub_pathway_index
 	count.value = spawn.count
 	spawn_interval.value = spawn.spawn_interval
-	enable_reversed.button_pressed = spawn.enable_reversed
-	enable_loop.button_pressed = spawn.enable_loop
+	enable_reversed.button_pressed = spawn.reversed_enabled
+	enable_loop.button_pressed = spawn.loop_enabled
 
 
 func _on_spawn_interval_changed(value: float) -> void:

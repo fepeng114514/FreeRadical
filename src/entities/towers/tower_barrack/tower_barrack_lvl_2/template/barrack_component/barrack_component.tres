@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_0s0p4"]
 [ext_resource type="Script" uid="uid://t3k6wl7of3fr" path="res://classes/node_configs/components/barrack_component_node_config.gd" id="1_q4xy3"]
 [ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack/tower_barrack_spawn_sfx.tres" id="2_a1hfl"]
+[ext_resource type="Resource" uid="uid://br3xlagaeimgi" path="res://entities/resources/select_menu_button_data/rally.tres" id="4_a1hfl"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="4_glgke"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="5_w46wc"]
 
@@ -25,6 +26,7 @@ metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_q4xy3")
+select_menu_rally_button_data = ExtResource("4_a1hfl")
 rally_max_range = 320.0
 rally_radius = 45.0
 rally_sfx = ExtResource("2_a1hfl")

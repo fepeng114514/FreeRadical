@@ -4,7 +4,9 @@
 [ext_resource type="Resource" uid="uid://cxhlbmb2pn7gv" path="res://entities/resources/animation_groups/horizontal_death_animation_group.tres" id="1_qnpn3"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_oiy2m")
 hp_max = 90.0
 death_gold = 12.0
 death_animation = ExtResource("1_qnpn3")
+death_remove_delay = 0.0

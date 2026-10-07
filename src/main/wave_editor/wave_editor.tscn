@@ -78,7 +78,6 @@ theme_override_constants/separation = 14
 [node name="LoadButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ToolBarVBoxContainer" unique_id=604632569 node_paths=PackedStringArray("file_dialog")]
 layout_mode = 2
 text = "加载"
-flat = true
 script = ExtResource("3_jfbxu")
 file_dialog = NodePath("LoadFileDialog")
 
@@ -101,7 +100,6 @@ wave_editor = NodePath("../../../../../..")
 [node name="SaveButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ToolBarVBoxContainer" unique_id=2018298014 node_paths=PackedStringArray("file_dialog")]
 layout_mode = 2
 text = "保存"
-flat = true
 script = ExtResource("4_mx20l")
 file_dialog = NodePath("SaveFileDialog")
 
@@ -182,6 +180,7 @@ horizontal_alignment = 1
 layout_mode = 2
 script = ExtResource("11_ca708")
 wave_editor = NodePath("../../../../../../../../..")
+tick_length = 10.0
 hide_mouse_tool_bar = true
 multiple_track_enable = false
 
@@ -203,7 +202,7 @@ layout_mode = 2
 script = ExtResource("12_aioto")
 wave_editor = NodePath("../../../../../../../../..")
 track_length = 100.0
-tick_spacing = 1.0
+tick_length = 1.0
 hide_mouse_tool_bar = true
 
 [node name="SpawnVBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/MarginContainer/TrackEditorVBoxContainer" unique_id=382018817]
@@ -223,7 +222,7 @@ horizontal_alignment = 1
 layout_mode = 2
 script = ExtResource("13_shbln")
 wave_editor = NodePath("../../../../../../../../..")
-tick_spacing = 1.0
+tick_length = 1.0
 hide_mouse_tool_bar = true
 multiple_track_enable = false
 
@@ -278,23 +277,19 @@ text = "生成间隔"
 step = 0.1
 value = 1.0
 
-[node name="SpawnIntervalLabeledSpinBox2" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=295310891 instance=ExtResource("4_pj2lv")]
-layout_mode = 2
-text = "生成间隔"
-step = 0.1
-value = 1.0
-
 [node name="EntityLabeledOptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=82350687 instance=ExtResource("4_sh4oc")]
 layout_mode = 2
 text = "生成实体"
 
 [node name="PathwayLabeledSpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=92625463 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
+tooltip_text = "生成实体到的路径，-1 表示生成到随机路径。"
 text = "生成路径"
 step = 1.0
 
 [node name="SubPathwayLabeledSpinBox" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/SpawnDataVScrollContainer/PanelContainer/MarginContainer/VBoxContainer/SpawnDataVBoxContainer" unique_id=1063998961 instance=ExtResource("4_pj2lv")]
 layout_mode = 2
+tooltip_text = "生成实体到的子路径，-1 表示生成到随机子路径。"
 text = "生成子路径"
 step = 1.0
 value = -1.0

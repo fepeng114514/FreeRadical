@@ -10,12 +10,13 @@ func _on_insert(barrack: Entity) -> bool:
 	if not barrack_c:
 		return true
 	
-	if not barrack_c.config.rally_center_global_position:
-		var tower_record: TowerRecord = barrack.get_node_or_null(Constants.TOWER_RECORD_NODE_PATH)
-		if tower_record:
-			barrack_c.config.rally_center_global_position = tower_record.default_rally_center_position
+	var tower_record: TowerRecord = barrack.get_node_or_null(Constants.TOWER_RECORD_NODE_PATH)
+	if not tower_record.rally_center_global_position:
+		tower_record.rally_center_global_position = barrack.to_global(tower_record.default_rally_center_position)
+	
 	_spawn_all_soldiers(barrack, barrack_c)
-		
+
+	tower_record.last_soldier_list.clear()
 	return true
 
 
@@ -25,8 +26,8 @@ func _on_remove(barrack: Entity) -> bool:
 		return true
 	
 	var soldier_list: Array[Entity] = barrack_c.soldier_list
-	for _soldier_idx: int in soldier_list.size():
-		EntityManager.queue_remove_entity(soldier_list[0])
+	for soldier_idx: int in soldier_list.size():
+		EntityManager.queue_remove_entity(soldier_list[soldier_idx])
 
 	return true
 
@@ -48,7 +49,8 @@ func _on_update(barrack: Entity) -> bool:
 
 	# 士兵数发生变化重新整队
 	if barrack_c.last_soldier_count != soldier_list_size:
-		barrack_c.set_rally_center_global_position(barrack_c.config.rally_center_global_position, false, false)
+		var tower_record: TowerRecord = barrack.get_node_or_null(Constants.TOWER_RECORD_NODE_PATH)
+		barrack_c.set_rally_center_global_position(tower_record.rally_center_global_position, false, false)
 		barrack_c.last_soldier_count = soldier_list_size
 	return false
 
@@ -57,11 +59,10 @@ func _on_update(barrack: Entity) -> bool:
 func _spawn_soldier(
 		barrack: Entity, barrack_c: BarrackComponent
 	) -> Entity:
-
 	var soldier: Entity = EntityManager.create_entity(barrack_c.config.soldier_scene)
 	soldier.source_id = barrack.id
 	soldier.source_type = Entity.SourceType.BARRACK_SOLDIER
-	soldier.tree_exiting.connect(_on_soldier_removed.bind(soldier, barrack_c))
+	soldier.entity_removing.connect(_on_soldier_removing.bind(soldier, barrack_c))
 
 	var barrack_global_position: Vector2 = barrack.global_position
 	var soldier_global_position: Vector2 = barrack_global_position
@@ -92,7 +93,8 @@ func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent) -> void:
 
 	_spawn_soldier(barrack, barrack_c)
 	
-	barrack_c.set_rally_center_global_position(barrack_c.config.rally_center_global_position, false, false)
+	var tower_record: TowerRecord = barrack.get_node_or_null(Constants.TOWER_RECORD_NODE_PATH)
+	barrack_c.set_rally_center_global_position(tower_record.rally_center_global_position, false, false)
 	barrack_c.last_soldier_count = barrack_c.soldier_list.size()
 	barrack.y_wait_animation(barrack_c.config.animation)
 
@@ -100,7 +102,8 @@ func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent) -> void:
 ## 生成所有士兵。
 func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent) -> void:
 	var soldier_list: Array[Entity] = barrack_c.soldier_list
-	var last_soldier_list: Array[Entity] = barrack_c.last_soldier_list
+	var tower_record: TowerRecord = barrack.get_node_or_null(Constants.TOWER_RECORD_NODE_PATH)
+	var last_soldier_list: Array[Entity] = tower_record.last_soldier_list
 	var has_replace_all: bool = true
 
 	# 先替换存活的士兵
@@ -134,7 +137,7 @@ func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent) -> void:
 							melee_c.blocked_bind_melee_relations(blocker_id, soldier.id)
 		
 		barrack_c.last_soldier_count = soldier_list.size()
-		barrack_c.set_rally_center_global_position(barrack_c.config.rally_center_global_position, false)
+		barrack_c.set_rally_center_global_position(tower_record.rally_center_global_position, false)
 	else:
 		has_replace_all = false
 
@@ -150,11 +153,11 @@ func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent) -> void:
 		for soldier_index: int in range(soldier_list.size(), max_soldier_count):
 			_spawn_soldier(barrack, barrack_c)
 
-		barrack_c.set_rally_center_global_position(barrack_c.config.rally_center_global_position, false)
+		barrack_c.set_rally_center_global_position(tower_record.rally_center_global_position, false)
 		barrack_c.last_soldier_count = soldier_list.size()
 		
 		barrack.y_wait_animation(barrack_c.config.animation)
 
 
-func _on_soldier_removed(soldier: Entity, barrack_c: BarrackComponent) -> void:
+func _on_soldier_removing(soldier: Entity, barrack_c: BarrackComponent) -> void:
 	barrack_c.soldier_list.erase(soldier)
