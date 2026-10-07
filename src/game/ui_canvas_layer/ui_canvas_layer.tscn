@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cpnmrjrpdut1d" path="res://game/ui_canvas_layer/ui_canvas_layer.gd" id="1_x1lfd"]
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="2_n4uei"]
 [ext_resource type="PackedScene" uid="uid://dguwvlhp3jmgn" path="res://game/ui_canvas_layer/bottom_hbox_container/bottom_hbox_container.tscn" id="2_x1lfd"]
-[ext_resource type="PackedScene" uid="uid://rq35ixpelpas" path="res://game/ui_canvas_layer/debug_menu/debug_menu.tscn" id="4_l1fhb"]
+[ext_resource type="PackedScene" uid="uid://rq35ixpelpas" path="res://game/ui_canvas_layer/game_debug_menu/game_debug_menu.tscn" id="4_l1fhb"]
 
 [node name="UICanvasLayer" type="CanvasLayer" unique_id=934359936]
 process_mode = 3
@@ -32,7 +32,7 @@ theme_override_constants/separation = 20
 [node name="TopHBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1978266969 instance=ExtResource("1_olxg3")]
 layout_mode = 2
 
-[node name="DebugMenu" parent="MarginContainer/VBoxContainer" unique_id=1295185256 instance=ExtResource("4_l1fhb")]
+[node name="GameDebugMenu" parent="MarginContainer/VBoxContainer" unique_id=1295185256 instance=ExtResource("4_l1fhb")]
 layout_mode = 2
 
 [node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=528073065]

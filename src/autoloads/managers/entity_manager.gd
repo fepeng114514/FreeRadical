@@ -402,9 +402,6 @@ func _grouping_entities() -> void:
 		for group_name: StringName in entity.components:
 			_component_entity_groups[group_name].append(entity)
 
-			if cell:
-				cell.component_entity_groups[group_name].append(entity)
-
 
 class EntityGroup extends RefCounted:
 	## 实体组内的实体。
@@ -423,21 +420,13 @@ class SpaceIndexCell extends RefCounted:
 	var entities: Array[Entity] = []
 	## 网格内的实体组。
 	var entity_groups: Dictionary[StringName, EntityGroup] = {}
-	## 网格内的组件实体组。
-	var component_entity_groups: Dictionary[StringName, EntityGroup] = {}
 
 	func _init() -> void:
 		for group_name: StringName in Constants.ALL_GROUPS:
 			entity_groups[group_name] = EntityGroup.new()
-
-		for component_name: StringName in Constants.ALL_COMPONENT_NAMES:
-			component_entity_groups[component_name] = EntityGroup.new()
 
 	func clear() -> void:
 		entities.clear()
 
 		for group_name: StringName in entity_groups:
 			entity_groups[group_name].clear()
-			
-		for component_name: StringName in component_entity_groups:
-			component_entity_groups[component_name].clear()
