@@ -70,11 +70,11 @@ static func predict_damage(p_damage_type: int, p_value: float, target: Entity) -
 	if p_damage_type & Type.INSTAKILL:
 		return health_c.hp
 	else:
-		var physical_armor: float = clampf(health_c.config.physical_armor, 0, 1)
-		var magical_armor: float = clampf(health_c.config.magical_armor, 0, 1)
-		var poison_armor: float = clampf(health_c.config.poison_armor, 0, 1)
-		
-		var resistance: float = 1 - health_c.config.damage_resistance
+		var health_config: HealthComponentNodeConfig = health_c.config
+		var physical_armor: float = clampf(health_config.physical_armor, 0, 1)
+		var magical_armor: float = clampf(health_config.magical_armor, 0, 1)
+		var poison_armor: float = clampf(health_config.poison_armor, 0, 1)
+		var resistance: float = 1 - health_config.damage_resistance
 
 		if not p_damage_type & Type.TRUE:
 			if p_damage_type & Type.EXPLOSION:
@@ -90,14 +90,14 @@ static func predict_damage(p_damage_type: int, p_value: float, target: Entity) -
 			if p_damage_type & Type.POISON:
 				resistance *= 1 - poison_armor
 			
-		var total_damage_factor: float = resistance * (1 + health_c.config.vulnerable)
+		var total_damage_factor: float = resistance * (1 + health_config.vulnerable)
 		var basic_value: float = p_value
 		if p_damage_type & Type.HP_MAX_PERCENT:
-			basic_value *= health_c.config.hp_max
+			basic_value *= health_config.hp_max
 		elif p_damage_type & Type.HP_PERCENT:
 			basic_value *= health_c.hp
 
-		basic_value -= health_c.config.damage_reduction
+		basic_value -= health_config.damage_reduction
 
 		var actual_damage: float = roundi(basic_value * total_damage_factor)
 		

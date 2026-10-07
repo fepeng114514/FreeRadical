@@ -26,10 +26,8 @@ enum State {
 	## 实体状态：在路径上移动。
 	NAV_PATH_WALK = 1 << 4,
 	## 实体状态：闪避。
-	DODGE = 1 << 6,
+	DODGE = 1 << 5,
 
-	## 实体状态：注定死亡。
-	DOOMED = 1 << 9,
 	## 实体状态：死亡。
 	DEAD = 1 << 10,
 
@@ -43,6 +41,15 @@ enum State {
 	WAITING = 1 << 23,
 	## 实体状态：中断等待。
 	INTERRUPT_WAIT = 1 << 24,
+}
+
+
+## 实体元状态枚举。
+enum MetaState {
+	## 实体元状态：无。
+	NONE = 0,
+	## 实体元状态：注定死亡。
+	DOOMED = 1,
 }
 
 
@@ -97,14 +104,16 @@ var last_has_mods_ids_size: int = 0
 var has_auras_ids := PackedInt32Array()
 ## 以此实体为目标的子弹 ID 列表
 var aimed_bullet_ids := PackedInt32Array()
-## 上次以此实体为目标的子弹 ID 列表长度，用于检测列表的变化。
-var last_aimed_bullet_ids_size: int = 0
+## 是否有新的子弹以此实体为目标。
+var has_new_aimed_bullet: bool = false
 ## 是否被点击选择
 var selected: bool = false
 ## 上一帧全局位置
 var last_global_position := Vector2.ZERO
 ## 状态
 var state: int = Entity.State.IDLE
+## 元状态
+var meta_state: int = Entity.MetaState.NONE
 ## 面朝的全局位置
 var facing_global_position := Vector2.INF
 ## 是否是首次更新

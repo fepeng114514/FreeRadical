@@ -138,7 +138,7 @@ func blocker_cleanup_melee_relations(entity: Entity) -> void:
 			continue 
 		
 		var search_flag: int = config.searcher.search_flag
-		if search_flag & Searcher.SearchFlag.SKIP_DOOMED and blocked.state & Entity.State.DOOMED:
+		if search_flag & Searcher.SearchFlag.SKIP_DOOMED and blocked.meta_state & Entity.MetaState.DOOMED:
 			continue
 
 		if search_flag & Searcher.SearchFlag.SKIP_DEAD and blocked.state & Entity.State.DEAD:

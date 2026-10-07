@@ -41,18 +41,20 @@ func _process_regen(entity: Entity, health_c: HealthComponent) -> void:
 
 ## 处理注定死亡状态。
 func _process_doomed_state(entity: Entity, health_c: HealthComponent) -> void:
+	if entity.meta_state & Entity.MetaState.DOOMED:
+		return
+
 	if health_c.hp != health_c.last_hp:
 		health_c.last_hp = health_c.hp
 		if _is_doomed(entity, health_c):
-			entity.state |= Entity.State.DOOMED
+			entity.meta_state |= Entity.MetaState.DOOMED
 		return
 	
-	var aimed_bullet_ids_size: int = entity.aimed_bullet_ids.size()
-	if entity.last_aimed_bullet_ids_size != aimed_bullet_ids_size:
-		entity.last_aimed_bullet_ids_size = aimed_bullet_ids_size
+	if entity.has_new_aimed_bullet:
+		entity.has_new_aimed_bullet = false
 
 		if _is_doomed(entity, health_c):
-			entity.state |= Entity.State.DOOMED
+			entity.meta_state |= Entity.MetaState.DOOMED
 
 
 ## 检查实体是否注定死亡。

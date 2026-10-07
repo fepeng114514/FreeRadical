@@ -173,7 +173,7 @@ func draw_search_range(drawer: CanvasItem, center: Vector2) -> void:
 
 ## 跳过注定死亡目标过滤器。
 func _skip_doomed_filter(entity: Entity) -> bool:
-	return not entity.state & Entity.State.DOOMED
+	return not entity.meta_state & Entity.MetaState.DOOMED
 
 
 ## 跳过已死亡目标过滤器。

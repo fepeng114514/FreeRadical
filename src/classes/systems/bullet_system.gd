@@ -15,6 +15,7 @@ func _on_insert(entity: Entity) -> bool:
 		return false
 		
 	target.aimed_bullet_ids.append(entity.id)
+	target.has_new_aimed_bullet = true
 	bullet_c.time_stamp = TimeManager.tick_time_stamp
 	var predict_time: float = bullet_c.config.trajectory._get_predict_time() if bullet_c.config.trajectory else 0.0
 	if predict_time:
