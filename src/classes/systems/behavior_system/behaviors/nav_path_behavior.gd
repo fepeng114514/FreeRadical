@@ -61,8 +61,7 @@ func _update_forward(entity: Entity, nav_path_c: NavPathComponent) -> bool:
 	if node_index != next_node_index:
 		nav_path_c.pathway_node_index = next_node_index
 
-	var next_progress: float = nav_path_c.progress + walk_length
-	_update_entity_position(entity, nav_path_c, next_progress)
+	_update_entity_position(entity, nav_path_c, walk_length)
 	return true
 
 
@@ -90,21 +89,18 @@ func _update_reversed(entity: Entity, nav_path_c: NavPathComponent) -> bool:
 	if node_index != next_node_index:
 		nav_path_c.pathway_node_index = next_node_index
 	
-	var next_progress: float = nav_path_c.progress - walk_length
-	_update_entity_position(entity, nav_path_c, next_progress)
+	_update_entity_position(entity, nav_path_c, walk_length)
 	return true
 	
 
 ## 更新实体位置和动画。
-func _update_entity_position(entity: Entity, nav_path_c: NavPathComponent, next_progress: float) -> void:
-	var next_global_position: Vector2 = nav_path_c.get_progress_global_position(nav_path_c.progress)
+func _update_entity_position(entity: Entity, nav_path_c: NavPathComponent, walk_length: float) -> void:
+	var progress: float = nav_path_c.progress
+	var next_global_position: Vector2 = nav_path_c.get_progress_global_position(progress)
 	entity.facing_global_position = next_global_position
 	entity.play_animation(nav_path_c.config.motion_animation, "walk")
 	entity.global_position = next_global_position
-	
-	# 用于其他动画
-	next_global_position = nav_path_c.get_progress_global_position(next_progress)
-	entity.facing_global_position = next_global_position
+	entity.facing_global_position = nav_path_c.get_progress_global_position(progress + walk_length)
 
 
 ## 到达终点处理。

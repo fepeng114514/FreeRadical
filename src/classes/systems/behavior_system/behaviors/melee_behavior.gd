@@ -251,7 +251,7 @@ func _go_melee_position(entity: Entity, melee_c: MeleeComponent, melee_global_po
 		entity.facing_global_position = next_global_position
 		entity.play_animation(melee_c.config.motion_animation, &"walk")
 		entity.global_position = next_global_position
-		
+		entity.facing_global_position = next_global_position + velocity
 		return false
 	
 
@@ -278,9 +278,8 @@ func _back_original_position(entity: Entity, melee_c: MeleeComponent) -> bool:
 		var next_global_position: Vector2 = entity.global_position + velocity
 		entity.facing_global_position = next_global_position
 		entity.play_animation(melee_c.config.motion_animation, &"walk")
-
 		entity.global_position = next_global_position
-		
+		entity.facing_global_position = next_global_position + velocity
 		return false
 	
 
