@@ -6,11 +6,14 @@ class_name DamageSystem
 
 
 func _on_update(_delta: float) -> void:
+	# 用于存储循环中创建的伤害。
 	var new_damage_queue: Array[Damage] = []
 	var damage_queue: Array[Damage] = DamageManager.damage_queue
-	
-	while damage_queue:
-		var damage: Damage = damage_queue.pop_front()
+	var head_index: int = 0
+	while head_index < damage_queue.size():
+		var damage: Damage = damage_queue[head_index]
+		damage_queue[head_index] = null
+		head_index += 1
 		
 		var target: Entity = EntityManager.get_entity_by_id(damage.target_id)
 		if not target:
@@ -54,6 +57,7 @@ func _on_update(_delta: float) -> void:
 				bad_damage.value = spiked_value
 				bad_damage.damage_type = Damage.Type.TRUE
 				bad_damage.damage_flags = Damage.Flag.NO_SPIKED
+				# 在下一帧中处理反伤，避免循环反伤。
 				new_damage_queue.append(bad_damage)
 			
 		Log.verbose(
@@ -64,6 +68,7 @@ func _on_update(_delta: float) -> void:
 				actual_damage
 			]
 		)
+
 		var damage_number := DamageNumber.new()
 		damage_number.value = actual_damage
 		damage_number.damage_type = damage.damage_type
@@ -74,14 +79,13 @@ func _on_update(_delta: float) -> void:
 			)
 			from += hit_offset
 		damage_number.global_position = from
-		
 		add_child(damage_number)
 		
 		if health_c.hp <= 0:
 			_death(damage, target, health_c, source)
 
 	DamageManager.damage_queue = new_damage_queue
-	
+
 
 ## 死亡处理。
 func _death(damage: Damage, target: Entity, health_c: HealthComponent, _source: Entity) -> void:

@@ -31,16 +31,8 @@ var _entity_world: EntityWorld = null
 var _entities: Array[Entity] = []
 ## 实体插入队列。
 var _insert_queue: Array[Entity] = []
-## 插入队列头索引。
-var _insert_queue_head_index: int = 0
-## 插入队列压缩阈值。
-var _insert_queue_compress_threshold: int = 64
 ## 实体移除队列。
 var _remove_queue: Array[Entity] = []
-## 移除队列头索引。
-var _remove_queue_head_index: int = 0
-## 移除队列压缩阈值。
-var _remove_queue_compress_threshold: int = 64
 ## 所有有效实体数组。
 var _valid_entities: Array[Entity] = []
 ## 实体组字典。
@@ -85,6 +77,7 @@ func cleanup() -> void:
 	_entity_groups.clear()
 	_component_entity_groups.clear()
 	_spatial_hash_grid.clear()
+	_next_id = 0
 
 
 ## 注册实体世界。
@@ -235,9 +228,42 @@ func get_entity_by_id(entity_id: int) -> Entity:
 	return entity
 
 
-## 搜索椭圆环范围内目标。[br][br]
-## [param filter]: 过滤函数。返回 [code]false[/code] 表示被过滤。
+## 搜索椭圆环范围内目标。
 func search_entities_in_ellipse(
+		search_global_position: Vector2,
+		min_range: float,
+		max_range: float,
+		searched_group: StringName = &"",
+		aspect: float = 0.7
+	) -> Array[Entity]:
+	var entities: Array[Entity] = []
+
+	var grid_min_x: int = max(0, floori((search_global_position.x - max_range) / _spatial_hash_cell_size))
+	var grid_max_x: int = ceili((search_global_position.x + max_range) / _spatial_hash_cell_size)
+	var grid_min_y: int = max(0, floori((search_global_position.y - max_range) / _spatial_hash_cell_size))
+	var grid_max_y: int = ceili((search_global_position.y + max_range) / _spatial_hash_cell_size)
+
+	for grid_x: int in range(grid_min_x, grid_max_x + 1):
+		for grid_y: int in range(grid_min_y, grid_max_y + 1):
+			var cell_index: int = grid_position_to_spatial_hash_cell_index(grid_x, grid_y)
+			var cell: SpaceIndexCell = get_spatial_hash_cell(cell_index)
+			if not cell:
+				continue
+
+			var iterative_entities: Array[Entity] = cell.entity_groups[searched_group].entities if searched_group else cell.entities
+			for entity: Entity in iterative_entities:
+				if not MathUtils.is_in_ellipse_ring(search_global_position, entity.global_position, min_range, max_range, aspect):
+					continue
+					
+				entities.append(entity)
+
+	return entities
+
+
+## 搜索椭圆环范围内目标。[br][br]
+## [param filter]: 过滤函数。返回 [code]false[/code] 表示被过滤。[br][br]
+## 与 [method EntityManager.search_entities_in_ellipse] 不同的是，支持过滤函数。
+func search_entities_in_ellipse_filtered(
 		search_global_position: Vector2,
 		min_range: float,
 		max_range: float,
@@ -264,43 +290,7 @@ func search_entities_in_ellipse(
 				if not MathUtils.is_in_ellipse_ring(search_global_position, entity.global_position, min_range, max_range, aspect):
 					continue
 					
-				if filter.is_valid() and not filter.call(entity):
-					continue
-					
-				entities.append(entity)
-
-	return entities
-
-
-## 搜索圆环范围内目标。[br][br]
-## [param filter]: 过滤函数。返回 [code]false[/code] 表示被过滤。
-func search_entities_in_circle(
-		search_global_position: Vector2,
-		min_range: float,
-		max_range: float,
-		filter := Callable(),
-		searched_group: StringName = &""
-	) -> Array[Entity]:
-	var entities: Array[Entity] = []
-
-	var grid_min_x: int = max(0, floori((search_global_position.x - max_range) / _spatial_hash_cell_size))
-	var grid_max_x: int = ceili((search_global_position.x + max_range) / _spatial_hash_cell_size)
-	var grid_min_y: int = max(0, floori((search_global_position.y - max_range) / _spatial_hash_cell_size))
-	var grid_max_y: int = ceili((search_global_position.y + max_range) / _spatial_hash_cell_size)
-
-	for grid_x: int in range(grid_min_x, grid_max_x + 1):
-		for grid_y: int in range(grid_min_y, grid_max_y + 1):
-			var cell_index: int = grid_position_to_spatial_hash_cell_index(grid_x, grid_y)
-			var cell: SpaceIndexCell = get_spatial_hash_cell(cell_index)
-			if not cell:
-				continue
-
-			var iterative_entities: Array[Entity] = cell.entity_groups[searched_group].entities if searched_group else cell.entities
-			for entity: Entity in iterative_entities:
-				if not MathUtils.is_in_ring(search_global_position, entity.global_position, min_range, max_range):
-					continue
-					
-				if filter.is_valid() and not filter.call(entity):
+				if not filter.call(entity):
 					continue
 					
 				entities.append(entity)
@@ -331,14 +321,11 @@ func get_spatial_hash_cell(index: int) -> SpaceIndexCell:
 
 ## 处理实体插入队列。
 func _process_insert_queue() -> void:
-	while _insert_queue_head_index < _insert_queue.size():
-		var entity: Entity = _insert_queue[_insert_queue_head_index]
-		_insert_queue[_insert_queue_head_index] = null
-		_insert_queue_head_index += 1
-		
-		if _insert_queue_head_index > _insert_queue_compress_threshold and _insert_queue_head_index * 2 >= _insert_queue.size():
-			_insert_queue = _insert_queue.slice(_insert_queue_head_index)
-			_insert_queue_head_index = 0
+	var head_index: int = 0
+	while head_index < _insert_queue.size():
+		var entity: Entity = _insert_queue[head_index]
+		_insert_queue[head_index] = null
+		head_index += 1
 	
 		# if _entities:
 		# 	var entities_len: int = _entities.size()
@@ -356,17 +343,17 @@ func _process_insert_queue() -> void:
 		entity.visible = true
 		Log.verbose("插入实体: %s" % entity)
 
+	_insert_queue.clear()
+
 
 ## 处理实体移除队列。
 func _process_remove_queue() -> void:
-	while _remove_queue_head_index < _remove_queue.size():
-		var entity: Entity = _remove_queue[_remove_queue_head_index]
-		_remove_queue[_remove_queue_head_index] = null
-		_remove_queue_head_index += 1
-		
-		if _remove_queue_head_index > _remove_queue_compress_threshold and _remove_queue_head_index * 2 >= _remove_queue.size():
-			_remove_queue = _remove_queue.slice(_remove_queue_head_index)
-			_remove_queue_head_index = 0
+	var need_free_entities: Array[Entity] = []
+	var head_index: int = 0
+	while head_index < _remove_queue.size():
+		var entity: Entity = _remove_queue[head_index]
+		_remove_queue[head_index] = null
+		head_index += 1
 		
 		if not SystemManager.process_entity_remove(entity):
 			entity.visible = true
@@ -374,18 +361,25 @@ func _process_remove_queue() -> void:
 
 		_entities[entity.id] = null
 
+		# 先处理所有移除回调，再释放实体
+		need_free_entities.append(entity)
+		entity.entity_removing.emit()
 		Log.verbose("移除实体: %s" % entity)
+
+	_remove_queue.clear()
+	for entity: Entity in need_free_entities:
 		entity.free()
 
 
 ## 分组实体。
 func _grouping_entities() -> void:
 	_valid_entities.clear()
-	for group_name: StringName in _component_entity_groups:
-		_component_entity_groups[group_name].clear()
 
 	for group_name: StringName in _entity_groups:
 		_entity_groups[group_name].clear()
+		
+	for group_name: StringName in _component_entity_groups:
+		_component_entity_groups[group_name].clear()
 
 	for cell: SpaceIndexCell in _spatial_hash_grid:
 		cell.clear()
