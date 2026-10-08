@@ -10,6 +10,7 @@ func _on_insert(modifier: Entity) -> bool:
 	if not modifier_c:
 		return true
 
+	var modifier_c_config: ModifierComponentNodeConfig = modifier_c.config
 	var target: Entity = EntityManager.get_entity_by_id(modifier.target_id)
 	if not target:
 		return false
@@ -41,7 +42,7 @@ func _on_insert(modifier: Entity) -> bool:
 			or interact_policy.is_aura_type_banned(other_interact_policy)
 			or not interact_policy.is_scene_allowed(target.scene_name)
 		):
-			if modifier_c.config.remove_banned:
+			if modifier_c_config.remove_banned:
 				EntityManager.queue_remove_entity(other_modifier)
 				continue
 			
@@ -50,8 +51,8 @@ func _on_insert(modifier: Entity) -> bool:
 		if other_modifier.scene_name == modifier.scene_name:
 			same_modifier_list.append(other_modifier)
 			
-	if same_modifier_list and modifier_c.config.same_stack_policy:
-		if not modifier_c.config.same_stack_policy.apply(modifier, same_modifier_list):
+	if same_modifier_list and modifier_c_config.same_stack_policy:
+		if not modifier_c_config.same_stack_policy.apply(modifier, same_modifier_list):
 			return false
 
 	target.has_mods_ids.append(modifier.id)
@@ -98,9 +99,10 @@ func _on_remove(modifier: Entity) -> bool:
 func _process_modifier_update() -> void:
 	for modifier: Entity in EntityManager.get_component_entity_group(Constants.MODIFIER_COMPONENT_NAME):
 		var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
+		var modifier_c_config: ModifierComponentNodeConfig = modifier_c.config
 
 		var target: Entity = EntityManager.get_entity_by_id(modifier.target_id)
-		if modifier_c.config.track_target:
+		if modifier_c_config.track_target:
 			if target:
 				var new_global_position: Vector2 = target.global_position
 
@@ -114,15 +116,15 @@ func _process_modifier_update() -> void:
 		if modifier.is_waiting():
 			continue
 			
-		if not TimeManager.has_elapsed(modifier_c.influence_timestamp, modifier_c.config.influence_interval):
+		if not TimeManager.has_elapsed(modifier_c.influence_timestamp, modifier_c_config.influence_interval):
 			continue
 		
-		if Utils.is_valid_number(modifier_c.config.max_influence_count):
-			if modifier_c.influence_count > modifier_c.config.max_influence_count:
+		if Utils.is_valid_number(modifier_c_config.max_influence_count):
+			if modifier_c.influence_count > modifier_c_config.max_influence_count:
 				EntityManager.queue_remove_entity(modifier)
 				continue
 		
-		if TimeManager.has_elapsed(modifier_c.influence_timestamp, modifier_c.config.influence_interval):
+		if TimeManager.has_elapsed(modifier_c.influence_timestamp, modifier_c_config.influence_interval):
 			continue
 
 		modifier_c.influence_count += 1
@@ -132,12 +134,13 @@ func _process_modifier_update() -> void:
 		
 
 func _take_influfluence(modifier: Entity, modifier_c: ModifierComponent, target: Entity) -> void:
-	modifier.play_animation(modifier_c.config.influence_animation)
-	await modifier.y_wait(modifier_c.config.influence_delay)
+	var modifier_c_config: ModifierComponentNodeConfig = modifier_c.config
+	modifier.play_animation(modifier_c_config.influence_animation)
+	await modifier.y_wait(modifier_c_config.influence_delay)
 		
-	modifier_c.config.influence.take_influence(modifier, target, target.global_position)
-	if modifier_c.config.influence_animation:
-		await modifier.y_wait_animation(modifier_c.config.influence_animation)
+	modifier_c_config.influence.take_influence(modifier, target, target.global_position)
+	if modifier_c_config.influence_animation:
+		await modifier.y_wait_animation(modifier_c_config.influence_animation)
 
 	EntityManager.queue_remove_entity(modifier)
 

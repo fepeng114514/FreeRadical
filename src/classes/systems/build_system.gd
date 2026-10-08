@@ -21,17 +21,18 @@ func _on_update(_delta: float) -> void:
 			continue
 
 		var build_c: BuildComponent = build.get_node_or_null(Constants.BUILD_COMPONENT_NODE_PATH)
+		var build_c_config: BuildComponentNodeConfig = build_c.config
 		var build_progress_bar: TextureProgressBar = build_c.build_progress_bar
 		var max_value: float = build_progress_bar.max_value
 		
 		var past_time: float = TimeManager.tick_timestamp - build_c.build_timestamp
-		var value: float = past_time * max_value / build_c.config.build_time
+		var value: float = past_time * max_value / build_c_config.build_time
 		build_progress_bar.value = value
 		
-		if not TimeManager.has_elapsed(build_c.build_timestamp, build_c.config.build_time):
+		if not TimeManager.has_elapsed(build_c.build_timestamp, build_c_config.build_time):
 			continue
 
-		var target: Entity = EntityManager.create_entity(build_c.config.build_target)
+		var target: Entity = EntityManager.create_entity(build_c_config.build_target)
 		target.global_position = build.global_position
 
 		var record_c: RecordComponent = build.get_node_or_null(Constants.RECORD_COMPONENT_NODE_PATH)

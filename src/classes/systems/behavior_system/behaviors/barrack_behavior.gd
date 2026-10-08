@@ -59,15 +59,16 @@ func _on_update(barrack: Entity) -> bool:
 func _create_soldier(
 		barrack: Entity, barrack_c: BarrackComponent, barrack_record: BarrackRecord
 	) -> Entity:
-	var soldier: Entity = EntityManager.create_entity(barrack_c.config.soldier_scene)
+	var barrack_c_config: BarrackComponentNodeConfig = barrack_c.config
+	var soldier: Entity = EntityManager.create_entity(barrack_c_config.soldier_scene)
 	soldier.source_id = barrack.id
 	soldier.source_type = Entity.SourceType.BARRACK_SOLDIER
 	soldier.entity_removing.connect(_on_soldier_removing.bind(soldier, barrack_c, barrack_record))
 
 	var barrack_global_position: Vector2 = barrack.global_position
 	var soldier_global_position: Vector2 = barrack_global_position
-	if barrack_c.config.spawn_offsets:
-		var offset: Vector2 = barrack_c.config.spawn_offsets.get_offset_toward_point(
+	if barrack_c_config.spawn_offsets:
+		var offset: Vector2 = barrack_c_config.spawn_offsets.get_offset_toward_point(
 			barrack_global_position, barrack.facing_global_position
 		)
 		soldier_global_position += offset
@@ -82,22 +83,24 @@ func _create_soldier(
 func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent, barrack_record: BarrackRecord) -> void:
 	barrack_c.timestamp = TimeManager.tick_timestamp
 
-	if barrack_record.soldier_list.size() >= barrack_c.config.max_soldier_count:
+	var barrack_c_config: BarrackComponentNodeConfig = barrack_c.config
+	if barrack_record.soldier_list.size() >= barrack_c_config.max_soldier_count:
 		return
 		
-	barrack.play_animation(barrack_c.config.animation)
-	AudioManager.play_sfx(barrack_c.config.sfx)
-	if await barrack.y_wait(barrack_c.config.delay):
+	barrack.play_animation(barrack_c_config.animation)
+	AudioManager.play_sfx(barrack_c_config.sfx)
+	if await barrack.y_wait(barrack_c_config.delay):
 		return
 
 	var soldier: Entity = _create_soldier(barrack, barrack_c, barrack_record)
 	barrack_record.soldier_list.append(soldier)
 	
-	barrack.y_wait_animation(barrack_c.config.animation)
+	barrack.y_wait_animation(barrack_c_config.animation)
 
 
 ## 生成所有士兵。
 func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent, barrack_record: BarrackRecord) -> void:
+	var barrack_c_config: BarrackComponentNodeConfig = barrack_c.config
 	var old_soldier_list: Array[Entity] = barrack_record.soldier_list
 	var new_soldier_list: Array[Entity] = []
 	var old_soldier_list_size: int = old_soldier_list.size()
@@ -139,20 +142,20 @@ func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent, barrack_r
 	
 	barrack_record.soldier_list = new_soldier_list
 
-	if old_soldier_list_size < barrack_c.config.max_soldier_count:
-		barrack.play_animation(barrack_c.config.animation)
-		AudioManager.play_sfx(barrack_c.config.sfx)
-		if await barrack.y_wait(barrack_c.config.delay):
+	if old_soldier_list_size < barrack_c_config.max_soldier_count:
+		barrack.play_animation(barrack_c_config.animation)
+		AudioManager.play_sfx(barrack_c_config.sfx)
+		if await barrack.y_wait(barrack_c_config.delay):
 			return
 
-		var max_soldier_count: int = barrack_c.config.max_soldier_count
+		var max_soldier_count: int = barrack_c_config.max_soldier_count
 		for soldier_index: int in range(old_soldier_list_size, max_soldier_count):
 			var soldier: Entity = _create_soldier(barrack, barrack_c, barrack_record)
 			new_soldier_list.append(soldier)
 
 		barrack_c.set_rally_center_global_position(barrack_record.rally_center_global_position, false)
 		
-		barrack.y_wait_animation(barrack_c.config.animation)
+		barrack.y_wait_animation(barrack_c_config.animation)
 
 
 func _on_soldier_removing(soldier: Entity, _barrack_c: BarrackComponent, barrack_record: BarrackRecord) -> void:

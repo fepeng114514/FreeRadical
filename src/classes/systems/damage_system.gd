@@ -26,6 +26,7 @@ func _on_update(_delta: float) -> void:
 		if not health_c:
 			continue
 			
+		var health_c_config: HealthComponentNodeConfig = health_c.config
 		var source: Entity = EntityManager.get_entity_by_id(damage.source_id)
 		var source_name: StringName = damage.source_name
 
@@ -40,15 +41,15 @@ func _on_update(_delta: float) -> void:
 		if target.state & Entity.State.DODGE:
 			continue
 				
-		if damage.damage_type & health_c.config.immuned:
+		if damage.damage_type & health_c_config.immuned:
 			continue
 			
 		var actual_damage: float = Damage.predict_damage(damage.damage_type, damage.value, target)
 		health_c.hp -= actual_damage
 		
 		if not damage.damage_flags & Damage.Flag.NO_SPIKED:
-			if Utils.is_valid_number(health_c.config.spiked) and source and source.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH):
-				var spiked_value: float = damage.value * health_c.config.spiked
+			if Utils.is_valid_number(health_c_config.spiked) and source and source.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH):
+				var spiked_value: float = damage.value * health_c_config.spiked
 				
 				var bad_damage := Damage.new()
 				bad_damage.target_id = source.id
@@ -89,6 +90,7 @@ func _on_update(_delta: float) -> void:
 
 ## 死亡处理。
 func _death(damage: Damage, target: Entity, health_c: HealthComponent, _source: Entity) -> void:
+	var health_c_config: HealthComponentNodeConfig = health_c.config
 	var damage_flags: int = damage.damage_flags
 			
 	if damage_flags & Damage.Flag.NOT_KILL:
@@ -99,21 +101,21 @@ func _death(damage: Damage, target: Entity, health_c: HealthComponent, _source: 
 	target.state |= Entity.State.DEAD
 	if target.state & Entity.State.WAITING:
 		target.state |= Entity.State.INTERRUPT_WAIT
-	GameManager.cash += health_c.config.death_gold
+	GameManager.cash += health_c_config.death_gold
 
 	if damage_flags & Damage.Flag.KILL_REMOVE:
 		EntityManager.queue_remove_entity(target)
 	
 	await get_tree().physics_frame
 
-	AudioManager.play_sfx(health_c.config.death_sfx)
+	AudioManager.play_sfx(health_c_config.death_sfx)
 	target.state &= ~Entity.State.INTERRUPT_WAIT
-	var death_animation: AnimationGroup = health_c.config.death_animation
+	var death_animation: AnimationGroup = health_c_config.death_animation
 	if death_animation:
 		target.play_animation(death_animation, &"death")
 		if await target.y_wait_animation(death_animation):
 			return
 
-	await target.y_wait(health_c.config.death_remove_delay)
+	await target.y_wait(health_c_config.death_remove_delay)
 
 	EntityManager.queue_remove_entity(target)

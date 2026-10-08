@@ -10,6 +10,7 @@ func _on_insert(aura: Entity) -> bool:
 	if not aura_c:
 		return true
 		
+	var aura_c_config: AuraComponentNodeConfig = aura_c.config
 	var target: Entity = EntityManager.get_entity_by_id(aura.target_id)
 	if not target:
 		return false
@@ -43,7 +44,7 @@ func _on_insert(aura: Entity) -> bool:
 			or interact_policy.is_aura_type_banned(other_interact_policy)
 			or not interact_policy.is_scene_allowed(target.scene_name)
 		):
-			if aura_c.config.remove_banned:
+			if aura_c_config.remove_banned:
 				EntityManager.queue_remove_entity(other_aura)
 				continue
 			
@@ -52,8 +53,8 @@ func _on_insert(aura: Entity) -> bool:
 		if other_aura.scene_name == aura.scene_name:
 			same_aura_list.append(other_aura)	
 			
-	if same_aura_list and aura_c.config.same_stack_policy:
-		if not aura_c.config.same_stack_policy.apply(aura, same_aura_list):
+	if same_aura_list and aura_c_config.same_stack_policy:
+		if not aura_c_config.same_stack_policy.apply(aura, same_aura_list):
 			return false
 
 	target.has_auras_ids.append(aura.id)
@@ -63,7 +64,8 @@ func _on_insert(aura: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	for aura: Entity in EntityManager.get_component_entity_group(Constants.AURA_COMPONENT_NAME):
 		var aura_c: AuraComponent = aura.get_node_or_null(Constants.AURA_COMPONENT_NODE_PATH)
-		if aura_c.config.track_target:
+		var aura_c_config: AuraComponentNodeConfig = aura_c.config
+		if aura_c_config.track_target:
 			var target: Entity = EntityManager.get_entity_by_id(aura.target_id)
 			if target:
 				var new_global_position: Vector2 = target.global_position
@@ -77,11 +79,11 @@ func _on_update(_delta: float) -> void:
 		if aura.is_waiting():
 			continue
 
-		if not TimeManager.has_elapsed(aura_c.influence_timestamp, aura_c.config.influence_interval):
+		if not TimeManager.has_elapsed(aura_c.influence_timestamp, aura_c_config.influence_interval):
 			continue
 
-		if Utils.is_valid_number(aura_c.config.max_influence_count):
-			if aura_c.current_influence_count > aura_c.config.max_influence_count:
+		if Utils.is_valid_number(aura_c_config.max_influence_count):
+			if aura_c.current_influence_count > aura_c_config.max_influence_count:
 				EntityManager.queue_remove_entity(aura)
 				continue
 
@@ -105,14 +107,15 @@ func _on_remove(aura: Entity) -> bool:
 
 
 func _take_influfluence(aura: Entity, aura_c: AuraComponent) -> void:
-	aura.play_animation(aura_c.config.influence_animation)
-	await aura.y_wait(aura_c.config.influence_delay)
+	var aura_c_config: AuraComponentNodeConfig = aura_c.config
+	aura.play_animation(aura_c_config.influence_animation)
+	await aura.y_wait(aura_c_config.influence_delay)
 		
-	var targets: Array[Entity] = aura_c.config.searcher.search_targets(aura.global_position, aura)
+	var targets: Array[Entity] = aura_c_config.searcher.search_targets(aura.global_position, aura)
 	for target: Entity in targets:
-		aura_c.config.influence.take_influence(aura, target, target.global_position)
+		aura_c_config.influence.take_influence(aura, target, target.global_position)
 
-	if aura_c.config.influence_animation:
-		await aura.y_wait_animation(aura_c.config.influence_animation)
+	if aura_c_config.influence_animation:
+		await aura.y_wait_animation(aura_c_config.influence_animation)
 
 	EntityManager.queue_remove_entity(aura)

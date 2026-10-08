@@ -16,8 +16,9 @@ func _on_insert(entity: Entity) -> bool:
 	if not Utils.is_valid_number(nav_path_c.sub_pathway_index):
 		nav_path_c.sub_pathway_index = PathwayManager.get_random_sub_pathway(nav_path_c.pathway_index).index
 		
-	if nav_path_c.config.end_pathway_node_index < 0:
-		nav_path_c.config.end_pathway_node_index = PathwayManager.node_count + nav_path_c.config.end_pathway_node_index
+	var nav_path_c_config: NavPathComponentNodeConfig = nav_path_c.config
+	if nav_path_c_config.end_pathway_node_index < 0:
+		nav_path_c_config.end_pathway_node_index = PathwayManager.node_count + nav_path_c_config.end_pathway_node_index
 
 	var node: PathwayNode = nav_path_c.get_pathway_node()
 	nav_path_c.navigate_to_node(node)
@@ -105,7 +106,8 @@ func _update_entity_position(entity: Entity, nav_path_c: NavPathComponent, walk_
 
 ## 到达终点处理。
 func _arrived_end(entity: Entity, nav_path_c: NavPathComponent, is_reversed: bool) -> void:
-	nav_path_c.config.reversed_enabled = not is_reversed
+	var nav_path_c_config: NavPathComponentNodeConfig = nav_path_c.config
+	nav_path_c_config.reversed_enabled = not is_reversed
 	
 	var node: PathwayNode = nav_path_c.get_pathway_node()
 	nav_path_c.navigate_to_node(node)
@@ -114,9 +116,9 @@ func _arrived_end(entity: Entity, nav_path_c: NavPathComponent, is_reversed: boo
 	Log.debug("到达终点: %s, 到达次数 %d" % [entity, nav_path_c.loop_count])
 	
 	if (
-			not nav_path_c.config.loop_enabled 
-			or Utils.is_valid_number(nav_path_c.config.loop_times) 
-			and nav_path_c.loop_count > nav_path_c.config.loop_times
+			not nav_path_c_config.loop_enabled 
+			or Utils.is_valid_number(nav_path_c_config.loop_times) 
+			and nav_path_c.loop_count > nav_path_c_config.loop_times
 	):
-		GameManager.life -= nav_path_c.config.life_cost
+		GameManager.life -= nav_path_c_config.life_cost
 		EntityManager.queue_remove_entity(entity)

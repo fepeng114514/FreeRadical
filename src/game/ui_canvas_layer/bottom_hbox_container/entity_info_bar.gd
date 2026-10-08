@@ -109,9 +109,10 @@ func _hide() -> void:
 ## 更新单位信息
 func _update_unit_info() -> void:
 	var health_c: HealthComponent = selected_entity.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
-	hp_value.text = "%d/%d" % [health_c.config.hp_max, health_c.hp]
-	phys_armor_value.text = "%d" % (health_c.config.physical_armor * 100)
-	magic_armor_value.text = "%d" % (health_c.config.magical_armor * 100)
+	var health_c_config: HealthComponentNodeConfig = health_c.config
+	hp_value.text = "%d/%d" % [health_c_config.hp_max, health_c.hp]
+	phys_armor_value.text = "%d" % (health_c_config.physical_armor * 100)
+	magic_armor_value.text = "%d" % (health_c_config.magical_armor * 100)
 	
 	var melee_c: MeleeComponent = selected_entity.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 	if melee_c and melee_c.get_child(0):

@@ -115,7 +115,8 @@ func _blocker_search_and_bind_melee_relations(entity: Entity, melee_c: MeleeComp
 			center = rally_center_global_position
 	
 	# 1. 首先搜索没有被拦截的目标
-	var pending_blocked_list: Array[Entity] = melee_c.config.searcher.search_targets(
+	var melee_c_config: MeleeComponentNodeConfig = melee_c.config
+	var pending_blocked_list: Array[Entity] = melee_c_config.searcher.search_targets(
 		center,
 		entity,
 		func(target: Entity) -> bool:
@@ -123,7 +124,7 @@ func _blocker_search_and_bind_melee_relations(entity: Entity, melee_c: MeleeComp
 			if not t_melee_c:
 				return false
 
-			if t_melee_c.config.is_passive and melee_c.config.is_passive:
+			if t_melee_c.config.is_passive and melee_c_config.is_passive:
 				return false
 
 			return not t_melee_c.blocker_id_list
@@ -142,7 +143,7 @@ func _blocker_search_and_bind_melee_relations(entity: Entity, melee_c: MeleeComp
 
 			melee_c.is_extra_blocker = false
 		
-		var max_blocked_count: int = melee_c.config.max_blocked_count
+		var max_blocked_count: int = melee_c_config.max_blocked_count
 		for target: Entity in pending_blocked_list:
 			if melee_c.blocked_count >= max_blocked_count:
 				break
@@ -162,10 +163,11 @@ func _extra_blocker_search_and_bind_melee_relations(entity: Entity, melee_c: Mel
 	if melee_c.blocked_id_list:
 		return
 
-	if melee_c.config.is_passive:
+	var melee_c_config: MeleeComponentNodeConfig = melee_c.config
+	if melee_c_config.is_passive:
 		return
 
-	var blocked_targets: Array[Entity] = melee_c.config.searcher.search_targets(
+	var blocked_targets: Array[Entity] = melee_c_config.searcher.search_targets(
 		center,
 		entity,
 		func(target: Entity) -> bool:
@@ -173,7 +175,7 @@ func _extra_blocker_search_and_bind_melee_relations(entity: Entity, melee_c: Mel
 			if not t_melee_c:
 				return false
 
-			if t_melee_c.config.is_passive and melee_c.config.is_passive:
+			if t_melee_c.config.is_passive and melee_c_config.is_passive:
 				return false
 				
 			return true
@@ -204,9 +206,10 @@ func _update_blocked(entity: Entity, melee_c: MeleeComponent) -> bool:
 		var blocker: Entity = EntityManager.get_entity_by_id(blocker_id_list[0])
 		var blocker_global_position: Vector2 = blocker.global_position
 		var blocker_melee_c: MeleeComponent = blocker.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
+		var blocker_melee_c_config: MeleeComponentNodeConfig = blocker_melee_c.config
 		var is_first_blocked: bool = entity.id == blocker_melee_c.blocked_id_list[0]
 
-		if is_first_blocked and not blocker_melee_c.config.is_passive:
+		if is_first_blocked and not blocker_melee_c_config.is_passive:
 			if blocker_melee_c.melee_state != MeleeComponent.MeleeState.MELEE_POSITION_ARRIVED:
 				entity.facing_global_position = blocker_global_position
 				entity.play_animation(entity.config.idle_animation)
@@ -214,8 +217,8 @@ func _update_blocked(entity: Entity, melee_c: MeleeComponent) -> bool:
 		else:
 			if not melee_c.config.is_passive:
 				var melee_global_position: Vector2 = blocker_global_position
-				if blocker_melee_c.config.melee_position_offsets:
-					var melee_position_offset: Vector2 = blocker_melee_c.config.melee_position_offsets.get_offset_toward_point(
+				if blocker_melee_c_config.melee_position_offsets:
+					var melee_position_offset: Vector2 = blocker_melee_c_config.melee_position_offsets.get_offset_toward_point(
 						blocker_global_position, entity_global_position
 					)
 					melee_global_position += melee_position_offset

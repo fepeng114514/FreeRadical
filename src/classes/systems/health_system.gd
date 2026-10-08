@@ -28,14 +28,15 @@ func _on_update(_delta: float) -> void:
 
 ## 处理回血。
 func _process_regen(entity: Entity, health_c: HealthComponent) -> void:
-	if health_c.config.regen_hp != 0:
-		if TimeManager.has_elapsed(health_c.regen_timestamp, health_c.config.regen_cooldown):	
-			health_c.hp += health_c.config.regen_hp
+	var health_c_config: HealthComponentNodeConfig = health_c.config
+	if health_c_config.regen_hp != 0:
+		if TimeManager.has_elapsed(health_c.regen_timestamp, health_c_config.regen_cooldown):	
+			health_c.hp += health_c_config.regen_hp
 			health_c.regen_timestamp = TimeManager.tick_timestamp
 		
-	if health_c.config.idle_regen_hp != 0 and entity.state & Entity.State.IDLE:
-		if TimeManager.has_elapsed(health_c.idle_regen_timestamp, health_c.config.idle_regen_cooldown):
-			health_c.hp += health_c.config.idle_regen_hp
+	if health_c_config.idle_regen_hp != 0 and entity.state & Entity.State.IDLE:
+		if TimeManager.has_elapsed(health_c.idle_regen_timestamp, health_c_config.idle_regen_cooldown):
+			health_c.hp += health_c_config.idle_regen_hp
 			health_c.idle_regen_timestamp = TimeManager.tick_timestamp
 
 

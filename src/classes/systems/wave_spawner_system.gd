@@ -30,6 +30,7 @@ func _on_update(_delta: float) -> void:
 			continue
 
 		var wave_spawner_c: WaveSpawnerComponent = spawner.get_node_or_null(Constants.WAVE_SPAWNER_COMPONENT_NODE_PATH)
+		var wave_spawner_c_config: WaveSpawnerComponentNodeConfig = wave_spawner_c.config
 		var wave_queue: Array[Wave] = wave_spawner_c.wave_queue
 		var wave: Wave = wave_queue[0]
 		var wave_index: int = wave.index
@@ -38,9 +39,9 @@ func _on_update(_delta: float) -> void:
 		if wave.is_first_getted:
 			wave.is_first_getted = false
 			Log.debug("> 开始波次计时: 波次索引: %d, 波次间隔: %.2f" % [wave_index + 1, wave.interval])
-			AudioManager.play_sfx(wave_spawner_c.config.wave_timer_start_sfx)
+			AudioManager.play_sfx(wave_spawner_c_config.wave_timer_start_sfx)
 
-			var wave_list: Array[Wave] = wave_spawner_c.config.wave_group.wave_list
+			var wave_list: Array[Wave] = wave_spawner_c_config.wave_group.wave_list
 			for sub_wave: SubWave in wave_list[wave_index].sub_wave_list:
 				for spawn: WaveSpawn in sub_wave.spawn_list:
 					WaveManager.current_wave_pathway_indexes.append(spawn.pathway_index)
@@ -75,7 +76,7 @@ func _on_update(_delta: float) -> void:
 			if wave.is_first_elapsed_time:
 				wave.is_first_elapsed_time = false
 				Log.debug(">>> 释放波次: %d" % (wave_index + 1))
-				AudioManager.play_sfx(wave_spawner_c.config.wave_timer_finish_sfx)
+				AudioManager.play_sfx(wave_spawner_c_config.wave_timer_finish_sfx)
 				WaveManager.wave_released.emit(wave_index)
 
 			_process_sub_wave(wave)
@@ -116,11 +117,12 @@ func _process_sub_wave(wave: Wave) -> void:
 		var entity: Entity = EntityManager.create_entity(spawn.entity)
 		var nav_path_c: NavPathComponent = entity.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
 		if nav_path_c:
-			nav_path_c.config.reversed_enabled = spawn.reversed_enabled
-			nav_path_c.config.loop_enabled = spawn.loop_enabled
+			var nav_path_c_config: NavPathComponentNodeConfig = nav_path_c.config
+			nav_path_c_config.reversed_enabled = spawn.reversed_enabled
+			nav_path_c_config.loop_enabled = spawn.loop_enabled
 			
 			var node: PathwayNode = nav_path_c.get_pathway_node(
-				PathwayManager.node_count - 1 if nav_path_c.config.reversed_enabled else 0
+				PathwayManager.node_count - 1 if nav_path_c_config.reversed_enabled else 0
 			)
 			nav_path_c.set_nav_path(spawn.pathway_index, spawn.sub_pathway_index, node.index)
 		
