@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_nnb8p"]
 [ext_resource type="Texture2D" uid="uid://dhue1hqyd1vbi" path="res://assets/atlas/atlas_textures/towers/tower_archer_0001.tres" id="5_bs58d"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_e3jdy"]
+[ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_gfm68"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_p27ds"]
 [ext_resource type="Resource" uid="uid://gxo0ma17ryac" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/sprite_component/sprite_component.tres" id="7_e3jdy"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="8_2satw"]
@@ -21,18 +22,6 @@
 [ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="16_6lllc"]
 [ext_resource type="Resource" uid="uid://dvg8ocrfo0vns" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/select_component/select_component.tres" id="16_vuld6"]
 
-[sub_resource type="Resource" id="Resource_2satw"]
-resource_local_to_scene = true
-script = ExtResource("15_gfm68")
-up = &"idle_up"
-down = &"idle_down"
-vertical_mirror = true
-
-[sub_resource type="Resource" id="Resource_gfm68"]
-resource_local_to_scene = true
-script = ExtResource("16_6lllc")
-idle_animation = SubResource("Resource_2satw")
-
 [sub_resource type="Resource" id="Resource_vuld6"]
 resource_local_to_scene = true
 script = ExtResource("15_gfm68")
@@ -45,6 +34,18 @@ resource_local_to_scene = true
 script = ExtResource("16_6lllc")
 idle_animation = SubResource("Resource_vuld6")
 
+[sub_resource type="Resource" id="Resource_iagqv"]
+resource_local_to_scene = true
+script = ExtResource("15_gfm68")
+up = &"idle_up"
+down = &"idle_down"
+vertical_mirror = true
+
+[sub_resource type="Resource" id="Resource_78dx3"]
+resource_local_to_scene = true
+script = ExtResource("16_6lllc")
+idle_animation = SubResource("Resource_iagqv")
+
 [node name="TowerArcherLvl1" type="Node2D" unique_id=1010851235]
 script = ExtResource("1_2l8k1")
 node_config_template = ExtResource("2_gv4hx")
@@ -55,6 +56,11 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 process_mode = 4
 script = ExtResource("4_2satw")
 metadata/_custom_type_script = "uid://cmsakrqf2ax88"
+
+[node name="BarrackRecord" type="Node2D" parent="RecordComponent" unique_id=647501134]
+process_mode = 4
+script = ExtResource("5_gfm68")
+metadata/_custom_type_script = "uid://bg7rfgwsb54q0"
 
 [node name="PriceRecord" type="Node2D" parent="RecordComponent" unique_id=979424814]
 process_mode = 4
@@ -90,12 +96,12 @@ metadata/_custom_type_script = "uid://d104itkl6l02e"
 [node name="TowerArcherLvl1Shooter" parent="TowerComponent" unique_id=2011504655 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true
 position = Vector2(-15, -56)
-config = SubResource("Resource_gfm68")
+config = SubResource("Resource_6lllc")
 
 [node name="TowerArcherLvl1Shooter2" parent="TowerComponent" unique_id=656258836 instance=ExtResource("2_4mkqg")]
 show_behind_parent = true
 position = Vector2(18, -55)
-config = SubResource("Resource_6lllc")
+config = SubResource("Resource_78dx3")
 
 [node name="SellComponent" type="Node2D" parent="." unique_id=591733789]
 process_mode = 4

@@ -86,6 +86,8 @@ const RECORD_COMPONENT_NAME: StringName = &"RecordComponent"
 const PRICE_RECORD_NAME: StringName = &"PriceRecord"
 ## 组件名: 防御塔记录。
 const TOWER_RECORD_NAME: StringName = &"TowerRecord"
+## 组件名: 兵营记录。
+const BARRACK_RECORD_NAME: StringName = &"BarrackRecord"
 
 const ALL_COMPONENT_NAMES: Array[StringName] = [
 	AURA_COMPONENT_NAME, 
@@ -154,6 +156,8 @@ const RECORD_COMPONENT_NODE_PATH: NodePath = ^"RecordComponent"
 const PRICE_RECORD_NODE_PATH: NodePath = ^"RecordComponent/PriceRecord"
 ## 节点路径: 防御塔记录。
 const TOWER_RECORD_NODE_PATH: NodePath = ^"RecordComponent/TowerRecord"
+## 节点路径: 兵营记录。
+const BARRACK_RECORD_NODE_PATH: NodePath = ^"RecordComponent/BarrackRecord"
 #endregion
 
 

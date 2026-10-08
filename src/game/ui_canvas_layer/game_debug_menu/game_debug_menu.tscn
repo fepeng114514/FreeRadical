@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://8ta4okxusy77" path="res://theme.tres" id="1_mtqar"]
 [ext_resource type="Script" uid="uid://b4u2704o6as1c" path="res://game/ui_canvas_layer/game_debug_menu/buttons/skip_wave_button.gd" id="2_mtqar"]
 [ext_resource type="PackedScene" uid="uid://bcpvwfqdmmq0o" path="res://controls/submit_spin_box.tscn" id="3_nu37c"]
-[ext_resource type="Script" uid="uid://bpdfxb6tw1soa" path="res://game/ui_canvas_layer/game_debug_menu/performance_monitor_button.gd" id="3_thkve"]
+[ext_resource type="Script" uid="uid://bpdfxb6tw1soa" path="res://game/ui_canvas_layer/game_debug_menu/buttons/performance_monitor_button.gd" id="3_thkve"]
 [ext_resource type="Script" uid="uid://36t0lghloy1b" path="res://game/ui_canvas_layer/game_debug_menu/buttons/take_damage_spin_box_button.gd" id="4_uo5t2"]
 [ext_resource type="Script" uid="uid://ct5d6bry6ggof" path="res://game/ui_canvas_layer/game_debug_menu/buttons/remove_entity_button.gd" id="5_nu37c"]
 [ext_resource type="Script" uid="uid://csrlc6byvqkmt" path="res://game/ui_canvas_layer/game_debug_menu/buttons/add_cash_spin_box_button.gd" id="5_p8wfp"]

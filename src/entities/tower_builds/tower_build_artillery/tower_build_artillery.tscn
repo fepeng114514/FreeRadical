@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://b18v6oku601hl" path="res://entities/tower_builds/tower_build_artillery/template/sprite_component/sprite_component.tres" id="4_avtf4"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_enm6e"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_4146w"]
+[ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_dyc0f"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="6_dyc0f"]
 [ext_resource type="Resource" uid="uid://xxnde7xfumoe" path="res://entities/tower_builds/tower_build_artillery/template/build_component/build_component.tres" id="6_gtoq1"]
 [ext_resource type="Script" uid="uid://wwnvcleqo7tf" path="res://classes/components/build_component/build_component.gd" id="9_actha"]
@@ -23,6 +24,11 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 process_mode = 4
 script = ExtResource("4_4146w")
 metadata/_custom_type_script = "uid://cmsakrqf2ax88"
+
+[node name="BarrackRecord" type="Node2D" parent="RecordComponent" unique_id=1645330851]
+process_mode = 4
+script = ExtResource("5_dyc0f")
+metadata/_custom_type_script = "uid://bg7rfgwsb54q0"
 
 [node name="PriceRecord" type="Node2D" parent="RecordComponent" unique_id=133027721]
 process_mode = 4

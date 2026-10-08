@@ -29,5 +29,5 @@ func _on_update(_delta: float) -> void:
 		if record_c and new_record_c:
 			record_c.transmit_record(new_record_c)
 			
-		EntityManager.queue_insert_entity(target)
 		EntityManager.queue_remove_entity(build)
+		EntityManager.queue_insert_entity(target)

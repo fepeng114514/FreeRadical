@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_ojm1x"]
 [ext_resource type="PackedScene" uid="uid://x5hhb4222pkd" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/tower_archer_2_lvl_1_shooter.tscn" id="5_3td4n"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_lemec"]
+[ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_pfu5o"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_58rs6"]
 [ext_resource type="Resource" uid="uid://5i6fmbqwqrh" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/sprite_component/sprite_component.tres" id="7_aygws"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="8_aygws"]
@@ -20,27 +21,27 @@
 [ext_resource type="Resource" uid="uid://cg0jo5bgkbxrd" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/select_component/select_component.tres" id="17_5sk8x"]
 [ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="17_is3a4"]
 
-[sub_resource type="Resource" id="Resource_y2jdm"]
+[sub_resource type="Resource" id="Resource_is3a4"]
 resource_local_to_scene = true
 script = ExtResource("16_pfu5o")
 right = &"idle_left_right"
 right_replace_left = true
+
+[sub_resource type="Resource" id="Resource_y2jdm"]
+resource_local_to_scene = true
+script = ExtResource("17_is3a4")
+idle_animation = SubResource("Resource_is3a4")
 
 [sub_resource type="Resource" id="Resource_5sk8x"]
 resource_local_to_scene = true
-script = ExtResource("17_is3a4")
-idle_animation = SubResource("Resource_y2jdm")
-
-[sub_resource type="Resource" id="Resource_w7218"]
-resource_local_to_scene = true
 script = ExtResource("16_pfu5o")
 right = &"idle_left_right"
 right_replace_left = true
 
-[sub_resource type="Resource" id="Resource_mkpi2"]
+[sub_resource type="Resource" id="Resource_w7218"]
 resource_local_to_scene = true
 script = ExtResource("17_is3a4")
-idle_animation = SubResource("Resource_w7218")
+idle_animation = SubResource("Resource_5sk8x")
 
 [node name="TowerArcherLvl1" type="Node2D" unique_id=1010851235]
 script = ExtResource("1_i2c3u")
@@ -52,6 +53,11 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 process_mode = 4
 script = ExtResource("4_aygws")
 metadata/_custom_type_script = "uid://cmsakrqf2ax88"
+
+[node name="BarrackRecord" type="Node2D" parent="RecordComponent" unique_id=74646795]
+process_mode = 4
+script = ExtResource("5_pfu5o")
+metadata/_custom_type_script = "uid://bg7rfgwsb54q0"
 
 [node name="PriceRecord" type="Node2D" parent="RecordComponent" unique_id=979424814]
 process_mode = 4
@@ -91,11 +97,11 @@ metadata/_custom_type_script = "uid://d104itkl6l02e"
 
 [node name="TowerArcherLvl1Shooter" parent="TowerComponent" unique_id=2011504655 instance=ExtResource("5_3td4n")]
 position = Vector2(-20, -63)
-config = SubResource("Resource_5sk8x")
+config = SubResource("Resource_y2jdm")
 
 [node name="TowerArcherLvl1Shooter2" parent="TowerComponent" unique_id=204602590 instance=ExtResource("5_3td4n")]
 position = Vector2(25, -63)
-config = SubResource("Resource_mkpi2")
+config = SubResource("Resource_w7218")
 
 [node name="SellComponent" type="Node2D" parent="." unique_id=1208164474]
 process_mode = 4

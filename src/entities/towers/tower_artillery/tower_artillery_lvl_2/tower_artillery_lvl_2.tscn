@@ -10,6 +10,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bvv6l8i0n83df" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer3.tres" id="4_kj6gf"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_8uk84"]
 [ext_resource type="SpriteFrames" uid="uid://ej8t1ung4jcv" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer4.tres" id="5_qpetq"]
+[ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_rggky"]
 [ext_resource type="Script" uid="uid://bcthb5ophrody" path="res://classes/sprite_group.gd" id="6_abisy"]
 [ext_resource type="SpriteFrames" uid="uid://drbfp2f8wk6vg" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer5.tres" id="6_opgrv"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_rggky"]
@@ -39,6 +40,11 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 process_mode = 4
 script = ExtResource("4_8uk84")
 metadata/_custom_type_script = "uid://cmsakrqf2ax88"
+
+[node name="BarrackRecord" type="Node2D" parent="RecordComponent" unique_id=475090502]
+process_mode = 4
+script = ExtResource("5_rggky")
+metadata/_custom_type_script = "uid://bg7rfgwsb54q0"
 
 [node name="PriceRecord" type="Node2D" parent="RecordComponent" unique_id=979424814]
 process_mode = 4

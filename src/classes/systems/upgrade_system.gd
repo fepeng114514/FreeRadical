@@ -26,6 +26,6 @@ func _on_update(_delta: float) -> void:
 		if new_price_record:
 			new_price_record.total_price += upgrade_item.price
 		
-		EntityManager.queue_insert_entity(new_entity)
-		EntityManager.queue_remove_entity(entity)
 		GameManager.cash -= upgrade_item.price
+		EntityManager.queue_remove_entity(entity)
+		EntityManager.queue_insert_entity(new_entity)

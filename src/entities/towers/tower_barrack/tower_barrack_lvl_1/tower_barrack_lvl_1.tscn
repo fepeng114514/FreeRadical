@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="4_u6jgq"]
 [ext_resource type="SpriteFrames" uid="uid://c3kr0u7ptrtbr" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl1_door.tres" id="5_3ddwr"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_f2pah"]
+[ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_qabbr"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_qabbr"]
 [ext_resource type="Resource" uid="uid://bvrffb0rv02l6" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/sprite_component/sprite_component.tres" id="7_f2pah"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="8_jeded"]
@@ -31,6 +32,11 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 process_mode = 4
 script = ExtResource("4_f2pah")
 metadata/_custom_type_script = "uid://cmsakrqf2ax88"
+
+[node name="BarrackRecord" type="Node2D" parent="RecordComponent" unique_id=1011806564]
+process_mode = 4
+script = ExtResource("5_qabbr")
+metadata/_custom_type_script = "uid://bg7rfgwsb54q0"
 
 [node name="PriceRecord" type="Node2D" parent="RecordComponent" unique_id=979424814]
 process_mode = 4

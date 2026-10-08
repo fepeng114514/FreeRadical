@@ -5,7 +5,8 @@ func _update() -> void:
 	if target_source:
 		var barrack_c: BarrackComponent = target_source.get_node_or_null(Constants.BARRACK_COMPONENT_NODE_PATH)
 		if barrack_c:
-			var soldier_list: Array[Entity] = barrack_c.soldier_list
+			var barrack_record: BarrackRecord = target_source.get_node_or_null(Constants.BARRACK_RECORD_NODE_PATH)
+			var soldier_list: Array[Entity] = barrack_record.soldier_list
 			if soldier_list:
 				var soldier: Entity = soldier_list[0]
 				var soldier_melee_c: MeleeComponent = soldier.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)

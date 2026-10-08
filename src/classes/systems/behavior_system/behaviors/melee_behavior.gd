@@ -240,18 +240,7 @@ func _go_melee_position(entity: Entity, melee_c: MeleeComponent, melee_global_po
 		#Log.verbose("前往近战位置，全局位置：%s, 目标点：%s, 速度：%s" % [entity.global_position, melee_c.melee_global_position, melee_c.velocity])
 		melee_c.melee_state = MeleeComponent.MeleeState.MELEE_POSITION_MOVING
 		var direction: Vector2 = entity.global_position.direction_to(melee_global_position)
-		var velocity: Vector2 = (
-			direction 
-			* melee_c.config.speed 
-			* TimeManager.frame_length
-		)
-		melee_c.velocity = velocity
-
-		var next_global_position: Vector2 = entity.global_position + velocity
-		entity.facing_global_position = next_global_position
-		entity.play_animation(melee_c.config.motion_animation, &"walk")
-		entity.global_position = next_global_position
-		entity.facing_global_position = next_global_position + velocity
+		_move_to_direction(entity, melee_c, direction)
 		return false
 	
 
@@ -268,20 +257,25 @@ func _back_original_position(entity: Entity, melee_c: MeleeComponent) -> bool:
 		var direction: Vector2 = entity.global_position.direction_to(
 			melee_c.original_global_position
 		)
-		var velocity: Vector2 = (
-			direction 
-			* melee_c.config.speed 
-			* TimeManager.frame_length
-		)
-		melee_c.velocity = velocity
-
-		var next_global_position: Vector2 = entity.global_position + velocity
-		entity.facing_global_position = next_global_position
-		entity.play_animation(melee_c.config.motion_animation, &"walk")
-		entity.global_position = next_global_position
-		entity.facing_global_position = next_global_position + velocity
+		_move_to_direction(entity, melee_c, direction)
 		return false
-	
+
+
+## 将实体向指定方向移动。
+func _move_to_direction(entity: Entity, melee_c: MeleeComponent, direction: Vector2) -> void:
+	var velocity: Vector2 = (
+		direction 
+		* melee_c.config.speed 
+		* TimeManager.frame_length
+	)
+	melee_c.velocity = velocity
+
+	var next_global_position: Vector2 = entity.global_position + velocity
+	entity.facing_global_position = next_global_position
+	entity.play_animation(melee_c.config.motion_animation, &"walk")
+	entity.global_position = next_global_position
+	entity.facing_global_position = next_global_position + velocity
+
 
 ## 尝试近战技能。
 func _try_melee_attack(
