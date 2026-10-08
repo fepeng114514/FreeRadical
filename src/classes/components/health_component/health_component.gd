@@ -29,9 +29,9 @@ var hp_percent: float = 0.0
 ## 上一次的血量。
 var last_hp: float = 0.0
 ## 回血时间戳。
-var regen_time_stamp: float = 0.0
+var regen_timestamp: float = 0.0
 ## 待机回血时间戳。
-var idle_regen_time_stamp: float = 0.0
+var idle_regen_timestamp: float = 0.0
 
 ## 血条节点引用。
 @onready var health_bar: TextureProgressBar = get_node_or_null(health_bar_path)

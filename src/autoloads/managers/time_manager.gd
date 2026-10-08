@@ -5,7 +5,7 @@ extends Node
 
 
 ## 自上次初始化后已经过的时间戳。
-var tick_time_stamp: float = 0.0
+var tick_timestamp: float = 0.0
 ## 自上次初始化后已经过的帧数。
 var tick: int = 0
 ## 帧长度，始终等于 [method Node._process] 的 [code]delta[/code]。
@@ -16,20 +16,20 @@ var fps: float = 0.0
 
 ## 清理时间管理器。
 func cleanup() -> void:
-	tick_time_stamp = 0
+	tick_timestamp = 0
 	tick = 0
 	frame_length = 0
 	fps = 0
 
 
 ## 判断自指定时间戳以来是否已过了指定时长。
-func has_elapsed(time_stamp: float, duration: float) -> bool:
-	return tick_time_stamp - time_stamp > duration
+func has_elapsed(timestamp: float, duration: float) -> bool:
+	return tick_timestamp - timestamp > duration
 	
 
 ## 获取自指定时间戳以来流逝的时间。
-func get_elapsed_time(time_stamp: float) -> float:
-	return tick_time_stamp - time_stamp
+func get_elapsed_time(timestamp: float) -> float:
+	return tick_timestamp - timestamp
 		
 		
 ## 协程等待指定时长。[br][br]
@@ -38,9 +38,9 @@ func y_wait(duration: float = 0.0, break_fn: Callable = Callable()) -> bool:
 	if duration <= 0:
 		return false
 
-	var time_stamp: float = tick_time_stamp
+	var timestamp: float = tick_timestamp
 	var is_break: bool = false
-	while not has_elapsed(time_stamp, duration):
+	while not has_elapsed(timestamp, duration):
 		is_break = break_fn.call() if break_fn.is_valid() else false
 		if is_break:
 			break

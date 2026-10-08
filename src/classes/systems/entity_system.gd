@@ -5,12 +5,6 @@ class_name EntitySystem
 ## EntitySystem 负责处理实体的回调与更新。
 
 
-func _on_insert(entity: Entity) -> bool:
-	entity.inserted_time_stamp = TimeManager.tick_time_stamp
-
-	return true
-	
-
 func _on_remove(entity: Entity) -> bool:
 	entity.clear_has_mod_list()
 	entity.clear_has_aura_list()
@@ -21,10 +15,6 @@ func _on_remove(entity: Entity) -> bool:
 func _on_update(_delta: float) -> void:
 	for entity: Entity in EntityManager.get_valid_entities():
 		if entity.state & Entity.State.DEAD or entity.is_waiting():
-			continue
-
-		if Utils.is_valid_number(entity.config.duration) and TimeManager.has_elapsed(entity.inserted_time_stamp, entity.config.duration):
-			EntityManager.queue_remove_entity(entity)
 			continue
 			
 		_update_entity(entity)

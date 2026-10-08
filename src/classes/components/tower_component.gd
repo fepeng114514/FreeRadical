@@ -30,7 +30,7 @@ enum TowerType {
 		queue_redraw()
 
 ## 时间戳。
-var time_stamp: float = 0.0
+var timestamp: float = 0.0
 ## 当前轮换到的射手实体索引。
 var current_shooter_alternation_index: int = -1
 

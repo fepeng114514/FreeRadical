@@ -18,7 +18,7 @@ func _on_insert(modifier: Entity) -> bool:
 	if not InteractPolicy.is_allowed_target(modifier, target, interact_policy, target.config.interact_policy):
 		return false
 
-	modifier_c.insert_time_stamp = TimeManager.tick_time_stamp
+	modifier_c.insert_timestamp = TimeManager.tick_timestamp
 	modifier.global_position = target.global_position
 
 	var same_modifier_list: Array[Entity] = []
@@ -114,7 +114,7 @@ func _process_modifier_update() -> void:
 		if modifier.is_waiting():
 			continue
 			
-		if not TimeManager.has_elapsed(modifier_c.influence_time_stamp, modifier_c.config.influence_interval):
+		if not TimeManager.has_elapsed(modifier_c.influence_timestamp, modifier_c.config.influence_interval):
 			continue
 		
 		if Utils.is_valid_number(modifier_c.config.max_influence_count):
@@ -122,11 +122,11 @@ func _process_modifier_update() -> void:
 				EntityManager.queue_remove_entity(modifier)
 				continue
 		
-		if TimeManager.has_elapsed(modifier_c.influence_time_stamp, modifier_c.config.influence_interval):
+		if TimeManager.has_elapsed(modifier_c.influence_timestamp, modifier_c.config.influence_interval):
 			continue
 
 		modifier_c.influence_count += 1
-		modifier_c.influence_time_stamp = TimeManager.tick_time_stamp
+		modifier_c.influence_timestamp = TimeManager.tick_timestamp
 	
 		_take_influfluence(modifier, modifier_c, target)
 		

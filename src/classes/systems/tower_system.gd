@@ -48,4 +48,4 @@ func _on_start_skill_cooldown(used_skill: Skill, tower_c: TowerComponent, used_s
 		
 		var skill_c: SkillComponent = shooter.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
 		for skill: Skill in skill_c.get_children():
-			skill.time_stamp = used_skill.time_stamp - tower_c.config.shooter_alternation_offset
+			skill.timestamp = used_skill.timestamp - tower_c.config.shooter_alternation_offset

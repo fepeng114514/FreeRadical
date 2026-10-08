@@ -18,7 +18,7 @@ func _on_insert(aura: Entity) -> bool:
 	if not InteractPolicy.is_allowed_target(aura, target, interact_policy, target.config.interact_policy):
 		return false
 		
-	aura_c.insert_time_stamp = TimeManager.tick_time_stamp
+	aura_c.insert_timestamp = TimeManager.tick_timestamp
 	aura.global_position = target.global_position
 
 	var same_aura_list: Array[Entity] = []
@@ -77,7 +77,7 @@ func _on_update(_delta: float) -> void:
 		if aura.is_waiting():
 			continue
 
-		if not TimeManager.has_elapsed(aura_c.influence_time_stamp, aura_c.config.influence_interval):
+		if not TimeManager.has_elapsed(aura_c.influence_timestamp, aura_c.config.influence_interval):
 			continue
 
 		if Utils.is_valid_number(aura_c.config.max_influence_count):
@@ -87,7 +87,7 @@ func _on_update(_delta: float) -> void:
 
 		_take_influfluence(aura, aura_c)
 			
-		aura_c.influence_time_stamp = TimeManager.tick_time_stamp
+		aura_c.influence_timestamp = TimeManager.tick_timestamp
 		aura_c.current_influence_count += 1
 
 

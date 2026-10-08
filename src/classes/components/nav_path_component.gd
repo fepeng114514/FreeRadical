@@ -27,7 +27,7 @@ var progress: float = 0.0
 ## 当前循环次数。
 var loop_count: int = 0
 ## 时间戳。
-var time_stamp: float = 0.0
+var timestamp: float = 0.0
 
 
 ## [method PathwayManager.get_subpath] 的简写，已传递 [param pathway_index], [param sub_pathway_index]

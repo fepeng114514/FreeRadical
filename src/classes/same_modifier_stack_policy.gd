@@ -32,6 +32,10 @@ func apply(modifier: Entity, samed_entity_list: Array[Entity]) -> bool:
 	)
 	var min_level_e: Entity = samed_entity_list[-1]
 	var max_level_e: Entity = samed_entity_list[0]
+	var max_level_duration_c: DurationComponent = max_level_e.get_node_or_null(Constants.DURATION_COMPONENT_NODE_PATH)
+	var max_level_duration_c_config: DurationComponentNodeConfig = null
+	if max_level_duration_c:
+		max_level_duration_c_config = max_level_duration_c.config
 	
 	match mode:
 		Mode.MULTIPLE:
@@ -40,10 +44,12 @@ func apply(modifier: Entity, samed_entity_list: Array[Entity]) -> bool:
 			EntityManager.queue_remove_entity(min_level_e)
 			return true
 		Mode.RESET:
-			max_level_e.inserted_time_stamp -= TimeManager.tick_time_stamp
+			if max_level_duration_c:
+				max_level_duration_c_config.duration -= TimeManager.tick_timestamp
 			return false
 		Mode.STACK:
-			max_level_e.inserted_time_stamp -= modifier.config.duration
+			if max_level_duration_c:
+				max_level_duration_c_config.duration -= modifier.config.duration
 			return false
 
 	return false

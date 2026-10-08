@@ -42,7 +42,7 @@ func _on_update(barrack: Entity) -> bool:
 	
 	var barrack_record: BarrackRecord = barrack.get_node_or_null(Constants.BARRACK_RECORD_NODE_PATH)
 	# 根据重生时间生成士兵
-	if TimeManager.has_elapsed(barrack_c.time_stamp, barrack_c.config.spawn_interval):
+	if TimeManager.has_elapsed(barrack_c.timestamp, barrack_c.config.spawn_interval):
 		_spawn_by_time(barrack, barrack_c, barrack_record)
 		return true
 		
@@ -80,7 +80,7 @@ func _create_soldier(
 
 ## 根据重生时间生成士兵。
 func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent, barrack_record: BarrackRecord) -> void:
-	barrack_c.time_stamp = TimeManager.tick_time_stamp
+	barrack_c.timestamp = TimeManager.tick_timestamp
 
 	if barrack_record.soldier_list.size() >= barrack_c.config.max_soldier_count:
 		return

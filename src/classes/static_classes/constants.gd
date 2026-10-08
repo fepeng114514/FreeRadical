@@ -88,6 +88,8 @@ const PRICE_RECORD_NAME: StringName = &"PriceRecord"
 const TOWER_RECORD_NAME: StringName = &"TowerRecord"
 ## 组件名: 兵营记录。
 const BARRACK_RECORD_NAME: StringName = &"BarrackRecord"
+## 组件名: 持续时间组件。
+const DURATION_COMPONENT_NAME: StringName = &"DurationComponent"
 
 const ALL_COMPONENT_NAMES: Array[StringName] = [
 	AURA_COMPONENT_NAME, 
@@ -109,7 +111,8 @@ const ALL_COMPONENT_NAMES: Array[StringName] = [
 	TOWER_COMPONENT_NAME, 
 	WAVE_SPAWNER_COMPONENT_NAME, 
 	UPGRADE_COMPONENT_NAME, 
-	RECORD_COMPONENT_NAME,
+	RECORD_COMPONENT_NAME, 
+	DURATION_COMPONENT_NAME,
 ]
 
 ## 节点路径: 光环。
@@ -158,6 +161,8 @@ const PRICE_RECORD_NODE_PATH: NodePath = ^"RecordComponent/PriceRecord"
 const TOWER_RECORD_NODE_PATH: NodePath = ^"RecordComponent/TowerRecord"
 ## 节点路径: 兵营记录。
 const BARRACK_RECORD_NODE_PATH: NodePath = ^"RecordComponent/BarrackRecord"
+## 节点路径: 持续时间组件。
+const DURATION_COMPONENT_NODE_PATH: NodePath = ^"DurationComponent"
 #endregion
 
 

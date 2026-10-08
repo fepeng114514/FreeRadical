@@ -15,8 +15,16 @@
 [ext_resource type="Resource" uid="uid://cqqdlli1sdmiw" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/melee_component/melee_component.tres" id="13_0ws4q"]
 [ext_resource type="Script" uid="uid://2keyy5hsydyv" path="res://classes/components/rally_component.gd" id="14_tc3im"]
 [ext_resource type="Resource" uid="uid://d03nqll0x4p1o" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/melee_component/melee_skill/melee_skill.tres" id="17_j2a22"]
+[ext_resource type="Script" uid="uid://q6msoq6f2y8y" path="res://classes/components/duration_component.gd" id="18_chwhn"]
+[ext_resource type="Script" uid="uid://cxoibyw5hv1rk" path="res://classes/node_configs/components/duration_component_node_config.gd" id="19_cduld"]
 [ext_resource type="Resource" uid="uid://chv4b5h50a1xk" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/select_component/select_component.tres" id="20_eycpm"]
 [ext_resource type="Resource" uid="uid://du0r6eso58xnk" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/rally_component/rally_component.tres" id="22_02jeu"]
+
+[sub_resource type="Resource" id="Resource_mrs0e"]
+resource_local_to_scene = true
+script = ExtResource("19_cduld")
+duration = 2.0
+metadata/_custom_type_script = "uid://cxoibyw5hv1rk"
 
 [node name="TowerBarrackLvl2Soldier" type="Node2D" unique_id=1677548747]
 script = ExtResource("1_ebqo2")
@@ -72,3 +80,9 @@ metadata/_custom_type_script = "uid://2keyy5hsydyv"
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="RallyComponent" unique_id=375943738]
 navigation_layers = 2
+
+[node name="DurationComponent" type="Node2D" parent="." unique_id=1590630401]
+process_mode = 4
+script = ExtResource("18_chwhn")
+config = SubResource("Resource_mrs0e")
+metadata/_custom_type_script = "uid://q6msoq6f2y8y"

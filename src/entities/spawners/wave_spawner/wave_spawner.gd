@@ -17,6 +17,10 @@ class_name WaveSpawnerEntity
 func _ready() -> void:
 	super()
 	
+	if Engine.is_editor_hint():
+		return
+
+	wave_group = wave_group.duplicate_deep(Resource.DeepDuplicateMode.DEEP_DUPLICATE_ALL)
 	wave_spawner_component.config.wave_group = wave_group
 
 

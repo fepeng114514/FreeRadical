@@ -90,10 +90,8 @@ var id: int = Constants.UNSET
 var source_id: int = Constants.UNSET
 ## 来源类型
 var source_type: SourceType = SourceType.NONE
-## 插入时间戳，单位为秒
-var inserted_time_stamp: float = 0.0
 ## 时间戳，单位为秒
-var time_stamp: float = 0.0
+var timestamp: float = 0.0
 ## 目标实体 ID
 var target_id: int = Constants.UNSET
 ## 拥有的修改器 ID 列表
@@ -120,7 +118,6 @@ var facing_global_position := Vector2.INF
 var is_first_update: bool = true
 ## 实体属于的实体组。
 var entity_groups: Array[StringName] = []
-
 ## 拥有的所有组件节点引用
 var components: Dictionary[StringName, Component] = {}
 #endregion
@@ -222,9 +219,9 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 	if time <= 0:
 		return false
 
-	var timestamp: float = TimeManager.tick_time_stamp
+	var wait_timestamp: float = TimeManager.tick_timestamp
 	var is_break: bool = false
-	while not TimeManager.has_elapsed(timestamp, time):
+	while not TimeManager.has_elapsed(wait_timestamp, time):
 		is_break = (
 			not is_inside_tree()
 			or state & Entity.State.INTERRUPT_WAIT 

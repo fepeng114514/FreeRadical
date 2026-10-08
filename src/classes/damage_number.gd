@@ -47,7 +47,7 @@ var move_total_time: float = 0.0
 ## 移动速度。
 var move_speed: float = 100.0
 ## 移动时间戳。
-var move_time_stamp: float = 0.0
+var move_timestamp: float = 0.0
 
 
 func _ready() -> void:
@@ -84,10 +84,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	move_time_stamp += delta
+	move_timestamp += delta
 	
 	global_position += Vector2(0, -move_speed) * delta
 	
-	if move_time_stamp >= move_total_time:
+	if move_timestamp >= move_total_time:
 		queue_free()
 	

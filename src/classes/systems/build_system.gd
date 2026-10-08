@@ -5,6 +5,16 @@ class_name BuildSystem
 ## BuildSystem 负责处理拥有 [BuildComponent] 建造组件的实体的建造逻辑。
 
 
+func _on_insert(entity: Entity) -> bool:
+	var build_c: BuildComponent = entity.get_node_or_null(Constants.BUILD_COMPONENT_NODE_PATH)
+	if not build_c:
+		return true
+		
+	build_c.build_timestamp = TimeManager.tick_timestamp
+
+	return true
+
+
 func _on_update(_delta: float) -> void:
 	for build: Entity in EntityManager.get_component_entity_group(Constants.BUILD_COMPONENT_NAME):
 		if build.is_waiting() or build.state & Entity.State.REMOVED:
@@ -14,11 +24,11 @@ func _on_update(_delta: float) -> void:
 		var build_progress_bar: TextureProgressBar = build_c.build_progress_bar
 		var max_value: float = build_progress_bar.max_value
 		
-		var past_time: float = TimeManager.tick_time_stamp - build.inserted_time_stamp
+		var past_time: float = TimeManager.tick_timestamp - build_c.build_timestamp
 		var value: float = past_time * max_value / build_c.config.build_time
 		build_progress_bar.value = value
 		
-		if not TimeManager.has_elapsed(build.inserted_time_stamp, build_c.config.build_time):
+		if not TimeManager.has_elapsed(build_c.build_timestamp, build_c.config.build_time):
 			continue
 
 		var target: Entity = EntityManager.create_entity(build_c.config.build_target)

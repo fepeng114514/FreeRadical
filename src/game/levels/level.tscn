@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://ds1pxsst6ylus" path="res://game/pathway/pathway_container.gd" id="26_ba5b5"]
 [ext_resource type="Script" uid="uid://v8pepp7tby7c" path="res://classes/systems/wave_spawner_system.gd" id="27_2any3"]
 [ext_resource type="Script" uid="uid://ctpsivwplsj6l" path="res://classes/systems/behavior_system/behaviors/melee_behavior.gd" id="27_8mma1"]
+[ext_resource type="Script" uid="uid://diagp36qnvgfr" path="res://classes/systems/duration_system.gd" id="27_xwq3r"]
 [ext_resource type="Script" uid="uid://c5w8px2jpopql" path="res://classes/systems/behavior_system/behaviors/skill_behavior.gd" id="28_5wi13"]
 [ext_resource type="Script" uid="uid://dlkq6p4daka13" path="res://classes/systems/behavior_system/behaviors/nav_path_behavior.gd" id="29_pehus"]
 [ext_resource type="Script" uid="uid://o0lkma3r7l41" path="res://classes/systems/behavior_system/behaviors/spawner_behavior.gd" id="30_auaj0"]
@@ -143,6 +144,10 @@ metadata/_custom_type_script = "uid://cy01j4iuxx1qn"
 [node name="SellSystem" type="Node" parent="Systems" unique_id=1092020135]
 script = ExtResource("26_a63l3")
 metadata/_custom_type_script = "uid://btda38rehdmf"
+
+[node name="DurationSystem" type="Node" parent="Systems" unique_id=39141708]
+script = ExtResource("27_xwq3r")
+metadata/_custom_type_script = "uid://diagp36qnvgfr"
 
 [node name="WaveSpawnerSystem" type="Node" parent="Systems" unique_id=1974852395]
 script = ExtResource("27_2any3")

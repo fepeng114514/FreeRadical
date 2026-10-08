@@ -13,7 +13,7 @@ signal start_skill_cooldown
 
 
 ## 时间戳。
-var time_stamp: float = 0.0
+var timestamp: float = 0.0
 
 
 func _ready() -> void:
@@ -34,7 +34,7 @@ func can_use(entity: Entity, config: SkillNodeConfig, target: Entity = null) -> 
 	if not config:
 		return false
 		
-	if not TimeManager.has_elapsed(time_stamp, config.cooldown):
+	if not TimeManager.has_elapsed(timestamp, config.cooldown):
 		return false
 
 	if randf() > config.chance:
@@ -57,22 +57,22 @@ func use_skill(entity: Entity, target: Entity = null) -> void:
 
 ## 开始技能冷却。
 func start_cooldown(config: SkillNodeConfig) -> void:
-	var tick_time_stamp: float = TimeManager.tick_time_stamp
-	time_stamp = tick_time_stamp
+	var tick_timestamp: float = TimeManager.tick_timestamp
+	timestamp = tick_timestamp
 
 	if config and config.share_cooldown_enabled:
 		var parent: Node = get_parent()
 		for skill_index: int in config.share_cooldown_skill_index_list:
 			var skill: Skill = parent.get_child(skill_index)
 			if skill:
-				skill.time_stamp = tick_time_stamp
+				skill.timestamp = tick_timestamp
 	
 	start_skill_cooldown.emit()
 
 
 ## 补偿技能冷却时间。
 func compensate_cooldown(config: SkillNodeConfig) -> void:
-	time_stamp -= config.compensate_cooldown_percent * config.cooldown
+	timestamp -= config.compensate_cooldown_percent * config.cooldown
 
 
 func _on_config_changed() -> void:

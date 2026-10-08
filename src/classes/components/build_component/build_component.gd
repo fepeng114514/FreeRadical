@@ -16,6 +16,9 @@ const build_progress_bar_path: NodePath = ^"BuildTextureProgressBar"
 		update_configuration_warnings()
 		queue_redraw()
 
+## 建造时间戳。
+var build_timestamp: float = 0.0
+
 @onready var build_progress_bar: TextureProgressBar = get_node_or_null(build_progress_bar_path)
 
 

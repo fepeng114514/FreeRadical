@@ -14,7 +14,7 @@ class_name BarrackComponent
 		queue_redraw()
 
 ## 时间戳（秒）
-var time_stamp: float = 0.0
+var timestamp: float = 0.0
 ## 上一次生成的士兵数量。
 var last_soldier_count: int = 0
 

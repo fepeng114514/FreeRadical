@@ -63,9 +63,9 @@ func _on_update(_delta: float) -> void:
 					WaveManager.can_emit_first_wave_released = false
 					WaveManager.first_wave_released.emit()
 			else:
-				wave.try_set_time_stamp()
+				wave.try_set_timestamp()
 				if not wave.is_elapsed_time(wave.interval) and not WaveManager.is_release_wave:
-					WaveManager.wave_timer_progress.emit(TimeManager.tick_time_stamp - wave.time_stamp / wave.interval)
+					WaveManager.wave_timer_progress.emit(TimeManager.tick_timestamp - wave.timestamp / wave.interval)
 					continue
 
 			if WaveManager.can_emit_wave_timer_finished:
@@ -99,12 +99,12 @@ func _process_sub_wave(wave: Wave) -> void:
 	var sub_wave_queue: Array[SubWave] = wave.sub_wave_queue
 	# 子波次是并行计时的
 	for sub_wave: SubWave in sub_wave_queue:
-		sub_wave.try_set_time_stamp()
+		sub_wave.try_set_timestamp()
 		if not sub_wave.is_elapsed_time(sub_wave.delay):
 			continue
 
 		var spawn: WaveSpawn = sub_wave.spawn_queue[0]
-		spawn.try_set_time_stamp()
+		spawn.try_set_timestamp()
 		# 生成组具有两个间隔，一个是生成下一个生成组的间隔，一个是生成下一个实体的间隔
 		if spawn.index != 0 and spawn.need_wait_interval and not spawn.is_elapsed_time(spawn.interval):
 			spawn.need_wait_interval = false
@@ -127,7 +127,7 @@ func _process_sub_wave(wave: Wave) -> void:
 		EntityManager.queue_insert_entity(entity)
 		
 		spawn.spawned_total_count += 1
-		spawn.time_stamp = TimeManager.tick_time_stamp
+		spawn.timestamp = TimeManager.tick_timestamp
 
 		if spawn.spawned_total_count >= spawn.count:
 			spawn.is_finished = true

@@ -25,11 +25,11 @@ enum Type {
 		queue_redraw()
 
 ## 插入时间戳。
-var insert_time_stamp: float = 0.0
+var insert_timestamp: float = 0.0
 ## 当前影响次数。
 var current_influence_count: int = 0
 ## 影响间隔时间戳。
-var influence_time_stamp: float = 0.0
+var influence_timestamp: float = 0.0
 
 
 func _validate_property(property: Dictionary):

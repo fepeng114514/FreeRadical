@@ -42,21 +42,20 @@ func get_node_config_template_by_entity_uid(entity_uid: String) -> NodeConfigTem
 func get_common_configuration_warnings(node: Node) -> PackedStringArray:
 	var warnings := PackedStringArray()
 
-	if EditorInterface.get_edited_scene_root() == node:
-		var config_prop: Dictionary = {}
-		for prop: Dictionary in node.get_property_list():
-			if prop.name != "config":
-				continue
+	var config_prop: Dictionary = {}
+	for prop: Dictionary in node.get_property_list():
+		if prop.name != "config":
+			continue
 
-			config_prop = prop
-			break
+		config_prop = prop
+		break
 
-		if config_prop:
-			var config: NodeConfig = node.config
-			if config:
-				if not FileAccess.file_exists(config.resource_path):
-					warnings.append("不推荐手动设置配置：\n如果想要手动设置配置，请将 config 节点配置保存为文件，然后在实体的 node_config_template 配置模板中创建节点。\n否则请清除当前配置然后点击实体的 “更新节点配置模板” 按钮一键生成。")
-			else:
-				warnings.append("请设置一个 config 节点配置，或点击实体的 “更新节点配置模板” 按钮一键生成。")
+	if config_prop:
+		var config: NodeConfig = node.config
+		if config:
+			if not FileAccess.file_exists(config.resource_path):
+				warnings.append("不推荐手动设置配置：\n如果想要手动设置配置，请将 config 节点配置保存为文件，然后在实体的 node_config_template 配置模板中创建节点。\n否则请清除当前配置然后点击实体的 “更新节点配置模板” 按钮一键生成。")
+		else:
+			warnings.append("请设置一个 config 节点配置，或点击实体的 “更新节点配置模板” 按钮一键生成。")
 
 	return warnings

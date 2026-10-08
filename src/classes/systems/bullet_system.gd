@@ -16,7 +16,7 @@ func _on_insert(entity: Entity) -> bool:
 		
 	target.aimed_bullet_ids.append(entity.id)
 	target.has_new_aimed_bullet = true
-	bullet_c.time_stamp = TimeManager.tick_time_stamp
+	bullet_c.timestamp = TimeManager.tick_timestamp
 	var predict_time: float = bullet_c.config.trajectory._get_predict_time() if bullet_c.config.trajectory else 0.0
 	if predict_time:
 		bullet_c.predicted_target_global_position = PathwayManager.predict_target_global_position(
@@ -71,7 +71,7 @@ func _on_update(delta: float) -> void:
 			continue
 			
 		var target: Entity = EntityManager.get_entity_by_id(entity.target_id)
-		var flying_time: float = TimeManager.get_elapsed_time(bullet_c.time_stamp)
+		var flying_time: float = TimeManager.get_elapsed_time(bullet_c.timestamp)
 
 		bullet_c.config.trajectory._update_trajectory(entity, bullet_c, target, flying_time, delta)
 		
