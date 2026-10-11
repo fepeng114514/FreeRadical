@@ -10,6 +10,6 @@ func _on_insert(entity: Entity) -> bool:
 	if not animated_sprite_c:
 		return true
 		
-	animated_sprite_c.play_idle_animation(entity, null, true)
+	animated_sprite_c.play_idle_animation(entity, true)
 		
 	return true

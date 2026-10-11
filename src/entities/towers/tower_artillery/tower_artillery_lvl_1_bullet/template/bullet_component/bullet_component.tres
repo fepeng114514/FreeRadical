@@ -6,6 +6,11 @@
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="2_rod67"]
 [ext_resource type="Script" uid="uid://c4b0vk3hta4mj" path="res://classes/bullet_trajectories/parabola_bullet_trajectory.gd" id="3_0guka"]
 
+[sub_resource type="Resource" id="Resource_jmmy1"]
+script = ExtResource("1_c0n12")
+list = PackedStringArray("uid://c34pctng5uplj")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
+
 [sub_resource type="Resource" id="Resource_yly0g"]
 resource_local_to_scene = true
 script = ExtResource("2_rod67")
@@ -23,11 +28,6 @@ area_enabled = true
 searcher = SubResource("Resource_yly0g")
 metadata/_custom_type_script = "uid://be7bvqrqjmin5"
 
-[sub_resource type="Resource" id="Resource_jmmy1"]
-script = ExtResource("1_c0n12")
-list = PackedStringArray("uid://c34pctng5uplj")
-metadata/_custom_type_script = "uid://b2b214g352w4u"
-
 [sub_resource type="Resource" id="Resource_arty_traj"]
 script = ExtResource("3_0guka")
 flight_total_time = 1.5
@@ -36,9 +36,9 @@ flight_total_time = 1.5
 resource_local_to_scene = true
 script = ExtResource("1_d3cii")
 trajectory = SubResource("Resource_arty_traj")
+influence = SubResource("Resource_wk5lm")
 rotation_speed = 6.0
 facing_enabled = false
-influence = SubResource("Resource_wk5lm")
 hit_sfx = SubResource("Resource_jmmy1")
 hit_payloads = PackedStringArray("uid://dmn3u58sdn7l1")
 miss_sfx = SubResource("Resource_jmmy1")

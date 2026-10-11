@@ -15,7 +15,9 @@
 [ext_resource type="Resource" uid="uid://cwgk7xj6ota5c" path="res://entities/enemies/enemy_goblin/template/select_component/select_component.tres" id="10_g3d7t"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="10_na4cw"]
 [ext_resource type="Resource" uid="uid://bmu56rhkgu4ce" path="res://entities/enemies/enemy_goblin/template/melee_component/melee_component.tres" id="12_na4cw"]
+[ext_resource type="Script" uid="uid://m8kmwv74lfxm" path="res://classes/components/offset_component.gd" id="17_pvliu"]
 [ext_resource type="Resource" uid="uid://b0hh4h5o82ymd" path="res://entities/enemies/enemy_goblin/template/melee_component/melee_skill/melee_skill.tres" id="17_qhcvx"]
+[ext_resource type="Resource" uid="uid://cuud8fvvgryd0" path="res://entities/enemies/enemy_goblin/template/offset_component/offset_component.tres" id="18_wqawv"]
 
 [node name="EnemyGoblin" type="Node2D" unique_id=71433118]
 script = ExtResource("1_0nemn")
@@ -66,3 +68,9 @@ process_mode = 4
 script = ExtResource("9_ppcjn")
 config = ExtResource("17_qhcvx")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
+
+[node name="OffsetComponent" type="Node2D" parent="." unique_id=751815450]
+process_mode = 4
+script = ExtResource("17_pvliu")
+config = ExtResource("18_wqawv")
+metadata/_custom_type_script = "uid://m8kmwv74lfxm"

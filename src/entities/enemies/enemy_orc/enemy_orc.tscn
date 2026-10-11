@@ -15,6 +15,8 @@
 [ext_resource type="Resource" uid="uid://dvd2ujdwpvjse" path="res://entities/enemies/enemy_orc/template/nav_path_component/nav_path_component.tres" id="11_omwyt"]
 [ext_resource type="Resource" uid="uid://bamk53p0opx1i" path="res://entities/enemies/enemy_orc/template/select_component/select_component.tres" id="14_bhm20"]
 [ext_resource type="Resource" uid="uid://ciaucyxhm6gi5" path="res://entities/enemies/enemy_orc/template/melee_component/melee_component.tres" id="16_605ti"]
+[ext_resource type="Script" uid="uid://m8kmwv74lfxm" path="res://classes/components/offset_component.gd" id="17_6j7h8"]
+[ext_resource type="Resource" uid="uid://u1a7ylg566ru" path="res://entities/enemies/enemy_orc/template/offset_component/offset_component.tres" id="18_kj085"]
 [ext_resource type="Resource" uid="uid://nb7vqgworad2" path="res://entities/enemies/enemy_orc/template/melee_component/melee_skill/melee_skill.tres" id="19_fdrsx"]
 
 [node name="EnemyOrc" type="Node2D" unique_id=71433118]
@@ -67,3 +69,9 @@ process_mode = 4
 script = ExtResource("10_xipnk")
 config = ExtResource("19_fdrsx")
 metadata/_custom_type_script = "uid://bqbrh6n3im1ii"
+
+[node name="OffsetComponent" type="Node2D" parent="." unique_id=769936010]
+process_mode = 4
+script = ExtResource("17_6j7h8")
+config = ExtResource("18_kj085")
+metadata/_custom_type_script = "uid://m8kmwv74lfxm"

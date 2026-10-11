@@ -4,5 +4,6 @@
 [ext_resource type="Resource" uid="uid://cow08uvxqdt1b" path="res://entities/tower_builds/common_spawn_sfx.tres" id="2_s2nbm"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_jyets")
 spawn_sfx = ExtResource("2_s2nbm")

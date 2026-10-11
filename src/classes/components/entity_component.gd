@@ -12,12 +12,3 @@ class_name EntityComponent
 		config = v
 		update_configuration_warnings()
 		queue_redraw()
-
-
-func _draw() -> void:
-	if DebugManager.draw_offset_enabled:
-		if config:
-			if config.hit_offsets:
-				config.hit_offsets.draw_offset_group(self)
-			if config.aura_offsets:
-				config.aura_offsets.draw_offset_group(self)

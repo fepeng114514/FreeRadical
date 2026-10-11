@@ -15,6 +15,8 @@
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="13_np4wq"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="14_7pggv"]
 [ext_resource type="Resource" uid="uid://chs73wsflhpst" path="res://entities/enemies/enemy_gargoyle/template/animated_sprite_component/animated_sprite_component.tres" id="14_j5hxj"]
+[ext_resource type="Script" uid="uid://m8kmwv74lfxm" path="res://classes/components/offset_component.gd" id="16_j5hxj"]
+[ext_resource type="Resource" uid="uid://ci38mjn4ji03q" path="res://entities/enemies/enemy_gargoyle/template/offset_component/offset_component.tres" id="17_t74y0"]
 
 [node name="EnemyGargoyle" type="Node2D" unique_id=71433118]
 script = ExtResource("1_yklxl")
@@ -63,3 +65,9 @@ process_mode = 4
 script = ExtResource("14_7pggv")
 config = ExtResource("5_t74y0")
 metadata/_custom_type_script = "uid://btct3ysbbulk0"
+
+[node name="OffsetComponent" type="Node2D" parent="." unique_id=872230244]
+process_mode = 4
+script = ExtResource("16_j5hxj")
+config = ExtResource("17_t74y0")
+metadata/_custom_type_script = "uid://m8kmwv74lfxm"

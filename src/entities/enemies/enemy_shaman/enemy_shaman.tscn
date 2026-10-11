@@ -19,7 +19,9 @@
 [ext_resource type="Resource" uid="uid://dh0xbsq7deu10" path="res://entities/enemies/enemy_shaman/template/melee_component/melee_component.tres" id="15_j8wm1"]
 [ext_resource type="Resource" uid="uid://dgfvhlfviklv2" path="res://entities/enemies/enemy_shaman/template/melee_component/melee_skill/melee_skill.tres" id="17_b5mid"]
 [ext_resource type="Resource" uid="uid://1vjvjdib7eq8" path="res://entities/enemies/enemy_shaman/template/skill_component/skill_component.tres" id="19_8lora"]
+[ext_resource type="Script" uid="uid://m8kmwv74lfxm" path="res://classes/components/offset_component.gd" id="21_bpseq"]
 [ext_resource type="Resource" uid="uid://bw4p4h8ni3prh" path="res://entities/enemies/enemy_shaman/template/skill_component/area_skill/area_skill.tres" id="21_hn4xe"]
+[ext_resource type="Resource" uid="uid://bil087a4fk0sc" path="res://entities/enemies/enemy_shaman/template/offset_component/offset_component.tres" id="22_etfwp"]
 
 [node name="EnemyShaman" type="Node2D" unique_id=71433118]
 script = ExtResource("1_psm2q")
@@ -84,3 +86,9 @@ process_mode = 4
 script = ExtResource("7_8umbj")
 config = ExtResource("21_hn4xe")
 metadata/_custom_type_script = "uid://d3i11n4j7bnvl"
+
+[node name="OffsetComponent" type="Node2D" parent="." unique_id=1344478330]
+process_mode = 4
+script = ExtResource("21_bpseq")
+config = ExtResource("22_etfwp")
+metadata/_custom_type_script = "uid://m8kmwv74lfxm"

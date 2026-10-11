@@ -1,13 +1,7 @@
 [gd_resource type="Resource" script_class="EntityComponentNodeConfig" format=3 uid="uid://cbd4wuqtjkerh"]
 
-[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="1_nq0uo"]
 [ext_resource type="Script" uid="uid://uybqhqc40c3b" path="res://classes/node_configs/components/entity_component_node_config.gd" id="1_w5y24"]
 [ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="3_hh1d8"]
-
-[sub_resource type="Resource" id="Resource_tiev4"]
-script = ExtResource("1_nq0uo")
-any = Vector2(0, -81.9)
-metadata/_custom_type_script = "uid://b88iol2ey0jwp"
 
 [sub_resource type="Resource" id="Resource_4u2x8"]
 resource_local_to_scene = true
@@ -19,5 +13,4 @@ metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_w5y24")
-hit_offsets = SubResource("Resource_tiev4")
 interact_policy = SubResource("Resource_4u2x8")

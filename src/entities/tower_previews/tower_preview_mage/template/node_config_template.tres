@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_wfr2m"]
 [ext_resource type="Resource" uid="uid://ui33e3fycjcm" path="res://entities/tower_previews/tower_preview_mage/template/sprite_component/sprite_component.tres" id="2_lgf8t"]
-[ext_resource type="Resource" uid="uid://b6be8tun84vqk" path="res://entities/tower_previews/tower_preview_mage/template/tower_preview_mage.tres" id="3_rpret"]
 
 [sub_resource type="Resource" id="Resource_tadob"]
 script = ExtResource("1_wfr2m")
@@ -11,7 +10,6 @@ config = ExtResource("2_lgf8t")
 
 [resource]
 script = ExtResource("1_wfr2m")
-config = ExtResource("3_rpret")
 children = Array[ExtResource("1_wfr2m")]([SubResource("Resource_tadob")])
 children_dict = Dictionary[String, ExtResource("1_wfr2m")]({
 "SpriteComponent": SubResource("Resource_tadob")

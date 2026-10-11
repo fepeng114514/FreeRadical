@@ -13,15 +13,15 @@ script = ExtResource("1_ewvbl")
 play_index = 1
 any = &"spawn"
 
-[sub_resource type="Resource" id="Resource_3ddwr"]
-script = ExtResource("4_tabl8")
-list = PackedStringArray("uid://dcnpba3drwfdg")
-metadata/_custom_type_script = "uid://b2b214g352w4u"
-
 [sub_resource type="Resource" id="Resource_2u03i"]
 script = ExtResource("5_f4pwi")
 any = Vector2(0, 17.55)
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[sub_resource type="Resource" id="Resource_3ddwr"]
+script = ExtResource("4_tabl8")
+list = PackedStringArray("uid://dcnpba3drwfdg")
+metadata/_custom_type_script = "uid://b2b214g352w4u"
 
 [resource]
 resource_local_to_scene = true

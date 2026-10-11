@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_ownyo"]
 [ext_resource type="Resource" uid="uid://c2gke7tllhka3" path="res://entities/tower_previews/tower_preview_artillery/template/sprite_component/sprite_component.tres" id="2_pxr00"]
-[ext_resource type="Resource" uid="uid://b4rwxhfgdc4gi" path="res://entities/tower_previews/tower_preview_artillery/template/tower_preview_artillery.tres" id="3_v82fu"]
 
 [sub_resource type="Resource" id="Resource_vu330"]
 script = ExtResource("1_ownyo")
@@ -11,7 +10,6 @@ config = ExtResource("2_pxr00")
 
 [resource]
 script = ExtResource("1_ownyo")
-config = ExtResource("3_v82fu")
 children = Array[ExtResource("1_ownyo")]([SubResource("Resource_vu330")])
 children_dict = Dictionary[String, ExtResource("1_ownyo")]({
 "SpriteComponent": SubResource("Resource_vu330")

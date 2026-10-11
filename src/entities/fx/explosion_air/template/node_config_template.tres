@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_wxpvy"]
 [ext_resource type="Resource" uid="uid://b1hcx07pwuoni" path="res://entities/fx/explosion_air/template/animated_sprite_component/animated_sprite_component.tres" id="2_pmqyi"]
 [ext_resource type="Resource" uid="uid://dhhe7lqbeqxqp" path="res://entities/fx/explosion_air/template/fx_component/fx_component.tres" id="3_gc77i"]
-[ext_resource type="Resource" uid="uid://broi7voq3ktgs" path="res://entities/fx/explosion_air/template/explosion_air.tres" id="4_br2pi"]
 
 [sub_resource type="Resource" id="Resource_wxpvy"]
 script = ExtResource("1_wxpvy")
@@ -17,7 +16,6 @@ config = ExtResource("3_gc77i")
 
 [resource]
 script = ExtResource("1_wxpvy")
-config = ExtResource("4_br2pi")
 children = Array[ExtResource("1_wxpvy")]([SubResource("Resource_wxpvy"), SubResource("Resource_m3303")])
 children_dict = Dictionary[String, ExtResource("1_wxpvy")]({
 "AnimatedSpriteComponent": SubResource("Resource_wxpvy"),

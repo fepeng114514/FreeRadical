@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="OffsetComponentNodeConfig" format=3 uid="uid://ci38mjn4ji03q"]
+
+[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="1_1mad4"]
+[ext_resource type="Script" uid="uid://bu5soqtwo6g3p" path="res://classes/node_configs/components/offset_component_node_config.gd" id="1_its5d"]
+
+[sub_resource type="Resource" id="Resource_llabn"]
+script = ExtResource("1_1mad4")
+any = Vector2(0, -81.9)
+metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_its5d")
+hit_offsets = SubResource("Resource_llabn")
