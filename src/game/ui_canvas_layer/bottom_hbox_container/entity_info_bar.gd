@@ -159,7 +159,7 @@ func _set_ranged_value(skill_c: SkillComponent) -> void:
 
 	var bullet_template: NodeConfigTemplateNode = NodeConfigManager.get_node_config_template_by_entity_uid(first_ranged_skill.config.bullet_scene)
 	var bullet_c_config: BulletComponentNodeConfig = bullet_template.get_node_config(Constants.BULLET_COMPONENT_NODE_PATH)
-	var damage_influence := bullet_c_config.hit_influence as DamageInfluence
+	var damage_influence := bullet_c_config.influence as DamageInfluence
 	if damage_influence:
 		ranged_value.text = "%d-%d/%.1f" % [damage_influence.min_value, damage_influence.max_value, first_ranged_skill.config.cooldown]
 	else:

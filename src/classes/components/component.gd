@@ -8,6 +8,7 @@ class_name Component
 ## 组件用于存储实体的属性和基础工具方法。
 
 
+## 组件所属的实体，仅用于辅助编辑器编辑中。
 @onready var parent := get_parent()
 
 

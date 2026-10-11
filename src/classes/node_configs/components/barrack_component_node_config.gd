@@ -45,11 +45,11 @@ class_name BarrackComponentNodeConfig
 		max_soldier_count = v
 		emit_changed()
 ## 生成士兵播放的动画。
-@export var animation: AnimationGroup = null
+@export var spawn_animation: AnimationGroup = null
 ## 生成士兵延迟（秒），用于在动画播放到特定帧后生成士兵。
-@export var delay: float = 0.0
+@export var spawn_delay: float = 0.0
 ## 生成士兵播放的音效。
-@export var sfx: AudioGroup = null
+@export var spawn_sfx: AudioGroup = null
 
 var _init_connect_property_signals: Dictionary[String, Callable] = {
 	"spawn_offsets": emit_changed,

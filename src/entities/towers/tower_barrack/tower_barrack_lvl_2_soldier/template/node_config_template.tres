@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://beoyl7wku1ssu"]
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_02jtp"]
-[ext_resource type="Resource" uid="uid://cacdgju35gmc6" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/sprite_component/sprite_component.tres" id="2_qllni"]
+[ext_resource type="Resource" uid="uid://d4h4p4o4i0w4m" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/animated_sprite_component/animated_sprite_component.tres" id="2_v563j"]
 [ext_resource type="Resource" uid="uid://dn1lqep05s6jh" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/health_component/health_component.tres" id="3_sm3yh"]
 [ext_resource type="Resource" uid="uid://d03nqll0x4p1o" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/melee_component/melee_skill/melee_skill.tres" id="4_2le2j"]
 [ext_resource type="Resource" uid="uid://cqqdlli1sdmiw" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/melee_component/melee_component.tres" id="5_2wieh"]
@@ -9,36 +9,36 @@
 [ext_resource type="Resource" uid="uid://du0r6eso58xnk" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/rally_component/rally_component.tres" id="7_ivy2y"]
 [ext_resource type="Resource" uid="uid://gbwgag5howqw" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2_soldier/template/tower_barrack_lvl_2_soldier.tres" id="8_sukvx"]
 
-[sub_resource type="Resource" id="Resource_grirf"]
+[sub_resource type="Resource" id="Resource_02jtp"]
 script = ExtResource("1_02jtp")
-name = "SpriteComponent"
-config = ExtResource("2_qllni")
+name = "AnimatedSpriteComponent"
+config = ExtResource("2_v563j")
 
-[sub_resource type="Resource" id="Resource_sgqam"]
+[sub_resource type="Resource" id="Resource_qllni"]
 script = ExtResource("1_02jtp")
 name = "HealthComponent"
 config = ExtResource("3_sm3yh")
 
-[sub_resource type="Resource" id="Resource_c8nit"]
-script = ExtResource("1_02jtp")
-name = "MeleeSkill"
-config = ExtResource("4_2le2j")
-
-[sub_resource type="Resource" id="Resource_05pud"]
-script = ExtResource("1_02jtp")
-name = "MeleeComponent"
-config = ExtResource("5_2wieh")
-children = Array[ExtResource("1_02jtp")]([SubResource("Resource_c8nit")])
-children_dict = Dictionary[String, ExtResource("1_02jtp")]({
-"MeleeSkill": SubResource("Resource_c8nit")
-})
-
-[sub_resource type="Resource" id="Resource_0l402"]
+[sub_resource type="Resource" id="Resource_sm3yh"]
 script = ExtResource("1_02jtp")
 name = "SelectComponent"
 config = ExtResource("6_xlhbj")
 
-[sub_resource type="Resource" id="Resource_0xb7x"]
+[sub_resource type="Resource" id="Resource_2le2j"]
+script = ExtResource("1_02jtp")
+name = "MeleeSkill"
+config = ExtResource("4_2le2j")
+
+[sub_resource type="Resource" id="Resource_2wieh"]
+script = ExtResource("1_02jtp")
+name = "MeleeComponent"
+config = ExtResource("5_2wieh")
+children = Array[ExtResource("1_02jtp")]([SubResource("Resource_2le2j")])
+children_dict = Dictionary[String, ExtResource("1_02jtp")]({
+"MeleeSkill": SubResource("Resource_2le2j")
+})
+
+[sub_resource type="Resource" id="Resource_xlhbj"]
 script = ExtResource("1_02jtp")
 name = "RallyComponent"
 config = ExtResource("7_ivy2y")
@@ -46,11 +46,11 @@ config = ExtResource("7_ivy2y")
 [resource]
 script = ExtResource("1_02jtp")
 config = ExtResource("8_sukvx")
-children = Array[ExtResource("1_02jtp")]([SubResource("Resource_grirf"), SubResource("Resource_sgqam"), SubResource("Resource_05pud"), SubResource("Resource_0l402"), SubResource("Resource_0xb7x")])
+children = Array[ExtResource("1_02jtp")]([SubResource("Resource_02jtp"), SubResource("Resource_qllni"), SubResource("Resource_sm3yh"), SubResource("Resource_2wieh"), SubResource("Resource_xlhbj")])
 children_dict = Dictionary[String, ExtResource("1_02jtp")]({
-"HealthComponent": SubResource("Resource_sgqam"),
-"MeleeComponent": SubResource("Resource_05pud"),
-"RallyComponent": SubResource("Resource_0xb7x"),
-"SelectComponent": SubResource("Resource_0l402"),
-"SpriteComponent": SubResource("Resource_grirf")
+"AnimatedSpriteComponent": SubResource("Resource_02jtp"),
+"HealthComponent": SubResource("Resource_qllni"),
+"MeleeComponent": SubResource("Resource_2wieh"),
+"RallyComponent": SubResource("Resource_xlhbj"),
+"SelectComponent": SubResource("Resource_sm3yh")
 })

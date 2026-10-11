@@ -1,35 +1,35 @@
 [gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://1p5ysr43ffno"]
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_sjmvi"]
-[ext_resource type="Resource" uid="uid://btm7xee0gllv0" path="res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/template/sprite_component/sprite_component.tres" id="2_y8a3k"]
+[ext_resource type="Resource" uid="uid://cirq04heubftl" path="res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/template/animated_sprite_component/animated_sprite_component.tres" id="2_5du4a"]
 [ext_resource type="Resource" uid="uid://ytyuj6qmlhic" path="res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/template/skill_component/ranged_skill/ranged_skill.tres" id="3_mm6a0"]
 [ext_resource type="Resource" uid="uid://b8ie7ks7t5055" path="res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/template/skill_component/skill_component.tres" id="4_hccl1"]
 [ext_resource type="Resource" uid="uid://ddf03bsmc0h5l" path="res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/template/tower_mage_lvl_2_shooter.tres" id="5_2n5e3"]
 
-[sub_resource type="Resource" id="Resource_wx1sv"]
+[sub_resource type="Resource" id="Resource_sjmvi"]
 script = ExtResource("1_sjmvi")
-name = "SpriteComponent"
-config = ExtResource("2_y8a3k")
+name = "AnimatedSpriteComponent"
+config = ExtResource("2_5du4a")
 
-[sub_resource type="Resource" id="Resource_kqt1h"]
+[sub_resource type="Resource" id="Resource_y8a3k"]
 script = ExtResource("1_sjmvi")
 name = "RangedSkill"
 config = ExtResource("3_mm6a0")
 
-[sub_resource type="Resource" id="Resource_kgvyr"]
+[sub_resource type="Resource" id="Resource_mm6a0"]
 script = ExtResource("1_sjmvi")
 name = "SkillComponent"
 config = ExtResource("4_hccl1")
-children = Array[ExtResource("1_sjmvi")]([SubResource("Resource_kqt1h")])
+children = Array[ExtResource("1_sjmvi")]([SubResource("Resource_y8a3k")])
 children_dict = Dictionary[String, ExtResource("1_sjmvi")]({
-"RangedSkill": SubResource("Resource_kqt1h")
+"RangedSkill": SubResource("Resource_y8a3k")
 })
 
 [resource]
 script = ExtResource("1_sjmvi")
 config = ExtResource("5_2n5e3")
-children = Array[ExtResource("1_sjmvi")]([SubResource("Resource_wx1sv"), SubResource("Resource_kgvyr")])
+children = Array[ExtResource("1_sjmvi")]([SubResource("Resource_sjmvi"), SubResource("Resource_mm6a0")])
 children_dict = Dictionary[String, ExtResource("1_sjmvi")]({
-"SkillComponent": SubResource("Resource_kgvyr"),
-"SpriteComponent": SubResource("Resource_wx1sv")
+"AnimatedSpriteComponent": SubResource("Resource_sjmvi"),
+"SkillComponent": SubResource("Resource_mm6a0")
 })

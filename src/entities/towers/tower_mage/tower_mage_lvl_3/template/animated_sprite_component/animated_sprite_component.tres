@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="AnimatedSpriteComponentNodeConfig" format=3 uid="uid://bil8o0d4xhx53"]
+
+[ext_resource type="Resource" uid="uid://6v7qe326x75" path="res://entities/resources/animation_groups/any_idle_animation_group.tres" id="1_3l1wt"]
+[ext_resource type="Script" uid="uid://4qeyoce8d6l0" path="res://classes/node_configs/components/animated_sprite_component_node_config.gd" id="1_krmr5"]
+[ext_resource type="Resource" uid="uid://c1p4okwfmgho6" path="res://entities/towers/tower_mage/tower_mage_spawn_sfx.tres" id="3_6kylr"]
+[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="4_1tub8"]
+[ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/sync_animations_data.gd" id="5_eytww"]
+
+[sub_resource type="Resource" id="Resource_fel6d"]
+resource_local_to_scene = true
+script = ExtResource("4_1tub8")
+any = &"idle"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_13cep"]
+resource_local_to_scene = true
+script = ExtResource("4_1tub8")
+any = &"ranged"
+metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+
+[sub_resource type="Resource" id="Resource_b80rv"]
+script = ExtResource("5_eytww")
+idle = SubResource("Resource_fel6d")
+ranged = SubResource("Resource_13cep")
+metadata/_custom_type_script = "uid://qu0synx4c136"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_krmr5")
+idle_animation = ExtResource("1_3l1wt")
+spawn_sfx = ExtResource("3_6kylr")
+sync_source = null
+sync_animations = SubResource("Resource_b80rv")

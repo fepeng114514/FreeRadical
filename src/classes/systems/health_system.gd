@@ -68,7 +68,7 @@ func _is_doomed(entity: Entity, health_c: HealthComponent) -> bool:
 		if not bullet_c:
 			continue
 
-		var damage_influence := bullet_c.config.hit_influence as DamageInfluence
+		var damage_influence := bullet_c.config.influence as DamageInfluence
 		if not damage_influence:
 			continue
 

@@ -4,5 +4,6 @@
 [ext_resource type="Resource" uid="uid://b1f5gfojkeksy" path="res://entities/resources/animation_groups/vertical_idle_animation_group.tres" id="1_mnovh"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_7muw7")
 idle_animation = ExtResource("1_mnovh")

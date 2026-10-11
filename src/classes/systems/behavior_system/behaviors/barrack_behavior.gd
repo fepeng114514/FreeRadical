@@ -87,15 +87,19 @@ func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent, barrack_record
 	if barrack_record.soldier_list.size() >= barrack_c_config.max_soldier_count:
 		return
 		
-	barrack.play_animation(barrack_c_config.animation)
-	AudioManager.play_sfx(barrack_c_config.sfx)
-	if await barrack.y_wait(barrack_c_config.delay):
+	AudioManager.play_sfx(barrack_c_config.spawn_sfx)
+	var animated_sprite_c: AnimatedSpriteComponent = barrack.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+	var spawn_animation: AnimationGroup = animated_sprite_c.config.spawn_animation
+	if spawn_animation:
+		animated_sprite_c.play_animation(barrack, spawn_animation)
+	if await barrack.y_wait(barrack_c_config.spawn_delay):
 		return
 
 	var soldier: Entity = _create_soldier(barrack, barrack_c, barrack_record)
 	barrack_record.soldier_list.append(soldier)
 	
-	barrack.y_wait_animation(barrack_c_config.animation)
+	if spawn_animation:
+		animated_sprite_c.y_wait_animation(barrack, spawn_animation)
 
 
 ## 生成所有士兵。
@@ -143,9 +147,12 @@ func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent, barrack_r
 	barrack_record.soldier_list = new_soldier_list
 
 	if old_soldier_list_size < barrack_c_config.max_soldier_count:
-		barrack.play_animation(barrack_c_config.animation)
-		AudioManager.play_sfx(barrack_c_config.sfx)
-		if await barrack.y_wait(barrack_c_config.delay):
+		AudioManager.play_sfx(barrack_c_config.spawn_sfx)
+		var animated_sprite_c: AnimatedSpriteComponent = barrack.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+		var spawn_animation: AnimationGroup = barrack_c_config.spawn_animation
+		if spawn_animation:
+			animated_sprite_c.play_animation(barrack, spawn_animation)
+		if await barrack.y_wait(barrack_c_config.spawn_delay):
 			return
 
 		var max_soldier_count: int = barrack_c_config.max_soldier_count
@@ -155,7 +162,8 @@ func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent, barrack_r
 
 		barrack_c.set_rally_center_global_position(barrack_record.rally_center_global_position, false)
 		
-		barrack.y_wait_animation(barrack_c_config.animation)
+		if spawn_animation:
+			animated_sprite_c.y_wait_animation(barrack, spawn_animation)
 
 
 func _on_soldier_removing(soldier: Entity, _barrack_c: BarrackComponent, barrack_record: BarrackRecord) -> void:

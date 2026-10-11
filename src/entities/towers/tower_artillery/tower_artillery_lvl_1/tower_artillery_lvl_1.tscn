@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_gtnxl"]
 [ext_resource type="Resource" uid="uid://b6q0k62ueghom" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/node_config_template.tres" id="2_ipifc"]
-[ext_resource type="Resource" uid="uid://b6uj5hbxrd1bb" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/tower_artillery_lvl_1.tres" id="3_mbu1c"]
+[ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_mvuvi"]
+[ext_resource type="Resource" uid="uid://dnnxqq63tsl2k" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/animated_sprite_component/animated_sprite_component.tres" id="4_2ve1s"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_mbu1c"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_mvuvi"]
 [ext_resource type="Script" uid="uid://bcthb5ophrody" path="res://classes/sprite_group.gd" id="4_v8ksx"]
@@ -13,8 +14,6 @@
 [ext_resource type="SpriteFrames" uid="uid://c1yg3pxf1mcki" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer2.tres" id="6_ipws0"]
 [ext_resource type="SpriteFrames" uid="uid://dn34cfxw2e1hq" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer3.tres" id="7_st7oj"]
 [ext_resource type="SpriteFrames" uid="uid://divyth6cujr3a" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer4.tres" id="8_67tlk"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="8_jn53b"]
-[ext_resource type="Resource" uid="uid://baw5af6o2tj0g" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/sprite_component/sprite_component.tres" id="8_mvuvi"]
 [ext_resource type="SpriteFrames" uid="uid://btnnwul04bu7s" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer5.tres" id="9_31xy0"]
 [ext_resource type="SpriteFrames" uid="uid://p3p5tg4fumhm" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer6.tres" id="10_d7smu"]
 [ext_resource type="SpriteFrames" uid="uid://cceysejq2k8pm" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl1_layer7.tres" id="11_6652w"]
@@ -33,8 +32,46 @@
 [node name="TowerArtilleryLvl1" type="Node2D" unique_id=1600363506]
 script = ExtResource("1_gtnxl")
 node_config_template = ExtResource("2_ipifc")
-config = ExtResource("3_mbu1c")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1990976755]
+show_behind_parent = true
+script = ExtResource("3_mvuvi")
+config = ExtResource("4_2ve1s")
+metadata/_custom_type_script = "uid://h0vi2yntn7hg"
+
+[node name="SpriteGroup" type="Node2D" parent="AnimatedSpriteComponent" unique_id=557425361]
+position = Vector2(-3, -51)
+script = ExtResource("4_v8ksx")
+metadata/_custom_type_script = "uid://bcthb5ophrody"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatedSpriteComponent/SpriteGroup" unique_id=257270110]
+sprite_frames = ExtResource("5_ds7h4")
+animation = &"idle"
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="AnimatedSpriteComponent/SpriteGroup" unique_id=2085102450]
+sprite_frames = ExtResource("6_ipws0")
+animation = &"idle"
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="AnimatedSpriteComponent/SpriteGroup" unique_id=532296352]
+sprite_frames = ExtResource("7_st7oj")
+animation = &"idle"
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="AnimatedSpriteComponent/SpriteGroup" unique_id=1525718789]
+sprite_frames = ExtResource("8_67tlk")
+animation = &"idle"
+
+[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="AnimatedSpriteComponent/SpriteGroup" unique_id=859521095]
+sprite_frames = ExtResource("9_31xy0")
+animation = &"idle"
+
+[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="AnimatedSpriteComponent/SpriteGroup" unique_id=1766719931]
+sprite_frames = ExtResource("10_d7smu")
+animation = &"idle"
+
+[node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="AnimatedSpriteComponent/SpriteGroup" unique_id=473479711]
+sprite_frames = ExtResource("11_6652w")
+animation = &"idle"
 
 [node name="RecordComponent" type="Node2D" parent="." unique_id=753755281]
 process_mode = 4
@@ -61,45 +98,6 @@ process_mode = 4
 script = ExtResource("6_2ve1s")
 config = ExtResource("20_jn53b")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=40235501]
-show_behind_parent = true
-script = ExtResource("8_jn53b")
-config = ExtResource("8_mvuvi")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
-
-[node name="SpriteGroup" type="Node2D" parent="SpriteComponent" unique_id=557425361]
-position = Vector2(-3, -51)
-script = ExtResource("4_v8ksx")
-metadata/_custom_type_script = "uid://bcthb5ophrody"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=257270110]
-sprite_frames = ExtResource("5_ds7h4")
-animation = &"idle"
-
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=2085102450]
-sprite_frames = ExtResource("6_ipws0")
-animation = &"idle"
-
-[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=532296352]
-sprite_frames = ExtResource("7_st7oj")
-animation = &"idle"
-
-[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=1525718789]
-sprite_frames = ExtResource("8_67tlk")
-animation = &"idle"
-
-[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=859521095]
-sprite_frames = ExtResource("9_31xy0")
-animation = &"idle"
-
-[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=1766719931]
-sprite_frames = ExtResource("10_d7smu")
-animation = &"idle"
-
-[node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="SpriteComponent/SpriteGroup" unique_id=473479711]
-sprite_frames = ExtResource("11_6652w")
-animation = &"idle"
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1705871166]
 script = ExtResource("18_12bqc")

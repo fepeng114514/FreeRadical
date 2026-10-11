@@ -108,14 +108,17 @@ func _on_remove(aura: Entity) -> bool:
 
 func _take_influfluence(aura: Entity, aura_c: AuraComponent) -> void:
 	var aura_c_config: AuraComponentNodeConfig = aura_c.config
-	aura.play_animation(aura_c_config.influence_animation)
+	var animated_sprite_c: AnimatedSpriteComponent = aura.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+	var influence_animation: AnimationGroup = aura_c_config.influence_animation
+	if influence_animation:
+		animated_sprite_c.play_animation(aura, influence_animation)
 	await aura.y_wait(aura_c_config.influence_delay)
 		
 	var targets: Array[Entity] = aura_c_config.searcher.search_targets(aura.global_position, aura)
 	for target: Entity in targets:
 		aura_c_config.influence.take_influence(aura, target, target.global_position)
 
-	if aura_c_config.influence_animation:
-		await aura.y_wait_animation(aura_c_config.influence_animation)
+	if influence_animation:
+		await animated_sprite_c.y_wait_animation(aura, influence_animation)
 
 	EntityManager.queue_remove_entity(aura)

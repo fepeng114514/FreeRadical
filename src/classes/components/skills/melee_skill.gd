@@ -35,8 +35,10 @@ func can_use(entity: Entity, _config: SkillNodeConfig, target: Entity = null) ->
 
 func _use_skill(entity: Entity, target: Entity = null) -> void:
 	start_cooldown(config)
-	entity.play_animation(config.animation, &"melee")
 	AudioManager.play_sfx(config.sfx)
+	var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+	entity.facing_global_position = target.global_position
+	animated_sprite_c.play_animation(entity, config.animation, &"melee")
 	if await entity.y_wait(config.delay) or not target or not target.state & Entity.State.MELEE:
 		compensate_cooldown(config)
 		return
@@ -46,7 +48,7 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 	else:
 		config.influence.take_influence(entity, target, entity.global_position)
 	
-	if await entity.y_wait_animation(config.animation):
+	if await animated_sprite_c.y_wait_animation(entity, config.animation):
 		return
 		
-	entity.play_animation(entity.config.idle_animation, &"idle")
+	animated_sprite_c.play_idle_animation(entity)

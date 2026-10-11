@@ -3,7 +3,7 @@ extends Component
 class_name SpriteComponent
 ## 精灵组件。
 ##
-## SpriteComponent 可以使实体拥有显示精灵的能力，精灵以 [Sprite] 或 [AnimatedSprite2D] 子节点的形式存在。
+## SpriteComponent 用于让实体显示 [Sprite] 节点。
 
 
 @export var config: SpriteComponentNodeConfig = null:
@@ -18,4 +18,3 @@ func _ready() -> void:
 	super()
 	
 	show_behind_parent = true
-	process_mode = Node.PROCESS_MODE_INHERIT

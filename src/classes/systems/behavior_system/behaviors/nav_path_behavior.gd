@@ -32,14 +32,16 @@ func _on_update(entity: Entity) -> bool:
 	if not nav_path_c:
 		return false
 	
+	var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+	
 	if nav_path_c.config.reversed_enabled:
-		return _update_reversed(entity, nav_path_c)
+		return _update_reversed(entity, nav_path_c, animated_sprite_c)
 	else:
-		return _update_forward(entity, nav_path_c)
+		return _update_forward(entity, nav_path_c, animated_sprite_c)
 
 
 ## 更新正向移动逻辑。
-func _update_forward(entity: Entity, nav_path_c: NavPathComponent) -> bool:
+func _update_forward(entity: Entity, nav_path_c: NavPathComponent, animated_sprite_c: AnimatedSpriteComponent) -> bool:
 	var node_index: int = nav_path_c.pathway_node_index
 	if node_index == nav_path_c.config.end_pathway_node_index:
 		_arrived_end(entity, nav_path_c, false)
@@ -62,12 +64,12 @@ func _update_forward(entity: Entity, nav_path_c: NavPathComponent) -> bool:
 	if node_index != next_node_index:
 		nav_path_c.pathway_node_index = next_node_index
 
-	_update_entity_position(entity, nav_path_c, walk_length)
+	_update_entity_position(entity, nav_path_c, animated_sprite_c, walk_length)
 	return true
 
 
 ## 更新反向移动逻辑。
-func _update_reversed(entity: Entity, nav_path_c: NavPathComponent) -> bool:
+func _update_reversed(entity: Entity, nav_path_c: NavPathComponent, animated_sprite_c: AnimatedSpriteComponent) -> bool:
 	var node_index: int = nav_path_c.pathway_node_index
 	if node_index == PathwayManager.node_count - 1 - nav_path_c.config.end_pathway_node_index:
 		_arrived_end(entity, nav_path_c, true)
@@ -90,16 +92,16 @@ func _update_reversed(entity: Entity, nav_path_c: NavPathComponent) -> bool:
 	if node_index != next_node_index:
 		nav_path_c.pathway_node_index = next_node_index
 	
-	_update_entity_position(entity, nav_path_c, walk_length)
+	_update_entity_position(entity, nav_path_c, animated_sprite_c, walk_length)
 	return true
 	
 
 ## 更新实体位置和动画。
-func _update_entity_position(entity: Entity, nav_path_c: NavPathComponent, walk_length: float) -> void:
+func _update_entity_position(entity: Entity, nav_path_c: NavPathComponent, animated_sprite_c: AnimatedSpriteComponent, walk_length: float) -> void:
 	var progress: float = nav_path_c.progress
 	var next_global_position: Vector2 = nav_path_c.get_progress_global_position(progress)
 	entity.facing_global_position = next_global_position
-	entity.play_animation(nav_path_c.config.motion_animation, "walk")
+	animated_sprite_c.play_animation(entity, nav_path_c.config.motion_animation, "walk")
 	entity.global_position = next_global_position
 	entity.facing_global_position = nav_path_c.get_progress_global_position(progress + walk_length)
 

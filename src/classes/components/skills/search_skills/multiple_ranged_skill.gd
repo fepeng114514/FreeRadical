@@ -32,39 +32,42 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 	if not target:
 		return
 	
-	entity.facing_global_position = target.global_position
 	start_cooldown(config)
-	
-	entity.play_animation(config.animation, &"ranged")
 	AudioManager.play_sfx(config.sfx)
-	if await entity.y_wait_animation(config.animation):
+	var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+	entity.facing_global_position = target.global_position
+	animated_sprite_c.play_animation(entity, config.animation, &"ranged")
+	if await animated_sprite_c.y_wait_animation(entity, config.animation):
 		compensate_cooldown(config)
 		return
 
-	for loop_index: int in config.loop_count:
+	if not target:
+		target = config.searcher.search_target(get_search_global_position(entity), entity)
 		if not target:
-			target = config.searcher.search_target(get_search_global_position(entity), entity)
-			if not target:
-				compensate_cooldown(config)
+			compensate_cooldown(config)
+
+	if target:
+		for loop_index: int in config.loop_count:
+			AudioManager.play_sfx(config.loop_sfx)
+			entity.facing_global_position = target.global_position
+			animated_sprite_c.play_animation(entity, config.loop_animation, &"loop")
+			if await entity.y_wait(config.delay):
 				return
-				
-		if not target:
-			break
-			
-		entity.facing_global_position = target.global_position
-		entity.play_animation(config.loop_animation)
 
-		AudioManager.play_sfx(config.loop_sfx)
-		if await entity.y_wait(config.delay):
-			return
+			if not target:
+				target = config.searcher.search_target(get_search_global_position(entity), entity)
+				if not target:
+					break
 
-		_spawn_bullets(entity, target, config)
-		if await entity.y_wait_animation(config.loop_animation):
-			return
+				entity.facing_global_position = target.global_position
+				animated_sprite_c.continue_play_new_animation(entity, config.loop_animation, &"loop")
 
-	if await entity.y_wait_animation(config.loop_animation):
-		return
+			_spawn_bullets(entity, target, config)
+			if await animated_sprite_c.y_wait_animation(entity, config.loop_animation):
+				return
 
-	entity.play_animation(config.end_animation)
 	AudioManager.play_sfx(config.end_sfx)
-	await entity.y_wait_animation(config.end_animation)
+	if target:
+		entity.facing_global_position = target.global_position
+	animated_sprite_c.play_animation(entity, config.end_animation, &"end")
+	await animated_sprite_c.y_wait_animation(entity, config.end_animation)

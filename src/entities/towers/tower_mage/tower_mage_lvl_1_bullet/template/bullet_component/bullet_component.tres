@@ -34,5 +34,5 @@ resource_local_to_scene = true
 script = ExtResource("1_tqjj8")
 trajectory = SubResource("Resource_mage_traj")
 flight_animation = SubResource("Resource_grujq")
-hit_influence = SubResource("Resource_4apn3")
+influence = SubResource("Resource_4apn3")
 hit_animation = SubResource("Resource_w0po8")

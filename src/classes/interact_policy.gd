@@ -77,23 +77,6 @@ func _validate_property(property: Dictionary) -> void:
 			property.hint_string = "mask_check(%s)" % AuraComponent.Type
 
 
-## 根据标识获取实体组名数组
-func get_entity_group_names() -> Array[StringName]:
-	var entity_group_names: Array[StringName] = []
-
-	if flags & Flag.ENEMY:
-		entity_group_names.append(Constants.GROUP_ENEMIES)
-	if flags & Flag.FRIENDLY:
-		entity_group_names.append(Constants.GROUP_FRIENDLIES)
-	if flags & Flag.UNIT:
-		entity_group_names.append(Constants.GROUP_UNITS)
-	if flags & Flag.TOWER:
-		entity_group_names.append(Constants.GROUP_TOWERS)
-
-	return entity_group_names
-
-
-
 ## 检查是否与另一个策略禁止交互。
 func is_mutual_banned(other: InteractPolicy) -> bool:
 	return other.flags & bans or flags & other.bans

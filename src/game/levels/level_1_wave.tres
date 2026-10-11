@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/wave/wave_spawn.gd" id="4_178aa"]
 
 [sub_resource type="Resource" id="Resource_ljiut"]
-resource_local_to_scene = true
 script = ExtResource("4_178aa")
 entity = "uid://b8mw5gsptj8n1"
 pathway_index = 0

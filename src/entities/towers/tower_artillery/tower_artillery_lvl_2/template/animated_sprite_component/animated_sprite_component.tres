@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AnimatedSpriteComponentNodeConfig" format=3 uid="uid://dudqbvapevmrx"]
+
+[ext_resource type="Script" uid="uid://4qeyoce8d6l0" path="res://classes/node_configs/components/animated_sprite_component_node_config.gd" id="1_nuh8v"]
+[ext_resource type="Resource" uid="uid://6v7qe326x75" path="res://entities/resources/animation_groups/any_idle_animation_group.tres" id="1_orynq"]
+[ext_resource type="Resource" uid="uid://kn7h15l730lr" path="res://entities/towers/tower_artillery/tower_artillery_spawn_sfx.tres" id="3_e507b"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_nuh8v")
+idle_animation = ExtResource("1_orynq")
+spawn_sfx = ExtResource("3_e507b")

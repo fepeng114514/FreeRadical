@@ -390,17 +390,42 @@ func _grouping_entities() -> void:
 		
 		_valid_entities.append(entity)
 		
+		for child: Node in entity.get_children():
+			if not child is Component:
+				continue
+
+			var script: GDScript = child.get_script()
+			var component_class_name: StringName = script.get_global_name()
+			
+			_component_entity_groups[component_class_name].append(entity)
+
 		var cell_index: int = global_position_to_spatial_hash_cell_index(entity.global_position)
 		var cell: SpaceIndexCell = get_spatial_hash_cell(cell_index)
+		if cell:
+			cell.entities.append(entity)
 
-		for group_name: StringName in entity.entity_groups:
-			_entity_groups[group_name].append(entity)
+		var entity_c: EntityComponent = entity.get_node_or_null(Constants.ENTITY_COMPONENT_NODE_PATH)
+		if not entity_c:
+			continue
+		
+		var flags: int = entity_c.config.interact_policy.flags
+		if flags & InteractPolicy.Flag.ENEMY:
+			_append_entity_to_entity_group(entity, Constants.GROUP_ENEMIES, cell)
+		if flags & InteractPolicy.Flag.FRIENDLY:
+			_append_entity_to_entity_group(entity, Constants.GROUP_FRIENDLIES, cell)
+		if flags & InteractPolicy.Flag.UNIT:
+			_append_entity_to_entity_group(entity, Constants.GROUP_UNITS, cell)
+		if flags & InteractPolicy.Flag.TOWER:
+			_append_entity_to_entity_group(entity, Constants.GROUP_TOWERS, cell)
 
-			if cell:
-				cell.entity_groups[group_name].append(entity)
 
-		for group_name: StringName in entity.components:
-			_component_entity_groups[group_name].append(entity)
+## 将实体添加到实体组。
+func _append_entity_to_entity_group(entity: Entity, group_name: StringName, cell: SpaceIndexCell) -> void:
+	_entity_groups[group_name].append(entity)
+	if not cell:
+		return
+
+	cell.entity_groups[group_name].append(entity)
 
 
 class EntityGroup extends RefCounted:

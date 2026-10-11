@@ -14,7 +14,7 @@
 [ext_resource type="Script" uid="uid://cbcje4j81kvmp" path="res://classes/systems/modifier_system.gd" id="19_a63l3"]
 [ext_resource type="Script" uid="uid://bu47hvw5yociy" path="res://classes/systems/tower_system.gd" id="20_2any3"]
 [ext_resource type="Script" uid="uid://ch7tw5a5qflj7" path="res://classes/systems/bullet_system.gd" id="21_vab6w"]
-[ext_resource type="Script" uid="uid://dwbh7vjakpq82" path="res://classes/systems/sprite_system.gd" id="22_ludxb"]
+[ext_resource type="Script" uid="uid://dwbh7vjakpq82" path="res://classes/systems/animated_sprite_system.gd" id="22_ludxb"]
 [ext_resource type="Script" uid="uid://cbwfqyuju4hpn" path="res://classes/systems/fx_system.gd" id="23_abru4"]
 [ext_resource type="Texture2D" uid="uid://c4uv21v5sb1bo" path="res://assets/level_1_background.png" id="23_n8wpv"]
 [ext_resource type="TileSet" uid="uid://drvqqrlklyc0" path="res://game/grid_tileset.tres" id="24_iowrn"]
@@ -110,7 +110,7 @@ script = ExtResource("20_2any3")
 [node name="BulletSystem" type="Node" parent="Systems" unique_id=1989141947]
 script = ExtResource("21_vab6w")
 
-[node name="SpriteSystem" type="Node" parent="Systems" unique_id=818690998]
+[node name="AnimatedSpriteSystem" type="Node" parent="Systems" unique_id=818690998]
 script = ExtResource("22_ludxb")
 
 [node name="FXSystem" type="Node" parent="Systems" unique_id=897972873]

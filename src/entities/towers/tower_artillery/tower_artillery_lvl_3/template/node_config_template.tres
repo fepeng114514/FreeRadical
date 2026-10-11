@@ -1,13 +1,18 @@
 [gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://cmn3flwgx4ssn"]
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_gmj3g"]
-[ext_resource type="Resource" uid="uid://dk1bus64h6v77" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/sprite_component/sprite_component.tres" id="2_x2hm1"]
+[ext_resource type="Resource" uid="uid://dsetqex7va31e" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/animated_sprite_component/animated_sprite_component.tres" id="2_gmj3g"]
 [ext_resource type="Resource" uid="uid://ctgiyypk61rqs" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/tower_component/tower_component.tres" id="3_57ath"]
 [ext_resource type="Resource" uid="uid://b1xeaojgw0wd8" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/select_component/select_component.tres" id="4_tosyw"]
 [ext_resource type="Resource" uid="uid://yh0apf82smx1" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/skill_component/ranged_skill/ranged_skill.tres" id="5_sj1gs"]
 [ext_resource type="Resource" uid="uid://bvig7l8ihkypf" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/skill_component/skill_component.tres" id="6_ev5nm"]
 [ext_resource type="Resource" uid="uid://6m6cfe7uqe32" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/tower_artillery_lvl_3.tres" id="7_lesfv"]
 [ext_resource type="Resource" uid="uid://d3yyj3oivaewq" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/sell_component/sell_component.tres" id="7_x2hm1"]
+
+[sub_resource type="Resource" id="Resource_x2hm1"]
+script = ExtResource("1_gmj3g")
+name = "AnimatedSpriteComponent"
+config = ExtResource("2_gmj3g")
 
 [sub_resource type="Resource" id="Resource_57ath"]
 script = ExtResource("1_gmj3g")
@@ -16,41 +21,40 @@ config = ExtResource("4_tosyw")
 
 [sub_resource type="Resource" id="Resource_tosyw"]
 script = ExtResource("1_gmj3g")
-name = "SpriteComponent"
-config = ExtResource("2_x2hm1")
-
-[sub_resource type="Resource" id="Resource_sj1gs"]
-script = ExtResource("1_gmj3g")
 name = "TowerComponent"
 config = ExtResource("3_57ath")
 
-[sub_resource type="Resource" id="Resource_ev5nm"]
+[sub_resource type="Resource" id="Resource_sj1gs"]
 script = ExtResource("1_gmj3g")
 name = "RangedSkill"
 config = ExtResource("5_sj1gs")
 
-[sub_resource type="Resource" id="Resource_lesfv"]
+[sub_resource type="Resource" id="Resource_ev5nm"]
 script = ExtResource("1_gmj3g")
 name = "SkillComponent"
 config = ExtResource("6_ev5nm")
+children = Array[ExtResource("1_gmj3g")]([SubResource("Resource_sj1gs")])
+children_dict = Dictionary[String, ExtResource("1_gmj3g")]({
+"RangedSkill": SubResource("Resource_sj1gs")
+})
+
+[sub_resource type="Resource" id="Resource_lesfv"]
+script = ExtResource("1_gmj3g")
+name = "SellComponent"
+config = ExtResource("7_x2hm1")
 children = Array[ExtResource("1_gmj3g")]([SubResource("Resource_ev5nm")])
 children_dict = Dictionary[String, ExtResource("1_gmj3g")]({
 "RangedSkill": SubResource("Resource_ev5nm")
 })
 
-[sub_resource type="Resource" id="Resource_qr4qw"]
-script = ExtResource("1_gmj3g")
-name = "SellComponent"
-config = ExtResource("7_x2hm1")
-
 [resource]
 script = ExtResource("1_gmj3g")
 config = ExtResource("7_lesfv")
-children = Array[ExtResource("1_gmj3g")]([SubResource("Resource_57ath"), SubResource("Resource_tosyw"), SubResource("Resource_sj1gs"), SubResource("Resource_lesfv"), SubResource("Resource_qr4qw")])
+children = Array[ExtResource("1_gmj3g")]([SubResource("Resource_x2hm1"), SubResource("Resource_57ath"), SubResource("Resource_tosyw"), SubResource("Resource_ev5nm"), SubResource("Resource_lesfv")])
 children_dict = Dictionary[String, ExtResource("1_gmj3g")]({
+"AnimatedSpriteComponent": SubResource("Resource_x2hm1"),
 "SelectComponent": SubResource("Resource_57ath"),
-"SellComponent": SubResource("Resource_qr4qw"),
-"SkillComponent": SubResource("Resource_lesfv"),
-"SpriteComponent": SubResource("Resource_tosyw"),
-"TowerComponent": SubResource("Resource_sj1gs")
+"SellComponent": SubResource("Resource_lesfv"),
+"SkillComponent": SubResource("Resource_ev5nm"),
+"TowerComponent": SubResource("Resource_tosyw")
 })

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AnimatedSpriteComponentNodeConfig" format=3 uid="uid://ds4fmbs7fmwc2"]
+
+[ext_resource type="Resource" uid="uid://ba03oi0nlq748" path="res://entities/resources/animation_groups/horizontal_idle_animation_group.tres" id="1_3kvd6"]
+[ext_resource type="Script" uid="uid://4qeyoce8d6l0" path="res://classes/node_configs/components/animated_sprite_component_node_config.gd" id="1_a4eag"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_a4eag")
+idle_animation = ExtResource("1_3kvd6")

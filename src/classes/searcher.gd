@@ -321,7 +321,7 @@ func _sort_by_ranged_damage(entity1: Entity, entity2: Entity) -> bool:
 		if first_ranged_skill:
 			var bullet_template: NodeConfigTemplateNode = NodeConfigManager.get_node_config_template_by_entity_uid(first_ranged_skill.config.bullet_scene)
 			var bullet_c_config: BulletComponentNodeConfig = bullet_template.get_node_config(Constants.BULLET_COMPONENT_NODE_PATH)
-			var damage_influence := bullet_c_config.hit_influence as DamageInfluence
+			var damage_influence := bullet_c_config.influence as DamageInfluence
 			if damage_influence:
 				ranged_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 	var entity2_skill_c: SkillComponent = entity2.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
@@ -330,7 +330,7 @@ func _sort_by_ranged_damage(entity1: Entity, entity2: Entity) -> bool:
 		if first_ranged_skill:
 			var bullet_template: NodeConfigTemplateNode = NodeConfigManager.get_node_config_template_by_entity_uid(first_ranged_skill.config.bullet_scene)
 			var bullet_c_config: BulletComponentNodeConfig = bullet_template.get_node_config(Constants.BULLET_COMPONENT_NODE_PATH)
-			var damage_influence := bullet_c_config.hit_influence as DamageInfluence
+			var damage_influence := bullet_c_config.influence as DamageInfluence
 			if damage_influence:
 				ranged_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 

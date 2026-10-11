@@ -74,6 +74,8 @@ const SELL_COMPONENT_NAME: StringName = &"SellComponent"
 const SPAWNER_COMPONENT_NAME: StringName = &"SpawnerComponent"
 ## 组件名: 精灵。
 const SPRITE_COMPONENT_NAME: StringName = &"SpriteComponent"
+## 组件名: 动画精灵。
+const ANIMATED_SPRITE_COMPONENT_NAME: StringName = &"AnimatedSpriteComponent"
 ## 组件名: 防御塔。
 const TOWER_COMPONENT_NAME: StringName = &"TowerComponent"
 ## 组件名: 波次生成器。
@@ -90,6 +92,8 @@ const TOWER_RECORD_NAME: StringName = &"TowerRecord"
 const BARRACK_RECORD_NAME: StringName = &"BarrackRecord"
 ## 组件名: 持续时间组件。
 const DURATION_COMPONENT_NAME: StringName = &"DurationComponent"
+## 组件名: 实体组件。
+const ENTITY_COMPONENT_NAME: StringName = &"EntityComponent"
 
 const ALL_COMPONENT_NAMES: Array[StringName] = [
 	AURA_COMPONENT_NAME, 
@@ -108,11 +112,13 @@ const ALL_COMPONENT_NAMES: Array[StringName] = [
 	SELL_COMPONENT_NAME, 
 	SPAWNER_COMPONENT_NAME, 
 	SPRITE_COMPONENT_NAME, 
+	ANIMATED_SPRITE_COMPONENT_NAME, 
 	TOWER_COMPONENT_NAME, 
 	WAVE_SPAWNER_COMPONENT_NAME, 
 	UPGRADE_COMPONENT_NAME, 
 	RECORD_COMPONENT_NAME, 
 	DURATION_COMPONENT_NAME,
+	ENTITY_COMPONENT_NAME,
 ]
 
 ## 节点路径: 光环。
@@ -147,6 +153,8 @@ const SELL_COMPONENT_NODE_PATH: NodePath = ^"SellComponent"
 const SPAWNER_COMPONENT_NODE_PATH: NodePath = ^"SpawnerComponent"
 ## 节点路径: 精灵。
 const SPRITE_COMPONENT_NODE_PATH: NodePath = ^"SpriteComponent"
+## 节点路径: 动画精灵。
+const ANIMATED_SPRITE_COMPONENT_NODE_PATH: NodePath = ^"AnimatedSpriteComponent"
 ## 节点路径: 防御塔。
 const TOWER_COMPONENT_NODE_PATH: NodePath = ^"TowerComponent"
 ## 节点路径: 波次生成器。
@@ -163,6 +171,8 @@ const TOWER_RECORD_NODE_PATH: NodePath = ^"RecordComponent/TowerRecord"
 const BARRACK_RECORD_NODE_PATH: NodePath = ^"RecordComponent/BarrackRecord"
 ## 节点路径: 持续时间组件。
 const DURATION_COMPONENT_NODE_PATH: NodePath = ^"DurationComponent"
+## 节点路径: 实体组件。
+const ENTITY_COMPONENT_NODE_PATH: NodePath = ^"EntityComponent"
 #endregion
 
 

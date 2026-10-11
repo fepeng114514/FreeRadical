@@ -19,4 +19,4 @@ flight_total_time = 0.7
 resource_local_to_scene = true
 script = ExtResource("1_1s7c3")
 trajectory = SubResource("Resource_archer_traj")
-hit_influence = SubResource("Resource_e3y34")
+influence = SubResource("Resource_e3y34")

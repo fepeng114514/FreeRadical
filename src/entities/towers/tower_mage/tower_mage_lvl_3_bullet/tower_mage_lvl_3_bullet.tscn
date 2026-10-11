@@ -2,33 +2,31 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_xwp5b"]
 [ext_resource type="Resource" uid="uid://bix4hxwa2yv4t" path="res://entities/towers/tower_mage/tower_mage_lvl_3_bullet/template/node_config_template.tres" id="2_3tds5"]
-[ext_resource type="Resource" uid="uid://dwlin0ay7joma" path="res://entities/towers/tower_mage/tower_mage_lvl_3_bullet/template/tower_mage_lvl_3_bullet.tres" id="3_el64u"]
+[ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_tvtiv"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="4_xm7vs"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="6_5smcs"]
+[ext_resource type="Resource" uid="uid://cthnqd8go0wl8" path="res://entities/towers/tower_mage/tower_mage_lvl_3_bullet/template/animated_sprite_component/animated_sprite_component.tres" id="4_xwp5b"]
 [ext_resource type="Resource" uid="uid://bjmsq22bk0dxj" path="res://entities/towers/tower_mage/tower_mage_lvl_3_bullet/template/bullet_component/bullet_component.tres" id="6_kr724"]
 [ext_resource type="SpriteFrames" uid="uid://c67baw6nrd87f" path="res://assets/atlas/sprite_frames/towers/tower_mage_bolt.tres" id="7_el64u"]
-[ext_resource type="Resource" uid="uid://blw44kf3kt87b" path="res://entities/towers/tower_mage/tower_mage_lvl_3_bullet/template/sprite_component/sprite_component.tres" id="10_cdowc"]
 
 [node name="TowerMageLvl3Bullet" type="Node2D" unique_id=511000022]
 z_index = 10
 script = ExtResource("1_xwp5b")
 node_config_template = ExtResource("2_3tds5")
-config = ExtResource("3_el64u")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1988882260]
+show_behind_parent = true
+script = ExtResource("3_tvtiv")
+config = ExtResource("4_xwp5b")
+metadata/_custom_type_script = "uid://h0vi2yntn7hg"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatedSpriteComponent" unique_id=435859138]
+position = Vector2(12, 0)
+sprite_frames = ExtResource("7_el64u")
+animation = &"flying_left_right"
 
 [node name="BulletComponent" type="Node2D" parent="." unique_id=1871836864]
 process_mode = 4
 script = ExtResource("4_xm7vs")
 config = ExtResource("6_kr724")
 metadata/_custom_type_script = "uid://haoljvofy74e"
-
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1496253429]
-show_behind_parent = true
-script = ExtResource("6_5smcs")
-config = ExtResource("10_cdowc")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=435859138]
-position = Vector2(12, 0)
-sprite_frames = ExtResource("7_el64u")
-animation = &"flying_left_right"

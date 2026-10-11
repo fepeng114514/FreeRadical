@@ -30,16 +30,18 @@ func _draw() -> void:
 
 		
 func _use_skill(entity: Entity, target: Entity = null) -> void:
+	var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+	
 	if config.searcher:
 		target = config.searcher.search_target(get_search_global_position(entity), entity)
 		if not target:
 			return
 	
 		entity.facing_global_position = target.global_position
+		
 	start_cooldown(config)
-
-	entity.play_animation(config.animation)
 	AudioManager.play_sfx(config.sfx)
+	animated_sprite_c.play_animation(entity, config.animation, &"area")
 	if await entity.y_wait(config.delay) or config.searcher and not target:
 		compensate_cooldown(config)
 		return
@@ -50,12 +52,15 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 			if not target:
 				compensate_cooldown(config)
 				return
-		
+
+			entity.facing_global_position = target.global_position
+			animated_sprite_c.continue_play_new_animation(entity, config.animation, &"area")
+			
 		config.influence.take_influence(entity, target, target.global_position)
 	else:
 		config.influence.take_influence(entity, entity, entity.global_position)
 
-	if await entity.y_wait_animation(config.animation):
+	if await animated_sprite_c.y_wait_animation(entity, config.animation):
 		return
 		
-	entity.play_animation(entity.config.idle_animation, &"idle")
+	animated_sprite_c.play_idle_animation(entity)

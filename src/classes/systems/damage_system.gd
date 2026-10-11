@@ -88,7 +88,7 @@ func _on_update(_delta: float) -> void:
 	DamageManager.damage_queue = new_damage_queue
 
 
-## 死亡处理。
+## 处理死亡。
 func _death(damage: Damage, target: Entity, health_c: HealthComponent, _source: Entity) -> void:
 	var health_c_config: HealthComponentNodeConfig = health_c.config
 	var damage_flags: int = damage.damage_flags
@@ -108,12 +108,13 @@ func _death(damage: Damage, target: Entity, health_c: HealthComponent, _source: 
 	
 	await get_tree().physics_frame
 
-	AudioManager.play_sfx(health_c_config.death_sfx)
 	target.state &= ~Entity.State.INTERRUPT_WAIT
+	AudioManager.play_sfx(health_c_config.death_sfx)
 	var death_animation: AnimationGroup = health_c_config.death_animation
 	if death_animation:
-		target.play_animation(death_animation, &"death")
-		if await target.y_wait_animation(death_animation):
+		var animated_sprite_c: AnimatedSpriteComponent = target.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+		animated_sprite_c.play_animation(target, death_animation, &"death")
+		if await animated_sprite_c.y_wait_animation(target, death_animation):
 			return
 
 	await target.y_wait(health_c_config.death_remove_delay)

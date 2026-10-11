@@ -3,19 +3,28 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_otex3"]
 [ext_resource type="SpriteFrames" uid="uid://c5m75dmediley" path="res://assets/atlas/sprite_frames/towers/tower_archer_lvl3_shooter.tres" id="2_il870"]
 [ext_resource type="Resource" uid="uid://c3btkuijqj6kp" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/node_config_template.tres" id="2_wcxgc"]
-[ext_resource type="Resource" uid="uid://qb05dm6b0k8x" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/tower_archer_lvl_3_shooter.tres" id="3_e1q3h"]
+[ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_ep7r2"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="4_e4kwe"]
-[ext_resource type="Resource" uid="uid://dfmyk7j78wuky" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/sprite_component/sprite_component.tres" id="6_ccwc3"]
+[ext_resource type="Resource" uid="uid://bihw4na0abvfs" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/animated_sprite_component/animated_sprite_component.tres" id="4_otex3"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/skills/search_skills/ranged_skill.gd" id="6_in1b7"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="8_o2l83"]
 [ext_resource type="Resource" uid="uid://likxnaylru7j" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/skill_component/skill_component.tres" id="9_1qwdt"]
 [ext_resource type="Resource" uid="uid://de5ej80i7p067" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/skill_component/ranged_skill/ranged_skill.tres" id="11_hul4n"]
 
 [node name="TowerArcherLvl3Shooter" type="Node2D" unique_id=2011504655]
 script = ExtResource("1_otex3")
 node_config_template = ExtResource("2_wcxgc")
-config = ExtResource("3_e1q3h")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1838624141]
+show_behind_parent = true
+script = ExtResource("3_ep7r2")
+config = ExtResource("4_otex3")
+metadata/_custom_type_script = "uid://h0vi2yntn7hg"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatedSpriteComponent" unique_id=1785141033]
+position = Vector2(3, -22)
+sprite_frames = ExtResource("2_il870")
+animation = &"idle_down"
 
 [node name="SkillComponent" type="Node2D" parent="." unique_id=1615484677]
 process_mode = 4
@@ -28,14 +37,3 @@ process_mode = 4
 script = ExtResource("6_in1b7")
 config = ExtResource("11_hul4n")
 metadata/_custom_type_script = "uid://covaxdshxnvkn"
-
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=424643919]
-show_behind_parent = true
-script = ExtResource("8_o2l83")
-config = ExtResource("6_ccwc3")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=1785141033]
-position = Vector2(3, -22)
-sprite_frames = ExtResource("2_il870")
-animation = &"idle_down"

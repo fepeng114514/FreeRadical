@@ -8,6 +8,12 @@ class_name BulletComponentNodeConfig
 @export var trajectory: BulletTrajectory = null
 ## 飞行动画组。
 @export var flight_animation: AnimationGroup = null
+## 影响资源。
+@export var influence: Influence = null:
+	set(v):
+		Utils.rebind_changed(influence, v, emit_changed)
+		influence = v
+		emit_changed()
 
 @export_group("Rotation")
 ## 子弹旋转速度。
@@ -20,19 +26,13 @@ class_name BulletComponentNodeConfig
 @export var can_arrived: bool = true
 ## 击中目标的阈值。
 @export var hit_distance: float = 30.0
-## 击中目标时的影响资源，用于对目标造成伤害或治愈目标。
-@export var hit_influence: Influence = null:
-	set(v):
-		Utils.rebind_changed(hit_influence, v, emit_changed)
-		hit_influence = v
-		emit_changed()
 ## 击中目标后是否移除子弹实体。
 @export var hit_remove: bool = true
-## 击中后造成伤害的延迟（秒）。
+## 击中目标后造成影响的延迟（秒）。
 @export var hit_delay: float = 0.0
-## 击中动画组。
+## 击中目标后播放的动画组。
 @export var hit_animation: AnimationGroup = null
-## 击中音效组。
+## 击中目标后播放的音效组。
 @export var hit_sfx: AudioGroup = null
 ## 击中目标时创建的实体场景路径列表。
 @export_file("*.tscn") var hit_payloads: PackedStringArray
@@ -40,15 +40,20 @@ class_name BulletComponentNodeConfig
 @export_group("Miss")
 ## 未击中目标时是否移除子弹实体。
 @export var miss_remove: bool = true
-## 未击中动画组。
+## 未击中目标时是否也造成影响。
+@export var miss_influence_enabled: bool = true
+## 未击中目标时造成影响的延迟（秒）。
+@export var miss_delay: float = 0.0
+## 未击中目标时播放的动画组。
 @export var miss_animation: AnimationGroup = null
-## 未击中音效组。
+## 未击中目标时播放的音效组。
 @export var miss_sfx: AudioGroup = null
 ## 未击中目标时创建的实体场景路径列表。
 @export_file("*.tscn") var miss_payloads: PackedStringArray
 
 var _init_connect_property_signals: Dictionary[String, Callable] = {
 	"flight_animation": emit_changed,
+	"influence": emit_changed,
 }
 
 

@@ -23,11 +23,11 @@ enum GetValueMode {
 
 @export_group("Extra")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var extra_enabled: bool = false
-## 给予的修改器路径列表。
+## 为每个目标给予的修改器路径列表。
 @export_file("*.tscn") var mods: PackedStringArray
-## 给予的持续修改器路径列表。
+## 为每个目标给予的光环路径列表。
 @export_file("*.tscn") var auras: PackedStringArray
-## 创建的实体场景路径列表。
+## 创建的实体场景路径列表，只会创建一次。
 @export_file("*.tscn") var payloads: PackedStringArray
 
 @export_group("Area")
@@ -62,15 +62,14 @@ func _take(source: Entity, target: Entity, is_area: bool) -> void: pass
 
 
 ## 对实体造成影响。
-func take_influence(source: Entity, base_target: Entity, search_center: Vector2) -> Array[Entity]:
-	var targets: Array[Entity] = [null]
+func take_influence(source: Entity, base_target: Entity, take_global_position: Vector2) -> Array[Entity]:
+	var targets: Array[Entity] = []
 	if area_enabled:
-		targets = searcher.search_targets(search_center, source)
+		targets = searcher.search_targets(take_global_position, source)
 	else:
-		targets[0] = base_target
+		targets.append(base_target)
 
 	var source_id: int = source.id
-	
 	for target: Entity in targets:
 		var target_id: int = target.id
 
@@ -79,7 +78,8 @@ func take_influence(source: Entity, base_target: Entity, search_center: Vector2)
 		if extra_enabled:
 			EntityManager.create_mods(target_id, mods, source_id)
 			EntityManager.create_auras(target_id, auras, source_id)
-			EntityManager.create_entities_at_global_position(payloads, target.global_position)
+
+	EntityManager.create_entities_at_global_position(payloads, take_global_position)
 
 	return targets
 

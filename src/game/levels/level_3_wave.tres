@@ -1,12 +1,11 @@
-[gd_resource type="Resource" script_class="WaveGroup" format=3]
+[gd_resource type="Resource" script_class="WaveGroup" format=3 uid="uid://cgk7iiw2w8ja2"]
 
-[ext_resource type="Script" path="res://classes/wave/wave_group.gd" id="1_aua7o"]
-[ext_resource type="Script" path="res://classes/wave/wave.gd" id="2_qb1q8"]
-[ext_resource type="Script" path="res://classes/wave/sub_wave.gd" id="3_csrtm"]
-[ext_resource type="Script" path="res://classes/wave/wave_spawn.gd" id="4_p33vm"]
+[ext_resource type="Script" uid="uid://okpyko8fvmx4" path="res://classes/wave/wave_group.gd" id="1_aua7o"]
+[ext_resource type="Script" uid="uid://b1twtcymtb7c1" path="res://classes/wave/wave.gd" id="2_qb1q8"]
+[ext_resource type="Script" uid="uid://sexo7n8p0jrb" path="res://classes/wave/sub_wave.gd" id="3_csrtm"]
+[ext_resource type="Script" uid="uid://d3o7lg62owyu5" path="res://classes/wave/wave_spawn.gd" id="4_p33vm"]
 
 [sub_resource type="Resource" id="Resource_p33vm"]
-resource_local_to_scene = true
 script = ExtResource("4_p33vm")
 interval = 0.5
 entity = "uid://drgcomkmcowby"
@@ -15,19 +14,16 @@ count = 20
 metadata/_custom_type_script = "uid://d3o7lg62owyu5"
 
 [sub_resource type="Resource" id="Resource_rn0y7"]
-resource_local_to_scene = true
 script = ExtResource("3_csrtm")
 spawn_list = Array[ExtResource("4_p33vm")]([SubResource("Resource_p33vm")])
 metadata/_custom_type_script = "uid://sexo7n8p0jrb"
 
 [sub_resource type="Resource" id="Resource_mamyp"]
-resource_local_to_scene = true
 script = ExtResource("2_qb1q8")
 sub_wave_list = Array[ExtResource("3_csrtm")]([SubResource("Resource_rn0y7")])
 metadata/_custom_type_script = "uid://b1twtcymtb7c1"
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_aua7o")
 wave_list = Array[ExtResource("2_qb1q8")]([SubResource("Resource_mamyp")])
 metadata/_custom_type_script = "uid://okpyko8fvmx4"

@@ -53,17 +53,19 @@ func _on_update(entity: Entity) -> bool:
 			
 	if entity.state & Entity.State.IDLE:
 		melee_c.original_global_position = entity.global_position
+
+	var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
 	
 	if melee_c.is_blocker:
 		melee_c.blocker_cleanup_melee_relations(entity)
-		return _update_blocker(entity, melee_c)
+		return _update_blocker(entity, melee_c, animated_sprite_c)
 	else:
 		melee_c.blocked_cleanup_melee_relations(entity)
-		return _update_blocked(entity, melee_c)
+		return _update_blocked(entity, melee_c, animated_sprite_c)
 
 
 ## 更新拦截者。
-func _update_blocker(entity: Entity, melee_c: MeleeComponent) -> bool:
+func _update_blocker(entity: Entity, melee_c: MeleeComponent, animated_sprite_c: AnimatedSpriteComponent) -> bool:
 	if melee_c.blocked_count < melee_c.config.max_blocked_count or melee_c.is_extra_blocker:
 		_blocker_search_and_bind_melee_relations(entity, melee_c)
 	
@@ -73,7 +75,7 @@ func _update_blocker(entity: Entity, melee_c: MeleeComponent) -> bool:
 			MeleeComponent.MeleeState.ORIGINAL_POSITION_ARRIVED:
 				melee_c.original_global_position = entity.global_position
 			_:
-				if not _back_original_position(entity, melee_c):
+				if not _back_original_position(entity, melee_c, animated_sprite_c):
 					return true
 		
 		return false
@@ -86,7 +88,7 @@ func _update_blocker(entity: Entity, melee_c: MeleeComponent) -> bool:
 		if melee_c.config.is_passive:
 			if blocked_melee_c.melee_state != MeleeComponent.MeleeState.MELEE_POSITION_ARRIVED:
 				entity.facing_global_position = blocked_global_position
-				entity.play_animation(entity.config.idle_animation)
+				animated_sprite_c.play_idle_animation(entity)
 				return true
 		else:
 			var melee_global_position: Vector2 = blocked_global_position
@@ -97,10 +99,10 @@ func _update_blocker(entity: Entity, melee_c: MeleeComponent) -> bool:
 				melee_global_position += melee_position_offset
 
 			melee_c.melee_global_position = melee_global_position
-			if not _go_melee_position(entity, melee_c, melee_global_position):
+			if not _go_melee_position(entity, melee_c, animated_sprite_c, melee_global_position):
 				return true
 		
-		_try_melee_attack(entity, melee_c, blocked)
+		_try_melee_attack(entity, melee_c, blocked, animated_sprite_c)
 		return true
 
 
@@ -189,7 +191,7 @@ func _extra_blocker_search_and_bind_melee_relations(entity: Entity, melee_c: Mel
 
 
 ## 更新被拦截者。
-func _update_blocked(entity: Entity, melee_c: MeleeComponent) -> bool:
+func _update_blocked(entity: Entity, melee_c: MeleeComponent, animated_sprite_c: AnimatedSpriteComponent) -> bool:
 	var entity_global_position: Vector2 = entity.global_position
 	var blocker_id_list: PackedInt32Array = melee_c.blocker_id_list
 	if not blocker_id_list:
@@ -197,7 +199,7 @@ func _update_blocked(entity: Entity, melee_c: MeleeComponent) -> bool:
 			MeleeComponent.MeleeState.ORIGINAL_POSITION_ARRIVED:
 				melee_c.original_global_position = entity_global_position
 			_:
-				if not _back_original_position(entity, melee_c):
+				if not _back_original_position(entity, melee_c, animated_sprite_c):
 					return true
 		
 		return false
@@ -212,7 +214,7 @@ func _update_blocked(entity: Entity, melee_c: MeleeComponent) -> bool:
 		if is_first_blocked and not blocker_melee_c_config.is_passive:
 			if blocker_melee_c.melee_state != MeleeComponent.MeleeState.MELEE_POSITION_ARRIVED:
 				entity.facing_global_position = blocker_global_position
-				entity.play_animation(entity.config.idle_animation)
+				animated_sprite_c.play_idle_animation(entity)
 				return true
 		else:
 			if not melee_c.config.is_passive:
@@ -224,15 +226,15 @@ func _update_blocked(entity: Entity, melee_c: MeleeComponent) -> bool:
 					melee_global_position += melee_position_offset
 
 				melee_c.melee_global_position = melee_global_position
-				if not _go_melee_position(entity, melee_c, melee_global_position):
+				if not _go_melee_position(entity, melee_c, animated_sprite_c, melee_global_position):
 					return true
 		
-		_try_melee_attack(entity, melee_c, blocker)
+		_try_melee_attack(entity, melee_c, blocker, animated_sprite_c)
 		return true
 	
 
 ## 前往近战位置。
-func _go_melee_position(entity: Entity, melee_c: MeleeComponent, melee_global_position: Vector2) -> bool:
+func _go_melee_position(entity: Entity, melee_c: MeleeComponent, animated_sprite_c: AnimatedSpriteComponent, melee_global_position: Vector2) -> bool:
 	if MathUtils.is_at_destination(
 			entity.global_position, melee_global_position, melee_c.config.arrived_distance	 
 	):
@@ -243,12 +245,12 @@ func _go_melee_position(entity: Entity, melee_c: MeleeComponent, melee_global_po
 		#Log.verbose("前往近战位置，全局位置：%s, 目标点：%s, 速度：%s" % [entity.global_position, melee_c.melee_global_position, melee_c.velocity])
 		melee_c.melee_state = MeleeComponent.MeleeState.MELEE_POSITION_MOVING
 		var direction: Vector2 = entity.global_position.direction_to(melee_global_position)
-		_move_to_direction(entity, melee_c, direction)
+		_move_to_direction(entity, melee_c, animated_sprite_c, direction)
 		return false
 	
 
 ## 返回原始位置。
-func _back_original_position(entity: Entity, melee_c: MeleeComponent) -> bool:
+func _back_original_position(entity: Entity, melee_c: MeleeComponent, animated_sprite_c: AnimatedSpriteComponent) -> bool:
 	if MathUtils.is_at_destination(
 		entity.global_position, melee_c.original_global_position, melee_c.config.arrived_distance
 	):
@@ -260,12 +262,12 @@ func _back_original_position(entity: Entity, melee_c: MeleeComponent) -> bool:
 		var direction: Vector2 = entity.global_position.direction_to(
 			melee_c.original_global_position
 		)
-		_move_to_direction(entity, melee_c, direction)
+		_move_to_direction(entity, melee_c, animated_sprite_c, direction)
 		return false
 
 
 ## 将实体向指定方向移动。
-func _move_to_direction(entity: Entity, melee_c: MeleeComponent, direction: Vector2) -> void:
+func _move_to_direction(entity: Entity, melee_c: MeleeComponent, animated_sprite_c: AnimatedSpriteComponent, direction: Vector2) -> void:
 	var velocity: Vector2 = (
 		direction 
 		* melee_c.config.speed 
@@ -275,18 +277,19 @@ func _move_to_direction(entity: Entity, melee_c: MeleeComponent, direction: Vect
 
 	var next_global_position: Vector2 = entity.global_position + velocity
 	entity.facing_global_position = next_global_position
-	entity.play_animation(melee_c.config.motion_animation, &"walk")
+	animated_sprite_c.play_animation(entity, melee_c.config.motion_animation, &"walk")
 	entity.global_position = next_global_position
 	entity.facing_global_position = next_global_position + velocity
 
 
 ## 尝试近战技能。
 func _try_melee_attack(
-		entity: Entity, melee_c: MeleeComponent, target: Entity
+		entity: Entity, melee_c: MeleeComponent, target: Entity, animated_sprite_c: AnimatedSpriteComponent
 	) -> void:
 	if target:
 		entity.facing_global_position = target.global_position
-	entity.play_animation(entity.config.idle_animation)
+
+	animated_sprite_c.play_idle_animation(entity)
 	
 	if not target:
 		return

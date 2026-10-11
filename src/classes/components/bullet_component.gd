@@ -33,5 +33,5 @@ func _draw() -> void:
 		return
 		
 	if DebugManager.draw_range_enabled:
-		if config.hit_influence:
-			config.hit_influence.draw_influence_range(self, position)
+		if config.influence:
+			config.influence.draw_influence_range(self, position)

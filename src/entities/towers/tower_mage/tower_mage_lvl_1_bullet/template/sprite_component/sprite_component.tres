@@ -1,6 +1,0 @@
-[gd_resource type="Resource" script_class="SpriteComponentNodeConfig" format=3 uid="uid://ckewlnvfddmyj"]
-
-[ext_resource type="Script" uid="uid://fqgy2c1ajjbj" path="res://classes/node_configs/components/sprite_component_node_config.gd" id="1_bvdcd"]
-
-[resource]
-script = ExtResource("1_bvdcd")

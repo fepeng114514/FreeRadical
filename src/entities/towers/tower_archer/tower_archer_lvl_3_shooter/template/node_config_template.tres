@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://c3btkuijqj6kp"]
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_ca7m3"]
-[ext_resource type="Resource" uid="uid://dfmyk7j78wuky" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/sprite_component/sprite_component.tres" id="2_kd6yw"]
+[ext_resource type="Resource" uid="uid://bihw4na0abvfs" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/animated_sprite_component/animated_sprite_component.tres" id="2_251ck"]
 [ext_resource type="Resource" uid="uid://de5ej80i7p067" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/skill_component/ranged_skill/ranged_skill.tres" id="3_q0xq4"]
 [ext_resource type="Resource" uid="uid://likxnaylru7j" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/skill_component/skill_component.tres" id="4_ahpdk"]
 [ext_resource type="Resource" uid="uid://qb05dm6b0k8x" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/template/tower_archer_lvl_3_shooter.tres" id="5_nvqlu"]
 
 [sub_resource type="Resource" id="Resource_ca7m3"]
 script = ExtResource("1_ca7m3")
-name = "SpriteComponent"
-config = ExtResource("2_kd6yw")
+name = "AnimatedSpriteComponent"
+config = ExtResource("2_251ck")
 
 [sub_resource type="Resource" id="Resource_kd6yw"]
 script = ExtResource("1_ca7m3")
@@ -30,6 +30,6 @@ script = ExtResource("1_ca7m3")
 config = ExtResource("5_nvqlu")
 children = Array[ExtResource("1_ca7m3")]([SubResource("Resource_ca7m3"), SubResource("Resource_q0xq4")])
 children_dict = Dictionary[String, ExtResource("1_ca7m3")]({
-"SkillComponent": SubResource("Resource_q0xq4"),
-"SpriteComponent": SubResource("Resource_ca7m3")
+"AnimatedSpriteComponent": SubResource("Resource_ca7m3"),
+"SkillComponent": SubResource("Resource_q0xq4")
 })

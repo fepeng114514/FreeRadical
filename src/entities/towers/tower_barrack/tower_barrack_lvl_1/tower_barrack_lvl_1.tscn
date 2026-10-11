@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://cc3v5b7ci4wxv"]
 
-[ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_wi258"]
+[ext_resource type="Script" uid="uid://8h13iyechbed" path="res://entities/towers/tower.gd" id="1_f2pah"]
 [ext_resource type="Resource" uid="uid://b83waj1nrsxad" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/node_config_template.tres" id="2_6kjmh"]
-[ext_resource type="Resource" uid="uid://cp6vso3rhikqe" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/tower_barrack_lvl_1.tres" id="3_dsnyp"]
 [ext_resource type="Texture2D" uid="uid://fcpj16d35cum" path="res://assets/atlas/atlas_textures/towers/tower_barrack_0001.tres" id="4_2u03i"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_dsnyp"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_f2pah"]
@@ -23,9 +22,8 @@
 [ext_resource type="Resource" uid="uid://bm4wperattgdb" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/barrack_component/barrack_component.tres" id="15_jl2co"]
 
 [node name="TowerBarrackLvl1" type="Node2D" unique_id=187367710]
-script = ExtResource("1_wi258")
+script = ExtResource("1_f2pah")
 node_config_template = ExtResource("2_6kjmh")
-config = ExtResource("3_dsnyp")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="RecordComponent" type="Node2D" parent="." unique_id=28314882]
@@ -55,6 +53,7 @@ config = ExtResource("13_jeded")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=40235501]
+process_mode = 4
 show_behind_parent = true
 position = Vector2(0, -48)
 script = ExtResource("8_jeded")

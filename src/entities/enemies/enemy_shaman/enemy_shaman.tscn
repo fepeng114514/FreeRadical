@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_psm2q"]
 [ext_resource type="Resource" uid="uid://3u4getg4ii6g" path="res://entities/enemies/enemy_shaman/template/node_config_template.tres" id="2_bpseq"]
-[ext_resource type="Resource" uid="uid://dbhj6te3ir0an" path="res://entities/enemies/enemy_shaman/template/enemy_shaman.tres" id="3_etfwp"]
+[ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_m66c7"]
 [ext_resource type="SpriteFrames" uid="uid://bb7jpmptcas3q" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_shaman.tres" id="4_8umbj"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component/health_component.gd" id="4_bpseq"]
-[ext_resource type="Resource" uid="uid://c1osw7strbs8w" path="res://entities/enemies/enemy_shaman/template/sprite_component/sprite_component.tres" id="5_jl727"]
+[ext_resource type="Resource" uid="uid://4553msvkkr2o" path="res://entities/enemies/enemy_shaman/template/animated_sprite_component/animated_sprite_component.tres" id="4_psm2q"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_component/health_bar.tscn" id="6_etfwp"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="6_kwo0b"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="6_t5fix"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://d3i11n4j7bnvl" path="res://classes/components/skills/search_skills/area_skill.gd" id="7_8umbj"]
 [ext_resource type="Resource" uid="uid://bq2c37psk0kpq" path="res://entities/enemies/enemy_shaman/template/health_component/health_component.tres" id="8_hj7yb"]
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/components/skills/melee_skill.gd" id="8_xr4ln"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="9_jl727"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="10_inect"]
 [ext_resource type="Resource" uid="uid://ckgupyrcoxulu" path="res://entities/enemies/enemy_shaman/template/nav_path_component/nav_path_component.tres" id="11_imjlc"]
 [ext_resource type="Resource" uid="uid://47itaq3k5pfw" path="res://entities/enemies/enemy_shaman/template/select_component/select_component.tres" id="13_6rfgg"]
@@ -25,8 +24,18 @@
 [node name="EnemyShaman" type="Node2D" unique_id=71433118]
 script = ExtResource("1_psm2q")
 node_config_template = ExtResource("2_bpseq")
-config = ExtResource("3_etfwp")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1179812711]
+show_behind_parent = true
+script = ExtResource("3_m66c7")
+config = ExtResource("4_psm2q")
+metadata/_custom_type_script = "uid://h0vi2yntn7hg"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatedSpriteComponent" unique_id=814028893]
+position = Vector2(0, -36)
+sprite_frames = ExtResource("4_8umbj")
+animation = &"idle_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=93345552]
 process_mode = 4
@@ -44,17 +53,6 @@ process_mode = 4
 script = ExtResource("7_0slfm")
 config = ExtResource("13_6rfgg")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1501262804]
-show_behind_parent = true
-script = ExtResource("9_jl727")
-config = ExtResource("5_jl727")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
-position = Vector2(0, -36)
-sprite_frames = ExtResource("4_8umbj")
-animation = &"idle_left_right"
 
 [node name="NavPathComponent" type="Node2D" parent="." unique_id=1202679749]
 process_mode = 4

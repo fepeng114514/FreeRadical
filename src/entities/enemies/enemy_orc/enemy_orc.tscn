@@ -2,15 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_lv7qq"]
 [ext_resource type="Resource" uid="uid://dtmeklt75aaau" path="res://entities/enemies/enemy_orc/template/node_config_template.tres" id="2_kc3w8"]
-[ext_resource type="Resource" uid="uid://bhsci0orpiexb" path="res://entities/enemies/enemy_orc/template/enemy_orc.tres" id="3_jahl3"]
+[ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_rla7y"]
 [ext_resource type="SpriteFrames" uid="uid://cnk16hmugl15f" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_orc.tres" id="4_2yp6p"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component/health_component.gd" id="4_6j7h8"]
-[ext_resource type="Resource" uid="uid://di7fl1mj8if43" path="res://entities/enemies/enemy_orc/template/sprite_component/sprite_component.tres" id="5_itwu2"]
+[ext_resource type="Resource" uid="uid://ds4fmbs7fmwc2" path="res://entities/enemies/enemy_orc/template/animated_sprite_component/animated_sprite_component.tres" id="4_lv7qq"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_component/health_bar.tscn" id="6_kj085"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="7_anbe7"]
 [ext_resource type="Resource" uid="uid://dp77s24onsne7" path="res://entities/enemies/enemy_orc/template/health_component/health_component.tres" id="8_pube2"]
 [ext_resource type="Script" uid="uid://c1n4jgx6pmhfo" path="res://classes/components/melee_component.gd" id="8_t6npt"]
-[ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="9_wo6jc"]
 [ext_resource type="Script" uid="uid://btct3ysbbulk0" path="res://classes/components/nav_path_component.gd" id="10_aq6yu"]
 [ext_resource type="Script" uid="uid://bqbrh6n3im1ii" path="res://classes/components/skills/melee_skill.gd" id="10_xipnk"]
 [ext_resource type="Resource" uid="uid://dvd2ujdwpvjse" path="res://entities/enemies/enemy_orc/template/nav_path_component/nav_path_component.tres" id="11_omwyt"]
@@ -21,8 +20,18 @@
 [node name="EnemyOrc" type="Node2D" unique_id=71433118]
 script = ExtResource("1_lv7qq")
 node_config_template = ExtResource("2_kc3w8")
-config = ExtResource("3_jahl3")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1813335407]
+show_behind_parent = true
+script = ExtResource("3_rla7y")
+config = ExtResource("4_lv7qq")
+metadata/_custom_type_script = "uid://h0vi2yntn7hg"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatedSpriteComponent" unique_id=814028893]
+position = Vector2(0, -25)
+sprite_frames = ExtResource("4_2yp6p")
+animation = &"idle_left_right"
 
 [node name="HealthComponent" type="Node2D" parent="." unique_id=93345552]
 process_mode = 4
@@ -40,17 +49,6 @@ process_mode = 4
 script = ExtResource("7_anbe7")
 config = ExtResource("14_bhm20")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=1501262804]
-show_behind_parent = true
-script = ExtResource("9_wo6jc")
-config = ExtResource("5_itwu2")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SpriteComponent" unique_id=814028893]
-position = Vector2(0, -25)
-sprite_frames = ExtResource("4_2yp6p")
-animation = &"idle_left_right"
 
 [node name="NavPathComponent" type="Node2D" parent="." unique_id=1202679749]
 process_mode = 4

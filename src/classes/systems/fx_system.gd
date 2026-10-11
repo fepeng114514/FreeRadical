@@ -16,7 +16,9 @@ func _on_insert(entity: Entity) -> bool:
 
 
 func _play_animation(entity: Entity) -> void:
-	if await entity.y_wait_animation(entity.config.idle_animation):
+	var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+		
+	if await animated_sprite_c.y_wait_animation(entity, entity.config.idle_animation):
 		return
 
 	EntityManager.queue_remove_entity(entity)

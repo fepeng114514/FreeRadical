@@ -1,35 +1,35 @@
 [gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://g2wl1pt34u4i"]
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_8g3be"]
-[ext_resource type="Resource" uid="uid://d12d1bnpxvl6l" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/sprite_component/sprite_component.tres" id="2_3l1ns"]
+[ext_resource type="Resource" uid="uid://sd6mnhxb3bht" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/animated_sprite_component/animated_sprite_component.tres" id="2_5a81l"]
 [ext_resource type="Resource" uid="uid://dnan01ta6xtdg" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/skill_component/ranged_skill/ranged_skill.tres" id="3_r1bs1"]
 [ext_resource type="Resource" uid="uid://f072rhvharj3" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/skill_component/skill_component.tres" id="4_q3fbh"]
 [ext_resource type="Resource" uid="uid://bxe4iwqmm1by6" path="res://entities/towers/tower_archer/tower_archer_lvl_2_shooter/template/tower_archer_lvl_2_shooter.tres" id="5_q3pj6"]
 
-[sub_resource type="Resource" id="Resource_mo6ws"]
+[sub_resource type="Resource" id="Resource_8g3be"]
 script = ExtResource("1_8g3be")
-name = "SpriteComponent"
-config = ExtResource("2_3l1ns")
+name = "AnimatedSpriteComponent"
+config = ExtResource("2_5a81l")
 
-[sub_resource type="Resource" id="Resource_djxwg"]
+[sub_resource type="Resource" id="Resource_3l1ns"]
 script = ExtResource("1_8g3be")
 name = "RangedSkill"
 config = ExtResource("3_r1bs1")
 
-[sub_resource type="Resource" id="Resource_wrrnc"]
+[sub_resource type="Resource" id="Resource_r1bs1"]
 script = ExtResource("1_8g3be")
 name = "SkillComponent"
 config = ExtResource("4_q3fbh")
-children = Array[ExtResource("1_8g3be")]([SubResource("Resource_djxwg")])
+children = Array[ExtResource("1_8g3be")]([SubResource("Resource_3l1ns")])
 children_dict = Dictionary[String, ExtResource("1_8g3be")]({
-"RangedSkill": SubResource("Resource_djxwg")
+"RangedSkill": SubResource("Resource_3l1ns")
 })
 
 [resource]
 script = ExtResource("1_8g3be")
 config = ExtResource("5_q3pj6")
-children = Array[ExtResource("1_8g3be")]([SubResource("Resource_mo6ws"), SubResource("Resource_wrrnc")])
+children = Array[ExtResource("1_8g3be")]([SubResource("Resource_8g3be"), SubResource("Resource_r1bs1")])
 children_dict = Dictionary[String, ExtResource("1_8g3be")]({
-"SkillComponent": SubResource("Resource_wrrnc"),
-"SpriteComponent": SubResource("Resource_mo6ws")
+"AnimatedSpriteComponent": SubResource("Resource_8g3be"),
+"SkillComponent": SubResource("Resource_r1bs1")
 })

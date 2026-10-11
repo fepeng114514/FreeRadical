@@ -40,7 +40,7 @@ func _on_insert(entity: Entity) -> bool:
 	if bullet_c_config.trajectory:
 		bullet_c_config.trajectory._init_trajectory(entity, bullet_c, target)
 
-	var damage_influence := bullet_c_config.hit_influence as DamageInfluence
+	var damage_influence := bullet_c_config.influence as DamageInfluence
 	if damage_influence:
 		match damage_influence.get_value_mode:
 			damage_influence.GetValueMode.RANDOM:
@@ -63,73 +63,76 @@ func _on_remove(entity: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	for entity: Entity in EntityManager.get_component_entity_group(Constants.BULLET_COMPONENT_NAME):
-		if entity.is_waiting() or entity.state & Entity.State.REMOVED:
+	for bullet: Entity in EntityManager.get_component_entity_group(Constants.BULLET_COMPONENT_NAME):
+		if bullet.is_waiting() or bullet.state & Entity.State.REMOVED:
 			continue
 
-		var bullet_c: BulletComponent = entity.get_node_or_null(Constants.BULLET_COMPONENT_NODE_PATH)
+		var bullet_c: BulletComponent = bullet.get_node_or_null(Constants.BULLET_COMPONENT_NODE_PATH)
 		if not bullet_c:
 			continue
 			
+		var animated_sprite_c: AnimatedSpriteComponent = bullet.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
 		var bullet_c_config: BulletComponentNodeConfig = bullet_c.config
 		var trajectory: BulletTrajectory = bullet_c_config.trajectory
 		if not trajectory:
 			continue
 			
-		var target: Entity = EntityManager.get_entity_by_id(entity.target_id)
+		var target: Entity = EntityManager.get_entity_by_id(bullet.target_id)
 		var flying_time: float = TimeManager.get_elapsed_time(bullet_c.timestamp)
 
-		trajectory._update_trajectory(entity, bullet_c, target, flying_time, delta)
+		trajectory._update_trajectory(bullet, bullet_c, target, flying_time, delta)
 		
 		if bullet_c_config.flight_animation:
-			entity.play_animation(bullet_c_config.flight_animation)
-		entity.rotation += bullet_c_config.rotation_speed * delta
+			animated_sprite_c.play_animation(bullet, bullet_c_config.flight_animation)
+		bullet.rotation += bullet_c_config.rotation_speed * delta
 
 		if target:
-			if trajectory._can_hit(entity, bullet_c, flying_time):
-				_hit(entity, bullet_c, target)
+			if trajectory._can_hit(bullet, bullet_c, flying_time):
+				_hit(bullet, bullet_c, target, animated_sprite_c)
 		else:
-			if trajectory._can_miss(entity, bullet_c, flying_time):
-				_miss(entity, bullet_c)
+			if trajectory._can_miss(bullet, bullet_c, flying_time):
+				_miss(bullet, bullet_c, animated_sprite_c)
 
 
-## 未击中处理。
-func _miss(entity: Entity, bullet_c: BulletComponent) -> void:
-	var bullet_c_config: BulletComponentNodeConfig = bullet_c.config
-	AudioManager.play_sfx(bullet_c_config.miss_sfx)
-	if bullet_c_config.miss_animation:
-		entity.play_animation(bullet_c_config.miss_animation)
-		if await entity.y_wait_animation(bullet_c_config.miss_animation):
-			return
-
-	var influence: Influence = bullet_c_config.hit_influence
-	if influence and influence.area_enabled:
-		influence.take_influence(entity, null, bullet_c.to)
-	EntityManager.create_entities_at_global_position(bullet_c_config.miss_payloads, bullet_c.to)
-
-	if bullet_c_config.miss_animation:
-		if await entity.y_wait_animation(bullet_c_config.miss_animation):
-			return
-
-	if bullet_c_config.miss_remove:
-		EntityManager.queue_remove_entity(entity)
-				
-				
-## 命中处理。
-func _hit(entity: Entity, bullet_c: BulletComponent, target: Entity) -> void:
+## 处理命中。
+func _hit(bullet: Entity, bullet_c: BulletComponent, target: Entity, animated_sprite_c: AnimatedSpriteComponent) -> void:
 	var bullet_c_config: BulletComponentNodeConfig = bullet_c.config
 	AudioManager.play_sfx(bullet_c_config.hit_sfx)
 	if bullet_c_config.hit_animation:
-		entity.play_animation(bullet_c_config.hit_animation)
-		if await entity.y_wait(bullet_c_config.hit_delay):
+		animated_sprite_c.play_animation(bullet, bullet_c_config.hit_animation)
+		if await bullet.y_wait(bullet_c_config.hit_delay):
 			return
 		
-	bullet_c_config.hit_influence.take_influence(entity, target, bullet_c.to)
+	bullet_c_config.influence.take_influence(bullet, target, bullet_c.to)
 	EntityManager.create_entities_at_global_position(bullet_c_config.hit_payloads, bullet_c.to)
 	
 	if bullet_c_config.hit_animation:
-		if await entity.y_wait_animation(bullet_c_config.hit_animation):
+		if await animated_sprite_c.y_wait_animation(bullet, bullet_c_config.hit_animation):
 			return
 
 	if bullet_c_config.hit_remove:
-		EntityManager.queue_remove_entity(entity)
+		EntityManager.queue_remove_entity(bullet)
+
+
+## 处理未击中。
+func _miss(bullet: Entity, bullet_c: BulletComponent, animated_sprite_c: AnimatedSpriteComponent) -> void:
+	var bullet_c_config: BulletComponentNodeConfig = bullet_c.config
+	AudioManager.play_sfx(bullet_c_config.miss_sfx)
+	if bullet_c_config.miss_animation:
+		animated_sprite_c.play_animation(bullet, bullet_c_config.miss_animation)
+		if await bullet.y_wait(bullet_c_config.miss_delay):
+			return
+
+	var influence: Influence = bullet_c_config.influence
+	if influence and bullet_c_config.miss_influence_enabled:
+		influence.take_influence(bullet, null, bullet_c.to)
+	EntityManager.create_entities_at_global_position(bullet_c_config.miss_payloads, bullet_c.to)
+
+	if bullet_c_config.miss_animation:
+		if await animated_sprite_c.y_wait_animation(bullet, bullet_c_config.miss_animation):
+			return
+
+	if bullet_c_config.miss_remove:
+		EntityManager.queue_remove_entity(bullet)
+				
+				

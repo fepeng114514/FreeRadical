@@ -27,10 +27,10 @@ func _on_update(_delta: float) -> void:
 ## 更新实体。
 func _update_entity(entity: Entity) -> void:
 	if entity.is_first_update:
-		entity.play_animation(entity.config.spawn_animation)
 		AudioManager.play_sfx(entity.config.spawn_sfx)
-		if entity.config.spawn_animation:
-			if await entity.y_wait_animation(entity.config.spawn_animation):
+		var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+		var spawn_animation: AnimationGroup = animated_sprite_c.config.spawn_animation
+		if spawn_animation:
+			animated_sprite_c.play_animation(entity, spawn_animation)
+			if await animated_sprite_c.y_wait_animation(entity, spawn_animation):
 				return
-	
-	entity.last_global_position = entity.global_position

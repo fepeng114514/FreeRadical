@@ -33,11 +33,18 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 		if not target:
 			return
 			
-		entity.facing_global_position = target.global_position
 	start_cooldown(config)
-		
-	entity.play_animation(config.animation)
 	AudioManager.play_sfx(config.sfx)
+
+	var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+	var entity_global_position: Vector2 = entity.global_position
+	var spawn_global_position: Vector2 = target.global_position if config.searcher else entity_global_position
+	entity.facing_global_position = spawn_global_position
+	if config.spawn_offsets:
+		var spawn_offset: Vector2 = config.spawn_offsets.get_offset_toward_point(entity_global_position, spawn_global_position)
+		spawn_global_position += spawn_offset
+	entity.facing_global_position = spawn_global_position
+	animated_sprite_c.play_animation(entity, config.animation, &"spawn")
 	if await entity.y_wait(config.delay):
 		compensate_cooldown(config)
 		return
@@ -47,12 +54,9 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 		if not target:
 			compensate_cooldown(config)
 			return
-
-	var entity_global_position: Vector2 = entity.global_position
-	var spawn_global_position: Vector2 = target.global_position if config.searcher else entity_global_position
-	if config.spawn_offsets:
-		var spawn_offset: Vector2 = config.spawn_offsets.get_offset_toward_point(entity_global_position, entity.facing_global_position)
-		spawn_global_position += spawn_offset
+		
+		entity.facing_global_position = spawn_global_position
+		animated_sprite_c.continue_play_new_animation(entity, config.animation, &"spawn")
 
 	EntityManager.create_entities(config.spawns, 
 		func(new_entity: Entity) -> void:
@@ -60,4 +64,4 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 			new_entity.source_id = entity.id
 	)
 
-	await entity.y_wait_animation(config.animation)
+	await animated_sprite_c.y_wait_animation(entity, config.animation)

@@ -7,4 +7,5 @@ resource_local_to_scene = true
 script = ExtResource("1_q2fmu")
 up = &"idle_up"
 down = &"idle_down"
+vertical_mirror = true
 metadata/_custom_type_script = "uid://dbxxc7n831vb0"

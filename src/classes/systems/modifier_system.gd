@@ -135,12 +135,15 @@ func _process_modifier_update() -> void:
 
 func _take_influfluence(modifier: Entity, modifier_c: ModifierComponent, target: Entity) -> void:
 	var modifier_c_config: ModifierComponentNodeConfig = modifier_c.config
-	modifier.play_animation(modifier_c_config.influence_animation)
+	var animated_sprite_c: AnimatedSpriteComponent = modifier.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+	var influence_animation: AnimationGroup = modifier_c_config.influence_animation
+	if influence_animation:
+		animated_sprite_c.play_animation(modifier, influence_animation)
 	await modifier.y_wait(modifier_c_config.influence_delay)
 		
 	modifier_c_config.influence.take_influence(modifier, target, target.global_position)
-	if modifier_c_config.influence_animation:
-		await modifier.y_wait_animation(modifier_c_config.influence_animation)
+	if influence_animation:
+		await animated_sprite_c.y_wait_animation(modifier, influence_animation)
 
 	EntityManager.queue_remove_entity(modifier)
 

@@ -27,9 +27,11 @@ func _on_update(entity: Entity) -> bool:
 		* TimeManager.frame_length
 	)
 	rally_c.navigation_agent.velocity = velocity
+	var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+	
 	var next_global_position: Vector2 = entity.global_position + velocity
 	entity.facing_global_position = next_global_position
-	entity.play_animation(rally_c.config.motion_animation, &"walk")
+	animated_sprite_c.play_animation(entity, rally_c.config.motion_animation, &"walk")
 	entity.global_position = next_global_position
 	entity.facing_global_position = next_global_position + velocity
 	entity.state = Entity.State.RALLY
