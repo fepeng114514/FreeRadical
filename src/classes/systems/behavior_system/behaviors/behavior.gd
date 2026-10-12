@@ -3,7 +3,7 @@ extends Node
 class_name Behavior
 ## 行为基类。
 ##
-## Behavior 定义了行为的基本回调函数，如插入、移除、更新等。子类需要实现这些回调函数，以定义具体的行为逻辑。
+## [Behavior] 是所有行为的基类，定义了行为的基本回调函数。
 
 
 #region 回调函数
@@ -13,13 +13,17 @@ func _on_ready(entity: Entity) -> void: pass
 
 
 ## 插入实体时调用。[br][br]
-## -> 是否不移除实体。返回 [code]false[/code] 的实体将会被移除。
+## -> 是否插入实体。
 func _on_insert(entity: Entity) -> bool: return true
 
 
 ## 移除实体时调用。[br][br]
 ## -> 是否移除实体。
 func _on_remove(entity: Entity) -> bool: return true
+
+
+## 实体首次更新时调用。
+func _on_first_update(entity: Entity) -> void: pass
 
 
 ## 更新实体时调用。[br][br]

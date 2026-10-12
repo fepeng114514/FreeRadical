@@ -1,5 +1,8 @@
 extends Resource
 class_name UpgradeItem
+## 升级项资源。
+## [UpgradeItem] 是升级组件的升级项资源。它包含了升级项的配置信息，包括升级目标场景路径、升级价格等，用于 [UpgradeComponent] 升级实体。
+
 
 
 ## 是否禁用。

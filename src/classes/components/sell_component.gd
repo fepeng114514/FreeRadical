@@ -3,7 +3,7 @@ extends Component
 class_name SellComponent
 ## 出售组件。
 ##
-## SellComponent 可以使实体被出售。
+## [SellComponent] 可以让实体被出售。
 
 
 ## 出售生成的实体类型枚举。

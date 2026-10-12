@@ -4,7 +4,7 @@ extends SearchSkill
 class_name BaseRangedSkill
 ## 远程技能节点基类。
 ##
-## BaseRangedSkill 是一个抽象类，用于定义远程技能节点的基类。它会生成一个子弹，以子弹作为中介，对目标造成影响。子弹会以特定轨迹飞行，到达目标后造成影响。
+## [BaseRangedSkill] 是所有远程技能节点的基类。远程技能会生成一个子弹，以子弹作为中介，对目标造成影响。子弹会以特定轨迹飞行，到达目标后造成影响。
 
 
 ## 子弹生成模式枚举。
@@ -28,8 +28,9 @@ func _spawn_bullets(
 	
 	for bullet_index: int in config.bullet_count:
 		var bullet = EntityManager.create_entity(config.bullet_scene)
-		bullet.target_id = target.id
+		var bullet_c: BulletComponent = bullet.get_node_or_null(Constants.BULLET_COMPONENT_NODE_PATH)
 		bullet.source_id = entity.id
+		bullet_c.target_id = target.id
 
 		var bullet_rotation: float = 0.0
 		match config.bullet_spawn_mode:

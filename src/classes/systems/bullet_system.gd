@@ -2,15 +2,15 @@ extends System
 class_name BulletSystem
 ## 子弹系统。
 ##
-## BulletSystem 负责处理拥有 [BulletComponent] 子弹组件的实体的飞行轨迹、命中检测和伤害计算等相关逻辑。
+## [BulletSystem] 负责处理拥有 [BulletComponent] 的实体。
 
 
 func _on_insert(entity: Entity) -> bool:
 	var bullet_c: BulletComponent = entity.get_node_or_null(Constants.BULLET_COMPONENT_NODE_PATH)
 	if not bullet_c:
 		return true
-
-	var target: Entity = EntityManager.get_entity_by_id(entity.target_id)
+		
+	var target: Entity = EntityManager.get_entity_by_id(bullet_c.target_id)
 	if not target:
 		return false
 		
@@ -27,11 +27,11 @@ func _on_insert(entity: Entity) -> bool:
 		bullet_c.predicted_target_global_position = target.global_position
 	
 	var to: Vector2 = bullet_c.predicted_target_global_position
-	if target.config.hit_offsets:
-		var hit_offset: Vector2 = target.config.hit_offsets.get_offset_toward_point(
+	var offset_c: OffsetComponent = target.get_node_or_null(Constants.OFFSET_COMPONENT_NODE_PATH)
+	if offset_c and offset_c.config.hit_offsets:
+		to += offset_c.config.hit_offsets.get_offset_toward_point(
 			target.global_position, target.facing_global_position
 		)
-		to += hit_offset
 	bullet_c.to = to
 	bullet_c.from = entity.global_position
 	if bullet_c_config.facing_enabled:
@@ -54,7 +54,7 @@ func _on_remove(entity: Entity) -> bool:
 	if not bullet_c:
 		return true
 		
-	var target: Entity = EntityManager.get_entity_by_id(entity.target_id)
+	var target: Entity = EntityManager.get_entity_by_id(bullet_c.target_id)
 	if not target:
 		return true
 		
@@ -77,7 +77,7 @@ func _on_update(delta: float) -> void:
 		if not trajectory:
 			continue
 			
-		var target: Entity = EntityManager.get_entity_by_id(bullet.target_id)
+		var target: Entity = EntityManager.get_entity_by_id(bullet_c.target_id)
 		var flying_time: float = TimeManager.get_elapsed_time(bullet_c.timestamp)
 
 		trajectory._update_trajectory(bullet, bullet_c, target, flying_time, delta)

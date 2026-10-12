@@ -3,7 +3,7 @@ extends Node2D
 class_name Skill
 ## 技能节点基类
 ##
-## Skill 是所有技能节点的基类，提供了技能的基本属性和功能。
+## [Skill] 是所有技能节点的基类，技能主要用于 [SkillComponent] 与 [DodgeComponent] 进行技能释放。
 
 
 ## 技能释放后发出。

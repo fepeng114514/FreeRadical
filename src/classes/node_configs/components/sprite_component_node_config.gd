@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name SpriteComponentNodeConfig
 ## 精灵组件节点配置资源。
+##
+## [SpriteComponentNodeConfig] 用于存储 [SpriteComponent] 的可配置数据。
 
 
 @export_group("Sync Animation")

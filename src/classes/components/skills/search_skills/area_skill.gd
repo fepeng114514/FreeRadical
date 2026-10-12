@@ -3,8 +3,8 @@ extends SearchSkill
 class_name AreaSkill
 ## 范围技能节点。
 ##
-## AreaSkill 会搜索到第一个目标实体，然后对它造成影响。[br]
-## 与 [RangedSkill] 不同，AreaSkill 不会创建子弹作为中介，而是直接对目标实体造成影响。[br]
+## [AreaSkill] 会搜索到第一个目标实体，然后对其造成影响。[br]
+## 与 [RangedSkill] 不同，[AreaSkill] 不会创建子弹作为中介，而是直接对目标实体造成影响。[br]
 ## 相当于对 [Influence] 封装了一个搜索目标的机制，以搜索到的第一个目标为中心造成影响。
 
 

@@ -2,7 +2,7 @@ extends Behavior
 class_name SkillBehavior
 ## 技能行为。
 ##
-## SkillBehavior 负责处理拥有 [SkillComponent] 技能组件的实体的技能释放。
+## [SkillBehavior] 负责处理拥有 [SkillComponent] 的实体。
 
 
 func _on_insert(entity: Entity) -> bool:

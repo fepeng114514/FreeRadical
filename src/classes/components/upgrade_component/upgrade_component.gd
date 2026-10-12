@@ -4,7 +4,7 @@ extends Component
 class_name UpgradeComponent
 ## 升级组件。
 ##
-## UpgradeComponent 可以使实体被升级。
+## [UpgradeComponent] 可以让实体被升级。
 
 
 const upgrade_progress_bar_path: NodePath = ^"UpgradeTextureProgressBar"

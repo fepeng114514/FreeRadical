@@ -4,7 +4,7 @@ extends Component
 class_name MeleeComponent
 ## 近战组件
 ##
-## MeleeComponent 可以使实体拥有近战技能与拦截的能力，每个近战近战以 [MeleeSkill] 资源子节点的形式存在。[br][br]
+## [MeleeComponent] 可以让实体可以使用近战技能与拦截，每个近战近战以 [MeleeSkill] 资源子节点的形式存在。[br][br]
 ## 若 [member is_blocker] 为 [code]true[/code] 作为拦截者：搜索并标记被拦截者，前往第一个被拦截者的近战位置。[br]
 ## 若 [member is_blocker] 为 [code]false[/code] 作为被拦截者：如果是第一个被拦截等待拦截者到达近战位置，如果拦截者的 [member is_passive] 为 [code]true[/code] 则主动前往拦截者的近战位置。
 
@@ -17,7 +17,7 @@ signal start_melee_skill_cooldown(skill: MeleeSkill)
 @warning_ignore_restore("unused_signal")
 
 
-## 近战状态枚举
+## 近战状态枚举。
 enum MeleeState {
 	## 近战状态：到达原位置。
 	ORIGINAL_POSITION_ARRIVED,
@@ -39,7 +39,7 @@ enum MeleeState {
 
 ## 是否是拦截者。
 var is_blocker: bool = false
-## 拦截者 ID 列表
+## 拦截者 ID 列表。
 var blocker_id_list := PackedInt32Array()
 ## 拦截数量，根据被拦截者的拦截成本计算。
 var blocked_count: int = 0
@@ -51,7 +51,7 @@ var is_extra_blocker: bool = false
 var original_global_position := Vector2.ZERO
 ## 近战全局位置。
 var melee_global_position := Vector2.ZERO
-## 移动速度（向量）。
+## 移动速度。
 var velocity := Vector2.ZERO
 ## 近战状态。
 var melee_state: MeleeState = MeleeState.ORIGINAL_POSITION_ARRIVED

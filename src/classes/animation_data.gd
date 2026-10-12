@@ -1,6 +1,8 @@
 extends RefCounted
 class_name AnimationData
 ## 动画数据。
+## 
+## [AnimationData] 用于存储动画相关的数据。
 
 
 ## 动画方向。

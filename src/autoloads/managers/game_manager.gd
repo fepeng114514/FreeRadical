@@ -1,8 +1,8 @@
 @tool
 extends Node
 ## 游戏管理器。
-##
-## 负责管理游戏中的数据与相关操作。
+## 
+## [GameManager] 负责管理游戏中的数据与相关操作。
 
 
 @warning_ignore_start("unused_signal")

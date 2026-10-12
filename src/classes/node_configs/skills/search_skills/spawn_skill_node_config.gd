@@ -2,6 +2,8 @@
 extends SearchSkillNodeConfig
 class_name SpawnSkillNodeConfig
 ## 生成实体技能节点配置资源。
+##
+## [SpawnSkillNodeConfig] 用于存储 [SpawnSkill] 的可配置数据。
 
 
 ## 生成的实体场景名称数组。

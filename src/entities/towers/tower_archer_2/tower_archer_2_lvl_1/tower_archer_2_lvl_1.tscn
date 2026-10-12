@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://8h13iyechbed" path="res://entities/towers/tower.gd" id="1_lemec"]
 [ext_resource type="Resource" uid="uid://hy70be0lgk68" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/node_config_template.tres" id="2_lemec"]
+[ext_resource type="Script" uid="uid://fi7qlgp26a6l" path="res://classes/components/birth_component.gd" id="3_aygws"]
 [ext_resource type="Texture2D" uid="uid://blyss2vmto0of" path="res://assets/atlas/atlas_textures/towers/tower_archer_2_0001.tres" id="3_sbvnr"]
 [ext_resource type="Texture2D" uid="uid://bf74hmd14fm31" path="res://assets/atlas/atlas_textures/towers/tower_archer_2_back_0001.tres" id="4_2u2im"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_aygws"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_ojm1x"]
+[ext_resource type="Resource" uid="uid://c6ne4clqujm4a" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1/template/birth_component/birth_component.tres" id="4_pfu5o"]
 [ext_resource type="PackedScene" uid="uid://x5hhb4222pkd" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/tower_archer_2_lvl_1_shooter.tscn" id="5_3td4n"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_lemec"]
 [ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_pfu5o"]
@@ -22,6 +24,12 @@
 script = ExtResource("1_lemec")
 node_config_template = ExtResource("2_lemec")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="BirthComponent" type="Node2D" parent="." unique_id=244615764]
+process_mode = 4
+script = ExtResource("3_aygws")
+config = ExtResource("4_pfu5o")
+metadata/_custom_type_script = "uid://fi7qlgp26a6l"
 
 [node name="RecordComponent" type="Node2D" parent="." unique_id=678777915]
 process_mode = 4

@@ -3,7 +3,7 @@ extends BaseRangedSkill
 class_name MultipleRangedSkill
 ## 多次远程技能节点。
 ##
-## MultipleRangedSkill 与 [RangedSkill] 相似，但是可以连续攻击多次。
+## [MultipleRangedSkill] 与 [RangedSkill] 相似，但是可以连续攻击多次。
 
 
 @export var config: MultipleRangedSkillNodeConfig = null:

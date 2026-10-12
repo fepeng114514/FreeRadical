@@ -2,6 +2,8 @@
 extends RangedSkillNodeConfig
 class_name MultipleRangedSkillNodeConfig
 ## 多次远程技能节点配置资源。
+##
+## [MultipleRangedSkillNodeConfig] 用于存储 [MultipleRangedSkill] 的可配置数据。
 
 
 ## 循环次数。

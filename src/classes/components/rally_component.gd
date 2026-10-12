@@ -4,7 +4,7 @@ extends Component
 class_name RallyComponent
 ## 集结组件。
 ##
-## RallyComponent 可以使实体移动到指定位置，并支持阵型排列
+## [RallyComponent] 可以让实体移动到指定位置，并支持阵型排列。
 
 
 const navigation_agent_path: NodePath = ^"NavigationAgent2D"
@@ -24,7 +24,7 @@ var is_force_rally: bool = false
 ## 集结中心全局位置。
 var rally_center_global_position := Vector2.ZERO
 
-## 血条节点引用。
+## 导航代理节点引用。
 @onready var navigation_agent: NavigationAgent2D = get_node_or_null(navigation_agent_path)
 
 

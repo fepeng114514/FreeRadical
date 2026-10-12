@@ -3,8 +3,7 @@ extends Node2D
 class_name Entity
 ## 实体节点。
 ##
-## 实体节点存储实体的基本属性和组件。[br][br]
-## 游戏中所有具有行为和属性的对象都可以被表示为 Entity，例如: 敌人、友军、防御塔、子弹、修改器等。
+## [Entity] 用于表示游戏中所有具有行为和属性的对象，例如: 敌人、友军、防御塔、子弹、修改器等。通过各种 [Component] 来实现实体的行为和属性。
 
 
 @warning_ignore_start("unused_signal")
@@ -13,7 +12,7 @@ signal entity_removing
 @warning_ignore_restore("unused_signal")
 
 
-## 实体状态枚举
+## 实体状态枚举。
 enum State {
 	## 实体状态：空闲。
 	IDLE = 1,
@@ -48,8 +47,10 @@ enum State {
 enum MetaState {
 	## 实体元状态：无。
 	NONE = 0,
+	## 实体元状态：首次更新。
+	FIRST_UPDATE = 1,
 	## 实体元状态：注定死亡。
-	DOOMED = 1,
+	DOOMED = 1 << 1,
 }
 
 
@@ -73,38 +74,32 @@ enum SourceType {
 		node_config_template = v
 		update_configuration_warnings()
 
-## 实体场景名称
+## 实体场景名称。
 var scene_name: String = ""
-## 实体本地化名称
+## 实体本地化名称。
 var localization_key: String = ""
-## 实体唯一 ID
+## 实体唯一 ID。
 var id: int = Constants.UNSET
-## 所有者或来源 ID
+## 所有者或来源 ID。
 var source_id: int = Constants.UNSET
-## 来源类型
+## 来源类型。
 var source_type: SourceType = SourceType.NONE
-## 目标实体 ID
-var target_id: int = Constants.UNSET
-## 拥有的修改器 ID 列表
+## 拥有的修改器 ID 列表。
 var has_mods_ids := PackedInt32Array()
 ## 上次拥有的修改器 ID 列表长度，用于检测列表的变化。
 var last_has_mods_ids_size: int = 0
-## 拥有的光环 ID 列表
+## 拥有的光环 ID 列表。
 var has_auras_ids := PackedInt32Array()
-## 以此实体为目标的子弹 ID 列表
+## 以此实体为目标的子弹 ID 列表。
 var aimed_bullet_ids := PackedInt32Array()
 ## 是否有新的子弹以此实体为目标。
 var has_new_aimed_bullet: bool = false
-## 是否被点击选择
-var selected: bool = false
-## 状态
+## 状态。
 var state: int = Entity.State.IDLE
-## 元状态
+## 元状态。
 var meta_state: int = Entity.MetaState.NONE
-## 面朝的全局位置
+## 面朝的全局位置。
 var facing_global_position := Vector2.INF
-## 是否是首次更新
-var is_first_update: bool = true
 #endregion
 
 
@@ -130,13 +125,13 @@ func _to_string():
 	return String(name)
 
 
-## 获取本土化名称
+## 获取本土化名称。
 func get_localized_name() -> String:
-	return tr(scene_name.to_upper())
+	return tr(localization_key)
 
 
 #region 实体相关方法
-## 设置实体全局位置，根据拥有的组件智能赋值
+## 设置实体全局位置，根据拥有的组件智能赋值。
 func set_global_position_with_components(new_global_position: Vector2) -> void:
 	global_position = new_global_position
 	
@@ -185,7 +180,7 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 
 
 #region 修改器相关方法
-## 获取拥有的所有修改器实体数组
+## 获取拥有的所有修改器实体数组。
 func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_mods: Array[Entity] = []
 	
@@ -200,7 +195,7 @@ func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
 	return has_mods
 
 
-## 清空拥有的修改器
+## 清空拥有的修改器。
 func clear_has_mod_list() -> void:
 	for mod: Entity in get_has_mod_list():
 		EntityManager.queue_remove_entity(mod)
@@ -210,11 +205,11 @@ func clear_has_mod_list() -> void:
 
 
 #region 光环相关方法
-## 获取拥有的光环实体数组
+## 获取拥有的光环实体数组。
 func get_has_aura_list(filter: Callable = Callable()) -> Array[Entity]:
 	var has_auras: Array[Entity] = []
 	
-	for aura_id in has_auras_ids:
+	for aura_id: int in has_auras_ids:
 		var aura: Entity = EntityManager.get_entity_by_id(aura_id)
 		
 		if not aura or filter.is_valid() and not filter.call(aura):
@@ -225,7 +220,7 @@ func get_has_aura_list(filter: Callable = Callable()) -> Array[Entity]:
 	return has_auras
 
 
-## 清空拥有的光环
+## 清空拥有的光环。
 func clear_has_aura_list() -> void:
 	for aura: Entity in get_has_aura_list():
 		EntityManager.queue_remove_entity(aura)

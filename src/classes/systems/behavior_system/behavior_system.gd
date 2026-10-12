@@ -2,7 +2,7 @@ extends System
 class_name BehaviorSystem
 ## 行为系统。
 ##
-## BehaviorSystem 负责处理与管理行为树。
+## [BehaviorSystem] 负责处理与管理行为树。
 
 
 var _behavior_list: Array[Behavior] = []
@@ -16,7 +16,6 @@ func _ready() -> void:
 	_behavior_list_size = _behavior_list.size()
 
 
-## 实体准备时调用。
 func _on_ready(entity: Entity) -> void: 
 	for behavior: Behavior in _behavior_list:
 		behavior._on_ready(entity)
@@ -36,6 +35,11 @@ func _on_remove(entity: Entity) -> bool:
 			return false
 
 	return true
+
+
+func _on_first_update(entity: Entity) -> void:
+	for behavior: Behavior in _behavior_list:
+		behavior._on_first_update(entity)
 	
 	
 func _on_update(_delta: float) -> void:

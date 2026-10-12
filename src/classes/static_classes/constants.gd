@@ -94,6 +94,10 @@ const BARRACK_RECORD_NAME: StringName = &"BarrackRecord"
 const DURATION_COMPONENT_NAME: StringName = &"DurationComponent"
 ## 组件名: 实体组件。
 const ENTITY_COMPONENT_NAME: StringName = &"EntityComponent"
+## 组件名: 偏移量组件。
+const OFFSET_COMPONENT_NAME: StringName = &"OffsetComponent"
+## 组件名：出生组件。
+const BIRTH_COMPONENT_NAME: StringName = &"BirthComponent"
 
 const ALL_COMPONENT_NAMES: Array[StringName] = [
 	AURA_COMPONENT_NAME, 
@@ -119,6 +123,8 @@ const ALL_COMPONENT_NAMES: Array[StringName] = [
 	RECORD_COMPONENT_NAME, 
 	DURATION_COMPONENT_NAME,
 	ENTITY_COMPONENT_NAME,
+	OFFSET_COMPONENT_NAME,
+	BIRTH_COMPONENT_NAME,
 ]
 
 ## 节点路径: 光环。
@@ -173,6 +179,10 @@ const BARRACK_RECORD_NODE_PATH: NodePath = ^"RecordComponent/BarrackRecord"
 const DURATION_COMPONENT_NODE_PATH: NodePath = ^"DurationComponent"
 ## 节点路径: 实体组件。
 const ENTITY_COMPONENT_NODE_PATH: NodePath = ^"EntityComponent"
+## 节点路径: 偏移量组件。
+const OFFSET_COMPONENT_NODE_PATH: NodePath = ^"OffsetComponent"
+## 节点路径: 出生组件。
+const BIRTH_COMPONENT_NODE_PATH: NodePath = ^"BirthComponent"
 #endregion
 
 

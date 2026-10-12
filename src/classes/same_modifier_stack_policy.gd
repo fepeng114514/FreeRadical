@@ -2,7 +2,7 @@ extends Resource
 class_name SameModifierStackPolicy
 ## 相同修改器叠加策略资源。
 ##
-## SameModifierStackPolicy 用于处理多个相同类型的修改器如何叠加。
+## [SameModifierStackPolicy] 用于定义多个相同类型的修改器如何叠加。
 
 
 ## 模式枚举。

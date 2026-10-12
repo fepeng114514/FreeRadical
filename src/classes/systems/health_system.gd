@@ -2,7 +2,7 @@ extends System
 class_name HealthSystem
 ## 血量系统。
 ##
-## HealthSystem 负责处理拥有 [HealthComponent] 血量组件的实体，包括回血等。
+## [HealthSystem] 负责处理拥有 [HealthComponent] 的实体。
 
 
 func _on_insert(entity: Entity) -> bool:

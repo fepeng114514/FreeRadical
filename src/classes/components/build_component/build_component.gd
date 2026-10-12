@@ -3,7 +3,7 @@ extends Component
 class_name BuildComponent
 ## 建造组件。
 ##
-## BuildComponent 可以让实体建造另一个实体。
+## [BuildComponent] 可以让实体建造另一个实体。
 
 
 const build_progress_bar_path: NodePath = ^"BuildTextureProgressBar"

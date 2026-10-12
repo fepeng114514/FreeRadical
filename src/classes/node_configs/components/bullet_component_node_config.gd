@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name BulletComponentNodeConfig
 ## 子弹组件节点配置资源。
+##
+## [BulletComponentNodeConfig] 用于存储 [BulletComponent] 的可配置数据。
 
 
 ## 飞行轨迹资源。

@@ -2,6 +2,8 @@
 extends SearchSkillNodeConfig
 class_name RangedSkillNodeConfig
 ## 单次远程技能节点配置资源。
+##
+## [RangedSkillNodeConfig] 用于存储 [RangedSkill] 的可配置数据。
 
 
 ## 拦截目标时是否可以释放远程技能。

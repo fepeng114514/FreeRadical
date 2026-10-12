@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name ModifierComponentNodeConfig
 ## 修改器组件节点配置资源。
+##
+## [ModifierComponentNodeConfig] 用于存储 [ModifierComponent] 的可配置数据。
 
 
 ## 等级。

@@ -2,7 +2,7 @@ extends System
 class_name TowerSystem
 ## 防御塔系统。
 ##
-## TowerSystem 负责处理拥有 [TowerComponent] 防御塔组件的实体，包括升级、建造等。
+## [TowerSystem] 负责处理拥有 [TowerComponent] 的实体。
 
 
 func _on_insert(tower: Entity) -> bool:

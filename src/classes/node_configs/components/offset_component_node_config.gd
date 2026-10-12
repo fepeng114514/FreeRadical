@@ -3,7 +3,7 @@ extends NodeConfig
 class_name OffsetComponentNodeConfig
 ## 偏移量组件节点配置。
 ##
-## OffsetComponentNodeConfig 用于存储偏移量的数据。
+## [OffsetComponentNodeConfig] 用于存储 [OffsetComponent] 的可配置数据。
 
 
 ## 击中位置偏移组。

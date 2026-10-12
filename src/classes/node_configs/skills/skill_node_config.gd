@@ -3,6 +3,8 @@
 extends NodeConfig
 class_name SkillNodeConfig
 ## 技能节点配置资源基类。
+##
+## [SkillNodeConfig] 是所有技能配置节点的基类，包含了技能的基本配置属性。
 
 
 ## 是否禁用技能。

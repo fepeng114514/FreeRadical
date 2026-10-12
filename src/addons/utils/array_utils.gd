@@ -2,6 +2,8 @@
 extends Object
 class_name ArrayUtils
 ## 数组工具类。
+##
+## [ArrayUtils] 是一个数组工具类，用于在代码中进行数组操作的辅助函数。
 
 
 ## 交换并删除数组中的元素。[br][br]

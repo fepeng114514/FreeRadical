@@ -3,7 +3,7 @@ extends Component
 class_name DurationComponent
 ## 持续时间组件。
 ##
-## DurationComponent 可以使实体在持续特定时间后自动移除。
+## [DurationComponent] 可以让实体在持续特定时间后自动移除。
 
 
 ## 配置。

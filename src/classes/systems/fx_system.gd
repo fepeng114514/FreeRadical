@@ -2,7 +2,7 @@ extends System
 class_name FXSystem
 ## 特效系统。
 ##
-## FXSystem 负责处理拥有 [FXComponent] 特效组件的实体。
+## [FXSystem] 负责处理拥有 [FXComponent] 的实体。
 
 
 func _on_insert(entity: Entity) -> bool:

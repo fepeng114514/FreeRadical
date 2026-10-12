@@ -2,7 +2,7 @@ extends Resource
 class_name PropertyModifier
 ## 属性修改器资源。
 ##
-## PropertyModifier 用于修改实体的属性值，例如增加、减少、乘以等。
+## [PropertyModifier] 用于修改实体的属性值，支持加减乘除等操作。
 
 
 ## 修改类型枚举。
@@ -13,6 +13,8 @@ enum Type {
 	ADD_PERCENT, 
 	## 修改类型：乘法。
 	MULTIPLY,
+	## 修改类型：除法。
+	DIVIDE,
 }
 
 
@@ -36,5 +38,7 @@ func apply(base_value: Variant) -> float:
 				return base_value * (1 + value)
 			Type.MULTIPLY:
 				return base_value * value
+			Type.DIVIDE:
+				return base_value / value
 
 	return base_value

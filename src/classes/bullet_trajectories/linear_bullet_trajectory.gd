@@ -2,7 +2,7 @@ extends BulletTrajectory
 class_name LinearBulletTrajectory
 ## 直线轨迹。
 ##
-## 负责处理子弹沿直线从起点飞向目标点。
+## [LinearBulletTrajectory] 让子弹沿直线从起点飞向目标点。
 
 
 ## 子弹从发射到命中或消失的时间。

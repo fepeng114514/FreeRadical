@@ -1,6 +1,8 @@
 extends Resource
 class_name SelectMenuButtonData
-## 选择菜单项数据资源
+## 选择菜单项数据资源。
+##
+## [SelectMenuButtonData] 用于存储选择菜单按钮数据，包括按钮的位置、图标、标题、描述和预览实体场景。
 
 
 ## 按钮位置索引。

@@ -1,8 +1,8 @@
 extends System
 class_name AnimatedSpriteSystem
-## 精灵系统。
+## 动画精灵系统。
 ##
-## AnimatedSpriteSystem 负责处理拥有 [AnimatedSpriteComponent] 精灵组件的实体的精灵。
+## [AnimatedSpriteSystem] 负责处理拥有 [AnimatedSpriteComponent] 的实体。
 
 
 func _on_insert(entity: Entity) -> bool:

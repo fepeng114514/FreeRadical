@@ -17,6 +17,8 @@
 [ext_resource type="SpriteFrames" uid="uid://bbtfnjymlnrko" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer5.tres" id="7_tb2hh"]
 [ext_resource type="SpriteFrames" uid="uid://ew2gcahc81es" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer6.tres" id="8_fqb7k"]
 [ext_resource type="SpriteFrames" uid="uid://bpixiyh1q2afc" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer7.tres" id="9_j7n3x"]
+[ext_resource type="Script" uid="uid://fi7qlgp26a6l" path="res://classes/components/birth_component.gd" id="13_ikgqp"]
+[ext_resource type="Resource" uid="uid://bh6oyl2wetctn" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/birth_component/birth_component.tres" id="14_bk5wp"]
 [ext_resource type="Script" uid="uid://7hja048qjkj0" path="res://classes/components/skill_component.gd" id="16_6w2jx"]
 [ext_resource type="Script" uid="uid://covaxdshxnvkn" path="res://classes/components/skills/search_skills/ranged_skill.gd" id="17_fpml0"]
 [ext_resource type="Resource" uid="uid://ctgiyypk61rqs" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/tower_component/tower_component.tres" id="18_bk5wp"]
@@ -70,6 +72,12 @@ animation = &"idle"
 [node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="AnimatedSpriteComponent/SpriteGroup" unique_id=473479711]
 sprite_frames = ExtResource("9_j7n3x")
 animation = &"idle"
+
+[node name="BirthComponent" type="Node2D" parent="." unique_id=1618442680]
+process_mode = 4
+script = ExtResource("13_ikgqp")
+config = ExtResource("14_bk5wp")
+metadata/_custom_type_script = "uid://fi7qlgp26a6l"
 
 [node name="RecordComponent" type="Node2D" parent="." unique_id=1489783340]
 process_mode = 4

@@ -3,7 +3,7 @@ extends Component
 class_name ModifierComponent
 ## 修改器组件。
 ##
-## ModifierComponent 可以使实体持续对其所有者造成影响，例如增加属性值、减少属性值、增加移动速度等。
+## [ModifierComponent] 可以让实体持续对其所有者造成影响。
 
 
 ## 修改器类型枚举。
@@ -30,6 +30,8 @@ enum Type {
 		update_configuration_warnings()
 		queue_redraw()
 
+## 目标实体 ID。
+var target_id: int = Constants.UNSET
 ## 插入时间戳。
 var insert_timestamp: float = 0.0
 ## 上次影响时间戳。

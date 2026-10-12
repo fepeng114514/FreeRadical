@@ -2,7 +2,7 @@ extends System
 class_name UpgradeSystem
 ## 升级系统。
 ##
-## UpgradeSystem 负责处理拥有 [UpgradeComponent] 升级组件的实体的升级。
+## [UpgradeSystem] 负责处理拥有 [UpgradeComponent] 的实体的升级。
 
 
 func _on_update(_delta: float) -> void:

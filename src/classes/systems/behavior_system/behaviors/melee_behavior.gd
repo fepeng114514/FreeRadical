@@ -2,7 +2,7 @@ extends Behavior
 class_name MeleeBehavior
 ## 近战行为。
 ##
-## MeleeBehavior 负责处理拥有 [MeleeComponent] 组件的实体的近战技能释放与拦截。
+## [MeleeBehavior] 负责处理拥有 [MeleeComponent] 的实体。
 
 
 func _on_insert(entity: Entity) -> bool:

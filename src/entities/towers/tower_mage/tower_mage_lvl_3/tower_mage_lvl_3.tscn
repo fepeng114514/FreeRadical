@@ -10,7 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://cdu8pyq7bit5w" path="res://entities/towers/tower_mage/tower_mage_lvl_3_shooter/tower_mage_lvl_3_shooter.tscn" id="4_kjimq"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_t7n0r"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_5y1vu"]
+[ext_resource type="Script" uid="uid://fi7qlgp26a6l" path="res://classes/components/birth_component.gd" id="6_6qoq0"]
 [ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="7_pub1y"]
+[ext_resource type="Resource" uid="uid://l2au4at0mg67" path="res://entities/towers/tower_mage/tower_mage_lvl_3/template/birth_component/birth_component.tres" id="7_u73tq"]
 [ext_resource type="Script" uid="uid://dvuc76kx7pdb4" path="res://classes/components/sell_component.gd" id="10_b84x2"]
 [ext_resource type="Resource" uid="uid://bxj0l3rjifn78" path="res://entities/towers/tower_mage/tower_mage_lvl_3/template/sell_component/sell_component.tres" id="11_an77v"]
 [ext_resource type="Script" uid="uid://d104itkl6l02e" path="res://classes/components/tower_component.gd" id="11_u73tq"]
@@ -32,6 +34,12 @@ metadata/_custom_type_script = "uid://h0vi2yntn7hg"
 position = Vector2(-1, -33)
 sprite_frames = ExtResource("2_d1vad")
 animation = &"idle"
+
+[node name="BirthComponent" type="Node2D" parent="." unique_id=1854724960]
+process_mode = 4
+script = ExtResource("6_6qoq0")
+config = ExtResource("7_u73tq")
+metadata/_custom_type_script = "uid://fi7qlgp26a6l"
 
 [node name="RecordComponent" type="Node2D" parent="." unique_id=372516699]
 process_mode = 4

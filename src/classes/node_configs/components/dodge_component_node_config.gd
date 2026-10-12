@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name DodgeComponentNodeConfig
 ## 闪避组件节点配置资源。
+##
+## [DodgeComponentNodeConfig] 用于存储 [DodgeComponent] 的可配置数据。
 
 
 ## 是否可以闪避远程攻击。

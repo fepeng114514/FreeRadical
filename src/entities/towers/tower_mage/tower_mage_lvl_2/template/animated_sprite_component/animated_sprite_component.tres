@@ -2,7 +2,6 @@
 
 [ext_resource type="Resource" uid="uid://6v7qe326x75" path="res://entities/resources/animation_groups/any_idle_animation_group.tres" id="1_315cc"]
 [ext_resource type="Script" uid="uid://4qeyoce8d6l0" path="res://classes/node_configs/components/animated_sprite_component_node_config.gd" id="1_f66y0"]
-[ext_resource type="Resource" uid="uid://c1p4okwfmgho6" path="res://entities/towers/tower_mage/tower_mage_spawn_sfx.tres" id="3_ym5p7"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="4_scl3b"]
 [ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/sync_animations_data.gd" id="5_hfkdo"]
 
@@ -22,5 +21,4 @@ metadata/_custom_type_script = "uid://qu0synx4c136"
 resource_local_to_scene = true
 script = ExtResource("1_f66y0")
 idle_animation = ExtResource("1_315cc")
-spawn_sfx = ExtResource("3_ym5p7")
 sync_animations = SubResource("Resource_jmuwx")

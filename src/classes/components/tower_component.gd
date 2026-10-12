@@ -4,7 +4,7 @@ extends Component
 class_name TowerComponent
 ## 防御塔组件。
 ##
-## TowerComponent 可以使实体拥有防御塔的能力，可被出售与升级，同时也可以管理射手实体，射手以子节点的形式存在。
+## [TowerComponent] 可以让实体作为防御塔，可以增加射手实体。
 
 
 ## 防御塔类型枚举。

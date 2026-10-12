@@ -2,6 +2,8 @@
 extends Object
 class_name DictionaryUtils
 ## 字典工具类。
+##
+## [DictionaryUtils] 是一个字典工具类，用于在代码中进行字典操作的辅助函数。
 
 
 ## 获取两个字典的对称差集。

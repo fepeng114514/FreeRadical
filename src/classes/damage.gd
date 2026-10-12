@@ -1,6 +1,8 @@
 extends RefCounted
 class_name Damage
 ## 伤害类。
+## 
+## [Damage] 用于存储伤害信息。
 
 
 ## 伤害类型枚举。

@@ -4,7 +4,7 @@ extends Component
 class_name HealthComponent
 ## 血量组件。
 ##
-## HealthComponent 可以使实体拥有血量，血量为 0 时移除实体。
+## [HealthComponent] 可以让实体拥有血量，血量为 0 时移除实体。
 
 
 const health_bar_path: NodePath = ^"HealthBar"

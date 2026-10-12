@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name MeleeComponentNodeConfig
 ## 近战组件节点配置资源。
+##
+## [MeleeComponentNodeConfig] 用于存储 [MeleeComponent] 的可配置数据。
 
 
 ## 是否不主动前往近战位置。

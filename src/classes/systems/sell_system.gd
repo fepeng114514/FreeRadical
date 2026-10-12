@@ -2,7 +2,7 @@ extends System
 class_name SellSystem
 ## 卖售系统。
 ##
-## SellSystem 负责处理拥有 [SellComponent] 出售组件的实体的出售。
+## [SellSystem] 负责处理拥有 [SellComponent] 的实体的出售。
 
 
 func _on_update(_delta: float) -> void:

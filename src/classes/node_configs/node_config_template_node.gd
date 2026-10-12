@@ -1,6 +1,8 @@
 extends Resource
 class_name NodeConfigTemplateNode
 ## 节点配置模板节点资源。
+##
+## [NodeConfigTemplateNode] 是一个用于存储原始 [NodeConfig] 的资源，这样就可以保存为文件，外部可以通过资源文件修改数据，实现局外升级等功能。
 
 
 ## 节点名称。

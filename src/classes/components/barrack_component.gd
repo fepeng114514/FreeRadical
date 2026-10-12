@@ -3,7 +3,7 @@ extends Component
 class_name BarrackComponent
 ## 兵营组件。
 ##
-## BarrackComponent 可以使实体生成士兵，同时也可以管理士兵列表。
+## [BarrackComponent] 可以让实体生成士兵。
 
 
 @export var config: BarrackComponentNodeConfig = null:

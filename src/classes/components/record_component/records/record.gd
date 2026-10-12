@@ -4,7 +4,7 @@ extends Node2D
 class_name Record
 ## 记录节点。
 ##
-## Record 用于存储跨实体的记录信息，当前实体创建实体时会自动传递数据。
+## [Record] 是所有记录节点的基类，用于存储跨实体的记录信息，当前实体创建实体时会自动传递数据。
 
 
 func _ready():

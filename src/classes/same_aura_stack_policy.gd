@@ -2,7 +2,7 @@ extends Resource
 class_name SameAuraStackPolicy
 ## 相同光环叠加策略资源。
 ##
-## SameAuraStackPolicy 用于处理多个相同类型的光环如何叠加。
+## [SameAuraStackPolicy] 用于定义多个相同类型的光环如何叠加。
 
 
 ## 模式枚举。

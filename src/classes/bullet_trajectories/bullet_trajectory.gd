@@ -3,7 +3,7 @@ extends Resource
 class_name BulletTrajectory
 ## 子弹轨迹基类。
 ##
-## 每种轨迹类型继承此类，实现各自的初始化与更新逻辑。
+## [BulletTrajectory] 是所有子弹轨迹的基类，定义了子弹的飞行轨迹规则。
 
 
 @warning_ignore_start("unused_parameter")

@@ -1,7 +1,9 @@
 @tool
 extends Camera2D
 class_name Camera
-## 相机类，用于控制游戏中的相机。
+## 相机节点。
+## 
+## [Camera] 用于控制游戏中的相机，包括缩放、拖拽等。
 
 
 ## 缩放因子。

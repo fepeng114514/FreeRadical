@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name WaveSpawnerComponentNodeConfig
 ## 波次生成器组件节点配置资源。
+##
+## [WaveSpawnerComponentNodeConfig] 用于存储 [WaveSpawnerComponent] 的可配置数据。
 
 
 ## 波次组。

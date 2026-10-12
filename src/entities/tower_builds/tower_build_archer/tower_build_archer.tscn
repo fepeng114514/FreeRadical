@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_i37dg"]
 [ext_resource type="Resource" uid="uid://b78kckjug60kh" path="res://entities/tower_builds/tower_build_archer/template/node_config_template.tres" id="2_pggbm"]
 [ext_resource type="Texture2D" uid="uid://7ic7ga1sd2k8" path="res://assets/atlas/atlas_textures/towers/tower_constructing_0004.tres" id="3_jldj6"]
+[ext_resource type="Script" uid="uid://fi7qlgp26a6l" path="res://classes/components/birth_component.gd" id="3_lrjtu"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_gk5kv"]
+[ext_resource type="Resource" uid="uid://b220tnss1jgp1" path="res://entities/tower_builds/tower_build_archer/template/birth_component/birth_component.tres" id="4_i3s1e"]
 [ext_resource type="Resource" uid="uid://djkvyrawsi5mv" path="res://entities/tower_builds/tower_build_archer/template/sprite_component/sprite_component.tres" id="4_nyh2p"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_tf4vj"]
 [ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_lrjtu"]
@@ -17,6 +19,12 @@
 script = ExtResource("1_i37dg")
 node_config_template = ExtResource("2_pggbm")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="BirthComponent" type="Node2D" parent="." unique_id=2116359990]
+process_mode = 4
+script = ExtResource("3_lrjtu")
+config = ExtResource("4_i3s1e")
+metadata/_custom_type_script = "uid://fi7qlgp26a6l"
 
 [node name="RecordComponent" type="Node2D" parent="." unique_id=784591021]
 process_mode = 4

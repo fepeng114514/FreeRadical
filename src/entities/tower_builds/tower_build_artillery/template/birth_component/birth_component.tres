@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BirthComponentNodeConfig" format=3 uid="uid://dh6m2aybxmis"]
+
+[ext_resource type="Script" uid="uid://beagipwmj0rvt" path="res://classes/node_configs/components/birth_component_node_config.gd" id="1_cfp75"]
+[ext_resource type="Resource" uid="uid://cow08uvxqdt1b" path="res://entities/tower_builds/tower_build_birth_sfx.tres" id="1_ewnc8"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_cfp75")
+birth_sfx = ExtResource("1_ewnc8")

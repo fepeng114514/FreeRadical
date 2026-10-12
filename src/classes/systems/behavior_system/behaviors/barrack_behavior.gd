@@ -2,7 +2,7 @@ extends Behavior
 class_name BarrackBehavior
 ## 兵营行为。
 ##
-## BarrackBehavior 负责处理拥有 [BarrackComponent] 兵营组件的实体生成士兵。
+## [BarrackBehavior] 负责处理拥有 [BarrackComponent] 的实体。
 
 
 func _on_insert(barrack: Entity) -> bool:

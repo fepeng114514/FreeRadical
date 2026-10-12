@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name AuraComponentNodeConfig
 ## 光环组件节点配置资源。
+##
+## [AuraComponentNodeConfig] 用于存储 [AuraComponent] 的可配置数据。
 
 
 ## 等级。

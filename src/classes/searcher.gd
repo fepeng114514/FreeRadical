@@ -3,7 +3,7 @@ extends Resource
 class_name Searcher
 ## 搜索器类。
 ##
-## Searcher 用于根据位置、半径等条件搜索实体。
+## [Searcher] 用于搜索实体，支持根据位置、半径、条件等进行搜索。
 
 
 ## 排序模式枚举。

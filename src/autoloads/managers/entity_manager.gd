@@ -1,7 +1,7 @@
 extends Node
 ## 实体管理器。
 ##
-## 负责管理实体，提供了实体的基础查找、插入、移除等操作。
+## [EntityManager] 负责管理实体，提供了实体的查找、插入、移除等操作。
 
 
 @warning_ignore_start("unused_signal")
@@ -49,7 +49,8 @@ func _physics_process(delta: float) -> void:
 	_process_insert_queue()
 	_process_remove_queue()
 	_grouping_entities()
-	SystemManager.process_update(delta)
+	SystemManager.process_entity_update(delta)
+	SystemManager.process_entity_first_update()
 
 
 ## 初始化实体管理器。
@@ -131,7 +132,7 @@ func setup_entity(entity: Entity) -> Entity:
 ## 批量创建实体。
 func create_entities(
 		entity_scenes: PackedStringArray,
-		config_func: Callable = Callable(),
+		config_func := Callable(),
 		auto_insert: bool = true
 	) -> Array[Entity]:
 	var created_entities: Array[Entity] = []
@@ -156,8 +157,11 @@ func create_entities_at_global_position(
 		create_position: Vector2, 
 		auto_insert: bool = true 
 	) -> Array[Entity]:
+	var config_func: Callable = func(entity: Entity) -> void: 
+		entity.set_global_position_with_components(create_position)
+
 	return create_entities(
-		entity_scenes, func(entity): entity.set_global_position_with_components(create_position), auto_insert
+		entity_scenes, config_func, auto_insert
 	)
 
 
@@ -168,12 +172,15 @@ func create_mods(
 		source_id: int = Constants.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
+	var config_func: Callable = func(entity: Entity) -> void:
+		entity.source_id = source_id
+
+		var modifier_c: ModifierComponent = entity.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
+		modifier_c.target_id = target_id
+
 	return create_entities(
 		entity_scenes, 
-		func(entity):
-		entity.target_id = target_id
-		entity.source_id = source_id
-		, 
+		config_func,
 		auto_insert
 	)
 
@@ -185,12 +192,15 @@ func create_auras(
 		source_id: int = Constants.UNSET,
 		auto_insert: bool = true
 	) -> Array[Entity]:
+	var config_func: Callable = func(entity: Entity) -> void:
+		entity.source_id = source_id
+
+		var aura_c: AuraComponent = entity.get_node_or_null(Constants.AURA_COMPONENT_NODE_PATH)
+		aura_c.target_id = target_id
+		
 	return create_entities(
 		entity_scenes, 
-		func(entity):
-		entity.target_id = target_id
-		entity.source_id = source_id
-		, 
+		config_func,
 		auto_insert
 	)
 

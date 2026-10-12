@@ -3,7 +3,7 @@ extends Component
 class_name SpriteComponent
 ## 精灵组件。
 ##
-## SpriteComponent 用于让实体显示 [Sprite] 节点。
+## [SpriteComponent] 可以让实体显示 [Sprite] 节点。
 
 
 @export var config: SpriteComponentNodeConfig = null:

@@ -5,13 +5,13 @@ class_name MaskCheckEditorProperty
 
 @export var checkbox_v_box_container: VBoxContainer = null
 
-## 被编辑的属性名
+## 被编辑的属性名。
 var _property_name: String = ""
-## 被编辑的对象和属性名
+## 被编辑的对象和属性名。
 var _edited_object: Object = null
-## 复选框数组
+## 复选框数组。
 var _checkboxs: Array[CheckBox] = []
-## 枚举字典
+## 枚举字典。
 var _enum_dict: Dictionary = {}
 
 

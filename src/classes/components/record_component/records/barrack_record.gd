@@ -3,7 +3,7 @@ extends Record
 class_name BarrackRecord
 ## 兵营记录节点。
 ##
-## 基营记录节点用于存储跨实体的记录营记录信息，当前实体创建实体时会自动传递数据。
+## [BarrackRecord] 用于存储跨实体的兵营记录信息。
 
 
 ## 默认集结点局部位置。

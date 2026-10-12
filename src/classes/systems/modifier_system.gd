@@ -2,7 +2,7 @@ extends System
 class_name ModifierSystem
 ## 修改器系统。
 ##
-## ModifierSystem 负责处理拥有 [ModifierComponent] 修改器组件的实体。
+## [ModifierSystem] 负责处理拥有 [ModifierComponent] 的实体。
 
 
 func _on_insert(modifier: Entity) -> bool:
@@ -11,7 +11,7 @@ func _on_insert(modifier: Entity) -> bool:
 		return true
 
 	var modifier_c_config: ModifierComponentNodeConfig = modifier_c.config
-	var target: Entity = EntityManager.get_entity_by_id(modifier.target_id)
+	var target: Entity = EntityManager.get_entity_by_id(modifier_c.target_id)
 	if not target:
 		return false
 		
@@ -69,7 +69,7 @@ func _on_remove(modifier: Entity) -> bool:
 	if not modifier_c:
 		return true
 	
-	var target: Entity = EntityManager.get_entity_by_id(modifier.target_id)
+	var target: Entity = EntityManager.get_entity_by_id(modifier_c.target_id)
 	if not target:
 		return true
 
@@ -101,16 +101,15 @@ func _process_modifier_update() -> void:
 		var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
 		var modifier_c_config: ModifierComponentNodeConfig = modifier_c.config
 
-		var target: Entity = EntityManager.get_entity_by_id(modifier.target_id)
+		var target: Entity = EntityManager.get_entity_by_id(modifier_c.target_id)
 		if modifier_c_config.track_target:
 			if target:
 				var new_global_position: Vector2 = target.global_position
-
-				if target.config.hit_offsets:
-					var offset: Vector2 = target.config.hit_offsets.get_offset_toward_point(
+				var offset_c: OffsetComponent = target.get_node_or_null(Constants.OFFSET_COMPONENT_NODE_PATH)
+				if offset_c and offset_c.config.hit_offsets:
+					new_global_position += offset_c.config.hit_offsets.get_offset_toward_point(
 						target.global_position, target.facing_global_position
 					)
-					new_global_position += offset
 				modifier.global_position = new_global_position
 
 		if modifier.is_waiting():

@@ -4,7 +4,7 @@ extends Object
 class_name Log
 ## 日志库。
 ##
-## 存储了一些日志方法，用于在代码中进行日志输出。
+## [Log] 是一个日志库，用于在代码中进行日志输出。
 
 
 ## 日志级别枚举。
@@ -37,9 +37,9 @@ const log_level_colors: Array[String] = [
 	"#E74C3C",
 ]
 
-## 发布版本日志级别（低于此级别的日志不会输出）
+## 发布版本日志级别。
 const release_log_level: LogLevel = LogLevel.INFO
-## 调试版本日志级别（低于此级别的日志不会输出）
+## 调试版本日志级别。
 const debug_log_level: LogLevel = LogLevel.VERBOSE
 
 

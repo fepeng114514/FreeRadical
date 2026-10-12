@@ -3,7 +3,7 @@ extends Component
 class_name ExperienceComponent
 ## 经验组件。
 ##
-## ExperienceComponent 可以使实体拥有等级与经验的能力，等级与经验以 [Stat] 子节点的形式存在。
+## [ExperienceComponent] 可以让实体拥有经验，实体获得一定经验后等级会提升。
 ## @deprecated
 ## @deprecated: 未实现。
 

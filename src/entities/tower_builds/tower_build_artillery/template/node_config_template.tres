@@ -2,24 +2,29 @@
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_eft4j"]
 [ext_resource type="Resource" uid="uid://b18v6oku601hl" path="res://entities/tower_builds/tower_build_artillery/template/sprite_component/sprite_component.tres" id="2_c2js7"]
+[ext_resource type="Resource" uid="uid://dh6m2aybxmis" path="res://entities/tower_builds/tower_build_artillery/template/birth_component/birth_component.tres" id="2_eft4j"]
 [ext_resource type="Resource" uid="uid://xxnde7xfumoe" path="res://entities/tower_builds/tower_build_artillery/template/build_component/build_component.tres" id="3_wdcpc"]
-[ext_resource type="Resource" uid="uid://dc1eqb6nq45n3" path="res://entities/tower_builds/tower_build_artillery/template/tower_build_artillery.tres" id="4_3frcn"]
 
-[sub_resource type="Resource" id="Resource_ecysx"]
+[sub_resource type="Resource" id="Resource_c2js7"]
+script = ExtResource("1_eft4j")
+name = "BirthComponent"
+config = ExtResource("2_eft4j")
+
+[sub_resource type="Resource" id="Resource_wdcpc"]
 script = ExtResource("1_eft4j")
 name = "SpriteComponent"
 config = ExtResource("2_c2js7")
 
-[sub_resource type="Resource" id="Resource_ebxfr"]
+[sub_resource type="Resource" id="Resource_3frcn"]
 script = ExtResource("1_eft4j")
 name = "BuildComponent"
 config = ExtResource("3_wdcpc")
 
 [resource]
 script = ExtResource("1_eft4j")
-config = ExtResource("4_3frcn")
-children = Array[ExtResource("1_eft4j")]([SubResource("Resource_ecysx"), SubResource("Resource_ebxfr")])
+children = Array[ExtResource("1_eft4j")]([SubResource("Resource_c2js7"), SubResource("Resource_wdcpc"), SubResource("Resource_3frcn")])
 children_dict = Dictionary[String, ExtResource("1_eft4j")]({
-"BuildComponent": SubResource("Resource_ebxfr"),
-"SpriteComponent": SubResource("Resource_ecysx")
+"BirthComponent": SubResource("Resource_c2js7"),
+"BuildComponent": SubResource("Resource_3frcn"),
+"SpriteComponent": SubResource("Resource_wdcpc")
 })

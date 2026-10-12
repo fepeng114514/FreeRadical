@@ -3,7 +3,7 @@ extends Skill
 class_name MeleeSkill
 ## 近战技能节点。
 ##
-## MeleeSkill 与 [AreaSkill] 唯一区别的就是没有搜索目标这一步，需要被传入目标。[br]
+## [MeleeSkill] 与 [AreaSkill] 唯一区别的就是没有搜索目标这一步，需要被传入目标。[br]
 ## 主要用于 [MeleeComponent] 与 [DodgeComponent] 进行近战技能。
 
 

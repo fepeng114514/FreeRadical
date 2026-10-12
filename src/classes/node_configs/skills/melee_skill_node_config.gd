@@ -2,6 +2,8 @@
 extends SkillNodeConfig
 class_name MeleeSkillNodeConfig
 ## 近战技能节点配置资源。
+##
+## [MeleeSkillNodeConfig] 用于存储 [MeleeSkill] 的可配置数据。
 
 
 ## 影响资源，用于对目标造成伤害或治愈目标。

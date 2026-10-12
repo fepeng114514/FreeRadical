@@ -4,7 +4,7 @@ extends Component
 class_name NavPathComponent
 ## 导航路径组件。
 ##
-## NavPathComponent 可以使实体沿着路径移动。
+## [NavPathComponent] 可以让实体沿着路径移动。
 
 
 @export var config: NavPathComponentNodeConfig = null:

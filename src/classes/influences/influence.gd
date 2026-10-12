@@ -3,7 +3,7 @@ extends Resource
 class_name Influence
 ## 影响资源，基类。
 ##
-## Influence 用于定义如何影响目标，例如治疗、造成伤害、给予修改器等。
+## [Influence] 用于定义如何影响目标，例如治疗、造成伤害、给予修改器等。
 
 
 ## 取值模式枚举。

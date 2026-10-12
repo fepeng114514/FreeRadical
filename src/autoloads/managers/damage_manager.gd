@@ -1,4 +1,7 @@
 extends Node
+## 伤害管理器。
+## 
+## [DamageManager] 负责管理伤害与相关操作。
 
 
 ## 伤害队列。

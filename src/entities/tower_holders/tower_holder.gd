@@ -23,8 +23,9 @@ func _ready() -> void:
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = super()
-		
-	if not default_rally_center_position:
-		warnings.append("请在 default_rally_center_position 中设置一个默认集结点位置。")
+	
+	if EditorInterface.get_edited_scene_root() != self:
+		if not default_rally_center_position:
+			warnings.append("请在 default_rally_center_position 中设置一个默认集结点位置。")
 		
 	return warnings

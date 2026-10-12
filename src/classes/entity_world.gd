@@ -1,6 +1,8 @@
 extends Node2D
 class_name EntityWorld
-## 实体世界，所有实体都会被添加到这个节点下。
+## 实体世界。
+## 
+## [EntityWorld] 是所有非子实体的实体都会被添加到的节点。
 
 
 func _ready() -> void:

@@ -3,7 +3,7 @@ extends Resource
 class_name OffsetGroup
 ## 偏移组资源。
 ##
-## OffsetGroup 根据方向存储偏移，用于根据实体看向的方向获取偏移。[br][br]
+## [OffsetGroup] 根据方向存储偏移，用于根据实体看向的方向获取偏移。[br][br]
 ## 根据填写的属性会动态生成三种偏移组：[br]
 ## 1. 双方向偏移组：填写 [member left]、[member right] 或 [member up]、[member down]，每个 180 度表示一个偏移。[br]
 ## 2. 四方向偏移组：填写所有方向的偏移 [member left]、[member right]、[member up]、[member down]，每个 90 度表示一个偏移。[br]

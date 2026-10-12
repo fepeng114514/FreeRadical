@@ -2,8 +2,8 @@
 extends Resource
 class_name AnimationGroup
 ## 动画组资源。
-##
-## AnimationGroup 存储动画名称，用于根据实体看向的方向获取动画名称。[br][br]
+## 
+## [AnimationGroup] 用于存储动画名称，用于根据实体看向的方向获取动画名称。[br][br]
 ## 根据填写的属性会动态生成三种动画组：[br]
 ## 1. 双方向动画组：填写 [member left]、[member right] 或 [member up]、[member down]，每个 180 度表示一个动画名称。[br]
 ## 2. 四方向动画组：填写所有方向的动画名称 [member left]、[member right]、[member up]、[member down]，每个 90 度表示一个动画名称。[br]

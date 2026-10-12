@@ -1,6 +1,8 @@
 @tool
 extends Node
 ## 调试管理器。
+## 
+## [DebugManager] 负责管理调试与相关操作。
 
 
 ## 绘制类型枚举。

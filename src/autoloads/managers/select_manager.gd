@@ -1,7 +1,7 @@
 extends Node
 ## 选择管理器。
 ## 
-## 负责管理选择与相关操作。
+## [SelectManager] 负责管理选择实体与相关操作。
 
 
 ## 选择模式枚举。
@@ -44,9 +44,6 @@ func cleanup() -> void:
 ## 尝试选择实体。
 func _try_select() -> void:
 	if selected_entity:
-		if selected_entity:
-			selected_entity.selected = false
-		
 		_deselect()
 	else:
 		var mouse_global_position: Vector2 = InputManager.mouse_global_position
@@ -64,7 +61,6 @@ func _try_select() -> void:
 ## 选择实体。
 func _select(entity: Entity) -> void:
 	Log.debug("选择实体: %s%s" % [entity, entity.global_position])
-	entity.selected = true
 	selected_entity = entity
 	select_mode = SelectMode.NONE
 	

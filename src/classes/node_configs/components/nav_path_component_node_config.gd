@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name NavPathComponentNodeConfig
 ## 导航路径组件节点配置资源。
+##
+## [NavPathComponentNodeConfig] 用于存储 [NavPathComponent] 的可配置数据。
 
 
 ## 是否沿相反路线移动。

@@ -2,7 +2,7 @@ extends BulletTrajectory
 class_name ParabolaBulletTrajectory
 ## 抛物线轨迹。
 ##
-## 负责处理子弹沿抛物线从起点飞向目标点。
+## [ParabolaBulletTrajectory] 让子弹沿抛物线从起点飞向目标点。
 
 
 ## 子弹从发射到命中或消失的时间。

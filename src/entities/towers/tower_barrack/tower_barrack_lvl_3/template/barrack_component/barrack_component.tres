@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_ewvbl"]
 [ext_resource type="Script" uid="uid://t3k6wl7of3fr" path="res://classes/node_configs/components/barrack_component_node_config.gd" id="1_vevkq"]
-[ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack/tower_barrack_spawn_sfx.tres" id="2_fy8pb"]
+[ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack/tower_barrack_birth_sfx.tres" id="2_fy8pb"]
 [ext_resource type="Resource" uid="uid://br3xlagaeimgi" path="res://entities/resources/select_menu_button_data/rally.tres" id="4_fy8pb"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="4_tabl8"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="5_f4pwi"]

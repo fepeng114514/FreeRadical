@@ -3,7 +3,7 @@ extends Component
 class_name AuraComponent
 ## 光环组件。
 ##
-## AuraComponent 可以使实体可周期性对范围内其他实体造成影响。
+## [AuraComponent] 可以让实体周期性对范围内其他实体造成影响。
 
 
 ## 光环类型枚举。
@@ -24,6 +24,8 @@ enum Type {
 		update_configuration_warnings()
 		queue_redraw()
 
+## 目标实体 ID。
+var target_id: int = Constants.UNSET
 ## 插入时间戳。
 var insert_timestamp: float = 0.0
 ## 当前影响次数。

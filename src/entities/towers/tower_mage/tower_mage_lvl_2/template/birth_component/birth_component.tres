@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BirthComponentNodeConfig" format=3 uid="uid://cmiygsl38r0xb"]
+
+[ext_resource type="Script" uid="uid://beagipwmj0rvt" path="res://classes/node_configs/components/birth_component_node_config.gd" id="1_3rhew"]
+[ext_resource type="Resource" uid="uid://c1p4okwfmgho6" path="res://entities/towers/tower_mage/tower_mage_birth_sfx.tres" id="1_4y2vy"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_3rhew")
+birth_sfx = ExtResource("1_4y2vy")

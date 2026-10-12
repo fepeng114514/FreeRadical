@@ -3,7 +3,7 @@ extends Component
 class_name AnimatedSpriteComponent
 ## 动画精灵组件。
 ##
-## AnimatedSpriteComponent 用于让实体显示 [AnimatedSprite2D] 节点。
+## [AnimatedSpriteComponent] 可以让实体可以显示 [AnimatedSprite2D] 动画精灵节点。
 
 
 @export var config: AnimatedSpriteComponentNodeConfig = null:
@@ -67,7 +67,7 @@ func play_animation(
 	else:
 		_play_animation(anim_name, player, filp_h, animation_group.speed_scale, force_play)
 
-	## 处理同步动画
+	# 处理同步动画。
 	if config.sync_source:
 		var source: Entity = EntityManager.get_entity_by_id(entity.sync_source_id)
 		if source and not source.is_waiting():
@@ -82,7 +82,7 @@ func play_animation(
 	return anim_data
 
 
-## 获取动画精灵剩余帧数
+## 获取动画精灵剩余帧数。
 func get_frames_remaining(animated_sprite: AnimatedSprite2D) -> int:
 	var current_frame: int = animated_sprite.frame
 	var total_frames: int = animated_sprite.sprite_frames.get_frame_count(animated_sprite.animation)
@@ -90,7 +90,7 @@ func get_frames_remaining(animated_sprite: AnimatedSprite2D) -> int:
 	return total_frames - current_frame
 
 
-## 获取当前播放的动画精灵
+## 获取当前播放的动画精灵。
 func get_playing_animated_sprite(animation_group: AnimationGroup) -> AnimatedSprite2D:
 	var play_index: int = animation_group.play_index
 
@@ -149,7 +149,7 @@ func y_wait_animation(
 	return is_break
 
 
-## 使一个精灵播放动画
+## 使一个精灵播放动画。
 func _play_animation(
 		anim_name: StringName, 
 		sprite: AnimatedSprite2D, 
@@ -176,7 +176,7 @@ func _play_animation(
 	sprite.play(anim_name)
 	
 	
-## 使一个精灵组中的所有精灵播放对应的动画
+## 使一个精灵组中的所有精灵播放对应的动画。
 func _play_animation_in_group(
 		anim_name: StringName, 
 		group: SpriteGroup, 

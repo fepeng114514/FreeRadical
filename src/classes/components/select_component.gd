@@ -4,7 +4,7 @@ extends Component
 class_name SelectComponent
 ## 选择组件。
 ##
-## SelectComponent 可以使实体被鼠标选择。
+## [SelectComponent] 可以让实体被选择，选择后显示选择菜单与信息栏等。
 
 
 ## 实体信息栏类型枚举。

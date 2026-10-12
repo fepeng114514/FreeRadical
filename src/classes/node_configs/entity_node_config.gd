@@ -4,9 +4,9 @@ class_name EntityNodeConfig
 ## 实体节点配置资源。
 
 
-## 空闲动画组
+## 空闲动画组。
 @export var idle_animation: AnimationGroup = null
-## 生成时播放的动画
+## 生成时播放的动画。
 @export var spawn_animation: AnimationGroup = null
 ## 生成时播放的音效组。
 @export var spawn_sfx: AudioGroup = null

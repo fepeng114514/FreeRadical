@@ -3,7 +3,7 @@ extends NodeConfig
 class_name EntityComponentNodeConfig
 ## 实体组件节点配置。
 ##
-## EntityComponentNodeConfig 用于存储实体的数据。
+## [EntityComponentNodeConfig] 用于存储 [EntityComponent] 的可配置数据。
 
 
 @export var interact_policy: InteractPolicy = null:

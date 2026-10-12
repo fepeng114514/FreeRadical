@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_icgj8"]
 [ext_resource type="Resource" uid="uid://ckuxjfhe0ud41" path="res://entities/tower_builds/tower_build_mage/template/node_config_template.tres" id="2_1ow42"]
 [ext_resource type="Texture2D" uid="uid://dkxdvn28ie6qw" path="res://assets/atlas/atlas_textures/towers/tower_constructing_0003.tres" id="3_7n7wk"]
-[ext_resource type="Resource" uid="uid://bayn8eqp7fmi5" path="res://entities/tower_builds/tower_build_mage/template/tower_build_mage.tres" id="3_weuk3"]
+[ext_resource type="Script" uid="uid://fi7qlgp26a6l" path="res://classes/components/birth_component.gd" id="3_7vlo3"]
 [ext_resource type="Resource" uid="uid://8ke0dm41xh8i" path="res://entities/tower_builds/tower_build_mage/template/sprite_component/sprite_component.tres" id="4_675jg"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_fpd3u"]
+[ext_resource type="Resource" uid="uid://b5r872pyw05ct" path="res://entities/tower_builds/tower_build_mage/template/birth_component/birth_component.tres" id="4_prhaw"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_xlw6s"]
 [ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_7vlo3"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_xlw6s"]
@@ -17,8 +18,13 @@
 [node name="TowerBuildMage" type="Node2D" unique_id=1530244974]
 script = ExtResource("1_icgj8")
 node_config_template = ExtResource("2_1ow42")
-config = ExtResource("3_weuk3")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="BirthComponent" type="Node2D" parent="." unique_id=1784232792]
+process_mode = 4
+script = ExtResource("3_7vlo3")
+config = ExtResource("4_prhaw")
+metadata/_custom_type_script = "uid://fi7qlgp26a6l"
 
 [node name="RecordComponent" type="Node2D" parent="." unique_id=826838286]
 process_mode = 4
@@ -41,6 +47,7 @@ script = ExtResource("5_xlw6s")
 metadata/_custom_type_script = "uid://bsh34v046mn3y"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1656747318]
+process_mode = 4
 show_behind_parent = true
 script = ExtResource("6_7vlo3")
 config = ExtResource("4_675jg")

@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name SelectComponentNodeConfig
 ## 选择组件节点配置资源。
+##
+## [SelectComponentNodeConfig] 用于存储 [SelectComponent] 的可配置数据。
 
 
 ## 选择矩形大小。

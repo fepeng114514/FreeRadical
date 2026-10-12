@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name TowerComponentNodeConfig
 ## 防御塔组件节点配置资源。
+##
+## [TowerComponentNodeConfig] 用于存储 [TowerComponent] 的可配置数据。
 
 
 ## 防御塔类型。

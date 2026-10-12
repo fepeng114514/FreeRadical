@@ -3,7 +3,7 @@ extends Component
 class_name DodgeComponent
 ## 闪避组件。
 ##
-## DodgeComponent 可以使实体拥有闪避与反击的能力，反击技能以 [Skill] 子节点的形式存在。
+## [DodgeComponent] 可以让实体可以闪避技能与反击，反击技能以 [Skill] 子节点的形式存在。
 ## @deprecated
 ## @deprecated: 未实现。
 

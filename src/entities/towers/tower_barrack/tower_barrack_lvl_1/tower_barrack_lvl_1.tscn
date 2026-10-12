@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://8h13iyechbed" path="res://entities/towers/tower.gd" id="1_f2pah"]
 [ext_resource type="Resource" uid="uid://b83waj1nrsxad" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/node_config_template.tres" id="2_6kjmh"]
+[ext_resource type="Script" uid="uid://fi7qlgp26a6l" path="res://classes/components/birth_component.gd" id="3_jeded"]
 [ext_resource type="Texture2D" uid="uid://fcpj16d35cum" path="res://assets/atlas/atlas_textures/towers/tower_barrack_0001.tres" id="4_2u03i"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_dsnyp"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_f2pah"]
+[ext_resource type="Resource" uid="uid://cjpay2h600boc" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/birth_component/birth_component.tres" id="4_jl2co"]
 [ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="4_u6jgq"]
 [ext_resource type="SpriteFrames" uid="uid://c3kr0u7ptrtbr" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl1_door.tres" id="5_3ddwr"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_f2pah"]
@@ -25,6 +27,12 @@
 script = ExtResource("1_f2pah")
 node_config_template = ExtResource("2_6kjmh")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="BirthComponent" type="Node2D" parent="." unique_id=1627361945]
+process_mode = 4
+script = ExtResource("3_jeded")
+config = ExtResource("4_jl2co")
+metadata/_custom_type_script = "uid://fi7qlgp26a6l"
 
 [node name="RecordComponent" type="Node2D" parent="." unique_id=28314882]
 process_mode = 4

@@ -3,7 +3,7 @@ extends Record
 class_name PriceRecord
 ## 价格记录组件。
 ##
-## PriceRecord 用于存储跨实体的价格信息。
+## [PriceRecord] 用于存储跨实体的价格信息。
 
 
 ## 总价格。

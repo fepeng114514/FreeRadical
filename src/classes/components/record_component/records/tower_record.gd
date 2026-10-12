@@ -3,7 +3,7 @@ extends Record
 class_name TowerRecord
 ## 防御塔记录组件。
 ##
-## TowerRecord 用于存储跨实体的防御塔信息。
+## [TowerRecord] 用于存储跨实体的防御塔信息。
 
 
 # 需要支持外部修改

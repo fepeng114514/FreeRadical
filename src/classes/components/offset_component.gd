@@ -3,7 +3,7 @@ extends Component
 class_name OffsetComponent
 ## 偏移量组件。
 ##
-## OffsetComponent 用于存储偏移量的数据。
+## [OffsetComponent] 可以让实体的判断点的位置偏移指定的距离。
 
 
 @export var config: OffsetComponentNodeConfig = null:

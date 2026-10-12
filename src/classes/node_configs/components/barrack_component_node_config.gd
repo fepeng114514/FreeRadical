@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name BarrackComponentNodeConfig
 ## 兵营组件节点配置资源。
+##
+## [BarrackComponentNodeConfig] 用于存储 [BarrackComponent] 的可配置数据。
 
 
 ## 是否禁用。

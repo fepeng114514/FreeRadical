@@ -3,7 +3,7 @@ extends SearchSkill
 class_name SpawnSkill
 ## 生成实体技能节点。
 ##
-## SpawnSkill 会生成一个实体。
+## [SpawnSkill] 会生成一个实体。
 
 
 @export var config: SpawnSkillNodeConfig = null:

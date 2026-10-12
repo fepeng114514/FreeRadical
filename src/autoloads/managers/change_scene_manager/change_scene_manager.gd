@@ -1,7 +1,7 @@
 extends Node
 ## 切换场景管理器。
-##
-## 负责切换场景与相关操作。
+## 
+## [ChangeSceneManager] 负责切换场景与相关操作。
 
 
 signal loading_progress(percent: float)

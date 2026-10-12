@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name SellComponentNodeConfig
 ## 出售组件节点配置资源。
+##
+## [SellComponentNodeConfig] 用于存储 [SellComponent] 的可配置数据。
 
 
 ## 是否禁用。

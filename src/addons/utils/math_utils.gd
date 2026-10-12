@@ -1,6 +1,9 @@
 @abstract
 extends Object
 class_name MathUtils
+## 数学工具类。
+##
+## [MathUtils] 是一个数学工具类，用于在代码中进行数学操作的辅助函数。
 
 
 ## 百分比转换为数字。

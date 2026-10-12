@@ -2,7 +2,7 @@ extends System
 class_name AuraSystem
 ## 光环系统。
 ##
-## AuraSystem 负责处理拥有 [AuraComponent] 光环组件的实体。
+## [AuraSystem] 负责处理拥有 [AuraComponent] 的实体。
 
 
 func _on_insert(aura: Entity) -> bool:
@@ -11,7 +11,7 @@ func _on_insert(aura: Entity) -> bool:
 		return true
 		
 	var aura_c_config: AuraComponentNodeConfig = aura_c.config
-	var target: Entity = EntityManager.get_entity_by_id(aura.target_id)
+	var target: Entity = EntityManager.get_entity_by_id(aura_c.target_id)
 	if not target:
 		return false
 
@@ -66,14 +66,14 @@ func _on_update(_delta: float) -> void:
 		var aura_c: AuraComponent = aura.get_node_or_null(Constants.AURA_COMPONENT_NODE_PATH)
 		var aura_c_config: AuraComponentNodeConfig = aura_c.config
 		if aura_c_config.track_target:
-			var target: Entity = EntityManager.get_entity_by_id(aura.target_id)
+			var target: Entity = EntityManager.get_entity_by_id(aura_c.target_id)
 			if target:
 				var new_global_position: Vector2 = target.global_position
-				if target.config.aura_offsets:
-					var offset: Vector2 = target.config.aura_offsets.get_offset_toward_point(
+				var offset_c: OffsetComponent = target.get_node_or_null(Constants.OFFSET_COMPONENT_NODE_PATH)
+				if offset_c and offset_c.config.aura_offsets:
+					new_global_position += offset_c.config.aura_offsets.get_offset_toward_point(
 						target.global_position, target.facing_global_position
 					)
-					new_global_position += offset
 				aura.global_position = new_global_position
 
 		if aura.is_waiting():

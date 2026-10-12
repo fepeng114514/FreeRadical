@@ -1,10 +1,12 @@
 @tool
 extends Node
 ## 节点配置管理器。
+## 
+## [NodeConfigManager] 负责管理节点配置模板与相关操作。
 
 
+## 节点配置模板数据路径。
 const NODE_CONFIG_TEMPLATE_DATA_PATH: String = "res://data/node_config_template_data.tres"
-
 
 var _node_config_template_data: NodeConfigTemplateData = null
 

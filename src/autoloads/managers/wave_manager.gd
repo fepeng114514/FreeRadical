@@ -1,7 +1,7 @@
 extends Node
-## 波次管理器
+## 波次管理器。
 ## 
-## 负责管理波次与相关操作。
+## [WaveManager] 负责管理波次与相关操作。
 
 
 @warning_ignore_start("unused_signal")

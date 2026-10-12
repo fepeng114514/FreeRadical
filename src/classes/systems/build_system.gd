@@ -2,7 +2,7 @@ extends System
 class_name BuildSystem
 ## 建筑系统。
 ##
-## BuildSystem 负责处理拥有 [BuildComponent] 建造组件的实体的建造逻辑。
+## [BuildSystem] 负责处理拥有 [BuildComponent] 的实体。
 
 
 func _on_insert(entity: Entity) -> bool:

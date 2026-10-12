@@ -4,7 +4,7 @@ extends Component
 class_name BulletComponent
 ## 子弹组件。
 ##
-## BulletComponent 可以使实体按照飞行轨迹飞行，命中目标后造成影响。
+## [BulletComponent] 可以让实体按照飞行轨迹飞行，命中目标后造成影响。
 
 
 @export var config: BulletComponentNodeConfig = null:
@@ -14,6 +14,9 @@ class_name BulletComponent
 		update_configuration_warnings()
 		queue_redraw()
 
+
+## 目标实体 ID。
+var target_id: int = Constants.UNSET
 ## 起始位置。
 var from := Vector2.ZERO
 ## 目标位置。

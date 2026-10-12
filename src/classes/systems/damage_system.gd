@@ -2,7 +2,7 @@ extends System
 class_name DamageSystem
 ## 伤害系统。
 ##
-## DamageSystem 负责处理伤害队列的伤害造成。
+## [DamageSystem] 负责处理 [member DamageManager.damage_queue] 中的伤害造成。
 
 
 func _on_update(_delta: float) -> void:
@@ -74,11 +74,11 @@ func _on_update(_delta: float) -> void:
 		damage_number.value = actual_damage
 		damage_number.damage_type = damage.damage_type
 		var from: Vector2 = target.global_position
-		if target.config.hit_offsets:
-			var hit_offset: Vector2 = target.config.hit_offsets.get_offset_toward_point(
+		var offset_c: OffsetComponent = target.get_node_or_null(Constants.OFFSET_COMPONENT_NODE_PATH)
+		if offset_c and offset_c.config.hit_offsets:
+			from += offset_c.config.hit_offsets.get_offset_toward_point(
 				target.global_position, target.facing_global_position
 			)
-			from += hit_offset
 		damage_number.global_position = from
 		add_child(damage_number)
 		

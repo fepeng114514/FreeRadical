@@ -2,6 +2,8 @@
 extends NodeConfig
 class_name RallyComponentNodeConfig
 ## 集结组件节点配置资源。
+##
+## [RallyComponentNodeConfig] 用于存储 [RallyComponent] 的可配置数据。
 
 
 ## 移动速度。

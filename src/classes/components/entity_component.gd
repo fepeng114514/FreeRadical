@@ -3,7 +3,7 @@ extends Component
 class_name EntityComponent
 ## 实体组件。
 ##
-## EntityComponent 用于存储实体的数据。
+## [EntityComponent] 用于存储实体的数据。
 
 
 @export var config: EntityComponentNodeConfig = null:

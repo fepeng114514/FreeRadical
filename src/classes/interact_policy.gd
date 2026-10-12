@@ -3,7 +3,7 @@ extends Resource
 class_name InteractPolicy 
 ## 交互策略类。
 ##
-## 交互策略用于定义实体之间的交互规则，包括禁止交互的实体标识、修改器类型、光环类型等。
+## [InteractPolicy] 用于定义实体之间的交互规则，禁止某些实体之间的交互。
 
 
 ## 标识枚举。

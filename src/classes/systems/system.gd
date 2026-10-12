@@ -3,7 +3,7 @@ extends Node
 class_name System
 ## 系统基类。
 ##
-## 系统用于处理实体和组件的逻辑。
+## [System] 是所有系统的基类，用于处理实体和组件的逻辑。
 
 
 func _enter_tree() -> void:
@@ -15,18 +15,24 @@ func _exit_tree() -> void:
 
 
 @warning_ignore_start("unused_parameter")
-## 实体准备时调用
+## 实体准备时调用。
 func _on_ready(entity: Entity) -> void: pass
 
 
-## 插入实体时调用，返回 false 的实体将会被移除
+## 实体插入时调用。[br][br]
+## -> 是否插入实体。
 func _on_insert(entity: Entity) -> bool: return true
 
 
-## 移除实体时调用，返回 false 的实体将不会被移除
+## 实体移除时调用。[br][br]
+## -> 是否移除实体。
 func _on_remove(entity: Entity) -> bool: return true
 
 
-## 更新实体时调用
+## 实体首次更新时调用。
+func _on_first_update(entity: Entity) -> void: pass
+
+
+## 实体更新时调用。
 func _on_update(delta: float) -> void: pass
 @warning_ignore_restore("unused_parameter")

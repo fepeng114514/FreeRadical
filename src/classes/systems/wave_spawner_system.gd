@@ -2,7 +2,7 @@ extends System
 class_name WaveSpawnerSystem
 ## 波次生成器系统。
 ##
-## WaveSpawnerSystem 负责处理拥有 [WaveSpawnerComponent] 波次生成器组件的实体，包括生成波次等。
+## [WaveSpawnerSystem] 负责处理拥有 [WaveSpawnerComponent] 的实体。
 
 
 func _on_ready(entity: Entity) -> void:

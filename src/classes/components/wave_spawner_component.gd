@@ -3,7 +3,7 @@ extends Component
 class_name WaveSpawnerComponent
 ## 波次生成器组件。
 ##
-## WaveSpawnerComponent 可以使实体生成波次数据中的实体。
+## [WaveSpawnerComponent] 可以让实体生成波次数据中的实体。
 
 
 @export var config: WaveSpawnerComponentNodeConfig = null:

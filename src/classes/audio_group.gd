@@ -1,6 +1,8 @@
 extends Resource
 class_name AudioGroup
 ## 音频组资源。
+## 
+## [AudioGroup] 用于存储音频相关的数据。
 
 
 ## 播放模式。

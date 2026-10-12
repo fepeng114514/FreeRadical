@@ -2,6 +2,8 @@
 extends Skill
 class_name SearchSkill
 ## 搜索技能基类。
+##
+## [SearchSkill] 是所有搜索技能节点的基类。搜索技能会搜索目标实体。
 
 
 ## 获取搜索中心。

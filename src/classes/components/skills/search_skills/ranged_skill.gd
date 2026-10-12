@@ -3,7 +3,7 @@ extends BaseRangedSkill
 class_name RangedSkill
 ## 单次远程技能节点。
 ##
-## RangedSkill 会生成一个子弹，以子弹作为中介，对目标造成影响。子弹会以特定轨迹飞行，到达目标后造成影响。
+## [RangedSkill] 会生成一个子弹，以子弹作为中介，对目标造成影响。子弹会以特定轨迹飞行，到达目标后造成影响。
 
 
 @export var config: RangedSkillNodeConfig = null:

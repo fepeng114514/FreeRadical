@@ -2,7 +2,7 @@ extends System
 class_name DurationSystem
 ## 持续时间系统。
 ##
-## DurationSystem 负责处理拥有 [DurationComponent] 持续时间组件的实体。
+## [DurationSystem] 负责处理拥有 [DurationComponent] 的实体。
 
 
 func _on_insert(entity: Entity) -> bool:
