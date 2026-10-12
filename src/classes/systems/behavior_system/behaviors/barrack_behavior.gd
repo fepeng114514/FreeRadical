@@ -25,9 +25,10 @@ func _on_remove(barrack: Entity) -> bool:
 		return true
 	
 	var barrack_record: BarrackRecord = barrack.get_node_or_null(Constants.BARRACK_RECORD_NODE_PATH)
-	var soldier_list: Array[Entity] = barrack_record.soldier_list
-	for soldier_idx: int in soldier_list.size():
-		EntityManager.queue_remove_entity(soldier_list[soldier_idx])
+	var soldier_ids: PackedInt32Array = barrack_record.soldier_ids
+	for soldier_id: int in soldier_ids:
+		var soldier: Entity = EntityManager.get_entity_by_id(soldier_id)
+		EntityManager.queue_remove_entity(soldier)
 
 	return true
 
@@ -41,17 +42,19 @@ func _on_update(barrack: Entity) -> bool:
 		return false
 	
 	var barrack_record: BarrackRecord = barrack.get_node_or_null(Constants.BARRACK_RECORD_NODE_PATH)
-	# 根据重生时间生成士兵
-	if TimeManager.has_elapsed(barrack_c.timestamp, barrack_c.config.spawn_interval):
+	if TimeManager.has_elapsed(barrack_c.spawn_timestamp, barrack_c.config.spawn_interval):
 		_spawn_by_time(barrack, barrack_c, barrack_record)
 		return true
-		
-	var soldier_list_size: int = barrack_record.soldier_list.size()
 
-	# 士兵数发生变化重新整队
-	if barrack_c.last_soldier_count != soldier_list_size:
-		barrack_c.last_soldier_count = soldier_list_size
-		barrack_c.set_rally_center_global_position(barrack_record.rally_center_global_position, false, false)
+	if barrack_c.need_reset_rally_center_global_position:
+		barrack_c.need_reset_rally_center_global_position = false
+		
+		var soldier_ids: PackedInt32Array = barrack_record.soldier_ids
+		var soldier_ids_size: int = barrack_record.soldier_ids.size()
+		for soldier_index: int in soldier_ids_size:
+			var soldier: Entity = EntityManager.get_entity_by_id(soldier_ids[soldier_index])
+			barrack_c.set_rally_center_global_position(barrack_record.rally_center_global_position, soldier, soldier_index, soldier_ids_size)
+	
 	return false
 
 
@@ -81,10 +84,11 @@ func _create_soldier(
 
 ## 根据重生时间生成士兵。
 func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent, barrack_record: BarrackRecord) -> void:
-	barrack_c.timestamp = TimeManager.tick_timestamp
+	var soldier_ids: PackedInt32Array = barrack_record.soldier_ids
+	barrack_c.spawn_timestamp = TimeManager.tick_timestamp
 
 	var barrack_c_config: BarrackComponentNodeConfig = barrack_c.config
-	if barrack_record.soldier_list.size() >= barrack_c_config.max_soldier_count:
+	if soldier_ids.size() >= barrack_c_config.max_soldier_count:
 		return
 		
 	AudioManager.play_sfx(barrack_c_config.spawn_sfx)
@@ -96,7 +100,8 @@ func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent, barrack_record
 		return
 
 	var soldier: Entity = _create_soldier(barrack, barrack_c, barrack_record)
-	barrack_record.soldier_list.append(soldier)
+	soldier_ids.append(soldier.id)
+	barrack_c.need_reset_rally_center_global_position = true
 	
 	if spawn_animation:
 		animated_sprite_c.y_wait_animation(barrack, spawn_animation)
@@ -105,16 +110,15 @@ func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent, barrack_record
 ## 生成所有士兵。
 func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent, barrack_record: BarrackRecord) -> void:
 	var barrack_c_config: BarrackComponentNodeConfig = barrack_c.config
-	var old_soldier_list: Array[Entity] = barrack_record.soldier_list
-	var new_soldier_list: Array[Entity] = []
-	var old_soldier_list_size: int = old_soldier_list.size()
+	var old_soldier_ids: PackedInt32Array = barrack_record.soldier_ids
+	var new_soldier_ids := PackedInt32Array()
 
 	# 先替换存活的士兵
-	if old_soldier_list:
-		for soldier_index: int in old_soldier_list_size:
+	if old_soldier_ids:
+		for old_soldier_id: int in old_soldier_ids:
 			var soldier: Entity = _create_soldier(barrack, barrack_c, barrack_record)
-			var old_soldier: Entity = old_soldier_list[soldier_index]
-			new_soldier_list.append(soldier)
+			var old_soldier: Entity = EntityManager.get_entity_by_id(old_soldier_id)
+			new_soldier_ids.append(soldier.id)
 
 			soldier.global_position = old_soldier.global_position
 			soldier.facing_global_position = old_soldier.facing_global_position
@@ -141,12 +145,10 @@ func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent, barrack_r
 					else:
 						for blocker_id: int in old_melee_c.blocker_id_list:
 							melee_c.blocked_bind_melee_relations(blocker_id, soldier.id)
-		
-		barrack_c.set_rally_center_global_position(barrack_record.rally_center_global_position, false)
 	
-	barrack_record.soldier_list = new_soldier_list
-
-	if old_soldier_list_size < barrack_c_config.max_soldier_count:
+	barrack_record.soldier_ids = new_soldier_ids
+	var old_soldier_ids_size: int = old_soldier_ids.size()
+	if old_soldier_ids_size < barrack_c_config.max_soldier_count:
 		AudioManager.play_sfx(barrack_c_config.spawn_sfx)
 		var animated_sprite_c: AnimatedSpriteComponent = barrack.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
 		var spawn_animation: AnimationGroup = barrack_c_config.spawn_animation
@@ -156,15 +158,16 @@ func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent, barrack_r
 			return
 
 		var max_soldier_count: int = barrack_c_config.max_soldier_count
-		for soldier_index: int in range(old_soldier_list_size, max_soldier_count):
+		for _soldier_index: int in range(old_soldier_ids_size, max_soldier_count):
 			var soldier: Entity = _create_soldier(barrack, barrack_c, barrack_record)
-			new_soldier_list.append(soldier)
+			new_soldier_ids.append(soldier.id)
 
-		barrack_c.set_rally_center_global_position(barrack_record.rally_center_global_position, false)
-		
 		if spawn_animation:
 			animated_sprite_c.y_wait_animation(barrack, spawn_animation)
 
+	await get_tree().physics_frame
+	barrack_c.need_reset_rally_center_global_position = true
 
-func _on_soldier_removing(soldier: Entity, _barrack_c: BarrackComponent, barrack_record: BarrackRecord) -> void:
-	barrack_record.soldier_list.erase(soldier)
+func _on_soldier_removing(soldier: Entity, barrack_c: BarrackComponent, barrack_record: BarrackRecord) -> void:
+	barrack_record.soldier_ids.erase(soldier.id)
+	barrack_c.need_reset_rally_center_global_position = true

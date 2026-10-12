@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://b83waj1nrsxad"]
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_nkpw4"]
+[ext_resource type="Resource" uid="uid://buaqd2dt0d4rv" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/animated_sprite_component/animated_sprite_component.tres" id="2_0im8t"]
 [ext_resource type="Resource" uid="uid://bvrffb0rv02l6" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/sprite_component/sprite_component.tres" id="2_73ree"]
 [ext_resource type="Resource" uid="uid://cjpay2h600boc" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/birth_component/birth_component.tres" id="2_x2v44"]
 [ext_resource type="Resource" uid="uid://cf4kwtf78s6h5" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/tower_component/tower_component.tres" id="3_x2v44"]
@@ -10,15 +11,10 @@
 [ext_resource type="Resource" uid="uid://d3ipmw4acjgpm" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/sell_component/sell_component.tres" id="6_x2v44"]
 [ext_resource type="Resource" uid="uid://b6se83j0rt55o" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/upgrade_component/upgrade_component.tres" id="7_0im8t"]
 
-[sub_resource type="Resource" id="Resource_0im8t"]
-script = ExtResource("1_nkpw4")
-name = "BirthComponent"
-config = ExtResource("2_x2v44")
-
 [sub_resource type="Resource" id="Resource_qk4lb"]
 script = ExtResource("1_nkpw4")
-name = "SelectComponent"
-config = ExtResource("4_0im8t")
+name = "AnimatedSpriteComponent"
+config = ExtResource("2_0im8t")
 
 [sub_resource type="Resource" id="Resource_86fq3"]
 script = ExtResource("1_nkpw4")
@@ -27,20 +23,30 @@ config = ExtResource("2_73ree")
 
 [sub_resource type="Resource" id="Resource_vy3xc"]
 script = ExtResource("1_nkpw4")
+name = "BirthComponent"
+config = ExtResource("2_x2v44")
+
+[sub_resource type="Resource" id="Resource_34j8y"]
+script = ExtResource("1_nkpw4")
+name = "SelectComponent"
+config = ExtResource("4_0im8t")
+
+[sub_resource type="Resource" id="Resource_5otwv"]
+script = ExtResource("1_nkpw4")
 name = "TowerComponent"
 config = ExtResource("3_x2v44")
 
-[sub_resource type="Resource" id="Resource_34j8y"]
+[sub_resource type="Resource" id="Resource_oa2s6"]
 script = ExtResource("1_nkpw4")
 name = "BarrackComponent"
 config = ExtResource("5_qk4lb")
 
-[sub_resource type="Resource" id="Resource_5otwv"]
+[sub_resource type="Resource" id="Resource_aa4xq"]
 script = ExtResource("1_nkpw4")
 name = "SellComponent"
 config = ExtResource("6_x2v44")
 
-[sub_resource type="Resource" id="Resource_oa2s6"]
+[sub_resource type="Resource" id="Resource_3umne"]
 script = ExtResource("1_nkpw4")
 name = "UpgradeComponent"
 config = ExtResource("7_0im8t")
@@ -48,13 +54,14 @@ config = ExtResource("7_0im8t")
 [resource]
 script = ExtResource("1_nkpw4")
 config = ExtResource("6_86fq3")
-children = Array[ExtResource("1_nkpw4")]([SubResource("Resource_0im8t"), SubResource("Resource_qk4lb"), SubResource("Resource_86fq3"), SubResource("Resource_vy3xc"), SubResource("Resource_34j8y"), SubResource("Resource_5otwv"), SubResource("Resource_oa2s6")])
+children = Array[ExtResource("1_nkpw4")]([SubResource("Resource_qk4lb"), SubResource("Resource_86fq3"), SubResource("Resource_vy3xc"), SubResource("Resource_34j8y"), SubResource("Resource_5otwv"), SubResource("Resource_oa2s6"), SubResource("Resource_aa4xq"), SubResource("Resource_3umne")])
 children_dict = Dictionary[String, ExtResource("1_nkpw4")]({
-"BarrackComponent": SubResource("Resource_34j8y"),
-"BirthComponent": SubResource("Resource_0im8t"),
-"SelectComponent": SubResource("Resource_qk4lb"),
-"SellComponent": SubResource("Resource_5otwv"),
+"AnimatedSpriteComponent": SubResource("Resource_qk4lb"),
+"BarrackComponent": SubResource("Resource_oa2s6"),
+"BirthComponent": SubResource("Resource_vy3xc"),
+"SelectComponent": SubResource("Resource_34j8y"),
+"SellComponent": SubResource("Resource_aa4xq"),
 "SpriteComponent": SubResource("Resource_86fq3"),
-"TowerComponent": SubResource("Resource_vy3xc"),
-"UpgradeComponent": SubResource("Resource_oa2s6")
+"TowerComponent": SubResource("Resource_5otwv"),
+"UpgradeComponent": SubResource("Resource_3umne")
 })

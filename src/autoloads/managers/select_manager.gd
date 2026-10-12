@@ -111,7 +111,7 @@ func _process_select_mode() -> void:
 				rally_min_range,
 				rally_max_range
 			):
-				barrack_c.set_rally_center_global_position(mouse_global_position, true)
+				barrack_c.set_all_rally_center_global_position(mouse_global_position, true)
 			else:
 				var angle: float = entity_global_position.angle_to_point(mouse_global_position)
 				
@@ -128,4 +128,4 @@ func _process_select_mode() -> void:
 						rally_max_range,
 						angle
 					)
-				barrack_c.set_rally_center_global_position(rally_center_global_position, true)
+				barrack_c.set_all_rally_center_global_position(rally_center_global_position, true)

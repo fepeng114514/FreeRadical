@@ -62,9 +62,9 @@ func _show(entity: Entity) -> void:
 		_create_range_info_circle(barrack_rally_range_info_scene, entity)
 
 		var barrack_record: BarrackRecord = selected_entity.get_node_or_null(Constants.BARRACK_RECORD_NODE_PATH)
-		var soldier_list: Array[Entity] = barrack_record.soldier_list
-		if soldier_list:
-			var soldier: Entity = soldier_list[0]
+		var soldier_ids: PackedInt32Array = barrack_record.soldier_ids
+		if soldier_ids:
+			var soldier: Entity = EntityManager.get_entity_by_id(soldier_ids[0])
 			var soldier_melee_c: MeleeComponent = soldier.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 			if soldier_melee_c:
 				_create_range_info_circle(melee_range_info_scene, soldier, entity)

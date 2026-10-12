@@ -17,8 +17,8 @@ var rally_center_global_position := Vector2.ZERO:
 	set(v):
 		rally_center_global_position = v
 		queue_redraw()
-## 生成的士兵列表。
-var soldier_list: Array[Entity] = []
+## 生成的士兵 ID 列表。
+var soldier_ids := PackedInt32Array()
 
 
 func _draw() -> void:
@@ -41,7 +41,7 @@ func _draw() -> void:
 func transmit_record(record: BarrackRecord) -> void:
 	default_rally_center_position = record.default_rally_center_position
 	rally_center_global_position = record.rally_center_global_position
-	soldier_list = record.soldier_list
+	soldier_ids = record.soldier_ids
 
 
 static func get_not_found_configuration_warnings(p_parent: Node) -> PackedStringArray:

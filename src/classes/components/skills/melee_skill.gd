@@ -18,6 +18,7 @@ class_name MeleeSkill
 func _draw() -> void:
 	if not config:
 		return
+		
 	if DebugManager.draw_range_enabled:
 		if config.influence:
 			config.influence.draw_influence_range(self, position)

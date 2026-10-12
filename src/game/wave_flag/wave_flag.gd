@@ -56,7 +56,7 @@ func _ready() -> void:
 	texture_button.pressed.connect(_on_pressed)
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
-	WaveManager.wave_released.connect(_on_release_wave)
+	WaveManager.wave_sended.connect(_on_wave_sended)
 	
 	arrow.rotation = arrow_rotation
 	arrow_glow.rotation = arrow_rotation
@@ -114,9 +114,9 @@ func _hide() -> void:
 	modulate = Color.WHITE
 
 
-func _on_release_wave(_wave_index: int) -> void:
+func _on_wave_sended(_wave_index: int) -> void:
 	_hide()
 
 
 func _on_pressed() -> void:
-	WaveManager.is_release_wave = true
+	WaveManager.is_send_wave = true

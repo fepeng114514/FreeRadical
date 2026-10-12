@@ -12,7 +12,7 @@ func _on_first_update(entity: Entity) -> void:
 
 	AudioManager.play_sfx(birth_c.config.birth_sfx)
 	var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
-	var birth_animation: AnimationGroup = animated_sprite_c.config.birth_animation
+	var birth_animation: AnimationGroup = birth_c.config.birth_animation
 	if not birth_animation:
 		return
 

@@ -13,10 +13,10 @@ class_name BarrackComponent
 		update_configuration_warnings()
 		queue_redraw()
 
-## 时间戳（秒）
-var timestamp: float = 0.0
-## 上一次生成的士兵数量。
-var last_soldier_count: int = 0
+## 生成士兵的时间戳（秒）
+var spawn_timestamp: float = 0.0
+## 是否需要重置集结点全局位置。
+var need_reset_rally_center_global_position: bool = false
 
 
 func _draw() -> void:
@@ -66,8 +66,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 
 
-## 设置新集结点全局位置。
-func set_rally_center_global_position(
+## 设置所有士兵的集结点全局位置。
+func set_all_rally_center_global_position(
 		center_global_position: Vector2, 
 		is_forced: bool = false,
 		play_sfx: bool = true
@@ -77,19 +77,29 @@ func set_rally_center_global_position(
 		
 	var barrack_record: BarrackRecord = parent.get_node_or_null(Constants.BARRACK_RECORD_NODE_PATH)
 	barrack_record.rally_center_global_position = center_global_position
-	var soldier_list: Array[Entity] = barrack_record.soldier_list
-	var soldier_list_size: int = soldier_list.size()
+	var soldier_ids: PackedInt32Array = barrack_record.soldier_ids
+	var soldier_size: int = soldier_ids.size()
+	for soldier_index: int in soldier_size:
+		var soldier: Entity = EntityManager.get_entity_by_id(soldier_ids[soldier_index])
+		set_rally_center_global_position(center_global_position, soldier, soldier_index, soldier_size, is_forced)
+
+
+## 设置单个士兵的集结点全局位置。
+func set_rally_center_global_position(
+		center_global_position: Vector2, 
+		soldier: Entity,
+		soldier_index: int,
+		soldier_count: int,
+		is_forced: bool = false,
+	) -> void:
+	var soldier_rally_c: RallyComponent = soldier.get_node_or_null(Constants.RALLY_COMPONENT_NODE_PATH)
+	var formation_position: Vector2 = to_formation_position(center_global_position, soldier_count, soldier_index)
+	soldier_rally_c.new_rally_global_position(soldier, formation_position, is_forced, center_global_position, false)
 	
-	for soldier_index: int in soldier_list_size:
-		var soldier: Entity = soldier_list[soldier_index]
-		var soldier_rally_c: RallyComponent = soldier.get_node_or_null(Constants.RALLY_COMPONENT_NODE_PATH)
-		var formation_position: Vector2 = to_formation_position(center_global_position, soldier_list_size, soldier_index)
-		soldier_rally_c.new_rally_global_position(soldier, formation_position, is_forced, center_global_position, false)
-		
-		var melee_c: MeleeComponent = soldier.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
-		if melee_c:
-			melee_c.original_global_position = formation_position
-	
+	var melee_c: MeleeComponent = soldier.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
+	if melee_c:
+		melee_c.original_global_position = formation_position
+
 
 ## 将位置转换为阵型位置。
 func to_formation_position(center_position: Vector2, count: int, index: int) -> Vector2:

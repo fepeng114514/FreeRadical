@@ -42,7 +42,7 @@ func _exit_tree() -> void:
 
 
 func _ready() -> void:
-	WaveManager.first_wave_released.connect(_on_first_wave_released)
+	WaveManager.first_wave_sended.connect(_on_first_wave_sended)
 
 	GameManager.cash = cash
 	GameManager.life = life
@@ -53,6 +53,6 @@ func _ready() -> void:
 		AudioManager.play_music(ready_music)
 
 
-func _on_first_wave_released() -> void:
+func _on_first_wave_sended() -> void:
 	GameManager.is_battling = true
 	AudioManager.play_music(battle_music)

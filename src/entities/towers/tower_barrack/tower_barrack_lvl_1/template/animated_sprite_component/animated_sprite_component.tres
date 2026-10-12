@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AnimatedSpriteComponentNodeConfig" format=3 uid="uid://buaqd2dt0d4rv"]
+
+[ext_resource type="Script" uid="uid://4qeyoce8d6l0" path="res://classes/node_configs/components/animated_sprite_component_node_config.gd" id="1_5lwmc"]
+[ext_resource type="Resource" uid="uid://6v7qe326x75" path="res://entities/resources/animation_groups/any_idle_animation_group.tres" id="1_bmphn"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_5lwmc")
+idle_animation = ExtResource("1_bmphn")

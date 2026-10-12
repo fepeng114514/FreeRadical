@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="BarrackComponentNodeConfig" format=3 uid="uid://cnvy06cv2qwop"]
 
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_ewvbl"]
+[ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack/tower_barrack_birth_sfx.tres" id="1_fy8pb"]
 [ext_resource type="Script" uid="uid://t3k6wl7of3fr" path="res://classes/node_configs/components/barrack_component_node_config.gd" id="1_vevkq"]
-[ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack/tower_barrack_birth_sfx.tres" id="2_fy8pb"]
 [ext_resource type="Resource" uid="uid://br3xlagaeimgi" path="res://entities/resources/select_menu_button_data/rally.tres" id="4_fy8pb"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="4_tabl8"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="5_f4pwi"]
@@ -10,7 +10,6 @@
 [sub_resource type="Resource" id="Resource_lq848"]
 resource_local_to_scene = true
 script = ExtResource("1_ewvbl")
-play_index = 1
 any = &"spawn"
 
 [sub_resource type="Resource" id="Resource_2u03i"]
@@ -29,7 +28,7 @@ script = ExtResource("1_vevkq")
 select_menu_rally_button_data = ExtResource("4_fy8pb")
 rally_max_range = 340.0
 rally_radius = 45.0
-rally_sfx = ExtResource("2_fy8pb")
+rally_sfx = ExtResource("1_fy8pb")
 soldier_scene = "uid://bg7aeaobp45q8"
 spawn_offsets = SubResource("Resource_2u03i")
 spawn_animation = SubResource("Resource_lq848")

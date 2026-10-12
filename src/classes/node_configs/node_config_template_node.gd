@@ -44,7 +44,7 @@ func get_node_config(node_path: NodePath) -> NodeConfig:
 			continue
 
 		node = node.children_dict.get(path_name)
-		if node == null:
+		if not node:
 			return null
 
 	return node.config

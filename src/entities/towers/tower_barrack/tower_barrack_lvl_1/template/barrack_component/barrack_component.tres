@@ -10,7 +10,6 @@
 [sub_resource type="Resource" id="Resource_xe47h"]
 resource_local_to_scene = true
 script = ExtResource("1_ifbiy")
-play_index = 1
 any = &"spawn"
 
 [sub_resource type="Resource" id="Resource_2u03i"]

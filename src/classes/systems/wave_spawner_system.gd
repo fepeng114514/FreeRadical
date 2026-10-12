@@ -47,7 +47,7 @@ func _on_update(_delta: float) -> void:
 					WaveManager.current_wave_pathway_indexes.append(spawn.pathway_index)
 			
 			WaveManager.wave_timer_started.emit(wave_index)
-			WaveManager.is_release_wave = false
+			WaveManager.is_send_wave = false
 			WaveManager.can_emit_wave_timer_finished = true
 
 		if WaveManager.is_skip_wave:
@@ -55,17 +55,17 @@ func _on_update(_delta: float) -> void:
 			wave_queue.pop_front()
 			Log.debug("跳过波次: %d" % (wave_index + 1))
 		else:
-			# 第一个波次需要等待玩家主动释放
+			# 第一个波次需要等待玩家主动发送
 			if wave_index == 0:
-				if not WaveManager.is_release_wave:
+				if not WaveManager.is_send_wave:
 					continue
 
-				if WaveManager.can_emit_first_wave_released:
-					WaveManager.can_emit_first_wave_released = false
-					WaveManager.first_wave_released.emit()
+				if WaveManager.can_emit_first_wave_sended:
+					WaveManager.can_emit_first_wave_sended = false
+					WaveManager.first_wave_sended.emit()
 			else:
 				wave.try_set_timestamp()
-				if not wave.is_elapsed_time(wave.interval) and not WaveManager.is_release_wave:
+				if not wave.is_elapsed_time(wave.interval) and not WaveManager.is_send_wave:
 					WaveManager.wave_timer_progress.emit(TimeManager.tick_timestamp - wave.timestamp / wave.interval)
 					continue
 
@@ -75,9 +75,9 @@ func _on_update(_delta: float) -> void:
 
 			if wave.is_first_elapsed_time:
 				wave.is_first_elapsed_time = false
-				Log.debug(">>> 释放波次: %d" % (wave_index + 1))
+				Log.debug(">>> 发送波次: %d" % (wave_index + 1))
 				AudioManager.play_sfx(wave_spawner_c_config.wave_timer_finish_sfx)
-				WaveManager.wave_released.emit(wave_index)
+				WaveManager.wave_sended.emit(wave_index)
 
 			_process_sub_wave(wave)
 
@@ -88,10 +88,10 @@ func _on_update(_delta: float) -> void:
 					
 			if wave.sub_wave_queue.size() == 0:
 				wave_queue.pop_front()
-				Log.debug("波次释放完毕: %d" % (wave_index + 1))
+				Log.debug("波次发送完毕: %d" % (wave_index + 1))
 
 		if wave_queue.size() == 0 and not WaveManager.is_waves_finished:
-			Log.debug("=======所有波次释放完毕=======")
+			Log.debug("=======所有波次发送完毕=======")
 			WaveManager.is_waves_finished = true
 			WaveManager.waves_finished.emit()
 

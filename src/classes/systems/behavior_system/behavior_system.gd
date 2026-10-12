@@ -47,8 +47,6 @@ func _on_update(_delta: float) -> void:
 		if entity.is_waiting() or entity.state & Entity.State.DEAD:
 			continue
 
-		var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
-
 		var is_break: bool = false
 		for behavior_index: int in _behavior_list_size:
 			var behavior: Behavior = _behavior_list[behavior_index]
@@ -62,6 +60,8 @@ func _on_update(_delta: float) -> void:
 				break
 			
 		if not is_break:
-			animated_sprite_c.play_idle_animation(entity)
+			var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
+			if animated_sprite_c:
+				animated_sprite_c.play_idle_animation(entity)
 			
 			

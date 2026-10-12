@@ -1,7 +1,6 @@
 extends TextureProgressBar
 
 
-
 @export var tween_duration: float = 0.1
 
 var value_tween: Tween = null
@@ -9,7 +8,6 @@ var value_tween: Tween = null
 
 func _ready() -> void:
 	ChangeSceneManager.loading_progress.connect(_on_loading_progress)
-
 	value = 0.0
 
 

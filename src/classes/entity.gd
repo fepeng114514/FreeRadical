@@ -97,7 +97,7 @@ var has_new_aimed_bullet: bool = false
 ## 状态。
 var state: int = Entity.State.IDLE
 ## 元状态。
-var meta_state: int = Entity.MetaState.NONE
+var meta_state: int = Entity.MetaState.FIRST_UPDATE
 ## 面朝的全局位置。
 var facing_global_position := Vector2.INF
 #endregion
