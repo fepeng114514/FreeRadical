@@ -45,7 +45,6 @@ config = ExtResource("4_sqn5f")
 metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1575606029]
-show_behind_parent = true
 script = ExtResource("3_8uk84")
 config = ExtResource("4_rggky")
 metadata/_custom_type_script = "uid://h0vi2yntn7hg"

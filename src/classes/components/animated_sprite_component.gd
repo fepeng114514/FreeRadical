@@ -17,7 +17,6 @@ class_name AnimatedSpriteComponent
 func _ready() -> void:
 	super()
 	
-	show_behind_parent = true
 	process_mode = Node.PROCESS_MODE_INHERIT
 
 
@@ -145,7 +144,7 @@ func y_wait_animation(
 			Log.verbose("%s 中断等待动画: %s" % [self, animated_sprite.animation])
 			break
 
-	entity.state &= ~(Entity.State.WAITING | Entity.State.INTERRUPT_WAIT)
+	entity.clear_waiting()
 	return is_break
 
 

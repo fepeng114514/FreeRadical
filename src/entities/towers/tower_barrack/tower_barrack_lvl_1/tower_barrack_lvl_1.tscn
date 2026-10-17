@@ -39,13 +39,12 @@ config = ExtResource("4_hepk2")
 metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=845523708]
-show_behind_parent = true
+position = Vector2(0, -48)
 script = ExtResource("3_45dgx")
 config = ExtResource("4_pshwp")
 metadata/_custom_type_script = "uid://h0vi2yntn7hg"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatedSpriteComponent" unique_id=1766989563]
-position = Vector2(0, -48)
 sprite_frames = ExtResource("5_3ddwr")
 animation = &"idle"
 

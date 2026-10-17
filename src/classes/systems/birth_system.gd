@@ -18,3 +18,5 @@ func _on_first_update(entity: Entity) -> void:
 
 	animated_sprite_c.play_animation(entity, birth_animation)
 	await animated_sprite_c.y_wait_animation(entity, birth_animation)
+
+	animated_sprite_c.play_idle_animation(entity)

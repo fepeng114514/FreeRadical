@@ -34,18 +34,12 @@ func get_elapsed_time(timestamp: float) -> float:
 		
 ## 协程等待指定时长。[br][br]
 ## [param break_fn]: 中断函数。返回 [code]true[/code] 表示中断等待。
-func y_wait(duration: float = 0.0, break_fn: Callable = Callable()) -> bool:
-	if duration <= 0:
-		return false
-
+func y_wait(duration: float, break_fn: Callable = Callable()) -> bool:
 	var timestamp: float = tick_timestamp
-	var is_break: bool = false
 	while not has_elapsed(timestamp, duration):
-		is_break = break_fn.call() if break_fn.is_valid() else false
-		if is_break:
-			break
+		if break_fn.is_valid() and break_fn.call():
+			return true
 
 		await get_tree().process_frame
-
-	return is_break
 		
+	return false

@@ -14,7 +14,6 @@ node_config_template = ExtResource("2_4blvt")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1198188457]
-show_behind_parent = true
 script = ExtResource("3_qp855")
 config = ExtResource("4_mk8s3")
 metadata/_custom_type_script = "uid://h0vi2yntn7hg"

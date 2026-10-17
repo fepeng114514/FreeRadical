@@ -33,13 +33,12 @@ config = ExtResource("4_ht1qk")
 metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1207973606]
-show_behind_parent = true
+position = Vector2(-1, -33)
 script = ExtResource("3_t7n0r")
 config = ExtResource("4_5y1vu")
 metadata/_custom_type_script = "uid://h0vi2yntn7hg"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatedSpriteComponent" unique_id=793888686]
-position = Vector2(-1, -33)
 sprite_frames = ExtResource("2_d1vad")
 animation = &"idle"
 

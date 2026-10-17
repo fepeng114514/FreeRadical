@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bvjluqokntevv" path="res://game/setting_canvas_layer/setting_canvas_layer.tscn" id="17_yx81m"]
 [ext_resource type="Script" uid="uid://bhueujkwgexkx" path="res://classes/systems/aura_system.gd" id="18_xwq3r"]
 [ext_resource type="Script" uid="uid://cbcje4j81kvmp" path="res://classes/systems/modifier_system.gd" id="19_a63l3"]
+[ext_resource type="Script" uid="uid://cbdggjy3qidxh" path="res://classes/systems/barrack_system.gd" id="19_vab6w"]
 [ext_resource type="Script" uid="uid://bu47hvw5yociy" path="res://classes/systems/tower_system.gd" id="20_2any3"]
 [ext_resource type="Script" uid="uid://ch7tw5a5qflj7" path="res://classes/systems/bullet_system.gd" id="21_vab6w"]
 [ext_resource type="Script" uid="uid://dwbh7vjakpq82" path="res://classes/systems/animated_sprite_system.gd" id="22_ludxb"]
@@ -121,6 +122,9 @@ script = ExtResource("22_ludxb")
 
 [node name="FXSystem" type="Node" parent="Systems" unique_id=897972873]
 script = ExtResource("23_abru4")
+
+[node name="BarrackSystem" type="Node" parent="Systems" unique_id=1372120136]
+script = ExtResource("19_vab6w")
 
 [node name="BehaviorSystem" type="Node" parent="Systems" unique_id=9591384]
 script = ExtResource("24_q0lul")

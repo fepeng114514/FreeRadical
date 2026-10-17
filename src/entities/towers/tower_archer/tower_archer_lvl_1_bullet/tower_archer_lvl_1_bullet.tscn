@@ -14,18 +14,17 @@ script = ExtResource("1_rrxgg")
 node_config_template = ExtResource("2_2nry3")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="BulletComponent" type="Node2D" parent="." unique_id=1871836864]
-process_mode = 4
-script = ExtResource("4_b28fs")
-config = ExtResource("5_negtv")
-metadata/_custom_type_script = "uid://haoljvofy74e"
-
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1496253429]
 process_mode = 4
-show_behind_parent = true
 script = ExtResource("6_aiwt6")
 config = ExtResource("9_l2ko3")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1900013004]
 texture = ExtResource("6_2nry3")
+
+[node name="BulletComponent" type="Node2D" parent="." unique_id=1871836864]
+process_mode = 4
+script = ExtResource("4_b28fs")
+config = ExtResource("5_negtv")
+metadata/_custom_type_script = "uid://haoljvofy74e"

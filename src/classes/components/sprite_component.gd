@@ -12,9 +12,3 @@ class_name SpriteComponent
 		config = v
 		update_configuration_warnings()
 		queue_redraw()
-
-
-func _ready() -> void:
-	super()
-	
-	show_behind_parent = true

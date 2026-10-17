@@ -15,13 +15,12 @@ node_config_template = ExtResource("2_ht64b")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=2094416056]
-show_behind_parent = true
+position = Vector2(12, 0)
 script = ExtResource("3_4dwhd")
 config = ExtResource("4_6yicv")
 metadata/_custom_type_script = "uid://h0vi2yntn7hg"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatedSpriteComponent" unique_id=435859138]
-position = Vector2(12, 0)
 sprite_frames = ExtResource("7_gmlh4")
 animation = &"flying_left_right"
 

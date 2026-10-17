@@ -13,12 +13,11 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=753402732]
 process_mode = 4
-show_behind_parent = true
+modulate = Color(1, 1, 1, 0.69803923)
 position = Vector2(-1, -33)
 script = ExtResource("4_jt41o")
 config = ExtResource("4_yi3c8")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1097269827]
-modulate = Color(1, 1, 1, 0.69803923)
 texture = ExtResource("2_oinjk")

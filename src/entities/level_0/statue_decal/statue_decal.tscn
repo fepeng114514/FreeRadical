@@ -13,11 +13,10 @@ metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1436095405]
 process_mode = 4
-show_behind_parent = true
+position = Vector2(0, -208)
 script = ExtResource("4_lgqwx")
 config = ExtResource("5_nx2ef")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=1577114566]
-position = Vector2(0, -208)
 texture = ExtResource("3_uklca")

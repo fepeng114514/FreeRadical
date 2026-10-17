@@ -46,15 +46,6 @@ func _on_update(barrack: Entity) -> bool:
 		_spawn_by_time(barrack, barrack_c, barrack_record)
 		return true
 
-	if barrack_c.need_reset_rally_center_global_position:
-		barrack_c.need_reset_rally_center_global_position = false
-		
-		var soldier_ids: PackedInt32Array = barrack_record.soldier_ids
-		var soldier_ids_size: int = barrack_record.soldier_ids.size()
-		for soldier_index: int in soldier_ids_size:
-			var soldier: Entity = EntityManager.get_entity_by_id(soldier_ids[soldier_index])
-			barrack_c.set_rally_center_global_position(barrack_record.rally_center_global_position, soldier, soldier_index, soldier_ids_size)
-	
 	return false
 
 

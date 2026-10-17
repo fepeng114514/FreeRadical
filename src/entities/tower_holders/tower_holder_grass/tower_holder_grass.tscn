@@ -39,7 +39,6 @@ script = ExtResource("5_jc0hh")
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=974667319]
 process_mode = 4
-show_behind_parent = true
 position = Vector2(0, -10)
 script = ExtResource("6_lcah3")
 config = ExtResource("5_gxhsy")

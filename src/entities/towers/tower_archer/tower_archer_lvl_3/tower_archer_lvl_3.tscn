@@ -26,6 +26,16 @@ script = ExtResource("1_mtrj1")
 node_config_template = ExtResource("2_mtrj1")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=40235501]
+process_mode = 4
+position = Vector2(0, -49)
+script = ExtResource("8_3muqt")
+config = ExtResource("7_3muqt")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=708564869]
+texture = ExtResource("3_hr80x")
+
 [node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=1771077795]
 process_mode = 4
 script = ExtResource("3_h1wx0")
@@ -63,17 +73,6 @@ process_mode = 4
 script = ExtResource("6_j5vjg")
 config = ExtResource("16_athh1")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
-
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=40235501]
-process_mode = 4
-show_behind_parent = true
-script = ExtResource("8_3muqt")
-config = ExtResource("7_3muqt")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
-
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=708564869]
-position = Vector2(0, -49)
-texture = ExtResource("3_hr80x")
 
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1705871166]
 script = ExtResource("11_7m00f")

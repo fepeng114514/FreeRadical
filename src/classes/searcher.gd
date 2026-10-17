@@ -154,7 +154,7 @@ func search_targets(center: Vector2, entity: Entity = null, filter := Callable()
 		)
 	)
 	if interact_policy_flag_sort_prioritys.size() == 0:
-		_sort_entities(targets, center)
+		_sort_targets(targets, center)
 	else:
 		var buckets: Dictionary[InteractPolicyComponent.EntityFlag, Array] = {}
 		var other_entities: Array[Entity] = []
@@ -186,10 +186,10 @@ func search_targets(center: Vector2, entity: Entity = null, filter := Callable()
 				continue
 				
 			var bucket: Array = buckets[flag]
-			_sort_entities(bucket, center)
+			_sort_targets(bucket, center)
 			new_targets.append_array(bucket)
 
-		_sort_entities(other_entities, center)
+		_sort_targets(other_entities, center)
 		new_targets.append_array(other_entities)
 		targets = new_targets
 
@@ -240,14 +240,14 @@ func _skip_doomed_filter(target: Entity) -> bool:
 
 
 ## 跳过已死亡目标过滤器。
-func _skip_dead_filter(entity: Entity) -> bool:
-	return not entity.state & Entity.State.DEAD
+func _skip_dead_filter(target: Entity) -> bool:
+	return not target.state & Entity.State.DEAD
 #endregion
 
 
 #region 排序
 ## 排序实体数组。
-func _sort_entities(entity_array: Array[Entity], search_global_position: Vector2) -> void:
+func _sort_targets(targets: Array[Entity], search_global_position: Vector2) -> void:
 	var sort_function: Callable = Callable()
 	match sort_mode:
 		SortMode.PROGRESS: sort_function = _sort_by_progress
@@ -258,120 +258,120 @@ func _sort_entities(entity_array: Array[Entity], search_global_position: Vector2
 		SortMode.RANGED_DAMAGE: sort_function = _sort_by_ranged_damage
 		SortMode.ID: sort_function = _sort_by_id
 		SortMode.RANDOM:
-			entity_array.shuffle()
+			targets.shuffle()
 			return
 
-	entity_array.sort_custom(sort_function)
+	targets.sort_custom(sort_function)
 
 
 ## 排序模式: 路程。
-func _sort_by_progress(entity1: Entity, entity2: Entity) -> bool:
-	var progress1: float = INF if sort_ascending_enabled else -INF
-	var progress2: float = INF if sort_ascending_enabled else -INF
+func _sort_by_progress(a: Entity, b: Entity) -> bool:
+	var progress_a: float = INF if sort_ascending_enabled else -INF
+	var progress_b: float = INF if sort_ascending_enabled else -INF
 
-	var entity1_nav_path_c: NavPathComponent = entity1.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
-	if entity1_nav_path_c:
-		progress1 = entity1_nav_path_c.progress
+	var nav_path_c_a: NavPathComponent = a.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
+	if nav_path_c_a:
+		progress_a = nav_path_c_a.progress
 
-	var entity2_nav_path_c: NavPathComponent = entity2.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
-	if entity2_nav_path_c:
-		progress2 = entity2_nav_path_c.progress
+	var nav_path_c_b: NavPathComponent = b.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
+	if nav_path_c_b:
+		progress_b = nav_path_c_b.progress
 
-	return progress1 < progress2 if sort_ascending_enabled else progress1 > progress2
+	return progress_a < progress_b if sort_ascending_enabled else progress_a > progress_b
 
 
 ## 排序模式: 血量。
-func _sort_by_health(entity1: Entity, entity2: Entity) -> bool:
-	var hp1: float = INF if sort_ascending_enabled else -INF
-	var hp2: float = INF if sort_ascending_enabled else -INF
+func _sort_by_health(a: Entity, b: Entity) -> bool:
+	var hp_a: float = INF if sort_ascending_enabled else -INF
+	var hp_b: float = INF if sort_ascending_enabled else -INF
 
-	var entity1_health_c: HealthComponent = entity1.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
-	if entity1_health_c:
-		hp1 = entity1_health_c.hp
-	var entity2_health_c: HealthComponent = entity2.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
-	if entity2_health_c:
-		hp2 = entity2_health_c.hp
+	var health_c_a: HealthComponent = a.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
+	if health_c_a:
+		hp_a = health_c_a.hp
+	var health_c_b: HealthComponent = b.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
+	if health_c_b:
+		hp_b = health_c_b.hp
 
-	return hp1 < hp2 if sort_ascending_enabled else hp1 > hp2
+	return hp_a < hp_b if sort_ascending_enabled else hp_a > hp_b
 
 
 ## 排序模式: 赏金。
-func _sort_by_gold(entity1: Entity, entity2: Entity) -> bool:
-	var gold1: float = INF
-	var gold2: float = INF
+func _sort_by_gold(a: Entity, b: Entity) -> bool:
+	var gold_a: float = INF
+	var gold_b: float = INF
 
-	var entity1_health_c: HealthComponent = entity1.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
-	if entity1_health_c:
-		gold1 = entity1_health_c.config.death_gold
-	var entity2_health_c: HealthComponent = entity2.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
-	if entity2_health_c:
-		gold2 = entity2_health_c.config.death_gold
+	var health_c_a: HealthComponent = a.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
+	if health_c_a:
+		gold_a = health_c_a.config.death_gold
+	var health_c_b: HealthComponent = b.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
+	if health_c_b:
+		gold_b = health_c_b.config.death_gold
 
-	return gold1 < gold2 if sort_ascending_enabled else gold1 > gold2
+	return gold_a < gold_b if sort_ascending_enabled else gold_a > gold_b
 
 
 ## 排序模式: 距离。
-func _sort_by_distance(entity1: Entity, entity2: Entity, search_global_position: Vector2) -> bool:
-	var distance1: float = entity1.global_position.distance_squared_to(search_global_position)
-	var distance2: float = entity2.global_position.distance_squared_to(search_global_position)
+func _sort_by_distance(a: Entity, b: Entity, search_global_position: Vector2) -> bool:
+	var distance_a: float = a.global_position.distance_squared_to(search_global_position)
+	var distance_b: float = b.global_position.distance_squared_to(search_global_position)
 
-	return distance1 < distance2 if sort_ascending_enabled else distance1 > distance2
+	return distance_a < distance_b if sort_ascending_enabled else distance_a > distance_b
 
 
 ## 排序模式: 近战伤害。
-func _sort_by_melee_damage(entity1: Entity, entity2: Entity) -> bool:
-	var melee_damage1: float = INF if sort_ascending_enabled else -INF
-	var melee_damage2: float = INF if sort_ascending_enabled else -INF
+func _sort_by_melee_damage(a: Entity, b: Entity) -> bool:
+	var melee_damage_a: float = INF if sort_ascending_enabled else -INF
+	var melee_damage_b: float = INF if sort_ascending_enabled else -INF
 	
-	var entity1_melee_c: MeleeComponent = entity1.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
-	if entity1_melee_c:
-		var first_melee_skill := entity1_melee_c.get_child(0) as MeleeSkill
+	var a_melee_c: MeleeComponent = a.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
+	if a_melee_c:
+		var first_melee_skill := a_melee_c.get_child(0) as MeleeSkill
 		if first_melee_skill:
 			var damage_influence := first_melee_skill.config.influence as DamageInfluence
 			if damage_influence:
-				melee_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
-	var entity2_melee_c: MeleeComponent = entity2.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
-	if entity2_melee_c:
-		var first_melee_skill := entity2_melee_c.get_child(0) as MeleeSkill
+				melee_damage_a = (damage_influence.min_value + damage_influence.damage_max) / 2.0
+	var b_melee_c: MeleeComponent = b.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
+	if b_melee_c:
+		var first_melee_skill := b_melee_c.get_child(0) as MeleeSkill
 		if first_melee_skill:
 			var damage_influence := first_melee_skill.config.influence as DamageInfluence
 			if damage_influence:
-				melee_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
+				melee_damage_b = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 
-	return melee_damage1 < melee_damage2 if sort_ascending_enabled else melee_damage1 > melee_damage2
+	return melee_damage_a < melee_damage_b if sort_ascending_enabled else melee_damage_a > melee_damage_b
 
 
 ## 排序模式: 远程伤害。
-func _sort_by_ranged_damage(entity1: Entity, entity2: Entity) -> bool:
-	var ranged_damage1: float = INF if sort_ascending_enabled else -INF
-	var ranged_damage2: float = INF if sort_ascending_enabled else -INF
+func _sort_by_ranged_damage(a: Entity, b: Entity) -> bool:
+	var ranged_damage_a: float = INF if sort_ascending_enabled else -INF
+	var ranged_damage_b: float = INF if sort_ascending_enabled else -INF
 		
-	var entity1_skill_c: SkillComponent = entity1.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
-	if entity1_skill_c:
-		var first_ranged_skill := entity1_skill_c.get_child(0) as RangedSkill
+	var a_skill_c: SkillComponent = a.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
+	if a_skill_c:
+		var first_ranged_skill := a_skill_c.get_child(0) as RangedSkill
 		if first_ranged_skill:
 			var bullet_template: NodeConfigTemplateNode = NodeConfigManager.get_node_config_template_by_entity_uid(first_ranged_skill.config.bullet_scene)
 			var bullet_c_config: BulletComponentNodeConfig = bullet_template.get_node_config(Constants.BULLET_COMPONENT_NODE_PATH)
 			var damage_influence := bullet_c_config.influence as DamageInfluence
 			if damage_influence:
-				ranged_damage1 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
-	var entity2_skill_c: SkillComponent = entity2.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
-	if entity2_skill_c:
-		var first_ranged_skill := entity2_skill_c.get_child(0) as RangedSkill
+				ranged_damage_a = (damage_influence.min_value + damage_influence.damage_max) / 2.0
+	var b_skill_c: SkillComponent = b.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
+	if b_skill_c:
+		var first_ranged_skill := b_skill_c.get_child(0) as RangedSkill
 		if first_ranged_skill:
 			var bullet_template: NodeConfigTemplateNode = NodeConfigManager.get_node_config_template_by_entity_uid(first_ranged_skill.config.bullet_scene)
 			var bullet_c_config: BulletComponentNodeConfig = bullet_template.get_node_config(Constants.BULLET_COMPONENT_NODE_PATH)
 			var damage_influence := bullet_c_config.influence as DamageInfluence
 			if damage_influence:
-				ranged_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
+				ranged_damage_b = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 
-	return ranged_damage1 < ranged_damage2 if sort_ascending_enabled else ranged_damage1 > ranged_damage2
+	return ranged_damage_a < ranged_damage_b if sort_ascending_enabled else ranged_damage_a > ranged_damage_b
 
 
 ## 排序模式: 实体 ID。
-func _sort_by_id(entity1: Entity, entity2: Entity) -> bool:
-	var id1: int = entity1.id
-	var id2: int = entity2.id
+func _sort_by_id(a: Entity, b: Entity) -> bool:
+	var id_a: int = a.id
+	var id_b: int = b.id
 	
-	return id1 < id2 if sort_ascending_enabled else id1 > id2
+	return id_a < id_b if sort_ascending_enabled else id_a > id_b
 #endregion

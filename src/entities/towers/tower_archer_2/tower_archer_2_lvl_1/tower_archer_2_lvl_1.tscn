@@ -27,6 +27,21 @@ script = ExtResource("1_lemec")
 node_config_template = ExtResource("2_lemec")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
+[node name="SpriteComponent" type="Node2D" parent="." unique_id=40235501]
+process_mode = 4
+position = Vector2(0, -19)
+scale = Vector2(0.2, 0.2)
+script = ExtResource("8_aygws")
+config = ExtResource("7_aygws")
+metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=708564869]
+z_index = 1
+texture = ExtResource("3_sbvnr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="SpriteComponent" unique_id=2122666225]
+texture = ExtResource("4_2u2im")
+
 [node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=471293424]
 process_mode = 4
 script = ExtResource("3_is3a4")
@@ -65,24 +80,8 @@ script = ExtResource("6_58rs6")
 config = ExtResource("17_5sk8x")
 metadata/_custom_type_script = "uid://bsefx8rn7ytcj"
 
-[node name="SpriteComponent" type="Node2D" parent="." unique_id=40235501]
-process_mode = 4
-show_behind_parent = true
-script = ExtResource("8_aygws")
-config = ExtResource("7_aygws")
-metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
-
-[node name="Sprite2D" type="Sprite2D" parent="SpriteComponent" unique_id=708564869]
-z_index = 1
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("3_sbvnr")
-
-[node name="Sprite2D2" type="Sprite2D" parent="SpriteComponent" unique_id=2122666225]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("4_2u2im")
-
 [node name="TowerComponent" type="Node2D" parent="." unique_id=1705871166]
-position = Vector2(-1.25, 18.48)
+position = Vector2(0, 1)
 script = ExtResource("12_pfu5o")
 config = ExtResource("11_pfu5o")
 metadata/_custom_type_script = "uid://d104itkl6l02e"

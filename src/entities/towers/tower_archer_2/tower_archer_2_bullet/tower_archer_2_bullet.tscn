@@ -14,15 +14,8 @@ script = ExtResource("1_w3wfn")
 node_config_template = ExtResource("2_dghh6")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
-[node name="BulletComponent" type="Node2D" parent="." unique_id=1871836864]
-process_mode = 4
-script = ExtResource("4_dghh6")
-config = ExtResource("4_r0ivv")
-metadata/_custom_type_script = "uid://haoljvofy74e"
-
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1496253429]
 process_mode = 4
-show_behind_parent = true
 script = ExtResource("6_j2cqq")
 config = ExtResource("5_8mtw7")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
@@ -31,3 +24,9 @@ metadata/_custom_type_script = "uid://bsc0okjq4yvxq"
 position = Vector2(0, -1)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("4_pv6bm")
+
+[node name="BulletComponent" type="Node2D" parent="." unique_id=1871836864]
+process_mode = 4
+script = ExtResource("4_dghh6")
+config = ExtResource("4_r0ivv")
+metadata/_custom_type_script = "uid://haoljvofy74e"

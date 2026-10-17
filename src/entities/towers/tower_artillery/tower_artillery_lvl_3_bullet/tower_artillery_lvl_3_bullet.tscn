@@ -22,7 +22,6 @@ metadata/_custom_type_script = "uid://haoljvofy74e"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1496253429]
 process_mode = 4
-show_behind_parent = true
 script = ExtResource("6_8m33b")
 config = ExtResource("11_xo2db")
 metadata/_custom_type_script = "uid://bsc0okjq4yvxq"

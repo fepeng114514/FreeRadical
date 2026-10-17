@@ -161,34 +161,33 @@ func is_waiting() -> bool:
 	return state & (Entity.State.BLOCKING | Entity.State.WAITING | Entity.State.DISABLED)
 
 
+## 清除等待状态。
+func clear_waiting() -> void:
+	state &= ~(Entity.State.WAITING | Entity.State.INTERRUPT_WAIT)
+
+
 ## 协程等待指定时长。[br][br]
 ## [param break_fn]: 中断函数。返回 [code]true[/code] 表示中断等待。
 ## -> 等待是否被中断。
-func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
+func y_wait(duration: float, break_fn: Callable = Callable()) -> bool:
 	state |= Entity.State.WAITING
-
-	Log.verbose("实体等待: %s, %.2fs" % [self, time])
-	if time <= 0:
-		return false
-
+	Log.verbose("实体等待: %s, %.2fs" % [self, duration])
 	var wait_timestamp: float = TimeManager.tick_timestamp
-	var is_break: bool = false
-	while not TimeManager.has_elapsed(wait_timestamp, time):
-		is_break = (
+	while not TimeManager.has_elapsed(wait_timestamp, duration):
+		if (
 			not is_inside_tree()
 			or state & Entity.State.INTERRUPT_WAIT 
 			or break_fn.is_valid() and break_fn.call()
-		)
-		if is_break:
-			Log.verbose("%s 中断等待: %.2fs" % [self, time])
-			break
+		):
+			Log.verbose("%s 中断等待: %.2fs" % [self, duration])
+			clear_waiting()
+			return true
 
 		await get_tree().process_frame
 
-	Log.verbose("实体等待完毕: %s, %.2fs" % [self, time])
-
-	state &= ~(Entity.State.WAITING | Entity.State.INTERRUPT_WAIT)
-	return is_break
+	Log.verbose("实体等待完毕: %s, %.2fs" % [self, duration])
+	clear_waiting()
+	return false
 #endregion
 
 		

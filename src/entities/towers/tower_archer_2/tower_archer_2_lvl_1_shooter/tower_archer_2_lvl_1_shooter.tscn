@@ -16,14 +16,13 @@ node_config_template = ExtResource("2_q560d")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=2118920619]
-show_behind_parent = true
+position = Vector2(0, -23)
+scale = Vector2(0.2, 0.2)
 script = ExtResource("3_824ec")
 config = ExtResource("4_lwgqs")
 metadata/_custom_type_script = "uid://h0vi2yntn7hg"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="AnimatedSpriteComponent" unique_id=1785141033]
-position = Vector2(0, -23)
-scale = Vector2(0.2, 0.2)
 sprite_frames = ExtResource("4_h8m6q")
 animation = &"idle_left_right"
 
