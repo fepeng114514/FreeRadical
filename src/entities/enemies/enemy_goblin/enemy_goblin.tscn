@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_0nemn"]
 [ext_resource type="Resource" uid="uid://ccswcwnkjwg41" path="res://entities/enemies/enemy_goblin/template/node_config_template.tres" id="2_qjarl"]
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_qjarl"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_ujhgg"]
 [ext_resource type="Resource" uid="uid://l3kj4jxjl074" path="res://entities/enemies/enemy_goblin/template/animated_sprite_component/animated_sprite_component.tres" id="4_0nemn"]
+[ext_resource type="Resource" uid="uid://w7tt6xkqtpis" path="res://entities/enemies/enemy_goblin/template/interact_policy_component/interact_policy_component.tres" id="4_g3d7t"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component/health_component.gd" id="4_pvliu"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_component/health_bar.tscn" id="6_ujhgg"]
 [ext_resource type="SpriteFrames" uid="uid://caqtmm3mrtin5" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_goblin.tres" id="6_wqawv"]
@@ -23,6 +25,12 @@
 script = ExtResource("1_0nemn")
 node_config_template = ExtResource("2_qjarl")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=335337952]
+process_mode = 4
+script = ExtResource("3_ujhgg")
+config = ExtResource("4_g3d7t")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1597796509]
 show_behind_parent = true

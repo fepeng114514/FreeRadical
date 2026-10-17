@@ -1,30 +1,30 @@
 [gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://b6q0k62ueghom"]
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_dbas6"]
+[ext_resource type="Resource" uid="uid://diccn4qcqcnlp" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/interact_policy_component/interact_policy_component.tres" id="2_1igw3"]
 [ext_resource type="Resource" uid="uid://dnnxqq63tsl2k" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/animated_sprite_component/animated_sprite_component.tres" id="2_lt8qe"]
 [ext_resource type="Resource" uid="uid://c8xxdpd85x2bf" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/birth_component/birth_component.tres" id="3_1igw3"]
 [ext_resource type="Resource" uid="uid://by5sx6mykjdgq" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/tower_component/tower_component.tres" id="3_vdo11"]
 [ext_resource type="Resource" uid="uid://dltp6k26x5gyk" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/select_component/select_component.tres" id="4_1igw3"]
 [ext_resource type="Resource" uid="uid://cowi0m6vkn3el" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/skill_component/ranged_skill/ranged_skill.tres" id="5_fy41s"]
 [ext_resource type="Resource" uid="uid://cefhc1naedxha" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/skill_component/skill_component.tres" id="6_mkfke"]
-[ext_resource type="Resource" uid="uid://b6uj5hbxrd1bb" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/tower_artillery_lvl_1.tres" id="7_iw6k7"]
 [ext_resource type="Resource" uid="uid://c4gsjkf8ria65" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/sell_component/sell_component.tres" id="7_vdo11"]
 [ext_resource type="Resource" uid="uid://coj6xo20alnfm" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/upgrade_component/upgrade_component.tres" id="8_1igw3"]
 
 [sub_resource type="Resource" id="Resource_fy41s"]
 script = ExtResource("1_dbas6")
-name = "AnimatedSpriteComponent"
-config = ExtResource("2_lt8qe")
+name = "InteractPolicyComponent"
+config = ExtResource("2_1igw3")
 
 [sub_resource type="Resource" id="Resource_mkfke"]
 script = ExtResource("1_dbas6")
-name = "BirthComponent"
-config = ExtResource("3_1igw3")
+name = "AnimatedSpriteComponent"
+config = ExtResource("2_lt8qe")
 
 [sub_resource type="Resource" id="Resource_iw6k7"]
 script = ExtResource("1_dbas6")
-name = "SelectComponent"
-config = ExtResource("4_1igw3")
+name = "BirthComponent"
+config = ExtResource("3_1igw3")
 children = Array[ExtResource("1_dbas6")]([SubResource("Resource_mkfke")])
 children_dict = Dictionary[String, ExtResource("1_dbas6")]({
 "RangedSkill": SubResource("Resource_mkfke")
@@ -32,13 +32,13 @@ children_dict = Dictionary[String, ExtResource("1_dbas6")]({
 
 [sub_resource type="Resource" id="Resource_t2rgh"]
 script = ExtResource("1_dbas6")
-name = "TowerComponent"
-config = ExtResource("3_vdo11")
+name = "SelectComponent"
+config = ExtResource("4_1igw3")
 
 [sub_resource type="Resource" id="Resource_ey5h4"]
 script = ExtResource("1_dbas6")
-name = "RangedSkill"
-config = ExtResource("5_fy41s")
+name = "TowerComponent"
+config = ExtResource("3_vdo11")
 children = Array[ExtResource("1_dbas6")]([SubResource("Resource_t2rgh")])
 children_dict = Dictionary[String, ExtResource("1_dbas6")]({
 "RangedSkill": SubResource("Resource_t2rgh")
@@ -46,8 +46,8 @@ children_dict = Dictionary[String, ExtResource("1_dbas6")]({
 
 [sub_resource type="Resource" id="Resource_wjr1i"]
 script = ExtResource("1_dbas6")
-name = "SkillComponent"
-config = ExtResource("6_mkfke")
+name = "RangedSkill"
+config = ExtResource("5_fy41s")
 children = Array[ExtResource("1_dbas6")]([SubResource("Resource_ey5h4")])
 children_dict = Dictionary[String, ExtResource("1_dbas6")]({
 "RangedSkill": SubResource("Resource_ey5h4")
@@ -55,24 +55,33 @@ children_dict = Dictionary[String, ExtResource("1_dbas6")]({
 
 [sub_resource type="Resource" id="Resource_82i0c"]
 script = ExtResource("1_dbas6")
+name = "SkillComponent"
+config = ExtResource("6_mkfke")
+children = Array[ExtResource("1_dbas6")]([SubResource("Resource_wjr1i")])
+children_dict = Dictionary[String, ExtResource("1_dbas6")]({
+"RangedSkill": SubResource("Resource_wjr1i")
+})
+
+[sub_resource type="Resource" id="Resource_gm7fj"]
+script = ExtResource("1_dbas6")
 name = "SellComponent"
 config = ExtResource("7_vdo11")
 
-[sub_resource type="Resource" id="Resource_gm7fj"]
+[sub_resource type="Resource" id="Resource_o2c2o"]
 script = ExtResource("1_dbas6")
 name = "UpgradeComponent"
 config = ExtResource("8_1igw3")
 
 [resource]
 script = ExtResource("1_dbas6")
-config = ExtResource("7_iw6k7")
-children = Array[ExtResource("1_dbas6")]([SubResource("Resource_fy41s"), SubResource("Resource_mkfke"), SubResource("Resource_iw6k7"), SubResource("Resource_t2rgh"), SubResource("Resource_wjr1i"), SubResource("Resource_82i0c"), SubResource("Resource_gm7fj")])
+children = Array[ExtResource("1_dbas6")]([SubResource("Resource_fy41s"), SubResource("Resource_mkfke"), SubResource("Resource_iw6k7"), SubResource("Resource_t2rgh"), SubResource("Resource_ey5h4"), SubResource("Resource_82i0c"), SubResource("Resource_gm7fj"), SubResource("Resource_o2c2o")])
 children_dict = Dictionary[String, ExtResource("1_dbas6")]({
-"AnimatedSpriteComponent": SubResource("Resource_fy41s"),
-"BirthComponent": SubResource("Resource_mkfke"),
-"SelectComponent": SubResource("Resource_iw6k7"),
-"SellComponent": SubResource("Resource_82i0c"),
-"SkillComponent": SubResource("Resource_wjr1i"),
-"TowerComponent": SubResource("Resource_t2rgh"),
-"UpgradeComponent": SubResource("Resource_gm7fj")
+"AnimatedSpriteComponent": SubResource("Resource_mkfke"),
+"BirthComponent": SubResource("Resource_iw6k7"),
+"InteractPolicyComponent": SubResource("Resource_fy41s"),
+"SelectComponent": SubResource("Resource_t2rgh"),
+"SellComponent": SubResource("Resource_gm7fj"),
+"SkillComponent": SubResource("Resource_82i0c"),
+"TowerComponent": SubResource("Resource_ey5h4"),
+"UpgradeComponent": SubResource("Resource_o2c2o")
 })

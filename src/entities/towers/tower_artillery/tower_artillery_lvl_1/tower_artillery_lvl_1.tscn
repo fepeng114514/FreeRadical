@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_gtnxl"]
 [ext_resource type="Resource" uid="uid://b6q0k62ueghom" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/node_config_template.tres" id="2_ipifc"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_2f27u"]
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_mvuvi"]
 [ext_resource type="Resource" uid="uid://dnnxqq63tsl2k" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/animated_sprite_component/animated_sprite_component.tres" id="4_2ve1s"]
+[ext_resource type="Resource" uid="uid://diccn4qcqcnlp" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1/template/interact_policy_component/interact_policy_component.tres" id="4_2w6kd"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_mbu1c"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_mvuvi"]
 [ext_resource type="Script" uid="uid://bcthb5ophrody" path="res://classes/sprite_group.gd" id="4_v8ksx"]
@@ -35,6 +37,12 @@
 script = ExtResource("1_gtnxl")
 node_config_template = ExtResource("2_ipifc")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=320221334]
+process_mode = 4
+script = ExtResource("3_2f27u")
+config = ExtResource("4_2w6kd")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1990976755]
 show_behind_parent = true

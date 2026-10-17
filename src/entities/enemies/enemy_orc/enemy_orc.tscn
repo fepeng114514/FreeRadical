@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_lv7qq"]
 [ext_resource type="Resource" uid="uid://dtmeklt75aaau" path="res://entities/enemies/enemy_orc/template/node_config_template.tres" id="2_kc3w8"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_anbe7"]
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_rla7y"]
 [ext_resource type="SpriteFrames" uid="uid://cnk16hmugl15f" path="res://assets/atlas/sprite_frames/enemies_grass/enemy_orc.tres" id="4_2yp6p"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component/health_component.gd" id="4_6j7h8"]
 [ext_resource type="Resource" uid="uid://ds4fmbs7fmwc2" path="res://entities/enemies/enemy_orc/template/animated_sprite_component/animated_sprite_component.tres" id="4_lv7qq"]
+[ext_resource type="Resource" uid="uid://b5cgsjiu358ro" path="res://entities/enemies/enemy_orc/template/interact_policy_component/interact_policy_component.tres" id="4_wo6jc"]
 [ext_resource type="PackedScene" uid="uid://c2a35msevnk4d" path="res://classes/components/health_component/health_bar.tscn" id="6_kj085"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="7_anbe7"]
 [ext_resource type="Resource" uid="uid://dp77s24onsne7" path="res://entities/enemies/enemy_orc/template/health_component/health_component.tres" id="8_pube2"]
@@ -23,6 +25,12 @@
 script = ExtResource("1_lv7qq")
 node_config_template = ExtResource("2_kc3w8")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=1046550319]
+process_mode = 4
+script = ExtResource("3_anbe7")
+config = ExtResource("4_wo6jc")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1813335407]
 show_behind_parent = true

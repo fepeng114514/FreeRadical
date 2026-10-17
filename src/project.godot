@@ -39,8 +39,9 @@ buses/default_bus_layout="res://autoloads/managers/audio_manager/audio_bus_layou
 
 [autoload]
 
-SystemManager="*uid://bsm7ajayilotu"
 EntityManager="*uid://babmyw7m1iga5"
+EntitySpatialHashManager="*uid://djn4sf00i2vvf"
+SystemManager="*uid://bsm7ajayilotu"
 DebugManager="*uid://dswgweyvy78e4"
 GlobalManager="*uid://ct01c5jk3ruit"
 TranslationManager="*uid://duh6g6j1nnv23"
@@ -68,7 +69,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/bbcode_edit.editor/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/log/plugin.cfg", "res://addons/mask_check/plugin.cfg", "res://addons/utils/plugin.cfg")
+enabled=PackedStringArray("res://addons/bbcode_edit.editor/plugin.cfg", "res://addons/debug_menu/plugin.cfg", "res://addons/log/plugin.cfg", "res://addons/mask_check/plugin.cfg")
 
 [file_customization]
 

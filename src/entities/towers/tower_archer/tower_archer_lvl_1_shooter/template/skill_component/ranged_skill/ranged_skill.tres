@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cn6ap4nlr0bnk" path="res://classes/node_configs/skills/search_skills/ranged_skill_node_config.gd" id="1_7hrn5"]
 [ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_u6bqw"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_copbt"]
-[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policy.gd" id="4_daqjt"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_gjkmc"]
 
 [sub_resource type="Resource" id="Resource_6rlp0"]
@@ -15,21 +14,15 @@ vertical_mirror = true
 
 [sub_resource type="Resource" id="Resource_367kr"]
 script = ExtResource("2_copbt")
-right_replace_left = true
-right = Vector2(5.725, -18.35)
+up = Vector2(5.725, -18.35)
+down = Vector2(5.725, -18.35)
+vertical_mirror = true
 metadata/_custom_type_script = "uid://b88iol2ey0jwp"
-
-[sub_resource type="Resource" id="Resource_k5dw5"]
-resource_local_to_scene = true
-script = ExtResource("4_daqjt")
-flags = 1048576
-metadata/_custom_type_script = "uid://ur2o05wq6jk5"
 
 [sub_resource type="Resource" id="Resource_u6bqw"]
 resource_local_to_scene = true
 script = ExtResource("5_gjkmc")
 max_radius = 450.0
-interact_policy = SubResource("Resource_k5dw5")
 metadata/_custom_type_script = "uid://4dsevfnug1a1"
 
 [resource]
@@ -38,6 +31,7 @@ script = ExtResource("1_7hrn5")
 bullet_scene = "uid://xybhrfxqmw21"
 bullet_offsets = SubResource("Resource_367kr")
 searcher = SubResource("Resource_u6bqw")
-cooldown = 0.8
+skill_types = 1
 delay = 0.167
 animation = SubResource("Resource_6rlp0")
+cooldown = 0.8

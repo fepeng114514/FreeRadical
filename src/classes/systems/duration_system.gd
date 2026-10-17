@@ -16,7 +16,7 @@ func _on_insert(entity: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for entity: Entity in EntityManager.get_component_entity_group(Constants.DURATION_COMPONENT_NAME):
+	for entity: Entity in EntityManager.get_component_entity_group(Enums.ComponentFlag.DURATION):
 		var duration_c: DurationComponent = entity.get_node_or_null(Constants.DURATION_COMPONENT_NODE_PATH)
 		if not duration_c:
 			continue

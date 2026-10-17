@@ -12,6 +12,17 @@ signal skill_used
 signal start_skill_cooldown
 
 
+## 技能类型枚举。
+enum Type {
+	## 技能类型: 无。
+	NONE = 0,
+	## 技能类型: 远程。
+	RANGED = 1,
+	## 技能类型: 近战。
+	MELEE = 1 << 1,
+}
+
+
 ## 时间戳。
 var timestamp: float = 0.0
 
@@ -31,9 +42,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 @warning_ignore_start("unused_parameter")
 ## 检查技能是否可以释放。
 func can_use(entity: Entity, config: SkillNodeConfig, target: Entity = null) -> bool:
-	if not config:
-		return false
-		
 	if not TimeManager.has_elapsed(timestamp, config.cooldown):
 		return false
 

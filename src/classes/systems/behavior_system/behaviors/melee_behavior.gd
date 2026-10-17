@@ -45,8 +45,9 @@ func _on_update(entity: Entity) -> bool:
 	if not melee_c:
 		return false
 		
-	if entity.config.interact_policy:
-		if entity.config.interact_policy.flags & InteractPolicy.Flag.FRIENDLY:
+	var interact_policy_c: InteractPolicyComponent = entity.get_node_or_null(Constants.INTERACT_POLICY_COMPONENT_NODE_PATH)
+	if interact_policy_c:
+		if interact_policy_c.config.faction & InteractPolicyComponent.Faction.FRIENDLY:
 			melee_c.is_blocker = true
 		else:
 			melee_c.is_blocker = false

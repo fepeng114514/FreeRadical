@@ -2,50 +2,57 @@
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_cpxfb"]
 [ext_resource type="Resource" uid="uid://cfpd023tuosb7" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/birth_component/birth_component.tres" id="2_1dbf3"]
+[ext_resource type="Resource" uid="uid://bep1jwh2x4sen" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/interact_policy_component/interact_policy_component.tres" id="2_3154o"]
 [ext_resource type="Resource" uid="uid://gxo0ma17ryac" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/sprite_component/sprite_component.tres" id="2_yypyc"]
 [ext_resource type="Resource" uid="uid://c3kepuo5muurg" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/upgrade_component/upgrade_component.tres" id="5_x4jqa"]
 [ext_resource type="Resource" uid="uid://blw3bi8vqnons" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/sell_component/sell_component.tres" id="6_1dbf3"]
 [ext_resource type="Resource" uid="uid://cr6tcmd2dlcet" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/tower_component/tower_component.tres" id="11_f8xgj"]
 [ext_resource type="Resource" uid="uid://dvg8ocrfo0vns" path="res://entities/towers/tower_archer/tower_archer_lvl_1/template/select_component/select_component.tres" id="12_tlrlk"]
 
-[sub_resource type="Resource" id="Resource_3154o"]
+[sub_resource type="Resource" id="Resource_8oe33"]
+script = ExtResource("1_cpxfb")
+name = "InteractPolicyComponent"
+config = ExtResource("2_3154o")
+
+[sub_resource type="Resource" id="Resource_1f5e0"]
 script = ExtResource("1_cpxfb")
 name = "BirthComponent"
 config = ExtResource("2_1dbf3")
 
-[sub_resource type="Resource" id="Resource_8oe33"]
+[sub_resource type="Resource" id="Resource_wa08q"]
 script = ExtResource("1_cpxfb")
 name = "SelectComponent"
 config = ExtResource("12_tlrlk")
 
-[sub_resource type="Resource" id="Resource_1f5e0"]
+[sub_resource type="Resource" id="Resource_02r5h"]
 script = ExtResource("1_cpxfb")
 name = "SpriteComponent"
 config = ExtResource("2_yypyc")
 
-[sub_resource type="Resource" id="Resource_wa08q"]
+[sub_resource type="Resource" id="Resource_cpxfb"]
 script = ExtResource("1_cpxfb")
 name = "TowerComponent"
 config = ExtResource("11_f8xgj")
 
-[sub_resource type="Resource" id="Resource_02r5h"]
+[sub_resource type="Resource" id="Resource_yypyc"]
 script = ExtResource("1_cpxfb")
 name = "SellComponent"
 config = ExtResource("6_1dbf3")
 
-[sub_resource type="Resource" id="Resource_cpxfb"]
+[sub_resource type="Resource" id="Resource_s6xog"]
 script = ExtResource("1_cpxfb")
 name = "UpgradeComponent"
 config = ExtResource("5_x4jqa")
 
 [resource]
 script = ExtResource("1_cpxfb")
-children = Array[ExtResource("1_cpxfb")]([SubResource("Resource_3154o"), SubResource("Resource_8oe33"), SubResource("Resource_1f5e0"), SubResource("Resource_wa08q"), SubResource("Resource_02r5h"), SubResource("Resource_cpxfb")])
+children = Array[ExtResource("1_cpxfb")]([SubResource("Resource_8oe33"), SubResource("Resource_1f5e0"), SubResource("Resource_wa08q"), SubResource("Resource_02r5h"), SubResource("Resource_cpxfb"), SubResource("Resource_yypyc"), SubResource("Resource_s6xog")])
 children_dict = Dictionary[String, ExtResource("1_cpxfb")]({
-"BirthComponent": SubResource("Resource_3154o"),
-"SelectComponent": SubResource("Resource_8oe33"),
-"SellComponent": SubResource("Resource_02r5h"),
-"SpriteComponent": SubResource("Resource_1f5e0"),
-"TowerComponent": SubResource("Resource_wa08q"),
-"UpgradeComponent": SubResource("Resource_cpxfb")
+"BirthComponent": SubResource("Resource_1f5e0"),
+"InteractPolicyComponent": SubResource("Resource_8oe33"),
+"SelectComponent": SubResource("Resource_wa08q"),
+"SellComponent": SubResource("Resource_yypyc"),
+"SpriteComponent": SubResource("Resource_02r5h"),
+"TowerComponent": SubResource("Resource_cpxfb"),
+"UpgradeComponent": SubResource("Resource_s6xog")
 })

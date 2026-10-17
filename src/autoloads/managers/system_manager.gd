@@ -8,14 +8,18 @@ extends Node
 var _systems: Array[System] = []
 
 
+func _physics_process(delta: float) -> void:
+	process_entity_first_update()
+	process_entity_update(delta)
+
+
+func cleanup() -> void:
+	_systems.clear()
+
+
 ## 注册系统。
 func register_system(system: System) -> void:
 	_systems.append(system)
-
-
-## 注销系统。
-func unregister_system(system: System) -> void:
-	_systems.erase(system)
 
 
 ## 处理实体准备。

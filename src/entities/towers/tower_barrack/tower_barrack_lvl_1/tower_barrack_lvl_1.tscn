@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://8h13iyechbed" path="res://entities/towers/tower.gd" id="1_f2pah"]
 [ext_resource type="Resource" uid="uid://b83waj1nrsxad" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/node_config_template.tres" id="2_6kjmh"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_5xjhm"]
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_45dgx"]
 [ext_resource type="Script" uid="uid://fi7qlgp26a6l" path="res://classes/components/birth_component.gd" id="3_jeded"]
 [ext_resource type="Texture2D" uid="uid://fcpj16d35cum" path="res://assets/atlas/atlas_textures/towers/tower_barrack_0001.tres" id="4_2u03i"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_dsnyp"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_f2pah"]
+[ext_resource type="Resource" uid="uid://b4rfcwsuulxpn" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/interact_policy_component/interact_policy_component.tres" id="4_hepk2"]
 [ext_resource type="Resource" uid="uid://cjpay2h600boc" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/birth_component/birth_component.tres" id="4_jl2co"]
 [ext_resource type="Resource" uid="uid://buaqd2dt0d4rv" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1/template/animated_sprite_component/animated_sprite_component.tres" id="4_pshwp"]
 [ext_resource type="Script" uid="uid://b3vhika61oa7p" path="res://classes/components/barrack_component.gd" id="4_u6jgq"]
@@ -29,6 +31,12 @@
 script = ExtResource("1_f2pah")
 node_config_template = ExtResource("2_6kjmh")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=427873241]
+process_mode = 4
+script = ExtResource("3_5xjhm")
+config = ExtResource("4_hepk2")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=845523708]
 show_behind_parent = true

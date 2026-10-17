@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InteractPolicy" format=3 uid="uid://duk77ae0flhfe"]
+
+[ext_resource type="Script" uid="uid://ur2o05wq6jk5" path="res://classes/interact_policys/interact_policy.gd" id="1_gh2l2"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_gh2l2")
+flags = 16
+metadata/_custom_type_script = "uid://ur2o05wq6jk5"

@@ -3,9 +3,7 @@ extends SearchSkill
 class_name AreaSkill
 ## 范围技能节点。
 ##
-## [AreaSkill] 会搜索到第一个目标实体，然后对其造成影响。[br]
-## 与 [RangedSkill] 不同，[AreaSkill] 不会创建子弹作为中介，而是直接对目标实体造成影响。[br]
-## 相当于对 [Influence] 封装了一个搜索目标的机制，以搜索到的第一个目标为中心造成影响。
+## [AreaSkill] 会以目标实体为中心造成影响。
 
 
 @export var config: AreaSkillNodeConfig = null:
@@ -33,7 +31,7 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 	var animated_sprite_c: AnimatedSpriteComponent = entity.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
 	
 	if config.searcher:
-		target = config.searcher.search_target(get_search_global_position(entity), entity)
+		target = search_target(config, entity)
 		if not target:
 			return
 	
@@ -48,7 +46,7 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 
 	if config.searcher:
 		if not target:
-			target = config.searcher.search_target(get_search_global_position(entity), entity)
+			target = search_target(config, entity)
 			if not target:
 				compensate_cooldown(config)
 				return

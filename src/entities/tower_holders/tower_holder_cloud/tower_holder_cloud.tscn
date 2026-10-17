@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://cxxqfvpja2uo7" path="res://assets/atlas/atlas_textures/towers/build_terrain_0001_2.tres" id="3_3oyr1"]
 [ext_resource type="Resource" uid="uid://nucyfqj2ehw6" path="res://entities/tower_holders/tower_holder_cloud/template/node_config_template.tres" id="3_bw2kf"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_6f56q"]
-[ext_resource type="Resource" uid="uid://c1y85pxab8nma" path="res://entities/tower_holders/tower_holder_cloud/template/tower_holder_cloud.tres" id="4_7gwc3"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_khh56"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_6f56q"]
 [ext_resource type="Resource" uid="uid://4dx0pltpae2l" path="res://entities/tower_holders/tower_holder_cloud/template/sprite_component/sprite_component.tres" id="5_nync6"]
@@ -18,7 +17,6 @@
 [node name="TowerHolderCloud" type="Node2D" unique_id=1898604313]
 script = ExtResource("1_nwcrb")
 node_config_template = ExtResource("3_bw2kf")
-config = ExtResource("4_7gwc3")
 metadata/_custom_type_script = "uid://cdk665a2wx8m3"
 
 [node name="RecordComponent" type="Node2D" parent="." unique_id=1045367828]
@@ -42,6 +40,7 @@ script = ExtResource("5_6f56q")
 metadata/_custom_type_script = "uid://bsh34v046mn3y"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=974667319]
+process_mode = 4
 show_behind_parent = true
 script = ExtResource("6_xdtds")
 config = ExtResource("5_nync6")

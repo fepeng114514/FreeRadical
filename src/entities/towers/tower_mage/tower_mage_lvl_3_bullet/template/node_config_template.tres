@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_4hmav"]
 [ext_resource type="Resource" uid="uid://bjmsq22bk0dxj" path="res://entities/towers/tower_mage/tower_mage_lvl_3_bullet/template/bullet_component/bullet_component.tres" id="2_jv0gj"]
 [ext_resource type="Resource" uid="uid://cthnqd8go0wl8" path="res://entities/towers/tower_mage/tower_mage_lvl_3_bullet/template/animated_sprite_component/animated_sprite_component.tres" id="2_qqlh0"]
-[ext_resource type="Resource" uid="uid://dwlin0ay7joma" path="res://entities/towers/tower_mage/tower_mage_lvl_3_bullet/template/tower_mage_lvl_3_bullet.tres" id="4_qfgba"]
 
 [sub_resource type="Resource" id="Resource_4hmav"]
 script = ExtResource("1_4hmav")
@@ -17,7 +16,6 @@ config = ExtResource("2_jv0gj")
 
 [resource]
 script = ExtResource("1_4hmav")
-config = ExtResource("4_qfgba")
 children = Array[ExtResource("1_4hmav")]([SubResource("Resource_4hmav"), SubResource("Resource_jv0gj")])
 children_dict = Dictionary[String, ExtResource("1_4hmav")]({
 "AnimatedSpriteComponent": SubResource("Resource_4hmav"),

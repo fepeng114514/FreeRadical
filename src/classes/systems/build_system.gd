@@ -16,7 +16,7 @@ func _on_insert(entity: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for build: Entity in EntityManager.get_component_entity_group(Constants.BUILD_COMPONENT_NAME):
+	for build: Entity in EntityManager.get_component_entity_group(Enums.ComponentFlag.BUILD):
 		if build.is_waiting() or build.state & Entity.State.REMOVED:
 			continue
 

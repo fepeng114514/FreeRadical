@@ -3,12 +3,14 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_g0uut"]
 [ext_resource type="Resource" uid="uid://cl0k5gdkd4voh" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2/template/node_config_template.tres" id="2_hwajw"]
 [ext_resource type="SpriteFrames" uid="uid://deocnxyj5sui3" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer1.tres" id="2_i0kly"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_2wj8q"]
 [ext_resource type="SpriteFrames" uid="uid://bwikywyjysose" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer2.tres" id="3_4x7de"]
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_8uk84"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_8uk84"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_jvkfn"]
 [ext_resource type="SpriteFrames" uid="uid://bvv6l8i0n83df" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer3.tres" id="4_kj6gf"]
 [ext_resource type="Resource" uid="uid://dudqbvapevmrx" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2/template/animated_sprite_component/animated_sprite_component.tres" id="4_rggky"]
+[ext_resource type="Resource" uid="uid://byk7u5r4iw7t2" path="res://entities/towers/tower_artillery/tower_artillery_lvl_2/template/interact_policy_component/interact_policy_component.tres" id="4_sqn5f"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_8uk84"]
 [ext_resource type="SpriteFrames" uid="uid://ej8t1ung4jcv" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl2_layer4.tres" id="5_qpetq"]
 [ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_rggky"]
@@ -35,6 +37,12 @@
 script = ExtResource("1_g0uut")
 node_config_template = ExtResource("2_hwajw")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=632116138]
+process_mode = 4
+script = ExtResource("3_2wj8q")
+config = ExtResource("4_sqn5f")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1575606029]
 show_behind_parent = true

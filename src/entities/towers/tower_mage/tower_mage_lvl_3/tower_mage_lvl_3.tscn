@@ -4,8 +4,10 @@
 [ext_resource type="SpriteFrames" uid="uid://bvdae1kbmkv5q" path="res://assets/atlas/sprite_frames/towers/tower_mage_lvl3.tres" id="2_d1vad"]
 [ext_resource type="Resource" uid="uid://bat6sti2daivi" path="res://entities/towers/tower_mage/tower_mage_lvl_3/template/node_config_template.tres" id="2_t7n0r"]
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_t7n0r"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_u73tq"]
 [ext_resource type="Resource" uid="uid://bil8o0d4xhx53" path="res://entities/towers/tower_mage/tower_mage_lvl_3/template/animated_sprite_component/animated_sprite_component.tres" id="4_5y1vu"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_6qoq0"]
+[ext_resource type="Resource" uid="uid://isechvgyhlap" path="res://entities/towers/tower_mage/tower_mage_lvl_3/template/interact_policy_component/interact_policy_component.tres" id="4_ht1qk"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_jiusn"]
 [ext_resource type="PackedScene" uid="uid://cdu8pyq7bit5w" path="res://entities/towers/tower_mage/tower_mage_lvl_3_shooter/tower_mage_lvl_3_shooter.tscn" id="4_kjimq"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_t7n0r"]
@@ -23,6 +25,12 @@
 script = ExtResource("1_t7n0r")
 node_config_template = ExtResource("2_t7n0r")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=783995293]
+process_mode = 4
+script = ExtResource("3_u73tq")
+config = ExtResource("4_ht1qk")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1207973606]
 show_behind_parent = true

@@ -3,11 +3,13 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_pc2nb"]
 [ext_resource type="Resource" uid="uid://cmn3flwgx4ssn" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/node_config_template.tres" id="2_fpml0"]
 [ext_resource type="SpriteFrames" uid="uid://djlxpbrwpkdea" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer1.tres" id="3_5myai"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_ddm5a"]
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_fpml0"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_6w2jx"]
 [ext_resource type="Resource" uid="uid://dsetqex7va31e" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/animated_sprite_component/animated_sprite_component.tres" id="4_38quj"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_fpml0"]
 [ext_resource type="SpriteFrames" uid="uid://d2qwys4yp5rxm" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer2.tres" id="4_gdik0"]
+[ext_resource type="Resource" uid="uid://vnukmiuaceir" path="res://entities/towers/tower_artillery/tower_artillery_lvl_3/template/interact_policy_component/interact_policy_component.tres" id="4_wmilh"]
 [ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_38quj"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_fpml0"]
 [ext_resource type="SpriteFrames" uid="uid://chmmtn7ba1fcw" path="res://assets/atlas/sprite_frames/towers/tower_artillery_lvl3_layer3.tres" id="5_tewo5"]
@@ -33,6 +35,12 @@
 script = ExtResource("1_pc2nb")
 node_config_template = ExtResource("2_fpml0")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=785187800]
+process_mode = 4
+script = ExtResource("3_ddm5a")
+config = ExtResource("4_wmilh")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1693308247]
 show_behind_parent = true

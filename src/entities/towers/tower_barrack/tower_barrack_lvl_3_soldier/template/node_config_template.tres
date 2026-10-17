@@ -2,37 +2,32 @@
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_jfyni"]
 [ext_resource type="Resource" uid="uid://cd5ewfhiwpov1" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3_soldier/template/animated_sprite_component/animated_sprite_component.tres" id="2_b5m8l"]
+[ext_resource type="Resource" uid="uid://bbfc3xdapshc2" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3_soldier/template/interact_policy_component/interact_policy_component.tres" id="2_jfyni"]
 [ext_resource type="Resource" uid="uid://brp0fiat8gfu6" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3_soldier/template/health_component/health_component.tres" id="3_xxtqn"]
 [ext_resource type="Resource" uid="uid://bemcvanlirusi" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3_soldier/template/melee_component/melee_skill/melee_skill.tres" id="4_y6sqb"]
 [ext_resource type="Resource" uid="uid://gs8rs5wwp6ig" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3_soldier/template/melee_component/melee_component.tres" id="5_ly34s"]
 [ext_resource type="Resource" uid="uid://5ioy7sflp5m6" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3_soldier/template/select_component/select_component.tres" id="6_4du8u"]
 [ext_resource type="Resource" uid="uid://duwso4rmbupw2" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3_soldier/template/rally_component/rally_component.tres" id="7_qv6fe"]
-[ext_resource type="Resource" uid="uid://565cw82bpfv0" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3_soldier/template/tower_barrack_lvl_3_soldier.tres" id="8_1bekw"]
 
-[sub_resource type="Resource" id="Resource_jfyni"]
+[sub_resource type="Resource" id="Resource_n7d5b"]
+script = ExtResource("1_jfyni")
+name = "InteractPolicyComponent"
+config = ExtResource("2_jfyni")
+
+[sub_resource type="Resource" id="Resource_xxtqn"]
 script = ExtResource("1_jfyni")
 name = "AnimatedSpriteComponent"
 config = ExtResource("2_b5m8l")
 
-[sub_resource type="Resource" id="Resource_n7d5b"]
+[sub_resource type="Resource" id="Resource_y6sqb"]
 script = ExtResource("1_jfyni")
 name = "HealthComponent"
 config = ExtResource("3_xxtqn")
 
-[sub_resource type="Resource" id="Resource_xxtqn"]
+[sub_resource type="Resource" id="Resource_ly34s"]
 script = ExtResource("1_jfyni")
 name = "SelectComponent"
 config = ExtResource("6_4du8u")
-
-[sub_resource type="Resource" id="Resource_y6sqb"]
-script = ExtResource("1_jfyni")
-name = "MeleeSkill"
-config = ExtResource("4_y6sqb")
-
-[sub_resource type="Resource" id="Resource_ly34s"]
-script = ExtResource("1_jfyni")
-name = "MeleeComponent"
-config = ExtResource("5_ly34s")
 children = Array[ExtResource("1_jfyni")]([SubResource("Resource_y6sqb")])
 children_dict = Dictionary[String, ExtResource("1_jfyni")]({
 "MeleeSkill": SubResource("Resource_y6sqb")
@@ -40,17 +35,31 @@ children_dict = Dictionary[String, ExtResource("1_jfyni")]({
 
 [sub_resource type="Resource" id="Resource_4du8u"]
 script = ExtResource("1_jfyni")
+name = "MeleeSkill"
+config = ExtResource("4_y6sqb")
+
+[sub_resource type="Resource" id="Resource_qv6fe"]
+script = ExtResource("1_jfyni")
+name = "MeleeComponent"
+config = ExtResource("5_ly34s")
+children = Array[ExtResource("1_jfyni")]([SubResource("Resource_4du8u")])
+children_dict = Dictionary[String, ExtResource("1_jfyni")]({
+"MeleeSkill": SubResource("Resource_4du8u")
+})
+
+[sub_resource type="Resource" id="Resource_1bekw"]
+script = ExtResource("1_jfyni")
 name = "RallyComponent"
 config = ExtResource("7_qv6fe")
 
 [resource]
 script = ExtResource("1_jfyni")
-config = ExtResource("8_1bekw")
-children = Array[ExtResource("1_jfyni")]([SubResource("Resource_jfyni"), SubResource("Resource_n7d5b"), SubResource("Resource_xxtqn"), SubResource("Resource_ly34s"), SubResource("Resource_4du8u")])
+children = Array[ExtResource("1_jfyni")]([SubResource("Resource_n7d5b"), SubResource("Resource_xxtqn"), SubResource("Resource_y6sqb"), SubResource("Resource_ly34s"), SubResource("Resource_qv6fe"), SubResource("Resource_1bekw")])
 children_dict = Dictionary[String, ExtResource("1_jfyni")]({
-"AnimatedSpriteComponent": SubResource("Resource_jfyni"),
-"HealthComponent": SubResource("Resource_n7d5b"),
-"MeleeComponent": SubResource("Resource_ly34s"),
-"RallyComponent": SubResource("Resource_4du8u"),
-"SelectComponent": SubResource("Resource_xxtqn")
+"AnimatedSpriteComponent": SubResource("Resource_xxtqn"),
+"HealthComponent": SubResource("Resource_y6sqb"),
+"InteractPolicyComponent": SubResource("Resource_n7d5b"),
+"MeleeComponent": SubResource("Resource_qv6fe"),
+"RallyComponent": SubResource("Resource_1bekw"),
+"SelectComponent": SubResource("Resource_ly34s")
 })

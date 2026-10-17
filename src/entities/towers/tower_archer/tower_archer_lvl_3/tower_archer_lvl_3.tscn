@@ -4,9 +4,11 @@
 [ext_resource type="Resource" uid="uid://dbdb41pn7pb0x" path="res://entities/towers/tower_archer/tower_archer_lvl_3/template/node_config_template.tres" id="2_mtrj1"]
 [ext_resource type="PackedScene" uid="uid://bleej3esxi75b" path="res://entities/towers/tower_archer/tower_archer_lvl_3_shooter/tower_archer_lvl_3_shooter.tscn" id="3_1rmxj"]
 [ext_resource type="Script" uid="uid://fi7qlgp26a6l" path="res://classes/components/birth_component.gd" id="3_3muqt"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_h1wx0"]
 [ext_resource type="Texture2D" uid="uid://dh2yebctfdoce" path="res://assets/atlas/atlas_textures/towers/tower_archer_0003.tres" id="3_hr80x"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_3muqt"]
 [ext_resource type="Resource" uid="uid://bn50k0k4ghbnd" path="res://entities/towers/tower_archer/tower_archer_lvl_3/template/birth_component/birth_component.tres" id="4_7m00f"]
+[ext_resource type="Resource" uid="uid://dmjrsus2jte4t" path="res://entities/towers/tower_archer/tower_archer_lvl_3/template/interact_policy_component/interact_policy_component.tres" id="4_al55e"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_rfgo4"]
 [ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_7m00f"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_mtrj1"]
@@ -23,6 +25,12 @@
 script = ExtResource("1_mtrj1")
 node_config_template = ExtResource("2_mtrj1")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=1771077795]
+process_mode = 4
+script = ExtResource("3_h1wx0")
+config = ExtResource("4_al55e")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="BirthComponent" type="Node2D" parent="." unique_id=837000113]
 process_mode = 4

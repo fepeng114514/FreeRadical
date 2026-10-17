@@ -4,57 +4,62 @@
 [ext_resource type="Resource" uid="uid://drsh7fveddo21" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/birth_component/birth_component.tres" id="2_3v48e"]
 [ext_resource type="Resource" uid="uid://c7u500m5sb84v" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/animated_sprite_component/animated_sprite_component.tres" id="2_6oxcv"]
 [ext_resource type="Resource" uid="uid://cinbairsvlk1n" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/sprite_component/sprite_component.tres" id="2_dbfp3"]
+[ext_resource type="Resource" uid="uid://dj6qgkxj021bc" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/interact_policy_component/interact_policy_component.tres" id="2_odx8a"]
 [ext_resource type="Resource" uid="uid://ccxcqww57nq1p" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/tower_component/tower_component.tres" id="3_3v48e"]
 [ext_resource type="Resource" uid="uid://bnyckmbynf66f" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/select_component/select_component.tres" id="4_6oxcv"]
 [ext_resource type="Resource" uid="uid://cnvy06cv2qwop" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/barrack_component/barrack_component.tres" id="5_odx8a"]
-[ext_resource type="Resource" uid="uid://bluhh3gu22lqm" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/tower_barrack_lvl_3.tres" id="6_b4jxp"]
 [ext_resource type="Resource" uid="uid://drqkspqffvfls" path="res://entities/towers/tower_barrack/tower_barrack_lvl_3/template/sell_component/sell_component.tres" id="6_dbfp3"]
 
-[sub_resource type="Resource" id="Resource_odx8a"]
+[sub_resource type="Resource" id="Resource_b4jxp"]
+script = ExtResource("1_nadfo")
+name = "InteractPolicyComponent"
+config = ExtResource("2_odx8a")
+
+[sub_resource type="Resource" id="Resource_cq7ty"]
 script = ExtResource("1_nadfo")
 name = "AnimatedSpriteComponent"
 config = ExtResource("2_6oxcv")
 
-[sub_resource type="Resource" id="Resource_b4jxp"]
+[sub_resource type="Resource" id="Resource_j8ckw"]
 script = ExtResource("1_nadfo")
 name = "SpriteComponent"
 config = ExtResource("2_dbfp3")
 
-[sub_resource type="Resource" id="Resource_cq7ty"]
+[sub_resource type="Resource" id="Resource_isgxt"]
 script = ExtResource("1_nadfo")
 name = "BirthComponent"
 config = ExtResource("2_3v48e")
 
-[sub_resource type="Resource" id="Resource_j8ckw"]
+[sub_resource type="Resource" id="Resource_essd7"]
 script = ExtResource("1_nadfo")
 name = "SelectComponent"
 config = ExtResource("4_6oxcv")
 
-[sub_resource type="Resource" id="Resource_isgxt"]
+[sub_resource type="Resource" id="Resource_cjfoc"]
 script = ExtResource("1_nadfo")
 name = "TowerComponent"
 config = ExtResource("3_3v48e")
 
-[sub_resource type="Resource" id="Resource_essd7"]
+[sub_resource type="Resource" id="Resource_02kit"]
 script = ExtResource("1_nadfo")
 name = "BarrackComponent"
 config = ExtResource("5_odx8a")
 
-[sub_resource type="Resource" id="Resource_cjfoc"]
+[sub_resource type="Resource" id="Resource_i67p6"]
 script = ExtResource("1_nadfo")
 name = "SellComponent"
 config = ExtResource("6_dbfp3")
 
 [resource]
 script = ExtResource("1_nadfo")
-config = ExtResource("6_b4jxp")
-children = Array[ExtResource("1_nadfo")]([SubResource("Resource_odx8a"), SubResource("Resource_b4jxp"), SubResource("Resource_cq7ty"), SubResource("Resource_j8ckw"), SubResource("Resource_isgxt"), SubResource("Resource_essd7"), SubResource("Resource_cjfoc")])
+children = Array[ExtResource("1_nadfo")]([SubResource("Resource_b4jxp"), SubResource("Resource_cq7ty"), SubResource("Resource_j8ckw"), SubResource("Resource_isgxt"), SubResource("Resource_essd7"), SubResource("Resource_cjfoc"), SubResource("Resource_02kit"), SubResource("Resource_i67p6")])
 children_dict = Dictionary[String, ExtResource("1_nadfo")]({
-"AnimatedSpriteComponent": SubResource("Resource_odx8a"),
-"BarrackComponent": SubResource("Resource_essd7"),
-"BirthComponent": SubResource("Resource_cq7ty"),
-"SelectComponent": SubResource("Resource_j8ckw"),
-"SellComponent": SubResource("Resource_cjfoc"),
-"SpriteComponent": SubResource("Resource_b4jxp"),
-"TowerComponent": SubResource("Resource_isgxt")
+"AnimatedSpriteComponent": SubResource("Resource_cq7ty"),
+"BarrackComponent": SubResource("Resource_02kit"),
+"BirthComponent": SubResource("Resource_isgxt"),
+"InteractPolicyComponent": SubResource("Resource_b4jxp"),
+"SelectComponent": SubResource("Resource_essd7"),
+"SellComponent": SubResource("Resource_i67p6"),
+"SpriteComponent": SubResource("Resource_j8ckw"),
+"TowerComponent": SubResource("Resource_cjfoc")
 })

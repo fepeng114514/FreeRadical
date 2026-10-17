@@ -40,7 +40,7 @@ enum GetValueMode {
 		searcher = v
 		emit_changed()
 
-## 当前值，根据取值模式计算，已有值将不会多次计算。
+## 当前值，根据取值模式计算，已有值跳过计算。
 var value: float = Constants.UNSET
 
 
@@ -76,7 +76,7 @@ func take_influence(source: Entity, base_target: Entity, take_global_position: V
 		_take(source, target, area_enabled)
 
 		if extra_enabled:
-			EntityManager.create_mods(target_id, mods, source_id)
+			EntityManager.create_modifiers(target_id, mods, source_id)
 			EntityManager.create_auras(target_id, auras, source_id)
 
 	EntityManager.create_entities_at_global_position(payloads, take_global_position)

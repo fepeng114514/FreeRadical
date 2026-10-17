@@ -2,50 +2,57 @@
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_45fpv"]
 [ext_resource type="Resource" uid="uid://dm0vkhl7jciwy" path="res://entities/enemies/enemy_gargoyle/template/sprite_component/sprite_component.tres" id="2_5oc5y"]
+[ext_resource type="Resource" uid="uid://rv3j84id6lna" path="res://entities/enemies/enemy_gargoyle/template/interact_policy_component/interact_policy_component.tres" id="2_nfvtf"]
 [ext_resource type="Resource" uid="uid://hay8343a7h7e" path="res://entities/enemies/enemy_gargoyle/template/health_component/health_component.tres" id="3_nfvtf"]
 [ext_resource type="Resource" uid="uid://t2ngm0pt8wbe" path="res://entities/enemies/enemy_gargoyle/template/select_component/select_component.tres" id="5_14crd"]
 [ext_resource type="Resource" uid="uid://chs73wsflhpst" path="res://entities/enemies/enemy_gargoyle/template/animated_sprite_component/animated_sprite_component.tres" id="6_5oc5y"]
 [ext_resource type="Resource" uid="uid://ci38mjn4ji03q" path="res://entities/enemies/enemy_gargoyle/template/offset_component/offset_component.tres" id="7_5oc5y"]
 [ext_resource type="Resource" uid="uid://dmauw547d03np" path="res://entities/enemies/enemy_gargoyle/template/nav_path_component/nav_path_component.tres" id="7_nfvtf"]
 
-[sub_resource type="Resource" id="Resource_nfvtf"]
+[sub_resource type="Resource" id="Resource_yotbv"]
+script = ExtResource("1_45fpv")
+name = "InteractPolicyComponent"
+config = ExtResource("2_nfvtf")
+
+[sub_resource type="Resource" id="Resource_14crd"]
 script = ExtResource("1_45fpv")
 name = "AnimatedSpriteComponent"
 config = ExtResource("6_5oc5y")
 
-[sub_resource type="Resource" id="Resource_yotbv"]
+[sub_resource type="Resource" id="Resource_axiq0"]
 script = ExtResource("1_45fpv")
 name = "SpriteComponent"
 config = ExtResource("2_5oc5y")
 
-[sub_resource type="Resource" id="Resource_14crd"]
+[sub_resource type="Resource" id="Resource_d70p5"]
 script = ExtResource("1_45fpv")
 name = "HealthComponent"
 config = ExtResource("3_nfvtf")
 
-[sub_resource type="Resource" id="Resource_axiq0"]
+[sub_resource type="Resource" id="Resource_gxv4x"]
 script = ExtResource("1_45fpv")
 name = "SelectComponent"
 config = ExtResource("5_14crd")
 
-[sub_resource type="Resource" id="Resource_d70p5"]
+[sub_resource type="Resource" id="Resource_t2cu7"]
 script = ExtResource("1_45fpv")
 name = "NavPathComponent"
 config = ExtResource("7_nfvtf")
 
-[sub_resource type="Resource" id="Resource_gxv4x"]
+[sub_resource type="Resource" id="Resource_8knw5"]
 script = ExtResource("1_45fpv")
 name = "OffsetComponent"
 config = ExtResource("7_5oc5y")
 
 [resource]
 script = ExtResource("1_45fpv")
-children = Array[ExtResource("1_45fpv")]([SubResource("Resource_nfvtf"), SubResource("Resource_yotbv"), SubResource("Resource_14crd"), SubResource("Resource_axiq0"), SubResource("Resource_d70p5"), SubResource("Resource_gxv4x")])
+children = Array[ExtResource("1_45fpv")]([SubResource("Resource_yotbv"), SubResource("Resource_14crd"), SubResource("Resource_axiq0"), SubResource("Resource_d70p5"), SubResource("Resource_gxv4x"), SubResource("Resource_t2cu7"), SubResource("Resource_8knw5")])
 children_dict = Dictionary[String, ExtResource("1_45fpv")]({
-"AnimatedSpriteComponent": SubResource("Resource_nfvtf"),
-"HealthComponent": SubResource("Resource_14crd"),
-"NavPathComponent": SubResource("Resource_d70p5"),
-"OffsetComponent": SubResource("Resource_gxv4x"),
-"SelectComponent": SubResource("Resource_axiq0"),
-"SpriteComponent": SubResource("Resource_yotbv")
+"AnimatedSpriteComponent": SubResource("Resource_14crd"),
+"HealthComponent": SubResource("Resource_d70p5"),
+"InteractPolicyComponent": SubResource("Resource_yotbv"),
+"NavPathComponent": SubResource("Resource_t2cu7"),
+"OffsetComponent": SubResource("Resource_8knw5"),
+"SelectComponent": SubResource("Resource_gxv4x"),
+"SpriteComponent": SubResource("Resource_axiq0")
 })

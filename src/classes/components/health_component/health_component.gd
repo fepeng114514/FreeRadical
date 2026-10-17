@@ -37,6 +37,12 @@ var idle_regen_timestamp: float = 0.0
 @onready var health_bar: TextureProgressBar = get_node_or_null(health_bar_path)
 
 
+func _ready() -> void:
+	super()
+	
+	child_order_changed.connect(_on_child_order_changed)
+
+
 func _draw() -> void:
 	if not config:
 		return
@@ -70,6 +76,4 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _on_child_order_changed() -> void:
-	super()
-	
 	health_bar = get_node_or_null(health_bar_path)

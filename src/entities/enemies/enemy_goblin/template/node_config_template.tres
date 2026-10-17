@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="NodeConfigTemplateNode" format=3 uid="uid://ccswcwnkjwg41"]
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_uigp5"]
+[ext_resource type="Resource" uid="uid://w7tt6xkqtpis" path="res://entities/enemies/enemy_goblin/template/interact_policy_component/interact_policy_component.tres" id="2_xbko7"]
 [ext_resource type="Resource" uid="uid://buel7ygo8boyq" path="res://entities/enemies/enemy_goblin/template/health_component/health_component.tres" id="3_83rjb"]
 [ext_resource type="Resource" uid="uid://l3kj4jxjl074" path="res://entities/enemies/enemy_goblin/template/animated_sprite_component/animated_sprite_component.tres" id="4_r5kqk"]
 [ext_resource type="Resource" uid="uid://b4bdkja6fbthr" path="res://entities/enemies/enemy_goblin/template/nav_path_component/nav_path_component.tres" id="4_vyhix"]
@@ -9,30 +10,25 @@
 [ext_resource type="Resource" uid="uid://bmu56rhkgu4ce" path="res://entities/enemies/enemy_goblin/template/melee_component/melee_component.tres" id="7_db8wd"]
 [ext_resource type="Resource" uid="uid://cuud8fvvgryd0" path="res://entities/enemies/enemy_goblin/template/offset_component/offset_component.tres" id="8_uigp5"]
 
-[sub_resource type="Resource" id="Resource_xbko7"]
+[sub_resource type="Resource" id="Resource_83rjb"]
+script = ExtResource("1_uigp5")
+name = "InteractPolicyComponent"
+config = ExtResource("2_xbko7")
+
+[sub_resource type="Resource" id="Resource_vyhix"]
 script = ExtResource("1_uigp5")
 name = "AnimatedSpriteComponent"
 config = ExtResource("4_r5kqk")
 
-[sub_resource type="Resource" id="Resource_83rjb"]
+[sub_resource type="Resource" id="Resource_ckg32"]
 script = ExtResource("1_uigp5")
 name = "HealthComponent"
 config = ExtResource("3_83rjb")
 
-[sub_resource type="Resource" id="Resource_vyhix"]
+[sub_resource type="Resource" id="Resource_48ucc"]
 script = ExtResource("1_uigp5")
 name = "SelectComponent"
 config = ExtResource("5_ckg32")
-
-[sub_resource type="Resource" id="Resource_ckg32"]
-script = ExtResource("1_uigp5")
-name = "NavPathComponent"
-config = ExtResource("4_vyhix")
-
-[sub_resource type="Resource" id="Resource_48ucc"]
-script = ExtResource("1_uigp5")
-name = "MeleeSkill"
-config = ExtResource("6_48ucc")
 children = Array[ExtResource("1_uigp5")]([SubResource("Resource_ckg32")])
 children_dict = Dictionary[String, ExtResource("1_uigp5")]({
 "MeleeSkill": SubResource("Resource_ckg32")
@@ -40,8 +36,8 @@ children_dict = Dictionary[String, ExtResource("1_uigp5")]({
 
 [sub_resource type="Resource" id="Resource_db8wd"]
 script = ExtResource("1_uigp5")
-name = "MeleeComponent"
-config = ExtResource("7_db8wd")
+name = "NavPathComponent"
+config = ExtResource("4_vyhix")
 children = Array[ExtResource("1_uigp5")]([SubResource("Resource_48ucc")])
 children_dict = Dictionary[String, ExtResource("1_uigp5")]({
 "MeleeSkill": SubResource("Resource_48ucc")
@@ -49,17 +45,32 @@ children_dict = Dictionary[String, ExtResource("1_uigp5")]({
 
 [sub_resource type="Resource" id="Resource_b6jbu"]
 script = ExtResource("1_uigp5")
+name = "MeleeSkill"
+config = ExtResource("6_48ucc")
+
+[sub_resource type="Resource" id="Resource_u81lu"]
+script = ExtResource("1_uigp5")
+name = "MeleeComponent"
+config = ExtResource("7_db8wd")
+children = Array[ExtResource("1_uigp5")]([SubResource("Resource_b6jbu")])
+children_dict = Dictionary[String, ExtResource("1_uigp5")]({
+"MeleeSkill": SubResource("Resource_b6jbu")
+})
+
+[sub_resource type="Resource" id="Resource_5lvyw"]
+script = ExtResource("1_uigp5")
 name = "OffsetComponent"
 config = ExtResource("8_uigp5")
 
 [resource]
 script = ExtResource("1_uigp5")
-children = Array[ExtResource("1_uigp5")]([SubResource("Resource_xbko7"), SubResource("Resource_83rjb"), SubResource("Resource_vyhix"), SubResource("Resource_ckg32"), SubResource("Resource_db8wd"), SubResource("Resource_b6jbu")])
+children = Array[ExtResource("1_uigp5")]([SubResource("Resource_83rjb"), SubResource("Resource_vyhix"), SubResource("Resource_ckg32"), SubResource("Resource_48ucc"), SubResource("Resource_db8wd"), SubResource("Resource_u81lu"), SubResource("Resource_5lvyw")])
 children_dict = Dictionary[String, ExtResource("1_uigp5")]({
-"AnimatedSpriteComponent": SubResource("Resource_xbko7"),
-"HealthComponent": SubResource("Resource_83rjb"),
-"MeleeComponent": SubResource("Resource_db8wd"),
-"NavPathComponent": SubResource("Resource_ckg32"),
-"OffsetComponent": SubResource("Resource_b6jbu"),
-"SelectComponent": SubResource("Resource_vyhix")
+"AnimatedSpriteComponent": SubResource("Resource_vyhix"),
+"HealthComponent": SubResource("Resource_ckg32"),
+"InteractPolicyComponent": SubResource("Resource_83rjb"),
+"MeleeComponent": SubResource("Resource_u81lu"),
+"NavPathComponent": SubResource("Resource_db8wd"),
+"OffsetComponent": SubResource("Resource_5lvyw"),
+"SelectComponent": SubResource("Resource_48ucc")
 })

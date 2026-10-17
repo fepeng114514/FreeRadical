@@ -13,3 +13,17 @@ func get_search_global_position(entity: Entity) -> Vector2:
 		search_global_position.y -= entity.position.y
 
 	return search_global_position
+
+
+func search_target(config: SearchSkillNodeConfig, entity: Entity) -> Entity:
+	var filter: Callable = func(target: Entity) -> bool:
+		var interact_policy_c: InteractPolicyComponent = target.get_node_or_null(Constants.INTERACT_POLICY_COMPONENT_NODE_PATH)
+		if not interact_policy_c:
+			return true
+
+		if interact_policy_c.config.skill_type_bans & config.skill_types:
+			return false
+
+		return true
+		
+	return config.searcher.search_target(get_search_global_position(entity), entity, filter)

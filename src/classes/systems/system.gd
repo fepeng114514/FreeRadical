@@ -10,10 +10,6 @@ func _enter_tree() -> void:
 	SystemManager.register_system(self)
 
 
-func _exit_tree() -> void:
-	SystemManager.unregister_system(self)
-
-
 @warning_ignore_start("unused_parameter")
 ## 实体准备时调用。
 func _on_ready(entity: Entity) -> void: pass

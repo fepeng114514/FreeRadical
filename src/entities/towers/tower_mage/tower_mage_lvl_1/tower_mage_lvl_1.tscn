@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_y1lgp"]
 [ext_resource type="Resource" uid="uid://d176iqdfoqeqo" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/node_config_template.tres" id="2_oyrv1"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_4uwyj"]
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_dobkv"]
 [ext_resource type="PackedScene" uid="uid://cb2m3hbh7yyxl" path="res://entities/towers/tower_mage/tower_mage_lvl_1_shooter/tower_mage_lvl_1_shooter.tscn" id="3_j8o77"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_dpb4m"]
 [ext_resource type="Resource" uid="uid://3orhs0scdlqi" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/animated_sprite_component/animated_sprite_component.tres" id="4_e01we"]
+[ext_resource type="Resource" uid="uid://b3bw7knt0ues5" path="res://entities/towers/tower_mage/tower_mage_lvl_1/template/interact_policy_component/interact_policy_component.tres" id="4_hoahu"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_ylcr1"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_dobkv"]
 [ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_y4b2l"]
@@ -25,6 +27,12 @@
 script = ExtResource("1_y1lgp")
 node_config_template = ExtResource("2_oyrv1")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=32948369]
+process_mode = 4
+script = ExtResource("3_4uwyj")
+config = ExtResource("4_hoahu")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1578458867]
 show_behind_parent = true

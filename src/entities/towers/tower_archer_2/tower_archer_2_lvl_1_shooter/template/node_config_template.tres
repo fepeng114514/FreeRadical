@@ -4,32 +4,42 @@
 [ext_resource type="Resource" uid="uid://cgtd00eooa858" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/template/animated_sprite_component/animated_sprite_component.tres" id="2_qvutc"]
 [ext_resource type="Resource" uid="uid://daqfiac3se0qj" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/template/skill_component/ranged_skill/ranged_skill.tres" id="3_8yh87"]
 [ext_resource type="Resource" uid="uid://cy8pornpaiabt" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/template/skill_component/skill_component.tres" id="4_cb5lx"]
-[ext_resource type="Resource" uid="uid://bgnicg1bsw6t0" path="res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/template/tower_archer_lvl_1_shooter.tres" id="5_q4ai7"]
 
-[sub_resource type="Resource" id="Resource_ih52k"]
-script = ExtResource("1_ih52k")
-name = "AnimatedSpriteComponent"
-config = ExtResource("2_qvutc")
+[sub_resource type="Resource" id="Resource_qvutc"]
+metadata/__load_path__ = "res://entities/towers/tower_archer_2/tower_archer_2_lvl_1_shooter/template/interact_policy_component/interact_policy_component.tres"
 
 [sub_resource type="Resource" id="Resource_3jbyh"]
 script = ExtResource("1_ih52k")
-name = "RangedSkill"
-config = ExtResource("3_8yh87")
+name = "InteractPolicyComponent"
+config = SubResource("Resource_qvutc")
 
 [sub_resource type="Resource" id="Resource_8yh87"]
 script = ExtResource("1_ih52k")
-name = "SkillComponent"
-config = ExtResource("4_cb5lx")
+name = "AnimatedSpriteComponent"
+config = ExtResource("2_qvutc")
 children = Array[ExtResource("1_ih52k")]([SubResource("Resource_3jbyh")])
 children_dict = Dictionary[String, ExtResource("1_ih52k")]({
 "RangedSkill": SubResource("Resource_3jbyh")
 })
 
+[sub_resource type="Resource" id="Resource_cb5lx"]
+script = ExtResource("1_ih52k")
+name = "RangedSkill"
+config = ExtResource("3_8yh87")
+
+[sub_resource type="Resource" id="Resource_q4ai7"]
+script = ExtResource("1_ih52k")
+name = "SkillComponent"
+config = ExtResource("4_cb5lx")
+children = Array[ExtResource("1_ih52k")]([SubResource("Resource_cb5lx")])
+children_dict = Dictionary[String, ExtResource("1_ih52k")]({
+"RangedSkill": SubResource("Resource_cb5lx")
+})
+
 [resource]
 script = ExtResource("1_ih52k")
-config = ExtResource("5_q4ai7")
-children = Array[ExtResource("1_ih52k")]([SubResource("Resource_ih52k"), SubResource("Resource_8yh87")])
+children = Array[ExtResource("1_ih52k")]([SubResource("Resource_3jbyh"), SubResource("Resource_8yh87"), SubResource("Resource_q4ai7")])
 children_dict = Dictionary[String, ExtResource("1_ih52k")]({
-"AnimatedSpriteComponent": SubResource("Resource_ih52k"),
-"SkillComponent": SubResource("Resource_8yh87")
+"AnimatedSpriteComponent": SubResource("Resource_8yh87"),
+"SkillComponent": SubResource("Resource_q4ai7")
 })

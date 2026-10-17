@@ -3,10 +3,9 @@ extends Object
 class_name Constants
 ## 常量库。
 ##
-## 存储了一些常量与枚举，用于在代码中进行计算、比较等操作。
+## [Constants] 存储了一些常量。
 
 
-#region 基础常量
 ## 帧率。
 const FPS: int = 60
 ## 未设置数字。
@@ -15,118 +14,11 @@ const UNSET: int = -1
 const HALF_PI: float = PI / 2
 ## PI 四分之一。
 const QUARTER_PI: float = PI / 4
-#endregion
+## 64 位整型的一半长度。
+const INT64_LEN_HALF: int = 32
 
 
-## 方向枚举。
-enum Direction {
-	## 方向：无。
-	NONE = 0,
-	## 方向：上。
-	UP = 1,
-	## 方向：下。
-	DOWN = 1 << 1,
-	## 方向：左。
-	LEFT = 1 << 2,
-	## 方向：右。
-	RIGHT = 1 << 3,
-	## 方向：左上角。
-	LEFT_UP = UP | LEFT,
-	## 方向：左下角。
-	LEFT_DOWN = DOWN | LEFT,
-	## 方向：右上角。
-	RIGHT_UP = UP | RIGHT,
-	## 方向：右下角。
-	RIGHT_DOWN = DOWN | RIGHT,
-}
-
-
-#region 组件名
-## 组件名: 光环。
-const AURA_COMPONENT_NAME: StringName = &"AuraComponent"
-## 组件名: 兵营。
-const BARRACK_COMPONENT_NAME: StringName = &"BarrackComponent"
-## 组件名: 建造。
-const BUILD_COMPONENT_NAME: StringName = &"BuildComponent"
-## 组件名: 子弹。
-const BULLET_COMPONENT_NAME: StringName = &"BulletComponent"
-## 组件名: 闪避。
-const DODGE_COMPONENT_NAME: StringName = &"DodgeComponent"
-## 组件名: FX。
-const FX_COMPONENT_NAME: StringName = &"FXComponent"
-## 组件路径: 血量。
-const HEALTH_COMPONENT_NAME: StringName = &"HealthComponent"
-## 组件名: 近战技能。
-const MELEE_COMPONENT_NAME: StringName = &"MeleeComponent"
-## 组件名: 修改器。
-const MODIFIER_COMPONENT_NAME: StringName = &"ModifierComponent"
-## 组件名: 导航路径。
-const NAV_PATH_COMPONENT_NAME: StringName = &"NavPathComponent"
-## 组件名: 集结点。
-const RALLY_COMPONENT_NAME: StringName = &"RallyComponent"
-## 组件名: 选择组件。
-const SELECT_COMPONENT_NAME: StringName = &"SelectComponent"
-## 组件名: 远程攻击。
-const SKILL_COMPONENT_NAME: StringName = &"SkillComponent"
-## 组件名: 出售。
-const SELL_COMPONENT_NAME: StringName = &"SellComponent"
-## 组件名: 生成器。
-const SPAWNER_COMPONENT_NAME: StringName = &"SpawnerComponent"
-## 组件名: 精灵。
-const SPRITE_COMPONENT_NAME: StringName = &"SpriteComponent"
-## 组件名: 动画精灵。
-const ANIMATED_SPRITE_COMPONENT_NAME: StringName = &"AnimatedSpriteComponent"
-## 组件名: 防御塔。
-const TOWER_COMPONENT_NAME: StringName = &"TowerComponent"
-## 组件名: 波次生成器。
-const WAVE_SPAWNER_COMPONENT_NAME: StringName = &"WaveSpawnerComponent"
-## 组件名: 升级。
-const UPGRADE_COMPONENT_NAME: StringName = &"UpgradeComponent"
-## 组件名: 记录组件。
-const RECORD_COMPONENT_NAME: StringName = &"RecordComponent"
-## 组件名: 价格记录。
-const PRICE_RECORD_NAME: StringName = &"PriceRecord"
-## 组件名: 防御塔记录。
-const TOWER_RECORD_NAME: StringName = &"TowerRecord"
-## 组件名: 兵营记录。
-const BARRACK_RECORD_NAME: StringName = &"BarrackRecord"
-## 组件名: 持续时间组件。
-const DURATION_COMPONENT_NAME: StringName = &"DurationComponent"
-## 组件名: 实体组件。
-const ENTITY_COMPONENT_NAME: StringName = &"EntityComponent"
-## 组件名: 偏移量组件。
-const OFFSET_COMPONENT_NAME: StringName = &"OffsetComponent"
-## 组件名：出生组件。
-const BIRTH_COMPONENT_NAME: StringName = &"BirthComponent"
-
-const ALL_COMPONENT_NAMES: Array[StringName] = [
-	AURA_COMPONENT_NAME, 
-	BARRACK_COMPONENT_NAME, 
-	BUILD_COMPONENT_NAME, 
-	BULLET_COMPONENT_NAME, 
-	DODGE_COMPONENT_NAME, 
-	FX_COMPONENT_NAME, 
-	HEALTH_COMPONENT_NAME, 
-	MELEE_COMPONENT_NAME, 
-	MODIFIER_COMPONENT_NAME, 
-	NAV_PATH_COMPONENT_NAME, 
-	RALLY_COMPONENT_NAME, 
-	SELECT_COMPONENT_NAME, 
-	SKILL_COMPONENT_NAME, 
-	SELL_COMPONENT_NAME, 
-	SPAWNER_COMPONENT_NAME, 
-	SPRITE_COMPONENT_NAME, 
-	ANIMATED_SPRITE_COMPONENT_NAME, 
-	TOWER_COMPONENT_NAME, 
-	WAVE_SPAWNER_COMPONENT_NAME, 
-	UPGRADE_COMPONENT_NAME, 
-	RECORD_COMPONENT_NAME, 
-	DURATION_COMPONENT_NAME,
-	ENTITY_COMPONENT_NAME,
-	OFFSET_COMPONENT_NAME,
-	BIRTH_COMPONENT_NAME,
-]
-
+#region 节点路径
 ## 节点路径: 光环。
 const AURA_COMPONENT_NODE_PATH: NodePath = ^"AuraComponent"
 ## 节点路径: 兵营。
@@ -177,29 +69,40 @@ const TOWER_RECORD_NODE_PATH: NodePath = ^"RecordComponent/TowerRecord"
 const BARRACK_RECORD_NODE_PATH: NodePath = ^"RecordComponent/BarrackRecord"
 ## 节点路径: 持续时间组件。
 const DURATION_COMPONENT_NODE_PATH: NodePath = ^"DurationComponent"
-## 节点路径: 实体组件。
-const ENTITY_COMPONENT_NODE_PATH: NodePath = ^"EntityComponent"
 ## 节点路径: 偏移量组件。
 const OFFSET_COMPONENT_NODE_PATH: NodePath = ^"OffsetComponent"
 ## 节点路径: 出生组件。
 const BIRTH_COMPONENT_NODE_PATH: NodePath = ^"BirthComponent"
+## 节点路径: 交互策略组件。
+const INTERACT_POLICY_COMPONENT_NODE_PATH: NodePath = ^"InteractPolicyComponent"
 #endregion
 
 
-#region 组名称
-## 组名: 敌人。
-const GROUP_ENEMIES: StringName = &"enemies"
-## 组名: 友军。
-const GROUP_FRIENDLIES: StringName = &"friendlies"
-## 组名: 单位。
-const GROUP_UNITS: StringName = &"units"
-## 组名: 防御塔。
-const GROUP_TOWERS: StringName = &"towers"
-
-const ALL_GROUPS: Array[StringName] = [
-	GROUP_ENEMIES, 
-	GROUP_FRIENDLIES, 
-	GROUP_UNITS, 
-	GROUP_TOWERS,
-]
-#endregion
+## 组件名称到组件标识的映射。
+const COMPONENT_NAME_TO_FLAG: Dictionary[StringName, Enums.ComponentFlag] = {
+	&"AuraComponent": Enums.ComponentFlag.AURA,
+	&"BarrackComponent": Enums.ComponentFlag.BARRACK,
+	&"BuildComponent": Enums.ComponentFlag.BUILD,
+	&"BulletComponent": Enums.ComponentFlag.BULLET,
+	&"DodgeComponent": Enums.ComponentFlag.DODGE,
+	&"FxComponent": Enums.ComponentFlag.FX,
+	&"HealthComponent": Enums.ComponentFlag.HEALTH,
+	&"MeleeComponent": Enums.ComponentFlag.MELEE,
+	&"ModifierComponent": Enums.ComponentFlag.MODIFIER,
+	&"NavPathComponent": Enums.ComponentFlag.NAV_PATH,
+	&"RallyComponent": Enums.ComponentFlag.RALLY,
+	&"SelectComponent": Enums.ComponentFlag.SELECT,
+	&"SkillComponent": Enums.ComponentFlag.SKILL,
+	&"SellComponent": Enums.ComponentFlag.SELL,
+	&"SpawnerComponent": Enums.ComponentFlag.SPAWNER,
+	&"SpriteComponent": Enums.ComponentFlag.SPRITE,
+	&"AnimatedSpriteComponent": Enums.ComponentFlag.ANIMATED_SPRITE,
+	&"TowerComponent": Enums.ComponentFlag.TOWER,
+	&"WaveSpawnerComponent": Enums.ComponentFlag.WAVE_SPAWNER,
+	&"UpgradeComponent": Enums.ComponentFlag.UPGRADE,
+	&"RecordComponent": Enums.ComponentFlag.RECORD,
+	&"DurationComponent": Enums.ComponentFlag.DURATION,
+	&"OffsetComponent": Enums.ComponentFlag.OFFSET,
+	&"BirthComponent": Enums.ComponentFlag.BIRTH,
+	&"InteractPolicyComponent": Enums.ComponentFlag.INTERACT_POLICY,
+}

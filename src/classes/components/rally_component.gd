@@ -28,6 +28,12 @@ var rally_center_global_position := Vector2.ZERO
 @onready var navigation_agent: NavigationAgent2D = get_node_or_null(navigation_agent_path)
 
 
+func _ready() -> void:
+	super()
+	
+	child_order_changed.connect(_on_child_order_changed)
+
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = super()
 
@@ -59,6 +65,4 @@ func new_rally_global_position(
 
 
 func _on_child_order_changed() -> void:
-	super()
-	
 	navigation_agent = get_node_or_null(navigation_agent_path)

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://yur7o864jejr" path="res://game/levels/level.gd" id="1_7ttr4"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="3_xp3ar"]
 [ext_resource type="Script" uid="uid://dxxsi5nkfx72d" path="res://classes/entity_world.gd" id="7_veae7"]
+[ext_resource type="Script" uid="uid://bgrtha6p1np7h" path="res://classes/systems/select_system.gd" id="10_2any3"]
 [ext_resource type="PackedScene" uid="uid://co5ehekpd71r8" path="res://game/select_menu/select_menu.tscn" id="10_qogh7"]
 [ext_resource type="PackedScene" uid="uid://ca75dg47m1q1a" path="res://game/range_info/range_info_controller.tscn" id="11_8iyoh"]
 [ext_resource type="Script" uid="uid://bn3pla4fp3ro8" path="res://classes/systems/build_system.gd" id="13_veae7"]
@@ -91,6 +92,10 @@ script = ExtResource("15_p37ca")
 
 [node name="HealthSystem" type="Node" parent="Systems" unique_id=675796800]
 script = ExtResource("16_tvrav")
+
+[node name="SelectSystem" type="Node" parent="Systems" unique_id=1545906352]
+script = ExtResource("10_2any3")
+metadata/_custom_type_script = "uid://bgrtha6p1np7h"
 
 [node name="DamageSystem" type="Node" parent="Systems" unique_id=1203906185]
 script = ExtResource("17_veae7")

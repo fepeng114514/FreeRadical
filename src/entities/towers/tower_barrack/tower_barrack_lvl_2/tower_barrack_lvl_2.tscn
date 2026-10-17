@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://8h13iyechbed" path="res://entities/towers/tower.gd" id="1_roylj"]
 [ext_resource type="Resource" uid="uid://dnkwcdm4so8ho" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2/template/node_config_template.tres" id="2_000u2"]
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_30p87"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_clrsa"]
 [ext_resource type="Texture2D" uid="uid://d2cevetil660g" path="res://assets/atlas/atlas_textures/towers/tower_barrack_0002.tres" id="3_esuh8"]
 [ext_resource type="SpriteFrames" uid="uid://cnj6l6um86qt3" path="res://assets/atlas/sprite_frames/towers/tower_barracks_lvl2_door.tres" id="3_kjn0h"]
 [ext_resource type="Script" uid="uid://fi7qlgp26a6l" path="res://classes/components/birth_component.gd" id="3_xjl70"]
@@ -10,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://jppocb60uagv" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2/template/animated_sprite_component/animated_sprite_component.tres" id="4_53ccs"]
 [ext_resource type="Resource" uid="uid://cm60cqbpc2hnl" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2/template/birth_component/birth_component.tres" id="4_p4ubw"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_roylj"]
+[ext_resource type="Resource" uid="uid://b0kmirpk86n7a" path="res://entities/towers/tower_barrack/tower_barrack_lvl_2/template/interact_policy_component/interact_policy_component.tres" id="4_t48v4"]
 [ext_resource type="Script" uid="uid://bg7rfgwsb54q0" path="res://classes/components/record_component/records/barrack_record.gd" id="5_iies6"]
 [ext_resource type="Script" uid="uid://bsh34v046mn3y" path="res://classes/components/record_component/records/tower_record.gd" id="5_roylj"]
 [ext_resource type="Script" uid="uid://bsefx8rn7ytcj" path="res://classes/components/select_component.gd" id="6_iies6"]
@@ -29,6 +31,12 @@
 script = ExtResource("1_roylj")
 node_config_template = ExtResource("2_000u2")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=240867147]
+process_mode = 4
+script = ExtResource("3_clrsa")
+config = ExtResource("4_t48v4")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=1022196049]
 show_behind_parent = true

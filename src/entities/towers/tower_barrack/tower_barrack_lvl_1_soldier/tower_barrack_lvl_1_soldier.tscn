@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_sxtuv"]
 [ext_resource type="Resource" uid="uid://d36lmujunb81s" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/template/node_config_template.tres" id="2_eu6nu"]
 [ext_resource type="Script" uid="uid://h0vi2yntn7hg" path="res://classes/components/animated_sprite_component.gd" id="3_02f5h"]
+[ext_resource type="Script" uid="uid://dh6veol4k3e2e" path="res://classes/components/interact_policy_component.gd" id="3_a0iny"]
+[ext_resource type="Resource" uid="uid://gnr0isg1hm52" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/template/interact_policy_component/interact_policy_component.tres" id="4_5ubj8"]
 [ext_resource type="Script" uid="uid://ly8ldtphpxmy" path="res://classes/components/health_component/health_component.gd" id="4_a0iny"]
 [ext_resource type="Resource" uid="uid://1pwrwd31pm14" path="res://entities/towers/tower_barrack/tower_barrack_lvl_1_soldier/template/animated_sprite_component/animated_sprite_component.tres" id="4_sxtuv"]
 [ext_resource type="SpriteFrames" uid="uid://n3jkeepo0ehc" path="res://assets/atlas/sprite_frames/towers/tower_barracks_soldier_lvl1.tres" id="4_xkrn4"]
@@ -21,6 +23,12 @@
 script = ExtResource("1_sxtuv")
 node_config_template = ExtResource("2_eu6nu")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
+
+[node name="InteractPolicyComponent" type="Node2D" parent="." unique_id=244823097]
+process_mode = 4
+script = ExtResource("3_a0iny")
+config = ExtResource("4_5ubj8")
+metadata/_custom_type_script = "uid://dh6veol4k3e2e"
 
 [node name="AnimatedSpriteComponent" type="Node2D" parent="." unique_id=708333510]
 show_behind_parent = true

@@ -69,7 +69,7 @@ func play_animation(
 
 	# 处理同步动画。
 	if config.sync_source:
-		var source: Entity = EntityManager.get_entity_by_id(entity.sync_source_id)
+		var source: Entity = EntityManager.get_entity_by_id(entity.source_id)
 		if source and not source.is_waiting():
 			var s_animated_sprite_c: AnimatedSpriteComponent = source.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
 			var s_animation: AnimationGroup = s_animated_sprite_c.config.sync_animations.get(
@@ -167,10 +167,10 @@ func _play_animation(
 	var sprite_frames: SpriteFrames = sprite.sprite_frames
 		
 	if not sprite_frames.has_animation(anim_name):
-		Log.error("%s 未找到动画: %s" % [self, anim_name])
+		Log.error("%s 未找到动画: %s" % [parent, anim_name])
 		return
 		
-	Log.verbose("%s 播放动画: %s, 水平镜像: %s" % [self, anim_name, filp_h])
+	Log.verbose("%s 播放动画: %s, 水平镜像: %s" % [parent, anim_name, filp_h])
 	sprite.flip_h = filp_h
 	sprite.speed_scale = speed_scale
 	sprite.play(anim_name)

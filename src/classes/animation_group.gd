@@ -55,7 +55,7 @@ func get_animation_name_toward_point(center: Vector2, point: Vector2) -> Animati
 
 	var has_horizontal: bool = left or right
 	var has_vertical: bool = up or down
-	var direction: Constants.Direction = Constants.Direction.NONE
+	var direction: Enums.Direction = Enums.Direction.NONE
 	var anim_name: StringName = ""
 	var flip_h: bool = false
 
@@ -65,39 +65,39 @@ func get_animation_name_toward_point(center: Vector2, point: Vector2) -> Animati
 		)
 		direction = MathUtils.get_cardinal_direction(angle)
 		match direction:
-			Constants.Direction.UP:
+			Enums.Direction.UP:
 				anim_name = up
-			Constants.Direction.DOWN:
+			Enums.Direction.DOWN:
 				anim_name = down
-			Constants.Direction.LEFT:
+			Enums.Direction.LEFT:
 				if right_replace_left:
 					anim_name = right
 					flip_h = true
 				else:
 					anim_name = left
-			Constants.Direction.RIGHT:
+			Enums.Direction.RIGHT:
 				anim_name = right
-	elif has_horizontal or has_vertical:
+	elif has_horizontal:
 		direction = MathUtils.get_quadrant_direction(center, point)
-		if has_horizontal:
-			match direction:
-				Constants.Direction.LEFT_UP, Constants.Direction.LEFT_DOWN:
-					if right_replace_left:
-						anim_name = right
-						flip_h = true
-					else:
-						anim_name = left
-				Constants.Direction.RIGHT_UP, Constants.Direction.RIGHT_DOWN:
+		match direction:
+			Enums.Direction.LEFT_UP, Enums.Direction.LEFT_DOWN:
+				if right_replace_left:
 					anim_name = right
-		elif has_vertical:
-			if vertical_mirror and direction & Constants.Direction.LEFT:
-				flip_h = true
+					flip_h = true
+				else:
+					anim_name = left
+			Enums.Direction.RIGHT_UP, Enums.Direction.RIGHT_DOWN:
+				anim_name = right
+	elif has_vertical:
+		direction = MathUtils.get_quadrant_direction(center, point)
+		if vertical_mirror and direction & Enums.Direction.LEFT:
+			flip_h = true
 
-			match direction:
-				Constants.Direction.LEFT_UP, Constants.Direction.RIGHT_UP:
-					anim_name = up
-				Constants.Direction.LEFT_DOWN, Constants.Direction.RIGHT_DOWN:
-					anim_name = down
+		match direction:
+			Enums.Direction.LEFT_UP, Enums.Direction.RIGHT_UP:
+				anim_name = up
+			Enums.Direction.LEFT_DOWN, Enums.Direction.RIGHT_DOWN:
+				anim_name = down
 		
 	anim_data.anim_name = anim_name
 	anim_data.direction = direction

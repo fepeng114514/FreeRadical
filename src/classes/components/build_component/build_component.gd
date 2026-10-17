@@ -22,6 +22,12 @@ var build_timestamp: float = 0.0
 @onready var build_progress_bar: TextureProgressBar = get_node_or_null(build_progress_bar_path)
 
 
+func _ready() -> void:
+	super()
+	
+	child_order_changed.connect(_on_child_order_changed)
+
+	
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = super()
 	if not build_progress_bar:
@@ -31,6 +37,4 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _on_child_order_changed() -> void:
-	super()
-	
 	build_progress_bar = get_node_or_null(build_progress_bar_path)

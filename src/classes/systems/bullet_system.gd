@@ -63,7 +63,7 @@ func _on_remove(entity: Entity) -> bool:
 
 
 func _on_update(delta: float) -> void:
-	for bullet: Entity in EntityManager.get_component_entity_group(Constants.BULLET_COMPONENT_NAME):
+	for bullet: Entity in EntityManager.get_component_entity_group(Enums.ComponentFlag.BULLET):
 		if bullet.is_waiting() or bullet.state & Entity.State.REMOVED:
 			continue
 

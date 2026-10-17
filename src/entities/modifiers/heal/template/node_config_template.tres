@@ -2,24 +2,32 @@
 
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_80qlu"]
 [ext_resource type="Resource" uid="uid://2rev4xwcmmrq" path="res://entities/modifiers/heal/template/modifier_component/modifier_component.tres" id="2_13rbu"]
+[ext_resource type="Script" uid="uid://bibxyauig41ej" path="res://classes/node_configs/components/interact_policy_component_node_config.gd" id="2_kqcaq"]
 [ext_resource type="Resource" uid="uid://wclawvtx1lea" path="res://entities/modifiers/heal/template/animated_sprite_component/animated_sprite_component.tres" id="2_xhx5t"]
-[ext_resource type="Resource" uid="uid://c8qxqcojs6ppe" path="res://entities/modifiers/heal/template/heal.tres" id="4_0fgkb"]
 
-[sub_resource type="Resource" id="Resource_nculu"]
+[sub_resource type="Resource" id="Resource_otwru"]
+resource_local_to_scene = true
+script = ExtResource("2_kqcaq")
+
+[sub_resource type="Resource" id="Resource_ejp40"]
+script = ExtResource("1_80qlu")
+name = "InteractPolicyComponent"
+config = SubResource("Resource_otwru")
+
+[sub_resource type="Resource" id="Resource_cyt1v"]
 script = ExtResource("1_80qlu")
 name = "AnimatedSpriteComponent"
 config = ExtResource("2_xhx5t")
 
-[sub_resource type="Resource" id="Resource_xhx5t"]
+[sub_resource type="Resource" id="Resource_udvyd"]
 script = ExtResource("1_80qlu")
 name = "ModifierComponent"
 config = ExtResource("2_13rbu")
 
 [resource]
 script = ExtResource("1_80qlu")
-config = ExtResource("4_0fgkb")
-children = Array[ExtResource("1_80qlu")]([SubResource("Resource_nculu"), SubResource("Resource_xhx5t")])
+children = Array[ExtResource("1_80qlu")]([SubResource("Resource_ejp40"), SubResource("Resource_cyt1v"), SubResource("Resource_udvyd")])
 children_dict = Dictionary[String, ExtResource("1_80qlu")]({
-"AnimatedSpriteComponent": SubResource("Resource_nculu"),
-"ModifierComponent": SubResource("Resource_xhx5t")
+"AnimatedSpriteComponent": SubResource("Resource_cyt1v"),
+"ModifierComponent": SubResource("Resource_udvyd")
 })

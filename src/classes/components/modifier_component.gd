@@ -10,16 +10,19 @@ class_name ModifierComponent
 enum Type {
 	## 修改器类型: 无。
 	NONE = 0,
+	## 修改器类型: 治疗。
+	HEAL = 1,
 	## 修改器类型: 毒。
-	POISON = 1,
+	POISON = 1 << 1,
 	## 修改器类型: 火。
-	LAVA = 1 << 1,
+	LAVA = 1 << 2,
 	## 修改器类型: 流血。
-	BLEED = 1 << 2,
+	BLEED = 1 << 3,
+	
 	## 修改器类型: 冻结。
-	FREEZE = 1 << 3,
+	FREEZE = 1 << 10,
 	## 修改器类型: 眩晕。
-	STUN = 1 << 4,
+	STUN = 1 << 11,
 }
 
 
@@ -42,7 +45,7 @@ var influence_count: int = 0
 
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
-		"mod_type":
+		"modifier_type":
 			property.hint_string = "mask_check(%s)" % Type
 
 

@@ -4,7 +4,6 @@
 [ext_resource type="Resource" uid="uid://c8j2u0sytwbfd" path="res://entities/towers/tower_archer/tower_archer_lvl_1_shooter/template/skill_component/ranged_skill/ranged_skill.tres" id="3_6xm4l"]
 [ext_resource type="Resource" uid="uid://vween2tplb6i" path="res://entities/towers/tower_archer/tower_archer_lvl_1_shooter/template/animated_sprite_component/animated_sprite_component.tres" id="4_af7ft"]
 [ext_resource type="Resource" uid="uid://dvpv8gbdqt180" path="res://entities/towers/tower_archer/tower_archer_lvl_1_shooter/template/skill_component/skill_component.tres" id="4_t4gq0"]
-[ext_resource type="Resource" uid="uid://dqvovqbte4ysp" path="res://entities/towers/tower_archer/tower_archer_lvl_1_shooter/template/tower_archer_lvl_1_shooter.tres" id="5_wrdg6"]
 
 [sub_resource type="Resource" id="Resource_qh2d3"]
 script = ExtResource("1_qh2d3")
@@ -27,7 +26,6 @@ config = ExtResource("4_af7ft")
 
 [resource]
 script = ExtResource("1_qh2d3")
-config = ExtResource("5_wrdg6")
 children = Array[ExtResource("1_qh2d3")]([SubResource("Resource_3q51b"), SubResource("Resource_6xm4l")])
 children_dict = Dictionary[String, ExtResource("1_qh2d3")]({
 "AnimatedSpriteComponent": SubResource("Resource_6xm4l"),

@@ -7,7 +7,7 @@ class_name MaskCheckEditorProperty
 
 ## 被编辑的属性名。
 var _property_name: String = ""
-## 被编辑的对象和属性名。
+## 被编辑的对象。
 var _edited_object: Object = null
 ## 复选框数组。
 var _checkboxs: Array[CheckBox] = []

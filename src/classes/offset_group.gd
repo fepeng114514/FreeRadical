@@ -29,11 +29,6 @@ class_name OffsetGroup
 	set(v): 
 		up = v
 		emit_changed()
-## 下方向偏移是否以镜像方式替换上方向偏移。
-@export var down_replace_up: bool = false:
-	set(v): 
-		down_replace_up = v
-		notify_property_list_changed()
 ## 下方向的偏移。
 @export var down := Vector2.ZERO:
 	set(v): 
@@ -57,9 +52,6 @@ func _validate_property(property: Dictionary):
 		"left":
 			if right_replace_left:
 				property.usage = PROPERTY_USAGE_NONE
-		"up":
-			if down_replace_up:
-				property.usage = PROPERTY_USAGE_NONE
 				
 
 ## 根据中心点到目标点的方向返回对应的偏移。
@@ -69,7 +61,7 @@ func get_offset_toward_point(center: Vector2, point: Vector2) -> Vector2:
 
 	var has_horizontal: bool = left or right
 	var has_vertical: bool = up or down
-	var direction: Constants.Direction = Constants.Direction.NONE
+	var direction: Enums.Direction = Enums.Direction.NONE
 	var offset := Vector2.ZERO
 
 	if has_horizontal and has_vertical:
@@ -78,43 +70,37 @@ func get_offset_toward_point(center: Vector2, point: Vector2) -> Vector2:
 		)
 		direction = MathUtils.get_cardinal_direction(angle)
 		match direction:
-			Constants.Direction.UP:
-				if down_replace_up:
-					offset = down * Vector2(-1, 1)
-				else:
-					offset = up
-			Constants.Direction.DOWN:
+			Enums.Direction.UP:
+				offset = up
+			Enums.Direction.DOWN:
 				offset = down
-			Constants.Direction.LEFT:
+			Enums.Direction.LEFT:
 				if right_replace_left:
 					offset = right * Vector2(-1, 1)
 				else:
 					offset = left
-			Constants.Direction.RIGHT:
+			Enums.Direction.RIGHT:
 				offset = right
-	elif has_horizontal or has_vertical:
+	elif has_horizontal:
 		direction = MathUtils.get_quadrant_direction(center, point)
-		if has_horizontal:
-			match direction:
-				Constants.Direction.LEFT_UP, Constants.Direction.LEFT_DOWN:
-					if right_replace_left:
-						offset = right * Vector2(-1, 1)
-					else:
-						offset = left
-				Constants.Direction.RIGHT_UP, Constants.Direction.RIGHT_DOWN:
-					offset = right
-		elif has_vertical:
-			match direction:
-				Constants.Direction.LEFT_UP, Constants.Direction.RIGHT_UP:
-					if down_replace_up:
-						offset = down * Vector2(-1, 1)
-					else:
-						offset = up
-				Constants.Direction.LEFT_DOWN, Constants.Direction.RIGHT_DOWN:
-					offset = down
-			
-			if vertical_mirror and direction & Constants.Direction.LEFT:
-				offset *= Vector2(-1, 1)
+		match direction:
+			Enums.Direction.LEFT_UP, Enums.Direction.LEFT_DOWN:
+				if right_replace_left:
+					offset = right * Vector2(-1, 1)
+				else:
+					offset = left
+			Enums.Direction.RIGHT_UP, Enums.Direction.RIGHT_DOWN:
+				offset = right
+	elif has_vertical:
+		direction = MathUtils.get_quadrant_direction(center, point)
+		match direction:
+			Enums.Direction.LEFT_UP, Enums.Direction.RIGHT_UP:
+				offset = up
+			Enums.Direction.LEFT_DOWN, Enums.Direction.RIGHT_DOWN:
+				offset = down
+		
+		if vertical_mirror and direction & Enums.Direction.LEFT:
+			offset *= Vector2(-1, 1)
 	return offset
 
 

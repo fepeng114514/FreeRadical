@@ -16,7 +16,7 @@ func _on_insert(entity: Entity) -> bool:
 
 
 func _on_update(_delta: float) -> void:
-	for entity: Entity in EntityManager.get_component_entity_group(Constants.HEALTH_COMPONENT_NAME):
+	for entity: Entity in EntityManager.get_component_entity_group(Enums.ComponentFlag.HEALTH):
 		if entity.state & Entity.State.DEAD:
 			continue
 
@@ -42,17 +42,18 @@ func _process_regen(entity: Entity, health_c: HealthComponent) -> void:
 
 ## 处理注定死亡状态。
 func _process_doomed_state(entity: Entity, health_c: HealthComponent) -> void:
-	if entity.meta_state & Entity.MetaState.DOOMED:
-		return
+	if entity.has_new_aimed_bullet:
+		entity.has_new_aimed_bullet = false
+
+		if not entity.meta_state & Entity.MetaState.DOOMED:
+			if _is_doomed(entity, health_c):
+				entity.meta_state |= Entity.MetaState.DOOMED
 
 	if health_c.hp != health_c.last_hp:
 		health_c.last_hp = health_c.hp
-		if _is_doomed(entity, health_c):
-			entity.meta_state |= Entity.MetaState.DOOMED
-		return
-	
-	if entity.has_new_aimed_bullet:
-		entity.has_new_aimed_bullet = false
+		if entity.meta_state & Entity.MetaState.DOOMED and health_c.hp > 0:
+			entity.meta_state &= ~Entity.MetaState.DOOMED
+			return
 
 		if _is_doomed(entity, health_c):
 			entity.meta_state |= Entity.MetaState.DOOMED

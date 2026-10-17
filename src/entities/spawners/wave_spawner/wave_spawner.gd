@@ -26,8 +26,9 @@ func _ready() -> void:
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = super()
-		
-	if not wave_group:
-		warnings.append("请在 wave_group 中增加一个 WaveGroup 资源，否则无法生成波次。")
+	
+	if EditorInterface.get_edited_scene_root() != self:
+		if not wave_group:
+			warnings.append("请在 wave_group 中增加一个 WaveGroup 资源，否则无法生成波次。")
 		
 	return warnings

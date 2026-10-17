@@ -22,7 +22,7 @@ func _on_ready(entity: Entity) -> void:
 
 
 func _on_update(_delta: float) -> void:
-	for spawner: Entity in EntityManager.get_component_entity_group(Constants.WAVE_SPAWNER_COMPONENT_NAME):
+	for spawner: Entity in EntityManager.get_component_entity_group(Enums.ComponentFlag.WAVE_SPAWNER):
 		if spawner.is_waiting() or spawner.state & Entity.State.REMOVED:
 			continue
 

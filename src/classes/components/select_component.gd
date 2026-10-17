@@ -11,7 +11,7 @@ class_name SelectComponent
 enum InfoBarType {
 	## 信息栏类型：无，不显示。
 	NONE,
-	## 信息栏类型：敌人或友军的信息栏。
+	## 信息栏类型：单位的信息栏。
 	UNIT,
 	## 信息栏类型：防御塔的信息栏。
 	TOWER,

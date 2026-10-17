@@ -3,7 +3,7 @@ extends BaseRangedSkill
 class_name RangedSkill
 ## 单次远程技能节点。
 ##
-## [RangedSkill] 会生成一个子弹，以子弹作为中介，对目标造成影响。子弹会以特定轨迹飞行，到达目标后造成影响。
+## [RangedSkill] 会生成一个子弹，通过子弹对目标造成影响。
 
 
 @export var config: RangedSkillNodeConfig = null:
@@ -28,7 +28,7 @@ func _draw() -> void:
 
 
 func _use_skill(entity: Entity, target: Entity = null) -> void:
-	target = config.searcher.search_target(get_search_global_position(entity), entity)
+	target = search_target(config, entity)
 	if not target:
 		return
 
@@ -42,7 +42,7 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 		return
 
 	if not target:
-		target = config.searcher.search_target(get_search_global_position(entity), entity)
+		target = search_target(config, entity)
 		if not target:
 			compensate_cooldown(config)
 			return

@@ -76,6 +76,8 @@ enum SourceType {
 
 ## 实体场景名称。
 var scene_name: String = ""
+## 场景 UID。
+var scene_file_uid: String = ""
 ## 实体本地化名称。
 var localization_key: String = ""
 ## 实体唯一 ID。
@@ -85,11 +87,11 @@ var source_id: int = Constants.UNSET
 ## 来源类型。
 var source_type: SourceType = SourceType.NONE
 ## 拥有的修改器 ID 列表。
-var has_mods_ids := PackedInt32Array()
-## 上次拥有的修改器 ID 列表长度，用于检测列表的变化。
-var last_has_mods_ids_size: int = 0
+var has_modifier_ids := PackedInt32Array()
+## 拥有的修改器 ID 列表是否变化。
+var is_modifier_ids_changed: bool = false
 ## 拥有的光环 ID 列表。
-var has_auras_ids := PackedInt32Array()
+var has_aura_ids := PackedInt32Array()
 ## 以此实体为目标的子弹 ID 列表。
 var aimed_bullet_ids := PackedInt32Array()
 ## 是否有新的子弹以此实体为目标。
@@ -105,6 +107,7 @@ var facing_global_position := Vector2.INF
 
 func _ready() -> void:
 	scene_name = scene_file_path.get_file().get_basename()
+	scene_file_uid = ResourceUID.path_to_uid(scene_file_path)
 	localization_key = scene_name.to_upper()
 
 
@@ -128,6 +131,18 @@ func _to_string():
 ## 获取本土化名称。
 func get_localized_name() -> String:
 	return tr(localization_key)
+
+
+#region 组件相关方法
+## 增加组件。
+func add_component(component: Component) -> void:
+	add_child(component)
+
+
+## 在帧末尾移除组件。
+func queue_free_component(component: Component) -> void:
+	component.queue_free()
+#endregion
 
 
 #region 实体相关方法
@@ -176,56 +191,6 @@ func y_wait(time: float = 0.0, break_fn: Callable = Callable()) -> bool:
 
 	state &= ~(Entity.State.WAITING | Entity.State.INTERRUPT_WAIT)
 	return is_break
-#endregion
-
-
-#region 修改器相关方法
-## 获取拥有的所有修改器实体数组。
-func get_has_mod_list(filter: Callable = Callable()) -> Array[Entity]:
-	var has_mods: Array[Entity] = []
-	
-	for mod_id: int in has_mods_ids:
-		var mod: Entity = EntityManager.get_entity_by_id(mod_id)
-		
-		if not mod or filter.is_valid() and not filter.call(mod):
-			continue
-		
-		has_mods.append(mod)
-		
-	return has_mods
-
-
-## 清空拥有的修改器。
-func clear_has_mod_list() -> void:
-	for mod: Entity in get_has_mod_list():
-		EntityManager.queue_remove_entity(mod)
-
-	has_mods_ids.clear()
-#endregion
-
-
-#region 光环相关方法
-## 获取拥有的光环实体数组。
-func get_has_aura_list(filter: Callable = Callable()) -> Array[Entity]:
-	var has_auras: Array[Entity] = []
-	
-	for aura_id: int in has_auras_ids:
-		var aura: Entity = EntityManager.get_entity_by_id(aura_id)
-		
-		if not aura or filter.is_valid() and not filter.call(aura):
-			continue
-		
-		has_auras.append(aura)
-		
-	return has_auras
-
-
-## 清空拥有的光环。
-func clear_has_aura_list() -> void:
-	for aura: Entity in get_has_aura_list():
-		EntityManager.queue_remove_entity(aura)
-
-	has_auras_ids.clear()
 #endregion
 
 		

@@ -4,7 +4,6 @@
 [ext_resource type="Resource" uid="uid://bf7ccwaborlrs" path="res://entities/tower_holders/tower_holder_grass/template/sprite_component/sprite_component.tres" id="2_ebna4"]
 [ext_resource type="Resource" uid="uid://3nkxukhdp2w1" path="res://entities/tower_holders/tower_holder_grass/template/select_component/select_component.tres" id="3_tp1wu"]
 [ext_resource type="Resource" uid="uid://dne3mxh644hck" path="res://entities/tower_holders/tower_holder_grass/template/upgrade_component/upgrade_component.tres" id="4_ebna4"]
-[ext_resource type="Resource" uid="uid://dxkgjtbiqwggl" path="res://entities/tower_holders/tower_holder_grass/template/tower_holder_grass.tres" id="4_fpyor"]
 
 [sub_resource type="Resource" id="Resource_tp1wu"]
 script = ExtResource("1_qyujb")
@@ -23,7 +22,6 @@ config = ExtResource("4_ebna4")
 
 [resource]
 script = ExtResource("1_qyujb")
-config = ExtResource("4_fpyor")
 children = Array[ExtResource("1_qyujb")]([SubResource("Resource_tp1wu"), SubResource("Resource_fpyor"), SubResource("Resource_ny55m")])
 children_dict = Dictionary[String, ExtResource("1_qyujb")]({
 "SelectComponent": SubResource("Resource_fpyor"),

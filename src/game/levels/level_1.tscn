@@ -2,47 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://be4ofxijaafml" path="res://game/levels/level.tscn" id="1_oyy57"]
 [ext_resource type="PackedScene" uid="uid://dxjst2smnggks" path="res://entities/spawners/wave_spawner/wave_spawner.tscn" id="2_4ykn6"]
-[ext_resource type="Resource" uid="uid://dcm88wr8o5eg3" path="res://game/levels/level_1_wave.tres" id="3_rifvl"]
-[ext_resource type="Script" uid="uid://b1wdymf4ex3t8" path="res://classes/node_configs/entity_node_config.gd" id="4_rifvl"]
+[ext_resource type="Resource" uid="uid://oourocgh134g" path="res://game/levels/level_1_wave.tres" id="3_rifvl"]
 [ext_resource type="PackedScene" uid="uid://ckf2o2h3wv2xo" path="res://entities/tower_holders/tower_holder_grass/tower_holder_grass.tscn" id="8_oewxi"]
 [ext_resource type="Script" uid="uid://5rvcj41ueju4" path="res://game/pathway/pathway.gd" id="9_ups30"]
 [ext_resource type="PackedScene" uid="uid://hje3y0vepv3t" path="res://game/wave_flag/wave_flag.tscn" id="10_dhsvx"]
-
-[sub_resource type="Resource" id="Resource_rifvl"]
-resource_local_to_scene = true
-script = ExtResource("4_rifvl")
-
-[sub_resource type="Resource" id="Resource_l6jt4"]
-resource_local_to_scene = true
-script = ExtResource("4_rifvl")
-
-[sub_resource type="Resource" id="Resource_qkxey"]
-resource_local_to_scene = true
-script = ExtResource("4_rifvl")
-
-[sub_resource type="Resource" id="Resource_fq0h3"]
-resource_local_to_scene = true
-script = ExtResource("4_rifvl")
-
-[sub_resource type="Resource" id="Resource_g1txn"]
-resource_local_to_scene = true
-script = ExtResource("4_rifvl")
-
-[sub_resource type="Resource" id="Resource_yrqjd"]
-resource_local_to_scene = true
-script = ExtResource("4_rifvl")
-
-[sub_resource type="Resource" id="Resource_dea75"]
-resource_local_to_scene = true
-script = ExtResource("4_rifvl")
-
-[sub_resource type="Resource" id="Resource_mmf06"]
-resource_local_to_scene = true
-script = ExtResource("4_rifvl")
-
-[sub_resource type="Resource" id="Resource_1skah"]
-resource_local_to_scene = true
-script = ExtResource("4_rifvl")
 
 [sub_resource type="Curve2D" id="Curve2D_iav0o"]
 _data = {
@@ -55,47 +18,38 @@ point_count = 8
 [node name="WaveSpawner" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="0" unique_id=708476456 instance=ExtResource("2_4ykn6")]
 position = Vector2(-1, 0)
 wave_group = ExtResource("3_rifvl")
-config = SubResource("Resource_rifvl")
 
 [node name="TowerHolderGrass" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="1" unique_id=1898604313 instance=ExtResource("8_oewxi")]
 position = Vector2(1036, 748)
 default_rally_center_position = Vector2(-191.43, 37.53)
-config = SubResource("Resource_l6jt4")
 
 [node name="TowerHolderGrass2" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="2" unique_id=1937510618 instance=ExtResource("8_oewxi")]
 position = Vector2(1032, 894)
 default_rally_center_position = Vector2(-131.4, 61.74)
-config = SubResource("Resource_qkxey")
 
 [node name="TowerHolderGrass3" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="3" unique_id=1027679760 instance=ExtResource("8_oewxi")]
 position = Vector2(1218, 889)
 default_rally_center_position = Vector2(-88.38, 120.33)
-config = SubResource("Resource_fq0h3")
 
 [node name="TowerHolderGrass4" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="4" unique_id=2117389582 instance=ExtResource("8_oewxi")]
 position = Vector2(1365, 1112)
 default_rally_center_position = Vector2(-55.71, -114.48)
-config = SubResource("Resource_g1txn")
 
 [node name="TowerHolderGrass5" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="5" unique_id=1676628909 instance=ExtResource("8_oewxi")]
 position = Vector2(1549, 914)
 default_rally_center_position = Vector2(-71.64, 100.71)
-config = SubResource("Resource_yrqjd")
 
 [node name="TowerHolderGrass6" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="6" unique_id=1251918247 instance=ExtResource("8_oewxi")]
 position = Vector2(1841, 1060)
 default_rally_center_position = Vector2(-115.2, -99.72)
-config = SubResource("Resource_dea75")
 
 [node name="TowerHolderGrass7" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="7" unique_id=1492193814 instance=ExtResource("8_oewxi")]
 position = Vector2(1015, 454)
 default_rally_center_position = Vector2(101.61, 120.6)
-config = SubResource("Resource_mmf06")
 
 [node name="TowerHolderGrass8" parent="EntityWorld" parent_id_path=PackedInt32Array(1798674281) index="8" unique_id=1847028733 instance=ExtResource("8_oewxi")]
 position = Vector2(850, 515)
 default_rally_center_position = Vector2(73.634, 140.709)
-config = SubResource("Resource_1skah")
 
 [node name="Pathway" type="Path2D" parent="PathwayContainer" parent_id_path=PackedInt32Array(886912364) index="0" unique_id=1468860882]
 position = Vector2(96, 208)

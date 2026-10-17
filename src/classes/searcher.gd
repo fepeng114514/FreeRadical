@@ -27,21 +27,6 @@ enum SortMode {
 }
 
 
-## 搜索组枚举。
-enum SearchedGroup {
-	## 搜索组：实体。
-	ENTITIES,
-	## 搜索组: 敌人。
-	ENEMIES,
-	## 搜索组: 友军。
-	FRIENDLIES,
-	## 搜索组: 单位。
-	UNITS,
-	## 搜索组: 防御塔。
-	TOWERS,
-}
-
-
 ## 搜索标识枚举。
 enum SearchFlag {
 	## 搜索标识: 无。
@@ -71,18 +56,28 @@ enum SearchFlag {
 		emit_changed()
 ## 最大搜索目标数量，-1 表示不限制。
 @export var max_search: int = Constants.UNSET
-## 搜索组。
-@export var searched_group: SearchedGroup = SearchedGroup.ENEMIES
+
+@export_group("Search Policy")
+## 是否启用排除自身实体。
+@export var exclude_self_entity_enabled: bool = true
+## 搜索的阵容。
+@export var target_faction: InteractPolicyComponent.Faction = InteractPolicyComponent.Faction.ENEMY
+## 搜索的实体类型。
+@export var target_entity_types: int = InteractPolicyComponent.EntityType.UNIT
 ## 搜索标识。
 @export var search_flag: int = SearchFlag.SKIP_DOOMED | SearchFlag.SKIP_DEAD
-## 交互策略。
-@export var interact_policy: InteractPolicy = null
+## 禁止搜索的实体标识。
+@export var entity_flag_bans: int = 0
+## 禁止搜索的实体场景路径。
+@export_file("*.tscn") var scene_path_bans: PackedStringArray
+## 允许搜索的实体场景路径。
+@export_file("*.tscn") var scene_path_allows: PackedStringArray
 
 @export_group("Sort Policy")
 ## 排序模式。
 @export var sort_mode: SortMode = SortMode.PROGRESS
 ## 实体交互策略标识排序优先级列表。
-@export var interact_policy_flag_sort_priority: Array[InteractPolicy.Flag] = []
+@export var interact_policy_flag_sort_prioritys: Array[InteractPolicyComponent.EntityFlag] = []
 ## 是否启用升序排序。
 @export var sort_ascending_enabled: bool = false
 
@@ -98,58 +93,12 @@ func _init() -> void:
 
 func _validate_property(property: Dictionary) -> void:
 	match property.name:
+		"entity_flag_bans":
+			property.hint_string = "mask_check(%s)" % InteractPolicyComponent.EntityFlag
 		"search_flag":
 			property.hint_string = "mask_check(%s)" % SearchFlag
-
-
-## 搜索目标。
-func search_targets(center: Vector2, search_entity: Entity = null, filter := Callable()) -> Array[Entity]:
-	if search_entity and center_offsets:
-		var center_offset: Vector2 = center_offsets.get_offset_toward_point(search_entity.global_position, search_entity.facing_global_position)
-		center += center_offset
-
-	var is_enemy: bool = search_entity and search_entity.config.interact_policy and search_entity.config.interact_policy.flags & InteractPolicy.Flag.ENEMY
-	var group_name: StringName = &""
-	match searched_group:
-		SearchedGroup.ENEMIES: group_name = Constants.GROUP_FRIENDLIES if is_enemy else Constants.GROUP_ENEMIES	
-		SearchedGroup.FRIENDLIES: group_name = Constants.GROUP_ENEMIES if is_enemy else Constants.GROUP_FRIENDLIES
-		SearchedGroup.UNITS: group_name = Constants.GROUP_UNITS
-		SearchedGroup.TOWERS: group_name = Constants.GROUP_TOWERS
-
-	var extra_filters: Array[Callable] = []
-	if search_flag & SearchFlag.SKIP_DOOMED: extra_filters.append(_skip_doomed_filter)
-	if search_flag & SearchFlag.SKIP_DEAD: extra_filters.append(_skip_dead_filter)
-			
-	if extra_filters.size() > 0:
-		var packed_filter: Callable = _packed_filters.bind(extra_filters)
-		if filter.is_valid():
-			filter = func(entity: Entity) -> bool: 
-				return filter.call(entity) and packed_filter.call(entity)
-		else:
-			filter = packed_filter
-			
-	var targets: Array[Entity] = (
-		EntityManager.search_entities_in_ellipse_filtered(
-			center, 
-			min_radius, 
-			max_radius, 
-			filter,
-			group_name
-		) 
-		if filter.is_valid() else 
-		EntityManager.search_entities_in_ellipse(
-			center, 
-			min_radius, 
-			max_radius, 
-			group_name
-		)
-	)
-	_sort_entities(targets, center)
-
-	if max_search != Constants.UNSET and targets.size() > max_search:
-		targets.resize(max_search)
-
-	return targets
+		"target_entity_types":
+			property.hint_string = "mask_check(%s)" % InteractPolicyComponent.EntityType
 
 
 ## 搜索单个目标。
@@ -171,6 +120,116 @@ func draw_search_range(drawer: CanvasItem, center: Vector2) -> void:
 		Utils.draw_range_ellipse(drawer, center, min_radius, max_radius)
 
 
+## 搜索目标。
+func search_targets(center: Vector2, entity: Entity = null, filter := Callable()) -> Array[Entity]:
+	if entity and center_offsets:
+		var center_offset: Vector2 = center_offsets.get_offset_toward_point(entity.global_position, entity.facing_global_position)
+		center += center_offset
+
+	var faction: InteractPolicyComponent.Faction = target_faction
+	var interact_policy_c: InteractPolicyComponent = entity.get_node_or_null(Constants.INTERACT_POLICY_COMPONENT_NODE_PATH)
+	if interact_policy_c:
+		if entity and interact_policy_c.config.faction & InteractPolicyComponent.Faction.ENEMY:
+			match target_faction:
+				InteractPolicyComponent.Faction.ENEMY: faction = InteractPolicyComponent.Faction.FRIENDLY
+				InteractPolicyComponent.Faction.FRIENDLY: faction = InteractPolicyComponent.Faction.ENEMY
+	
+	filter = _get_packed_filter(entity, interact_policy_c, filter)
+	var targets: Array[Entity] = (
+		EntitySpatialHashManager.search_entities_in_ellipse_filtered(
+			center, 
+			min_radius, 
+			max_radius, 
+			faction,
+			target_entity_types,
+			filter,
+		) 
+		if filter.is_valid() else 
+		EntitySpatialHashManager.search_entities_in_ellipse(
+			center, 
+			min_radius, 
+			max_radius, 
+			faction,
+			target_entity_types,
+		)
+	)
+	if interact_policy_flag_sort_prioritys.size() == 0:
+		_sort_entities(targets, center)
+	else:
+		var buckets: Dictionary[InteractPolicyComponent.EntityFlag, Array] = {}
+		var other_entities: Array[Entity] = []
+		for target: Entity in targets:
+			var target_interact_policy_c: InteractPolicyComponent = target.get_node_or_null(Constants.INTERACT_POLICY_COMPONENT_NODE_PATH)
+			if not target_interact_policy_c:
+				other_entities.append(target)
+				continue
+
+			var is_found: bool = false
+			var has_flags: int = target_interact_policy_c.config.entity_flags
+			for flag: InteractPolicyComponent.EntityFlag in interact_policy_flag_sort_prioritys:
+				if not has_flags & flag:
+					continue
+				
+				var bucket: Array = buckets.get_or_add(flag, [])
+				bucket.append(target)
+				is_found = true
+				break
+
+			if is_found:
+				continue
+			
+			other_entities.append(target)
+
+		var new_targets: Array[Entity] = []
+		for flag: InteractPolicyComponent.EntityFlag in interact_policy_flag_sort_prioritys:
+			if not buckets.has(flag):
+				continue
+				
+			var bucket: Array = buckets[flag]
+			_sort_entities(bucket, center)
+			new_targets.append_array(bucket)
+
+		_sort_entities(other_entities, center)
+		new_targets.append_array(other_entities)
+		targets = new_targets
+
+	if max_search != Constants.UNSET and targets.size() > max_search:
+		targets.resize(max_search)
+
+	return targets
+
+
+#region 过滤器
+## 获取打包后的过滤器。
+func _get_packed_filter(entity: Entity, interact_policy_c: InteractPolicyComponent, filter: Callable) -> Callable:
+	var extra_filters: Array[Callable] = []
+	if search_flag & SearchFlag.SKIP_DOOMED: extra_filters.append(_skip_doomed_filter)
+	if search_flag & SearchFlag.SKIP_DEAD: extra_filters.append(_skip_dead_filter)
+			
+	if extra_filters.size() > 0:
+		var extra_filter: Callable = func(target: Entity) -> bool:
+			if exclude_self_entity_enabled and target == entity:
+				return false
+				
+			var target_interact_policy_c: InteractPolicyComponent = target.get_node_or_null(Constants.INTERACT_POLICY_COMPONENT_NODE_PATH)
+			if interact_policy_c and target_interact_policy_c:
+				if interact_policy_c.is_banned_either(target_interact_policy_c, entity.scene_file_uid, target.scene_file_uid):
+					return false
+
+			for f: Callable in extra_filters:
+				if f.call(target):
+					continue
+				return false
+			return true
+		if filter.is_valid():
+			filter = func(target: Entity) -> bool: 
+				return filter.call(target) and extra_filter.call(target)
+		else:
+			filter = extra_filter
+
+	return filter
+
+
 ## 跳过注定死亡目标过滤器。
 func _skip_doomed_filter(entity: Entity) -> bool:
 	return not entity.meta_state & Entity.MetaState.DOOMED
@@ -179,16 +238,10 @@ func _skip_doomed_filter(entity: Entity) -> bool:
 ## 跳过已死亡目标过滤器。
 func _skip_dead_filter(entity: Entity) -> bool:
 	return not entity.state & Entity.State.DEAD
+#endregion
 
 
-func _packed_filters(entity: Entity, filters: Array[Callable]) -> bool:
-	for filter: Callable in filters:
-		if not filter.call(entity):
-			return false
-
-	return true
-
-
+#region 排序
 ## 排序实体数组。
 func _sort_entities(entity_array: Array[Entity], search_global_position: Vector2) -> void:
 	var sort_function: Callable = Callable()
@@ -204,39 +257,13 @@ func _sort_entities(entity_array: Array[Entity], search_global_position: Vector2
 			entity_array.shuffle()
 			return
 
-	var priority_flags: int = 0
-	for flag: InteractPolicy.Flag in interact_policy_flag_sort_priority:
-		priority_flags |= flag
-		
-	sort_function = func(entity1: Entity, entity2: Entity) -> bool:
-		var result: bool = true
-
-		var interact_policy1: InteractPolicy = entity1.config.interact_policy
-		var interact_policy2: InteractPolicy = entity2.config.interact_policy
-		if (
-			interact_policy1 and interact_policy2 and
-			(
-				interact_policy1.flags & priority_flags or interact_policy2.flags & priority_flags
-			)
-		):
-			for flag: InteractPolicy.Flag in interact_policy_flag_sort_priority:
-				if interact_policy1.flags & flag:
-					break
-				if interact_policy2.flags & flag:
-					result = false
-					break
-		else:
-			result = sort_function.call(entity1, entity2)
-
-		return not result if sort_ascending_enabled else result
-			
 	entity_array.sort_custom(sort_function)
 
 
 ## 排序模式: 路程。
 func _sort_by_progress(entity1: Entity, entity2: Entity) -> bool:
-	var progress1: float = INF
-	var progress2: float = INF
+	var progress1: float = INF if sort_ascending_enabled else -INF
+	var progress2: float = INF if sort_ascending_enabled else -INF
 
 	var entity1_nav_path_c: NavPathComponent = entity1.get_node_or_null(Constants.NAV_PATH_COMPONENT_NODE_PATH)
 	if entity1_nav_path_c:
@@ -246,13 +273,13 @@ func _sort_by_progress(entity1: Entity, entity2: Entity) -> bool:
 	if entity2_nav_path_c:
 		progress2 = entity2_nav_path_c.progress
 
-	return progress1 > progress2
+	return progress1 < progress2 if sort_ascending_enabled else progress1 > progress2
 
 
 ## 排序模式: 血量。
 func _sort_by_health(entity1: Entity, entity2: Entity) -> bool:
-	var hp1: float = INF
-	var hp2: float = INF
+	var hp1: float = INF if sort_ascending_enabled else -INF
+	var hp2: float = INF if sort_ascending_enabled else -INF
 
 	var entity1_health_c: HealthComponent = entity1.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 	if entity1_health_c:
@@ -261,7 +288,7 @@ func _sort_by_health(entity1: Entity, entity2: Entity) -> bool:
 	if entity2_health_c:
 		hp2 = entity2_health_c.hp
 
-	return hp1 > hp2
+	return hp1 < hp2 if sort_ascending_enabled else hp1 > hp2
 
 
 ## 排序模式: 赏金。
@@ -276,7 +303,7 @@ func _sort_by_gold(entity1: Entity, entity2: Entity) -> bool:
 	if entity2_health_c:
 		gold2 = entity2_health_c.config.death_gold
 
-	return gold1 > gold2
+	return gold1 < gold2 if sort_ascending_enabled else gold1 > gold2
 
 
 ## 排序模式: 距离。
@@ -284,13 +311,13 @@ func _sort_by_distance(entity1: Entity, entity2: Entity, search_global_position:
 	var distance1: float = entity1.global_position.distance_squared_to(search_global_position)
 	var distance2: float = entity2.global_position.distance_squared_to(search_global_position)
 
-	return distance1 > distance2
+	return distance1 < distance2 if sort_ascending_enabled else distance1 > distance2
 
 
 ## 排序模式: 近战伤害。
 func _sort_by_melee_damage(entity1: Entity, entity2: Entity) -> bool:
-	var melee_damage1: float = INF
-	var melee_damage2: float = INF
+	var melee_damage1: float = INF if sort_ascending_enabled else -INF
+	var melee_damage2: float = INF if sort_ascending_enabled else -INF
 	
 	var entity1_melee_c: MeleeComponent = entity1.get_node_or_null(Constants.MELEE_COMPONENT_NODE_PATH)
 	if entity1_melee_c:
@@ -307,14 +334,14 @@ func _sort_by_melee_damage(entity1: Entity, entity2: Entity) -> bool:
 			if damage_influence:
 				melee_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 
-	return melee_damage1 > melee_damage2
+	return melee_damage1 < melee_damage2 if sort_ascending_enabled else melee_damage1 > melee_damage2
 
 
 ## 排序模式: 远程伤害。
 func _sort_by_ranged_damage(entity1: Entity, entity2: Entity) -> bool:
-	var ranged_damage1: float = INF
-	var ranged_damage2: float = INF
-
+	var ranged_damage1: float = INF if sort_ascending_enabled else -INF
+	var ranged_damage2: float = INF if sort_ascending_enabled else -INF
+		
 	var entity1_skill_c: SkillComponent = entity1.get_node_or_null(Constants.SKILL_COMPONENT_NODE_PATH)
 	if entity1_skill_c:
 		var first_ranged_skill := entity1_skill_c.get_child(0) as RangedSkill
@@ -334,7 +361,7 @@ func _sort_by_ranged_damage(entity1: Entity, entity2: Entity) -> bool:
 			if damage_influence:
 				ranged_damage2 = (damage_influence.min_value + damage_influence.damage_max) / 2.0
 
-	return ranged_damage1 > ranged_damage2
+	return ranged_damage1 < ranged_damage2 if sort_ascending_enabled else ranged_damage1 > ranged_damage2
 
 
 ## 排序模式: 实体 ID。
@@ -342,4 +369,5 @@ func _sort_by_id(entity1: Entity, entity2: Entity) -> bool:
 	var id1: int = entity1.id
 	var id2: int = entity2.id
 	
-	return id1 > id2
+	return id1 < id2 if sort_ascending_enabled else id1 > id2
+#endregion

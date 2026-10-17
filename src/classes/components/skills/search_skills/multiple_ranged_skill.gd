@@ -28,7 +28,7 @@ func _draw() -> void:
 
 
 func _use_skill(entity: Entity, target: Entity = null) -> void:
-	target = config.searcher.search_target(get_search_global_position(entity), entity)
+	target = search_target(config, entity)
 	if not target:
 		return
 	
@@ -42,7 +42,7 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 		return
 
 	if not target:
-		target = config.searcher.search_target(get_search_global_position(entity), entity)
+		target = search_target(config, entity)
 		if not target:
 			compensate_cooldown(config)
 
@@ -55,7 +55,7 @@ func _use_skill(entity: Entity, target: Entity = null) -> void:
 				return
 
 			if not target:
-				target = config.searcher.search_target(get_search_global_position(entity), entity)
+				target = search_target(config, entity)
 				if not target:
 					break
 

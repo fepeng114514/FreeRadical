@@ -27,105 +27,16 @@ signal entity_deselected
 
 ## 选择模式。
 var select_mode: SelectMode = SelectMode.NONE
+## 选择的位置。
+var select_position: Vector2 = Vector2.ZERO
+## 是否正在选择。
+var is_selecting: bool = false
 ## 选中的实体。
 var selected_entity: Entity = null
 
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("select_entity"):
-		_try_select()
-		
 		
 func cleanup() -> void:
-	selected_entity = null
 	select_mode = SelectMode.NONE
-
-
-## 尝试选择实体。
-func _try_select() -> void:
-	if selected_entity:
-		_deselect()
-	else:
-		var mouse_global_position: Vector2 = InputManager.mouse_global_position
-		for entity: Entity in EntityManager.get_valid_entities():
-			var select_c: SelectComponent = entity.get_node_or_null(Constants.SELECT_COMPONENT_NODE_PATH)
-			if not select_c:
-				continue
-			
-			if not select_c.is_click_at_global_select_rect(mouse_global_position):
-				continue
-			
-			_select(entity)
-
-		
-## 选择实体。
-func _select(entity: Entity) -> void:
-	Log.debug("选择实体: %s%s" % [entity, entity.global_position])
-	selected_entity = entity
-	select_mode = SelectMode.NONE
-	
-	var rally_c: RallyComponent = entity.get_node_or_null(Constants.RALLY_COMPONENT_NODE_PATH)
-	if rally_c and rally_c.config.can_select_rally:
-		select_mode = SelectMode.RALLY
-		
-	entity_selected.emit(entity)
-
-	entity.tree_exiting.connect(_on_entity_tree_exiting)
-
-
-func _on_entity_tree_exiting() -> void:
+	select_position = Vector2.ZERO
+	is_selecting = false
 	selected_entity = null
-	entity_deselected.emit()
-
-
-## 取消选择实体。
-func _deselect() -> void:
-	if selected_entity:
-		_process_select_mode()
-
-	select_mode = SelectMode.NONE
-	selected_entity.tree_exiting.disconnect(_on_entity_tree_exiting)
-	selected_entity = null
-	entity_deselected.emit()
-
-
-func _process_select_mode() -> void:
-	match select_mode:
-		SelectMode.RALLY:
-			var rally_c: RallyComponent = selected_entity.get_node_or_null(
-				Constants.RALLY_COMPONENT_NODE_PATH
-			)
-			rally_c.new_rally_global_position(selected_entity, InputManager.mouse_global_position, true)
-		SelectMode.BARRACK_RALLY:
-			var entity_global_position: Vector2 = selected_entity.global_position
-			var mouse_global_position: Vector2 = InputManager.mouse_global_position
-			var barrack_c: BarrackComponent = selected_entity.get_node_or_null(
-				Constants.BARRACK_COMPONENT_NODE_PATH
-			)
-			var rally_max_range: float = barrack_c.config.rally_max_range
-			var rally_min_range: float = barrack_c.config.rally_min_range
-	
-			if MathUtils.is_in_ellipse_ring(
-				entity_global_position,
-				mouse_global_position,
-				rally_min_range,
-				rally_max_range
-			):
-				barrack_c.set_all_rally_center_global_position(mouse_global_position, true)
-			else:
-				var angle: float = entity_global_position.angle_to_point(mouse_global_position)
-				
-				var rally_center_global_position: Vector2 = entity_global_position
-				if MathUtils.is_in_ellipse(
-					entity_global_position,
-					mouse_global_position,
-					rally_min_range
-				):
-					rally_center_global_position = MathUtils.get_point_on_ellipse(entity_global_position, rally_min_range, angle)
-				else:
-					rally_center_global_position = MathUtils.get_point_on_ellipse(
-						entity_global_position,
-						rally_max_range,
-						angle
-					)
-				barrack_c.set_all_rally_center_global_position(rally_center_global_position, true)

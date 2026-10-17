@@ -35,7 +35,7 @@ func get_node_config_template_by_entity_path(entity_path: String) -> NodeConfigT
 	return _node_config_template_data.entity_path_to_template_map[entity_path]
 
 
-## 通过实体UID获取实体的节点配置模板。
+## 通过实体 UID 获取实体的节点配置模板。
 func get_node_config_template_by_entity_uid(entity_uid: String) -> NodeConfigTemplateNode:
 	return _node_config_template_data.entity_uid_to_template_map[entity_uid]
 

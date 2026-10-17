@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cqykrt544dapb" path="res://classes/node_configs/node_config_template_node.gd" id="1_8juta"]
 [ext_resource type="Resource" uid="uid://yyrnwbkn00r1" path="res://entities/towers/tower_archer/tower_archer_lvl_3_bullet/template/bullet_component/bullet_component.tres" id="2_7oqam"]
 [ext_resource type="Resource" uid="uid://c7brnue6mehys" path="res://entities/towers/tower_archer/tower_archer_lvl_3_bullet/template/sprite_component/sprite_component.tres" id="3_hpn3u"]
-[ext_resource type="Resource" uid="uid://dkiwdwm68mjhr" path="res://entities/towers/tower_archer/tower_archer_lvl_3_bullet/template/tower_archer_lvl_3_bullet.tres" id="4_qcsfx"]
 
 [sub_resource type="Resource" id="Resource_jt8sb"]
 script = ExtResource("1_8juta")
@@ -17,7 +16,6 @@ config = ExtResource("3_hpn3u")
 
 [resource]
 script = ExtResource("1_8juta")
-config = ExtResource("4_qcsfx")
 children = Array[ExtResource("1_8juta")]([SubResource("Resource_jt8sb"), SubResource("Resource_co1ec")])
 children_dict = Dictionary[String, ExtResource("1_8juta")]({
 "BulletComponent": SubResource("Resource_jt8sb"),

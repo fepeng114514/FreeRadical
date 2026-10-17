@@ -6,7 +6,7 @@ class_name SellSystem
 
 
 func _on_update(_delta: float) -> void:
-	for entity: Entity in EntityManager.get_component_entity_group(Constants.SELL_COMPONENT_NAME):
+	for entity: Entity in EntityManager.get_component_entity_group(Enums.ComponentFlag.SELL):
 		var sell_c: SellComponent = entity.get_node_or_null(Constants.SELL_COMPONENT_NODE_PATH)
 		if not sell_c.is_selling:
 			continue

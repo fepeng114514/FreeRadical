@@ -36,9 +36,9 @@ const VALUE_RANGE_TO_DATA_MAP: Dictionary[Array, Dictionary] = {
 
 
 ## 伤害类型。
-var _damage_type: int = Damage.Type.NONE
+var damage_type: int = Damage.Type.NONE
 ## 伤害值。
-var _value: float = 0.0
+var value: float = 0.0
 ## 缩放持续时间。
 var _scale_duration: float = 0.2
 ## 目标的缩放比例。
@@ -52,12 +52,12 @@ var _move_timestamp: float = 0.0
 
 
 func _ready() -> void:
-	text = "%d" % _value
+	text = "%d" % value
 
 	for value_range: Array in VALUE_RANGE_TO_DATA_MAP:
 		var min_range: float = value_range[0]
 		var max_range: float = value_range[1]
-		if _value < min_range or _value > max_range:
+		if value < min_range or value > max_range:
 			continue
 
 		var s: float = VALUE_RANGE_TO_DATA_MAP[value_range].scale
@@ -66,15 +66,15 @@ func _ready() -> void:
 		_move_speed = VALUE_RANGE_TO_DATA_MAP[value_range].speed
 		break
 
-	if _damage_type & Damage.Type.PHYSICAL:
+	if damage_type & Damage.Type.PHYSICAL:
 		modulate = Color.WHITE
-	elif _damage_type & Damage.Type.MAGICAL:
+	elif damage_type & Damage.Type.MAGICAL:
 		modulate = Color.SKY_BLUE
-	elif _damage_type & Damage.Type.EXPLOSION:
+	elif damage_type & Damage.Type.EXPLOSION:
 		modulate = Color.RED
-	elif _damage_type & Damage.Type.MAGICAL_EXPLOSION:
+	elif damage_type & Damage.Type.MAGICAL_EXPLOSION:
 		modulate = Color.BLUE
-	elif _damage_type & Damage.Type.TRUE:
+	elif damage_type & Damage.Type.TRUE:
 		modulate = Color.GOLD
 	else:
 		modulate = Color(0.5, 1, 0.5, 1)

@@ -15,47 +15,87 @@ func _on_insert(modifier: Entity) -> bool:
 	if not target:
 		return false
 		
-	var interact_policy: InteractPolicy = modifier.config.interact_policy
-	if not InteractPolicy.is_allowed_target(modifier, target, interact_policy, target.config.interact_policy):
-		return false
+	var interact_policy_c: InteractPolicyComponent = modifier.get_node_or_null(Constants.INTERACT_POLICY_COMPONENT_NODE_PATH)
+	var modifier_scene_uid: String = modifier.scene_file_uid
+	if interact_policy_c:
+		var target_interact_policy_c: InteractPolicyComponent = target.get_node_or_null(Constants.INTERACT_POLICY_COMPONENT_NODE_PATH)
+		if target_interact_policy_c:
+			if target_interact_policy_c.config.modifier_type_bans & modifier_c_config.modifier_types:
+				return false
+			
+			if not interact_policy_c.is_banned_either(target_interact_policy_c, modifier_scene_uid, target.scene_file_uid):
+				return false
 
 	modifier_c.insert_timestamp = TimeManager.tick_timestamp
 	modifier.global_position = target.global_position
+	var modifier_types: int = modifier_c_config.modifier_types
 
-	var same_modifier_list: Array[Entity] = []
-	
-	for other_modifier: Entity in target.get_has_mod_list():
+	var same_modifiers: Array[Entity] = []
+	for other_modifier_id: int in target.has_modifiers_ids:
+		var other_modifier: Entity = EntityManager.get_entity_by_id(other_modifier_id)
 		if other_modifier == modifier:
 			continue
-			
-		var other_interact_policy: InteractPolicy = other_modifier.config.interact_policy
-		
-		if (
-			other_interact_policy.is_banned(interact_policy) 
-			or other_interact_policy.is_aura_type_banned(interact_policy)
-			or not other_interact_policy.is_scene_allowed(modifier.scene_name)
-		):
-			return false
-			
-		if (
-			interact_policy.is_banned(other_interact_policy) 
-			or interact_policy.is_aura_type_banned(other_interact_policy)
-			or not interact_policy.is_scene_allowed(target.scene_name)
-		):
-			if modifier_c_config.remove_banned:
-				EntityManager.queue_remove_entity(other_modifier)
+
+		var other_modifier_scene_uid: String = other_modifier.scene_file_uid
+		var exclude_modifier_scene_paths: Dictionary[String, bool] = modifier_c_config.exclude_modifier_scene_paths
+		if exclude_modifier_scene_paths.has(other_modifier_scene_uid):
+			if not exclude_modifier_scene_paths[other_modifier_scene_uid]:
 				continue
+				
+			EntityManager.queue_remove_entity(other_modifier)
+			continue
+
+		var include_modifier_scene_paths: Dictionary[String, bool] = modifier_c_config.include_modifier_scene_paths
+		if include_modifier_scene_paths and not include_modifier_scene_paths.has(other_modifier_scene_uid):
+			if not include_modifier_scene_paths[other_modifier_scene_uid]:
+				continue
+ 				
+			EntityManager.queue_remove_entity(other_modifier)
+			continue
+
+		var is_break: bool = false
+		var other_modifier_c: ModifierComponent = other_modifier.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)	
+		var other_modifier_c_config: ModifierComponentNodeConfig = other_modifier_c.config
+		var other_modifier_types: int = other_modifier_c_config.modifier_types
+		var exclude_modifier_types: Dictionary[ModifierComponent.Type, bool] = modifier_c_config.exclude_modifier_types
+		for exclude_modifier_type: ModifierComponent.Type in exclude_modifier_types.keys():
+			if not exclude_modifier_type & other_modifier_types:
+				continue
+
+			if exclude_modifier_types[exclude_modifier_type]:
+				EntityManager.queue_remove_entity(other_modifier)
 			
-			return false
+			is_break = true
+			break
+		if is_break:
+			continue
+
+		if other_modifier_c_config.exclude_modifier_scene_paths.has(modifier_scene_uid):
+			continue
+
+		var other_include_modifier_scene_paths: Dictionary[String, bool] = other_modifier_c_config.include_modifier_scene_names
+		if other_include_modifier_scene_paths and not other_include_modifier_scene_paths.has(modifier_scene_uid):
+			continue
 		
-		if other_modifier.scene_name == modifier.scene_name:
-			same_modifier_list.append(other_modifier)
+		is_break = false
+		for exclude_modifier_type: ModifierComponent.Type in other_modifier_c_config.exclude_modifier_types.keys():
+			if not exclude_modifier_type & modifier_types:
+				continue
+
+			is_break = true
+			break
+		if is_break:
+			continue
+
+		if other_modifier_scene_uid == modifier_scene_uid:
+			same_modifiers.append(other_modifier)
 			
-	if same_modifier_list and modifier_c_config.same_stack_policy:
-		if not modifier_c_config.same_stack_policy.apply(modifier, same_modifier_list):
+	if same_modifiers and modifier_c_config.same_stack_policy:
+		if not modifier_c_config.same_stack_policy.apply(modifier, same_modifiers):
 			return false
 
-	target.has_mods_ids.append(modifier.id)
+	target.has_modifier_ids.append(modifier.id)
+	target.is_modifier_ids_changed = true
 	return true
 
 
@@ -75,29 +115,22 @@ func _on_remove(modifier: Entity) -> bool:
 
 	var reseted_property_set: Dictionary = {}
 
-	for property_mod: PropertyModifier in modifier_c.config.property_modifier_list:
-		var key: Array = [property_mod.node_path, property_mod.property]
+	for property_modifier: PropertyModifier in modifier_c.config.property_modifiers:
+		var key: Array = [property_modifier.node_path, property_modifier.property]
 		if reseted_property_set.has(key):
 			continue
 
 		reseted_property_set[key] = true
-		_reset_property(target, property_mod)
-
-	target.has_mods_ids.erase(modifier.id)
-
-	for t_mod: Entity in target.get_has_mod_list():
-		var t_modifier_c: ModifierComponent = t_mod.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
-		var t_property_modifier_list: Array = t_modifier_c.config.property_modifier_list
+		_reset_property(target, property_modifier)
 		
-		for t_property_mod: PropertyModifier in t_property_modifier_list:
-			_apply_modifier(target, t_property_mod)
-
+	target.has_modifier_ids.erase(modifier.id)
+	target.is_modifier_ids_changed = true
 	return true
 
 
 ## 处理修改器的更新。
 func _process_modifier_update() -> void:
-	for modifier: Entity in EntityManager.get_component_entity_group(Constants.MODIFIER_COMPONENT_NAME):
+	for modifier: Entity in EntityManager.get_component_entity_group(Enums.ComponentFlag.MODIFIER):
 		var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
 		var modifier_c_config: ModifierComponentNodeConfig = modifier_c.config
 
@@ -150,23 +183,25 @@ func _take_influfluence(modifier: Entity, modifier_c: ModifierComponent, target:
 ## 处理修改器的属性修改。
 func _process_property_modifiers() -> void:
 	for entity: Entity in EntityManager.get_valid_entities():
-		var has_mods_id_list_size: int = entity.has_mods_ids.size()
-		if entity.last_has_mods_ids_size != has_mods_id_list_size:
-			entity.last_has_mods_ids_size = has_mods_id_list_size
-			var reseted_property_set: Dictionary = {}
+		if not entity.is_modifier_ids_changed:
+			continue
 
-			for modifier: Entity in entity.get_has_mod_list():
-				var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
-				var property_modifier_list: Array = modifier_c.config.property_modifier_list
+		entity.is_modifier_ids_changed = false
+		var reseted_property_set: Dictionary = {}
 
-				for property_modifier: PropertyModifier in property_modifier_list:
-					var key: Array = [property_modifier.node_path, property_modifier.property]
-					if not reseted_property_set.has(key):
-						reseted_property_set[key] = true
+		for modifier_id: int in entity.has_modifier_ids:
+			var modifier: Entity = EntityManager.get_entity_by_id(modifier_id)
+			var modifier_c: ModifierComponent = modifier.get_node_or_null(Constants.MODIFIER_COMPONENT_NODE_PATH)
+			var property_modifier_list: Array = modifier_c.config.property_modifier_list
 
-						_reset_property(entity, property_modifier)
+			for property_modifier: PropertyModifier in property_modifier_list:
+				var key: Array = [property_modifier.node_path, property_modifier.property]
+				if not reseted_property_set.has(key):
+					reseted_property_set[key] = true
 
-					_apply_modifier(entity, property_modifier)
+					_reset_property(entity, property_modifier)
+
+				_apply_modifier(entity, property_modifier)
 
 
 ## 重置实体的属性值。

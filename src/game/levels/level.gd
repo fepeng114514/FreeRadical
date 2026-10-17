@@ -22,6 +22,7 @@ class_name Level
 func _enter_tree() -> void:
 	NodeConfigManager.init()
 	EntityManager.init()
+	EntitySpatialHashManager.init()
 		
 	GlobalManager.world_size = world_size
 	GameManager.default_tower_holder = default_tower_holder
@@ -30,6 +31,7 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	GameManager.cleanup()
 	EntityManager.cleanup()
+	EntitySpatialHashManager.cleanup()
 	GridManager.cleanup()
 	SelectManager.cleanup()
 	PathwayManager.cleanup()

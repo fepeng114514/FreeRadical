@@ -27,8 +27,31 @@ func _draw() -> void:
 func can_use(entity: Entity, _config: SkillNodeConfig, target: Entity = null) -> bool:
 	if not super(entity, config, target):
 		return false
+
+	var target_interact_policy_c: InteractPolicyComponent = target.get_node_or_null(Constants.INTERACT_POLICY_COMPONENT_NODE_PATH)
+	if not target_interact_policy_c:
+		return true
 		
-	if not InteractPolicy.is_allowed_target(entity, target, config.interact_policy, target.config.interact_policy):
+	var target_interact_policy_c_config: InteractPolicyComponentNodeConfig = target_interact_policy_c.config
+	if target_interact_policy_c_config.skill_type_bans & config.skill_types:
+		return false
+
+	if config.entity_flag_bans & target_interact_policy_c_config.entity_flags:
+		return false
+
+	var target_scene_uid: String = target.scene_file_uid
+	if config.scene_path_bans.has(target_scene_uid):
+		return false
+	
+	var scene_path_allows: PackedStringArray = config.scene_path_allows
+	if scene_path_allows and not scene_path_allows.has(target_scene_uid):
+		return false
+		
+	var entity_interact_policy_c: InteractPolicyComponent = entity.get_node_or_null(Constants.INTERACT_POLICY_COMPONENT_NODE_PATH)
+	if not entity_interact_policy_c:
+		return true
+		
+	if entity_interact_policy_c.is_banned_either(target_interact_policy_c, entity.scene_file_uid, target.scene_file_uid):
 		return false
 		
 	return true

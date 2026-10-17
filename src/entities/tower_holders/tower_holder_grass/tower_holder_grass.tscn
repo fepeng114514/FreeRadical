@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cdk665a2wx8m3" path="res://entities/tower_holders/tower_holder.gd" id="1_wif5c"]
 [ext_resource type="Texture2D" uid="uid://0566nc2tgjxo" path="res://assets/atlas/atlas_textures/towers/build_terrain_0001.tres" id="2_jmfsc"]
 [ext_resource type="Resource" uid="uid://cqfoiksymlyno" path="res://entities/tower_holders/tower_holder_grass/template/node_config_template.tres" id="3_uoo73"]
-[ext_resource type="Resource" uid="uid://dxkgjtbiqwggl" path="res://entities/tower_holders/tower_holder_grass/template/tower_holder_grass.tres" id="4_4lf20"]
 [ext_resource type="Script" uid="uid://dnmvx5m0u5a8m" path="res://classes/components/record_component/records/price_record.gd" id="4_ajev5"]
 [ext_resource type="Script" uid="uid://cmsakrqf2ax88" path="res://classes/components/record_component/record_component.gd" id="4_jc0hh"]
 [ext_resource type="Resource" uid="uid://bf7ccwaborlrs" path="res://entities/tower_holders/tower_holder_grass/template/sprite_component/sprite_component.tres" id="5_gxhsy"]
@@ -18,7 +17,6 @@
 [node name="TowerHolderGrass" type="Node2D" unique_id=1898604313]
 script = ExtResource("1_wif5c")
 node_config_template = ExtResource("3_uoo73")
-config = ExtResource("4_4lf20")
 metadata/_custom_type_script = "uid://cdk665a2wx8m3"
 
 [node name="RecordComponent" type="Node2D" parent="." unique_id=1788219378]
@@ -40,6 +38,7 @@ process_mode = 4
 script = ExtResource("5_jc0hh")
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=974667319]
+process_mode = 4
 show_behind_parent = true
 position = Vector2(0, -10)
 script = ExtResource("6_lcah3")

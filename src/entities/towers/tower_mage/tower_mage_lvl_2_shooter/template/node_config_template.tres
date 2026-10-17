@@ -4,7 +4,6 @@
 [ext_resource type="Resource" uid="uid://cirq04heubftl" path="res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/template/animated_sprite_component/animated_sprite_component.tres" id="2_5du4a"]
 [ext_resource type="Resource" uid="uid://ytyuj6qmlhic" path="res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/template/skill_component/ranged_skill/ranged_skill.tres" id="3_mm6a0"]
 [ext_resource type="Resource" uid="uid://b8ie7ks7t5055" path="res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/template/skill_component/skill_component.tres" id="4_hccl1"]
-[ext_resource type="Resource" uid="uid://ddf03bsmc0h5l" path="res://entities/towers/tower_mage/tower_mage_lvl_2_shooter/template/tower_mage_lvl_2_shooter.tres" id="5_2n5e3"]
 
 [sub_resource type="Resource" id="Resource_sjmvi"]
 script = ExtResource("1_sjmvi")
@@ -27,7 +26,6 @@ children_dict = Dictionary[String, ExtResource("1_sjmvi")]({
 
 [resource]
 script = ExtResource("1_sjmvi")
-config = ExtResource("5_2n5e3")
 children = Array[ExtResource("1_sjmvi")]([SubResource("Resource_sjmvi"), SubResource("Resource_mm6a0")])
 children_dict = Dictionary[String, ExtResource("1_sjmvi")]({
 "AnimatedSpriteComponent": SubResource("Resource_sjmvi"),

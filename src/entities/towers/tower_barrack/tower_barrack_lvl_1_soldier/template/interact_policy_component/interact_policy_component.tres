@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InteractPolicyComponentNodeConfig" format=3 uid="uid://gnr0isg1hm52"]
+
+[ext_resource type="Script" uid="uid://bibxyauig41ej" path="res://classes/node_configs/components/interact_policy_component_node_config.gd" id="1_5v8xp"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_5v8xp")
+faction = 4
+entity_type = 1

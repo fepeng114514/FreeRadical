@@ -6,7 +6,7 @@ class_name UpgradeSystem
 
 
 func _on_update(_delta: float) -> void:
-	for entity: Entity in EntityManager.get_component_entity_group(Constants.UPGRADE_COMPONENT_NAME):
+	for entity: Entity in EntityManager.get_component_entity_group(Enums.ComponentFlag.UPGRADE):
 		var upgrade_c: UpgradeComponent = entity.get_node_or_null(Constants.UPGRADE_COMPONENT_NODE_PATH)
 		var current_upgrading_index: int = upgrade_c.current_upgrading_index
 		if not Utils.is_valid_number(current_upgrading_index):
