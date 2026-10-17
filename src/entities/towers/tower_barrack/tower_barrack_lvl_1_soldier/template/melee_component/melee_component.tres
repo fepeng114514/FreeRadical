@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="MeleeComponentNodeConfig" format=3 uid="uid://c0s4wirl3sa2k"]
 
-[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="1_ln3nm"]
+[ext_resource type="Script" uid="uid://8ddntx9wc2qb" path="res://classes/facing_offset_sets/horizontal_facing_offset_set.gd" id="1_ln3nm"]
 [ext_resource type="Script" uid="uid://6lf8t6ie1tdv" path="res://classes/node_configs/components/melee_component_node_config.gd" id="1_q8svd"]
 [ext_resource type="Resource" uid="uid://cd5tm7dqxesnf" path="res://entities/resources/animation_groups/horizontal_walk_animation_group.tres" id="2_17mck"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_5gbml"]
@@ -9,7 +9,7 @@
 script = ExtResource("1_ln3nm")
 right_replace_left = true
 right = Vector2(34.92, 0)
-metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+metadata/_custom_type_script = "uid://8ddntx9wc2qb"
 
 [sub_resource type="Resource" id="Resource_vrdxj"]
 resource_local_to_scene = true

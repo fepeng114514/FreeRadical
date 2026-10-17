@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cn6ap4nlr0bnk" path="res://classes/node_configs/skills/search_skills/ranged_skill_node_config.gd" id="1_7g736"]
 [ext_resource type="Script" uid="uid://chrh45crbqevl" path="res://classes/facing_animation_sets/any_facing_animation_set.gd" id="1_8jese"]
-[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_so35u"]
+[ext_resource type="Script" uid="uid://2lrtb66sm36i" path="res://classes/facing_offset_sets/any_facing_offset_set.gd" id="2_so35u"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_vp0mg"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="6_ne3iq"]
 
@@ -14,7 +14,7 @@ any = &"ranged"
 [sub_resource type="Resource" id="Resource_32uxe"]
 script = ExtResource("2_so35u")
 any = Vector2(0, -77.89)
-metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+metadata/_custom_type_script = "uid://2lrtb66sm36i"
 
 [sub_resource type="Resource" id="Resource_ddm5a"]
 resource_local_to_scene = true

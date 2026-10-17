@@ -130,7 +130,12 @@ Zero-Based-Isekai-Tower-Defense/
 │   │   ├── entity_group.gd                   # 实体组
 │   │   ├── entity_group_2d.gd                # 2D实体组
 │   │   ├── interact_policy.gd                # 交互策略
-│   │   ├── offset_group.gd                   # 偏移组
+│   │   ├── facing_offset_sets/             # 朝向偏移组类目录
+│   │   │   ├── facing_offset_set.gd            # 朝向偏移组基类
+│   │   │   ├── any_facing_offset_set.gd        # 任意方向偏移组
+│   │   │   ├── horizontal_facing_offset_set.gd # 水平双方向偏移组
+│   │   │   ├── vertical_facing_offset_set.gd   # 垂直双方向偏移组
+│   │   │   └── four_way_facing_offset_set.gd   # 四方向偏移组
 │   │   ├── property_modifier.gd              # 属性修饰器
 │   │   ├── same_process_resource.gd          # 同进程资源
 │   │   ├── searcher.gd                         # 搜索资源

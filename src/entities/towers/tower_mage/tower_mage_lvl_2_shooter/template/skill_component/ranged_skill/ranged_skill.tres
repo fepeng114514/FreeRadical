@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://45a06sxmdde2" path="res://classes/facing_animation_sets/vertical_facing_animation_set.gd" id="1_66jju"]
 [ext_resource type="Script" uid="uid://cn6ap4nlr0bnk" path="res://classes/node_configs/skills/search_skills/ranged_skill_node_config.gd" id="1_dqvm8"]
-[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_o7uyl"]
+[ext_resource type="Script" uid="uid://4kvs678x33m5" path="res://classes/facing_offset_sets/vertical_facing_offset_set.gd" id="2_o7uyl"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_6yei3"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="6_b5nql"]
 
@@ -18,7 +18,7 @@ script = ExtResource("2_o7uyl")
 up = Vector2(13.05, -34.11)
 down = Vector2(-12.69, -34.47)
 vertical_mirror = true
-metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+metadata/_custom_type_script = "uid://4kvs678x33m5"
 
 [sub_resource type="Resource" id="Resource_8ums6"]
 resource_local_to_scene = true

@@ -39,7 +39,7 @@ enum SearchFlag {
 
 
 ## 搜索中心偏移量。
-@export var center_offsets: OffsetGroup = null:
+@export var center_offsets: FacingOffsetSet = null:
 	set(v): 
 		Utils.rebind_changed(center_offsets, v, emit_changed)
 		center_offsets = v

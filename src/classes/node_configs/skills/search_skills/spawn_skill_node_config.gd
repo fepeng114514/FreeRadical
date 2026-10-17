@@ -9,7 +9,7 @@ class_name SpawnSkillNodeConfig
 ## 生成的实体场景名称数组。
 @export_file("*.tscn") var spawns: PackedStringArray
 ## 生成的实体初始位置偏移组。
-@export var spawn_offsets: OffsetGroup = null:
+@export var spawn_offsets: FacingOffsetSet = null:
 	set(v):
 		Utils.rebind_changed(spawn_offsets, v, emit_changed)
 		spawn_offsets = v

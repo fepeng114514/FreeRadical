@@ -21,4 +21,4 @@ func _init():
 
 ## 根据中心点到目标点的方向返回对应的动画名称。
 @abstract
-func get_animation_name_toward_point(_center: Vector2, _point: Vector2) -> AnimationData
+func get_animation_name_toward_point(center: Vector2, point: Vector2) -> AnimationData

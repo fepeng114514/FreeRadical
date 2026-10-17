@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://t3k6wl7of3fr" path="res://classes/node_configs/components/barrack_component_node_config.gd" id="1_q4xy3"]
 [ext_resource type="Resource" uid="uid://br3xlagaeimgi" path="res://entities/resources/select_menu_button_data/rally.tres" id="4_a1hfl"]
 [ext_resource type="Script" uid="uid://b2b214g352w4u" path="res://classes/audio_group.gd" id="4_glgke"]
-[ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="5_w46wc"]
+[ext_resource type="Script" uid="uid://2lrtb66sm36i" path="res://classes/facing_offset_sets/any_facing_offset_set.gd" id="5_w46wc"]
 
 [sub_resource type="Resource" id="Resource_p4ubw"]
 resource_local_to_scene = true
@@ -15,7 +15,7 @@ any = &"spawn"
 [sub_resource type="Resource" id="Resource_2u03i"]
 script = ExtResource("5_w46wc")
 any = Vector2(0, 17.55)
-metadata/_custom_type_script = "uid://b88iol2ey0jwp"
+metadata/_custom_type_script = "uid://2lrtb66sm36i"
 
 [sub_resource type="Resource" id="Resource_3ddwr"]
 script = ExtResource("4_glgke")

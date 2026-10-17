@@ -15,7 +15,7 @@ class_name RangedSkillNodeConfig
 ## 子弹发射数量。
 @export var bullet_count: int = 1
 ## 子弹初始位置偏移组。
-@export var bullet_offsets: OffsetGroup = null:
+@export var bullet_offsets: FacingOffsetSet = null:
 	set(v):
 		Utils.rebind_changed(bullet_offsets, v, emit_changed)
 		bullet_offsets = v

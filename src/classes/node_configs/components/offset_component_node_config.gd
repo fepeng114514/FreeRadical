@@ -7,13 +7,13 @@ class_name OffsetComponentNodeConfig
 
 
 ## 击中位置偏移组。
-@export var hit_offsets: OffsetGroup = null:
+@export var hit_offsets: FacingOffsetSet = null:
 	set(v): 
 		Utils.rebind_changed(hit_offsets, v, emit_changed)
 		hit_offsets = v
 		emit_changed()
 ## 光环位置偏移组。
-@export var aura_offsets: OffsetGroup = null:
+@export var aura_offsets: FacingOffsetSet = null:
 	set(v): 
 		Utils.rebind_changed(aura_offsets, v, emit_changed)
 		aura_offsets = v

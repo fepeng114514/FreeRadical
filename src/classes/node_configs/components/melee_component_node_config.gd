@@ -13,7 +13,7 @@ class_name MeleeComponentNodeConfig
 ## 移动动画组。
 @export var motion_animation: FacingAnimationSet = null
 ## 近战位置偏移组。
-@export var melee_position_offsets: OffsetGroup = null:
+@export var melee_position_offsets: FacingOffsetSet = null:
 	set(v):
 		Utils.rebind_changed(melee_position_offsets, v, emit_changed)
 		melee_position_offsets = v
