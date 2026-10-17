@@ -152,18 +152,19 @@ func _grouping_entities() -> void:
 ## 空间哈希网格单元。
 class SpaceIndexCell extends RefCounted:
 	## 网格内的实体组。
-	var entity_groups: Dictionary[int, EntityGroup] = {}
+	var entity_groups: Dictionary[int, Array] = {}
 
 	func _init() -> void:
 		for faction: InteractPolicyComponent.Faction in InteractPolicyComponent.Faction.values():
 			var shifted_faction: int = faction << Constants.INT64_LEN_HALF
 			for entity_type: InteractPolicyComponent.EntityType in InteractPolicyComponent.EntityType.values():
-				entity_groups[shifted_faction | entity_type] = EntityGroup.new()
+				var entity_group: Array[Entity] = []
+				entity_groups[shifted_faction | entity_type] = entity_group
 
 	func get_entity_group(faction: InteractPolicyComponent.Faction, entity_type: InteractPolicyComponent.EntityType) -> Array[Entity]:
 		var group_key: int = faction << Constants.INT64_LEN_HALF | entity_type
-		return entity_groups[group_key].get_entities()
+		return entity_groups[group_key]
 
 	func clear() -> void:
-		for entity_group: EntityGroup in entity_groups.values():
+		for entity_group: Array[Entity] in entity_groups.values():
 			entity_group.clear()

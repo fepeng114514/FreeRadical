@@ -29,9 +29,9 @@ var _entities: Array[Entity] = []
 ## 所有有效实体数组，用于在 [System] 中快速查找所有有效实体。
 var _valid_entities: Array[Entity] = []
 ## 按组件类型索引的实体组数组，用于在 [System] 中快速查找相应组件的实体。
-var _component_entity_groups: Array[EntityGroup] = []
+var _component_entity_groups: Array[Array] = []
 ## 实体类型组字典，用于在 [Searcher] 中快速查找相应实体类型的实体。
-var _entity_groups: Dictionary[int, EntityGroup] = {}
+var _entity_groups: Dictionary[int, Array] = {}
 
 
 func _physics_process(_delta: float) -> void:
@@ -45,11 +45,13 @@ func init() -> void:
 	for faction: InteractPolicyComponent.Faction in InteractPolicyComponent.Faction.values():
 		var shifted_faction: int = faction << Constants.INT64_LEN_HALF
 		for entity_type: InteractPolicyComponent.EntityType in InteractPolicyComponent.EntityType.values():
-			_entity_groups[shifted_faction | entity_type] = EntityGroup.new()
+			var entity_group: Array[Entity] = []
+			_entity_groups[shifted_faction | entity_type] = entity_group
 
 	_component_entity_groups.resize(Enums.ComponentFlag.size())
 	for component_flag: Enums.ComponentFlag in Enums.ComponentFlag.values():
-		_component_entity_groups[component_flag] = EntityGroup.new()
+		var entity_group: Array[Entity] = []
+		_component_entity_groups[component_flag] = entity_group
 
 
 ## 清理实体管理器，这通常用于清除实体管理器中的所有引用。
@@ -197,12 +199,12 @@ func get_valid_entities() -> Array[Entity]:
 ## 获取实体组。
 func get_entity_group(faction: InteractPolicyComponent.Faction, entity_type: InteractPolicyComponent.EntityType) -> Array[Entity]:
 	var group_key: int = faction << Constants.INT64_LEN_HALF | entity_type
-	return _entity_groups[group_key].get_entities()
+	return _entity_groups[group_key]
 
 
 ## 获取按组件类型索引的实体组。
 func get_component_entity_group(component_flag: Enums.ComponentFlag) -> Array[Entity]:
-	return _component_entity_groups[component_flag].get_entities()
+	return _component_entity_groups[component_flag]
 
 
 ## 根据 id 获取实体。
@@ -273,7 +275,7 @@ func _process_remove_queue() -> void:
 func _grouping_entities() -> void:
 	_valid_entities.clear()
 		
-	for group: EntityGroup in _component_entity_groups:
+	for group: Array[Entity] in _component_entity_groups:
 		group.clear()
 
 	for entity: Entity in _entities:

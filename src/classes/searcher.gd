@@ -170,8 +170,11 @@ func search_targets(center: Vector2, entity: Entity = null, filter := Callable()
 				if not has_flags & flag:
 					continue
 				
-				var bucket: Array = buckets.get_or_add(flag, [])
-				bucket.append(target)
+				if not buckets.has(flag):
+					var bucket: Array[Entity] = []
+					buckets[flag] = bucket
+					
+				buckets[flag].append(target)
 				is_found = true
 				break
 
@@ -185,7 +188,7 @@ func search_targets(center: Vector2, entity: Entity = null, filter := Callable()
 			if not buckets.has(flag):
 				continue
 				
-			var bucket: Array = buckets[flag]
+			var bucket: Array[Entity] = buckets[flag]
 			_sort_targets(bucket, center)
 			new_targets.append_array(bucket)
 
