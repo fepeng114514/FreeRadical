@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_s4orf"]
 [ext_resource type="Resource" uid="uid://lrdb8qqdtr1p" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1_bullet/template/node_config_template.tres" id="2_wvp3c"]
-[ext_resource type="Resource" uid="uid://bi1hf7sky8pb8" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1_bullet/template/tower_artillery_lvl_1_bullet.tres" id="3_hrkg5"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="4_2bjy7"]
 [ext_resource type="Resource" uid="uid://cwjnw3lmtgnfx" path="res://entities/towers/tower_artillery/tower_artillery_lvl_1_bullet/template/bullet_component/bullet_component.tres" id="5_defr7"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="6_snobs"]
@@ -13,7 +12,6 @@
 z_index = 10
 script = ExtResource("1_s4orf")
 node_config_template = ExtResource("2_wvp3c")
-config = ExtResource("3_hrkg5")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="BulletComponent" type="Node2D" parent="." unique_id=1871836864]
@@ -23,6 +21,7 @@ config = ExtResource("5_defr7")
 metadata/_custom_type_script = "uid://haoljvofy74e"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1496253429]
+process_mode = 4
 show_behind_parent = true
 script = ExtResource("6_snobs")
 config = ExtResource("11_7kqxu")

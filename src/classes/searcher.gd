@@ -231,8 +231,12 @@ func _get_packed_filter(entity: Entity, interact_policy_c: InteractPolicyCompone
 
 
 ## 跳过注定死亡目标过滤器。
-func _skip_doomed_filter(entity: Entity) -> bool:
-	return not entity.meta_state & Entity.MetaState.DOOMED
+func _skip_doomed_filter(target: Entity) -> bool:
+	var health_c: HealthComponent = target.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
+	if not health_c:
+		return false
+
+	return health_c.total_pending_damage_value < health_c.hp
 
 
 ## 跳过已死亡目标过滤器。

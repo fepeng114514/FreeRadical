@@ -23,7 +23,7 @@ func _on_update(_delta: float) -> void:
 		var health_c: HealthComponent = entity.get_node_or_null(Constants.HEALTH_COMPONENT_NODE_PATH)
 
 		_process_regen(entity, health_c)
-		_process_doomed_state(entity, health_c)
+		_update_total_pending_damage(entity, health_c)
 
 
 ## 处理回血。
@@ -40,29 +40,14 @@ func _process_regen(entity: Entity, health_c: HealthComponent) -> void:
 			health_c.idle_regen_timestamp = TimeManager.tick_timestamp
 
 
-## 处理注定死亡状态。
-func _process_doomed_state(entity: Entity, health_c: HealthComponent) -> void:
-	if entity.has_new_aimed_bullet:
-		entity.has_new_aimed_bullet = false
+## 更新待定总伤害。
+func _update_total_pending_damage(entity: Entity, health_c: HealthComponent) -> void:
+	if not entity.is_aimed_bullet_ids_changed:
+		return
 
-		if not entity.meta_state & Entity.MetaState.DOOMED:
-			if _is_doomed(entity, health_c):
-				entity.meta_state |= Entity.MetaState.DOOMED
+	entity.is_aimed_bullet_ids_changed = false
 
-	if health_c.hp != health_c.last_hp:
-		health_c.last_hp = health_c.hp
-		if entity.meta_state & Entity.MetaState.DOOMED and health_c.hp > 0:
-			entity.meta_state &= ~Entity.MetaState.DOOMED
-			return
-
-		if _is_doomed(entity, health_c):
-			entity.meta_state |= Entity.MetaState.DOOMED
-
-
-## 检查实体是否注定死亡。
-func _is_doomed(entity: Entity, health_c: HealthComponent) -> bool:
 	var total_damage: float = 0.0
-
 	for bullet_id: int in entity.aimed_bullet_ids:
 		var bullet: Entity = EntityManager.get_entity_by_id(bullet_id)
 		var bullet_c: BulletComponent = bullet.get_node_or_null(Constants.BULLET_COMPONENT_NODE_PATH)
@@ -78,7 +63,5 @@ func _is_doomed(entity: Entity, health_c: HealthComponent) -> bool:
 		
 		var actual_damage: float = Damage.predict_damage(damage_influence.damage_type, damage_influence.value, entity)
 		total_damage += actual_damage
-		if total_damage >= health_c.hp:
-			return true
 
-	return false
+	health_c.total_pending_damage_value = total_damage

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://dnp44u8703gud" path="res://classes/entity.gd" id="1_7n35x"]
 [ext_resource type="Resource" uid="uid://cvoi5hxufpfnn" path="res://entities/towers/tower_archer/tower_archer_lvl_2_bullet/template/node_config_template.tres" id="2_p4d0j"]
-[ext_resource type="Resource" uid="uid://dx3id3f6rp32" path="res://entities/towers/tower_archer/tower_archer_lvl_2_bullet/template/tower_archer_lvl_2_bullet.tres" id="3_5jrol"]
 [ext_resource type="Script" uid="uid://haoljvofy74e" path="res://classes/components/bullet_component.gd" id="4_40uqu"]
 [ext_resource type="Resource" uid="uid://c1dlq5idwwito" path="res://entities/towers/tower_archer/tower_archer_lvl_2_bullet/template/bullet_component/bullet_component.tres" id="5_ehd0t"]
 [ext_resource type="Script" uid="uid://bsc0okjq4yvxq" path="res://classes/components/sprite_component.gd" id="6_5jrol"]
@@ -13,7 +12,6 @@
 z_index = 10
 script = ExtResource("1_7n35x")
 node_config_template = ExtResource("2_p4d0j")
-config = ExtResource("3_5jrol")
 metadata/_custom_type_script = "uid://dnp44u8703gud"
 
 [node name="BulletComponent" type="Node2D" parent="." unique_id=1871836864]
@@ -23,6 +21,7 @@ config = ExtResource("5_ehd0t")
 metadata/_custom_type_script = "uid://haoljvofy74e"
 
 [node name="SpriteComponent" type="Node2D" parent="." unique_id=1496253429]
+process_mode = 4
 show_behind_parent = true
 script = ExtResource("6_5jrol")
 config = ExtResource("9_set15")

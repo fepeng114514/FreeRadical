@@ -48,9 +48,7 @@ enum MetaState {
 	## 实体元状态：无。
 	NONE = 0,
 	## 实体元状态：首次更新。
-	FIRST_UPDATE = 1,
-	## 实体元状态：注定死亡。
-	DOOMED = 1 << 1,
+	FIRST_UPDATE = 1
 }
 
 
@@ -94,8 +92,8 @@ var is_modifier_ids_changed: bool = false
 var has_aura_ids := PackedInt32Array()
 ## 以此实体为目标的子弹 ID 列表。
 var aimed_bullet_ids := PackedInt32Array()
-## 是否有新的子弹以此实体为目标。
-var has_new_aimed_bullet: bool = false
+## 以此实体为目标的子弹 ID 列表是否变化。
+var is_aimed_bullet_ids_changed: bool = false
 ## 状态。
 var state: int = Entity.State.IDLE
 ## 元状态。

@@ -32,6 +32,8 @@ var last_hp: float = 0.0
 var regen_timestamp: float = 0.0
 ## 待机回血时间戳。
 var idle_regen_timestamp: float = 0.0
+## 待定总伤害。
+var total_pending_damage_value: float = 0.0
 
 ## 血条节点引用。
 @onready var health_bar: TextureProgressBar = get_node_or_null(health_bar_path)

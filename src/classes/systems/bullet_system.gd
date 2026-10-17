@@ -15,7 +15,7 @@ func _on_insert(entity: Entity) -> bool:
 		return false
 		
 	target.aimed_bullet_ids.append(entity.id)
-	target.has_new_aimed_bullet = true
+	target.is_aimed_bullet_ids_changed = true
 	bullet_c.timestamp = TimeManager.tick_timestamp
 	var bullet_c_config: BulletComponentNodeConfig = bullet_c.config
 	var predict_time: float = bullet_c_config.trajectory._get_predict_time() if bullet_c_config.trajectory else 0.0
@@ -59,6 +59,7 @@ func _on_remove(entity: Entity) -> bool:
 		return true
 		
 	target.aimed_bullet_ids.erase(entity.id)
+	target.is_aimed_bullet_ids_changed = true
 	return true
 
 
