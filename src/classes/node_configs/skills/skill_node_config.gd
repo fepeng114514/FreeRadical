@@ -16,7 +16,7 @@ class_name SkillNodeConfig
 ## 技能释放延迟（秒），用于等待动画到达特定帧后再释放技能。
 @export var delay: float = 0.0
 ## 动画组。
-@export var animation: AnimationGroup = null
+@export var animation: FacingAnimationSet = null
 ## 音效组。
 @export var sfx: AudioGroup = null
 

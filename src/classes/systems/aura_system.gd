@@ -147,7 +147,7 @@ func _on_remove(aura: Entity) -> bool:
 func _take_influfluence(aura: Entity, aura_c: AuraComponent) -> void:
 	var aura_c_config: AuraComponentNodeConfig = aura_c.config
 	var animated_sprite_c: AnimatedSpriteComponent = aura.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
-	var influence_animation: AnimationGroup = aura_c_config.influence_animation
+	var influence_animation: FacingAnimationSet = aura_c_config.influence_animation
 	if influence_animation:
 		animated_sprite_c.play_animation(aura, influence_animation)
 	await aura.y_wait(aura_c_config.influence_delay)

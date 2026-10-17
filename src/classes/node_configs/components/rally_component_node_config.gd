@@ -11,6 +11,6 @@ class_name RallyComponentNodeConfig
 ## 是否可点击集结。
 @export var can_select_rally: bool = true
 ## 移动动画组。
-@export var motion_animation: AnimationGroup = null
+@export var motion_animation: FacingAnimationSet = null
 ## 移动音效组。
 @export var motion_sfx: AudioGroup = null

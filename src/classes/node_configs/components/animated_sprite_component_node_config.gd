@@ -7,7 +7,7 @@ class_name AnimatedSpriteComponentNodeConfig
 
 
 ## 空闲动画组。
-@export var idle_animation: AnimationGroup = null
+@export var idle_animation: FacingAnimationSet = null
 
 @export_group("Sync Animation")
 ## 是否所有者同步播放动画。

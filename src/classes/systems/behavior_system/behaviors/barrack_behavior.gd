@@ -84,7 +84,7 @@ func _spawn_by_time(barrack: Entity, barrack_c: BarrackComponent, barrack_record
 		
 	AudioManager.play_sfx(barrack_c_config.spawn_sfx)
 	var animated_sprite_c: AnimatedSpriteComponent = barrack.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
-	var spawn_animation: AnimationGroup = animated_sprite_c.config.spawn_animation
+	var spawn_animation: FacingAnimationSet = animated_sprite_c.config.spawn_animation
 	if spawn_animation:
 		animated_sprite_c.play_animation(barrack, spawn_animation)
 	if await barrack.y_wait(barrack_c_config.spawn_delay):
@@ -142,7 +142,7 @@ func _spawn_all_soldiers(barrack: Entity, barrack_c: BarrackComponent, barrack_r
 	if old_soldier_ids_size < barrack_c_config.max_soldier_count:
 		AudioManager.play_sfx(barrack_c_config.spawn_sfx)
 		var animated_sprite_c: AnimatedSpriteComponent = barrack.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
-		var spawn_animation: AnimationGroup = barrack_c_config.spawn_animation
+		var spawn_animation: FacingAnimationSet = barrack_c_config.spawn_animation
 		if spawn_animation:
 			animated_sprite_c.play_animation(barrack, spawn_animation)
 		if await barrack.y_wait(barrack_c_config.spawn_delay):

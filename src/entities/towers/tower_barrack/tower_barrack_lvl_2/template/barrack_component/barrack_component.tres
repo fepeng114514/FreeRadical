@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BarrackComponentNodeConfig" format=3 uid="uid://r67bnek1uj4w"]
 
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_0s0p4"]
+[ext_resource type="Script" uid="uid://chrh45crbqevl" path="res://classes/facing_animation_sets/any_facing_animation_set.gd" id="1_0s0p4"]
 [ext_resource type="Resource" uid="uid://clhshesmvk8at" path="res://entities/towers/tower_barrack/tower_barrack_birth_sfx.tres" id="1_a1hfl"]
 [ext_resource type="Script" uid="uid://t3k6wl7of3fr" path="res://classes/node_configs/components/barrack_component_node_config.gd" id="1_q4xy3"]
 [ext_resource type="Resource" uid="uid://br3xlagaeimgi" path="res://entities/resources/select_menu_button_data/rally.tres" id="4_a1hfl"]

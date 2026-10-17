@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RangedSkillNodeConfig" format=3 uid="uid://c8j2u0sytwbfd"]
 
 [ext_resource type="Script" uid="uid://cn6ap4nlr0bnk" path="res://classes/node_configs/skills/search_skills/ranged_skill_node_config.gd" id="1_7hrn5"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_u6bqw"]
+[ext_resource type="Script" uid="uid://45a06sxmdde2" path="res://classes/facing_animation_sets/vertical_facing_animation_set.gd" id="1_u6bqw"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_copbt"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_gjkmc"]
 

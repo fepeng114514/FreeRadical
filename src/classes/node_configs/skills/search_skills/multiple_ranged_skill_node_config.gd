@@ -9,9 +9,9 @@ class_name MultipleRangedSkillNodeConfig
 ## 循环次数。
 @export var loop_count: int = 1
 ## 循环动画组。
-@export var loop_animation: AnimationGroup = null
+@export var loop_animation: FacingAnimationSet = null
 ## 结束动画组。
-@export var end_animation: AnimationGroup = null
+@export var end_animation: FacingAnimationSet = null
 ## 攻击音效组。
 @export var loop_sfx: AudioGroup = null
 ## 结束音效组。

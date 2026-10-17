@@ -110,7 +110,7 @@ func _death(damage: Damage, target: Entity, health_c: HealthComponent, _source: 
 
 	target.state &= ~Entity.State.INTERRUPT_WAIT
 	AudioManager.play_sfx(health_c_config.death_sfx)
-	var death_animation: AnimationGroup = health_c_config.death_animation
+	var death_animation: FacingAnimationSet = health_c_config.death_animation
 	if death_animation:
 		var animated_sprite_c: AnimatedSpriteComponent = target.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
 		animated_sprite_c.play_animation(target, death_animation, &"death")

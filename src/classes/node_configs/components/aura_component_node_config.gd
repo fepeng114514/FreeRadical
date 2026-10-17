@@ -53,7 +53,7 @@ class_name AuraComponentNodeConfig
 ## 影响延迟时间。
 @export var influence_delay: float = 0.0
 ## 影响动画。
-@export var influence_animation: AnimationGroup = null
+@export var influence_animation: FacingAnimationSet = null
 
 var _init_connect_property_signals: Dictionary[String, Callable] = {
 	"searcher": emit_changed,

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="AnimationGroup" format=3 uid="uid://6v7qe326x75"]
+[gd_resource type="Resource" script_class="AnyFacingAnimationSet" format=3 uid="uid://6v7qe326x75"]
 
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_bdw6g"]
+[ext_resource type="Script" uid="uid://chrh45crbqevl" path="res://classes/facing_animation_sets/any_facing_animation_set.gd" id="1_bdw6g"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_bdw6g")
 any = &"idle"
-metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+metadata/_custom_type_script = "uid://chrh45crbqevl"

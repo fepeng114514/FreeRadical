@@ -2,14 +2,14 @@
 
 [ext_resource type="Resource" uid="uid://6v7qe326x75" path="res://entities/resources/animation_groups/any_idle_animation_group.tres" id="1_315cc"]
 [ext_resource type="Script" uid="uid://4qeyoce8d6l0" path="res://classes/node_configs/components/animated_sprite_component_node_config.gd" id="1_f66y0"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="4_scl3b"]
+[ext_resource type="Script" uid="uid://chrh45crbqevl" path="res://classes/facing_animation_sets/any_facing_animation_set.gd" id="4_scl3b"]
 [ext_resource type="Script" uid="uid://qu0synx4c136" path="res://classes/sync_animations_data.gd" id="5_hfkdo"]
 
 [sub_resource type="Resource" id="Resource_13cep"]
 resource_local_to_scene = true
 script = ExtResource("4_scl3b")
 any = &"ranged"
-metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+metadata/_custom_type_script = "uid://chrh45crbqevl"
 
 [sub_resource type="Resource" id="Resource_jmuwx"]
 script = ExtResource("5_hfkdo")

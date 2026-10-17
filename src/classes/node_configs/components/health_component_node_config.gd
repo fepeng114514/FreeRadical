@@ -41,7 +41,7 @@ class_name HealthComponentNodeConfig
 ## 死亡赏金。
 @export var death_gold: float = 0.0
 ## 死亡动画组。
-@export var death_animation: AnimationGroup = null
+@export var death_animation: FacingAnimationSet = null
 ## 死亡音效组。
 @export var death_sfx: AudioGroup = null
 ## 死亡后实体移除延迟（秒）。

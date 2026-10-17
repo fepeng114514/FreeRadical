@@ -9,7 +9,7 @@ class_name BulletComponentNodeConfig
 ## 飞行轨迹资源。
 @export var trajectory: BulletTrajectory = null
 ## 飞行动画组。
-@export var flight_animation: AnimationGroup = null
+@export var flight_animation: FacingAnimationSet = null
 ## 影响资源。
 @export var influence: Influence = null:
 	set(v):
@@ -33,7 +33,7 @@ class_name BulletComponentNodeConfig
 ## 击中目标后造成影响的延迟（秒）。
 @export var hit_delay: float = 0.0
 ## 击中目标后播放的动画组。
-@export var hit_animation: AnimationGroup = null
+@export var hit_animation: FacingAnimationSet = null
 ## 击中目标后播放的音效组。
 @export var hit_sfx: AudioGroup = null
 ## 击中目标时创建的实体场景路径列表。
@@ -47,7 +47,7 @@ class_name BulletComponentNodeConfig
 ## 未击中目标时造成影响的延迟（秒）。
 @export var miss_delay: float = 0.0
 ## 未击中目标时播放的动画组。
-@export var miss_animation: AnimationGroup = null
+@export var miss_animation: FacingAnimationSet = null
 ## 未击中目标时播放的音效组。
 @export var miss_sfx: AudioGroup = null
 ## 未击中目标时创建的实体场景路径列表。

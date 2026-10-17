@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="MeleeSkillNodeConfig" format=3 uid="uid://bsvl2mkbeajcd"]
 
 [ext_resource type="Script" uid="uid://cldoc6ek143w4" path="res://classes/node_configs/skills/melee_skill_node_config.gd" id="1_0vt7h"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_tlikg"]
+[ext_resource type="Script" uid="uid://bmqnty76ueopt" path="res://classes/facing_animation_sets/horizontal_facing_animation_set.gd" id="1_tlikg"]
 [ext_resource type="Script" uid="uid://be7bvqrqjmin5" path="res://classes/influences/damage_influence.gd" id="2_x2322"]
 
 [sub_resource type="Resource" id="Resource_p1ots"]

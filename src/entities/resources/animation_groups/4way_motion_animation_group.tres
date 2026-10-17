@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="AnimationGroup" format=3 uid="uid://dlpsu2cujogxf"]
+[gd_resource type="Resource" script_class="FourWayFacingAnimationSet" format=3 uid="uid://dlpsu2cujogxf"]
 
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_xxweu"]
+[ext_resource type="Script" uid="uid://br4c0kjwwaqv" path="res://classes/facing_animation_sets/four_way_facing_animation_set.gd" id="1_xxweu"]
 
 [resource]
 resource_local_to_scene = true

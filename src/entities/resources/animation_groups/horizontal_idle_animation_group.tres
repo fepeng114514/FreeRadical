@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="AnimationGroup" format=3 uid="uid://ba03oi0nlq748"]
+[gd_resource type="Resource" script_class="HorizontalFacingAnimationSet" format=3 uid="uid://ba03oi0nlq748"]
 
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_ggc82"]
+[ext_resource type="Script" uid="uid://bmqnty76ueopt" path="res://classes/facing_animation_sets/horizontal_facing_animation_set.gd" id="1_ggc82"]
 
 [resource]
 resource_local_to_scene = true

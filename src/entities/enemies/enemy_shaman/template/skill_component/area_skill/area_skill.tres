@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="AreaSkillNodeConfig" format=3 uid="uid://bw4p4h8ni3prh"]
 
 [ext_resource type="Script" uid="uid://dstvwpfqottjr" path="res://classes/node_configs/skills/search_skills/area_skill_node_config.gd" id="1_62eex"]
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_b0fxv"]
+[ext_resource type="Script" uid="uid://bmqnty76ueopt" path="res://classes/facing_animation_sets/horizontal_facing_animation_set.gd" id="1_b0fxv"]
 [ext_resource type="Script" uid="uid://bu7q2xp2xd78b" path="res://classes/influences/influence.gd" id="2_id68l"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="4_xvo0b"]
 
@@ -10,7 +10,7 @@ resource_local_to_scene = true
 script = ExtResource("1_b0fxv")
 right = &"heal_left_right"
 right_replace_left = true
-metadata/_custom_type_script = "uid://dbxxc7n831vb0"
+metadata/_custom_type_script = "uid://bmqnty76ueopt"
 
 [sub_resource type="Resource" id="Resource_8umbj"]
 resource_local_to_scene = true

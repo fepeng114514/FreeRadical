@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RangedSkillNodeConfig" format=3 uid="uid://dxri68jvusm2q"]
 
-[ext_resource type="Script" uid="uid://dbxxc7n831vb0" path="res://classes/animation_group.gd" id="1_bbl0m"]
+[ext_resource type="Script" uid="uid://chrh45crbqevl" path="res://classes/facing_animation_sets/any_facing_animation_set.gd" id="1_bbl0m"]
 [ext_resource type="Script" uid="uid://cn6ap4nlr0bnk" path="res://classes/node_configs/skills/search_skills/ranged_skill_node_config.gd" id="1_xtcna"]
 [ext_resource type="Script" uid="uid://b88iol2ey0jwp" path="res://classes/offset_group.gd" id="2_4ku7y"]
 [ext_resource type="Script" uid="uid://4dsevfnug1a1" path="res://classes/searcher.gd" id="5_s6qod"]

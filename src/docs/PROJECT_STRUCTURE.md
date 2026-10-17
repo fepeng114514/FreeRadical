@@ -85,6 +85,12 @@ Zero-Based-Isekai-Tower-Defense/
 │   │   │   ├── sprite_component.gd           # 精灵组件
 │   │   │   ├── tower_component.gd            # 防御塔组件
 │   │   │   └── ui_component.gd               # UI组件
+│   │   ├── facing_animation_sets/            # 朝向动画组类目录
+│   │   │   ├── facing_animation_set.gd            # 朝向动画组基类
+│   │   │   ├── any_facing_animation_set.gd        # 任意方向动画组
+│   │   │   ├── horizontal_facing_animation_set.gd # 水平双方向动画组
+│   │   │   ├── vertical_facing_animation_set.gd   # 垂直双方向动画组
+│   │   │   └── four_way_facing_animation_set.gd   # 四方向动画组
 │   │   ├── influences/                       # 影响资源类目录
 │   │   │   ├── damage_influence.gd           # 伤害影响资源
 │   │   │   ├── heal_influence.gd             # 治疗影响资源
@@ -116,7 +122,6 @@ Zero-Based-Isekai-Tower-Defense/
 │   │   │   ├── time_system.gd                # 时间系统
 │   │   │   └── tower_system.gd               # 防御塔系统
 │   │   ├── animation_data.gd                 # 动画数据
-│   │   ├── animation_group.gd                # 动画组
 │   │   ├── audio_group.gd                    # 音频组
 │   │   ├── damage.gd                         # 伤害数据
 │   │   ├── damage_number.gd                  # 伤害数字

@@ -49,7 +49,7 @@
 3. 将图集放入 `src/assets/atlas` 中。
 4. 在 `src/tools/generate_texture/sprite_frames_datas/` 中创建 `SpriteFramesData` 资源。
 	- 命名格式：动画名应由方向和动作两部分组成，使用下划线分隔，格式为 "动作_方向"，无方向的动画可以省略方向部分。
-	- 方向是 `AnimationGroup` 资源的属性: `"up"`、`"down"`、`"left_right"` 等。
+	- 方向是 `FacingAnimationSet` 资源的属性: `"up"`、`"down"`、`"left_right"` 等。
 	- 动作是任意描述动画的名称：`"idle"`、`"walk"`、`"melee"`、`"death"` 等。
 	- 如：`"walk_left_right"` 表示左右的行走动画。
 5. 在编辑器中运行 `src/tools/generate_texture/generate_texture.gd` 工具生成 `SpriteFrames` 与 `AtlasTexture`。

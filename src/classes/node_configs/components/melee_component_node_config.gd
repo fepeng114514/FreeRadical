@@ -11,7 +11,7 @@ class_name MeleeComponentNodeConfig
 ## 移动速度。
 @export var speed: float = 100.0
 ## 移动动画组。
-@export var motion_animation: AnimationGroup = null
+@export var motion_animation: FacingAnimationSet = null
 ## 近战位置偏移组。
 @export var melee_position_offsets: OffsetGroup = null:
 	set(v):

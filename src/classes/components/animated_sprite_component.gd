@@ -28,7 +28,7 @@ func play_idle_animation(entity: Entity, force_play: bool = false) -> AnimationD
 ## 从上次播放到的位置继续播放新动画，见 [AnimatedSpriteComponent.play_animation]。
 func continue_play_new_animation(
 		entity: Entity,
-		animation_group: AnimationGroup, 
+		animation_group: FacingAnimationSet, 
 		source_animation_key: String = "",
 		force_play: bool = false
 	) -> AnimationData:
@@ -45,7 +45,7 @@ func continue_play_new_animation(
 ## 播放新动画。
 func play_animation(
 		entity: Entity,
-		animation_group: AnimationGroup, 
+		animation_group: FacingAnimationSet, 
 		source_animation_key: String = "",
 		force_play: bool = false
 	) -> AnimationData:
@@ -71,7 +71,7 @@ func play_animation(
 		var source: Entity = EntityManager.get_entity_by_id(entity.source_id)
 		if source and not source.is_waiting():
 			var s_animated_sprite_c: AnimatedSpriteComponent = source.get_node_or_null(Constants.ANIMATED_SPRITE_COMPONENT_NODE_PATH)
-			var s_animation: AnimationGroup = s_animated_sprite_c.config.sync_animations.get(
+			var s_animation: FacingAnimationSet = s_animated_sprite_c.config.sync_animations.get(
 				source_animation_key
 			)
 			if s_animation:
@@ -90,7 +90,7 @@ func get_frames_remaining(animated_sprite: AnimatedSprite2D) -> int:
 
 
 ## 获取当前播放的动画精灵。
-func get_playing_animated_sprite(animation_group: AnimationGroup) -> AnimatedSprite2D:
+func get_playing_animated_sprite(animation_group: FacingAnimationSet) -> AnimatedSprite2D:
 	var play_index: int = animation_group.play_index
 
 	var player: Node2D = get_child(play_index)
@@ -107,7 +107,7 @@ func get_playing_animated_sprite(animation_group: AnimationGroup) -> AnimatedSpr
 ## -> 等待是否被中断。
 func y_wait_animation(
 		entity: Entity,
-		animation_group: AnimationGroup, break_fn: Callable = Callable()) -> bool:
+		animation_group: FacingAnimationSet, break_fn: Callable = Callable()) -> bool:
 	if not animation_group:
 		return false
 		

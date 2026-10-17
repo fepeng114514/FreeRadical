@@ -7,6 +7,6 @@ class_name BirthComponentNodeConfig
 
 
 ## 出生时播放的动画。
-@export var birth_animation: AnimationGroup = null
+@export var birth_animation: FacingAnimationSet = null
 ## 出生时播放的音效组。
 @export var birth_sfx: AudioGroup = null
